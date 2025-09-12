@@ -1,8 +1,8 @@
-# Zona SIEM Service - High-Level Design Document
+# Securaa SIEM Service - High-Level Design Document
 
 ## 1. Executive Summary
 
-The **Zona SIEM (Security Information and Event Management)** service is a comprehensive, multi-tenant security platform designed to collect, process, analyze, and manage security incidents and events. It provides APIs for incident management, case handling, dashboard analytics, playbook automation, and integrations with external SIEM tools.
+The **Securaa SIEM (Security Information and Event Management)** service is a comprehensive, multi-tenant security platform designed to collect, process, analyze, and manage security incidents and events. It provides APIs for incident management, case handling, dashboard analytics, playbook automation, and integrations with external SIEM tools.
 
 ---
 
@@ -18,13 +18,11 @@ graph TB
         EXT5[ElasticSearch]
         EXT6[ServiceNow]
     end
-    
-    subgraph "Zona SIEM Service (Port 8003)"
+    subgraph "Securaa SIEM Service (Port 8003)"
         subgraph "API Layer"
             API[REST API Endpoints]
             MW[Middleware<br/>Authentication/Authorization]
         end
-        
         subgraph "Controller Layer"
             IC[Incidents Controller]
             CC[Category Controller]
@@ -34,7 +32,6 @@ graph TB
             MC[Monitoring Controller]
             WC[Widget Controller]
         end
-        
         subgraph "Service Layer"
             IS[Incident Services]
             CS[Case Services]
@@ -42,37 +39,31 @@ graph TB
             MS[Monitoring Services]
             AS[Analytics Services]
         end
-        
         subgraph "Data Layer"
             MOD[Models/DTOs]
             HELP[Helpers & Utils]
         end
     end
-    
     subgraph "Infrastructure"
         MONGO[(MongoDB)]
         INFLUX[(InfluxDB)]
         REDIS[(Redis Cache)]
         FILE[File System]
     end
-    
     subgraph "Client Applications"
         WEB[Web Dashboard]
         API_CLIENT[API Clients]
         MOBILE[Mobile Apps]
     end
-    
     EXT1 --> API
     EXT2 --> API
     EXT3 --> API
     EXT4 --> API
     EXT5 --> API
     EXT6 --> API
-    
     WEB --> API
     API_CLIENT --> API
     MOBILE --> API
-    
     API --> MW
     MW --> IC
     MW --> CC
@@ -81,7 +72,6 @@ graph TB
     MW --> PC
     MW --> MC
     MW --> WC
-    
     IC --> IS
     CC --> CS
     UC --> DS
@@ -95,7 +85,6 @@ graph TB
     DS --> MOD
     MS --> MOD
     AS --> MOD
-    
     MOD --> HELP
     HELP --> MONGO
     HELP --> INFLUX
@@ -111,10 +100,9 @@ graph TB
 
 ```mermaid
 graph TD
-    subgraph "Zona SIEM Directory Structure"
+    subgraph "Securaa SIEM Directory Structure"
         APP[app.go - Main Application]
         MAIN[main.go - Entry Point]
-        
         subgraph "Controllers"
             CTRL1[IncidentsController.go]
             CTRL2[categoryController.go]
@@ -124,7 +112,6 @@ graph TD
             CTRL6[widgetController.go]
             CTRL7[+ 25 more controllers]
         end
-        
         subgraph "Models"
             MOD1[Incidents.go]
             MOD2[CaseGroup.go]
@@ -133,7 +120,6 @@ graph TD
             MOD5[Response.go]
             MOD6[+ 15 more models]
         end
-        
         subgraph "Services"
             SRV1[service.go]
             SRV2[caseMirroringService.go]
@@ -146,12 +132,10 @@ graph TD
             UTIL1[mitre.go]
             UTIL2[monitoringDashboardSupport.go]
         end
-        
         subgraph "Constants"
             CONST[constants.go]
         end
     end
-    
     MAIN --> APP
     APP --> CTRL1
     APP --> CTRL2
@@ -175,7 +159,6 @@ sequenceDiagram
     participant Service
     participant Model
     participant Database
-    
     Client->>API: HTTP Request
     API->>Middleware: Route to Middleware
     Middleware->>Middleware: Authentication/Authorization
@@ -257,19 +240,19 @@ erDiagram
     PLAYBOOKS }o--|| INCIDENTS : executed_on
     
     INCIDENTS {
-        string zona_z_incident_id PK
+        string securaa_s_incident_id PK
         string description
-        string zona_z_status
-        string zona_z_severity
-        int zona_z_assigned_to FK
-        int zona_z_category_id FK
-        timestamp zona_z_createdts
-        timestamp zona_z_updatedts
-        array zona_z_source_ips
-        array zona_z_destination_ips
-        object zona_z_timeline
-        string zona_z_source
-        bool zona_z_is_confirmed
+        string securaa_s_status
+        string securaa_s_severity
+        int securaa_s_assigned_to FK
+        int securaa_s_category_id FK
+        timestamp securaa_s_createdts
+        timestamp securaa_s_updatedts
+        array securaa_s_source_ips
+        array securaa_s_destination_ips
+        object securaa_s_timeline
+        string securaa_s_source
+        bool securaa_s_is_confirmed
     }
     
     CASES {
@@ -315,20 +298,20 @@ erDiagram
 
 ### 5.2 Key Data Models
 
-#### ZonaOffenses (Main Incident Model)
+#### SecuraaOffenses (Main Incident Model)
 ```go
-type ZonaOffenses struct {
-    ZonaZIncidentID           int                `json:"zona_z_incident_id"`
-    ZonaDescription           string             `json:"description"`
-    ZonaZStatus              string             `json:"zona_z_status"`
-    ZonaZSeverity            string             `json:"zona_z_severity"`
-    ZonaZAssignedTo          int                `json:"zona_z_assigned_to"`
-    ZonaZCategoryID          int                `json:"zona_z_category_id"`
-    ZonaZTimeline            []IncidentTimeLine `json:"zona_z_timeline"`
-    ZonaZSourceIPs           []string           `json:"zona_z_source_ips"`
-    ZonaZDestinationIPs      []string           `json:"zona_z_destination_ips"`
-    ZonaZCreatedts           int64              `json:"zona_z_createdts"`
-    ZonaZUpdatedts           int64              `json:"zona_z_updatedts"`
+type SecuraaOffenses struct {
+    SecuraaSIncidentID           int                `json:"securaa_s_incident_id"`
+    SecuraaDescription           string             `json:"description"`
+    SecuraaSStatus              string             `json:"securaa_s_status"`
+    SecuraaSSeverity            string             `json:"securaa_s_severity"`
+    SecuraaSAssignedTo          int                `json:"securaa_s_assigned_to"`
+    SecuraaScategoryID          int                `json:"securaa_s_category_id"`
+    SecuraaSTimeline            []IncidentTimeLine `json:"securaa_s_timeline"`
+    SecuraaSSourceIPs           []string           `json:"securaa_s_source_ips"`
+    SecuraaSDestinationIPs      []string           `json:"securaa_s_destination_ips"`
+    SecuraaSCreatedts           int64              `json:"securaa_s_createdts"`
+    SecuraaSUpdatedts           int64              `json:"securaa_s_updatedts"`
     // ... additional fields
 }
 ```
@@ -355,12 +338,12 @@ type CaseGrouping struct {
 
 ```mermaid
 graph LR
-    subgraph "Zona SIEM APIs"
+    subgraph "Securaa SIEM APIs"
         subgraph "Incident APIs"
-            I1[GET /zonaincidentslist]
-            I2[GET /zonaincident/{id}]
-            I3[POST /zonaincident]
-            I4[PUT /zonaincident]
+            I1[GET /securaaincidentslist]
+            I2[GET /securaaincident/{id}]
+            I3[POST /securaaincident]
+            I4[PUT /securaaincident]
             I5[DELETE /deletemultipleincidents]
         end
         
@@ -492,10 +475,10 @@ graph TB
             LB[Application Load Balancer]
         end
         
-        subgraph "Zona SIEM Cluster"
-            APP1[Zona SIEM Instance 1]
-            APP2[Zona SIEM Instance 2]
-            APP3[Zona SIEM Instance N]
+        subgraph "Securaa SIEM Cluster"
+            APP1[Securaa SIEM Instance 1]
+            APP2[Securaa SIEM Instance 2]
+            APP3[Securaa SIEM Instance N]
         end
         
         subgraph "Database Cluster"
@@ -624,7 +607,7 @@ stateDiagram-v2
 
 ```mermaid
 graph LR
-    subgraph "Zona SIEM"
+    subgraph "Securaa SIEM"
         CORE[Core Service]
     end
     
@@ -692,8 +675,8 @@ graph LR
 
 ## 15. Conclusion
 
-The Zona SIEM service represents a comprehensive, enterprise-grade security information and event management platform. Its multi-tenant architecture, extensive integration capabilities, and robust feature set make it suitable for organizations of all sizes looking to enhance their security operations.
+The Securaa SIEM service represents a comprehensive, enterprise-grade security information and event management platform. Its multi-tenant architecture, extensive integration capabilities, and robust feature set make it suitable for organizations of all sizes looking to enhance their security operations.
 
 The modular design allows for easy maintenance and extension, while the Go-based implementation ensures high performance and scalability. The extensive API surface area provides flexibility for integration with existing security tools and workflows.
 
-This high-level design serves as a blueprint for understanding the system architecture, data flows, and key components that make up the Zona SIEM service.
+This high-level design serves as a blueprint for understanding the system architecture, data flows, and key components that make up the Securaa SIEM service.

@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Performance Optimization Guide - Zona Platform Documentation</title>
+    <title>Performance Optimization Guide - Securaa Platform Documentation</title>
     <link rel="stylesheet" href="assets/css/documentation.css">
 </head>
 <body>
     <header class="main-header">
-        <h1>Zona Platform Documentation</h1>
-        <p>Comprehensive documentation for Zona security platform services</p>
+        <h1>Securaa Platform Documentation</h1>
+        <p>Comprehensive documentation for Securaa security platform services</p>
     </header>
     
     
         <nav class="documentation-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
-<li><a href="zona-playbook-hld.html">Zona Playbook HLD</a></li>
-<li><a href="zona-playbook-lld.html">Zona Playbook LLD</a></li>
+<li><a href="securaa-playbook-hld.html">Securaa Playbook HLD</a></li>
+<li><a href="securaa-playbook-lld.html">Securaa Playbook LLD</a></li>
 <li><a href="optimization-guide.html">Optimization Guide</a></li>
-<li><a href="zona-siem-hld.html">Zona SIEM HLD</a></li>
+<li><a href="securaa-siem-hld.html">Securaa SIEM HLD</a></li>
 <li><a href="securaa-hld.html">Securaa Platform</a></li>
             </ul>
         </nav>
         
     
     <main class="main-content">
-        <h1>Zona Playbook Service - Performance Optimization Guide</h1>
+        <h1>Securaa Playbook Service - Performance Optimization Guide</h1>
 <h2>Document Information</h2>
 <ul>
-<li><strong>Service</strong>: Zona Playbook Service</li>
+<li><strong>Service</strong>: Securaa Playbook Service</li>
 <li><strong>Target Audience</strong>: Development Team</li>
 <li><strong>Priority</strong>: High Impact Performance Improvements</li>
 <li><strong>Date</strong>: September 11, 2025</li>
@@ -37,7 +37,7 @@
 </ul>
 <p>---</p>
 <h2>🎯 <strong>Executive Summary</strong></h2>
-<p>This document provides specific, actionable optimization strategies for the Zona Playbook Service that can deliver:</p>
+<p>This document provides specific, actionable optimization strategies for the Securaa Playbook Service that can deliver:</p>
 <ul>
 <li><strong>5-10x query performance improvement</strong></li>
 <li><strong>3-4x concurrent request handling</strong></li>
@@ -316,7 +316,7 @@
 <p>import (</p>
 <p>    "context"</p>
 <p>    "sync"</p>
-<p>    "zona_services/zona_playbook/executionModels"</p>
+<p>    "securaa_services/securaa_playbook/executionModels"</p>
 <p>)</p>
 <p>type TaskWorkerPool struct {</p>
 <p>    taskQueue   chan executionModels.PlayBookTask</p>
@@ -647,7 +647,7 @@
 <pre><code class="language-go">package utils
 <p>import (</p>
 <p>    "sync"</p>
-<p>    "zona_services/zona_playbook/models"</p>
+<p>    "securaa_services/securaa_playbook/models"</p>
 <p>)</p>
 <p>// Object pools for frequently allocated objects</p>
 <p>var (</p>
@@ -964,7 +964,7 @@
     </main>
     
     <footer class="main-footer">
-        <p>&copy; 2025 Zona Platform. All rights reserved.</p>
+        <p>&copy; 2025 Securaa Platform. All rights reserved.</p>
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>

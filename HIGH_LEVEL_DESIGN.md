@@ -177,7 +177,6 @@ type PlaybookExecutionController struct {
     Stopped          bool
     // ... other fields
 }
-
 func (pec *PlaybookExecutionController) RunSelectedPlaybook()
 func (pec *PlaybookExecutionController) ReadAndRunPlayBook()
 func (pec *PlaybookExecutionController) ProcessAndExecuteTask()
@@ -370,13 +369,11 @@ PUT    /updateplaybook/
 DELETE /deleteplaybook/{tenantcode}/{playbook_id}/{userid}/
 POST   /importplaybook/
 POST   /exportplaybook/
-
 # Playbook Execution
 POST   /runplaybook/
 GET    /getinprogressplaybooks/{tenantcode}/{caseid}/{userid}/{type}/{indicator}/
 POST   /stopplaybook/
 POST   /getrunningplaybooks/
-
 # Task Management
 POST   /runtask/
 GET    /getplaybooktasks/{tenantcode}/{playbook_name}/{type}/
@@ -842,7 +839,6 @@ type Transformer struct {
     Data   interface{} `json:"data"`
     Filter interface{} `json:"filter"`
 }
-
 func TransformValues(alertData models.RunPlayBookRequest2, 
                     inputFields models.Inputfields) (interface{}, error) {
     // Apply filters

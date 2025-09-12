@@ -927,7 +927,6 @@ type CacheManager struct {
 func (cm *CacheManager) Get(key string) (interface{}, bool) {
     cm.mutex.RLock()
     defer cm.mutex.RUnlock()
-    
     // Check local cache first
     if value, exists := cm.localCache.Load(key); exists {
         // Check TTL
@@ -958,15 +957,12 @@ func (cm *CacheManager) Get(key string) (interface{}, bool) {
 func (cm *CacheManager) Set(key string, value interface{}, ttl time.Duration) error {
     cm.mutex.Lock()
     defer cm.mutex.Unlock()
-    
     // Store in local cache
     cm.localCache.Store(key, value)
-    
     if ttl > 0 {
         expiryTime := time.Now().Add(ttl).Unix()
         cm.ttlMap.Store(key, expiryTime)
     }
-    
     // Store in Redis
     data, err := json.Marshal(value)
     if err != nil {
@@ -1029,7 +1025,6 @@ type RedisConfig struct {
     PoolSize        int    `json:"pool_size"`
     IdleTimeout     int    `json:"idle_timeout"`
 }
-
 type SecurityConfig struct {
     JWTSecret           string `json:"jwt_secret"`
     SessionTimeout      int    `json:"session_timeout"`

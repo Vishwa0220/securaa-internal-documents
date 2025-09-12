@@ -34,12 +34,10 @@ db.playbook_execution_collection.createIndex({
     "execution_status": 1, 
     "createddate": -1
 });
-
 db.playbook_execution_collection.createIndex({
     "uid": 1, 
     "createddate": -1
 });
-
 db.task_execution_collection.createIndex({
     "peid": 1, 
     "task_seq": 1
@@ -50,13 +48,11 @@ db.task_execution_collection.createIndex({
     "alert_id": 1, 
     "status": 1
 });
-
 db.playbook_collection.createIndex({
     "tenant_code": 1, 
     "status": 1, 
     "category_id": 1
 });
-
 // Compound index for top playbooks query
 db.playbook_execution_collection.createIndex({
     "execution_status": 1,
@@ -82,7 +78,6 @@ topPlaybookAvrPipeline := bson.A{
     bson.D{{"$sort", bson.D{{"average", -1}}}},
     bson.D{{"$limit", 5}},
 }
-
 // AFTER (Optimized version):
 topPlaybookAvrPipeline := bson.A{
     bson.D{{"$match", matchQuery}},

@@ -149,7 +149,6 @@ classDiagram
         +IndicatorValue string
         +Completed bool
         +Stopped bool
-        
         +RunSelectedPlaybook() error
         +ReadAndRunPlayBook() error
         +ProcessAndExecuteTask() error
@@ -160,7 +159,6 @@ classDiagram
         +GetStopStatus() bool
         +SetStopStatus(bool)
     }
-    
     class PlayBookTask {
         +TaskID int
         +TaskSeq int
@@ -181,13 +179,11 @@ classDiagram
         +Status string
         +HasFlowControl bool
         +ConditionResult bool
-        
         +GetTaskData() error
         +UpdatePlayBookErrorStatus() error
         +UpdatePlayBookExecutionStatus() error
         +CreateFailedTaskEntry() error
     }
-    
     class PlaybookObject {
         +ID int
         +Name string
@@ -199,12 +195,10 @@ classDiagram
         +Status string
         +IsParallelPlaybook bool
         +TotalTasksCount int
-        
         +GetPlaybookData() error
         +ImportPlaybook2() error
         +CreateImportedPlaybook() error
     }
-    
     PlaybookExecutionController --> PlayBookTask : manages
     PlayBookTask --> PlaybookObject : executes
 ```
@@ -230,10 +224,8 @@ classDiagram
         +AlertID int
         +Status string
         +ExecutionStatus string
-        
         +CreateTaskRequest() error
     }
-    
     class TaskResponse {
         +TaskResponseID int
         +TaskRequestID string
@@ -243,7 +235,6 @@ classDiagram
         +ApprovalStatus string
         +PlaybookName string
     }
-    
     class ActiveInstanceObject {
         +InstanceID int
         +IntegrationID int64
@@ -256,7 +247,6 @@ classDiagram
         +BaseURL string
         +IsCustomApp bool
     }
-    
     TaskRequest --> TaskResponse : generates
     TaskRequest --> ActiveInstanceObject : uses
 ```
@@ -278,26 +268,22 @@ classDiagram
         +Transformers []Transformer
         +Item string
     }
-    
     class Filter {
         +Field string
         +ConditionTag string
         +Value Object
     }
-    
     class Transformer {
         +Name string
         +Data Object
         +Filter Object
     }
-    
     class FilterTransformService {
         +TransformValues() Object
         +VerifyFilterCondition() bool
         +GetFieldValue() Object
         +MatchCondition() bool
     }
-    
     Inputfields --> Filter : contains
     Inputfields --> Transformer : contains
     FilterTransformService --> Inputfields : processes
@@ -318,17 +304,13 @@ sequenceDiagram
     participant TaskExecutor
     participant Database
     participant ExternalSystem
-    
     Client->>Router: POST /runplaybook/
     Router->>Controller: Route request
     Controller->>ExecutionController: RunSelectedPlaybook()
-    
     ExecutionController->>Database: Get playbook definition
     Database-->>ExecutionController: Playbook data
-    
     ExecutionController->>ExecutionController: ReadAndRunPlayBook()
     ExecutionController->>Database: Create execution entry
-    
     loop For each task
         ExecutionController->>TaskExecutor: ProcessAndExecuteTask()
         TaskExecutor->>Database: Get task configuration
@@ -337,7 +319,6 @@ sequenceDiagram
         TaskExecutor->>Database: Save task response
         TaskExecutor-->>ExecutionController: Task completed
     end
-    
     ExecutionController->>Database: Update execution status
     ExecutionController-->>Controller: Execution complete
     Controller-->>Router: Response
@@ -362,7 +343,6 @@ sequenceDiagram
         Database-->>FilterEngine: Field values
         FilterEngine->>FilterEngine: MatchCondition()
     end
-    
     FilterEngine-->>ConditionProcessor: Condition result
     
     alt Condition true
@@ -370,7 +350,6 @@ sequenceDiagram
     else Condition false
         ConditionProcessor->>TaskExecutor: Execute NextTaskOnFalse
     end
-    
     TaskExecutor-->>ExecutionController: Continue execution
 ```
 
@@ -382,7 +361,6 @@ sequenceDiagram
     participant ErrorHandler
     participant Database
     participant NotificationService
-    
     TaskExecutor->>TaskExecutor: Execute task
     
     alt Task fails
@@ -390,7 +368,6 @@ sequenceDiagram
         ErrorHandler->>Database: Log error details
         ErrorHandler->>Database: Update execution status
         ErrorHandler->>NotificationService: Send failure notification
-        
         alt Recoverable error
             ErrorHandler->>TaskExecutor: Retry with backoff
         else Non-recoverable error
@@ -435,7 +412,6 @@ sequenceDiagram
   "total_utils_count": 3,
   "shard_bucket": 1                      // For sharding
 }
-
 // Indexes
 db.playbook_collection.createIndex({"tenant_code": 1, "name": 1}, {unique: true})
 db.playbook_collection.createIndex({"tenant_code": 1, "status": 1})
@@ -476,7 +452,6 @@ db.playbook_collection.createIndex({"shard_bucket": 1})
   "node_id": "docker_node_1",
   "shard_bucket": 1
 }
-
 // Indexes
 db.playbook_execution_collection.createIndex({"tenant_code": 1, "alert_id": 1})
 db.playbook_execution_collection.createIndex({"execution_status": 1, "created_date": -1})
@@ -549,7 +524,6 @@ db.playbook_execution_collection.createIndex({"shard_bucket": 1})
   "execution_status": "completed",
   "shard_bucket": 1
 }
-
 // Indexes
 db.task_execution_collection.createIndex({"peid": 1, "task_seq": 1})
 db.task_execution_collection.createIndex({"tenant_code": 1, "alert_id": 1})
@@ -568,7 +542,6 @@ db.task_execution_collection.createIndex({"shard_bucket": 1})
   "task_name": "Block IP Address",
   "status": "stopped"                    // stopped, resumed
 }
-
 // Indexes
 db.stopped_tasks_collection.createIndex({"peid": 1, "case_id": 1, "status": 1})
 ```
@@ -626,7 +599,6 @@ Response:
   "displayMessage": "Playbook created successfully",
   "time": 1694443200000
 }
-
 Validation Rules:
 - name: Required, max 255 chars, unique per tenant
 - description: Optional, max 1000 chars
@@ -656,7 +628,6 @@ Request Body:
   "playbook_execution_id": "",           // For resume
   "resume_playbook": "false"
 }
-
 Response:
 {
   "success": true,
@@ -679,7 +650,6 @@ Validation Rules:
 - type: Required, enum [case, indicator]
 - indicator: Required for type=indicator
 ```
-
 ### 6.2 Task Management APIs
 
 #### 6.2.1 Run Single Task
@@ -704,7 +674,6 @@ Request Body:
   "instance_id": 150,
   "is_demo": false
 }
-
 Response:
 {
   "success": true,
@@ -897,11 +866,9 @@ func (cc *ConditionController) evaluateSingleCondition(
     alertData models.RunPlayBookRequest2,
     executedConditions []executionModels.ExecutedConditionStatus,
 ) (bool, error) {
-    
     // Get field value from case data or previous task response
     var fieldValue interface{}
     var err error
-    
     if condition.ConditionKeyValue != nil {
         // Static value condition
         fieldValue = condition.ConditionKeyValue
@@ -936,7 +903,6 @@ func (cc *ConditionController) applyAndOperator(results []bool) bool {
     }
     return true
 }
-
 func (cc *ConditionController) applyOrOperator(results []bool) bool {
     for _, result := range results {
         if result {

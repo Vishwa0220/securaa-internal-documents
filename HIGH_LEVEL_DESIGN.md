@@ -1,7 +1,7 @@
-# Zona Playbook Service - High Level Design Document
+# Securaa Playbook Service - High Level Design Document
 
 ## Document Information
-- **Service Name**: Zona Playbook Service
+- **Service Name**: Securaa Playbook Service
 - **Version**: 1.0
 - **Date**: September 11, 2025
 - **Author**: System Architecture Team
@@ -24,7 +24,7 @@
 ## 1. Overview
 
 ### 1.1 Purpose
-The Zona Playbook Service is a core component of the Zona Security Platform that provides automated security orchestration, automation, and response (SOAR) capabilities. It enables organizations to create, execute, and manage security playbooks for incident response and threat mitigation.
+The Securaa Playbook Service is a core component of the Securaa Security Platform that provides automated security orchestration, automation, and response (SOAR) capabilities. It enables organizations to create, execute, and manage security playbooks for incident response and threat mitigation.
 
 ### 1.2 Key Features
 - **Automated Workflow Execution**: Execute complex security workflows with conditional logic
@@ -38,8 +38,8 @@ The Zona Playbook Service is a core component of the Zona Security Platform that
 ### 1.3 Business Context
 ```mermaid
 graph TB
-    A[Security Incident] --> B[Zona SIEM/Case Management]
-    B --> C[Zona Playbook Service]
+    A[Security Incident] --> B[Securaa SIEM/Case Management]
+    B --> C[Securaa Playbook Service]
     C --> D[Security Tools Integration]
     C --> E[Notification Systems]
     C --> F[Ticketing Systems]
@@ -60,7 +60,7 @@ graph TB
     end
     
     subgraph "Application Layer"
-        B --> D[Zona Playbook Service]
+        B --> D[Securaa Playbook Service]
         D --> E[Controllers]
         E --> F[Execution Engine]
         F --> G[Services Layer]
@@ -101,17 +101,16 @@ graph TB
 ### 2.3 Service Boundaries
 ```mermaid
 graph LR
-    subgraph "Zona Playbook Service"
+    subgraph "Securaa Playbook Service"
         A[Playbook Management]
         B[Execution Engine]
         C[Task Processing]
         D[Integration Management]
     end
-    
-    E[Zona User Service] --> A
-    F[Zona Case Service] --> B
+    E[Securaa User Service] --> A
+    F[Securaa Case Service] --> B
     G[External Security Tools] --> D
-    C --> H[Zona Notification Service]
+    C --> H[Securaa Notification Service]
 ```
 
 ---
@@ -282,14 +281,14 @@ erDiagram
     }
     
     INCIDENTS_COLLECTION {
-        int zona_z_incident_id PK
+        int securaa_s_incident_id PK
         string description
-        array zona_z_source_ips
-        array zona_z_destination_ips
-        string zona_z_status
-        string zona_z_severity
-        datetime zona_z_created_ts
-        array zona_z_timeline
+        array securaa_s_source_ips
+        array securaa_s_destination_ips
+        string securaa_s_status
+        string securaa_s_severity
+        datetime securaa_s_created_ts
+        array securaa_s_timeline
     }
     
     PLAYBOOK_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : executes
@@ -298,7 +297,7 @@ erDiagram
 ```
 
 #### 4.1.2 Sharding Strategy
-**Sharding Key**: `zona_z_incident_id % SHARD_BUCKET_COUNT`
+**Sharding Key**: `securaa_s_incident_id % SHARD_BUCKET_COUNT`
 - Distributes case data across multiple shards
 - Ensures even data distribution
 - Optimizes query performance for case-based operations
@@ -343,11 +342,11 @@ type PlayBookTask struct {
 
 #### 4.2.1 Redis Cache Structure
 ```
-zona_playbook:tenant:{tenant_code}:playbook:{playbook_name}
-zona_playbook:tenant:{tenant_code}:task:{task_tag}
-zona_playbook:tenant:{tenant_code}:lists
-zona_playbook:tenant:{tenant_code}:user:{user_id}
-zona_playbook:execution:{execution_id}:count
+securaa_playbook:tenant:{tenant_code}:playbook:{playbook_name}
+securaa_playbook:tenant:{tenant_code}:task:{task_tag}
+securaa_playbook:tenant:{tenant_code}:lists
+securaa_playbook:tenant:{tenant_code}:user:{user_id}
+securaa_playbook:execution:{execution_id}:count
 ```
 
 #### 4.2.2 Cache Policies
@@ -594,14 +593,14 @@ FROM golang:1.17-alpine AS builder
 WORKDIR /app
 COPY . .
 RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -o zona-playbook-service
+RUN CGO_ENABLED=0 GOOS=linux go build -o securaa-playbook-service
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
-COPY --from=builder /app/zona-playbook-service .
+COPY --from=builder /app/securaa-playbook-service .
 EXPOSE 8040
-CMD ["./zona-playbook-service"]
+CMD ["./securaa-playbook-service"]
 ```
 
 #### 8.1.2 Kubernetes Deployment
@@ -609,20 +608,20 @@ CMD ["./zona-playbook-service"]
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zona-playbook-service
+  name: securaa-playbook-service
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: zona-playbook-service
+      app: securaa-playbook-service
   template:
     metadata:
       labels:
-        app: zona-playbook-service
+        app: securaa-playbook-service
     spec:
       containers:
-      - name: zona-playbook-service
-        image: zona/playbook-service:latest
+      - name: securaa-playbook-service
+        image: securaa/playbook-service:latest
         ports:
         - containerPort: 8040
         env:
@@ -687,7 +686,7 @@ logger.Error("Database connection failed", err.Error())
 {
   "timestamp": "2025-09-11T10:30:00Z",
   "level": "INFO",
-  "service": "zona-playbook-service",
+  "service": "securaa-playbook-service",
   "tenant": "tenant123",
   "playbook_id": "pb_001",
   "execution_id": "exec_123456",
@@ -780,7 +779,7 @@ func retryWithBackoff(operation func() error, maxRetries int) error {
 #### 11.1.1 Integration Types
 ```mermaid
 graph TB
-    subgraph "Zona Playbook Service"
+    subgraph "Securaa Playbook Service"
         A[Integration Manager]
     end
     
@@ -870,7 +869,7 @@ func TransformValues(alertData models.RunPlayBookRequest2,
 
 ## Conclusion
 
-The Zona Playbook Service represents a sophisticated, enterprise-grade security orchestration platform designed for high-scale, multi-tenant environments. Its modular architecture, robust error handling, and comprehensive integration capabilities make it suitable for large security operations centers and managed security service providers.
+The Securaa Playbook Service represents a sophisticated, enterprise-grade security orchestration platform designed for high-scale, multi-tenant environments. Its modular architecture, robust error handling, and comprehensive integration capabilities make it suitable for large security operations centers and managed security service providers.
 
 ### Key Strengths
 - **Scalable Architecture**: Supports horizontal scaling and high availability
@@ -886,4 +885,4 @@ The Zona Playbook Service represents a sophisticated, enterprise-grade security 
 - **Serverless Functions**: Event-driven microservices
 - **Edge Computing**: Distributed execution capabilities
 
-This design document serves as the foundation for understanding, maintaining, and extending the Zona Playbook Service architecture.
+This design document serves as the foundation for understanding, maintaining, and extending the Securaa Playbook Service architecture.

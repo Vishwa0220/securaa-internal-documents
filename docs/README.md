@@ -1,14 +1,14 @@
-# Zona Platform Documentation
+# Securaa Platform Documentation
 
-This folder contains the comprehensive HTML documentation for the Zona Platform, automatically generated from the markdown files in the repository.
+This folder contains the comprehensive HTML documentation for the Securaa Platform, automatically generated from the markdown files in the repository.
 
 ## Contents
 
 - `index.html` - Main documentation portal and entry point
-- `zona-playbook-hld.html` - Zona Playbook Service High-Level Design
-- `zona-playbook-lld.html` - Zona Playbook Service Low-Level Design  
+- `securaa-playbook-hld.html` - Securaa Playbook Service High-Level Design
+- `securaa-playbook-lld.html` - Securaa Playbook Service Low-Level Design  
 - `optimization-guide.html` - Performance Optimization Guide
-- `zona-siem-hld.html` - Zona SIEM Service High-Level Design
+- `securaa-siem-hld.html` - Securaa SIEM Service High-Level Design
 - `securaa-hld.html` - Securaa Platform High-Level Design
 - `assets/` - CSS, JavaScript, and other supporting files
 
@@ -48,12 +48,12 @@ npx http-server docs -p 8080
 
 The documentation is organized into logical sections:
 
-1. **Zona Playbook Service** - Core SOAR functionality
+1. **Securaa Playbook Service** - Core SOAR functionality
    - High-Level Design (Architecture, APIs, Security)
    - Low-Level Design (Implementation details, Database schema)
    - Optimization Guide (Performance tuning)
 
-2. **Zona SIEM Service** - Security information and event management
+2. **Securaa SIEM Service** - Security information and event management
    - High-Level Design (System architecture, Integrations)
 
 3. **Securaa Platform** - Infrastructure and deployment

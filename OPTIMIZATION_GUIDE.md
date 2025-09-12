@@ -1,7 +1,7 @@
-# Zona Playbook Service - Performance Optimization Guide
+# Securaa Playbook Service - Performance Optimization Guide
 
 ## Document Information
-- **Service**: Zona Playbook Service
+- **Service**: Securaa Playbook Service
 - **Target Audience**: Development Team
 - **Priority**: High Impact Performance Improvements
 - **Date**: September 11, 2025
@@ -11,7 +11,7 @@
 
 ## 🎯 **Executive Summary**
 
-This document provides specific, actionable optimization strategies for the Zona Playbook Service that can deliver:
+This document provides specific, actionable optimization strategies for the Securaa Playbook Service that can deliver:
 - **5-10x query performance improvement**
 - **3-4x concurrent request handling**
 - **50-70% reduction in memory usage**
@@ -355,7 +355,7 @@ package executionControllers
 import (
     "context"
     "sync"
-    "zona_services/zona_playbook/executionModels"
+    "securaa_services/securaa_playbook/executionModels"
 )
 
 type TaskWorkerPool struct {
@@ -737,7 +737,7 @@ package utils
 
 import (
     "sync"
-    "zona_services/zona_playbook/models"
+    "securaa_services/securaa_playbook/models"
 )
 
 // Object pools for frequently allocated objects

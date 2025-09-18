@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Manager - Low Level Design - Zona Platform Documentation</title>
+    <link rel="stylesheet" href="assets/css/documentation.css">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <h1>Zona Platform Documentation</h1>
+        <p>Comprehensive documentation for Zona security platform services</p>
+    </header>
+    <nav class="documentation-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="securaa-playbook-hld.html">Zona Playbook HLD</a></li>
+            <li><a href="securaa-playbook-lld.html">Zona Playbook LLD</a></li>
+            <li><a href="optimization-guide.html">Optimization Guide</a></li>
+            <li><a href="securaa-siem-hld.html">Zona SIEM HLD</a></li>
+            <li><a href="securaa-hld.html">Securaa Platform</a></li>
+            <li><a href="process-manager-hld.html">Process Manager HLD</a></li>
+            <li><a href="process-manager-lld.html">Process Manager LLD</a></li>
+        </ul>
+    </nav>
+    <main class="main-content">
+        <h1>Low-Level Design (LLD) – zona_process_manager</h1>
+        <h2>1. Detailed Component Design</h2>
+        <h3>Class Diagrams</h3>
+        <pre class="mermaid">
+classDiagram
+    class main {
+        +main()
+        +RestartThroughPatch()
+        +cleanup(cli, command)
+        +deploySecuraa(command)
+        +StartMetaDB(cli, tag, configObject, conf)
+        +StartShardCluster(isPassive, cli, tag, config, configObject)
+        +StartShardHandler(cli, conf, configObject)
+        +InitSecuraaAppsContext()
+        +SetSecuraaAppsContext(activeIntegrations, dbSession, configObject)
+        +InitializeMongoDBReplicaSet(isActive, isSecondaryActive, config, configStruct)
+        +checkMongoServiceReachability(serviceName, config, port)
+        +passiveServerUp(conf)
+        +completeSOARUp(conf, cli)
+        +isActive(conf)
+        +isPassive(conf)
+        +isSecondaryActive(conf)
+        +isServiceVM(conf)
+        +isDBVM(conf)
+        +checkAndUpdateActiveServerInfo(mongodbSession, mongoDbHost, conf)
+        +checkAndUpdatePassiveServerInfo(mongoMetaDBClient, mongoDbHost, conf)
+        +changeServerType(mongoDefaultClient, currentServerHost, serverType, state, conf)
+        +updateMetaDbMembers(mongoMetaDBClient, currentServerHost, serverType, priority)
+        +updateConfigServerMembers(mongoMetaDBClient, currentServerHost, serverType, priority, configObject)
+        +updateShardMembers(mongoMetaDBClient, currentServerHost, serverType, priority, configObject)
+        +changePriority(replicaSetDbClient, replicaSetName, currentServerHost, replicaSetPort, priority)
+    }
+    class common {
+        +ServiceData
+        +IsServer()
+        +CheckIfCaseGroupingEnabled()
+        +SystemServices
+        +CoreServices
+        +BatchServices
+        +SecuraaAppServices
+        +AccessTokenHashMap
+        +DBSession
+        +ConfigObject
+        +ActiveIntegrations
+        +BuildType
+    }
+    class docker {
+        +InitDockerServiceContexts()
+        +checkVolumeExists(volumeName)
+        +createVolume(volumeName)
+        +createNFSVolume(volumeName)
+        +removeVolume(volumeName)
+        +VerifyVolumeExistance(volumeName)
+        +CreateServices(cli, dockerTag, PatchTag, patchServiceLists)
+        +InitSystemServicesContext()
+        +InitCoreServicesContext()
+        +InitBatchesContext()
+        +GetContainerIDByServiceName(cli, serviceName)
+        +RunCommandInContainer(cli, containerId, commands)
+        +SetupUtilsPackages(cli)
+        +CreateUIServices(cli, dockerTag, PatchTag, patchServiceLists)
+        +CreateServiceWithContext(cli, Ctx)
+        +CreateZookeeperKafkaService(cli)
+    }
+    class models {
+        +IntegrationsResponse
+        +Response
+        +Tenant
+        +TenantDB
+        +ClientInfo
+        +SessionStruct
+        +SystemData
+        +TenantBackup
+        +UserIntegrationPortObject
+        +GetActiveIntegrations(dbSession, configObject, buildType)
+        +getActiveIntegrations(dbSession, configObject, buildType)
+        +GetPort(integrationID, executable, configObject, dbSession)
+        +GetAppParams(paramType, configObject, dbSession, buildName)
+    }
+        </pre>
+        <h3>Data Structures & Relationships</h3>
+        <ul>
+            <li><code>ServiceData</code>: Represents a service with name, context, port, replicas.</li>
+            <li><code>IntegrationsResponse</code>: Integration metadata for tenants.</li>
+            <li><code>Tenant</code>, <code>TenantDB</code>, <code>TenantBackup</code>: Tenant and database details.</li>
+            <li><code>SessionStruct</code>: MongoDB session wrapper.</li>
+            <li>Global maps: <code>SystemServices</code>, <code>CoreServices</code>, <code>BatchServices</code>, <code>SecuraaAppServices</code> (all map[string]ServiceData).</li>
+        </ul>
+        <h2>2. Database Design</h2>
+        <h3>Entity Relationship Diagram</h3>
+        <pre class="mermaid">
+erDiagram
+    TENANT ||--o{ TENANTDB : has
+    TENANT ||--o{ TENANTBACKUP : backup
+    TENANTDB ||--o{ INTEGRATIONSRESPONSE : integrates
+    TENANTDB {
+        int id
+        string name
+        string tenantcode
+        string status
+        string db_host
+        string db_username
+        string db_password
+        string db_name
+        string connection_status
+        string uuid
+    }
+    INTEGRATIONSRESPONSE {
+        int integration_id
+        string title
+        string action
+        string serviceName
+        string executionDir
+        string status
+        string executable
+        string tenantcode
+    }
+    TENANT {
+        int id
+        string name
+        string tenantcode
+        string status
+        string db_host
+        string db_username
+        string db_password
+        string db_name
+        string connection_status
+    }
+    TENANTBACKUP {
+        int id
+        string name
+        string tenantcode
+        string status
+        string db_host
+        string db_username
+        string db_password
+        string db_name
+        string connection_status
+        string uuid
+    }
+        </pre>
+        <h3>Table Schemas</h3>
+        <ul>
+            <li><strong>TENANT</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string)</li>
+            <li><strong>TENANTDB</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string), uuid (string)</li>
+            <li><strong>INTEGRATIONSRESPONSE</strong>: integration_id (int), title (string), action (string), serviceName (string), executionDir (string), status (string), executable (string), tenantcode (string)</li>
+            <li><strong>TENANTBACKUP</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string), uuid (string)</li>
+        </ul>
+        <h3>Relationships</h3>
+        <ul>
+            <li>One tenant can have multiple databases and backups.</li>
+            <li>Each database can have multiple integrations.</li>
+        </ul>
+        <h2>3. API Design Details</h2>
+        <p>The codebase does not expose HTTP endpoints directly; orchestration is via CLI and Docker APIs. If extended to REST, typical endpoints would be:</p>
+        <table>
+            <thead>
+                <tr><th>Endpoint</th><th>Method</th><th>Request Schema</th><th>Response Schema</th><th>Auth</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>/service/start</td><td>POST</td><td>{serviceName: string}</td><td>{status: string, details: object}</td><td>Token</td></tr>
+                <tr><td>/service/stop</td><td>POST</td><td>{serviceName: string}</td><td>{status: string}</td><td>Token</td></tr>
+                <tr><td>/integration/list</td><td>GET</td><td>-</td><td>[IntegrationsResponse]</td><td>Token</td></tr>
+                <tr><td>/tenant/list</td><td>GET</td><td>-</td><td>[Tenant]</td><td>Token</td></tr>
+                <tr><td>/status</td><td>GET</td><td>-</td><td>{services: [...], integrations: [...]}</td><td>Token</td></tr>
+            </tbody>
+        </table>
+        <p><strong>Authentication:</strong> Token-based (JWT or API key recommended)</p>
+    </main>
+</body>
+</html>

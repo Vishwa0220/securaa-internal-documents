@@ -28,16 +28,16 @@
 ### System Architecture Diagram
 ```mermaid
 flowchart TD
-    A[main.go (Orchestrator)] --> B[common/ (Global State)]
-    A --> C[models/ (Business Logic & Integrations)]
-    A --> D[docker/ (Service Management)]
-    C --> E[integrations.go]
-    C --> F[models.go]
-    D --> G[docker_functions.go]
-    B --> H[globals.go]
-    A --> I[securaa_lib (External Libs)]
-    A --> J[MongoDB]
-    D --> K[Docker Engine]
+  A[main.go (Orchestrator)] --> B[common/ (Global State)]
+  A --> C[models/ (Business Logic & Integrations)]
+  A --> D[docker/ (Service Management)]
+  C --> E[integrations.go]
+  C --> F[models.go]
+  D --> G[docker_functions.go]
+  B --> H[globals.go]
+  A --> I[securaa_lib (External Libs)]
+  A --> J[MongoDB]
+  D --> K[Docker Engine]
 ```
 
 ### Component Interaction Diagram

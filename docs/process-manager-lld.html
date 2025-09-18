@@ -28,10 +28,10 @@
         </ul>
     </nav>
     <main class="main-content">
-        <h1>Low-Level Design (LLD) – zona_process_manager</h1>
-        <h2>1. Detailed Component Design</h2>
-        <h3>Class Diagrams</h3>
-        <pre class="mermaid">
+        <h1>Process Manager - Low Level Design Document</h1>
+        <h2 id="detailed-component-design">1. Detailed Component Design</h2>
+        <h3 id="class-diagrams">Class Diagrams</h3>
+        <div class="mermaid">
 classDiagram
     class main {
         +main()
@@ -107,7 +107,7 @@ classDiagram
         +GetPort(integrationID, executable, configObject, dbSession)
         +GetAppParams(paramType, configObject, dbSession, buildName)
     }
-        </pre>
+        </div>
         <h3>Data Structures & Relationships</h3>
         <ul>
             <li><code>ServiceData</code>: Represents a service with name, context, port, replicas.</li>

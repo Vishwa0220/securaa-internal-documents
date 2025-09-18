@@ -28,8 +28,8 @@
         </ul>
     </nav>
     <main class="main-content">
-        <h1>High-Level Design (HLD) – zona_process_manager</h1>
-        <h2>1. System Architecture Overview</h2>
+        <h1>Process Manager - High Level Design Document</h1>
+        <h2 id="overview">1. Overview</h2>
         <h3>Purpose & Objectives</h3>
         <ul>
             <li><strong>zona_process_manager</strong> orchestrates and manages the lifecycle of microservices and integrations in the Zona platform.</li>
@@ -50,9 +50,9 @@
             <li><strong>Logging/Config:</strong> securaa_lib (shared library)</li>
             <li><strong>Other:</strong> Makefile for build/run automation</li>
         </ul>
-        <h2>2. Architecture Diagrams</h2>
-        <h3>System Architecture Diagram</h3>
-        <pre class="mermaid">
+        <h2 id="system-architecture">2. System Architecture</h2>
+        <h3>2.1 High-Level Architecture</h3>
+        <div class="mermaid">
 flowchart TD
   A[main.go (Orchestrator)] --> B[common/ (Global State)]
   A --> C[models/ (Business Logic & Integrations)]
@@ -64,9 +64,9 @@ flowchart TD
   A --> I[securaa_lib (External Libs)]
   A --> J[MongoDB]
   D --> K[Docker Engine]
-        </pre>
-        <h3>Component Interaction Diagram</h3>
-        <pre class="mermaid">
+        </div>
+        <h3>2.2 Component Interaction Diagram</h3>
+        <div class="mermaid">
 sequenceDiagram
     participant User
     participant Main
@@ -82,9 +82,9 @@ sequenceDiagram
     Docker-->>Main: Service status
     Models-->>Main: Integration data
     Main->>User: Status/result
-        </pre>
-        <h3>Data Flow Diagram</h3>
-        <pre class="mermaid">
+        </div>
+        <h3>2.3 Data Flow Diagram</h3>
+        <div class="mermaid">
 flowchart LR
     UserRequest[User Request]
     MainApp[main.go]
@@ -103,7 +103,7 @@ flowchart LR
     DockerMgmt --> DockerEngine
     DockerMgmt --> ModelsLogic
     MainApp --> Response
-        </pre>
+        </div>
         <h2>3. Component Analysis</h2>
         <h3>Major Modules/Components</h3>
         <h4>main.go (Orchestrator)</h4>

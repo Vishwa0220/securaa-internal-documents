@@ -111,8 +111,8 @@ graph TB
         subgraph "Application Entry"
             MAIN_GO[main.go<br/>Bootstrap Application]
             APP_GO[app.go<br/>HTTP Server & Routes]
-            DOCKERFILE[Dockerfile<br/>Container Build]
-            MAKEFILE[Makefile<br/>Build Automation]
+            BUILD_SCRIPT[build.sh<br/>Build Automation]
+            MAKEFILE[Makefile<br/>Build & Deploy]
         end
         
         subgraph "Controllers Package"
@@ -708,168 +708,287 @@ classDiagram
 
 ## 🚀 **DEPLOYMENT & INFRASTRUCTURE IMPLEMENTATION**
 
-### **Container Orchestration Architecture**
+### **Traditional Server Deployment Architecture**
+
+The Zona User Service is deployed using traditional server architecture with load balancing and service clustering for high availability and scalability.
+
+**Server Deployment Strategy:**
+
+**Load Balancer Configuration:**
+- **Primary Load Balancer**: HAProxy or Nginx for traffic distribution and SSL termination
+- **Health Check Integration**: Application-level health endpoints for intelligent routing
+- **Session Management**: Sticky sessions support for WebSocket connections
+- **SSL/TLS Termination**: Certificate management and encryption handling at the edge
+
+**Service Instance Management:**
+- **Multiple Instances**: 3+ service instances for high availability
+- **Process Management**: Systemd service files for automatic restart and lifecycle management
+- **Configuration Management**: Environment-specific configuration files and secrets
+- **Log Management**: Structured logging with centralized log aggregation
+
+**Database Deployment:**
+- **MongoDB Replica Set**: Primary and secondary instances for read scaling and failover
+- **Redis Cluster**: Master-slave configuration for caching and session storage
+- **Connection Pooling**: Optimized database connections with configurable pool sizes
+- **Backup Strategy**: Automated backup schedules with point-in-time recovery
 
 ```mermaid
 graph TB
-    subgraph "Kubernetes Cluster Architecture"
-        subgraph "Control Plane"
-            API_SERVER[kube-apiserver<br/>API Gateway]
-            ETCD[etcd<br/>Configuration Store]
-            SCHEDULER[kube-scheduler<br/>Pod Placement]
-            CONTROLLER[kube-controller-manager<br/>Resource Management]
+    subgraph "Server Infrastructure"
+        subgraph "Load Balancer Tier"
+            LB_PRIMARY[Primary Load Balancer<br/>HAProxy/Nginx<br/>SSL Termination]
+            LB_SECONDARY[Secondary Load Balancer<br/>Backup Instance<br/>Health Monitoring]
         end
         
-        subgraph "Worker Nodes"
-            subgraph "Node 1 (Master)"
-                KUBELET1[kubelet<br/>Node Agent]
-                KUBE_PROXY1[kube-proxy<br/>Network Proxy]
-                subgraph "Zona User Pods"
-                    POD1A[zona-user-1<br/>Primary Instance]
-                    POD1B[zona-user-2<br/>Secondary Instance]
-                end
+        subgraph "Application Tier"
+            subgraph "Server 1 (Primary)"
+                APP1[Zona User Service<br/>Instance 1<br/>Port 8080]
+                SYSTEMD1[Systemd Service<br/>Auto-restart<br/>Health Checks]
             end
             
-            subgraph "Node 2 (Worker)"
-                KUBELET2[kubelet<br/>Node Agent]
-                KUBE_PROXY2[kube-proxy<br/>Network Proxy]
-                subgraph "Database Pods"
-                    MONGO_POD[mongodb-primary<br/>Primary Database]
-                    REDIS_POD[redis-cluster<br/>Cache Layer]
-                end
+            subgraph "Server 2 (Secondary)"
+                APP2[Zona User Service<br/>Instance 2<br/>Port 8080]
+                SYSTEMD2[Systemd Service<br/>Auto-restart<br/>Health Checks]
             end
             
-            subgraph "Node 3 (Worker)"
-                KUBELET3[kubelet<br/>Node Agent]
-                KUBE_PROXY3[kube-proxy<br/>Network Proxy]
-                subgraph "Support Pods"
-                    MONITORING_POD[prometheus<br/>Metrics Collection]
-                    LOGGING_POD[fluentd<br/>Log Aggregation]
-                end
+            subgraph "Server 3 (Tertiary)"
+                APP3[Zona User Service<br/>Instance 3<br/>Port 8080]
+                SYSTEMD3[Systemd Service<br/>Auto-restart<br/>Health Checks]
             end
         end
         
-        subgraph "Networking"
-            INGRESS[Ingress Controller<br/>Load Balancing]
-            SERVICE_MESH[Istio Service Mesh<br/>Traffic Management]
-            CNI[Container Network Interface<br/>Pod Networking]
+        subgraph "Database Tier"
+            subgraph "MongoDB Cluster"
+                MONGO_PRIMARY[MongoDB Primary<br/>Write Operations<br/>Port 27017]
+                MONGO_SECONDARY1[MongoDB Secondary 1<br/>Read Operations<br/>Port 27017]
+                MONGO_SECONDARY2[MongoDB Secondary 2<br/>Read Operations<br/>Port 27017]
+            end
+            
+            subgraph "Redis Cluster"
+                REDIS_MASTER[Redis Master<br/>Session Storage<br/>Port 6379]
+                REDIS_SLAVE[Redis Slave<br/>Backup/Read<br/>Port 6379]
+            end
         end
         
-        subgraph "Storage"
-            PV[Persistent Volumes<br/>Database Storage]
-            PVC[Persistent Volume Claims<br/>Storage Requests]
-            STORAGE_CLASS[Storage Classes<br/>Dynamic Provisioning]
-        end
-        
-        subgraph "Security"
-            RBAC[Kubernetes RBAC<br/>Access Control]
-            PSP[Pod Security Policies<br/>Security Constraints]
-            NETWORK_POLICY[Network Policies<br/>Traffic Rules]
-            SECRET_MGMT[Secret Management<br/>Sensitive Data]
+        subgraph "Monitoring & Support"
+            PROMETHEUS[Prometheus<br/>Metrics Collection<br/>Port 9090]
+            GRAFANA[Grafana Dashboard<br/>Visualization<br/>Port 3000]
+            LOG_AGGREGATOR[Log Aggregator<br/>ELK Stack<br/>Centralized Logging]
         end
     end
     
-    %% Control Plane Flow
-    API_SERVER --> ETCD
-    API_SERVER --> SCHEDULER
-    API_SERVER --> CONTROLLER
+    %% Load Balancer Connections
+    LB_PRIMARY --> APP1
+    LB_PRIMARY --> APP2
+    LB_PRIMARY --> APP3
+    LB_SECONDARY --> APP1
+    LB_SECONDARY --> APP2
     
-    %% Node Communication
-    SCHEDULER --> KUBELET1
-    SCHEDULER --> KUBELET2
-    SCHEDULER --> KUBELET3
+    %% Service Management
+    SYSTEMD1 --> APP1
+    SYSTEMD2 --> APP2
+    SYSTEMD3 --> APP3
     
-    %% Pod Management
-    KUBELET1 --> POD1A
-    KUBELET1 --> POD1B
-    KUBELET2 --> MONGO_POD
-    KUBELET2 --> REDIS_POD
-    KUBELET3 --> MONITORING_POD
-    KUBELET3 --> LOGGING_POD
+    %% Database Connections
+    APP1 --> MONGO_PRIMARY
+    APP2 --> MONGO_SECONDARY1
+    APP3 --> MONGO_SECONDARY2
     
-    %% Networking
-    INGRESS --> POD1A
-    INGRESS --> POD1B
-    SERVICE_MESH --> POD1A
-    SERVICE_MESH --> POD1B
+    APP1 --> REDIS_MASTER
+    APP2 --> REDIS_MASTER
+    APP3 --> REDIS_MASTER
     
-    %% Storage
-    MONGO_POD --> PV
-    REDIS_POD --> PV
-    PV --> PVC
-    PVC --> STORAGE_CLASS
+    %% Database Replication
+    MONGO_PRIMARY --> MONGO_SECONDARY1
+    MONGO_PRIMARY --> MONGO_SECONDARY2
+    REDIS_MASTER --> REDIS_SLAVE
     
-    %% Security
-    RBAC --> API_SERVER
-    PSP --> KUBELET1
-    NETWORK_POLICY --> CNI
-    SECRET_MGMT --> POD1A
+    %% Monitoring Connections
+    PROMETHEUS --> APP1
+    PROMETHEUS --> APP2
+    PROMETHEUS --> APP3
+    GRAFANA --> PROMETHEUS
+    
+    LOG_AGGREGATOR --> APP1
+    LOG_AGGREGATOR --> APP2
+    LOG_AGGREGATOR --> APP3
 ```
 
+**Deployment Process:**
+
+**Service Installation:**
+1. **Binary Deployment**: Go binary compilation and distribution to target servers
+2. **Configuration Setup**: Environment-specific configuration files and secrets deployment
+3. **Service Registration**: Systemd service file installation and enablement
+4. **Health Verification**: Automated health checks during deployment process
+
+**Database Setup:**
+1. **MongoDB Replica Set**: Primary and secondary node configuration with authentication
+2. **Redis Configuration**: Master-slave setup with persistence and clustering
+3. **Index Creation**: Database index optimization for query performance
+4. **Data Migration**: Automated migration scripts for schema updates
+
+**Load Balancer Configuration:**
+1. **SSL Certificate Installation**: TLS certificate deployment and renewal automation
+2. **Health Check Configuration**: Application-level health endpoint configuration
+3. **Traffic Routing Rules**: Request routing based on URL patterns and headers
+4. **Failover Configuration**: Automatic failover to healthy instances
+
+**Monitoring Setup:**
+1. **Metrics Collection**: Prometheus metrics endpoint configuration
+2. **Dashboard Deployment**: Grafana dashboard installation and configuration
+3. **Alerting Rules**: Alert configuration for critical system events
+4. **Log Aggregation**: Centralized logging setup with retention policies
 ### **Production Deployment Configuration**
 
-```yaml
-# Kubernetes Deployment Configuration
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: zona-user-service
-  namespace: securaa-production
-  labels:
-    app: zona-user-service
-    version: "v2.1.0"
-    environment: production
-spec:
-  replicas: 5
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 2
-      maxUnavailable: 1
-  selector:
-    matchLabels:
-      app: zona-user-service
-  template:
-    metadata:
-      labels:
-        app: zona-user-service
-        version: "v2.1.0"
-        environment: production
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "9090"
-        prometheus.io/path: "/metrics"
-    spec:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        fsGroup: 2000
-      containers:
-      - name: zona-user-service
-        image: securaa/zona-user-service:v2.1.0
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 8000
-          name: https
-          protocol: TCP
-        - containerPort: 9090
-          name: metrics
-          protocol: TCP
-        env:
-        - name: ENVIRONMENT
-          value: "production"
-        - name: LOG_LEVEL
-          value: "info"
-        - name: MONGO_URI
-          valueFrom:
-            secretKeyRef:
-              name: database-secrets
-              key: mongo-uri
-        - name: REDIS_URI
-          valueFrom:
-            secretKeyRef:
-              name: cache-secrets
-              key: redis-uri
+**Systemd Service Configuration:**
+
+```ini
+# /etc/systemd/system/zona-user-service.service
+[Unit]
+Description=Zona User Service
+Documentation=https://docs.securaa.com/zona-user
+After=network.target mongodb.service redis.service
+Wants=mongodb.service redis.service
+
+[Service]
+Type=exec
+User=zona-user
+Group=zona-user
+WorkingDirectory=/opt/zona-user
+ExecStart=/opt/zona-user/bin/zona-user-service
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=zona-user-service
+
+# Security Settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/zona-user/logs /opt/zona-user/data
+
+# Environment Variables
+Environment=ENVIRONMENT=production
+Environment=LOG_LEVEL=info
+Environment=HTTP_PORT=8080
+Environment=METRICS_PORT=9090
+Environment=HEALTH_CHECK_PORT=8081
+
+# Resource Limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**Environment Configuration:**
+
+```bash
+# /opt/zona-user/config/production.env
+# Database Configuration
+MONGO_URI=mongodb://zona-user:${MONGO_PASSWORD}@mongo-primary:27017,mongo-secondary1:27017,mongo-secondary2:27017/zona_user?replicaSet=rs0&authSource=admin
+REDIS_URI=redis://:${REDIS_PASSWORD}@redis-master:6379/0
+
+# Security Configuration
+JWT_SECRET_KEY=${JWT_SECRET_KEY}
+ENCRYPTION_KEY=${ENCRYPTION_KEY}
+SAML_CERT_PATH=/opt/zona-user/certs/saml.crt
+SAML_KEY_PATH=/opt/zona-user/certs/saml.key
+
+# Integration Configuration
+EMAIL_SMTP_HOST=smtp.securaa.com
+EMAIL_SMTP_PORT=587
+EMAIL_FROM=noreply@securaa.com
+
+# Performance Configuration
+MAX_CONNECTIONS=1000
+CONNECTION_TIMEOUT=30s
+IDLE_TIMEOUT=60s
+READ_TIMEOUT=30s
+WRITE_TIMEOUT=30s
+
+# Monitoring Configuration
+METRICS_ENABLED=true
+PROMETHEUS_ENDPOINT=/metrics
+HEALTH_CHECK_ENDPOINT=/health
+LOG_FORMAT=json
+LOG_OUTPUT=file
+LOG_FILE_PATH=/opt/zona-user/logs/zona-user.log
+```
+
+**Deployment Script:**
+
+```bash
+#!/bin/bash
+# /opt/zona-user/scripts/deploy.sh
+
+set -euo pipefail
+
+DEPLOY_DIR="/opt/zona-user"
+SERVICE_NAME="zona-user-service"
+BACKUP_DIR="/opt/zona-user/backups"
+LOG_DIR="/opt/zona-user/logs"
+
+# Pre-deployment checks
+echo "Starting deployment of Zona User Service..."
+echo "Checking system requirements..."
+
+# Verify dependencies
+systemctl is-active --quiet mongodb || { echo "MongoDB not running"; exit 1; }
+systemctl is-active --quiet redis || { echo "Redis not running"; exit 1; }
+
+# Create backup of current version
+if systemctl is-active --quiet $SERVICE_NAME; then
+    echo "Creating backup of current deployment..."
+    mkdir -p $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)
+    cp -r $DEPLOY_DIR/bin $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)/
+    cp -r $DEPLOY_DIR/config $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)/
+fi
+
+# Deploy new binary
+echo "Deploying new binary..."
+cp ./zona-user-service $DEPLOY_DIR/bin/
+chmod +x $DEPLOY_DIR/bin/zona-user-service
+chown zona-user:zona-user $DEPLOY_DIR/bin/zona-user-service
+
+# Update configuration
+echo "Updating configuration..."
+cp ./config/* $DEPLOY_DIR/config/
+chown -R zona-user:zona-user $DEPLOY_DIR/config/
+
+# Restart service
+echo "Restarting service..."
+systemctl restart $SERVICE_NAME
+
+# Health check
+echo "Performing health check..."
+sleep 10
+
+for i in {1..30}; do
+    if curl -f http://localhost:8081/health > /dev/null 2>&1; then
+        echo "Health check passed!"
+        break
+    fi
+    if [ $i -eq 30 ]; then
+        echo "Health check failed! Rolling back..."
+        systemctl stop $SERVICE_NAME
+        # Restore from backup
+        LATEST_BACKUP=$(ls -t $BACKUP_DIR | head -1)
+        cp -r $BACKUP_DIR/$LATEST_BACKUP/* $DEPLOY_DIR/
+        systemctl start $SERVICE_NAME
+        exit 1
+    fi
+    echo "Waiting for service to start... ($i/30)"
+    sleep 2
+done
+
+echo "Deployment completed successfully!"
+```
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
@@ -924,25 +1043,6 @@ spec:
       - name: config-volume
         configMap:
           name: zona-user-config
-      nodeSelector:
-        node-type: security-workload
-      tolerations:
-      - key: "security-workload"
-        operator: "Equal"
-        value: "true"
-        effect: "NoSchedule"
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - zona-user-service
-            topologyKey: kubernetes.io/hostname
-```
-
 ## 📊 **MONITORING & OBSERVABILITY IMPLEMENTATION**
 
 ### **Comprehensive Monitoring Architecture**
@@ -1061,7 +1161,7 @@ graph TB
         subgraph "Resource Scaling"
             HORIZONTAL_SCALING[Horizontal Scaling<br/>Auto-scaling Groups]
             VERTICAL_SCALING[Vertical Scaling<br/>Resource Allocation]
-            RESOURCE_LIMITS[Resource Limits<br/>Container Constraints]
+            RESOURCE_LIMITS[Resource Limits<br/>System Constraints]
             CAPACITY_PLANNING[Capacity Planning<br/>Growth Projections]
         end
     end
@@ -1167,8 +1267,8 @@ graph TB
         end
         
         subgraph "Infrastructure Security Testing"
-            CONTAINER_SCAN[Container Image Scanning<br/>Trivy/Clair]
-            KUBERNETES_SCAN[Kubernetes Security Scanning<br/>kube-bench/kube-hunter]
+            BINARY_SCAN[Binary Security Scanning<br/>Static Analysis]
+            INFRASTRUCTURE_SCAN[Infrastructure Security Scanning<br/>Server Hardening]
             NETWORK_SCAN[Network Security Scanning<br/>Port & Service Analysis]
             CONFIGURATION_AUDIT[Configuration Auditing<br/>Security Hardening]
         end
@@ -1185,7 +1285,7 @@ graph TB
     CODE_ANALYSIS --> SECURITY_PIPELINE
     PENETRATION_TESTING --> SECURITY_PIPELINE
     RUNTIME_ANALYSIS --> SECURITY_PIPELINE
-    CONTAINER_SCAN --> SECURITY_PIPELINE
+    BINARY_SCAN --> SECURITY_PIPELINE
     
     SECURITY_PIPELINE --> THREAT_MODELING
     THREAT_MODELING --> SECURITY_REGRESSION
@@ -1384,10 +1484,10 @@ graph LR
         end
         
         subgraph "Package Stage"
-            DOCKER_BUILD[Docker Build<br/>Container Creation]
-            IMAGE_SCAN[Image Scanning<br/>Vulnerability Detection]
-            REGISTRY_PUSH[Registry Push<br/>Artifact Storage]
-            HELM_PACKAGE[Helm Package<br/>Chart Creation]
+            ARTIFACT_BUILD[Artifact Build<br/>Binary Packaging]
+            SECURITY_SCAN_PKG[Package Scanning<br/>Vulnerability Detection]
+            ARTIFACT_STORE[Artifact Storage<br/>Version Repository]
+            CONFIG_PACKAGE[Config Package<br/>Deployment Configs]
         end
         
         subgraph "Deploy Stage"
@@ -1414,12 +1514,12 @@ graph LR
     TEST --> LINT
     LINT --> SECURITY_SCAN
     
-    SECURITY_SCAN --> DOCKER_BUILD
-    DOCKER_BUILD --> IMAGE_SCAN
-    IMAGE_SCAN --> REGISTRY_PUSH
-    REGISTRY_PUSH --> HELM_PACKAGE
+    SECURITY_SCAN --> ARTIFACT_BUILD
+    ARTIFACT_BUILD --> SECURITY_SCAN_PKG
+    SECURITY_SCAN_PKG --> ARTIFACT_STORE
+    ARTIFACT_STORE --> CONFIG_PACKAGE
     
-    HELM_PACKAGE --> STAGING_DEPLOY
+    CONFIG_PACKAGE --> STAGING_DEPLOY
     STAGING_DEPLOY --> SMOKE_TESTS
     SMOKE_TESTS --> PROD_DEPLOY
     PROD_DEPLOY --> POST_DEPLOY

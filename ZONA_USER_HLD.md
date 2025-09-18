@@ -32,91 +32,45 @@ The Zona User Service is a **mission-critical component** that serves as the fou
 
 ### **High-Level System Architecture**
 
+The Zona User Service follows a **microservice architecture** deployed on traditional servers or cloud infrastructure without container orchestration. The system is designed for high availability through load balancing and database replication.
+
 ```mermaid
 graph TB
-    subgraph "External Client Layer"
-        WEB[Web Applications<br/>React/Angular SPAs]
+    subgraph "Client Layer"
+        WEB[Web Applications<br/>Security Dashboards]
         MOBILE[Mobile Applications<br/>iOS/Android]
         API_CLIENT[API Clients<br/>Third-party Systems]
-        CLI[CLI Tools<br/>Administrative Scripts]
-        DASHBOARD[Security Dashboards<br/>Management Consoles]
+        CLI[CLI Tools<br/>Administrative Tools]
     end
     
-    subgraph "Security Gateway Layer"
-        LB[Load Balancer<br/>HAProxy/Nginx]
-        WAF[Web Application Firewall<br/>ModSecurity/AWS WAF]
-        DDOS[DDoS Protection<br/>CloudFlare/AWS Shield]
-        PROXY[API Gateway<br/>Kong/Ambassador]
+    subgraph "Load Balancer"
+        LB[HAProxy/Nginx<br/>Load Balancer]
+        WAF[Web Application Firewall<br/>Security Gateway]
     end
     
-    subgraph "Zona User Service Ecosystem"
-        subgraph "Service Cluster"
-            direction TB
-            SVC1[Primary Instance<br/>Leader Node]
-            SVC2[Secondary Instance<br/>Follower Node]  
-            SVC3[Worker Instance<br/>Processing Node]
-            SVC4[Standby Instance<br/>Hot Backup]
-        end
-        
-        subgraph "WebSocket Layer"
-            WS_MGR[WebSocket Manager<br/>Connection Pool]
-            WS_HANDLER[Real-time Handler<br/>Event Processing]
-            WS_CLUSTER[WebSocket Cluster<br/>Horizontal Scaling]
-        end
-        
-        subgraph "Cache Layer"
-            REDIS_SESSION[Redis Session Store<br/>User Sessions]
-            REDIS_CACHE[Redis Cache<br/>Application Data]
-            REDIS_PUBSUB[Redis Pub/Sub<br/>Real-time Events]
-        end
+    subgraph "Zona User Service Cluster"
+        SVC1[Service Instance 1<br/>Primary Node]
+        SVC2[Service Instance 2<br/>Secondary Node]  
+        SVC3[Service Instance 3<br/>Worker Node]
     end
     
-    subgraph "Authentication Provider Ecosystem"
+    subgraph "Authentication Layer"
         LOCAL_AUTH[Local Authentication<br/>bcrypt + JWT]
-        LDAP_AD[LDAP/Active Directory<br/>Corporate Identity]
-        SAML_IDP[SAML 2.0 Identity Provider<br/>Enterprise SSO]
-        OAUTH2[OAuth2/OIDC Provider<br/>Third-party Auth]
-        MFA_SERVICE[MFA Service<br/>TOTP/SMS/Hardware]
+        LDAP_AD[LDAP/Active Directory<br/>Corporate Directory]
+        SAML_IDP[SAML 2.0 Provider<br/>Enterprise SSO]
+        OAUTH2[OAuth2/OIDC<br/>Third-party Auth]
     end
     
-    subgraph "Data Persistence Layer"
-        subgraph "MongoDB Cluster"
-            direction LR
-            MONGO_PRIMARY[Primary Node<br/>Write Operations]
-            MONGO_SECONDARY1[Secondary Node 1<br/>Read Replica]
-            MONGO_SECONDARY2[Secondary Node 2<br/>Read Replica]
-            MONGO_ARBITER[Arbiter Node<br/>Election Only]
-        end
-        
-        subgraph "Backup & Archive"
-            BACKUP_PRIMARY[Primary Backup<br/>Daily Snapshots]
-            BACKUP_ARCHIVE[Archive Storage<br/>Long-term Retention]
-            BACKUP_DR[Disaster Recovery<br/>Cross-region Backup]
-        end
+    subgraph "Data Layer"
+        MONGO_PRIMARY[MongoDB Primary<br/>Write Operations]
+        MONGO_SECONDARY[MongoDB Secondary<br/>Read Replica]
+        REDIS_CACHE[Redis Cache<br/>Session Store]
     end
     
-    subgraph "External Integration Layer"
-        EMAIL_SERVICE[Email Service<br/>SMTP/SendGrid]
-        SMS_GATEWAY[SMS Gateway<br/>Twilio/AWS SNS]
-        NOTIFICATION_HUB[Notification Hub<br/>Multi-channel Delivery]
+    subgraph "External Services"
+        EMAIL_SERVICE[SMTP Service<br/>Email Delivery]
+        SMS_GATEWAY[SMS Gateway<br/>2FA Notifications]
         AUDIT_SERVICE[Audit Service<br/>Compliance Logging]
-        METRICS_COLLECTOR[Metrics Collector<br/>Prometheus/DataDog]
-    end
-    
-    subgraph "Security Infrastructure"
-        KMS[Key Management Service<br/>Encryption Keys]
-        HSM[Hardware Security Module<br/>Certificate Storage]
-        VAULT[Secrets Management<br/>HashiCorp Vault]
-        SIEM[SIEM Platform<br/>Splunk/ELK]
-        THREAT_INTEL[Threat Intelligence<br/>Security Feeds]
-    end
-    
-    subgraph "Monitoring & Observability"
-        PROMETHEUS[Prometheus<br/>Metrics Collection]
-        GRAFANA[Grafana<br/>Dashboards & Alerts]
-        JAEGER[Jaeger<br/>Distributed Tracing]
-        ELK_STACK[ELK Stack<br/>Log Aggregation]
-        ALERTMANAGER[AlertManager<br/>Incident Response]
     end
     
     %% Client Connections
@@ -124,139 +78,117 @@ graph TB
     MOBILE --> LB
     API_CLIENT --> LB
     CLI --> LB
-    DASHBOARD --> LB
     
-    %% Security Gateway Flow
+    %% Load Balancer
     LB --> WAF
-    WAF --> DDOS
-    DDOS --> PROXY
-    PROXY --> SVC1
-    PROXY --> SVC2
-    PROXY --> SVC3
+    WAF --> SVC1
+    WAF --> SVC2
+    WAF --> SVC3
     
-    %% Service Internal Connections
-    SVC1 -.-> WS_MGR
-    SVC2 -.-> WS_HANDLER
-    SVC3 -.-> WS_CLUSTER
-    
-    SVC1 -.-> REDIS_SESSION
-    SVC2 -.-> REDIS_CACHE
-    SVC3 -.-> REDIS_PUBSUB
-    
-    %% Authentication Flow
+    %% Authentication
     SVC1 --> LOCAL_AUTH
     SVC1 --> LDAP_AD
     SVC1 --> SAML_IDP
     SVC1 --> OAUTH2
-    SVC1 --> MFA_SERVICE
     
-    %% Data Layer Connections
-    SVC1 -.-> MONGO_PRIMARY
-    SVC2 -.-> MONGO_SECONDARY1
-    SVC3 -.-> MONGO_SECONDARY2
+    %% Data Access
+    SVC1 --> MONGO_PRIMARY
+    SVC2 --> MONGO_SECONDARY
+    SVC3 --> REDIS_CACHE
     
-    MONGO_PRIMARY -.-> MONGO_SECONDARY1
-    MONGO_PRIMARY -.-> MONGO_SECONDARY2
-    MONGO_PRIMARY -.-> MONGO_ARBITER
+    %% Database Replication
+    MONGO_PRIMARY --> MONGO_SECONDARY
     
-    %% Backup Connections
-    MONGO_PRIMARY -.-> BACKUP_PRIMARY
-    BACKUP_PRIMARY -.-> BACKUP_ARCHIVE
-    BACKUP_PRIMARY -.-> BACKUP_DR
-    
-    %% External Service Connections
+    %% External Services
     SVC1 --> EMAIL_SERVICE
     SVC2 --> SMS_GATEWAY
-    SVC3 --> NOTIFICATION_HUB
-    SVC1 --> AUDIT_SERVICE
-    SVC2 --> METRICS_COLLECTOR
-    
-    %% Security Infrastructure
-    SVC1 -.-> KMS
-    SVC2 -.-> HSM
-    SVC3 -.-> VAULT
-    AUDIT_SERVICE --> SIEM
-    SVC1 --> THREAT_INTEL
-    
-    %% Monitoring Connections
-    SVC1 --> PROMETHEUS
-    SVC2 --> GRAFANA
-    SVC3 --> JAEGER
-    SVC1 --> ELK_STACK
-    PROMETHEUS --> ALERTMANAGER
+    SVC3 --> AUDIT_SERVICE
 ```
+
+**Architecture Overview:**
+This architecture represents a traditional three-tier application deployed across multiple servers for high availability. The system uses:
+- **Load Balancing**: HAProxy or Nginx for traffic distribution
+- **Service Clustering**: Multiple service instances for redundancy
+- **Database Replication**: MongoDB primary-secondary setup
+- **Caching Layer**: Redis for session management and performance
+- **External Integrations**: SMTP, SMS, and audit services
 
 ### **Enterprise Security Architecture**
 
+The security architecture implements a **defense-in-depth approach** with multiple security layers protecting the Zona User Service. Each layer provides specific security controls and works together to create a comprehensive security posture.
+
 ```mermaid
 graph TB
-    subgraph "Defense in Depth Security Model"
-        subgraph "Layer 7: Application Security"
-            APP_AUTH[Multi-Factor Authentication<br/>TOTP, SMS, Hardware Keys]
-            APP_AUTHZ[Zero-Trust Authorization<br/>RBAC + ABAC]
-            APP_VALIDATE[Input Validation<br/>SQL/NoSQL Injection Prevention]
-            APP_ENCRYPT[End-to-End Encryption<br/>AES-256 + RSA-4096]
-        end
-        
-        subgraph "Layer 6: Data Security"
-            DATA_ENCRYPT[Encryption at Rest<br/>Database + File System]
-            DATA_TRANSIT[Encryption in Transit<br/>TLS 1.3 + mTLS]
-            DATA_MASK[Data Masking<br/>PII Protection]
-            DATA_DLP[Data Loss Prevention<br/>Content Inspection]
-        end
-        
-        subgraph "Layer 5: Session Security"
-            SESSION_JWT[JWT Token Security<br/>RS256 Signing]
-            SESSION_REDIS[Redis Session Store<br/>Distributed Sessions]
-            SESSION_TIMEOUT[Session Management<br/>Timeout + Renewal]
-            SESSION_BIND[Device Binding<br/>Fingerprinting]
-        end
-        
-        subgraph "Layer 4: API Security"
-            API_GATEWAY[API Gateway<br/>Rate Limiting + Throttling]
-            API_AUTH[API Authentication<br/>Bearer Tokens + API Keys]
-            API_VALIDATE[API Validation<br/>Schema + Business Rules]
-            API_AUDIT[API Audit Logging<br/>Request/Response Tracking]
-        end
-        
-        subgraph "Layer 3: Transport Security"
-            TLS_TERMINATION[TLS Termination<br/>Certificate Management]
-            CIPHER_SUITE[Cipher Suite Selection<br/>Perfect Forward Secrecy]
-            CERT_PINNING[Certificate Pinning<br/>HSTS + HPKP]
-            PROTOCOL_SECURITY[Protocol Security<br/>HTTP/2 + Security Headers]
-        end
-        
-        subgraph "Layer 2: Network Security"
-            FIREWALL[Next-Gen Firewall<br/>Deep Packet Inspection]
-            IDS_IPS[IDS/IPS<br/>Intrusion Detection/Prevention]
-            SEGMENTATION[Network Segmentation<br/>Zero-Trust Networking]
-            VPN_ACCESS[VPN Access<br/>Encrypted Tunnels]
-        end
-        
-        subgraph "Layer 1: Infrastructure Security"
-            HOST_HARDENING[Host Hardening<br/>CIS Benchmarks]
-            CONTAINER_SECURITY[Container Security<br/>Image Scanning + Runtime Protection]
-            RBAC_K8S[Kubernetes RBAC<br/>Pod Security Policies]
-            COMPLIANCE[Compliance Framework<br/>SOC2 + ISO27001]
-        end
+    subgraph "Application Security Layer"
+        APP_AUTH[Multi-Factor Authentication<br/>TOTP + SMS + Hardware Keys]
+        APP_AUTHZ[Role-Based Authorization<br/>RBAC + Tenant Isolation]
+        APP_VALIDATE[Input Validation<br/>XSS & Injection Prevention]
     end
     
-    %% Layer Dependencies
-    APP_AUTH -.-> SESSION_JWT
-    APP_AUTHZ -.-> API_AUTH
-    APP_VALIDATE -.-> API_VALIDATE
-    APP_ENCRYPT -.-> DATA_ENCRYPT
+    subgraph "Data Security Layer"
+        DATA_ENCRYPT[Data Encryption<br/>AES-256 at Rest]
+        DATA_TRANSIT[Transport Security<br/>TLS 1.3 in Transit]
+        DATA_MASK[Data Protection<br/>PII Masking & DLP]
+    end
     
-    SESSION_JWT -.-> API_GATEWAY
-    SESSION_REDIS -.-> TLS_TERMINATION
-    SESSION_TIMEOUT -.-> FIREWALL
-    SESSION_BIND -.-> HOST_HARDENING
+    subgraph "Session Security Layer"
+        SESSION_JWT[JWT Tokens<br/>RS256 Signed]
+        SESSION_REDIS[Session Store<br/>Redis with Expiration]
+        SESSION_BIND[Device Binding<br/>Fingerprint Validation]
+    end
     
-    API_GATEWAY -.-> TLS_TERMINATION
-    API_AUTH -.-> CIPHER_SUITE
-    API_VALIDATE -.-> IDS_IPS
-    API_AUDIT -.-> CONTAINER_SECURITY
+    subgraph "Network Security Layer"
+        FIREWALL[Application Firewall<br/>ModSecurity Rules]
+        RATE_LIMIT[Rate Limiting<br/>Request Throttling]
+        IP_FILTERING[IP Filtering<br/>Geolocation Controls]
+    end
+    
+    subgraph "Infrastructure Security Layer"
+        HOST_HARDENING[Server Hardening<br/>CIS Benchmarks]
+        ACCESS_CONTROL[Access Control<br/>SSH Key Management]
+        MONITORING[Security Monitoring<br/>Real-time Alerts]
+    end
+    
+    %% Security Layer Dependencies
+    APP_AUTH --> SESSION_JWT
+    APP_AUTHZ --> DATA_ENCRYPT
+    APP_VALIDATE --> FIREWALL
+    
+    DATA_ENCRYPT --> SESSION_REDIS
+    DATA_TRANSIT --> RATE_LIMIT
+    DATA_MASK --> IP_FILTERING
+    
+    SESSION_JWT --> HOST_HARDENING
+    SESSION_REDIS --> ACCESS_CONTROL
+    SESSION_BIND --> MONITORING
 ```
+
+**Security Implementation Details:**
+
+**Layer 1 - Application Security:**
+- **Authentication**: Supports local credentials, LDAP/AD, SAML 2.0, and OAuth2 with mandatory MFA for privileged accounts
+- **Authorization**: Implements RBAC with fine-grained permissions and complete tenant data isolation
+- **Input Validation**: Comprehensive sanitization preventing SQL/NoSQL injection, XSS, and CSRF attacks
+
+**Layer 2 - Data Security:**
+- **Encryption at Rest**: All sensitive data encrypted using AES-256 with rotating keys
+- **Encryption in Transit**: TLS 1.3 for all communications with perfect forward secrecy
+- **Data Protection**: PII masking in logs and exports with DLP controls
+
+**Layer 3 - Session Security:**
+- **JWT Implementation**: Stateless tokens signed with RS256 algorithm
+- **Session Management**: Redis-backed sessions with configurable timeouts
+- **Device Security**: Browser fingerprinting and device binding for anomaly detection
+
+**Layer 4 - Network Security:**
+- **Web Application Firewall**: ModSecurity with OWASP Core Rule Set
+- **Rate Limiting**: Configurable request throttling per IP and user
+- **Access Controls**: IP whitelisting and geolocation-based restrictions
+
+**Layer 5 - Infrastructure Security:**
+- **Server Hardening**: CIS benchmark compliance with automated configuration management
+- **Access Management**: SSH key-based authentication with audit logging
+- **Monitoring**: Real-time security event monitoring with automated alerting
 
 ## 🎯 **CORE BUSINESS CAPABILITIES**
 
@@ -453,86 +385,89 @@ sequenceDiagram
     Note over U,NOTIFY: Session Established Successfully
 ```
 
-### **Real-Time Notification Flow**
+### **Real-Time Notification System**
+
+The notification system processes security events and user activities in real-time, delivering alerts through multiple channels. The system is designed for high throughput and reliable delivery with comprehensive audit trails.
+
+**System Components:**
+
+**Event Processing Pipeline:**
+The notification system begins with event ingestion from multiple sources including security monitors, user actions, and system events. Each event undergoes validation, enrichment with contextual data, and priority assignment based on severity and business impact.
+
+**Notification Engine:**
+The core engine processes validated events through template formatting, intelligent routing based on user preferences and policies, and channel selection for optimal delivery. Built-in rate limiting prevents notification flooding while retry mechanisms ensure reliable delivery.
+
+**Delivery Channels:**
+Multiple delivery channels support diverse user preferences and urgency levels:
+- **WebSocket**: Real-time browser notifications for immediate awareness
+- **Email**: Detailed notifications with rich formatting and attachments
+- **SMS**: Critical alerts for urgent security events
+- **Mobile Push**: Native mobile app notifications
+- **Webhooks**: Integration with external systems and ITSM tools
 
 ```mermaid
-graph TB
+graph LR
     subgraph "Event Sources"
-        SEC_EVENT[Security Events<br/>Threat Detection]
-        SYS_EVENT[System Events<br/>Status Changes]
-        USER_ACTION[User Actions<br/>Profile Updates]
-        ADMIN_ACTION[Admin Actions<br/>Configuration Changes]
-        EXTERNAL_EVENT[External Events<br/>Integration Triggers]
+        SEC[Security Events]
+        USER[User Actions]
+        SYSTEM[System Events]
     end
     
-    subgraph "Event Processing Pipeline"
-        EVENT_INGESTION[Event Ingestion<br/>Message Queue]
-        EVENT_VALIDATION[Event Validation<br/>Schema Checking]
-        EVENT_ENRICHMENT[Event Enrichment<br/>Context Addition]
-        EVENT_CORRELATION[Event Correlation<br/>Pattern Analysis]
-        EVENT_PRIORITY[Priority Assignment<br/>Severity Scoring]
+    subgraph "Processing"
+        VALIDATE[Event Validation]
+        ENRICH[Context Enrichment]
+        ROUTE[Smart Routing]
     end
     
-    subgraph "Notification Engine"
-        TEMPLATE_ENGINE[Template Engine<br/>Message Formatting]
-        ROUTING_ENGINE[Routing Engine<br/>Delivery Rules]
-        CHANNEL_SELECTOR[Channel Selector<br/>Multi-channel Logic]
-        RATE_LIMITER[Rate Limiter<br/>Frequency Control]
-        RETRY_HANDLER[Retry Handler<br/>Failure Recovery]
+    subgraph "Delivery"
+        WS[WebSocket]
+        EMAIL[Email]
+        SMS[SMS]
+        WEBHOOK[Webhooks]
     end
     
-    subgraph "Delivery Channels"
-        WEBSOCKET[WebSocket<br/>Real-time Updates]
-        EMAIL[Email Service<br/>SMTP/SendGrid]
-        SMS[SMS Gateway<br/>Twilio/AWS SNS]
-        PUSH[Push Notifications<br/>Mobile Apps]
-        WEBHOOK[Webhooks<br/>External Systems]
-        SLACK[Slack Integration<br/>Team Notifications]
+    subgraph "Storage"
+        MONGO[MongoDB Store]
+        AUDIT[Audit Logs]
     end
     
-    subgraph "Storage & Analytics"
-        NOTIFICATION_DB[Notification Store<br/>MongoDB]
-        DELIVERY_LOG[Delivery Logs<br/>Audit Trail]
-        METRICS[Metrics Collection<br/>Performance Tracking]
-        ANALYTICS[Notification Analytics<br/>Effectiveness Analysis]
-    end
+    SEC --> VALIDATE
+    USER --> VALIDATE
+    SYSTEM --> VALIDATE
     
-    %% Event Flow
-    SEC_EVENT --> EVENT_INGESTION
-    SYS_EVENT --> EVENT_INGESTION
-    USER_ACTION --> EVENT_INGESTION
-    ADMIN_ACTION --> EVENT_INGESTION
-    EXTERNAL_EVENT --> EVENT_INGESTION
+    VALIDATE --> ENRICH
+    ENRICH --> ROUTE
     
-    %% Processing Pipeline
-    EVENT_INGESTION --> EVENT_VALIDATION
-    EVENT_VALIDATION --> EVENT_ENRICHMENT
-    EVENT_ENRICHMENT --> EVENT_CORRELATION
-    EVENT_CORRELATION --> EVENT_PRIORITY
+    ROUTE --> WS
+    ROUTE --> EMAIL
+    ROUTE --> SMS
+    ROUTE --> WEBHOOK
     
-    %% Notification Engine
-    EVENT_PRIORITY --> TEMPLATE_ENGINE
-    TEMPLATE_ENGINE --> ROUTING_ENGINE
-    ROUTING_ENGINE --> CHANNEL_SELECTOR
-    CHANNEL_SELECTOR --> RATE_LIMITER
-    RATE_LIMITER --> RETRY_HANDLER
-    
-    %% Delivery Channels
-    RETRY_HANDLER --> WEBSOCKET
-    RETRY_HANDLER --> EMAIL
-    RETRY_HANDLER --> SMS
-    RETRY_HANDLER --> PUSH
-    RETRY_HANDLER --> WEBHOOK
-    RETRY_HANDLER --> SLACK
-    
-    %% Storage and Analytics
-    RETRY_HANDLER --> NOTIFICATION_DB
-    WEBSOCKET --> DELIVERY_LOG
-    EMAIL --> DELIVERY_LOG
-    SMS --> DELIVERY_LOG
-    DELIVERY_LOG --> METRICS
-    METRICS --> ANALYTICS
+    ROUTE --> MONGO
+    WS --> AUDIT
+    EMAIL --> AUDIT
 ```
+
+**Delivery Guarantees:**
+- **At-least-once delivery** for critical security notifications
+- **Duplicate detection** to prevent notification spam
+- **Retry policies** with exponential backoff for failed deliveries
+- **Dead letter queues** for undeliverable notifications
+- **Delivery confirmation** tracking and analytics
+
+**Performance Characteristics:**
+- **Event Processing**: 10,000+ events per second capacity
+- **Delivery Latency**: < 100ms for WebSocket notifications
+- **Email Delivery**: < 30 seconds for non-critical notifications
+- **SMS Delivery**: < 5 seconds for urgent security alerts
+- **System Reliability**: 99.9% delivery success rate with monitoring
+
+**Configuration Management:**
+Users and administrators can configure notification preferences including:
+- **Channel Preferences**: Primary and fallback delivery channels
+- **Frequency Controls**: Rate limiting and quiet hours
+- **Content Filtering**: Event type and severity preferences
+- **Escalation Policies**: Automatic escalation for unacknowledged critical alerts
 
 ## 🛡️ **ENTERPRISE SECURITY STRATEGY**
 
@@ -632,153 +567,216 @@ gitgraph
 
 ## 🚀 **SCALABILITY & PERFORMANCE STRATEGY**
 
-### **Horizontal Scaling Architecture**
+### **Horizontal Scaling Approach**
+
+The Zona User Service is designed for horizontal scaling using traditional load balancing and database replication techniques. This approach provides high availability and performance without requiring complex orchestration platforms.
+
+**Scaling Architecture:**
+
+**Load Distribution Strategy:**
+- **Primary Load Balancer**: HAProxy or Nginx distributing traffic across service instances
+- **Health Check Integration**: Automatic removal of unhealthy instances from rotation
+- **Session Affinity**: Optional sticky sessions for WebSocket connections
+- **Geographic Distribution**: Regional deployment for reduced latency
+
+**Service Instance Scaling:**
+- **Stateless Design**: Service instances maintain no local state for easy scaling
+- **Auto-scaling**: Scripted scaling based on CPU, memory, and request metrics
+- **Manual Scaling**: Administrative tools for planned capacity adjustments
+- **Blue-Green Deployment**: Zero-downtime deployments during scaling operations
 
 ```mermaid
 graph TB
-    subgraph "Traffic Distribution"
-        GLOBAL_LB[Global Load Balancer<br/>Geographic Distribution]
-        REGIONAL_LB[Regional Load Balancers<br/>Zone Distribution]
-        LOCAL_LB[Local Load Balancers<br/>Instance Distribution]
+    subgraph "Load Balancing Tier"
+        LB1[Primary Load Balancer]
+        LB2[Secondary Load Balancer]
     end
     
-    subgraph "Auto-Scaling Groups"
-        subgraph "Region 1 (US-East)"
-            ASG1[Auto Scaling Group 1<br/>Min: 3, Max: 20]
-            INSTANCE1A[Instance 1A<br/>4 CPU, 8GB RAM]
-            INSTANCE1B[Instance 1B<br/>4 CPU, 8GB RAM]
-            INSTANCE1C[Instance 1C<br/>4 CPU, 8GB RAM]
-        end
-        
-        subgraph "Region 2 (EU-West)"
-            ASG2[Auto Scaling Group 2<br/>Min: 3, Max: 20]
-            INSTANCE2A[Instance 2A<br/>4 CPU, 8GB RAM]
-            INSTANCE2B[Instance 2B<br/>4 CPU, 8GB RAM]
-            INSTANCE2C[Instance 2C<br/>4 CPU, 8GB RAM]
-        end
-        
-        subgraph "Region 3 (AP-South)"
-            ASG3[Auto Scaling Group 3<br/>Min: 3, Max: 20]
-            INSTANCE3A[Instance 3A<br/>4 CPU, 8GB RAM]
-            INSTANCE3B[Instance 3B<br/>4 CPU, 8GB RAM]
-            INSTANCE3C[Instance 3C<br/>4 CPU, 8GB RAM]
-        end
+    subgraph "Application Tier"
+        APP1[Service Instance 1<br/>4 CPU, 8GB RAM]
+        APP2[Service Instance 2<br/>4 CPU, 8GB RAM]
+        APP3[Service Instance 3<br/>4 CPU, 8GB RAM]
+        APP4[Service Instance N<br/>Auto-scaled]
     end
     
-    subgraph "Performance Optimization"
-        CDN[Content Delivery Network<br/>Static Asset Caching]
-        CACHE_LAYER[Distributed Cache Layer<br/>Redis Cluster]
-        DB_SHARDING[Database Sharding<br/>MongoDB Cluster]
-        CONNECTION_POOLING[Connection Pooling<br/>Optimized Connections]
+    subgraph "Database Tier"
+        DB_PRIMARY[MongoDB Primary<br/>Write Operations]
+        DB_SECONDARY1[MongoDB Secondary 1<br/>Read Operations]
+        DB_SECONDARY2[MongoDB Secondary 2<br/>Read Operations]
     end
     
-    %% Traffic Flow
-    GLOBAL_LB --> REGIONAL_LB
-    REGIONAL_LB --> LOCAL_LB
-    LOCAL_LB --> ASG1
-    LOCAL_LB --> ASG2
-    LOCAL_LB --> ASG3
+    subgraph "Cache Tier"
+        REDIS1[Redis Master<br/>Session Data]
+        REDIS2[Redis Slave<br/>Replication]
+    end
     
-    ASG1 --> INSTANCE1A
-    ASG1 --> INSTANCE1B
-    ASG1 --> INSTANCE1C
+    %% Load Distribution
+    LB1 --> APP1
+    LB1 --> APP2
+    LB1 --> APP3
+    LB1 --> APP4
     
-    ASG2 --> INSTANCE2A
-    ASG2 --> INSTANCE2B
-    ASG2 --> INSTANCE2C
+    LB2 --> APP1
+    LB2 --> APP2
     
-    ASG3 --> INSTANCE3A
-    ASG3 --> INSTANCE3B
-    ASG3 --> INSTANCE3C
+    %% Database Access
+    APP1 --> DB_PRIMARY
+    APP2 --> DB_SECONDARY1
+    APP3 --> DB_SECONDARY2
+    APP4 --> DB_SECONDARY1
     
-    %% Performance Connections
-    LOCAL_LB -.-> CDN
-    ASG1 -.-> CACHE_LAYER
-    ASG2 -.-> CACHE_LAYER
-    ASG3 -.-> CACHE_LAYER
-    CACHE_LAYER -.-> DB_SHARDING
-    INSTANCE1A -.-> CONNECTION_POOLING
+    %% Cache Access
+    APP1 --> REDIS1
+    APP2 --> REDIS1
+    APP3 --> REDIS1
+    
+    %% Replication
+    DB_PRIMARY --> DB_SECONDARY1
+    DB_PRIMARY --> DB_SECONDARY2
+    REDIS1 --> REDIS2
 ```
+
+**Performance Optimization Techniques:**
+
+**Database Performance:**
+- **Connection Pooling**: Optimized connection management with configurable pool sizes
+- **Read Replicas**: Distributed read operations across secondary database instances
+- **Query Optimization**: Proper indexing and efficient aggregation pipelines
+- **Sharding Strategy**: Horizontal database partitioning for large datasets
+
+**Caching Strategy:**
+- **Multi-Level Caching**: In-memory application cache + Redis distributed cache
+- **Cache Patterns**: Write-through, write-behind, and cache-aside patterns
+- **TTL Management**: Intelligent expiration policies for different data types
+- **Cache Warming**: Preloading frequently accessed data during startup
+
+**Application Performance:**
+- **Goroutine Optimization**: Efficient concurrent processing with worker pools
+- **Memory Management**: Optimized garbage collection and memory allocation
+- **HTTP Keep-Alive**: Connection reuse for reduced overhead
+- **Compression**: Response compression for reduced bandwidth usage
+
+**Capacity Planning:**
+
+**Performance Targets:**
+- **Concurrent Users**: 10,000+ simultaneous active sessions
+- **Request Throughput**: 5,000+ requests per second per instance
+- **Response Time**: < 100ms for authentication requests (95th percentile)
+- **Database Operations**: < 50ms for typical CRUD operations
+- **Cache Operations**: < 1ms for Redis operations
+
+**Resource Requirements:**
+- **CPU**: 4 cores minimum per service instance for production workloads
+- **Memory**: 8GB RAM minimum with JVM heap optimization
+- **Storage**: SSD storage for database and logs with IOPS optimization
+- **Network**: Gigabit network connectivity with low latency requirements
+
+**Monitoring and Alerting:**
+- **Performance Metrics**: Real-time monitoring of response times and throughput
+- **Resource Utilization**: CPU, memory, and disk usage tracking
+- **Auto-scaling Triggers**: Automated scaling based on performance thresholds
+- **Capacity Alerts**: Proactive alerting for capacity planning needs
 
 ## 🔍 **INTEGRATION ARCHITECTURE**
 
-### **External System Integration Map**
+### **External System Integration Strategy**
+
+The Zona User Service integrates with various external systems to provide comprehensive identity management and security operations. These integrations are designed for reliability, security, and maintainability.
+
+**Integration Categories:**
+
+**Identity Provider Integrations:**
+The service supports multiple authentication protocols to accommodate diverse enterprise environments:
+- **SAML 2.0**: Enterprise SSO with digital signature validation and metadata exchange
+- **OAuth2/OIDC**: Modern authentication with authorization code flow and PKCE
+- **LDAP/Active Directory**: Corporate directory integration with connection pooling
+- **Local Authentication**: Native credential management with bcrypt hashing
+
+**Communication Service Integrations:**
+Multi-channel communication capabilities ensure reliable notification delivery:
+- **SMTP Services**: Email delivery with template support and delivery tracking
+- **SMS Gateways**: Text message delivery for two-factor authentication and alerts
+- **WebSocket**: Real-time browser notifications for immediate user feedback
+- **Webhook Endpoints**: Custom integrations with external systems and ITSM tools
+
+**Security Tool Integrations:**
+Integration with security infrastructure enhances the overall security posture:
+- **SIEM Platforms**: Security event forwarding and correlation
+- **Audit Systems**: Compliance logging and long-term storage
+- **Key Management**: External key storage and rotation services
+- **Threat Intelligence**: Security feed integration for risk assessment
 
 ```mermaid
 graph TB
-    subgraph "Zona User Service Core"
-        CORE[Zona User Service<br/>Authentication & Authorization]
+    subgraph "Zona User Service"
+        CORE[Authentication & Authorization Core]
     end
     
     subgraph "Identity Providers"
-        OKTA[Okta<br/>Enterprise SSO]
-        AZURE_AD[Azure AD<br/>Microsoft Identity]
-        PING_ID[PingIdentity<br/>Federated SSO]
-        GOOGLE_WORKSPACE[Google Workspace<br/>G Suite Integration]
-        SALESFORCE[Salesforce<br/>CRM Integration]
+        SAML[SAML 2.0 IdP]
+        OAUTH[OAuth2 Providers]
+        LDAP[LDAP/Active Directory]
     end
     
     subgraph "Communication Services"
-        SENDGRID[SendGrid<br/>Email Delivery]
-        TWILIO[Twilio<br/>SMS Gateway]
-        SLACK_API[Slack API<br/>Team Communication]
-        TEAMS[Microsoft Teams<br/>Enterprise Chat]
-        WEBHOOK_ENDPOINTS[Custom Webhooks<br/>External Systems]
+        SMTP[SMTP Server]
+        SMS[SMS Gateway]
+        WEBHOOK[Webhook Endpoints]
     end
     
-    subgraph "Security Infrastructure"
-        VAULT[HashiCorp Vault<br/>Secrets Management]
-        KMS[AWS KMS<br/>Key Management]
-        SPLUNK[Splunk<br/>SIEM Platform]
-        CROWDSTRIKE[CrowdStrike<br/>Endpoint Protection]
-        CARBON_BLACK[Carbon Black<br/>Threat Detection]
+    subgraph "Security Services"
+        SIEM[SIEM Platform]
+        AUDIT[Audit Vault]
+        KMS[Key Management]
     end
     
-    subgraph "Compliance & Audit"
-        AUDIT_VAULT[Audit Vault<br/>Long-term Storage]
-        COMPLIANCE_DB[Compliance Database<br/>Regulatory Data]
-        GRC_PLATFORM[GRC Platform<br/>Risk Management]
-        EVIDENCE_LOCKER[Evidence Locker<br/>Forensic Storage]
+    subgraph "Monitoring Services"
+        METRICS[Metrics Collection]
+        LOGGING[Log Aggregation]
+        ALERTING[Alert Management]
     end
     
-    subgraph "Cloud Infrastructure"
-        AWS_SERVICES[AWS Services<br/>Cloud Infrastructure]
-        AZURE_SERVICES[Azure Services<br/>Hybrid Cloud]
-        GCP_SERVICES[GCP Services<br/>Multi-cloud]
-        KUBERNETES[Kubernetes<br/>Container Orchestration]
-        TERRAFORM[Terraform<br/>Infrastructure as Code]
-    end
+    %% Integration Connections
+    CORE <--> SAML
+    CORE <--> OAUTH
+    CORE <--> LDAP
     
-    %% Integration Flows
-    CORE <--> OKTA
-    CORE <--> AZURE_AD
-    CORE <--> PING_ID
-    CORE <--> GOOGLE_WORKSPACE
-    CORE <--> SALESFORCE
+    CORE --> SMTP
+    CORE --> SMS
+    CORE --> WEBHOOK
     
-    CORE --> SENDGRID
-    CORE --> TWILIO
-    CORE --> SLACK_API
-    CORE --> TEAMS
-    CORE --> WEBHOOK_ENDPOINTS
-    
-    CORE <--> VAULT
+    CORE --> SIEM
+    CORE --> AUDIT
     CORE <--> KMS
-    CORE --> SPLUNK
-    CORE --> CROWDSTRIKE
-    CORE --> CARBON_BLACK
     
-    CORE --> AUDIT_VAULT
-    CORE --> COMPLIANCE_DB
-    CORE <--> GRC_PLATFORM
-    CORE --> EVIDENCE_LOCKER
-    
-    CORE -.-> AWS_SERVICES
-    CORE -.-> AZURE_SERVICES
-    CORE -.-> GCP_SERVICES
-    CORE -.-> KUBERNETES
-    CORE -.-> TERRAFORM
+    CORE --> METRICS
+    CORE --> LOGGING
+    CORE --> ALERTING
 ```
+
+**Integration Patterns:**
+
+**Synchronous Integrations:**
+- **Authentication Flows**: Real-time validation with external identity providers
+- **Authorization Checks**: Immediate permission validation with directory services
+- **Configuration Retrieval**: On-demand configuration from external systems
+
+**Asynchronous Integrations:**
+- **Audit Logging**: Batch or streaming audit data to compliance systems
+- **Notification Delivery**: Queued message delivery through various channels
+- **Metrics Reporting**: Periodic performance and security metrics transmission
+
+**Error Handling and Resilience:**
+- **Circuit Breakers**: Automatic fallback when external services are unavailable
+- **Retry Policies**: Exponential backoff for transient failures
+- **Timeout Management**: Configurable timeouts to prevent hanging requests
+- **Fallback Mechanisms**: Local caching and degraded functionality options
+
+**Security Considerations:**
+- **API Authentication**: Mutual TLS or API keys for all external communications
+- **Data Encryption**: All sensitive data encrypted in transit and at rest
+- **Network Security**: VPN or private network connections where possible
+- **Access Control**: Principle of least privilege for service-to-service communication
 
 ## 📋 **COMPLIANCE & GOVERNANCE FRAMEWORK**
 

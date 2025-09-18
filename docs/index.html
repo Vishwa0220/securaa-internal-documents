@@ -20,6 +20,8 @@
             <li><a href="optimization-guide.html">Optimization Guide</a></li>
             <li><a href="securaa-siem-hld.html">Securaa SIEM HLD</a></li>
             <li><a href="securaa-hld.html">Securaa Platform</a></li>
+            <li><a href="process-manager-hld.html">Process Manager HLD</a></li>
+            <li><a href="process-manager-lld.html">Process Manager LLD</a></li>
         </ul>
     </nav>
     
@@ -27,84 +29,62 @@
         <div class="doc-section">
             <h1>Welcome to Securaa Platform Documentation</h1>
             <p>
-                This comprehensive documentation portal provides detailed technical information about the Securaa Security Platform, 
-                including service architectures, implementation guides, and optimization strategies. The Securaa Platform is a 
-                next-generation security orchestration solution designed for enterprise-grade security operations.
+                This portal provides technical documentation for the Securaa Security Platform, including architecture, implementation, and optimization guides. The platform is modular and scalable, supporting many services and integrations.
             </p>
         </div>
 
         <div class="doc-section">
-            <h2>Platform Overview</h2>
-            <p>
-                The Securaa Security Platform consists of multiple interconnected services that work together to provide 
-                comprehensive security incident management, automated response capabilities, and advanced threat detection. 
-                The platform is built with scalability, security, and performance as core principles.
-            </p>
-            
-            <h3>Key Components</h3>
-            <ul>
-                <li><strong>Securaa Playbook Service</strong> - Automated security orchestration and response (SOAR) engine</li>
-                <li><strong>Securaa SIEM Service</strong> - Security information and event management platform</li>
-                <li><strong>Securaa Platform</strong> - Modular cybersecurity infrastructure and deployment system</li>
-            </ul>
+            <h2>High Level Designs (HLD)</h2>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3>Playbook Service HLD</h3>
+                    <p>Comprehensive architectural overview of the Playbook Service, including system design, component interactions, and deployment strategies.</p>
+                    <a href="securaa-playbook-hld.html">Read Documentation →</a>
+                </div>
+                <div class="doc-card">
+                    <h3>SIEM Service HLD</h3>
+                    <p>Architectural documentation for the SIEM platform, covering incident management, analytics, and integrations.</p>
+                    <a href="securaa-siem-hld.html">Read Documentation →</a>
+                </div>
+                <div class="doc-card">
+                    <h3>Process Manager HLD</h3>
+                    <p>Overview of zona_process_manager orchestration, service management, and integrations for microservices lifecycle.</p>
+                    <a href="process-manager-hld.html">Read Documentation →</a>
+                </div>
+                <div class="doc-card">
+                    <h3>Securaa Platform HLD</h3>
+                    <p>High-level design for the modular cybersecurity platform, including deployment topologies and build systems.</p>
+                    <a href="securaa-hld.html">Read Documentation →</a>
+                </div>
+                <!-- Add more HLD modules here as needed -->
+            </div>
         </div>
 
-        <div class="doc-grid">
-            <div class="doc-card">
-                <h3>Securaa Playbook Service - High Level Design</h3>
-                <p>
-                    Comprehensive architectural overview of the Securaa Playbook Service, including system design, 
-                    component interactions, security architecture, and deployment strategies for the SOAR engine.
-                </p>
-                <a href="securaa-playbook-hld.html">Read Documentation →</a>
+        <div class="doc-section">
+            <h2>Low Level Designs (LLD)</h2>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3>Playbook Service LLD</h3>
+                    <p>Detailed implementation specifications, class structures, database schemas, and API details for the Playbook Service.</p>
+                    <a href="securaa-playbook-lld.html">Read Documentation →</a>
+                </div>
+                <div class="doc-card">
+                    <h3>Process Manager LLD</h3>
+                    <p>Detailed component, database, and API design for zona_process_manager, including class diagrams and orchestration logic.</p>
+                    <a href="process-manager-lld.html">Read Documentation →</a>
+                </div>
+                <!-- Add more LLD modules here as needed -->
             </div>
+        </div>
 
-            <div class="doc-card">
-                <h3>Securaa Playbook Service - Low Level Design</h3>
-                <p>
-                    Detailed implementation specifications including class structures, database schemas, API 
-                    specifications, and algorithm implementations for the Securaa Playbook Service.
-                </p>
-                <a href="securaa-playbook-lld.html">Read Documentation →</a>
-            </div>
-
-            <div class="doc-card">
-                <h3>Performance Optimization Guide</h3>
-                <p>
-                    Actionable optimization strategies and techniques to improve performance, scalability, and 
-                    resource utilization across Securaa Playbook Service components.
-                </p>
-                <a href="optimization-guide.html">Read Documentation →</a>
-            </div>
-
-            <div class="doc-card">
-                <h3>Securaa SIEM Service - High Level Design</h3>
-                <p>
-                    Architectural documentation for the Securaa SIEM platform, covering incident management, 
-                    analytics, dashboard systems, and external integrations.
-                </p>
-                <a href="securaa-siem-hld.html">Read Documentation →</a>
-            </div>
-
-            <div class="doc-card">
-                <h3>Securaa Platform Architecture</h3>
-                <p>
-                    High-level design documentation for the Securaa modular cybersecurity platform, including 
-                    deployment topologies, build systems, and security considerations.
-                </p>
-                <a href="securaa-hld.html">Read Documentation →</a>
-            </div>
-
-            <div class="doc-card">
-                <h3>Quick Reference</h3>
-                <p>
-                    <strong>Getting Started:</strong><br>
-                    • Start with the High Level Designs for system overview<br>
-                    • Review Low Level Design for implementation details<br>
-                    • Check Optimization Guide for performance tuning<br>
-                    • Use search functionality to find specific information
-                </p>
-                <a href="#quick-links">Quick Links ↓</a>
+        <div class="doc-section">
+            <h2>Other Documentation</h2>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3>Performance Optimization Guide</h3>
+                    <p>Optimization strategies and techniques to improve performance, scalability, and resource utilization across platform components.</p>
+                    <a href="optimization-guide.html">Read Documentation →</a>
+                </div>
             </div>
         </div>
 
@@ -119,6 +99,17 @@
                         <li><a href="securaa-playbook-hld.html#security-architecture">Security Architecture</a></li>
                         <li><a href="securaa-playbook-lld.html#database-schema">Database Schema</a></li>
                         <li><a href="securaa-playbook-lld.html#api-specifications">API Specifications</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Process Manager</h4>
+                    <ul>
+                        <li><a href="process-manager-hld.html#system-architecture-overview">System Architecture Overview</a></li>
+                        <li><a href="process-manager-hld.html#architecture-diagrams">Architecture Diagrams</a></li>
+                        <li><a href="process-manager-hld.html#component-analysis">Component Analysis</a></li>
+                        <li><a href="process-manager-lld.html#detailed-component-design">Detailed Component Design</a></li>
+                        <li><a href="process-manager-lld.html#database-design">Database Design</a></li>
+                        <li><a href="process-manager-lld.html#api-design-details">API Design Details</a></li>
                     </ul>
                 </div>
                 <div>
@@ -183,9 +174,21 @@
                         <td>System Architecture Team</td>
                     </tr>
                     <tr>
+                        <td>Process Manager HLD</td>
+                        <td>1.0</td>
+                        <td>September 18, 2025</td>
+                        <td>System Architecture Team</td>
+                    </tr>
+                    <tr>
                         <td>Securaa Playbook Service LLD</td>
                         <td>1.0</td>
                         <td>September 11, 2025</td>
+                        <td>Development Team</td>
+                    </tr>
+                    <tr>
+                        <td>Process Manager LLD</td>
+                        <td>1.0</td>
+                        <td>September 18, 2025</td>
                         <td>Development Team</td>
                     </tr>
                     <tr>

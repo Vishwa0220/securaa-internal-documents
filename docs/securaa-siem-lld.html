@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zona SIEM Service - Low Level Design - Zona Platform Documentation</title>
+    <link rel="stylesheet" href="assets/css/documentation.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1>Zona Platform Documentation</h1>
+        <p>Comprehensive documentation for Zona security platform services</p>
+    </header>
+    <nav class="documentation-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="securaa-playbook-hld.html">Zona Playbook HLD</a></li>
+            <li><a href="securaa-playbook-lld.html">Zona Playbook LLD</a></li>
+            <li><a href="optimization-guide.html">Optimization Guide</a></li>
+            <li><a href="securaa-siem-hld.html">Zona SIEM HLD</a></li>
+            <li><a href="securaa-siem-lld.html">Zona SIEM LLD</a></li>
+            <li><a href="securaa-hld.html">Securaa Platform</a></li>
+        </ul>
+    </nav>
+    <main class="main-content">
+        <h1>Zona SIEM Service - Low Level Design Document</h1>
+        <h2>Document Information</h2>
+        <ul>
+            <li><strong>Service Name</strong>: Zona SIEM Service</li>
+            <li><strong>Version</strong>: 1.0</li>
+            <li><strong>Date</strong>: September 18, 2025</li>
+            <li><strong>Author</strong>: Development Team</li>
+            <li><strong>Related Documents</strong>: <a href="ZONA_SIEM_HIGH_LEVEL_DESIGN.md">High Level Design</a></li>
+        </ul>
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#detailed-component-design">Detailed Component Design</a></li>
+            <li><a href="#database-schema">Database Schema</a></li>
+            <li><a href="#entity-relationship-diagram">Entity Relationship Diagram</a></li>
+            <li><a href="#api-specifications">API Specifications</a></li>
+        </ol>
+        <hr>
+        <h2 id="overview">1. Overview</h2>
+        <p>This Low Level Design document provides detailed implementation specifications for the Zona SIEM Service, including class structures, database schema, entity relationships, and API specifications.</p>
+        <h2 id="detailed-component-design">2. Detailed Component Design</h2>
+        <p>...Component details here...</p>
+        <h2 id="database-schema">3. Database Schema</h2>
+        <p>...Database schema details here...</p>
+        <h2 id="entity-relationship-diagram">4. Entity Relationship Diagram</h2>
+        <div class="mermaid">
+erDiagram
+    PLAYBOOK_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : executes
+    PLAYBOOK_EXECUTION_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : contains
+    PLAYBOOK_EXECUTION_COLLECTION ||--o{ STOPPED_TASKS_COLLECTION : may_have
+    INCIDENTS_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : triggers
+    TASK_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : defines
+    INTEGRATION_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : provides
+    INSTANCE_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : executes_on
+        </div>
+        <h2 id="api-specifications">5. API Specifications</h2>
+        <p>...API details here...</p>
+    </main>
+</body>
+</html>

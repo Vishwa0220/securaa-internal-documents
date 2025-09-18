@@ -3,35 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zona SIEM Service - High Level Design - Zona Platform Documentation</title>
+    <title>Securaa SIEM Service - High Level Design - Zona Platform Documentation</title>
     <link rel="stylesheet" href="assets/css/documentation.css">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
 </head>
 <body>
     <header class="main-header">
         <h1>Zona Platform Documentation</h1>
         <p>Comprehensive documentation for Zona security platform services</p>
     </header>
-    
-    
-        <nav class="documentation-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-<li><a href="securaa-playbook-hld.html">Zona Playbook HLD</a></li>
-<li><a href="securaa-playbook-lld.html">Zona Playbook LLD</a></li>
-<li><a href="optimization-guide.html">Optimization Guide</a></li>
-<li><a href="securaa-siem-hld.html">Zona SIEM HLD</a></li>
-<li><a href="securaa-hld.html">Securaa Platform</a></li>
-            </ul>
-        </nav>
-        
-    
+    <nav class="documentation-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="securaa-playbook-hld.html">Zona Playbook HLD</a></li>
+            <li><a href="securaa-playbook-lld.html">Zona Playbook LLD</a></li>
+            <li><a href="optimization-guide.html">Optimization Guide</a></li>
+            <li><a href="securaa-siem-hld.html">Zona SIEM HLD</a></li>
+            <li><a href="securaa-hld.html">Securaa Platform</a></li>
+            <li><a href="process-manager-hld.html">Process Manager HLD</a></li>
+            <li><a href="process-manager-lld.html">Process Manager LLD</a></li>
+        </ul>
+    </nav>
     <main class="main-content">
-        <h1>Zona SIEM Service - High-Level Design Document</h1>
-<h2>1. Executive Summary</h2>
-<p>The <strong>Zona SIEM (Security Information and Event Management)</strong> service is a comprehensive, multi-tenant security platform designed to collect, process, analyze, and manage security incidents and events. It provides APIs for incident management, case handling, dashboard analytics, playbook automation, and integrations with external SIEM tools.</p>
-<p>---</p>
-<h2>2. System Architecture Overview</h2>
-<div class="mermaid">
+        <h1>Securaa SIEM Service - High Level Design Document</h1>
+        <h2>Document Information</h2>
+        <ul>
+            <li><strong>Service Name</strong>: Securaa SIEM Service</li>
+            <li><strong>Version</strong>: 1.0</li>
+            <li><strong>Date</strong>: September 18, 2025</li>
+            <li><strong>Author</strong>: System Architecture Team</li>
+            <li><strong>Related Documents</strong>: ZONA_SIEM_HIGH_LEVEL_DESIGN.md</li>
+        </ul>
+        
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#executive-summary">Executive Summary</a></li>
+            <li><a href="#system-architecture">System Architecture Overview</a></li>
+            <li><a href="#component-architecture">Detailed Component Architecture</a></li>
+            <li><a href="#core-features">Core Features & Capabilities</a></li>
+            <li><a href="#database-design">Database Design</a></li>
+            <li><a href="#api-design">API Design</a></li>
+            <li><a href="#technology-stack">Technology Stack</a></li>
+            <li><a href="#security-compliance">Security & Compliance</a></li>
+            <li><a href="#performance-scalability">Performance & Scalability</a></li>
+            <li><a href="#deployment-architecture">Deployment Architecture</a></li>
+            <li><a href="#business-logic">Business Logic Flow</a></li>
+            <li><a href="#integration-points">Integration Points</a></li>
+        </ol>
+        <hr>
+        
+        <h2 id="executive-summary">1. Executive Summary</h2>
+        <p>The <strong>Securaa SIEM (Security Information and Event Management)</strong> service is a comprehensive, multi-tenant security platform designed to collect, process, analyze, and manage security incidents and events. It provides APIs for incident management, case handling, dashboard analytics, playbook automation, and integrations with external SIEM tools.</p>
+
+        <h2 id="system-architecture">2. System Architecture Overview</h2>
+        <div class="mermaid">
 graph TB
     subgraph "External Systems"
         EXT1[QRadar]
@@ -41,13 +69,11 @@ graph TB
         EXT5[ElasticSearch]
         EXT6[ServiceNow]
     end
-    
-    subgraph "Zona SIEM Service (Port 8003)"
+    subgraph "Securaa SIEM Service (Port 8003)"
         subgraph "API Layer"
             API[REST API Endpoints]
-            MW[Middleware<br/>Authentication/Authorization]
+            MW[Middleware]
         end
-        
         subgraph "Controller Layer"
             IC[Incidents Controller]
             CC[Category Controller]
@@ -57,7 +83,6 @@ graph TB
             MC[Monitoring Controller]
             WC[Widget Controller]
         end
-        
         subgraph "Service Layer"
             IS[Incident Services]
             CS[Case Services]
@@ -65,37 +90,31 @@ graph TB
             MS[Monitoring Services]
             AS[Analytics Services]
         end
-        
         subgraph "Data Layer"
             MOD[Models/DTOs]
             HELP[Helpers & Utils]
         end
     end
-    
     subgraph "Infrastructure"
         MONGO[(MongoDB)]
         INFLUX[(InfluxDB)]
         REDIS[(Redis Cache)]
         FILE[File System]
     end
-    
     subgraph "Client Applications"
         WEB[Web Dashboard]
         API_CLIENT[API Clients]
         MOBILE[Mobile Apps]
     end
-    
     EXT1 --> API
     EXT2 --> API
     EXT3 --> API
     EXT4 --> API
     EXT5 --> API
     EXT6 --> API
-    
     WEB --> API
     API_CLIENT --> API
     MOBILE --> API
-    
     API --> MW
     MW --> IC
     MW --> CC
@@ -104,7 +123,6 @@ graph TB
     MW --> PC
     MW --> MC
     MW --> WC
-    
     IC --> IS
     CC --> CS
     UC --> DS
@@ -118,22 +136,20 @@ graph TB
     DS --> MOD
     MS --> MOD
     AS --> MOD
-    
     MOD --> HELP
     HELP --> MONGO
     HELP --> INFLUX
     HELP --> REDIS
     HELP --> FILE
-</div>
-<p>---</p>
-<h2>3. Detailed Component Architecture</h2>
-<h3>3.1 Application Structure</h3>
-<div class="mermaid">
+        </div>
+
+        <h2 id="component-architecture">3. Detailed Component Architecture</h2>
+        <h3>3.1 Application Structure</h3>
+        <div class="mermaid">
 graph TD
-    subgraph "Zona SIEM Directory Structure"
+    subgraph "Securaa SIEM Directory Structure"
         APP[app.go - Main Application]
         MAIN[main.go - Entry Point]
-        
         subgraph "Controllers"
             CTRL1[IncidentsController.go]
             CTRL2[categoryController.go]
@@ -141,18 +157,16 @@ graph TD
             CTRL4[playbookController.go]
             CTRL5[monitoringController.go]
             CTRL6[widgetController.go]
-            CTRL7[+ 25 more controllers]
+            CTRL7[25+ more controllers]
         end
-        
         subgraph "Models"
             MOD1[Incidents.go]
             MOD2[CaseGroup.go]
             MOD3[category.go]
             MOD4[investigation.go]
             MOD5[Response.go]
-            MOD6[+ 15 more models]
+            MOD6[15+ more models]
         end
-        
         subgraph "Services"
             SRV1[service.go]
             SRV2[caseMirroringService.go]
@@ -165,12 +179,10 @@ graph TD
             UTIL1[mitre.go]
             UTIL2[monitoringDashboardSupport.go]
         end
-        
         subgraph "Constants"
             CONST[constants.go]
         end
     end
-    
     MAIN --> APP
     APP --> CTRL1
     APP --> CTRL2
@@ -181,9 +193,10 @@ graph TD
     MOD1 --> SRV1
     SRV1 --> HELP1
     HELP1 --> CONST
-</div>
-<h3>3.2 Data Flow Architecture</h3>
-<div class="mermaid">
+        </div>
+
+        <h3>3.2 Data Flow Architecture</h3>
+        <div class="mermaid">
 sequenceDiagram
     participant Client
     participant API
@@ -192,7 +205,6 @@ sequenceDiagram
     participant Service
     participant Model
     participant Database
-    
     Client->>API: HTTP Request
     API->>Middleware: Route to Middleware
     Middleware->>Middleware: Authentication/Authorization
@@ -209,52 +221,56 @@ sequenceDiagram
     Controller->>Controller: Format Response
     Controller-->>API: JSON Response
     API-->>Client: HTTP Response
-</div>
-<p>---</p>
-<h2>4. Core Features & Capabilities</h2>
-<h3>4.1 Incident Management</h3>
-<ul>
-<li><strong>Incident CRUD Operations</strong>: Create, Read, Update, Delete incidents</li>
-<li><strong>Incident Status Management</strong>: Open, In Progress, Closed, Escalated</li>
-<li><strong>Incident Assignment</strong>: Assign to analysts/teams</li>
-<li><strong>Incident Categorization</strong>: Security categories and severity levels</li>
-<li><strong>Incident Timeline</strong>: Track all actions and changes</li>
-<li><strong>Bulk Operations</strong>: Update/delete multiple incidents</li>
-</ul>
-<h3>4.2 Case Management</h3>
-<ul>
-<li><strong>Case Grouping</strong>: Group related incidents into cases</li>
-<li><strong>Case Mirroring</strong>: Synchronize cases across tenants</li>
-<li><strong>Case Workflow</strong>: Define case lifecycle and approval processes</li>
-<li><strong>Case Analytics</strong>: Generate insights from case data</li>
-<li><strong>Case Export</strong>: Download case data in various formats</li>
-</ul>
-<h3>4.3 Dashboard & Analytics</h3>
-<ul>
-<li><strong>Real-time Dashboards</strong>: Live security metrics and KPIs</li>
-<li><strong>Custom Widgets</strong>: Configurable dashboard components</li>
-<li><strong>Trend Analysis</strong>: Historical data analysis and forecasting</li>
-<li><strong>Geographic Analysis</strong>: Location-based threat visualization</li>
-<li><strong>MITRE ATT&CK Mapping</strong>: Threat technique classification</li>
-</ul>
-<h3>4.4 Integration & Data Sources</h3>
-<ul>
-<li><strong>SIEM Tool Integration</strong>: QRadar, Splunk, Azure Sentinel, etc.</li>
-<li><strong>Ticketing System Integration</strong>: ServiceNow, Jira</li>
-<li><strong>Threat Intelligence</strong>: External threat feed integration</li>
-<li><strong>API Gateway</strong>: RESTful APIs for third-party integrations</li>
-</ul>
-<h3>4.5 Multi-Tenant Architecture</h3>
-<ul>
-<li><strong>Tenant Isolation</strong>: Complete data separation between tenants</li>
-<li><strong>Tenant-specific Configuration</strong>: Custom settings per tenant</li>
-<li><strong>Cross-tenant Analytics</strong>: Master tenant view capabilities</li>
-<li><strong>Tenant Onboarding</strong>: Automated tenant setup and configuration</li>
-</ul>
-<p>---</p>
-<h2>5. Database Design</h2>
-<h3>5.1 Core Collections/Tables</h3>
-<div class="mermaid">
+        </div>
+
+        <h2 id="core-features">4. Core Features & Capabilities</h2>
+        <h3>4.1 Incident Management</h3>
+        <ul>
+            <li><strong>Incident CRUD Operations</strong>: Create, Read, Update, Delete incidents</li>
+            <li><strong>Incident Status Management</strong>: Open, In Progress, Closed, Escalated</li>
+            <li><strong>Incident Assignment</strong>: Assign to analysts/teams</li>
+            <li><strong>Incident Categorization</strong>: Security categories and severity levels</li>
+            <li><strong>Incident Timeline</strong>: Track all actions and changes</li>
+            <li><strong>Bulk Operations</strong>: Update/delete multiple incidents</li>
+        </ul>
+
+        <h3>4.2 Case Management</h3>
+        <ul>
+            <li><strong>Case Grouping</strong>: Group related incidents into cases</li>
+            <li><strong>Case Mirroring</strong>: Synchronize cases across tenants</li>
+            <li><strong>Case Workflow</strong>: Define case lifecycle and approval processes</li>
+            <li><strong>Case Analytics</strong>: Generate insights from case data</li>
+            <li><strong>Case Export</strong>: Download case data in various formats</li>
+        </ul>
+
+        <h3>4.3 Dashboard & Analytics</h3>
+        <ul>
+            <li><strong>Real-time Dashboards</strong>: Live security metrics and KPIs</li>
+            <li><strong>Custom Widgets</strong>: Configurable dashboard components</li>
+            <li><strong>Trend Analysis</strong>: Historical data analysis and forecasting</li>
+            <li><strong>Geographic Analysis</strong>: Location-based threat visualization</li>
+            <li><strong>MITRE ATT&CK Mapping</strong>: Threat technique classification</li>
+        </ul>
+
+        <h3>4.4 Integration & Data Sources</h3>
+        <ul>
+            <li><strong>SIEM Tool Integration</strong>: QRadar, Splunk, Azure Sentinel, etc.</li>
+            <li><strong>Ticketing System Integration</strong>: ServiceNow, Jira</li>
+            <li><strong>Threat Intelligence</strong>: External threat feed integration</li>
+            <li><strong>API Gateway</strong>: RESTful APIs for third-party integrations</li>
+        </ul>
+
+        <h3>4.5 Multi-Tenant Architecture</h3>
+        <ul>
+            <li><strong>Tenant Isolation</strong>: Complete data separation between tenants</li>
+            <li><strong>Tenant-specific Configuration</strong>: Custom settings per tenant</li>
+            <li><strong>Cross-tenant Analytics</strong>: Master tenant view capabilities</li>
+            <li><strong>Tenant Onboarding</strong>: Automated tenant setup and configuration</li>
+        </ul>
+
+        <h2 id="database-design">5. Database Design</h2>
+        <h3>5.1 Core Collections/Tables</h3>
+        <div class="mermaid">
 erDiagram
     INCIDENTS ||--o{ INVESTIGATIONS : has
     INCIDENTS ||--o{ TIMELINE : contains
@@ -273,19 +289,19 @@ erDiagram
     PLAYBOOKS }o--|| INCIDENTS : executed_on
     
     INCIDENTS {
-        string zona_z_incident_id PK
+        string securaa_s_incident_id PK
         string description
-        string zona_z_status
-        string zona_z_severity
-        int zona_z_assigned_to FK
-        int zona_z_category_id FK
-        timestamp zona_z_createdts
-        timestamp zona_z_updatedts
-        array zona_z_source_ips
-        array zona_z_destination_ips
-        object zona_z_timeline
-        string zona_z_source
-        bool zona_z_is_confirmed
+        string securaa_s_status
+        string securaa_s_severity
+        int securaa_s_assigned_to FK
+        int securaa_s_category_id FK
+        timestamp securaa_s_createdts
+        timestamp securaa_s_updatedts
+        array securaa_s_source_ips
+        array securaa_s_destination_ips
+        object securaa_s_timeline
+        string securaa_s_source
+        bool securaa_s_is_confirmed
     }
     
     CASES {
@@ -327,45 +343,18 @@ erDiagram
         object configuration
         timestamp created_date
     }
-</div>
-<h3>5.2 Key Data Models</h3>
-<h4>ZonaOffenses (Main Incident Model)</h4>
-<pre><code class="language-go">type ZonaOffenses struct {
-<p>    ZonaZIncidentID           int                <code>json:"zona_z_incident_id"</code></p>
-<p>    ZonaDescription           string             <code>json:"description"</code></p>
-<p>    ZonaZStatus              string             <code>json:"zona_z_status"</code></p>
-<p>    ZonaZSeverity            string             <code>json:"zona_z_severity"</code></p>
-<p>    ZonaZAssignedTo          int                <code>json:"zona_z_assigned_to"</code></p>
-<p>    ZonaZCategoryID          int                <code>json:"zona_z_category_id"</code></p>
-<p>    ZonaZTimeline            []IncidentTimeLine <code>json:"zona_z_timeline"</code></p>
-<p>    ZonaZSourceIPs           []string           <code>json:"zona_z_source_ips"</code></p>
-<p>    ZonaZDestinationIPs      []string           <code>json:"zona_z_destination_ips"</code></p>
-<p>    ZonaZCreatedts           int64              <code>json:"zona_z_createdts"</code></p>
-<p>    ZonaZUpdatedts           int64              <code>json:"zona_z_updatedts"</code></p>
-<p>    // ... additional fields</p>
-<p>}</code></pre></p>
-<h4>CaseGrouping Model</h4>
-<pre><code class="language-go">type CaseGrouping struct {
-<p>    CaseID          string    <code>json:"case_id"</code></p>
-<p>    CaseName        string    <code>json:"case_name"</code></p>
-<p>    CaseStatus      string    <code>json:"case_status"</code></p>
-<p>    CasePriority    string    <code>json:"case_priority"</code></p>
-<p>    IncidentIDs     []string  <code>json:"incident_ids"</code></p>
-<p>    AssignedAnalyst int       <code>json:"assigned_analyst"</code></p>
-<p>    TenantCode      string    <code>json:"tenant_code"</code></p>
-<p>    CreatedDate     time.Time <code>json:"created_date"</code></p>
-<p>}</code></pre></p>
-<p>---</p>
-<h2>6. API Design</h2>
-<h3>6.1 Core API Categories</h3>
-<div class="mermaid">
+        </div>
+
+        <h2 id="api-design">6. API Design</h2>
+        <h3>6.1 Core API Categories</h3>
+        <div class="mermaid">
 graph LR
-    subgraph "Zona SIEM APIs"
+    subgraph "Securaa SIEM APIs"
         subgraph "Incident APIs"
-            I1[GET /zonaincidentslist]
-            I2[GET /zonaincident/{id}]
-            I3[POST /zonaincident]
-            I4[PUT /zonaincident]
+            I1[GET /securaaincidentslist]
+            I2[GET /securaaincident/{id}]
+            I3[POST /securaaincident]
+            I4[PUT /securaaincident]
             I5[DELETE /deletemultipleincidents]
         end
         
@@ -397,9 +386,10 @@ graph LR
             CF4[GET /sla]
         end
     end
-</div>
-<h3>6.2 Authentication & Authorization Flow</h3>
-<div class="mermaid">
+        </div>
+
+        <h3>6.2 Authentication & Authorization Flow</h3>
+        <div class="mermaid">
 sequenceDiagram
     participant Client
     participant Middleware
@@ -417,81 +407,78 @@ sequenceDiagram
     AuthService-->>Middleware: Authorization Result
     Middleware->>Middleware: Route to Controller
     Note over Middleware: If auth fails, return 401/403
-</div>
-<p>---</p>
-<h2>7. Technology Stack</h2>
-<h3>7.1 Core Technologies</h3>
-<ul>
-<li><strong>Programming Language</strong>: Go (Golang) 1.17+</li>
-<li><strong>Web Framework</strong>: Gorilla Mux (HTTP routing)</li>
-<li><strong>Database</strong>: MongoDB (Primary), InfluxDB (Metrics)</li>
-<li><strong>Caching</strong>: Redis</li>
-<li><strong>Containerization</strong>: Docker</li>
-<li><strong>Build System</strong>: Makefile</li>
-</ul>
-<h3>7.2 External Dependencies</h3>
-<ul>
-<li><strong>SIEM Integrations</strong>: QRadar, Azure Sentinel, Securonix, BluSapphire</li>
-<li><strong>Ticketing Systems</strong>: ServiceNow integration</li>
-<li><strong>File Processing</strong>: Excel/CSV export capabilities</li>
-<li><strong>Monitoring</strong>: InfluxDB for system metrics</li>
-<li><strong>Security</strong>: JWT token-based authentication</li>
-</ul>
-<h3>7.3 Libraries & Frameworks</h3>
-<pre><code class="language-go">// Key Go modules
-<p>go.mongodb.org/mongo-driver    // MongoDB driver</p>
-<p>github.com/gorilla/mux         // HTTP router</p>
-<p>github.com/influxdata/influxdb-client-go/v2  // InfluxDB client</p>
-<p>github.com/Luxurioust/excelize  // Excel processing</code></pre></p>
-<p>---</p>
-<h2>8. Security & Compliance</h2>
-<h3>8.1 Security Features</h3>
-<ul>
-<li><strong>Multi-factor Authentication</strong>: Token-based auth with session management</li>
-<li><strong>Role-based Access Control</strong>: Granular permissions per tenant</li>
-<li><strong>Data Encryption</strong>: At-rest and in-transit encryption</li>
-<li><strong>Audit Logging</strong>: Complete audit trail for all operations</li>
-<li><strong>Input Validation</strong>: Comprehensive input sanitization</li>
-<li><strong>Session Management</strong>: Secure session handling with timeouts</li>
-</ul>
-<h3>8.2 Compliance Standards</h3>
-<ul>
-<li><strong>SOC 2</strong>: Security controls and monitoring</li>
-<li><strong>ISO 27001</strong>: Information security management</li>
-<li><strong>GDPR</strong>: Data privacy and protection</li>
-<li><strong>NIST Cybersecurity Framework</strong>: Security standards alignment</li>
-</ul>
-<p>---</p>
-<h2>9. Performance & Scalability</h2>
-<h3>9.1 Performance Characteristics</h3>
-<ul>
-<li><strong>Horizontal Scaling</strong>: Multi-tenant architecture supports scaling</li>
-<li><strong>Database Optimization</strong>: Indexed queries and aggregation pipelines</li>
-<li><strong>Caching Strategy</strong>: Redis caching for frequently accessed data</li>
-<li><strong>Connection Pooling</strong>: Efficient database connection management</li>
-<li><strong>Background Processing</strong>: Asynchronous task processing</li>
-</ul>
-<h3>9.2 Monitoring & Metrics</h3>
-<ul>
-<li><strong>System Metrics</strong>: CPU, Memory, Disk usage via InfluxDB</li>
-<li><strong>Application Metrics</strong>: API response times, error rates</li>
-<li><strong>Business Metrics</strong>: Incident volumes, case resolution times</li>
-<li><strong>Health Checks</strong>: Service availability monitoring</li>
-</ul>
-<p>---</p>
-<h2>10. Deployment Architecture</h2>
-<h3>10.1 Multi-Tenant Deployment Model</h3>
-<div class="mermaid">
+        </div>
+
+        <h2 id="technology-stack">7. Technology Stack</h2>
+        <h3>7.1 Core Technologies</h3>
+        <ul>
+            <li><strong>Programming Language</strong>: Go (Golang) 1.17+</li>
+            <li><strong>Web Framework</strong>: Gorilla Mux (HTTP routing)</li>
+            <li><strong>Database</strong>: MongoDB (Primary), InfluxDB (Metrics)</li>
+            <li><strong>Caching</strong>: Redis</li>
+            <li><strong>Containerization</strong>: Docker</li>
+            <li><strong>Build System</strong>: Makefile</li>
+        </ul>
+
+        <h3>7.2 External Dependencies</h3>
+        <ul>
+            <li><strong>SIEM Integrations</strong>: QRadar, Azure Sentinel, Securonix, BluSapphire</li>
+            <li><strong>Ticketing Systems</strong>: ServiceNow integration</li>
+            <li><strong>File Processing</strong>: Excel/CSV export capabilities</li>
+            <li><strong>Monitoring</strong>: InfluxDB for system metrics</li>
+            <li><strong>Security</strong>: JWT token-based authentication</li>
+        </ul>
+
+        <h2 id="security-compliance">8. Security & Compliance</h2>
+        <h3>8.1 Security Features</h3>
+        <ul>
+            <li><strong>Multi-factor Authentication</strong>: Token-based auth with session management</li>
+            <li><strong>Role-based Access Control</strong>: Granular permissions per tenant</li>
+            <li><strong>Data Encryption</strong>: At-rest and in-transit encryption</li>
+            <li><strong>Audit Logging</strong>: Complete audit trail for all operations</li>
+            <li><strong>Input Validation</strong>: Comprehensive input sanitization</li>
+            <li><strong>Session Management</strong>: Secure session handling with timeouts</li>
+        </ul>
+
+        <h3>8.2 Compliance Standards</h3>
+        <ul>
+            <li><strong>SOC 2</strong>: Security controls and monitoring</li>
+            <li><strong>ISO 27001</strong>: Information security management</li>
+            <li><strong>GDPR</strong>: Data privacy and protection</li>
+            <li><strong>NIST Cybersecurity Framework</strong>: Security standards alignment</li>
+        </ul>
+
+        <h2 id="performance-scalability">9. Performance & Scalability</h2>
+        <h3>9.1 Performance Characteristics</h3>
+        <ul>
+            <li><strong>Horizontal Scaling</strong>: Multi-tenant architecture supports scaling</li>
+            <li><strong>Database Optimization</strong>: Indexed queries and aggregation pipelines</li>
+            <li><strong>Caching Strategy</strong>: Redis caching for frequently accessed data</li>
+            <li><strong>Connection Pooling</strong>: Efficient database connection management</li>
+            <li><strong>Background Processing</strong>: Asynchronous task processing</li>
+        </ul>
+
+        <h3>9.2 Monitoring & Metrics</h3>
+        <ul>
+            <li><strong>System Metrics</strong>: CPU, Memory, Disk usage via InfluxDB</li>
+            <li><strong>Application Metrics</strong>: API response times, error rates</li>
+            <li><strong>Business Metrics</strong>: Incident volumes, case resolution times</li>
+            <li><strong>Health Checks</strong>: Service availability monitoring</li>
+        </ul>
+
+        <h2 id="deployment-architecture">10. Deployment Architecture</h2>
+        <h3>10.1 Multi-Tenant Deployment Model</h3>
+        <div class="mermaid">
 graph TB
     subgraph "Production Environment"
         subgraph "Load Balancer"
             LB[Application Load Balancer]
         end
         
-        subgraph "Zona SIEM Cluster"
-            APP1[Zona SIEM Instance 1]
-            APP2[Zona SIEM Instance 2]
-            APP3[Zona SIEM Instance N]
+        subgraph "Securaa SIEM Cluster"
+            APP1[Securaa SIEM Instance 1]
+            APP2[Securaa SIEM Instance 2]
+            APP3[Securaa SIEM Instance N]
         end
         
         subgraph "Database Cluster"
@@ -529,18 +516,19 @@ graph TB
     APP1 --> SIEM_TOOLS
     APP1 --> TICKETING
     APP1 --> THREAT_INTEL
-</div>
-<h3>10.2 Configuration Management</h3>
-<ul>
-<li><strong>Environment-specific Configs</strong>: Development, staging, production</li>
-<li><strong>Tenant-specific Settings</strong>: Per-tenant customization</li>
-<li><strong>Feature Flags</strong>: Dynamic feature enablement</li>
-<li><strong>Secret Management</strong>: Secure credential storage</li>
-</ul>
-<p>---</p>
-<h2>11. Business Logic Flow</h2>
-<h3>11.1 Incident Processing Workflow</h3>
-<div class="mermaid">
+        </div>
+
+        <h3>10.2 Configuration Management</h3>
+        <ul>
+            <li><strong>Environment-specific Configs</strong>: Development, staging, production</li>
+            <li><strong>Tenant-specific Settings</strong>: Per-tenant customization</li>
+            <li><strong>Feature Flags</strong>: Dynamic feature enablement</li>
+            <li><strong>Secret Management</strong>: Secure credential storage</li>
+        </ul>
+
+        <h2 id="business-logic">11. Business Logic Flow</h2>
+        <h3>11.1 Incident Processing Workflow</h3>
+        <div class="mermaid">
 flowchart TD
     START([Incident Created]) --> VALIDATE{Validate Input}
     VALIDATE -->|Valid| ENRICH[Enrich with Metadata]
@@ -569,11 +557,12 @@ flowchart TD
     EXECUTE_PB --> MONITOR
     MONITOR --> END([Incident in System])
     REJECT --> END
-</div>
-<h3>11.2 Case Management Workflow</h3>
-<div class="mermaid">
+        </div>
+
+        <h3>11.2 Case Management Workflow</h3>
+        <div class="mermaid">
 stateDiagram-v2
-    [<em>] --> New
+    [*] --> New
     New --> Assigned : Analyst Assignment
     New --> InProgress : Start Investigation
     
@@ -593,23 +582,59 @@ stateDiagram-v2
     Resolved --> Closed : Confirm Resolution
     Resolved --> InProgress : Reopen
     
-    Closed --> [</em>]
+    Closed --> [*]
     Closed --> InProgress : Reopen Case
-</div>
-<p>---</p>
-<h2>12. Integration Points</h2>
-<h3>12.1 SIEM Tool Integrations</h3>
-<p>| SIEM Tool | Integration Type | Data Flow | Authentication |</p>
-<p>|-----------|------------------|-----------|----------------|</p>
-<p>| QRadar | REST API | Bi-directional | API Key/OAuth |</p>
-<p>| Azure Sentinel | REST API | Pull/Push | Service Principal |</p>
-<p>| Securonix | REST API | Pull | API Token |</p>
-<p>| BluSapphire | REST API | Pull | API Key |</p>
-<p>| ElasticSearch | REST API | Pull/Push | Basic Auth |</p>
-<h3>12.2 External System APIs</h3>
-<div class="mermaid">
+        </div>
+
+        <h2 id="integration-points">12. Integration Points</h2>
+        <h3>12.1 SIEM Tool Integrations</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>SIEM Tool</th>
+                    <th>Integration Type</th>
+                    <th>Data Flow</th>
+                    <th>Authentication</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>QRadar</td>
+                    <td>REST API</td>
+                    <td>Bi-directional</td>
+                    <td>API Key/OAuth</td>
+                </tr>
+                <tr>
+                    <td>Azure Sentinel</td>
+                    <td>REST API</td>
+                    <td>Pull/Push</td>
+                    <td>Service Principal</td>
+                </tr>
+                <tr>
+                    <td>Securonix</td>
+                    <td>REST API</td>
+                    <td>Pull</td>
+                    <td>API Token</td>
+                </tr>
+                <tr>
+                    <td>BluSapphire</td>
+                    <td>REST API</td>
+                    <td>Pull</td>
+                    <td>API Key</td>
+                </tr>
+                <tr>
+                    <td>ElasticSearch</td>
+                    <td>REST API</td>
+                    <td>Pull/Push</td>
+                    <td>Basic Auth</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>12.2 External System APIs</h3>
+        <div class="mermaid">
 graph LR
-    subgraph "Zona SIEM"
+    subgraph "Securaa SIEM"
         CORE[Core Service]
     end
     
@@ -636,69 +661,14 @@ graph LR
     CORE <--> JIRA
     CORE --> TI1
     CORE --> TI2
-</div>
-<p>---</p>
-<h2>13. Error Handling & Resilience</h2>
-<h3>13.1 Error Handling Strategy</h3>
-<ul>
-<li><strong>Graceful Degradation</strong>: Service continues with reduced functionality</li>
-<li><strong>Circuit Breaker Pattern</strong>: Prevent cascade failures</li>
-<li><strong>Retry Mechanisms</strong>: Configurable retry policies</li>
-<li><strong>Dead Letter Queues</strong>: Handle failed message processing</li>
-<li><strong>Comprehensive Logging</strong>: Structured logging for debugging</li>
-</ul>
-<h3>13.2 Disaster Recovery</h3>
-<ul>
-<li><strong>Database Backups</strong>: Regular automated backups</li>
-<li><strong>Multi-region Deployment</strong>: Geographic redundancy</li>
-<li><strong>Health Monitoring</strong>: Proactive health checks</li>
-<li><strong>Failover Procedures</strong>: Automated failover capabilities</li>
-</ul>
-<p>---</p>
-<h2>14. Future Roadmap</h2>
-<h3>14.1 Planned Enhancements</h3>
-<ul>
-<li><strong>Machine Learning Integration</strong>: AI-powered threat detection</li>
-<li><strong>Advanced Analytics</strong>: Predictive analytics capabilities</li>
-<li><strong>Mobile Applications</strong>: Native mobile app development</li>
-<li><strong>API Gateway</strong>: Centralized API management</li>
-<li><strong>Microservices Migration</strong>: Break down into smaller services</li>
-</ul>
-<h3>14.2 Technology Upgrades</h3>
-<ul>
-<li><strong>Go Version</strong>: Upgrade to latest Go versions</li>
-<li><strong>Database Optimization</strong>: Performance improvements</li>
-<li><strong>Container Orchestration</strong>: Kubernetes deployment</li>
-<li><strong>Cloud Native</strong>: Cloud-first architecture</li>
-<li><strong>Real-time Processing</strong>: Stream processing capabilities</li>
-</ul>
-<p>---</p>
-<h2>15. Conclusion</h2>
-<p>The Zona SIEM service represents a comprehensive, enterprise-grade security information and event management platform. Its multi-tenant architecture, extensive integration capabilities, and robust feature set make it suitable for organizations of all sizes looking to enhance their security operations.</p>
-<p>The modular design allows for easy maintenance and extension, while the Go-based implementation ensures high performance and scalability. The extensive API surface area provides flexibility for integration with existing security tools and workflows.</p>
-<p>This high-level design serves as a blueprint for understanding the system architecture, data flows, and key components that make up the Zona SIEM service.</p>
+        </div>
 
+        <h2>Summary</h2>
+        <p>The Securaa SIEM service represents a comprehensive, enterprise-grade security information and event management platform. Its multi-tenant architecture, extensive integration capabilities, and robust feature set make it suitable for organizations of all sizes looking to enhance their security operations.</p>
+        
+        <p>The modular design allows for easy maintenance and extension, while the Go-based implementation ensures high performance and scalability. The extensive API surface area provides flexibility for integration with existing security tools and workflows.</p>
+        
+        <p>This high-level design serves as a blueprint for understanding the system architecture, data flows, and key components that make up the Securaa SIEM service.</p>
     </main>
-    
-    <footer class="main-footer">
-        <p>&copy; 2025 Securaa Platform. All rights reserved.</p>
-    </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({ 
-            startOnLoad: true,
-            theme: 'default',
-            themeVariables: {
-                primaryColor: '#1976d2',
-                primaryTextColor: '#000000',
-                primaryBorderColor: '#0d47a1',
-                lineColor: '#1976d2',
-                secondaryColor: '#f5f5f5',
-                tertiaryColor: '#ffffff'
-            }
-        });
-    </script>
-    <script src="assets/js/documentation.js"></script>
 </body>
 </html>

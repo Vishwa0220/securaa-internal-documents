@@ -6,7 +6,9 @@ This folder contains the comprehensive HTML documentation for the Securaa Platfo
 
 - `index.html` - Main documentation portal and entry point
 - `securaa-playbook-hld.html` - Securaa Playbook Service High-Level Design
-- `securaa-playbook-lld.html` - Securaa Playbook Service Low-Level Design  
+- `securaa-playbook-lld.html` - Securaa Playbook Service Low-Level Design
+- `process-manager-hld.html` - Process Manager High-Level Design
+- `process-manager-lld.html` - Process Manager Low-Level Design
 - `optimization-guide.html` - Performance Optimization Guide
 - `securaa-siem-hld.html` - Securaa SIEM Service High-Level Design
 - `securaa-hld.html` - Securaa Platform High-Level Design
@@ -51,12 +53,15 @@ The documentation is organized into logical sections:
 1. **Securaa Playbook Service** - Core SOAR functionality
    - High-Level Design (Architecture, APIs, Security)
    - Low-Level Design (Implementation details, Database schema)
-   - Optimization Guide (Performance tuning)
 
-2. **Securaa SIEM Service** - Security information and event management
+2. **Process Manager** - Microservices orchestration and lifecycle management
+   - High-Level Design (System architecture, orchestration, integrations)
+   - Low-Level Design (Component/class diagrams, database, API design)
+
+3. **Securaa SIEM Service** - Security information and event management
    - High-Level Design (System architecture, Integrations)
 
-3. **Securaa Platform** - Infrastructure and deployment
+4. **Securaa Platform** - Infrastructure and deployment
    - High-Level Design (Deployment topologies, Build system)
 
 ### Cross-References

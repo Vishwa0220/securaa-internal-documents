@@ -1,11 +1,11 @@
-# High-Level Design (HLD) – zona_process_manager
+# High-Level Design (High Level Design) – zona_process_manager
 
 ---
 
 ## 1. System Architecture Overview
 
 ### Purpose & Objectives
-- **zona_process_manager** orchestrates and manages the lifecycle of microservices and integrations in the Zona platform.
+- **zona_process_manager** orchestrates and manages the lifecycle of microservices and integrations in the Securaa platform.
 - Automates deployment, scaling, and health management of services using Docker and MongoDB.
 - Dynamically configures integrations for multi-tenant environments.
 

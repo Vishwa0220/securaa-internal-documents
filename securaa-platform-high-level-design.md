@@ -1,4 +1,4 @@
-# Securaa High-Level Design (HLD)
+# Securaa High-Level Design (High Level Design)
 
 ## 1. Overview
 Securaa is a modular cybersecurity platform designed for scalable, secure, and automated deployment across cloud and on-premise environments. The system is composed of multiple services, packaged for both Docker-based development and production-grade RPM/DEB installations.

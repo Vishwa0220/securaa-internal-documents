@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zona User Service - High Level Design - Zona Platform Documentation</title>
+    <title>Securaa User Service - High Level Design - Securaa Platform Documentation</title>
     <link rel="stylesheet" href="assets/css/documentation.css">
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -12,28 +12,28 @@
 </head>
 <body>
     <header class="main-header">
-        <h1>Zona Platform Documentation</h1>
-        <p>Comprehensive documentation for Zona security platform services</p>
+        <h1>Securaa Platform Documentation</h1>
+        <p>Comprehensive documentation for Securaa security platform services</p>
     </header>
     <nav class="documentation-nav">
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-playbook-hld.html">Zona Playbook HLD</a></li>
-            <li><a href="securaa-playbook-lld.html">Zona Playbook LLD</a></li>
+            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
+            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
             <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-hld.html">Zona SIEM HLD</a></li>
-            <li><a href="securaa-hld.html">Securaa Platform</a></li>
-            <li><a href="process-manager-hld.html">Process Manager HLD</a></li>
-            <li><a href="process-manager-lld.html">Process Manager LLD</a></li>
-            <li><a href="zona-user-hld.html">Zona User HLD</a></li>
-            <li><a href="zona-user-lld.html">Zona User LLD</a></li>
+            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
+            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
+            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
+            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
+            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
+            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
         </ul>
     </nav>
     <main class="main-content">
-        <h1>Zona User Service - High Level Design Document</h1>
+        <h1>Securaa User Service - High Level Design Document</h1>
         <h2>Document Information</h2>
         <ul>
-            <li><strong>Service Name</strong>: Zona User Service</li>
+            <li><strong>Service Name</strong>: Securaa User Service</li>
             <li><strong>Version</strong>: 1.0</li>
             <li><strong>Date</strong>: September 18, 2025</li>
             <li><strong>Author</strong>: System Architecture Team</li>
@@ -58,7 +58,7 @@
         <h2 id="executive-overview">🎯 Executive Overview</h2>
         
         <h3>⚠️ Critical Service Classification</h3>
-        <p>The Zona User Service is a <strong>mission-critical component</strong> that serves as the foundation of the entire Securaa security platform ecosystem. This service is the central nervous system for security operations, handling all aspects of user identity, access control, and tenant management across the platform.</p>
+        <p>The Securaa User Service is a <strong>mission-critical component</strong> that serves as the foundation of the entire Securaa security platform ecosystem. This service is the central nervous system for security operations, handling all aspects of user identity, access control, and tenant management across the platform.</p>
 
         <h4>Critical Impact Areas:</h4>
         <ul>
@@ -92,7 +92,7 @@
         <h2 id="system-architecture">🏗️ System Architecture Overview</h2>
         
         <h3>High-Level System Architecture</h3>
-        <p>The Zona User Service follows a <strong>microservice architecture</strong> deployed on traditional servers or cloud infrastructure without container orchestration. The system is designed for high availability through load balancing and database replication.</p>
+        <p>The Securaa User Service follows a <strong>microservice architecture</strong> deployed on traditional servers or cloud infrastructure without container orchestration. The system is designed for high availability through load balancing and database replication.</p>
 
         <div class="mermaid">
 graph TB
@@ -108,7 +108,7 @@ graph TB
         WAF[Web Application Firewall<br/>Security Gateway]
     end
     
-    subgraph "Zona User Service Cluster"
+    subgraph "Securaa User Service Cluster"
         SVC1[Service Instance 1<br/>Primary Node]
         SVC2[Service Instance 2<br/>Secondary Node]  
         SVC3[Service Instance 3<br/>Worker Node]
@@ -170,7 +170,7 @@ graph TB
         </ul>
 
         <h3>Enterprise Security Architecture</h3>
-        <p>The security architecture implements a <strong>defense-in-depth approach</strong> with multiple security layers protecting the Zona User Service. Each layer provides specific security controls and works together to create a comprehensive security posture.</p>
+        <p>The security architecture implements a <strong>defense-in-depth approach</strong> with multiple security layers protecting the Securaa User Service. Each layer provides specific security controls and works together to create a comprehensive security posture.</p>
 
         <div class="mermaid">
 graph TB
@@ -260,7 +260,7 @@ graph TB
         
         <div class="mermaid">
 mindmap
-  root((Zona User Service<br/>IAM Platform))
+  root((Securaa User Service<br/>IAM Platform))
     Authentication
       Multi-Factor Auth
         TOTP Tokens
@@ -640,11 +640,11 @@ graph TB
         </ul>
 
         <h2>Summary</h2>
-        <p>The Zona User Service represents a comprehensive, enterprise-grade identity and access management platform. Its robust architecture, extensive security features, and scalable design make it suitable for organizations of all sizes looking to enhance their security operations and compliance posture.</p>
+        <p>The Securaa User Service represents a comprehensive, enterprise-grade identity and access management platform. Its robust architecture, extensive security features, and scalable design make it suitable for organizations of all sizes looking to enhance their security operations and compliance posture.</p>
         
         <p>The service's multi-tenant architecture, comprehensive authentication options, and real-time monitoring capabilities provide a solid foundation for building secure, scalable security platforms. The extensive API surface area and integration capabilities ensure flexibility for various use cases and integration requirements.</p>
         
-        <p>This high-level design serves as a blueprint for understanding the system architecture, business capabilities, and key components that make up the Zona User Service.</p>
+        <p>This high-level design serves as a blueprint for understanding the system architecture, business capabilities, and key components that make up the Securaa User Service.</p>
     </main>
 </body>
 </html>

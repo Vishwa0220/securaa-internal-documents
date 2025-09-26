@@ -1,9 +1,9 @@
-# Zona User Service - High Level Design (HLD)
+# Securaa User Service - High Level Design
 
 ## 🎯 **EXECUTIVE OVERVIEW**
 
 ### ⚠️ **CRITICAL SERVICE CLASSIFICATION**
-The Zona User Service is a **mission-critical component** that serves as the foundation of the entire Securaa security platform ecosystem. This service is the central nervous system for security operations, handling all aspects of user identity, access control, and tenant management across the platform.
+The Securaa User Service is a **mission-critical component** that serves as the foundation of the entire Securaa security platform ecosystem. This service is the central nervous system for security operations, handling all aspects of user identity, access control, and tenant management across the platform.
 
 **Critical Impact Areas:**
 - **Security Posture**: Controls access to all security operations and sensitive data
@@ -32,7 +32,7 @@ The Zona User Service is a **mission-critical component** that serves as the fou
 
 ### **High-Level System Architecture**
 
-The Zona User Service follows a **microservice architecture** deployed on traditional servers or cloud infrastructure without container orchestration. The system is designed for high availability through load balancing and database replication.
+The Securaa User Service follows a **microservice architecture** deployed on traditional servers or cloud infrastructure without container orchestration. The system is designed for high availability through load balancing and database replication.
 
 ```mermaid
 graph TB
@@ -48,7 +48,7 @@ graph TB
         WAF[Web Application Firewall<br/>Security Gateway]
     end
     
-    subgraph "Zona User Service Cluster"
+    subgraph "Securaa User Service Cluster"
         SVC1[Service Instance 1<br/>Primary Node]
         SVC2[Service Instance 2<br/>Secondary Node]  
         SVC3[Service Instance 3<br/>Worker Node]
@@ -115,7 +115,7 @@ This architecture represents a traditional three-tier application deployed acros
 
 ### **Enterprise Security Architecture**
 
-The security architecture implements a **defense-in-depth approach** with multiple security layers protecting the Zona User Service. Each layer provides specific security controls and works together to create a comprehensive security posture.
+The security architecture implements a **defense-in-depth approach** with multiple security layers protecting the Securaa User Service. Each layer provides specific security controls and works together to create a comprehensive security posture.
 
 ```mermaid
 graph TB
@@ -196,7 +196,7 @@ graph TB
 
 ```mermaid
 mindmap
-  root((Zona User Service<br/>IAM Platform))
+  root((Securaa User Service<br/>IAM Platform))
     Authentication
       Multi-Factor Auth
         TOTP Authentication
@@ -334,7 +334,7 @@ graph TB
 sequenceDiagram
     participant U as User/Client
     participant LB as Load Balancer
-    participant ZUS as Zona User Service
+    participant ZUS as Securaa User Service
     participant AUTH as Auth Provider
     participant MFA as MFA Service
     participant DB as MongoDB
@@ -569,7 +569,7 @@ gitgraph
 
 ### **Horizontal Scaling Approach**
 
-The Zona User Service is designed for horizontal scaling using traditional load balancing and database replication techniques. This approach provides high availability and performance without requiring complex orchestration platforms.
+The Securaa User Service is designed for horizontal scaling using traditional load balancing and database replication techniques. This approach provides high availability and performance without requiring complex orchestration platforms.
 
 **Scaling Architecture:**
 
@@ -681,7 +681,7 @@ graph TB
 
 ### **External System Integration Strategy**
 
-The Zona User Service integrates with various external systems to provide comprehensive identity management and security operations. These integrations are designed for reliability, security, and maintainability.
+The Securaa User Service integrates with various external systems to provide comprehensive identity management and security operations. These integrations are designed for reliability, security, and maintainability.
 
 **Integration Categories:**
 
@@ -708,7 +708,7 @@ Integration with security infrastructure enhances the overall security posture:
 
 ```mermaid
 graph TB
-    subgraph "Zona User Service"
+    subgraph "Securaa User Service"
         CORE[Authentication & Authorization Core]
     end
     

@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initScrollToTop();
     initCodeCopyButtons();
-    initTableOfContents();
+    // initTableOfContents(); // Disabled as requested - using segmented menu instead
     initSearch();
 });
 

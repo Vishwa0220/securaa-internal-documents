@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zona Custom Services - High Level Design - Zona Platform Documentation</title>
+    <link rel="stylesheet" href="assets/css/documentation.css">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <h1>Zona Platform Documentation</h1>
+        <p>Comprehensive documentation for Zona security platform services</p>
+    </header>
+    <nav class="documentation-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="securaa-playbook-hld.html">Zona Playbook HLD</a></li>
+            <li><a href="securaa-playbook-lld.html">Zona Playbook LLD</a></li>
+            <li><a href="optimization-guide.html">Optimization Guide</a></li>
+            <li><a href="securaa-siem-hld.html">Zona SIEM HLD</a></li>
+            <li><a href="securaa-hld.html">Securaa Platform</a></li>
+            <li><a href="process-manager-hld.html">Process Manager HLD</a></li>
+            <li><a href="process-manager-lld.html">Process Manager LLD</a></li>
+            <li><a href="zona-user-hld.html">Zona User HLD</a></li>
+            <li><a href="zona-user-lld.html">Zona User LLD</a></li>
+            <li><a href="nocode-hld.html">Zona Custom Services HLD</a></li>
+            <li><a href="nocode-lld.html">Zona Custom Services LLD</a></li>
+        </ul>
+    </nav>
+    <main class="main-content">
+        <h1>High-Level Design (HLD) - Zona Custom Services</h1>
+
+        <h2>Document Information</h2>
+        <ul>
+            <li><strong>Service Name</strong>: Zona Custom Services</li>
+            <li><strong>Version</strong>: 1.0</li>
+            <li><strong>Date</strong>: September 2025</li>
+            <li><strong>Author</strong>: Development Team</li>
+            <li><strong>Related Documents</strong>: <a href="nocode-lld.html">Low Level Design</a></li>
+        </ul>
+        
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#executive-summary">Executive Summary</a></li>
+            <li><a href="#system-architecture">System Architecture</a></li>
+            <li><a href="#component-design">Component Design</a></li>
+            <li><a href="#data-architecture">Data Architecture</a></li>
+            <li><a href="#api-design">API Design</a></li>
+            <li><a href="#security-architecture">Security Architecture</a></li>
+            <li><a href="#scalability-performance">Scalability & Performance</a></li>
+            <li><a href="#deployment-architecture">Deployment Architecture</a></li>
+            <li><a href="#integration-points">Integration Points</a></li>
+            <li><a href="#monitoring-observability">Monitoring & Observability</a></li>
+        </ol>
+
+        <h2 id="executive-summary">1. Executive Summary</h2>
+        
+        <h3>1.1 System Purpose and Overview</h3>
+        <p>Zona Custom Services represents a sophisticated Go-based microservice architecture designed specifically for security automation platforms. This system serves as the backbone for integration and task management capabilities, enabling organizations to create, manage, and execute custom security applications and workflows. The service is architected to handle complex multi-tenant environments while maintaining high performance, security, and scalability standards.</p>
+        
+        <p>The primary mission of Zona Custom Services is to provide a unified platform where security teams can:</p>
+        <ul>
+            <li>Design and deploy custom security applications tailored to their specific needs</li>
+            <li>Create and manage complex task workflows with interdependencies</li>
+            <li>Import and export complete application configurations for portability and backup</li>
+            <li>Process security events in real-time with automated response capabilities</li>
+            <li>Maintain complete data isolation between different organizational tenants</li>
+            <li>Scale seamlessly from small deployments to enterprise-level installations</li>
+        </ul>
+
+        <h3>1.2 Architecture Philosophy and Design Principles</h3>
+        <p>The system is built on several key architectural principles that guide its design and implementation:</p>
+        
+        <p><strong>Microservices Architecture</strong>: Zona Custom Services follows a microservices architectural pattern, operating as a standalone, independently deployable service. This approach provides several benefits including independent scaling, technology flexibility, and fault isolation. The service communicates with other components through well-defined REST APIs, ensuring loose coupling and high cohesion.</p>
+        
+        <p><strong>Layered Architecture Pattern</strong>: The internal structure follows a strict layered architecture with clear separation of concerns:</p>
+        <ul>
+            <li><strong>Presentation Layer</strong> (Controllers): Handles HTTP requests, input validation, and response formatting</li>
+            <li><strong>Business Logic Layer</strong> (Services): Contains core business rules, workflows, and processing logic</li>
+            <li><strong>Data Access Layer</strong> (Models): Manages data structures, database interactions, and data validation</li>
+            <li><strong>Infrastructure Layer</strong>: Provides cross-cutting concerns like logging, security, and configuration management</li>
+        </ul>
+        
+        <p><strong>Multi-Tenant by Design</strong>: The architecture is inherently designed for multi-tenancy, supporting both shared database models for smaller deployments and completely isolated database instances for enterprise MSSP (Managed Security Service Provider) environments. This flexibility allows the system to adapt to different organizational requirements and compliance needs.</p>
+        
+        <p><strong>Security-First Approach</strong>: Security is not an afterthought but a core design principle. Every component includes built-in security measures including field-level encryption, tenant isolation, comprehensive authentication and authorization mechanisms, and audit logging capabilities.</p>
+
+        <h3>1.3 Technology Foundation</h3>
+        <p><strong>Programming Language and Runtime</strong>: Built with Go 1.17, leveraging Go's excellent concurrency model, memory efficiency, and strong standard library. Go's garbage collection and built-in HTTP server capabilities make it ideal for building high-performance web services.</p>
+        
+        <p><strong>Web Framework</strong>: Utilizes Gorilla Mux for HTTP routing, providing powerful URL routing capabilities, middleware support, and flexible request handling. Gorilla Mux offers better performance and flexibility compared to Go's standard HTTP router while maintaining simplicity.</p>
+        
+        <p><strong>Database Technology</strong>: MongoDB serves as the primary data store, chosen for its:</p>
+        <ul>
+            <li>Document-oriented structure that naturally fits complex security data models</li>
+            <li>Built-in sharding capabilities for horizontal scaling</li>
+            <li>Flexible schema design supporting evolving security requirements</li>
+            <li>Excellent performance for read-heavy workloads common in security applications</li>
+            <li>Native support for multi-tenant architectures</li>
+        </ul>
+        
+        <p><strong>Caching Strategy</strong>: Redis provides high-performance caching capabilities for:</p>
+        <ul>
+            <li>Application configuration caching to reduce database load</li>
+            <li>Session management and token storage</li>
+            <li>Frequently accessed integration listings</li>
+            <li>Real-time data that requires sub-second access times</li>
+        </ul>
+
+        <h3>1.4 Core Capabilities and Features</h3>
+        <p><strong>Custom Application Management</strong>: The system provides comprehensive capabilities for managing custom security applications. Users can create, configure, and deploy applications with complex parameter sets, file uploads (including logos), and integration-specific configurations. The system supports both generic applications that can be reused across tenants and highly customized applications tailored for specific use cases.</p>
+        
+        <p><strong>Generic Task Creation and Execution</strong>: One of the most powerful features is the ability to create and manage generic tasks that can be composed into complex workflows. These tasks support:</p>
+        <ul>
+            <li>Complex input parameter definitions with validation rules</li>
+            <li>Dependency management between tasks</li>
+            <li>Real-time execution monitoring and status tracking</li>
+            <li>Output field mapping for downstream task consumption</li>
+            <li>Error handling and retry mechanisms</li>
+        </ul>
+        
+        <p><strong>Data Export/Import Functionality</strong>: The system includes sophisticated export/import capabilities that enable:</p>
+        <ul>
+            <li>Complete application configuration portability between environments</li>
+            <li>Backup and disaster recovery scenarios</li>
+            <li>Template-based application deployment across multiple tenants</li>
+            <li>Version control and change management for application configurations</li>
+        </ul>
+        
+        <p><strong>Integration Management</strong>: Comprehensive integration management features allow for:</p>
+        <ul>
+            <li>Connection management with external systems</li>
+            <li>Credential storage with encryption and secure access</li>
+            <li>API endpoint configuration and testing</li>
+            <li>Health monitoring and status reporting</li>
+            <li>Rate limiting and throttling capabilities</li>
+        </ul>
+        
+        <p><strong>Event Processing and Case Ingestion</strong>: Real-time event processing capabilities include:</p>
+        <ul>
+            <li>High-volume security event ingestion from multiple sources</li>
+            <li>Event correlation and analysis workflows</li>
+            <li>Automated case creation and management</li>
+            <li>Custom event processing rules and filters</li>
+            <li>Integration with SIEM and other security platforms</li>
+        </ul>
+        
+        <p><strong>Multi-Tenant Support</strong>: Enterprise-grade multi-tenancy includes:</p>
+        <ul>
+            <li>Complete data isolation between tenants</li>
+            <li>Tenant-specific database instances (MSSP mode)</li>
+            <li>Shared infrastructure with logical separation (single-tenant mode)</li>
+            <li>Per-tenant configuration and customization</li>
+            <li>Independent scaling and resource allocation</li>
+        </ul>
+        
+        <p><strong>License Management</strong>: Sophisticated licensing capabilities support:</p>
+        <ul>
+            <li>Trial license limitations and usage tracking</li>
+            <li>Enterprise license validation and feature enabling</li>
+            <li>Usage monitoring and compliance reporting</li>
+            <li>Automated license renewal and notification systems</li>
+        </ul>
+
+        <h2 id="system-architecture">2. System Architecture</h2>
+        
+        <h3>2.1 Overall System Architecture</h3>
+        <p>The Zona Custom Services architecture is designed as a modern, cloud-native microservice that operates within a larger security automation ecosystem. The system is structured in multiple layers, each with specific responsibilities and clear interfaces between them. This architectural approach ensures maintainability, scalability, and testability while providing the flexibility needed for complex security workflows.</p>
+
+        <div class="mermaid">
+flowchart TD
+    A[Client Applications] --> B[API Gateway/Load Balancer]
+    B --> C[Zona Custom Services]
+    C --> D[Controllers Layer]
+    D --> E[Services Layer]
+    E --> F[Models Layer]
+    F --> G[MongoDB]
+    E --> H[Redis Cache]
+    C --> I[Integration Layer]
+    I --> J[External Security Tools]
+    I --> K[SIEM Systems]
+    I --> L[Third-party APIs]
+    
+    style C fill:#e1f5fe
+    style G fill:#f3e5f5
+    style H fill:#fff3e0
+        </div>
+
+        <h3>2.2 Service Communication Architecture</h3>
+        <div class="mermaid">
+sequenceDiagram
+    participant Client
+    participant Gateway
+    participant CustomService
+    participant Database
+    participant Cache
+    participant External
+    
+    Client->>Gateway: HTTP Request
+    Gateway->>CustomService: Route Request
+    CustomService->>Cache: Check Cache
+    alt Cache Hit
+        Cache-->>CustomService: Return Data
+    else Cache Miss
+        CustomService->>Database: Query Data
+        Database-->>CustomService: Return Data
+        CustomService->>Cache: Store Data
+    end
+    CustomService->>External: External API Call (if needed)
+    External-->>CustomService: Response
+    CustomService-->>Gateway: HTTP Response
+    Gateway-->>Client: Response
+        </div>
+
+        <h2 id="component-design">3. Component Design</h2>
+        <p>The system is composed of several key components, each responsible for specific aspects of the custom services functionality.</p>
+        
+        <h3>3.1 Controller Components</h3>
+        <ul>
+            <li><strong>Custom App Controller</strong>: Manages custom application lifecycle operations</li>
+            <li><strong>Generic App Controller</strong>: Handles generic task and application operations</li>
+            <li><strong>Export Controller</strong>: Manages data export/import functionality</li>
+            <li><strong>Integration Controller</strong>: Handles external system integrations</li>
+            <li><strong>Events Controller</strong>: Processes security events and case management</li>
+        </ul>
+        
+        <h3>3.2 Service Components</h3>
+        <ul>
+            <li><strong>Export Service</strong>: Business logic for data export operations</li>
+            <li><strong>Import Service</strong>: Handles data import and validation</li>
+            <li><strong>Integration Service</strong>: Manages external system connections</li>
+            <li><strong>Events Service</strong>: Processes events and case creation</li>
+        </ul>
+
+        <h2 id="data-architecture">4. Data Architecture</h2>
+        <p>The data architecture is designed to support multi-tenant operations with high performance and security.</p>
+        
+        <h3>4.1 Database Design Principles</h3>
+        <ul>
+            <li><strong>Document-Oriented Storage</strong>: Leverages MongoDB's flexible schema</li>
+            <li><strong>Tenant Isolation</strong>: Ensures complete data separation between tenants</li>
+            <li><strong>Performance Optimization</strong>: Strategic indexing and query optimization</li>
+            <li><strong>Data Encryption</strong>: Field-level encryption for sensitive data</li>
+        </ul>
+
+        <h2 id="api-design">5. API Design</h2>
+        <p>The API follows RESTful principles with comprehensive error handling and security measures.</p>
+        
+        <h3>5.1 API Categories</h3>
+        <ul>
+            <li><strong>Application Management APIs</strong>: Create, update, delete custom applications</li>
+            <li><strong>Task Management APIs</strong>: Generic task creation and execution</li>
+            <li><strong>Export/Import APIs</strong>: Data portability operations</li>
+            <li><strong>Integration APIs</strong>: External system connectivity</li>
+            <li><strong>Event Processing APIs</strong>: Security event handling</li>
+        </ul>
+
+        <h2 id="security-architecture">6. Security Architecture</h2>
+        <p>Security is implemented at multiple layers with comprehensive protection mechanisms.</p>
+        
+        <h3>6.1 Authentication and Authorization</h3>
+        <ul>
+            <li><strong>JWT Token Authentication</strong>: Secure token-based authentication</li>
+            <li><strong>SAML Integration</strong>: Enterprise single sign-on support</li>
+            <li><strong>Role-Based Access Control</strong>: Granular permission management</li>
+            <li><strong>Multi-Factor Authentication</strong>: Additional security layer</li>
+        </ul>
+        
+        <h3>6.2 Data Protection</h3>
+        <ul>
+            <li><strong>Encryption at Rest</strong>: AES encryption for sensitive data</li>
+            <li><strong>Encryption in Transit</strong>: TLS/SSL for all communications</li>
+            <li><strong>Field-Level Encryption</strong>: Granular data protection</li>
+            <li><strong>Secure Key Management</strong>: Enterprise key management integration</li>
+        </ul>
+
+        <h2 id="scalability-performance">7. Scalability & Performance</h2>
+        <p>The architecture is designed for horizontal scaling and high performance.</p>
+        
+        <h3>7.1 Scaling Strategies</h3>
+        <ul>
+            <li><strong>Horizontal Scaling</strong>: Multiple service instances</li>
+            <li><strong>Database Sharding</strong>: MongoDB sharding for data distribution</li>
+            <li><strong>Caching Strategy</strong>: Redis for high-performance data access</li>
+            <li><strong>Load Balancing</strong>: Intelligent request distribution</li>
+        </ul>
+
+        <h2 id="deployment-architecture">8. Deployment Architecture</h2>
+        <p>Cloud-native deployment with container orchestration support.</p>
+        
+        <h3>8.1 Containerization</h3>
+        <ul>
+            <li><strong>Docker Containers</strong>: Consistent deployment packaging</li>
+            <li><strong>Kubernetes Support</strong>: Container orchestration</li>
+            <li><strong>Health Checks</strong>: Automated health monitoring</li>
+            <li><strong>Rolling Updates</strong>: Zero-downtime deployments</li>
+        </ul>
+
+        <h2 id="integration-points">9. Integration Points</h2>
+        <p>Comprehensive integration capabilities with external systems.</p>
+        
+        <h3>9.1 External Integrations</h3>
+        <ul>
+            <li><strong>SIEM Platforms</strong>: Security information and event management</li>
+            <li><strong>Security Tools</strong>: Vulnerability scanners, threat intelligence</li>
+            <li><strong>Identity Providers</strong>: LDAP, Active Directory, SAML</li>
+            <li><strong>Notification Systems</strong>: Email, Slack, webhooks</li>
+        </ul>
+
+        <h2 id="monitoring-observability">10. Monitoring & Observability</h2>
+        <p>Comprehensive monitoring and observability features for operational excellence.</p>
+        
+        <h3>10.1 Monitoring Components</h3>
+        <ul>
+            <li><strong>Application Metrics</strong>: Performance and usage metrics</li>
+            <li><strong>Health Checks</strong>: Service and dependency monitoring</li>
+            <li><strong>Audit Logging</strong>: Comprehensive audit trail</li>
+            <li><strong>Alerting</strong>: Real-time issue notification</li>
+        </ul>
+
+    </main>
+    <script src="assets/js/documentation.js"></script>
+</body>
+</html>

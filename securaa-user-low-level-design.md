@@ -1,4 +1,4 @@
-# Zona User Service - Low Level Design (LLD)
+# Securaa User Service - Low Level Design
 
 ## 🔧 **TECHNICAL ARCHITECTURE OVERVIEW**
 
@@ -710,7 +710,7 @@ classDiagram
 
 ### **Traditional Server Deployment Architecture**
 
-The Zona User Service is deployed using traditional server architecture with load balancing and service clustering for high availability and scalability.
+The Securaa User Service is deployed using traditional server architecture with load balancing and service clustering for high availability and scalability.
 
 **Server Deployment Strategy:**
 
@@ -742,17 +742,17 @@ graph TB
         
         subgraph "Application Tier"
             subgraph "Server 1 (Primary)"
-                APP1[Zona User Service<br/>Instance 1<br/>Port 8080]
+                APP1[Securaa User Service<br/>Instance 1<br/>Port 8080]
                 SYSTEMD1[Systemd Service<br/>Auto-restart<br/>Health Checks]
             end
             
             subgraph "Server 2 (Secondary)"
-                APP2[Zona User Service<br/>Instance 2<br/>Port 8080]
+                APP2[Securaa User Service<br/>Instance 2<br/>Port 8080]
                 SYSTEMD2[Systemd Service<br/>Auto-restart<br/>Health Checks]
             end
             
             subgraph "Server 3 (Tertiary)"
-                APP3[Zona User Service<br/>Instance 3<br/>Port 8080]
+                APP3[Securaa User Service<br/>Instance 3<br/>Port 8080]
                 SYSTEMD3[Systemd Service<br/>Auto-restart<br/>Health Checks]
             end
         end
@@ -844,32 +844,32 @@ graph TB
 **Systemd Service Configuration:**
 
 ```ini
-# /etc/systemd/system/zona-user-service.service
+# /etc/systemd/system/securaa-user-service.service
 [Unit]
-Description=Zona User Service
-Documentation=https://docs.securaa.com/zona-user
+Description=Securaa User Service
+Documentation=https://docs.securaa.com/securaa-user
 After=network.target mongodb.service redis.service
 Wants=mongodb.service redis.service
 
 [Service]
 Type=exec
-User=zona-user
-Group=zona-user
-WorkingDirectory=/opt/zona-user
-ExecStart=/opt/zona-user/bin/zona-user-service
+User=securaa-user
+Group=securaa-user
+WorkingDirectory=/opt/securaa-user
+ExecStart=/opt/securaa-user/bin/securaa-user-service
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 RestartSec=10
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=zona-user-service
+SyslogIdentifier=securaa-user-service
 
 # Security Settings
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/opt/zona-user/logs /opt/zona-user/data
+ReadWritePaths=/opt/securaa-user/logs /opt/securaa-user/data
 
 # Environment Variables
 Environment=ENVIRONMENT=production
@@ -889,16 +889,16 @@ WantedBy=multi-user.target
 **Environment Configuration:**
 
 ```bash
-# /opt/zona-user/config/production.env
+# /opt/securaa-user/config/production.env
 # Database Configuration
-MONGO_URI=mongodb://zona-user:${MONGO_PASSWORD}@mongo-primary:27017,mongo-secondary1:27017,mongo-secondary2:27017/zona_user?replicaSet=rs0&authSource=admin
+MONGO_URI=mongodb://securaa-user:${MONGO_PASSWORD}@mongo-primary:27017,mongo-secondary1:27017,mongo-secondary2:27017/zona_user?replicaSet=rs0&authSource=admin
 REDIS_URI=redis://:${REDIS_PASSWORD}@redis-master:6379/0
 
 # Security Configuration
 JWT_SECRET_KEY=${JWT_SECRET_KEY}
 ENCRYPTION_KEY=${ENCRYPTION_KEY}
-SAML_CERT_PATH=/opt/zona-user/certs/saml.crt
-SAML_KEY_PATH=/opt/zona-user/certs/saml.key
+SAML_CERT_PATH=/opt/securaa-user/certs/saml.crt
+SAML_KEY_PATH=/opt/securaa-user/certs/saml.key
 
 # Integration Configuration
 EMAIL_SMTP_HOST=smtp.securaa.com
@@ -918,24 +918,24 @@ PROMETHEUS_ENDPOINT=/metrics
 HEALTH_CHECK_ENDPOINT=/health
 LOG_FORMAT=json
 LOG_OUTPUT=file
-LOG_FILE_PATH=/opt/zona-user/logs/zona-user.log
+LOG_FILE_PATH=/opt/securaa-user/logs/securaa-user.log
 ```
 
 **Deployment Script:**
 
 ```bash
 #!/bin/bash
-# /opt/zona-user/scripts/deploy.sh
+# /opt/securaa-user/scripts/deploy.sh
 
 set -euo pipefail
 
-DEPLOY_DIR="/opt/zona-user"
-SERVICE_NAME="zona-user-service"
-BACKUP_DIR="/opt/zona-user/backups"
-LOG_DIR="/opt/zona-user/logs"
+DEPLOY_DIR="/opt/securaa-user"
+SERVICE_NAME="securaa-user-service"
+BACKUP_DIR="/opt/securaa-user/backups"
+LOG_DIR="/opt/securaa-user/logs"
 
 # Pre-deployment checks
-echo "Starting deployment of Zona User Service..."
+echo "Starting deployment of Securaa User Service..."
 echo "Checking system requirements..."
 
 # Verify dependencies
@@ -952,14 +952,14 @@ fi
 
 # Deploy new binary
 echo "Deploying new binary..."
-cp ./zona-user-service $DEPLOY_DIR/bin/
-chmod +x $DEPLOY_DIR/bin/zona-user-service
-chown zona-user:zona-user $DEPLOY_DIR/bin/zona-user-service
+cp ./securaa-user-service $DEPLOY_DIR/bin/
+chmod +x $DEPLOY_DIR/bin/securaa-user-service
+chown securaa-user:securaa-user $DEPLOY_DIR/bin/securaa-user-service
 
 # Update configuration
 echo "Updating configuration..."
 cp ./config/* $DEPLOY_DIR/config/
-chown -R zona-user:zona-user $DEPLOY_DIR/config/
+chown -R securaa-user:securaa-user $DEPLOY_DIR/config/
 
 # Restart service
 echo "Restarting service..."
@@ -1037,12 +1037,12 @@ echo "Deployment completed successfully!"
       volumes:
       - name: tls-certificates
         secret:
-          secretName: zona-user-tls
+          secretName: securaa-user-tls
       - name: temp-storage
         emptyDir: {}
       - name: config-volume
         configMap:
-          name: zona-user-config
+          name: securaa-user-config
 ## 📊 **MONITORING & OBSERVABILITY IMPLEMENTATION**
 
 ### **Comprehensive Monitoring Architecture**
@@ -1341,7 +1341,7 @@ production:
   security:
     jwt:
       secret: "${JWT_SECRET}"
-      issuer: "zona-user-service"
+      issuer: "securaa-user-service"
       audience: "securaa-platform"
       access_token_ttl: "15m"
       refresh_token_ttl: "7d"
@@ -1380,7 +1380,7 @@ production:
       skip_cert_verify: false
       
     saml:
-      entity_id: "zona-user-service"
+      entity_id: "securaa-user-service"
       assertion_consumer_service_url: "https://api.securaa.com/auth/saml/acs"
       single_logout_service_url: "https://api.securaa.com/auth/saml/sls"
       metadata_url: "${SAML_METADATA_URL}"
@@ -1652,4 +1652,4 @@ gantt
 | **XSS Protection** | ✅ Implemented | Script injection testing |
 | **Security Headers** | ✅ Implemented | Header configuration validation |
 
-This comprehensive Low Level Design document provides detailed technical specifications, implementation details, code structure, database schemas, API designs, security implementations, deployment configurations, and operational procedures for the Zona User Service. The document includes extensive diagrams, code examples, and configuration templates to guide development and operations teams in implementing and maintaining this critical security service.
+This comprehensive Low Level Design document provides detailed technical specifications, implementation details, code structure, database schemas, API designs, security implementations, deployment configurations, and operational procedures for the Securaa User Service. The document includes extensive diagrams, code examples, and configuration templates to guide development and operations teams in implementing and maintaining this critical security service.

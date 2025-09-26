@@ -1,4 +1,4 @@
-# Low-Level Design (LLD) – zona_process_manager
+# Low-Level Design (Low Level Design) – zona_process_manager
 
 ---
 

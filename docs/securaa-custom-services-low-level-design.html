@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zona Custom Services - Low Level Design - Zona Platform Documentation</title>
+    <title>Securaa Custom Services - Low Level Design - Securaa Platform Documentation</title>
     <link rel="stylesheet" href="assets/css/documentation.css">
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -12,35 +12,35 @@
 </head>
 <body>
     <header class="main-header">
-        <h1>Zona Platform Documentation</h1>
-        <p>Comprehensive documentation for Zona security platform services</p>
+        <h1>Securaa Platform Documentation</h1>
+        <p>Comprehensive documentation for Securaa security platform services</p>
     </header>
     <nav class="documentation-nav">
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-playbook-hld.html">Zona Playbook HLD</a></li>
-            <li><a href="securaa-playbook-lld.html">Zona Playbook LLD</a></li>
+            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
+            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
             <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-hld.html">Zona SIEM HLD</a></li>
-            <li><a href="securaa-hld.html">Securaa Platform</a></li>
-            <li><a href="process-manager-hld.html">Process Manager HLD</a></li>
-            <li><a href="process-manager-lld.html">Process Manager LLD</a></li>
-            <li><a href="zona-user-hld.html">Zona User HLD</a></li>
-            <li><a href="zona-user-lld.html">Zona User LLD</a></li>
-            <li><a href="nocode-hld.html">Zona Custom Services HLD</a></li>
-            <li><a href="nocode-lld.html">Zona Custom Services LLD</a></li>
+            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
+            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
+            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
+            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
+            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
+            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
+            <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
+            <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
         </ul>
     </nav>
     <main class="main-content">
-        <h1>Low-Level Design (LLD) - Zona Custom Services</h1>
+        <h1>Low-Level Design (Low Level Design) - Securaa Custom Services</h1>
 
         <h2>Document Information</h2>
         <ul>
-            <li><strong>Service Name</strong>: Zona Custom Services</li>
+            <li><strong>Service Name</strong>: Securaa Custom Services</li>
             <li><strong>Version</strong>: 1.0</li>
             <li><strong>Date</strong>: September 2025</li>
             <li><strong>Author</strong>: Development Team</li>
-            <li><strong>Related Documents</strong>: <a href="nocode-hld.html">High Level Design</a></li>
+            <li><strong>Related Documents</strong>: <a href="securaa-custom-services-high-level-design.html">High Level Design</a></li>
         </ul>
         
         <h2>Table of Contents</h2>
@@ -806,39 +806,39 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o zona-custom-services ./main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o securaa-custom-services ./main.go
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 
-COPY --from=builder /app/zona-custom-services .
+COPY --from=builder /app/securaa-custom-services .
 COPY --from=builder /app/config.yaml .
 
 EXPOSE 8063
 
-CMD ["./zona-custom-services"]</code></pre>
+CMD ["./securaa-custom-services"]</code></pre>
 
         <h3>9.2 Kubernetes Deployment</h3>
         <pre><code>apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: zona-custom-services
+  name: securaa-custom-services
   labels:
-    app: zona-custom-services
+    app: securaa-custom-services
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: zona-custom-services
+      app: securaa-custom-services
   template:
     metadata:
       labels:
-        app: zona-custom-services
+        app: securaa-custom-services
     spec:
       containers:
-      - name: zona-custom-services
-        image: zona/custom-services:latest
+      - name: securaa-custom-services
+        image: securaa/custom-services:latest
         ports:
         - containerPort: 8063
         env:
@@ -882,7 +882,7 @@ spec:
 
 func (hc *HealthChecker) HealthCheck(w http.ResponseWriter, r *http.Request) {
     status := models.HealthStatus{
-        Service:   "zona-custom-services",
+        Service:   "securaa-custom-services",
         Status:    "healthy",
         Timestamp: time.Now(),
         Checks:    make(map[string]models.CheckResult),

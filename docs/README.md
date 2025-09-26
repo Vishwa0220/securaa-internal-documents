@@ -5,13 +5,18 @@ This folder contains the comprehensive HTML documentation for the Securaa Platfo
 ## Contents
 
 - `index.html` - Main documentation portal and entry point
-- `securaa-playbook-hld.html` - Securaa Playbook Service High-Level Design
-- `securaa-playbook-lld.html` - Securaa Playbook Service Low-Level Design
-- `process-manager-hld.html` - Process Manager High-Level Design
-- `process-manager-lld.html` - Process Manager Low-Level Design
+- `securaa-playbook-high-level-design.html` - Securaa Playbook Service High Level Design
+- `securaa-playbook-low-level-design.html` - Securaa Playbook Service Low Level Design
+- `process-manager-high-level-design.html` - Process Manager High Level Design
+- `process-manager-low-level-design.html` - Process Manager Low Level Design
 - `optimization-guide.html` - Performance Optimization Guide
-- `securaa-siem-hld.html` - Securaa SIEM Service High-Level Design
-- `securaa-hld.html` - Securaa Platform High-Level Design
+- `securaa-siem-high-level-design.html` - Securaa SIEM Service High Level Design
+- `securaa-siem-low-level-design.html` - Securaa SIEM Service Low Level Design
+- `securaa-platform-high-level-design.html` - Securaa Platform High Level Design
+- `securaa-user-high-level-design.html` - Securaa User Service High Level Design
+- `securaa-user-low-level-design.html` - Securaa User Service Low Level Design
+- `securaa-custom-services-high-level-design.html` - Securaa Custom Services High Level Design
+- `securaa-custom-services-low-level-design.html` - Securaa Custom Services Low Level Design
 - `assets/` - CSS, JavaScript, and other supporting files
 
 ## How to Use
@@ -51,18 +56,27 @@ npx http-server docs -p 8080
 The documentation is organized into logical sections:
 
 1. **Securaa Playbook Service** - Core SOAR functionality
-   - High-Level Design (Architecture, APIs, Security)
-   - Low-Level Design (Implementation details, Database schema)
+   - High Level Design (Architecture, APIs, Security)
+   - Low Level Design (Implementation details, Database schema)
 
 2. **Process Manager** - Microservices orchestration and lifecycle management
-   - High-Level Design (System architecture, orchestration, integrations)
-   - Low-Level Design (Component/class diagrams, database, API design)
+   - High Level Design (System architecture, orchestration, integrations)
+   - Low Level Design (Component/class diagrams, database, API design)
 
 3. **Securaa SIEM Service** - Security information and event management
-   - High-Level Design (System architecture, Integrations)
+   - High Level Design (System architecture, Integrations)
+   - Low Level Design (Implementation details, Component design)
 
 4. **Securaa Platform** - Infrastructure and deployment
-   - High-Level Design (Deployment topologies, Build system)
+   - High Level Design (Deployment topologies, Build system)
+
+5. **Securaa User Service** - Identity and access management
+   - High Level Design (Authentication, Authorization, Multi-tenancy)
+   - Low Level Design (Implementation details, Database design)
+
+6. **Securaa Custom Services** - Custom security applications and workflows
+   - High Level Design (Architecture, Integration patterns)
+   - Low Level Design (Implementation details, API specifications)
 
 ### Cross-References
 
@@ -72,7 +86,7 @@ The documentation includes intelligent cross-referencing between related section
 
 - **Generated From**: Markdown files in the repository root
 - **Converter**: Custom Python script with markdown-to-HTML conversion
-- **Styling**: Professional CSS with Zona brand colors
+- **Styling**: Professional CSS with Securaa brand colors
 - **JavaScript**: Enhanced functionality for search, navigation, and UX
 - **Browser Support**: Modern browsers (Chrome, Firefox, Safari, Edge)
 

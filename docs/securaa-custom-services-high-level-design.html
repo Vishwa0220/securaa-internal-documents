@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zona Custom Services - High Level Design - Zona Platform Documentation</title>
+    <title>Securaa Custom Services - High Level Design - Securaa Platform Documentation</title>
     <link rel="stylesheet" href="assets/css/documentation.css">
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -12,35 +12,35 @@
 </head>
 <body>
     <header class="main-header">
-        <h1>Zona Platform Documentation</h1>
-        <p>Comprehensive documentation for Zona security platform services</p>
+        <h1>Securaa Platform Documentation</h1>
+        <p>Comprehensive documentation for Securaa security platform services</p>
     </header>
     <nav class="documentation-nav">
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-playbook-hld.html">Zona Playbook HLD</a></li>
-            <li><a href="securaa-playbook-lld.html">Zona Playbook LLD</a></li>
+            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
+            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
             <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-hld.html">Zona SIEM HLD</a></li>
-            <li><a href="securaa-hld.html">Securaa Platform</a></li>
-            <li><a href="process-manager-hld.html">Process Manager HLD</a></li>
-            <li><a href="process-manager-lld.html">Process Manager LLD</a></li>
-            <li><a href="zona-user-hld.html">Zona User HLD</a></li>
-            <li><a href="zona-user-lld.html">Zona User LLD</a></li>
-            <li><a href="nocode-hld.html">Zona Custom Services HLD</a></li>
-            <li><a href="nocode-lld.html">Zona Custom Services LLD</a></li>
+            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
+            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
+            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
+            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
+            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
+            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
+            <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
+            <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
         </ul>
     </nav>
     <main class="main-content">
-        <h1>High-Level Design (HLD) - Zona Custom Services</h1>
+        <h1>High-Level Design (High Level Design) - Securaa Custom Services</h1>
 
         <h2>Document Information</h2>
         <ul>
-            <li><strong>Service Name</strong>: Zona Custom Services</li>
+            <li><strong>Service Name</strong>: Securaa Custom Services</li>
             <li><strong>Version</strong>: 1.0</li>
             <li><strong>Date</strong>: September 2025</li>
             <li><strong>Author</strong>: Development Team</li>
-            <li><strong>Related Documents</strong>: <a href="nocode-lld.html">Low Level Design</a></li>
+            <li><strong>Related Documents</strong>: <a href="securaa-custom-services-low-level-design.html">Low Level Design</a></li>
         </ul>
         
         <h2>Table of Contents</h2>
@@ -60,9 +60,9 @@
         <h2 id="executive-summary">1. Executive Summary</h2>
         
         <h3>1.1 System Purpose and Overview</h3>
-        <p>Zona Custom Services represents a sophisticated Go-based microservice architecture designed specifically for security automation platforms. This system serves as the backbone for integration and task management capabilities, enabling organizations to create, manage, and execute custom security applications and workflows. The service is architected to handle complex multi-tenant environments while maintaining high performance, security, and scalability standards.</p>
+        <p>Securaa Custom Services represents a sophisticated Go-based microservice architecture designed specifically for security automation platforms. This system serves as the backbone for integration and task management capabilities, enabling organizations to create, manage, and execute custom security applications and workflows. The service is architected to handle complex multi-tenant environments while maintaining high performance, security, and scalability standards.</p>
         
-        <p>The primary mission of Zona Custom Services is to provide a unified platform where security teams can:</p>
+        <p>The primary mission of Securaa Custom Services is to provide a unified platform where security teams can:</p>
         <ul>
             <li>Design and deploy custom security applications tailored to their specific needs</li>
             <li>Create and manage complex task workflows with interdependencies</li>
@@ -75,7 +75,7 @@
         <h3>1.2 Architecture Philosophy and Design Principles</h3>
         <p>The system is built on several key architectural principles that guide its design and implementation:</p>
         
-        <p><strong>Microservices Architecture</strong>: Zona Custom Services follows a microservices architectural pattern, operating as a standalone, independently deployable service. This approach provides several benefits including independent scaling, technology flexibility, and fault isolation. The service communicates with other components through well-defined REST APIs, ensuring loose coupling and high cohesion.</p>
+        <p><strong>Microservices Architecture</strong>: Securaa Custom Services follows a microservices architectural pattern, operating as a standalone, independently deployable service. This approach provides several benefits including independent scaling, technology flexibility, and fault isolation. The service communicates with other components through well-defined REST APIs, ensuring loose coupling and high cohesion.</p>
         
         <p><strong>Layered Architecture Pattern</strong>: The internal structure follows a strict layered architecture with clear separation of concerns:</p>
         <ul>
@@ -169,12 +169,12 @@
         <h2 id="system-architecture">2. System Architecture</h2>
         
         <h3>2.1 Overall System Architecture</h3>
-        <p>The Zona Custom Services architecture is designed as a modern, cloud-native microservice that operates within a larger security automation ecosystem. The system is structured in multiple layers, each with specific responsibilities and clear interfaces between them. This architectural approach ensures maintainability, scalability, and testability while providing the flexibility needed for complex security workflows.</p>
+        <p>The Securaa Custom Services architecture is designed as a modern, cloud-native microservice that operates within a larger security automation ecosystem. The system is structured in multiple layers, each with specific responsibilities and clear interfaces between them. This architectural approach ensures maintainability, scalability, and testability while providing the flexibility needed for complex security workflows.</p>
 
         <div class="mermaid">
 flowchart TD
     A[Client Applications] --> B[API Gateway/Load Balancer]
-    B --> C[Zona Custom Services]
+    B --> C[Securaa Custom Services]
     C --> D[Controllers Layer]
     D --> E[Services Layer]
     E --> F[Models Layer]

@@ -16,17 +16,17 @@
         <nav class="documentation-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
-<li><a href="securaa-playbook-hld.html">Zona Playbook HLD</a></li>
-<li><a href="securaa-playbook-lld.html">Zona Playbook LLD</a></li>
+<li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
+<li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
 <li><a href="optimization-guide.html">Optimization Guide</a></li>
-<li><a href="securaa-siem-hld.html">Zona SIEM HLD</a></li>
-<li><a href="securaa-hld.html">Securaa Platform</a></li>
-<li><a href="process-manager-hld.html">Process Manager HLD</a></li>
-<li><a href="process-manager-lld.html">Process Manager LLD</a></li>
-<li><a href="zona-user-hld.html">Zona User HLD</a></li>
-<li><a href="zona-user-lld.html">Zona User LLD</a></li>
-<li><a href="nocode-hld.html">Zona Custom Services HLD</a></li>
-<li><a href="nocode-lld.html">Zona Custom Services LLD</a></li>
+<li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
+<li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
+<li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
+<li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
+<li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
+<li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
+<li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
+<li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
             </ul>
         </nav>
         
@@ -71,8 +71,8 @@
 <h3>1.3 Business Context</h3>
 <div class="mermaid">
 graph TB
-    A[Security Incident] --> B[Zona SIEM/Case Management]
-    B --> C[Zona Playbook Service]
+    A[Security Incident] --> B[Securaa SIEM/Case Management]
+    B --> C[Securaa Playbook Service]
     C --> D[Security Tools Integration]
     C --> E[Notification Systems]
     C --> F[Ticketing Systems]
@@ -90,7 +90,7 @@ graph TB
     end
     
     subgraph "Application Layer"
-        B --> D[Zona Playbook Service]
+        B --> D[Securaa Playbook Service]
         D --> E[Controllers]
         E --> F[Execution Engine]
         F --> G[Services Layer]
@@ -129,17 +129,17 @@ graph TB
 <h3>2.3 Service Boundaries</h3>
 <div class="mermaid">
 graph LR
-    subgraph "Zona Playbook Service"
+    subgraph "Securaa Playbook Service"
         A[Playbook Management]
         B[Execution Engine]
         C[Task Processing]
         D[Integration Management]
     end
     
-    E[Zona User Service] --> A
-    F[Zona Case Service] --> B
+    E[Securaa User Service] --> A
+    F[Securaa Case Service] --> B
     G[External Security Tools] --> D
-    C --> H[Zona Notification Service]
+    C --> H[Securaa Notification Service]
 </div>
 <p>---</p>
 <h2>3. Component Design</h2>
@@ -570,31 +570,31 @@ graph TB
 <p>WORKDIR /app</p>
 <p>COPY . .</p>
 <p>RUN go mod download</p>
-<p>RUN CGO_ENABLED=0 GOOS=linux go build -o zona-playbook-service</p>
+<p>RUN CGO_ENABLED=0 GOOS=linux go build -o securaa-playbook-service</p>
 <p>FROM alpine:latest</p>
 <p>RUN apk --no-cache add ca-certificates</p>
 <p>WORKDIR /root/</p>
-<p>COPY --from=builder /app/zona-playbook-service .</p>
+<p>COPY --from=builder /app/securaa-playbook-service .</p>
 <p>EXPOSE 8040</p>
-<p>CMD ["./zona-playbook-service"]</code></pre></p>
+<p>CMD ["./securaa-playbook-service"]</code></pre></p>
 <h4>8.1.2 Kubernetes Deployment</h4>
 <pre><code class="language-yaml">apiVersion: apps/v1
 <p>kind: Deployment</p>
 <p>metadata:</p>
-<p>  name: zona-playbook-service</p>
+<p>  name: securaa-playbook-service</p>
 <p>spec:</p>
 <p>  replicas: 3</p>
 <p>  selector:</p>
 <p>    matchLabels:</p>
-<p>      app: zona-playbook-service</p>
+<p>      app: securaa-playbook-service</p>
 <p>  template:</p>
 <p>    metadata:</p>
 <p>      labels:</p>
-<p>        app: zona-playbook-service</p>
+<p>        app: securaa-playbook-service</p>
 <p>    spec:</p>
 <p>      containers:</p>
-<p>      - name: zona-playbook-service</p>
-<p>        image: zona/playbook-service:latest</p>
+<p>      - name: securaa-playbook-service</p>
+<p>        image: securaa/playbook-service:latest</p>
 <p>        ports:</p>
 <p>        - containerPort: 8040</p>
 <p>        env:</p>
@@ -652,7 +652,7 @@ graph TB
 <pre><code class="language-json">{
 <p>  "timestamp": "2025-09-11T10:30:00Z",</p>
 <p>  "level": "INFO",</p>
-<p>  "service": "zona-playbook-service",</p>
+<p>  "service": "securaa-playbook-service",</p>
 <p>  "tenant": "tenant123",</p>
 <p>  "playbook_id": "pb_001",</p>
 <p>  "execution_id": "exec_123456",</p>
@@ -734,7 +734,7 @@ graph TB
 <h4>11.1.1 Integration Types</h4>
 <div class="mermaid">
 graph TB
-    subgraph "Zona Playbook Service"
+    subgraph "Securaa Playbook Service"
         A[Integration Manager]
     end
     
@@ -819,7 +819,7 @@ graph TB
 </ul>
 <p>---</p>
 <h2>Conclusion</h2>
-<p>The Zona Playbook Service represents a sophisticated, enterprise-grade security orchestration platform designed for high-scale, multi-tenant environments. Its modular architecture, robust error handling, and comprehensive integration capabilities make it suitable for large security operations centers and managed security service providers.</p>
+<p>The Securaa Playbook Service represents a sophisticated, enterprise-grade security orchestration platform designed for high-scale, multi-tenant environments. Its modular architecture, robust error handling, and comprehensive integration capabilities make it suitable for large security operations centers and managed security service providers.</p>
 <h3>Key Strengths</h3>
 <ul>
 <li><strong>Scalable Architecture</strong>: Supports horizontal scaling and high availability</li>
@@ -836,7 +836,7 @@ graph TB
 <li><strong>Serverless Functions</strong>: Event-driven microservices</li>
 <li><strong>Edge Computing</strong>: Distributed execution capabilities</li>
 </ul>
-<p>This design document serves as the foundation for understanding, maintaining, and extending the Zona Playbook Service architecture.</p>
+<p>This design document serves as the foundation for understanding, maintaining, and extending the Securaa Playbook Service architecture.</p>
 
     </main>
     

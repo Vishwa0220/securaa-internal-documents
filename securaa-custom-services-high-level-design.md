@@ -1,12 +1,12 @@
-# High-Level Design (HLD) - Zona Custom Services
+# High-Level Design (High Level Design) - Securaa Custom Services
 
 ## 1. Executive Summary
 
 ### 1.1 System Purpose and Overview
 
-Zona Custom Services represents a sophisticated Go-based microservice architecture designed specifically for security automation platforms. This system serves as the backbone for integration and task management capabilities, enabling organizations to create, manage, and execute custom security applications and workflows. The service is architected to handle complex multi-tenant environments while maintaining high performance, security, and scalability standards.
+Securaa Custom Services represents a sophisticated Go-based microservice architecture designed specifically for security automation platforms. This system serves as the backbone for integration and task management capabilities, enabling organizations to create, manage, and execute custom security applications and workflows. The service is architected to handle complex multi-tenant environments while maintaining high performance, security, and scalability standards.
 
-The primary mission of Zona Custom Services is to provide a unified platform where security teams can:
+The primary mission of Securaa Custom Services is to provide a unified platform where security teams can:
 - Design and deploy custom security applications tailored to their specific needs
 - Create and manage complex task workflows with interdependencies
 - Import and export complete application configurations for portability and backup
@@ -18,7 +18,7 @@ The primary mission of Zona Custom Services is to provide a unified platform whe
 
 The system is built on several key architectural principles that guide its design and implementation:
 
-**Microservices Architecture**: Zona Custom Services follows a microservices architectural pattern, operating as a standalone, independently deployable service. This approach provides several benefits including independent scaling, technology flexibility, and fault isolation. The service communicates with other components through well-defined REST APIs, ensuring loose coupling and high cohesion.
+**Microservices Architecture**: Securaa Custom Services follows a microservices architectural pattern, operating as a standalone, independently deployable service. This approach provides several benefits including independent scaling, technology flexibility, and fault isolation. The service communicates with other components through well-defined REST APIs, ensuring loose coupling and high cohesion.
 
 **Layered Architecture Pattern**: The internal structure follows a strict layered architecture with clear separation of concerns:
 - **Presentation Layer** (Controllers): Handles HTTP requests, input validation, and response formatting
@@ -97,15 +97,15 @@ The system is built on several key architectural principles that guide its desig
 
 ### 2.1 Overall System Architecture
 
-The Zona Custom Services architecture is designed as a modern, cloud-native microservice that operates within a larger security automation ecosystem. The system is structured in multiple layers, each with specific responsibilities and clear interfaces between them. This architectural approach ensures maintainability, scalability, and testability while providing the flexibility needed for complex security workflows.
+The Securaa Custom Services architecture is designed as a modern, cloud-native microservice that operates within a larger security automation ecosystem. The system is structured in multiple layers, each with specific responsibilities and clear interfaces between them. This architectural approach ensures maintainability, scalability, and testability while providing the flexibility needed for complex security workflows.
 
 #### 2.1.1 Architectural Layers Explanation
 
-**Client Layer**: The topmost layer represents various client applications that interact with the Zona Custom Services. This includes web-based dashboards for security analysts, mobile applications for on-the-go monitoring, and programmatic API clients for automated integrations. Each client type may have different authentication and authorization requirements, but all interact through the same standardized REST API interface.
+**Client Layer**: The topmost layer represents various client applications that interact with the Securaa Custom Services. This includes web-based dashboards for security analysts, mobile applications for on-the-go monitoring, and programmatic API clients for automated integrations. Each client type may have different authentication and authorization requirements, but all interact through the same standardized REST API interface.
 
 **Load Balancing and Gateway Layer**: This layer provides the entry point for all external traffic. The Application Load Balancer distributes incoming requests across multiple service instances, ensuring high availability and optimal resource utilization. The API Gateway, when present, provides additional services such as rate limiting, API versioning, request/response transformation, and centralized authentication policies.
 
-**Application Core**: The heart of the system consists of the Zona Custom Service itself, which is structured in sublayers:
+**Application Core**: The heart of the system consists of the Securaa Custom Service itself, which is structured in sublayers:
 - **HTTP Layer**: Manages all HTTP-related concerns including routing, middleware processing, and protocol handling
 - **Controller Layer**: Contains the business logic controllers that handle specific functional areas
 - **Service Layer**: Implements core business logic and orchestrates complex operations
@@ -132,7 +132,7 @@ graph TB
         GATEWAY[API Gateway<br/>Rate Limiting, Authentication, Versioning]
     end
     
-    subgraph "Zona Custom Service - Port 8063"
+    subgraph "Securaa Custom Service - Port 8063"
         subgraph "Application Layer"
             MAIN[main.go<br/>Application Entry Point<br/>Service Bootstrap]
             APP[app.go<br/>Application Configuration<br/>Dependency Injection]
@@ -317,7 +317,7 @@ The component interaction architecture demonstrates how different parts of the s
 
 ```mermaid
 graph LR
-    subgraph "Zona Custom Service Components"
+    subgraph "Securaa Custom Service Components"
         subgraph "HTTP Request Controllers"
             A[CustomAppController<br/>━━━━━━━━━━━━━━<br/>• DeleteApp()<br/>  └ Validates deletion permissions<br/>  └ Updates task statuses<br/>  └ Invalidates related caches<br/>• GetIntegrationList()<br/>  └ Retrieves active integrations<br/>  └ Filters by tenant context<br/>  └ Caches results for performance]
             
@@ -418,7 +418,7 @@ This component architecture demonstrates the clear separation of concerns and th
 
 ### 3.1 Database Architecture Philosophy
 
-The data architecture of Zona Custom Services is designed around the principles of multi-tenancy, data isolation, and scalability. The system employs MongoDB as its primary database technology due to its document-oriented nature, which naturally accommodates the complex and varied data structures required by security applications. The architecture supports two distinct operational modes: single-tenant deployment for smaller organizations and multi-tenant MSSP (Managed Security Service Provider) deployment for enterprise environments.
+The data architecture of Securaa Custom Services is designed around the principles of multi-tenancy, data isolation, and scalability. The system employs MongoDB as its primary database technology due to its document-oriented nature, which naturally accommodates the complex and varied data structures required by security applications. The architecture supports two distinct operational modes: single-tenant deployment for smaller organizations and multi-tenant MSSP (Managed Security Service Provider) deployment for enterprise environments.
 
 #### 3.1.1 Multi-Tenant Data Strategy
 
@@ -591,7 +591,7 @@ The multi-tenant architecture is designed to provide complete flexibility in dep
 ```mermaid
 graph TB
     subgraph "Application Instance"
-        APP[Zona Custom Service<br/>Single Application Instance<br/>Handles All Tenants]
+        APP[Securaa Custom Service<br/>Single Application Instance<br/>Handles All Tenants]
         SESSION_MAP[Database Session Map<br/>tenant_code → connection<br/>Connection Pool Management<br/>Health Monitoring]
     end
     
@@ -718,7 +718,7 @@ graph TB
 
 ### 4.1 RESTful API Design Philosophy
 
-The Zona Custom Services API follows RESTful design principles with a focus on security, consistency, and developer experience. The API is designed to be intuitive for security professionals while providing the flexibility needed for complex automation scenarios. Every endpoint is carefully designed to follow REST conventions while accommodating the unique requirements of security application management.
+The Securaa Custom Services API follows RESTful design principles with a focus on security, consistency, and developer experience. The API is designed to be intuitive for security professionals while providing the flexibility needed for complex automation scenarios. Every endpoint is carefully designed to follow REST conventions while accommodating the unique requirements of security application management.
 
 #### 4.1.1 API Endpoint Structure and Organization
 
@@ -1006,7 +1006,7 @@ The authentication system supports multiple authentication methods that can be u
 
 ### 5.1 Horizontal Scalability Strategy
 
-The Zona Custom Services architecture is designed for horizontal scalability from the ground up, supporting growth from small single-tenant deployments to large-scale multi-tenant enterprise environments. The scalability strategy encompasses multiple dimensions including application instances, database capacity, caching performance, and infrastructure resources.
+The Securaa Custom Services architecture is designed for horizontal scalability from the ground up, supporting growth from small single-tenant deployments to large-scale multi-tenant enterprise environments. The scalability strategy encompasses multiple dimensions including application instances, database capacity, caching performance, and infrastructure resources.
 
 #### 5.1.1 Application Layer Scaling
 
@@ -1338,7 +1338,7 @@ graph TB
         end
         
         subgraph "Application Workloads"
-            DEPLOYMENT[Zona Custom Deployment<br/>• Replica count: 3-10<br/>• Rolling update strategy<br/>• Resource requests/limits<br/>• Health probes]
+            DEPLOYMENT[Securaa Custom Deployment<br/>• Replica count: 3-10<br/>• Rolling update strategy<br/>• Resource requests/limits<br/>• Health probes]
             
             SERVICE[Kubernetes Service<br/>• Load balancing<br/>• Service discovery<br/>• Port management<br/>• Session affinity]
             
@@ -1675,7 +1675,7 @@ graph TB
 
 ## 8. Comprehensive Process Flows and Workflows
 
-This section provides detailed process flowcharts that illustrate the key workflows and operational processes within the Zona Custom Services system. These flowcharts complement the architectural diagrams by showing the step-by-step execution paths for critical system operations.
+This section provides detailed process flowcharts that illustrate the key workflows and operational processes within the Securaa Custom Services system. These flowcharts complement the architectural diagrams by showing the step-by-step execution paths for critical system operations.
 
 ### 8.1 Application Startup and Initialization Process
 
@@ -2352,4 +2352,4 @@ flowchart TD
 
 ---
 
-This comprehensive High-Level Design document provides detailed architectural guidance for the Zona Custom Services system, covering all aspects from system overview through operational excellence and detailed process workflows. The architecture is designed to be scalable, secure, and maintainable while meeting the complex requirements of modern security automation platforms.
+This comprehensive High-Level Design document provides detailed architectural guidance for the Securaa Custom Services system, covering all aspects from system overview through operational excellence and detailed process workflows. The architecture is designed to be scalable, secure, and maintainable while meeting the complex requirements of modern security automation platforms.

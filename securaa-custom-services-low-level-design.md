@@ -1,4 +1,4 @@
-# Low-Level Design (LLD) - Zona Custom Services
+# Low-Level Design (Low Level Design) - Securaa Custom Services
 
 ## 1. Implementation Overview
 
@@ -641,7 +641,7 @@ type ConfigStruct struct {
 
 func InitConfig() ConfigStruct {
     config := ConfigStruct{
-        ConfigFilePath: "/opt/zona/conf/zona.conf",
+        ConfigFilePath: "/opt/securaa/conf/securaa.conf",
         ConfigData:     make(map[string]string),
     }
     
@@ -1002,4 +1002,4 @@ func HealthCheck() http.HandlerFunc {
 }
 ```
 
-This comprehensive Low-Level Design document provides detailed implementation specifications for the Zona Custom Services application, covering all major components, data flows, and architectural decisions at the code level.
+This comprehensive Low-Level Design document provides detailed implementation specifications for the Securaa Custom Services application, covering all major components, data flows, and architectural decisions at the code level.

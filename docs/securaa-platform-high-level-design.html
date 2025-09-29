@@ -16,15 +16,18 @@
         <nav class="documentation-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
-<li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-<li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-<li><a href="optimization-guide.html">Optimization Guide</a></li>
-<li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-<li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-<li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-<li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-<li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-<li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
+                <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
+                <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
+                <li><a href="optimization-guide.html">Optimization Guide</a></li>
+                <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
+                <li><a href="securaa-siem-low-level-design.html">Securaa SIEM Low Level Design</a></li>
+                <li><a href="securaa-platform-high-level-design.html" class="active">Securaa Platform</a></li>
+                <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
+                <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
+                <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
+                <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
+                <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
+                <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
             </ul>
         </nav>
         
@@ -33,7 +36,7 @@
         <h1>Securaa High-Level Design (High Level Design)</h1>
 <h2>1. Overview</h2>
 <p>Securaa is a modular cybersecurity platform designed for scalable, secure, and automated deployment across cloud and on-premise environments. The system is composed of multiple services, packaged for both Docker-based development and production-grade RPM/DEB installations.</p>
-<p>---</p>
+<hr>
 <h2>2. Architecture</h2>
 <h3>2.1. Core Components</h3>
 <ul>
@@ -50,7 +53,7 @@
 <li><strong>Packaging</strong>: RPM/DEB build system for RedHat and Debian-based deployments (<code>pkg/</code>).</li>
 <li><strong>Cloud Automation</strong>: AWS EC2 provisioning and remote install via shell scripts.</li>
 </ul>
-<p>---</p>
+<hr>
 <h2>3. Deployment Topologies</h2>
 <h3>3.1. Local Development</h3>
 <ul>
@@ -63,7 +66,7 @@
 <li><strong>Debian/Ubuntu</strong>: DEB packages for all components.</li>
 <li><strong>Cloud</strong>: Automated EC2 launch and install via scripts.</li>
 </ul>
-<p>---</p>
+<hr>
 <h2>4. Build & Release Flow</h2>
 <ol>
 <li><strong>Source Checkout</strong>: Git-based, multi-repo support.</li>
@@ -72,7 +75,7 @@
 <li><strong>Deploy</strong>: Install scripts for each OS, Docker Compose for dev.</li>
 <li><strong>Post-Install</strong>: Systemd service enablement, config, and cleanup.</li>
 </ol>
-<p>---</p>
+<hr>
 <h2>5. Security & Compliance</h2>
 <ul>
 <li><strong>AVX Check</strong>: Ensures hardware compatibility for MongoDB 7.0.</li>
@@ -80,14 +83,14 @@
 <li><strong>SSH/SCP</strong>: Secure remote operations for cloud installs.</li>
 <li><strong>Environment Variables</strong>: Managed via <code>.env</code> files.</li>
 </ul>
-<p>---</p>
+<hr>
 <h2>6. Extensibility</h2>
 <ul>
 <li><strong>Modular Packaging</strong>: Each service can be built, packaged, and deployed independently.</li>
 <li><strong>Scripted Automation</strong>: Easy to extend for new services or cloud providers.</li>
 <li><strong>Configurable</strong>: All major parameters are externalized in config files.</li>
 </ul>
-<p>---</p>
+<hr>
 <h2>7. Key Directories</h2>
 <ul>
 <li><code>appliance/</code>: Docker Compose, local config, and scripts.</li>
@@ -134,6 +137,46 @@ graph TB
     style ML fill:#fff3e0
     style ARB fill:#fce4ec
     style LOG fill:#f1f8e9
+</div>
+
+<hr>
+
+<h2>9. References</h2>
+<ul>
+    <li>See deployment document for detailed install and build steps.</li>
+    <li>All scripts and configs are in the root and respective subfolders.</li>
+</ul>
+        DB[(MongoDB<br/>Primary Database)]
+        ML[ML Services<br/>Analytics & Automation]
+        ARB[Arbiter<br/>Orchestration Service]
+        LOG[Logging<br/>Fluentd Log Aggregation]
+    end
+    
+    subgraph "External Integrations"
+        CLOUD[Cloud Providers<br/>AWS/Azure/GCP]
+        MON[Monitoring<br/>Infrastructure]
+        BACKUP[Backup Systems]
+    end
+    
+    UI --> CORE
+    CORE --> DB
+    CORE --> ML
+    CORE --> ARB
+    CORE --> LOG
+    
+    ML --> DB
+    ARB --> DB
+    LOG --> MON
+    
+    CORE --> CLOUD
+    DB --> BACKUP
+    
+    style UI fill:#e1f5fe
+    style CORE fill:#f3e5f5
+    style DB fill:#e8f5e8
+    style ML fill:#fff3e0
+    style ARB fill:#fce4ec
+    style LOG fill:#f1f8e9
 </div></p>
 <p>---</p>
 <h2>9. References</h2>
@@ -148,7 +191,7 @@ graph TB
         <p>&copy; 2025 Securaa Platform. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.min.js"></script>
     <script>
         mermaid.initialize({ 
             startOnLoad: true,

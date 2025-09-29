@@ -16,15 +16,18 @@
         <nav class="documentation-nav">
             <ul>
                 <li><a href="index.html">Home</a></li>
-<li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-<li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-<li><a href="optimization-guide.html">Optimization Guide</a></li>
-<li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-<li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-<li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-<li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-<li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-<li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
+                <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
+                <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
+                <li><a href="optimization-guide.html" class="active">Optimization Guide</a></li>
+                <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
+                <li><a href="securaa-siem-low-level-design.html">Securaa SIEM Low Level Design</a></li>
+                <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
+                <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
+                <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
+                <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
+                <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
+                <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
+                <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
             </ul>
         </nav>
         
@@ -941,16 +944,57 @@
 <li><strong>Race Condition Testing</strong>: Use <code>go test -race</code> for all concurrent code</li>
 <li><strong>Memory Leak Testing</strong>: Run long-duration tests with memory monitoring</li>
 </ul>
-<p>---</p>
+<hr>
 <h2>📈 <strong>Expected Performance Improvements</strong></h2>
-<p>| <strong>Optimization</strong> | <strong>Metric</strong> | <strong>Current</strong> | <strong>Optimized</strong> | <strong>Improvement</strong> |</p>
-<p>|------------------|------------|-------------|---------------|-----------------|</p>
-<p>| Database Queries | Response Time | 500-2000ms | 50-200ms | <strong>5-10x faster</strong> |</p>
-<p>| Concurrent Requests | Throughput | 100 req/sec | 300-400 req/sec | <strong>3-4x increase</strong> |</p>
-<p>| Memory Usage | Heap Allocation | 100MB | 30-50MB | <strong>50-70% reduction</strong> |</p>
-<p>| Task Execution | Parallel Tasks | Sequential | 5-10 parallel | <strong>5-10x throughput</strong> |</p>
-<p>| Cache Hit Ratio | Cache Performance | 0% | 80-90% | <strong>80-90% cache hits</strong> |</p>
-<p>---</p>
+<table>
+    <thead>
+        <tr>
+            <th>Optimization</th>
+            <th>Metric</th>
+            <th>Current</th>
+            <th>Optimized</th>
+            <th>Improvement</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Database Queries</td>
+            <td>Response Time</td>
+            <td>500-2000ms</td>
+            <td>50-200ms</td>
+            <td><strong>5-10x faster</strong></td>
+        </tr>
+        <tr>
+            <td>Concurrent Requests</td>
+            <td>Throughput</td>
+            <td>100 req/sec</td>
+            <td>300-400 req/sec</td>
+            <td><strong>3-4x increase</strong></td>
+        </tr>
+        <tr>
+            <td>Memory Usage</td>
+            <td>Heap Allocation</td>
+            <td>100MB</td>
+            <td>30-50MB</td>
+            <td><strong>50-70% reduction</strong></td>
+        </tr>
+        <tr>
+            <td>Task Execution</td>
+            <td>Parallel Tasks</td>
+            <td>Sequential</td>
+            <td>5-10 parallel</td>
+            <td><strong>5-10x throughput</strong></td>
+        </tr>
+        <tr>
+            <td>Cache Hit Ratio</td>
+            <td>Cache Performance</td>
+            <td>0%</td>
+            <td>80-90%</td>
+            <td><strong>80-90% cache hits</strong></td>
+        </tr>
+    </tbody>
+</table>
+<hr>
 <h2>🚀 <strong>Getting Started Checklist</strong></h2>
 <ul>
 <li>[ ] <strong>Week 1</strong>: Create database indexes and test query performance</li>
@@ -971,7 +1015,7 @@
         <p>&copy; 2025 Securaa Platform. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.min.js"></script>
     <script>
         mermaid.initialize({ 
             startOnLoad: true,

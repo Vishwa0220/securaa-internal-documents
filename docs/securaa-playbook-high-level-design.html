@@ -116,16 +116,57 @@ graph TB
     G --> R
 </div>
 <h3>2.2 Technology Stack</h3>
-<p>| Layer | Technology | Purpose |</p>
-<p>|-------|------------|---------|</p>
-<p>| Runtime | Go 1.17+ | High-performance backend service |</p>
-<p>| Web Framework | Gorilla Mux | HTTP routing and middleware |</p>
-<p>| Database | MongoDB | Primary data store with sharding |</p>
-<p>| Cache | Redis | High-speed data caching |</p>
-<p>| Containerization | Docker | Isolated task execution |</p>
-<p>| Version Control | Git | Playbook versioning |</p>
-<p>| Message Queue | Go Channels | Internal communication |</p>
-<p>| Monitoring | Custom Metrics | Performance tracking |</p>
+<table>
+    <thead>
+        <tr>
+            <th>Layer</th>
+            <th>Technology</th>
+            <th>Purpose</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Runtime</td>
+            <td>Go 1.17+</td>
+            <td>High-performance backend service</td>
+        </tr>
+        <tr>
+            <td>Web Framework</td>
+            <td>Gorilla Mux</td>
+            <td>HTTP routing and middleware</td>
+        </tr>
+        <tr>
+            <td>Database</td>
+            <td>MongoDB</td>
+            <td>Primary data store with sharding</td>
+        </tr>
+        <tr>
+            <td>Cache</td>
+            <td>Redis</td>
+            <td>High-speed data caching</td>
+        </tr>
+        <tr>
+            <td>Containerization</td>
+            <td>Docker</td>
+            <td>Isolated task execution</td>
+        </tr>
+        <tr>
+            <td>Version Control</td>
+            <td>Git</td>
+            <td>Playbook versioning</td>
+        </tr>
+        <tr>
+            <td>Message Queue</td>
+            <td>Go Channels</td>
+            <td>Internal communication</td>
+        </tr>
+        <tr>
+            <td>Monitoring</td>
+            <td>Custom Metrics</td>
+            <td>Performance tracking</td>
+        </tr>
+    </tbody>
+</table>
 <h3>2.3 Service Boundaries</h3>
 <div class="mermaid">
 graph LR
@@ -844,7 +885,7 @@ graph TB
         <p>&copy; 2025 Securaa Platform. All rights reserved.</p>
     </footer>
     
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.min.js"></script>
     <script>
         mermaid.initialize({ 
             startOnLoad: true,

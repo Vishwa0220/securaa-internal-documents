@@ -6,7 +6,7 @@
     <title>Process Manager - Low Level Design - Securaa Platform Documentation</title>
     <link rel="stylesheet" href="assets/css/documentation.css">
     <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
       mermaid.initialize({ startOnLoad: true });
     </script>
 </head>
@@ -120,7 +120,7 @@ classDiagram
         </ul>
         <h2>2. Database Design</h2>
         <h3>Entity Relationship Diagram</h3>
-        <pre class="mermaid">
+        <div class="mermaid">
 erDiagram
     TENANT ||--o{ TENANTDB : has
     TENANT ||--o{ TENANTBACKUP : backup

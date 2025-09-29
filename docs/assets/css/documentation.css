@@ -175,6 +175,7 @@ body {
     max-width: 600px;
     margin: 0 auto;
     text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: white;
 }
 
 .main-header .subtitle {
@@ -451,6 +452,27 @@ pre {
     overflow-x: auto;
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--gray-800);
+    color: var(--gray-100);
+    position: relative;
+    transition: var(--transition);
+}
+
+/* Add subtle border accent to code blocks */
+pre::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+/* Subtle hover effect for code blocks */
+pre:hover {
+    box-shadow: var(--shadow-xl);
+    border-color: var(--gray-700);
 }
 
 pre code {
@@ -461,6 +483,51 @@ pre code {
     font-size: var(--font-size-sm);
     line-height: 1.5;
     font-weight: 400;
+}
+
+/* Fix inline code elements inside pre blocks */
+pre p {
+    margin: 0;
+    color: var(--gray-100);
+    line-height: 1.5;
+}
+
+pre p code {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-sm);
+    padding: var(--space-1) var(--space-2);
+    color: #67e8f9; /* Light cyan for better visibility */
+    font-weight: 500;
+}
+
+/* Improve syntax highlighting colors for dark backgrounds */
+pre code.language-go {
+    color: var(--gray-100);
+}
+
+/* Style for different code types in dark background */
+pre code .keyword { color: #c792ea; }
+pre code .string { color: #c3e88d; }
+pre code .number { color: #f78c6c; }
+pre code .comment { color: var(--gray-400); }
+pre code .type { color: #82aaff; }
+pre code .function { color: #ffcb6b; }
+
+/* Special styling for table code elements */
+td code {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: var(--primary-dark);
+    font-size: var(--font-size-xs);
+}
+
+/* Styling for code in headers and other contexts */
+h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: var(--primary-dark);
+    font-size: 0.9em;
 }
 
 /* Tables */
@@ -573,7 +640,6 @@ blockquote {
     border: 1px solid var(--gray-200);
     position: relative;
     overflow: hidden;
-    group: card;
     animation: var(--animate-card);
     animation-fill-mode: both;
 }
@@ -833,6 +899,53 @@ blockquote {
     
     th, td {
         padding: var(--space-2) var(--space-3);
+    }
+    
+    /* Improve code block readability on mobile */
+    pre {
+        padding: var(--space-4);
+        margin: var(--space-4) 0;
+        font-size: var(--font-size-xs);
+    }
+    
+    code {
+        font-size: var(--font-size-xs);
+        padding: 2px var(--space-1);
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Adjust colors for systems with dark mode preference */
+        --gray-50: #0f172a;
+        --gray-100: #1e293b;
+        --gray-800: #f1f5f9;
+        --gray-900: #f8fafc;
+    }
+    
+    body {
+        background: linear-gradient(135deg, var(--gray-900) 0%, #f1f5f9 100%);
+        color: var(--gray-200);
+    }
+    
+    .doc-section {
+        background: var(--gray-800);
+        border-color: var(--gray-700);
+        color: var(--gray-100);
+    }
+    
+    .doc-card {
+        background: var(--gray-800);
+        border-color: var(--gray-700);
+        color: var(--gray-100);
+    }
+    
+    /* Adjust inline code for dark mode */
+    code {
+        background: var(--gray-700);
+        border-color: var(--gray-600);
+        color: var(--accent-light);
     }
 }
 

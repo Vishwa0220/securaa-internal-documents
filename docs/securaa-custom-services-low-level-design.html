@@ -182,6 +182,29 @@ func InitMongoClient(app *App) {
     }
 }</code></pre>
 
+        <h4>2.2.2 Connection Pool Management</h4>
+        <div class="mermaid">
+graph TB
+    subgraph "Connection Pool Strategy"
+        MAIN_POOL[Main Connection Pool<br/>localhost]
+        TENANT1_POOL[Tenant 1 Pool<br/>tenant-1-db]
+        TENANT2_POOL[Tenant 2 Pool<br/>tenant-2-db]
+        TENANT_N_POOL[Tenant N Pool<br/>tenant-n-db]
+    end
+    
+    subgraph "Pool Configuration"
+        MIN_CONN[Min Connections: 5]
+        MAX_CONN[Max Connections: 100]
+        IDLE_TIMEOUT[Idle Timeout: 10m]
+        CONN_TIMEOUT[Connection Timeout: 30s]
+    end
+    
+    MAIN_POOL --> MIN_CONN
+    TENANT1_POOL --> MAX_CONN
+    TENANT2_POOL --> IDLE_TIMEOUT
+    TENANT_N_POOL --> CONN_TIMEOUT
+        </div>
+
         <h3>2.3 Controller Layer Implementation</h3>
         
         <h4>2.3.1 Custom Application Controller</h4>
@@ -229,6 +252,48 @@ func (c *CustomAppController) CreateCustomApp(w http.ResponseWriter, r *http.Req
     
     json.NewEncoder(w).Encode(response)
 }</code></pre>
+
+        <h4>2.3.1.1 Application Creation Flow</h4>
+        <div class="mermaid">
+flowchart TD
+    A[UpsertGenericApp Request] --> B[Parse Multipart Form]
+    B --> C{Logo File Present?}
+    C -->|Yes| D[Process Logo Upload]
+    C -->|No| E[Use Default Logo]
+    D --> F[Parse Form Fields]
+    E --> F
+    F --> G[Decrypt Credentials]
+    G --> H{Integration ID = 0?}
+    H -->|Yes| I[Create New Integration]
+    H -->|No| J[Update Existing Integration]
+    
+    I --> K[Check Name Availability]
+    K --> L{Name Available?}
+    L -->|No| M[Return Error]
+    L -->|Yes| N[Generate Integration ID]
+    N --> O[Insert Database]
+    
+    J --> P[Update Active Instances]
+    P --> Q[Update Integration Data]
+    Q --> R{Logo Updated?}
+    R -->|Yes| S[Update Task Logos]
+    R -->|No| T[Skip Logo Update]
+    S --> T
+    
+    O --> U{Add Instance?}
+    T --> U
+    U -->|No| V[Cache Invalidation]
+    U -->|Yes| W[Check Trial Limits]
+    W --> X{Limit Exceeded?}
+    X -->|Yes| Y[Return Limit Error]
+    X -->|No| Z[Create Active Instance]
+    Z --> AA[Update Trial Count]
+    AA --> V
+    V --> BB[Return Success]
+    
+    M --> BB
+    Y --> BB
+        </div>
 
         <h4>2.3.2 Generic Task Controller</h4>
         <pre><code>func (c *GenericAppController) CreateGenericTask(w http.ResponseWriter, r *http.Request) {
@@ -318,6 +383,44 @@ func (es *ExportService) ExportApplicationData(tenantId string, appIds []string)
     
     return exportData, nil
 }</code></pre>
+
+        <h4>2.4.1.1 Export Processing Pipeline</h4>
+        <div class="mermaid">
+graph TB
+    subgraph "Task Processing Pipeline"
+        A[Fetch Tasks] --> B[Build Task Name Map]
+        B --> C[Process Non-Ingestion Tasks]
+        B --> D[Process Case Ingestion Tasks]
+        
+        C --> E[Sanitize Task Data]
+        D --> F[Map Dependent Tasks]
+        D --> G[Map Events API Tasks]
+        
+        E --> H[Replace Task IDs with Names]
+        F --> H
+        G --> H
+        
+        H --> I[Generate Export Object]
+    end
+    
+    subgraph "Dependency Resolution"
+        J[Task ID] --> K[Task Name Lookup]
+        K --> L[Replace in Config JSON]
+        L --> M[Update Dependencies]
+    end
+    
+    subgraph "Data Sanitization"
+        N[Remove Sensitive Data]
+        O[Reset IDs to 0]
+        P[Clear Tenant Info]
+        Q[Clear Task Handlers]
+    end
+    
+    E --> N
+    E --> O
+    E --> P
+    E --> Q
+        </div>
 
         <h4>2.4.2 Integration Service</h4>
         <pre><code>type IntegrationService struct {
@@ -462,6 +565,33 @@ type TaskDependency struct {
     Transformation string          `bson:"transformation" json:"transformation"`
 }</code></pre>
 
+        <h3>3.2 Data Validation & Transformation</h3>
+        <div class="mermaid">
+flowchart LR
+    subgraph "Input Validation"
+        A[Raw Input] --> B[JSON Decode]
+        B --> C[Structure Validation]
+        C --> D[Business Rules Check]
+        D --> E[Sanitization]
+    end
+    
+    subgraph "Data Transformation"
+        F[Database Model] --> G[Field Encryption]
+        G --> H[Tenant Mapping]
+        H --> I[Timestamp Addition]
+        I --> J[ID Generation]
+    end
+    
+    subgraph "Output Serialization"
+        K[Internal Model] --> L[Response Model]
+        L --> M[JSON Encode]
+        M --> N[HTTP Response]
+    end
+    
+    E --> F
+    J --> K
+        </div>
+
         <h3>3.3 Database Indexes</h3>
         <pre><code>// Custom Applications Indexes
 db.custom_apps.createIndex({"tenant_id": 1})
@@ -482,6 +612,36 @@ db.generic_tasks.createIndex({"tenant_id": 1, "created_at": -1})
 db.integrations.createIndex({"tenant_id": 1})
 db.integrations.createIndex({"tenant_id": 1, "name": 1}, {"unique": true})
 db.integrations.createIndex({"tenant_id": 1, "status": 1})</code></pre>
+
+        <h3>3.4 Database Transaction Management</h3>
+        <div class="mermaid">
+sequenceDiagram
+    participant Service
+    participant DBClient
+    participant MongoDB
+    
+    Service->>DBClient: Start Transaction
+    DBClient->>MongoDB: Begin Transaction
+    
+    loop Database Operations
+        Service->>DBClient: Execute Operation
+        DBClient->>MongoDB: Execute Query
+        MongoDB-->>DBClient: Operation Result
+        DBClient-->>Service: Result
+    end
+    
+    alt All Operations Successful
+        Service->>DBClient: Commit Transaction
+        DBClient->>MongoDB: Commit
+        MongoDB-->>DBClient: Success
+        DBClient-->>Service: Transaction Complete
+    else Any Operation Failed
+        Service->>DBClient: Rollback Transaction
+        DBClient->>MongoDB: Rollback
+        MongoDB-->>DBClient: Rollback Complete
+        DBClient-->>Service: Transaction Rolled Back
+    end
+        </div>
 
         <h2 id="api-specifications">4. API Specifications</h2>
         
@@ -613,6 +773,29 @@ func (am *AuthMiddleware) ValidateToken(next http.Handler) http.Handler {
     })
 }</code></pre>
 
+        <h4>5.1.1 Authentication Flow</h4>
+        <div class="mermaid">
+flowchart TD
+    A[HTTP Request] --> B[Logging Middleware]
+    B --> C{Skip Routes Check}
+    C -->|Skip| D[Direct Route]
+    C -->|Process| E[Token Validation]
+    E --> F{Valid Token?}
+    F -->|No| G[Return 401]
+    F -->|Yes| H[Tenant Resolution]
+    H --> I{Tenant Valid?}
+    I -->|No| J[Return 403]
+    I -->|Yes| K[Session Creation]
+    K --> L[Request Logging]
+    L --> M[Forward to Controller]
+    M --> N[Response Logging]
+    N --> O[HTTP Response]
+    
+    G --> O
+    J --> O
+    D --> O
+        </div>
+
         <h3>5.2 Data Encryption Implementation</h3>
         <pre><code>type EncryptionService struct {
     Key []byte
@@ -668,6 +851,44 @@ func (es *EncryptionService) DecryptField(encrypted string) (string, error) {
     return string(plaintext), nil
 }</code></pre>
 
+        <h3>5.3 Security Sequence Flow</h3>
+        <div class="mermaid">
+sequenceDiagram
+    participant Client
+    participant Middleware
+    participant TokenStore
+    participant Database
+    participant Controller
+    
+    Client->>Middleware: Request with Token
+    Middleware->>TokenStore: Validate Token
+    TokenStore-->>Middleware: Token Valid/Invalid
+    
+    alt Token Invalid
+        Middleware-->>Client: 401 Unauthorized
+    else Token Valid
+        Middleware->>Database: Get Tenant Info
+        Database-->>Middleware: Tenant Details
+        Middleware->>Controller: Forward Request
+        Controller-->>Middleware: Process Response
+        Middleware-->>Client: Success Response
+    end
+        </div>
+
+        <h3>5.4 Input Sanitization</h3>
+        <div class="mermaid">
+flowchart TD
+    A[User Input] --> B[Input Validation]
+    B --> C{Valid Format?}
+    C -->|No| D[Return Validation Error]
+    C -->|Yes| E[SQL Injection Check]
+    E --> F{Safe?}
+    F -->|No| G[Return Security Error]
+    F -->|Yes| H[XSS Prevention]
+    H --> I[Sanitized Input]
+    I --> J[Business Logic Processing]
+        </div>
+
         <h2 id="concurrency-threading">6. Concurrency & Threading</h2>
         
         <h3>6.1 Request Processing Concurrency</h3>
@@ -705,6 +926,31 @@ func NewTaskExecutor(maxWorkers int) *TaskExecutor {
     }
 }</code></pre>
 
+        <h3>6.2 Cache Management Operations</h3>
+        <div class="mermaid">
+graph TB
+    subgraph "Cache Operations"
+        A[Create/Update Operation] --> B[Invalidate Related Cache]
+        C[Delete Operation] --> D[Invalidate Related Cache]
+        E[Read Operation] --> F{Cache Hit?}
+        F -->|Yes| G[Return Cached Data]
+        F -->|No| H[Fetch from DB]
+        H --> I[Store in Cache]
+        I --> J[Return Data]
+    end
+    
+    subgraph "Cache Keys"
+        K[app_listing_{tenant}]
+        L[active_instances_{tenant}]
+        M[integration_list_{tenant}]
+    end
+    
+    B --> K
+    B --> L
+    D --> K
+    D --> L
+        </div>
+
         <h2 id="error-handling">7. Error Handling Implementation</h2>
         
         <h3>7.1 Centralized Error Handler</h3>
@@ -739,6 +985,38 @@ func (eh *ErrorHandler) HandleError(w http.ResponseWriter, r *http.Request, err 
     w.WriteHeader(statusCode)
     json.NewEncoder(w).Encode(apiError)
 }</code></pre>
+
+        <h3>7.2 Error Processing Flow</h3>
+        <div class="mermaid">
+graph TB
+    A[Request Processing] --> B{Validation Error?}
+    B -->|Yes| C[Return 400 Bad Request]
+    B -->|No| D[Business Logic]
+    
+    D --> E{Database Error?}
+    E -->|Yes| F[Log Error]
+    F --> G[Return 500 Internal Server Error]
+    E -->|No| H[Processing Success]
+    
+    D --> I{Business Logic Error?}
+    I -->|Yes| J[Log Warning]
+    J --> K[Return 200 with Error Flag]
+    I -->|No| H
+    
+    H --> L[Return 200 Success]
+    
+    subgraph "Error Types"
+        M[Validation Errors]
+        N[Database Errors]
+        O[Business Logic Errors]
+        P[System Errors]
+    end
+    
+    C --> M
+    G --> N
+    K --> O
+    G --> P
+        </div>
 
         <h2 id="testing-strategy">8. Testing Strategy</h2>
         
@@ -807,6 +1085,29 @@ func (eh *ErrorHandler) HandleError(w http.ResponseWriter, r *http.Request, err 
     })
 }</code></pre>
 
+        <h3>8.2.1 Integration Test Flow</h3>
+        <div class="mermaid">
+flowchart TD
+    A[Integration Test Suite] --> B[Database Tests]
+    A --> C[API Endpoint Tests]
+    A --> D[Cache Integration Tests]
+    A --> E[External Service Tests]
+    
+    B --> F[CRUD Operations]
+    B --> G[Transaction Tests]
+    
+    C --> H[Authentication Tests]
+    C --> I[Authorization Tests]
+    C --> J[Input Validation Tests]
+    
+    D --> K[Cache Hit/Miss Tests]
+    D --> L[Cache Invalidation Tests]
+    
+    E --> M[MongoDB Integration]
+    E --> N[Redis Integration]
+    E --> O[External API Integration]
+        </div>
+
         <h2 id="deployment-implementation">9. Deployment & Infrastructure</h2>
         
         <h3>9.1 Docker Configuration</h3>
@@ -829,6 +1130,32 @@ COPY --from=builder /app/config.yaml .
 EXPOSE 8063
 
 CMD ["./securaa-custom-services"]</code></pre>
+
+        <h3>9.1.1 Configuration Management</h3>
+        <div class="mermaid">
+flowchart TD
+    A[Application Start] --> B[Load Config File]
+    B --> C[Parse Configuration]
+    C --> D[Validate Required Keys]
+    D --> E{Validation OK?}
+    E -->|No| F[Exit with Error]
+    E -->|Yes| G[Store in ConfigObject]
+    G --> H[Pass to Components]
+    
+    subgraph "Config Categories"
+        I[Database Settings]
+        J[Cache Settings]
+        K[Security Settings]
+        L[Logging Settings]
+        M[Business Logic Settings]
+    end
+    
+    H --> I
+    H --> J
+    H --> K
+    H --> L
+    H --> M
+        </div>
 
         <h3>9.2 Kubernetes Deployment</h3>
         <pre><code>apiVersion: apps/v1
@@ -984,6 +1311,70 @@ func NewMetricsCollector() *MetricsCollector {
         ),
     }
 }</code></pre>
+
+        <h3>10.3 Logging Implementation</h3>
+        <div class="mermaid">
+graph TB
+    subgraph "Log Levels"
+        A[DEBUG - Development Info]
+        B[INFO - General Information]
+        C[WARN - Warning Conditions]
+        D[ERROR - Error Conditions]
+        E[FATAL - Critical Errors]
+    end
+    
+    subgraph "Log Categories"
+        F[REQUEST_RESPONSE - HTTP Traffic]
+        G[DATABASE - DB Operations]
+        H[BUSINESS_LOGIC - Application Logic]
+        I[SECURITY - Auth/Authorization]
+        J[PERFORMANCE - Performance Metrics]
+    end
+    
+    subgraph "Log Destinations"
+        K[Console Output]
+        L[File System]
+        M[Centralized Logging]
+        N[Monitoring Systems]
+    end
+    
+    A --> F
+    B --> G
+    C --> H
+    D --> I
+    E --> J
+    
+    F --> K
+    G --> L
+    H --> M
+    I --> N
+        </div>
+
+        <h3>10.4 Scaling Strategy</h3>
+        <div class="mermaid">
+graph LR
+    subgraph "Horizontal Scaling"
+        A[Load Balancer] --> B[Instance 1]
+        A --> C[Instance 2]
+        A --> D[Instance N]
+    end
+    
+    subgraph "Vertical Scaling"
+        E[CPU Scaling]
+        F[Memory Scaling]
+        G[Storage Scaling]
+    end
+    
+    subgraph "Database Scaling"
+        H[Read Replicas]
+        I[Sharding]
+        J[Connection Pooling]
+    end
+    
+    B --> H
+    C --> I
+    D --> J
+        </div>
 
     </main>
     <script src="assets/js/documentation.js"></script>

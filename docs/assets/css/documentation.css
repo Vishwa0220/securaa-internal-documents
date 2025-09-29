@@ -849,6 +849,84 @@ blockquote {
     }
 }
 
+/* Mermaid Diagram Fallback Styles */
+.mermaid-fallback {
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%) !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    margin: 20px 0 !important;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace !important;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    color: #2d3748 !important;
+    white-space: pre-wrap !important;
+    overflow-x: auto !important;
+    position: relative !important;
+    box-shadow: var(--shadow-sm) !important;
+}
+
+.mermaid-fallback strong {
+    color: #1a202c !important;
+    font-weight: 600 !important;
+    display: block !important;
+    margin-bottom: 15px !important;
+    padding: 12px 20px !important;
+    background: linear-gradient(135deg, #e2e8f0, #f1f5f9) !important;
+    margin: -24px -24px 20px -24px !important;
+    border-radius: 11px 11px 0 0 !important;
+    border-bottom: 2px solid #cbd5e1 !important;
+    font-size: 14px !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.mermaid-fallback div[style*="color: #2b6cb0"] {
+    font-weight: 600 !important;
+    margin: 10px 0 5px 0 !important;
+}
+
+.mermaid-fallback div[style*="background: #edf2f7"] {
+    border-radius: 6px !important;
+    border-left: 3px solid var(--primary-color) !important;
+    transition: var(--transition) !important;
+}
+
+.mermaid-fallback div[style*="background: #edf2f7"]:hover {
+    background: #e6fffa !important;
+    border-left-color: var(--accent-color) !important;
+    transform: translateX(2px) !important;
+}
+
+/* Responsive design for diagrams */
+@media (max-width: 768px) {
+    .mermaid-fallback {
+        padding: 16px !important;
+        margin: 16px 0 !important;
+        font-size: 12px !important;
+    }
+    
+    .mermaid-fallback strong {
+        padding: 8px 16px !important;
+        margin: -16px -16px 16px -16px !important;
+        font-size: 13px !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .mermaid-fallback {
+        background: #f9f9f9 !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+    
+    .mermaid-fallback strong {
+        background: #eeeeee !important;
+        border-bottom: 1px solid #999 !important;
+    }
+}
+
 /* Print Styles */
 @media print {
     :root {

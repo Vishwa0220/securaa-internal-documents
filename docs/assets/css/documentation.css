@@ -65,6 +65,49 @@
     
     /* Transitions */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Animations */
+    --animate-in: fadeInUp 0.6s ease-out;
+    --animate-card: slideInUp 0.4s ease-out;
+    --animate-bounce: bounce 0.8s ease-out;
+}
+
+/* Keyframe Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+        transform: translate3d(0, -10px, 0);
+    }
+    70% {
+        transform: translate3d(0, -5px, 0);
+    }
+    90% {
+        transform: translate3d(0, -2px, 0);
+    }
 }
 
 * {
@@ -531,6 +574,8 @@ blockquote {
     position: relative;
     overflow: hidden;
     group: card;
+    animation: var(--animate-card);
+    animation-fill-mode: both;
 }
 
 .doc-card::before {
@@ -617,8 +662,87 @@ blockquote {
     box-shadow: var(--shadow-md);
 }
 
-.doc-card a:hover::after {
+.doc-grid .doc-card:nth-child(1) { animation-delay: 0.1s; }
+.doc-grid .doc-card:nth-child(2) { animation-delay: 0.2s; }
+.doc-grid .doc-card:nth-child(3) { animation-delay: 0.3s; }
+.doc-grid .doc-card:nth-child(4) { animation-delay: 0.4s; }
+.doc-grid .doc-card:nth-child(5) { animation-delay: 0.5s; }
+.doc-grid .doc-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Quick Reference Links Styling */
+.quick-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+}
+
+.quick-links-section {
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    border: 1px solid var(--gray-200);
+    transition: var(--transition);
+}
+
+.quick-links-section:hover {
+    background: white;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.quick-links-section h4 {
+    color: var(--gray-800);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.quick-links-section h4::before {
+    content: '🔗';
+    font-size: var(--font-size-base);
+}
+
+.quick-links-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.quick-links-section li {
+    margin-bottom: var(--space-2);
+}
+
+.quick-links-section a {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+}
+
+.quick-links-section a::before {
+    content: '→';
+    color: var(--primary-color);
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.quick-links-section a:hover {
+    color: var(--primary-color);
+    background: rgba(99, 102, 241, 0.1);
     transform: translateX(4px);
+}
+
+.quick-links-section a:hover::before {
+    transform: translateX(2px);
 }
 
 
@@ -692,6 +816,15 @@ blockquote {
     
     .doc-card {
         padding: var(--space-6);
+    }
+    
+    .quick-links-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
+    .quick-links-section {
+        padding: var(--space-4);
     }
     
     table {

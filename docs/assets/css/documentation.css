@@ -463,6 +463,19 @@ pre code {
     font-weight: 400;
 }
 
+/* Fix for paragraph and emphasis elements inside pre blocks */
+pre p,
+pre em {
+    color: var(--gray-100) !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure all child elements in pre have readable color */
+pre * {
+    color: var(--gray-100) !important;
+}
+
 /* Tables */
 table {
     width: 100%;

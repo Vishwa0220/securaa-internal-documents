@@ -170,7 +170,7 @@ body {
 
 .main-header p {
     font-size: var(--font-size-xl);
-    opacity: 0.95;
+    color: white;
     font-weight: 400;
     max-width: 600px;
     margin: 0 auto;

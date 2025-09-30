@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Securaa Custom Utils - High Level Design - Securaa Platform Documentation</title>
     <link rel="stylesheet" href="assets/css/documentation.css">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
 </head>
 <body>
     <header class="main-header">
@@ -37,55 +33,53 @@
     </nav>
     
     <main class="main-content">
-        <h1>Zona Custom Utils Service - High-Level Design (HLD)</h1>
+        <h1>Securaa Custom Utils - High Level Design</h1>
 
         <h2>Document Information</h2>
         <ul>
-            <li><strong>Service Name</strong>: Zona Custom Utils Service</li>
+            <li><strong>Service Name</strong>: Securaa Custom Utils Service</li>
             <li><strong>Version</strong>: 1.0</li>
-            <li><strong>Date</strong>: December 2024</li>
+            <li><strong>Date</strong>: September 2025</li>
             <li><strong>Author</strong>: Development Team</li>
             <li><strong>Related Documents</strong>: <a href="securaa-custom-utils-low-level-design.html">Low Level Design</a></li>
         </ul>
         
-        <!-- Tab Navigation -->
-        <div class="tab-container">
-            <div class="tab-nav">
-                <button class="tab-btn active" onclick="openTab(event, 'overview')">Overview</button>
-                <button class="tab-btn" onclick="openTab(event, 'architecture')">Architecture</button>
-                <button class="tab-btn" onclick="openTab(event, 'components')">Components</button>
-                <button class="tab-btn" onclick="openTab(event, 'data')">Data Model</button>
-                <button class="tab-btn" onclick="openTab(event, 'security')">Security</button>
-                <button class="tab-btn" onclick="openTab(event, 'performance')">Performance</button>
-                <button class="tab-btn" onclick="openTab(event, 'deployment')">Deployment</button>
-                <button class="tab-btn" onclick="openTab(event, 'flows')">Process Flows</button>
-            </div>
+        <h2>Table of Contents</h2>
+        <ol>
+            <li><a href="#executive-summary">Executive Summary</a></li>
+            <li><a href="#system-overview">System Overview</a></li>
+            <li><a href="#solution-architecture">Solution Architecture</a></li>
+            <li><a href="#component-architecture">Component Architecture</a></li>
+            <li><a href="#data-architecture">Data Architecture</a></li>
+            <li><a href="#security-architecture">Security Architecture</a></li>
+            <li><a href="#performance-architecture">Performance Architecture</a></li>
+            <li><a href="#deployment-architecture">Deployment Architecture</a></li>
+            <li><a href="#process-flows">Process Flows</a></li>
+        </ol>
 
-            <!-- Overview Tab -->
-            <div id="overview" class="tab-content active">
-                <h2>Executive Summary</h2>
-                <p>The Zona Custom Utils Service is a microservice designed to enable users to create, manage, and execute custom utility functions in a secure, multi-tenant environment. The service supports Python-based transformers and scripts, providing isolated execution environments through containerization while maintaining comprehensive audit trails and performance optimization.</p>
+        <h2 id="executive-summary">Executive Summary</h2>
+        <p>The Securaa Custom Utils Service is a microservice designed to enable users to create, manage, and execute custom utility functions in a secure, multi-tenant environment. The service supports Python-based transformers and scripts, providing isolated execution environments through containerization while maintaining comprehensive audit trails and performance optimization.</p>
 
-                <h3>Key Business Value</h3>
-                <ul>
-                    <li><strong>Extensibility</strong>: Allows users to create custom data processing utilities</li>
-                    <li><strong>Security</strong>: Provides secure code validation and isolated execution</li>
-                    <li><strong>Multi-tenancy</strong>: Supports multiple tenants with data isolation</li>
-                    <li><strong>Scalability</strong>: Designed for high-volume, concurrent operations</li>
-                    <li><strong>Compliance</strong>: Comprehensive audit logging for regulatory requirements</li>
-                </ul>
+        <h3>Key Business Value</h3>
+        <ul>
+            <li><strong>Extensibility</strong>: Allows users to create custom data processing utilities</li>
+            <li><strong>Security</strong>: Provides secure code validation and isolated execution</li>
+            <li><strong>Multi-tenancy</strong>: Supports multiple tenants with data isolation</li>
+            <li><strong>Scalability</strong>: Designed for high-volume, concurrent operations</li>
+            <li><strong>Compliance</strong>: Comprehensive audit logging for regulatory requirements</li>
+        </ul>
 
-                <h3>Solution Approach</h3>
-                <ul>
-                    <li><strong>Microservice Architecture</strong>: Self-contained service with clear boundaries</li>
-                    <li><strong>Container-based Execution</strong>: Docker containers for secure Python code execution</li>
-                    <li><strong>Multi-tier Caching</strong>: Redis and in-memory caching for performance</li>
-                    <li><strong>Multi-tenant Data Model</strong>: Isolated data storage per tenant</li>
-                    <li><strong>Event-driven Processing</strong>: Asynchronous operations for non-critical tasks</li>
-                </ul>
+        <h3>Solution Approach</h3>
+        <ul>
+            <li><strong>Microservice Architecture</strong>: Self-contained service with clear boundaries</li>
+            <li><strong>Container-based Execution</strong>: Docker containers for secure Python code execution</li>
+            <li><strong>Multi-tier Caching</strong>: Redis and in-memory caching for performance</li>
+            <li><strong>Multi-tenant Data Model</strong>: Isolated data storage per tenant</li>
+            <li><strong>Event-driven Processing</strong>: Asynchronous operations for non-critical tasks</li>
+        </ul>
 
-                <h2>System Overview</h2>
-                <div class="mermaid">
+        <h2 id="system-overview">System Overview</h2>
+        <div class="mermaid">
 graph TB
     subgraph "External Interfaces"
         WEB[Web UI]
@@ -99,7 +93,7 @@ graph TB
         AUTH[Authentication Gateway]
     end
     
-    subgraph "Zona Custom Utils Service"
+    subgraph "Securaa Custom Utils Service"
         APP[Application Layer]
         BL[Business Logic Layer]
         DATA[Data Access Layer]
@@ -137,798 +131,497 @@ graph TB
     
     APP --> LOGGING
     APP --> MONITORING
-                </div>
+        </div>
 
-                <h3>System Context</h3>
-                <p>The Zona Custom Utils Service operates within a larger ecosystem of microservices, providing custom utility management capabilities. It integrates with:</p>
-                <ul>
-                    <li><strong>Authentication Services</strong>: For user authentication and authorization</li>
-                    <li><strong>Tenant Management</strong>: For multi-tenant configuration and isolation</li>
-                    <li><strong>Container Orchestration</strong>: For isolated execution environments</li>
-                    <li><strong>Monitoring Infrastructure</strong>: For observability and alerting</li>
-                    <li><strong>Storage Services</strong>: For persistent data and file management</li>
-                </ul>
+        <h3>System Context</h3>
+        <p>The Securaa Custom Utils Service operates within a larger ecosystem of microservices, providing custom utility management capabilities. It integrates with:</p>
+        <ul>
+            <li><strong>Authentication Services</strong>: For user authentication and authorization</li>
+            <li><strong>Tenant Management</strong>: For multi-tenant configuration and isolation</li>
+            <li><strong>Container Orchestration</strong>: For isolated execution environments</li>
+            <li><strong>Monitoring Infrastructure</strong>: For observability and alerting</li>
+            <li><strong>Storage Services</strong>: For persistent data and file management</li>
+        </ul>
 
-                <h2>Business Requirements</h2>
-                <h3>Functional Requirements</h3>
-                <div class="requirements-grid">
-                    <div class="requirement-card">
-                        <h4>FR-001: Custom Utility Management</h4>
-                        <ul>
-                            <li>Users must be able to create custom Python utilities</li>
-                            <li>System must validate Python syntax and security</li>
-                            <li>Users must be able to update existing utilities</li>
-                            <li>System must maintain version history</li>
-                        </ul>
-                    </div>
-                    <div class="requirement-card">
-                        <h4>FR-002: Code Validation and Security</h4>
-                        <ul>
-                            <li>System must validate Python syntax before saving</li>
-                            <li>System must scan for prohibited code patterns</li>
-                            <li>System must prevent execution of malicious code</li>
-                            <li>System must provide detailed validation feedback</li>
-                        </ul>
-                    </div>
-                    <div class="requirement-card">
-                        <h4>FR-003: Utility Execution</h4>
-                        <ul>
-                            <li>Users must be able to execute their custom utilities</li>
-                            <li>System must provide real-time execution output</li>
-                            <li>System must support parameterized execution</li>
-                            <li>System must handle execution timeouts gracefully</li>
-                        </ul>
-                    </div>
-                    <div class="requirement-card">
-                        <h4>FR-004: Multi-tenant Support</h4>
-                        <ul>
-                            <li>System must isolate data between tenants</li>
-                            <li>System must support tenant-specific configurations</li>
-                            <li>System must enable cross-tenant utility copying</li>
-                            <li>System must maintain tenant-level audit trails</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <h2 id="solution-architecture">Solution Architecture</h2>
+        <h3>Architectural Principles</h3>
+        <ul>
+            <li><strong>Microservice Architecture</strong>: Independent, deployable, and scalable service</li>
+            <li><strong>Domain-Driven Design</strong>: Clear domain boundaries and responsibility</li>
+            <li><strong>Event-Driven Architecture</strong>: Asynchronous processing for better performance</li>
+            <li><strong>Container-First Design</strong>: Isolated execution environments</li>
+            <li><strong>Multi-Tenant by Design</strong>: Built-in tenant isolation and data security</li>
+            <li><strong>API-First Approach</strong>: RESTful APIs for all interactions</li>
+        </ul>
 
-            <!-- Architecture Tab -->
-            <div id="architecture" class="tab-content">
-                <h2>Solution Architecture</h2>
-                
-                <h3>Architectural Principles</h3>
-                <ol>
-                    <li><strong>Single Responsibility</strong>: Each component has a well-defined purpose</li>
-                    <li><strong>Loose Coupling</strong>: Components interact through well-defined interfaces</li>
-                    <li><strong>High Cohesion</strong>: Related functionality is grouped together</li>
-                    <li><strong>Separation of Concerns</strong>: Clear boundaries between different aspects</li>
-                    <li><strong>Fail-Safe Design</strong>: Graceful degradation under failure conditions</li>
-                </ol>
-
-                <h3>Architecture Patterns</h3>
-                <ul>
-                    <li><strong>Layered Architecture</strong>: Clear separation between presentation, business, and data layers</li>
-                    <li><strong>Repository Pattern</strong>: Abstracted data access layer</li>
-                    <li><strong>Builder Pattern</strong>: Complex object construction</li>
-                    <li><strong>Middleware Pattern</strong>: Cross-cutting concerns handling</li>
-                    <li><strong>Circuit Breaker</strong>: Fault tolerance for external service calls</li>
-                </ul>
-
-                <h3>Technology Decisions</h3>
-                <div class="tech-grid">
-                    <div class="tech-card">
-                        <h4>Programming Language: Go</h4>
-                        <p><strong>Rationale</strong>:</p>
-                        <ul>
-                            <li>High performance and low latency</li>
-                            <li>Excellent concurrency support</li>
-                            <li>Strong ecosystem for microservices</li>
-                            <li>Easy deployment and maintenance</li>
-                        </ul>
-                    </div>
-                    <div class="tech-card">
-                        <h4>Database: MongoDB</h4>
-                        <p><strong>Rationale</strong>:</p>
-                        <ul>
-                            <li>Document-based model fits utility metadata</li>
-                            <li>Horizontal scaling capabilities</li>
-                            <li>Rich querying capabilities</li>
-                            <li>Multi-tenant support</li>
-                        </ul>
-                    </div>
-                    <div class="tech-card">
-                        <h4>Cache: Redis</h4>
-                        <p><strong>Rationale</strong>:</p>
-                        <ul>
-                            <li>High-performance in-memory storage</li>
-                            <li>Advanced data structures</li>
-                            <li>Pub/Sub capabilities</li>
-                            <li>Clustering support</li>
-                        </ul>
-                    </div>
-                    <div class="tech-card">
-                        <h4>Container Runtime: Docker</h4>
-                        <p><strong>Rationale</strong>:</p>
-                        <ul>
-                            <li>Isolated execution environment</li>
-                            <li>Resource management</li>
-                            <li>Portability across environments</li>
-                            <li>Extensive ecosystem</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Components Tab -->
-            <div id="components" class="tab-content">
-                <h2>Component Architecture</h2>
-                <div class="mermaid">
+        <div class="mermaid">
 graph TB
-    subgraph "Presentation Layer"
-        HTTP[HTTP Router]
-        MIDDLEWARE[Middleware Stack]
-        CONTROLLERS[Controllers]
+    subgraph "Client Layer"
+        WEB_CLIENT[Web Application]
+        MOBILE_CLIENT[Mobile Application]
+        API_CLIENT[API Integration]
     end
     
-    subgraph "Business Logic Layer"
-        SERVICES[Services]
-        BUILDERS[Builders]
-        VALIDATORS[Validators]
+    subgraph "Gateway & Security"
+        API_GATEWAY[API Gateway]
+        AUTH_SERVICE[Authentication Service]
+        AUTHORIZATION[Authorization Service]
     end
     
-    subgraph "Data Access Layer"
-        REPOSITORIES[Repositories]
-        MODELS[Data Models]
-        CACHE[Cache Layer]
+    subgraph "Securaa Custom Utils Service"
+        subgraph "Presentation Layer"
+            REST_CONTROLLER[REST Controllers]
+            REQUEST_VALIDATION[Request Validation]
+            RESPONSE_SERIALIZATION[Response Serialization]
+        end
+        
+        subgraph "Business Logic Layer"
+            UTILS_SERVICE[Utils Management Service]
+            EXECUTION_SERVICE[Code Execution Service]
+            VALIDATION_SERVICE[Code Validation Service]
+            AUDIT_SERVICE[Audit Service]
+        end
+        
+        subgraph "Data Access Layer"
+            UTILS_REPOSITORY[Utils Repository]
+            EXECUTION_REPOSITORY[Execution Repository]
+            AUDIT_REPOSITORY[Audit Repository]
+            CACHE_MANAGER[Cache Manager]
+        end
+        
+        subgraph "Infrastructure Layer"
+            CONTAINER_MANAGER[Container Manager]
+            FILE_MANAGER[File Manager]
+            SECURITY_MANAGER[Security Manager]
+            MONITORING_AGENT[Monitoring Agent]
+        end
     end
     
-    subgraph "Infrastructure Layer"
-        DOCKER_MGR[Container Manager]
-        FILE_MGR[File Manager]
-        AUDIT[Audit Logger]
-        METRICS[Metrics Collector]
-    end
-    
-    HTTP --> MIDDLEWARE
-    MIDDLEWARE --> CONTROLLERS
-    CONTROLLERS --> SERVICES
-    SERVICES --> BUILDERS
-    SERVICES --> VALIDATORS
-    SERVICES --> REPOSITORIES
-    REPOSITORIES --> MODELS
-    REPOSITORIES --> CACHE
-    SERVICES --> DOCKER_MGR
-    SERVICES --> FILE_MGR
-    SERVICES --> AUDIT
-    SERVICES --> METRICS
-                </div>
-
-                <h3>Component Responsibilities</h3>
-                <div class="component-grid">
-                    <div class="component-card">
-                        <h4>Presentation Layer</h4>
-                        <ul>
-                            <li><strong>HTTP Router</strong>: Route incoming requests to appropriate controllers</li>
-                            <li><strong>Middleware Stack</strong>: Handle authentication, logging, and cross-cutting concerns</li>
-                            <li><strong>Controllers</strong>: Process HTTP requests and generate responses</li>
-                        </ul>
-                    </div>
-                    <div class="component-card">
-                        <h4>Business Logic Layer</h4>
-                        <ul>
-                            <li><strong>Services</strong>: Implement core business logic and orchestrate operations</li>
-                            <li><strong>Builders</strong>: Construct complex objects and configurations</li>
-                            <li><strong>Validators</strong>: Validate input data and business rules</li>
-                        </ul>
-                    </div>
-                    <div class="component-card">
-                        <h4>Data Access Layer</h4>
-                        <ul>
-                            <li><strong>Repositories</strong>: Abstract data access operations</li>
-                            <li><strong>Data Models</strong>: Define data structures and relationships</li>
-                            <li><strong>Cache Layer</strong>: Provide high-performance data access</li>
-                        </ul>
-                    </div>
-                    <div class="component-card">
-                        <h4>Infrastructure Layer</h4>
-                        <ul>
-                            <li><strong>Container Manager</strong>: Manage Docker container lifecycle</li>
-                            <li><strong>File Manager</strong>: Handle file system operations</li>
-                            <li><strong>Audit Logger</strong>: Record audit trails and compliance data</li>
-                            <li><strong>Metrics Collector</strong>: Gather performance and operational metrics</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Data Tab -->
-            <div id="data" class="tab-content">
-                <h2>Data Architecture</h2>
-                
-                <h3>Logical Data Model</h3>
-                <div class="mermaid">
-erDiagram
-    TENANT {
-        int id PK
-        string tenantcode UK
-        string name
-        string status
-        string db_host
-        string connection_status
-    }
-    
-    CUSTOM_UTIL {
-        int id PK
-        string name UK
-        string tenantcode FK
-        int userid FK
-        string description
-        string status
-        string category
-        text filecontents
-        bigint createddate
-        bigint updateddate
-        text input_params
-        text output_fields
-        array playbook_names
-    }
-    
-    TASK_EXECUTION {
-        string id PK
-        int taskid FK
-        int userid FK
-        string tenantcode FK
-        bigint createddate
-        text request
-        text response
-        string status
-        float execution_time
-    }
-    
-    AUDIT_LOG {
-        string id PK
-        string tenantcode FK
-        int userid FK
-        string action
-        string resource
-        bigint timestamp
-        text details
-    }
-    
-    TENANT ||--o{ CUSTOM_UTIL : contains
-    CUSTOM_UTIL ||--o{ TASK_EXECUTION : executes
-    TENANT ||--o{ AUDIT_LOG : generates
-                </div>
-
-                <h3>Data Storage Strategy</h3>
-                <div class="storage-grid">
-                    <div class="storage-card">
-                        <h4>Primary Data Storage (MongoDB)</h4>
-                        <ul>
-                            <li><strong>Collections</strong>: Utilities, executions, audit logs, tenants</li>
-                            <li><strong>Sharding Strategy</strong>: Shard by tenant code for horizontal scaling</li>
-                            <li><strong>Replica Sets</strong>: 3-node replica sets for high availability</li>
-                            <li><strong>Backup Strategy</strong>: Daily backups with point-in-time recovery</li>
-                        </ul>
-                    </div>
-                    <div class="storage-card">
-                        <h4>Cache Strategy (Redis)</h4>
-                        <ul>
-                            <li><strong>L1 Cache</strong>: Application-level caching (5 minutes TTL)</li>
-                            <li><strong>L2 Cache</strong>: Redis caching (1 hour TTL)</li>
-                            <li><strong>Cache Keys</strong>: Hierarchical naming convention</li>
-                            <li><strong>Eviction Policy</strong>: LRU with memory limit enforcement</li>
-                        </ul>
-                    </div>
-                    <div class="storage-card">
-                        <h4>File Storage</h4>
-                        <ul>
-                            <li><strong>Code Files</strong>: Encrypted Python files on network storage</li>
-                            <li><strong>Logs</strong>: Execution logs on distributed file system</li>
-                            <li><strong>Backups</strong>: Compressed archives on object storage</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h3>Data Security</h3>
-                <ul>
-                    <li><strong>Encryption at Rest</strong>: AES-256 encryption for all stored data</li>
-                    <li><strong>Encryption in Transit</strong>: TLS 1.3 for all network communication</li>
-                    <li><strong>Data Masking</strong>: Sensitive data masked in logs and non-production environments</li>
-                    <li><strong>Access Control</strong>: Role-based access with principle of least privilege</li>
-                </ul>
-            </div>
-
-            <!-- Security Tab -->
-            <div id="security" class="tab-content">
-                <h2>Security Architecture</h2>
-                
-                <h3>Security Layers</h3>
-                <div class="mermaid">
-graph TB
-    subgraph "Perimeter Security"
-        WAF[Web Application Firewall]
-        DDOS[DDoS Protection]
-        FIREWALL[Network Firewall]
-    end
-    
-    subgraph "Application Security"
-        AUTH[Authentication]
-        AUTHZ[Authorization]
-        INPUT_VAL[Input Validation]
-        CODE_SCAN[Code Scanning]
-    end
-    
-    subgraph "Data Security"
-        ENCRYPT[Data Encryption]
-        MASKING[Data Masking]
-        BACKUP_SEC[Secure Backup]
-    end
-    
-    subgraph "Runtime Security"
-        CONTAINER_SEC[Container Security]
-        ISOLATION[Process Isolation]
-        MONITORING[Security Monitoring]
-    end
-    
-    WAF --> DDOS
-    DDOS --> FIREWALL
-    FIREWALL --> AUTH
-    AUTH --> AUTHZ
-    AUTHZ --> INPUT_VAL
-    INPUT_VAL --> CODE_SCAN
-    CODE_SCAN --> ENCRYPT
-    ENCRYPT --> MASKING
-    MASKING --> BACKUP_SEC
-    BACKUP_SEC --> CONTAINER_SEC
-    CONTAINER_SEC --> ISOLATION
-    ISOLATION --> MONITORING
-                </div>
-
-                <h3>Authentication and Authorization</h3>
-                <h4>Authentication Flow</h4>
-                <ol>
-                    <li>User provides credentials to authentication service</li>
-                    <li>Authentication service validates credentials</li>
-                    <li>JWT token issued with user claims and permissions</li>
-                    <li>Token included in subsequent API requests</li>
-                    <li>Service validates token and extracts user context</li>
-                </ol>
-
-                <h4>Authorization Model</h4>
-                <ul>
-                    <li><strong>Role-Based Access Control (RBAC)</strong></li>
-                    <li><strong>Tenant-based isolation</strong></li>
-                    <li><strong>Resource-level permissions</strong></li>
-                    <li><strong>Operation-level granularity</strong></li>
-                </ul>
-
-                <h4>Permission Matrix</h4>
-                <table class="permission-table">
-                    <thead>
-                        <tr>
-                            <th>Role</th>
-                            <th>Create Utils</th>
-                            <th>Read Utils</th>
-                            <th>Execute Utils</th>
-                            <th>Delete Utils</th>
-                            <th>Admin Functions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>User</td>
-                            <td>Own</td>
-                            <td>Own</td>
-                            <td>Own</td>
-                            <td>No</td>
-                            <td>No</td>
-                        </tr>
-                        <tr>
-                            <td>Creator</td>
-                            <td>Own</td>
-                            <td>Own</td>
-                            <td>Own</td>
-                            <td>Own</td>
-                            <td>No</td>
-                        </tr>
-                        <tr>
-                            <td>Admin</td>
-                            <td>All</td>
-                            <td>All</td>
-                            <td>All</td>
-                            <td>All</td>
-                            <td>Limited</td>
-                        </tr>
-                        <tr>
-                            <td>Super Admin</td>
-                            <td>All</td>
-                            <td>All</td>
-                            <td>All</td>
-                            <td>All</td>
-                            <td>All</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Code Security</h3>
-                <h4>Validation Rules</h4>
-                <ul>
-                    <li><strong>Syntax Validation</strong>: Python AST parsing</li>
-                    <li><strong>Security Scanning</strong>: Pattern-based security checks</li>
-                    <li><strong>Dependency Analysis</strong>: Package security assessment</li>
-                    <li><strong>Resource Limits</strong>: Memory and CPU constraints</li>
-                </ul>
-
-                <h4>Prohibited Patterns</h4>
-                <ul>
-                    <li>File system access (<code>open()</code>, <code>file()</code>)</li>
-                    <li>Network operations (<code>socket</code>, <code>urllib</code>, <code>requests</code>)</li>
-                    <li>Process execution (<code>subprocess</code>, <code>os.system</code>)</li>
-                    <li>System imports (<code>os</code>, <code>sys</code>, <code>subprocess</code>)</li>
-                </ul>
-            </div>
-
-            <!-- Performance Tab -->
-            <div id="performance" class="tab-content">
-                <h2>Performance Architecture</h2>
-                
-                <h3>Performance Strategy</h3>
-                <div class="mermaid">
-graph TD
-    REQUEST[Incoming Request] --> CACHE_L1{L1 Cache}
-    CACHE_L1 -->|Hit| RETURN_FAST[Return Cached]
-    CACHE_L1 -->|Miss| CACHE_L2{L2 Cache}
-    CACHE_L2 -->|Hit| UPDATE_L1[Update L1]
-    CACHE_L2 -->|Miss| DATABASE[Database Query]
-    UPDATE_L1 --> RETURN_FAST
-    DATABASE --> OPTIMIZE{Optimized Query?}
-    OPTIMIZE -->|Yes| FAST_QUERY[Execute Fast Query]
-    OPTIMIZE -->|No| SLOW_QUERY[Execute Slow Query]
-    FAST_QUERY --> CACHE_UPDATE[Update Caches]
-    SLOW_QUERY --> CACHE_UPDATE
-    CACHE_UPDATE --> RETURN_RESULT[Return Result]
-                </div>
-
-                <h3>Performance Targets</h3>
-                <h4>Response Time Requirements</h4>
-                <table class="performance-table">
-                    <thead>
-                        <tr>
-                            <th>Operation</th>
-                            <th>Target</th>
-                            <th>Maximum</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Get Utility List</td>
-                            <td>&lt; 200ms</td>
-                            <td>500ms</td>
-                        </tr>
-                        <tr>
-                            <td>Create Utility</td>
-                            <td>&lt; 1s</td>
-                            <td>2s</td>
-                        </tr>
-                        <tr>
-                            <td>Validate Code</td>
-                            <td>&lt; 500ms</td>
-                            <td>1s</td>
-                        </tr>
-                        <tr>
-                            <td>Execute Utility</td>
-                            <td>&lt; 10s</td>
-                            <td>300s</td>
-                        </tr>
-                        <tr>
-                            <td>Export/Import</td>
-                            <td>&lt; 5s</td>
-                            <td>30s</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h4>Throughput Requirements</h4>
-                <table class="performance-table">
-                    <thead>
-                        <tr>
-                            <th>Metric</th>
-                            <th>Target</th>
-                            <th>Peak</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Requests/Second</td>
-                            <td>1000</td>
-                            <td>5000</td>
-                        </tr>
-                        <tr>
-                            <td>Concurrent Users</td>
-                            <td>100</td>
-                            <td>500</td>
-                        </tr>
-                        <tr>
-                            <td>Utility Executions/Minute</td>
-                            <td>60</td>
-                            <td>300</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Optimization Strategies</h3>
-                <div class="optimization-grid">
-                    <div class="optimization-card">
-                        <h4>Database Optimization</h4>
-                        <ul>
-                            <li><strong>Indexing Strategy</strong>: Compound indexes for common query patterns</li>
-                            <li><strong>Query Optimization</strong>: Aggregation pipelines for complex queries</li>
-                            <li><strong>Connection Pooling</strong>: Reuse database connections</li>
-                            <li><strong>Read Replicas</strong>: Distribute read load across replicas</li>
-                        </ul>
-                    </div>
-                    <div class="optimization-card">
-                        <h4>Caching Strategy</h4>
-                        <ul>
-                            <li><strong>Multi-level Caching</strong>: Application, Redis, and database caching</li>
-                            <li><strong>Cache Warming</strong>: Pre-populate frequently accessed data</li>
-                            <li><strong>Cache Invalidation</strong>: Event-driven cache updates</li>
-                            <li><strong>Cache Partitioning</strong>: Distribute cache load</li>
-                        </ul>
-                    </div>
-                    <div class="optimization-card">
-                        <h4>Application Optimization</h4>
-                        <ul>
-                            <li><strong>Goroutine Pooling</strong>: Reuse goroutines for concurrent operations</li>
-                            <li><strong>Memory Management</strong>: Efficient memory allocation and garbage collection</li>
-                            <li><strong>Compression</strong>: Compress large responses</li>
-                            <li><strong>Connection Reuse</strong>: HTTP connection pooling</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Deployment Tab -->
-            <div id="deployment" class="tab-content">
-                <h2>Deployment Architecture</h2>
-                
-                <h3>Production Environment</h3>
-                <div class="mermaid">
-graph TB
-    subgraph "Load Balancer Tier"
-        LB1[Load Balancer 1]
-        LB2[Load Balancer 2]
-    end
-    
-    subgraph "Application Tier"
-        APP1[App Instance 1]
-        APP2[App Instance 2]
-        APP3[App Instance 3]
-    end
-    
-    subgraph "Data Tier"
-        MONGO_P[MongoDB Primary]
-        MONGO_S1[MongoDB Secondary 1]
-        MONGO_S2[MongoDB Secondary 2]
-        REDIS_M[Redis Master]
-        REDIS_S[Redis Slave]
-    end
-    
-    subgraph "Container Tier"
-        DOCKER1[Docker Host 1]
-        DOCKER2[Docker Host 2]
-        DOCKER3[Docker Host 3]
-    end
-    
-    INTERNET[Internet] --> LB1
-    INTERNET --> LB2
-    LB1 --> APP1
-    LB1 --> APP2
-    LB2 --> APP2
-    LB2 --> APP3
-    APP1 --> MONGO_P
-    APP2 --> MONGO_P
-    APP3 --> MONGO_P
-    MONGO_P --> MONGO_S1
-    MONGO_P --> MONGO_S2
-    APP1 --> REDIS_M
-    APP2 --> REDIS_M
-    APP3 --> REDIS_M
-    REDIS_M --> REDIS_S
-    APP1 --> DOCKER1
-    APP2 --> DOCKER2
-    APP3 --> DOCKER3
-                </div>
-
-                <h3>Deployment Strategy</h3>
-                <ul>
-                    <li><strong>Blue-Green Deployment</strong>: Zero-downtime deployments</li>
-                    <li><strong>Rolling Updates</strong>: Gradual rollout of new versions</li>
-                    <li><strong>Canary Releases</strong>: Limited exposure testing</li>
-                    <li><strong>Automated Rollback</strong>: Quick recovery from failed deployments</li>
-                </ul>
-
-                <h3>Environment Management</h3>
-                <ul>
-                    <li><strong>Development</strong>: Single instance for development and testing</li>
-                    <li><strong>Staging</strong>: Production-like environment for validation</li>
-                    <li><strong>Production</strong>: High-availability multi-instance deployment</li>
-                    <li><strong>Disaster Recovery</strong>: Secondary region for business continuity</li>
-                </ul>
-
-                <h3>Integration Architecture</h3>
-                <div class="mermaid">
-graph LR
-    subgraph "Zona Custom Utils"
-        CORE[Core Service]
-    end
-    
-    subgraph "Internal Services"
-        AUTH_SVC[Authentication Service]
-        TENANT_SVC[Tenant Management]
-        AUDIT_SVC[Audit Service]
-        NOTIFY_SVC[Notification Service]
+    subgraph "Data Storage"
+        MONGODB[(MongoDB Cluster)]
+        REDIS_CACHE[(Redis Cache)]
+        FILE_STORAGE[File Storage]
     end
     
     subgraph "External Services"
-        DOCKER_API[Docker Engine API]
-        FILE_STORAGE[File Storage Service]
-        MONITORING[Monitoring Service]
-        LOGGING[Logging Service]
+        DOCKER_ENGINE[Docker Engine]
+        LOG_AGGREGATOR[Log Aggregator]
+        METRICS_COLLECTOR[Metrics Collector]
+        NOTIFICATION_SERVICE[Notification Service]
     end
     
-    CORE <--> AUTH_SVC
-    CORE <--> TENANT_SVC
-    CORE --> AUDIT_SVC
-    CORE --> NOTIFY_SVC
-    CORE <--> DOCKER_API
-    CORE <--> FILE_STORAGE
-    CORE --> MONITORING
-    CORE --> LOGGING
-                </div>
-
-                <h3>Integration Patterns</h3>
-                <h4>Synchronous Integration</h4>
-                <ul>
-                    <li><strong>REST API</strong>: For real-time operations requiring immediate response</li>
-                    <li><strong>Direct Database Access</strong>: For high-performance data operations</li>
-                    <li><strong>File System Access</strong>: For code storage and retrieval</li>
-                </ul>
-
-                <h4>Asynchronous Integration</h4>
-                <ul>
-                    <li><strong>Event Publishing</strong>: For audit logging and notifications</li>
-                    <li><strong>Message Queues</strong>: For long-running operations</li>
-                    <li><strong>Batch Processing</strong>: For bulk operations and maintenance tasks</li>
-                </ul>
-            </div>
-
-            <!-- Flows Tab -->
-            <div id="flows" class="tab-content">
-                <h2>Business Process Flows</h2>
-                
-                <h3>Custom Utility Creation Flow</h3>
-                <div class="mermaid">
-sequenceDiagram
-    participant User
-    participant UI
-    participant API
-    participant Service
-    participant Validator
-    participant Storage
-    participant Docker
+    WEB_CLIENT --> API_GATEWAY
+    MOBILE_CLIENT --> API_GATEWAY
+    API_CLIENT --> API_GATEWAY
     
-    User->>UI: Create Utility
-    UI->>API: POST /custom-utils
-    API->>Service: Process Request
-    Service->>Validator: Validate Code
-    Validator->>Service: Validation Results
+    API_GATEWAY --> AUTH_SERVICE
+    AUTH_SERVICE --> AUTHORIZATION
+    AUTHORIZATION --> REST_CONTROLLER
     
-    alt Validation Failed
-        Service->>API: Error Response
-        API->>UI: Validation Errors
-        UI->>User: Show Errors
-    else Validation Passed
-        Service->>Storage: Save Utility
-        Service->>Docker: Update Config
-        Service->>API: Success Response
-        API->>UI: Confirmation
-        UI->>User: Success Message
-    end
-                </div>
-
-                <h3>Utility Execution Flow</h3>
-                <div class="mermaid">
-sequenceDiagram
-    participant User
-    participant UI
-    participant API
-    participant Service
-    participant Container
-    participant Storage
+    REST_CONTROLLER --> REQUEST_VALIDATION
+    REQUEST_VALIDATION --> UTILS_SERVICE
+    REQUEST_VALIDATION --> EXECUTION_SERVICE
+    REQUEST_VALIDATION --> VALIDATION_SERVICE
     
-    User->>UI: Execute Utility
-    UI->>API: POST /execute
-    API->>Service: Execute Request
-    Service->>Container: Start Execution
-    Container->>Container: Run Python Code
-    Container->>Service: Stream Output
-    Service->>API: Real-time Results
-    API->>UI: Stream Response
-    UI->>User: Show Output
-    Container->>Service: Final Results
-    Service->>Storage: Store Results
-    Service->>API: Completion
-    API->>UI: Execution Complete
-                </div>
-
-                <h3>Multi-Tenant Deployment Flow</h3>
-                <div class="mermaid">
-sequenceDiagram
-    participant Admin
-    participant Service
-    participant MasterDB
-    participant TenantDB
-    participant Cache
+    UTILS_SERVICE --> UTILS_REPOSITORY
+    EXECUTION_SERVICE --> EXECUTION_REPOSITORY
+    VALIDATION_SERVICE --> UTILS_REPOSITORY
+    AUDIT_SERVICE --> AUDIT_REPOSITORY
     
-    Admin->>Service: Deploy to New Tenant
-    Service->>MasterDB: Get Source Utilities
-    Service->>Service: Process Utilities
+    UTILS_REPOSITORY --> MONGODB
+    EXECUTION_REPOSITORY --> MONGODB
+    AUDIT_REPOSITORY --> MONGODB
+    CACHE_MANAGER --> REDIS_CACHE
     
-    loop For Each Utility
-        Service->>TenantDB: Create Utility
-        Service->>Cache: Clear Cache
-        Service->>Service: Update Metadata
-    end
+    CONTAINER_MANAGER --> DOCKER_ENGINE
+    FILE_MANAGER --> FILE_STORAGE
+    MONITORING_AGENT --> LOG_AGGREGATOR
+    MONITORING_AGENT --> METRICS_COLLECTOR
     
-    Service->>Admin: Deployment Complete
-                </div>
-
-                <h3>Non-Functional Requirements</h3>
-                <div class="nfr-grid">
-                    <div class="nfr-card">
-                        <h4>Availability Requirements</h4>
-                        <ul>
-                            <li><strong>Uptime Target</strong>: 99.9% (8.76 hours downtime per year)</li>
-                            <li><strong>Planned Maintenance</strong>: Maximum 4 hours per month</li>
-                            <li><strong>Recovery Time Objective (RTO)</strong>: 15 minutes</li>
-                            <li><strong>Recovery Point Objective (RPO)</strong>: 1 hour</li>
-                        </ul>
-                    </div>
-                    <div class="nfr-card">
-                        <h4>Scalability Requirements</h4>
-                        <ul>
-                            <li><strong>Horizontal Scaling</strong>: Auto-scaling based on load</li>
-                            <li><strong>Vertical Scaling</strong>: Resource scaling for individual instances</li>
-                            <li><strong>Database Scaling</strong>: Sharding and read replicas</li>
-                            <li><strong>Cache Scaling</strong>: Redis clustering for distributed caching</li>
-                        </ul>
-                    </div>
-                    <div class="nfr-card">
-                        <h4>Reliability Requirements</h4>
-                        <ul>
-                            <li><strong>Mean Time Between Failures (MTBF)</strong>: > 720 hours</li>
-                            <li><strong>Mean Time To Recovery (MTTR)</strong>: < 15 minutes</li>
-                            <li><strong>Error Rate</strong>: < 0.1% for API requests</li>
-                            <li><strong>Data Consistency</strong>: Eventual consistency for non-critical data</li>
-                        </ul>
-                    </div>
-                    <div class="nfr-card">
-                        <h4>Compliance Requirements</h4>
-                        <ul>
-                            <li><strong>Data Privacy</strong>: GDPR and CCPA compliance</li>
-                            <li><strong>Security Standards</strong>: SOC 2 Type II certification</li>
-                            <li><strong>Audit Logging</strong>: Complete audit trail for all operations</li>
-                            <li><strong>Data Retention</strong>: Configurable retention policies per tenant</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    EXECUTION_SERVICE --> CONTAINER_MANAGER
+    UTILS_SERVICE --> FILE_MANAGER
+    AUDIT_SERVICE --> NOTIFICATION_SERVICE
         </div>
+
+        <h2 id="component-architecture">Component Architecture</h2>
+        <h3>Core Components</h3>
+
+        <h4>Utils Management Service</h4>
+        <ul>
+            <li><strong>Purpose</strong>: Manages custom utility lifecycle (CRUD operations)</li>
+            <li><strong>Responsibilities</strong>:
+                <ul>
+                    <li>Create, read, update, delete utility definitions</li>
+                    <li>Validate utility code and metadata</li>
+                    <li>Manage utility versioning</li>
+                    <li>Handle utility sharing and permissions</li>
+                </ul>
+            </li>
+            <li><strong>Key Features</strong>:
+                <ul>
+                    <li>Multi-tenant utility isolation</li>
+                    <li>Version control and rollback capabilities</li>
+                    <li>Code validation and syntax checking</li>
+                    <li>Dependency management</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Code Execution Service</h4>
+        <ul>
+            <li><strong>Purpose</strong>: Executes utility code in isolated containers</li>
+            <li><strong>Responsibilities</strong>:
+                <ul>
+                    <li>Create and manage execution containers</li>
+                    <li>Execute Python code safely</li>
+                    <li>Monitor execution performance</li>
+                    <li>Handle execution results and errors</li>
+                </ul>
+            </li>
+            <li><strong>Key Features</strong>:
+                <ul>
+                    <li>Sandboxed execution environment</li>
+                    <li>Resource limiting and monitoring</li>
+                    <li>Timeout and error handling</li>
+                    <li>Parallel execution support</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Validation Service</h4>
+        <ul>
+            <li><strong>Purpose</strong>: Validates utility code for security and compliance</li>
+            <li><strong>Responsibilities</strong>:
+                <ul>
+                    <li>Static code analysis</li>
+                    <li>Security vulnerability scanning</li>
+                    <li>Compliance checking</li>
+                    <li>Performance impact assessment</li>
+                </ul>
+            </li>
+            <li><strong>Key Features</strong>:
+                <ul>
+                    <li>AST-based code analysis</li>
+                    <li>Blacklisted function detection</li>
+                    <li>Resource usage prediction</li>
+                    <li>Security rule enforcement</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2 id="data-architecture">Data Architecture</h2>
+        <h3>Data Model Overview</h3>
+        <div class="mermaid">
+erDiagram
+    TENANT ||--o{ CUSTOM_UTILS : owns
+    CUSTOM_UTILS ||--o{ EXECUTION_HISTORY : generates
+    CUSTOM_UTILS ||--o{ UTILS_VERSION : has
+    USER ||--o{ CUSTOM_UTILS : creates
+    USER ||--o{ EXECUTION_HISTORY : triggers
+    
+    TENANT {
+        string tenant_id PK
+        string tenant_name
+        string status
+        json configuration
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    CUSTOM_UTILS {
+        string util_id PK
+        string tenant_id FK
+        string user_id FK
+        string name
+        string description
+        string code
+        string language
+        json parameters
+        json dependencies
+        string status
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    UTILS_VERSION {
+        string version_id PK
+        string util_id FK
+        int version_number
+        string code
+        json parameters
+        string change_notes
+        timestamp created_at
+    }
+    
+    EXECUTION_HISTORY {
+        string execution_id PK
+        string util_id FK
+        string user_id FK
+        json input_data
+        json output_data
+        string status
+        int execution_time_ms
+        json error_details
+        timestamp started_at
+        timestamp completed_at
+    }
+    
+    USER {
+        string user_id PK
+        string tenant_id FK
+        string username
+        string email
+        json permissions
+        timestamp created_at
+    }
+        </div>
+
+        <h3>Data Storage Strategy</h3>
+        <ul>
+            <li><strong>Primary Data Store</strong>: MongoDB for flexible document storage</li>
+            <li><strong>Caching Layer</strong>: Redis for frequently accessed data</li>
+            <li><strong>File Storage</strong>: File system or object storage for large utility code files</li>
+            <li><strong>Multi-tenancy</strong>: Database-level tenant isolation with tenant-specific collections</li>
+        </ul>
+
+        <h2 id="security-architecture">Security Architecture</h2>
+        <h3>Security Layers</h3>
+
+        <div class="mermaid">
+graph TB
+    subgraph "Security Layers"
+        subgraph "Network Security"
+            TLS[TLS 1.3 Encryption]
+            FIREWALL[Network Firewall]
+            VPN[VPN Access]
+        end
+        
+        subgraph "Application Security"
+            AUTH[Authentication]
+            AUTHZ[Authorization]
+            VALIDATION[Input Validation]
+            SANITIZATION[Output Sanitization]
+        end
+        
+        subgraph "Code Execution Security"
+            CONTAINER[Container Isolation]
+            SANDBOX[Sandboxed Execution]
+            RESOURCE_LIMITS[Resource Limits]
+            CODE_ANALYSIS[Static Code Analysis]
+        end
+        
+        subgraph "Data Security"
+            ENCRYPTION[Data Encryption]
+            TENANT_ISOLATION[Tenant Isolation]
+            AUDIT_LOG[Audit Logging]
+            BACKUP[Secure Backup]
+        end
+    end
+    
+    TLS --> AUTH
+    FIREWALL --> AUTHZ
+    VPN --> VALIDATION
+    
+    AUTH --> CONTAINER
+    AUTHZ --> SANDBOX
+    VALIDATION --> RESOURCE_LIMITS
+    SANITIZATION --> CODE_ANALYSIS
+    
+    CONTAINER --> ENCRYPTION
+    SANDBOX --> TENANT_ISOLATION
+    RESOURCE_LIMITS --> AUDIT_LOG
+    CODE_ANALYSIS --> BACKUP
+        </div>
+
+        <h3>Code Execution Security</h3>
+        <ul>
+            <li><strong>Container Isolation</strong>: Each utility execution runs in a separate Docker container</li>
+            <li><strong>Resource Limits</strong>: CPU, memory, and execution time limits enforced</li>
+            <li><strong>Network Isolation</strong>: Containers have no network access by default</li>
+            <li><strong>File System Restrictions</strong>: Read-only file system with limited write access</li>
+            <li><strong>Security Scanning</strong>: Static analysis before execution</li>
+        </ul>
+
+        <h2 id="performance-architecture">Performance Architecture</h2>
+        <h3>Performance Optimization Strategies</h3>
+
+        <div class="mermaid">
+graph LR
+    subgraph "Performance Layers"
+        subgraph "Caching Strategy"
+            L1[L1: In-Memory Cache]
+            L2[L2: Redis Cache]
+            L3[L3: Database Cache]
+        end
+        
+        subgraph "Execution Optimization"
+            POOL[Container Pool]
+            PARALLEL[Parallel Execution]
+            ASYNC[Async Processing]
+        end
+        
+        subgraph "Data Optimization"
+            INDEX[Database Indexing]
+            PARTITION[Data Partitioning]
+            COMPRESSION[Data Compression]
+        end
+    end
+    
+    L1 --> L2
+    L2 --> L3
+    
+    POOL --> PARALLEL
+    PARALLEL --> ASYNC
+    
+    INDEX --> PARTITION
+    PARTITION --> COMPRESSION
+        </div>
+
+        <h3>Scalability Considerations</h3>
+        <ul>
+            <li><strong>Horizontal Scaling</strong>: Multiple service instances behind load balancer</li>
+            <li><strong>Container Pool Management</strong>: Pre-warmed containers for faster execution</li>
+            <li><strong>Database Sharding</strong>: Tenant-based data distribution</li>
+            <li><strong>Async Processing</strong>: Non-blocking execution for long-running utilities</li>
+            <li><strong>Resource Monitoring</strong>: Real-time performance tracking and alerting</li>
+        </ul>
+
+        <h2 id="deployment-architecture">Deployment Architecture</h2>
+        <h3>Deployment Strategy</h3>
+
+        <div class="mermaid">
+graph TB
+    subgraph "Production Environment"
+        subgraph "Load Balancing"
+            ALB[Application Load Balancer]
+            ELB[External Load Balancer]
+        end
+        
+        subgraph "Service Instances"
+            SVC1[Custom Utils Service 1]
+            SVC2[Custom Utils Service 2]
+            SVC3[Custom Utils Service N]
+        end
+        
+        subgraph "Container Runtime"
+            DOCKER1[Docker Engine 1]
+            DOCKER2[Docker Engine 2]
+            DOCKER3[Docker Engine N]
+        end
+        
+        subgraph "Data Layer"
+            MONGO_PRIMARY[(MongoDB Primary)]
+            MONGO_SECONDARY[(MongoDB Secondary)]
+            REDIS_CLUSTER[(Redis Cluster)]
+        end
+        
+        subgraph "Monitoring"
+            PROMETHEUS[Prometheus]
+            GRAFANA[Grafana]
+            LOGGING[Centralized Logging]
+        end
+    end
+    
+    ELB --> ALB
+    ALB --> SVC1
+    ALB --> SVC2
+    ALB --> SVC3
+    
+    SVC1 --> DOCKER1
+    SVC2 --> DOCKER2
+    SVC3 --> DOCKER3
+    
+    SVC1 --> MONGO_PRIMARY
+    SVC2 --> MONGO_SECONDARY
+    SVC3 --> REDIS_CLUSTER
+    
+    SVC1 --> PROMETHEUS
+    SVC2 --> PROMETHEUS
+    SVC3 --> PROMETHEUS
+    
+    PROMETHEUS --> GRAFANA
+    PROMETHEUS --> LOGGING
+        </div>
+
+        <h3>Infrastructure Requirements</h3>
+        <ul>
+            <li><strong>Compute Resources</strong>: CPU and memory allocation for service and container execution</li>
+            <li><strong>Storage</strong>: Persistent storage for database and file storage</li>
+            <li><strong>Network</strong>: Low-latency network for inter-service communication</li>
+            <li><strong>Security</strong>: Network segmentation and access controls</li>
+            <li><strong>Monitoring</strong>: Comprehensive observability and alerting</li>
+        </ul>
+
+        <h2 id="process-flows">Process Flows</h2>
+        <h3>Utility Creation Flow</h3>
+
+        <div class="mermaid">
+sequenceDiagram
+    participant User
+    participant API
+    participant UtilsService
+    participant ValidationService
+    participant Database
+    participant AuditService
+    
+    User->>API: Create Utility Request
+    API->>UtilsService: Validate Request
+    UtilsService->>ValidationService: Validate Code
+    ValidationService-->>UtilsService: Validation Result
+    
+    alt Code Valid
+        UtilsService->>Database: Store Utility
+        Database-->>UtilsService: Confirm Storage
+        UtilsService->>AuditService: Log Creation
+        UtilsService-->>API: Success Response
+        API-->>User: Utility Created
+    else Code Invalid
+        UtilsService-->>API: Validation Error
+        API-->>User: Error Response
+    end
+        </div>
+
+        <h3>Utility Execution Flow</h3>
+
+        <div class="mermaid">
+sequenceDiagram
+    participant User
+    participant API
+    participant ExecutionService
+    participant ContainerManager
+    participant Docker
+    participant Database
+    
+    User->>API: Execute Utility Request
+    API->>ExecutionService: Process Execution
+    ExecutionService->>ContainerManager: Request Container
+    ContainerManager->>Docker: Create Container
+    Docker-->>ContainerManager: Container Ready
+    
+    ContainerManager->>Docker: Execute Code
+    Docker-->>ContainerManager: Execution Result
+    ContainerManager-->>ExecutionService: Result/Error
+    
+    ExecutionService->>Database: Store Execution History
+    ExecutionService-->>API: Execution Response
+    API-->>User: Results
+        </div>
+
+        <h2>Conclusion</h2>
+        <p>The Securaa Custom Utils Service provides a robust, secure, and scalable platform for custom utility management and execution. The architecture emphasizes security through container isolation, performance through multi-tier caching, and scalability through microservice design patterns.</p>
+
+        <p>Key architectural benefits include:</p>
+        <ul>
+            <li>Secure code execution in isolated environments</li>
+            <li>Multi-tenant data isolation and security</li>
+            <li>Scalable microservice architecture</li>
+            <li>Comprehensive audit and monitoring capabilities</li>
+            <li>High availability and fault tolerance</li>
+        </ul>
     </main>
     
     <footer class="main-footer">
-        <p>&copy; 2024 Securaa Platform. All rights reserved. | <a href="#" onclick="printPage()" style="color: #ecf0f1;">Print</a> | <a href="#" onclick="exportToPDF()" style="color: #ecf0f1;">Export PDF</a></p>
+        <p>&copy; 2025 Securaa Platform. All rights reserved. | <a href="#" onclick="printPage()" style="color: #ecf0f1;">Print</a> | <a href="#" onclick="exportToPDF()" style="color: #ecf0f1;">Export PDF</a></p>
     </footer>
     
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.min.js"></script>
@@ -945,28 +638,6 @@ sequenceDiagram
                 tertiaryColor: '#ffffff'
             }
         });
-
-        function openTab(evt, tabName) {
-            var i, tabcontent, tabbtns;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
-            tabbtns = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tabbtns.length; i++) {
-                tabbtns[i].classList.remove("active");
-            }
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-
-        function printPage() {
-            window.print();
-        }
-
-        function exportToPDF() {
-            alert('PDF export functionality would be implemented here');
-        }
     </script>
     <script src="assets/js/documentation.js"></script>
 </body>

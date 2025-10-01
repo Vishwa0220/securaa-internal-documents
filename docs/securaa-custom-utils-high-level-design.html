@@ -156,7 +156,6 @@ graph TB
 graph TB
     subgraph "Client Layer"
         WEB_CLIENT[Web Application]
-        MOBILE_CLIENT[Mobile Application]
         API_CLIENT[API Integration]
     end
     
@@ -209,7 +208,6 @@ graph TB
     end
     
     WEB_CLIENT --> API_GATEWAY
-    MOBILE_CLIENT --> API_GATEWAY
     API_CLIENT --> API_GATEWAY
     
     API_GATEWAY --> AUTH_SERVICE

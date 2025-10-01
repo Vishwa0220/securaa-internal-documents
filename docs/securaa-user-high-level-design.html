@@ -443,7 +443,6 @@ graph TB
     subgraph "Notification Channels"
         EMAIL[Email<br/>SMTP Gateway]
         SMS[SMS<br/>Twilio/AWS SNS]
-        PUSH[Push Notifications<br/>Mobile Apps]
         WEBHOOK[Webhooks<br/>External Systems]
         DASHBOARD[Dashboard<br/>Real-time UI]
     end
@@ -470,7 +469,6 @@ graph TB
     
     RULE_ENGINE --> EMAIL
     RULE_ENGINE --> SMS
-    RULE_ENGINE --> PUSH
     RULE_ENGINE --> WEBHOOK
     RULE_ENGINE --> DASHBOARD
         </div>

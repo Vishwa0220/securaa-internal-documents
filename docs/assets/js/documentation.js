@@ -269,7 +269,9 @@ function performSearch(query) {
         false
     );
     
-    const regex = new RegExp(query, 'gi');
+    // Escape special regex characters in the search query
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(escapedQuery, 'gi');
     let node;
     const nodesToHighlight = [];
     
@@ -283,16 +285,16 @@ function performSearch(query) {
     
     // Now highlight all collected nodes
     nodesToHighlight.forEach(textNode => {
-        highlightText(textNode, regex);
+        highlightText(textNode, escapedQuery);
     });
 }
 
-function highlightText(textNode, regex) {
+function highlightText(textNode, query) {
     const parent = textNode.parentElement;
     if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE') return;
     
-    // Reset regex lastIndex to ensure it starts from the beginning
-    regex.lastIndex = 0;
+    // Create a fresh regex for each text node to ensure proper highlighting
+    const regex = new RegExp(query, 'gi');
     
     const highlightedText = textNode.textContent.replace(regex, '<mark class="search-highlight">$&</mark>');
     

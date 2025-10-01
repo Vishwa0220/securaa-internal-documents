@@ -53,7 +53,6 @@ graph TB
     subgraph "Client Applications"
         WEB[Web Dashboard]
         API_CLIENT[API Clients]
-        MOBILE[Mobile Apps]
     end
     EXT1 --> API
     EXT2 --> API
@@ -63,7 +62,6 @@ graph TB
     EXT6 --> API
     WEB --> API
     API_CLIENT --> API
-    MOBILE --> API
     API --> MW
     MW --> IC
     MW --> CC
@@ -660,14 +658,12 @@ graph LR
 ### 14.1 Planned Enhancements
 - **Machine Learning Integration**: AI-powered threat detection
 - **Advanced Analytics**: Predictive analytics capabilities
-- **Mobile Applications**: Native mobile app development
 - **API Gateway**: Centralized API management
 - **Microservices Migration**: Break down into smaller services
 
 ### 14.2 Technology Upgrades
 - **Go Version**: Upgrade to latest Go versions
 - **Database Optimization**: Performance improvements
-- **Container Orchestration**: Kubernetes deployment
 - **Cloud Native**: Cloud-first architecture
 - **Real-time Processing**: Stream processing capabilities
 

@@ -65,8 +65,8 @@ The make system is organized into several distinct layers:
 │  │   Client Layer  │    │   API Gateway   │    │  Load Balancer  │          │
 │  │                 │    │                 │    │                 │          │
 │  │ • Web UI        │◄──►│ • Authentication│◄──►│ • HAProxy       │          │
-│  │ • Mobile Apps   │    │ • Rate Limiting │    │ • Nginx         │          │
-│  │ • API Clients   │    │ • Routing       │    │ • Health Checks │          │
+│  │ • API Clients   │    │ • Rate Limiting │    │ • Nginx         │          │
+│  │                 │    │ • Routing       │    │ • Health Checks │          │
 │  └─────────────────┘    └─────────────────┘    └─────────────────┘          │
 │                                   │                                         │
 │                                   ▼                                         │
@@ -120,7 +120,7 @@ The make system is organized into several distinct layers:
 │  │ │ • Splunk    │ │ • AWS       │ │ • CrowdStrk │ │ • VirusTotal│        │ │
 │  │ │ • QRadar    │ │ • Azure     │ │ • Sentinel1 │ │ • RecordFut │        │ │
 │  │ │ • ArcSight  │ │ • GCP       │ │ • PaloAlto  │ │ • ThreatCon │        │ │
-│  │ │ • Elastic   │ │ • K8s       │ │ • Fortinet  │ │ • MISP      │        │ │
+│  │ │ • Elastic   │ │ • Swarm     │ │ • Fortinet  │ │ • MISP      │        │ │
 │  │ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘        │ │
 │  │                                                                         │ │
 │  │ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐        │ │
@@ -315,7 +315,7 @@ The make system is organized into several distinct layers:
 │  │ • AWS       │───────────────────►│ │• IOC Extract│ │             │     │ │
 │  │ • Azure     │                    │ │• TI Enrich  │ └─────────────┘     │ │
 │  │ • GCP       │◄───────────────────┤ │• TAXII      │        │            │ │
-│  │ • K8s       │                    │ └─────────────┘        ▼            │ │
+│  │ • Swarm     │                    │ └─────────────┘        ▼            │ │
 │  └─────────────┘                    │        │        ┌─────────────┐     │ │
 │                                     │        ▼        │    Core     │     │ │
 │  ┌─────────────┐                    │ ┌─────────────┐ │  Processing │     │ │
@@ -344,14 +344,14 @@ The make system is organized into several distinct layers:
 │  ┌─────────────────────────────────────────────────────────────────────────┐ │
 │  │                          OUTPUT INTERFACES                             │ │
 │  │                                                                         │ │
-│  │ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐        │ │
-│  │ │  Web UI     │ │   Mobile    │ │    API      │ │ Notifications│        │ │
-│  │ │             │ │    Apps     │ │  Endpoints  │ │             │        │ │
-│  │ │• Dashboards │ │• iOS        │ │• REST       │ │• Email      │        │ │
-│  │ │• Reports    │ │• Android    │ │• GraphQL    │ │• SMS        │        │ │
-│  │ │• Analytics  │ │• PWA        │ │• Webhooks   │ │• Slack      │        │ │
-│  │ │• Admin      │ │• Tablets    │ │• SSE        │ │• MSTeams    │        │ │
-│  │ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘        │ │
+│  │ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐                        │ │
+│  │ │  Web UI     │ │    API      │ │ Notifications│                        │ │
+│  │ │             │ │  Endpoints  │ │             │                        │ │
+│  │ │• Dashboards │ │• REST       │ │• Email      │                        │ │
+│  │ │• Reports    │ │• GraphQL    │ │• SMS        │                        │ │
+│  │ │• Analytics  │ │• Webhooks   │ │• Slack      │                        │ │
+│  │ │• Admin      │ │• SSE        │ │• MSTeams    │                        │ │
+│  │ └─────────────┘ └─────────────┘ └─────────────┘                        │ │
 │  └─────────────────────────────────────────────────────────────────────────┘ │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -928,7 +928,7 @@ The make system is organized into several distinct layers:
 │  Category         │ Count │ Examples                    │ Protocol/Method  │
 │  ─────────────────┼───────┼─────────────────────────────┼─────────────────┤
 │  SIEM Platforms   │   25  │ Splunk, QRadar, ArcSight   │ REST, SYSLOG     │
-│  Cloud Services   │   30  │ AWS, Azure, GCP, K8s        │ REST, GraphQL    │
+│  Cloud Services   │   30  │ AWS, Azure, GCP             │ REST, GraphQL    │
 │  Security Tools   │   35  │ CrowdStrike, SentinelOne    │ REST, gRPC       │
 │  Threat Intel     │   15  │ VirusTotal, RecordedFuture  │ REST, TAXII      │
 │  Communication   │   12  │ Slack, MSTeams, Email       │ REST, SMTP       │
@@ -1198,13 +1198,13 @@ TARGET=aws_service_name
 │  │   Control   │    │   System    │    │   Suite     │    │   Pipeline  │   │
 │  │             │    │             │    │             │    │             │   │
 │  │ ┌─────────┐ │    │ ┌─────────┐ │    │ ┌─────────┐ │    │ ┌─────────┐ │   │
-│  │ │ Git     │ │    │ │ Make    │ │    │ │ Unit    │ │    │ │ K8s     │ │   │
+│  │ │ Git     │ │    │ │ Make    │ │    │ │ Unit    │ │    │ │ Swarm   │ │   │
 │  │ │ Webhook │─┼───►│ │ System  │─┼───►│ │ Tests   │─┼───►│ │ Deploy  │ │   │
 │  │ │ Trigger │ │    │ │         │ │    │ │         │ │    │ │         │ │   │
 │  │ └─────────┘ │    │ └─────────┘ │    │ └─────────┘ │    │ └─────────┘ │   │
 │  │             │    │             │    │             │    │             │   │
 │  │ ┌─────────┐ │    │ ┌─────────┐ │    │ ┌─────────┐ │    │ ┌─────────┐ │   │
-│  │ │ Branch  │ │    │ │ Docker  │ │    │ │ Integr. │ │    │ │ Helm    │ │   │
+│  │ │ Branch  │ │    │ │ Docker  │ │    │ │ Integr. │ │    │ │ Compose │ │   │
 │  │ │ Policy  │ │    │ │ Build   │ │    │ │ Tests   │ │    │ │ Charts  │ │   │
 │  │ │ Check   │ │    │ │         │ │    │ │         │ │    │ │         │ │   │
 │  │ └─────────┘ │    │ └─────────┘ │    │ └─────────┘ │    │ └─────────┘ │   │
@@ -1600,7 +1600,7 @@ build-memory-optimized: build-optimized
 │  │     │ • Non-root user (USER nobody)                                  │ │ │
 │  │     │ • Read-only root filesystem                                    │ │ │
 │  │     │ • Minimal Linux capabilities                                   │ │ │
-│  │     │ • Security contexts in Kubernetes                              │ │ │
+│  │     │ • Security contexts in Docker Swarm                            │ │ │
 │  │     │ • AppArmor/SELinux profiles                                    │ │ │
 │  │     └─────────────────────────────────────────────────────────────────┘ │ │
 │  │                                                                         │ │

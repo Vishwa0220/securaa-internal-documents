@@ -38,7 +38,6 @@ The Securaa User Service follows a **microservice architecture** deployed on tra
 graph TB
     subgraph "Client Layer"
         WEB[Web Applications<br/>Security Dashboards]
-        MOBILE[Mobile Applications<br/>iOS/Android]
         API_CLIENT[API Clients<br/>Third-party Systems]
         CLI[CLI Tools<br/>Administrative Tools]
     end
@@ -75,7 +74,6 @@ graph TB
     
     %% Client Connections
     WEB --> LB
-    MOBILE --> LB
     API_CLIENT --> LB
     CLI --> LB
     
@@ -402,7 +400,6 @@ Multiple delivery channels support diverse user preferences and urgency levels:
 - **WebSocket**: Real-time browser notifications for immediate awareness
 - **Email**: Detailed notifications with rich formatting and attachments
 - **SMS**: Critical alerts for urgent security events
-- **Mobile Push**: Native mobile app notifications
 - **Webhooks**: Integration with external systems and ITSM tools
 
 ```mermaid

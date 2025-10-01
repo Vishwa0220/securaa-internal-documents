@@ -106,7 +106,6 @@ graph TB
     subgraph "Client Applications"
         WEB[Web Dashboard]
         API_CLIENT[API Clients]
-        MOBILE[Mobile Apps]
     end
     EXT1 --> API
     EXT2 --> API
@@ -116,7 +115,6 @@ graph TB
     EXT6 --> API
     WEB --> API
     API_CLIENT --> API
-    MOBILE --> API
     API --> MW
     MW --> IC
     MW --> CC

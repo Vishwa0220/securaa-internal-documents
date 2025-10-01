@@ -101,7 +101,7 @@ The Securaa Custom Services architecture is designed as a modern, cloud-native m
 
 #### 2.1.1 Architectural Layers Explanation
 
-**Client Layer**: The topmost layer represents various client applications that interact with the Securaa Custom Services. This includes web-based dashboards for security analysts, mobile applications for on-the-go monitoring, and programmatic API clients for automated integrations. Each client type may have different authentication and authorization requirements, but all interact through the same standardized REST API interface.
+**Client Layer**: The topmost layer represents various client applications that interact with the Securaa Custom Services. This includes web-based dashboards for security analysts and programmatic API clients for automated integrations. Each client type may have different authentication and authorization requirements, but all interact through the same standardized REST API interface.
 
 **Load Balancing and Gateway Layer**: This layer provides the entry point for all external traffic. The Application Load Balancer distributes incoming requests across multiple service instances, ensuring high availability and optimal resource utilization. The API Gateway, when present, provides additional services such as rate limiting, API versioning, request/response transformation, and centralized authentication policies.
 
@@ -124,7 +124,6 @@ graph TB
     subgraph "External Clients"
         UI[Web UI Dashboard<br/>Security Analyst Interface]
         API[API Clients<br/>Automated Integrations]
-        MOBILE[Mobile Apps<br/>On-the-go Monitoring]
     end
     
     subgraph "Load Balancing & Gateway"
@@ -204,7 +203,7 @@ graph TB
     
     subgraph "Infrastructure"
         DOCKER[Docker Container<br/>Application Packaging<br/>Environment Consistency<br/>Deployment Automation]
-        K8S[Kubernetes Cluster<br/>Container Orchestration<br/>Auto-scaling & Health Checks<br/>Service Discovery]
+        SWARM[Docker Swarm<br/>Container Orchestration<br/>Auto-scaling & Health Checks<br/>Service Discovery]
         ECR[AWS ECR Registry<br/>Container Image Storage<br/>Version Management<br/>Security Scanning]
         CLOUDWATCH[AWS CloudWatch<br/>Metrics Collection<br/>Log Aggregation<br/>Alert Management]
         ELK[ELK Stack<br/>Log Analysis<br/>Search & Visualization<br/>Performance Monitoring]
@@ -213,7 +212,6 @@ graph TB
     %% Client Connections
     UI --> LB
     API --> LB
-    MOBILE --> LB
     
     %% Gateway Layer
     LB --> GATEWAY
@@ -280,7 +278,7 @@ graph TB
     IS --> SECURITY_API
     
     %% Infrastructure
-    DOCKER --> K8S
+    DOCKER --> SWARM
     DOCKER --> ECR
     ROUTER --> CLOUDWATCH
     SLOG --> ELK
@@ -296,7 +294,7 @@ graph TB
     class ES,IS,IMS,EVS service
     class MONGO_CORE,MONGO_T1,MONGO_T2,MONGO_TN,REDIS database
     class SLIB,SCONFIG,SUTILS,SLOG,SCACHE,SCOMMON,SMONGO external
-    class DOCKER,K8S,ECR,CLOUDWATCH,ELK infrastructure
+    class DOCKER,SWARM,ECR,CLOUDWATCH,ELK infrastructure
 ```
 
 ### 2.2 Component Interaction Architecture
@@ -760,7 +758,7 @@ The request processing architecture is designed to handle complex security workf
 
 ```mermaid
 sequenceDiagram
-    participant Client as Security Client<br/>(Web UI, API Client, Mobile)
+    participant Client as Security Client<br/>(Web UI, API Client)
     participant LoadBalancer as Load Balancer<br/>Health Check & Distribution
     participant Router as Gorilla Mux Router<br/>Pattern Matching & Routing
     participant Middleware as Middleware Stack<br/>Security & Validation
@@ -1016,18 +1014,18 @@ The Securaa Custom Services architecture is designed for horizontal scalability 
 
 **Auto-scaling Capabilities**: The system supports automatic scaling based on various metrics including CPU utilization, memory usage, request queue depth, and custom business metrics. Auto-scaling policies can be configured to handle predictable load patterns (time-based scaling) and unpredictable traffic spikes (metric-based scaling).
 
-**Container Orchestration**: Deployment using container orchestration platforms (Kubernetes) provides advanced scaling capabilities including:
-- Pod auto-scaling based on resource metrics
-- Horizontal pod autoscaling with custom metrics
-- Vertical pod autoscaling for resource optimization
-- Cluster auto-scaling for infrastructure expansion
+**Container Orchestration**: Deployment using container orchestration platforms (Docker Swarm) provides advanced scaling capabilities including:
+- Service auto-scaling based on resource metrics
+- Horizontal service scaling with replicas
+- Resource optimization
+- Cluster management for infrastructure expansion
 
 ### 5.1.2 Scalability Architecture Diagram
 
 ```mermaid
 graph TB
     subgraph "Traffic Distribution Layer"
-        INTERNET[Internet Traffic<br/>Global User Base<br/>API Consumers<br/>Mobile Applications]
+        INTERNET[Internet Traffic<br/>Global User Base<br/>API Consumers]
         CDN[Content Delivery Network<br/>• Static asset delivery<br/>• Geographic distribution<br/>• Edge caching<br/>• DDoS protection]
         WAF[Web Application Firewall<br/>• Security filtering<br/>• Attack mitigation<br/>• Rate limiting<br/>• Geographic blocking]
         GLB[Global Load Balancer<br/>• DNS-based routing<br/>• Health-based failover<br/>• Geographic distribution<br/>• Traffic splitting]
@@ -1287,7 +1285,7 @@ The deployment architecture leverages containerization and orchestration technol
 - Regular base image updates
 - Security scanning integration
 
-### 6.1.2 Kubernetes Deployment Architecture
+### 6.1.2 Docker Swarm Deployment Architecture
 
 ```mermaid
 graph TB
@@ -1304,7 +1302,7 @@ graph TB
         
         SECURITY_SCAN[Security & Quality Scanning<br/>• SAST analysis<br/>• Dependency scanning<br/>• License compliance<br/>• Code quality metrics]
         
-        BUILD_ARTIFACTS[Build Artifacts<br/>• Docker images<br/>• Helm charts<br/>• Configuration files<br/>• Documentation]
+        BUILD_ARTIFACTS[Build Artifacts<br/>• Docker images<br/>• Configuration files<br/>• Documentation]
         
         CD_PIPELINE[Continuous Deployment<br/>• Environment promotion<br/>• Automated deployments<br/>• Rollback capabilities<br/>• Deployment validation]
     end
@@ -1312,17 +1310,14 @@ graph TB
     subgraph "Container Registry & Artifacts"
         ECR[AWS ECR / Container Registry<br/>• Image storage & versioning<br/>• Vulnerability scanning<br/>• Access control policies<br/>• Geographic replication]
         
-        HELM_REPO[Helm Chart Repository<br/>• Chart versioning<br/>• Dependency management<br/>• Release management<br/>• Template validation]
-        
         ARTIFACT_STORE[Artifact Storage<br/>• Binary storage<br/>• Version management<br/>• Access controls<br/>• Audit logging]
     end
     
-    subgraph "Kubernetes Production Cluster"
-        subgraph "Control Plane"
-            K8S_API[Kubernetes API Server<br/>• Cluster management<br/>• Authentication/Authorization<br/>• Resource scheduling<br/>• State management]
-            ETCD[etcd Cluster<br/>• Configuration storage<br/>• Service discovery<br/>• Cluster state<br/>• Backup management]
-            SCHEDULER[Kubernetes Scheduler<br/>• Pod placement<br/>• Resource allocation<br/>• Affinity rules<br/>• Constraint satisfaction]
-            CONTROLLER[Controller Manager<br/>• Resource controllers<br/>• Lifecycle management<br/>• Desired state maintenance<br/>• Event processing]
+    subgraph "Docker Swarm Production Cluster"
+        subgraph "Swarm Manager Nodes"
+            MANAGER1[Manager Node 1<br/>• Cluster orchestration<br/>• Service scheduling<br/>• State management<br/>• Leader election]
+            MANAGER2[Manager Node 2<br/>• High availability<br/>• Raft consensus<br/>• Failover support<br/>• Backup manager]
+            MANAGER3[Manager Node 3<br/>• Quorum member<br/>• Load distribution<br/>• Health monitoring<br/>• API endpoint]
         end
         
         subgraph "Worker Nodes - Compute Layer"
@@ -1337,26 +1332,16 @@ graph TB
             end
         end
         
-        subgraph "Application Workloads"
-            DEPLOYMENT[Securaa Custom Deployment<br/>• Replica count: 3-10<br/>• Rolling update strategy<br/>• Resource requests/limits<br/>• Health probes]
+        subgraph "Application Services"
+            SERVICE[Securaa Custom Service<br/>• Replicas: 3-10<br/>• Rolling update strategy<br/>• Resource limits<br/>• Health checks]
             
-            SERVICE[Kubernetes Service<br/>• Load balancing<br/>• Service discovery<br/>• Port management<br/>• Session affinity]
+            INGRESS[Ingress/Load Balancer<br/>• TLS termination<br/>• Path-based routing<br/>• Rate limiting<br/>• Request authentication]
             
-            INGRESS[Ingress Controller<br/>• TLS termination<br/>• Path-based routing<br/>• Rate limiting<br/>• Request authentication]
+            NETWORK[Overlay Network<br/>• Service discovery<br/>• Load balancing<br/>• Encrypted communication<br/>• Network policies]
             
-            HPA[Horizontal Pod Autoscaler<br/>• CPU-based scaling<br/>• Memory-based scaling<br/>• Custom metrics support<br/>• Predictive scaling]
+            VOLUMES[Docker Volumes<br/>• Persistent storage<br/>• Database storage<br/>• Log storage<br/>• Configuration storage]
             
-            VPA[Vertical Pod Autoscaler<br/>• Resource optimization<br/>• Right-sizing pods<br/>• Resource recommendations<br/>• Automatic updates]
-            
-            PDB[Pod Disruption Budget<br/>• Availability guarantees<br/>• Maintenance windows<br/>• Graceful shutdowns<br/>• SLA compliance]
-        end
-        
-        subgraph "Storage & Data"
-            PV[Persistent Volumes<br/>• Database storage<br/>• Log storage<br/>• Configuration storage<br/>• Backup storage]
-            
-            PVC[Persistent Volume Claims<br/>• Storage requests<br/>• Access modes<br/>• Storage classes<br/>• Retention policies]
-            
-            CONFIGMAP[ConfigMaps & Secrets<br/>• Application configuration<br/>• Environment variables<br/>• Database credentials<br/>• API keys]
+            SECRETS[Docker Secrets<br/>• Credentials management<br/>• API keys<br/>• Certificates<br/>• Environment variables]
         end
     end
     
@@ -1391,53 +1376,45 @@ graph TB
     
     %% Artifact Management
     BUILD_ARTIFACTS --> ECR
-    BUILD_ARTIFACTS --> HELM_REPO
     BUILD_ARTIFACTS --> ARTIFACT_STORE
     
     %% Deployment Flow
-    CD_PIPELINE --> K8S_API
-    ECR --> DEPLOYMENT
-    HELM_REPO --> DEPLOYMENT
+    CD_PIPELINE --> MANAGER1
+    ECR --> SERVICE
     
-    %% Kubernetes Architecture
-    K8S_API --> ETCD
-    K8S_API --> SCHEDULER
-    K8S_API --> CONTROLLER
+    %% Swarm Architecture
+    MANAGER1 -.-> MANAGER2
+    MANAGER2 -.-> MANAGER3
+    MANAGER3 -.-> MANAGER1
     
-    SCHEDULER --> NODE1
-    SCHEDULER --> NODE2
-    SCHEDULER --> NODE3
-    SCHEDULER --> NODE4
+    MANAGER1 --> NODE1
+    MANAGER1 --> NODE2
+    MANAGER1 --> NODE3
+    MANAGER1 --> NODE4
     
     %% Application Deployment
-    DEPLOYMENT --> SERVICE
     SERVICE --> INGRESS
-    DEPLOYMENT --> HPA
-    DEPLOYMENT --> VPA
-    DEPLOYMENT --> PDB
-    
-    %% Storage
-    DEPLOYMENT --> PV
-    PV --> PVC
-    DEPLOYMENT --> CONFIGMAP
+    SERVICE --> NETWORK
+    SERVICE --> VOLUMES
+    SERVICE --> SECRETS
     
     %% External Services
-    DEPLOYMENT --> MONGODB
-    DEPLOYMENT --> REDIS_CLUSTER
-    DEPLOYMENT --> EXTERNAL_APIS
+    SERVICE --> MONGODB
+    SERVICE --> REDIS_CLUSTER
+    SERVICE --> EXTERNAL_APIS
     
     %% Monitoring
-    DEPLOYMENT --> PROMETHEUS
+    SERVICE --> PROMETHEUS
     PROMETHEUS --> GRAFANA
-    DEPLOYMENT --> ELK_STACK
-    DEPLOYMENT --> JAEGER
+    SERVICE --> ELK_STACK
+    SERVICE --> JAEGER
     
     %% Styling
     style DEV_CODE fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
-    style DEPLOYMENT fill:#c8e6c9,stroke:#388e3c,stroke-width:3px
+    style SERVICE fill:#c8e6c9,stroke:#388e3c,stroke-width:3px
     style MONGODB fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     style PROMETHEUS fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style K8S_API fill:#ffcdd2,stroke:#d32f2f,stroke-width:3px
+    style MANAGER1 fill:#ffcdd2,stroke:#d32f2f,stroke-width:3px
 ```
 
 ### 6.2 Environment Management and Deployment Pipeline
@@ -1452,7 +1429,7 @@ graph TB
 
 #### 6.2.2 Deployment Strategies
 
-**Rolling Deployments**: Default deployment strategy using Kubernetes rolling updates to ensure zero downtime during application updates. Includes configurable update strategies and rollback capabilities.
+**Rolling Deployments**: Default deployment strategy using Docker Swarm rolling updates to ensure zero downtime during application updates. Includes configurable update strategies and rollback capabilities.
 
 **Blue-Green Deployments**: For critical updates, blue-green deployments provide instant rollback capabilities and complete environment validation before traffic switching.
 
@@ -1503,7 +1480,7 @@ graph TB
         
         CONTAINER_METRICS[Container Metrics<br/>• Resource limits<br/>• Restart counts<br/>• Health check status<br/>• Lifecycle events]
         
-        K8S_METRICS[Kubernetes Metrics<br/>• Pod health & status<br/>• Resource quotas<br/>• Node capacity<br/>• Cluster events]
+        SWARM_METRICS[Docker Swarm Metrics<br/>• Service health & status<br/>• Resource quotas<br/>• Node capacity<br/>• Cluster events]
     end
     
     subgraph "Log Collection & Processing"
@@ -1515,7 +1492,7 @@ graph TB
         
         AUDIT_LOGS[Security Audit Logs<br/>• Authentication events<br/>• Data access logs<br/>• Configuration changes<br/>• Compliance tracking]
         
-        SYSTEM_LOGS[System & Infrastructure Logs<br/>• Operating system logs<br/>• Container runtime logs<br/>• Kubernetes events<br/>• Security system logs]
+        SYSTEM_LOGS[System & Infrastructure Logs<br/>• Operating system logs<br/>• Container runtime logs<br/>• Docker Swarm events<br/>• Security system logs]
         
         BUSINESS_LOGS[Business Process Logs<br/>• Workflow execution<br/>• Integration operations<br/>• Data processing events<br/>• User activity tracking]
     end
@@ -1546,8 +1523,6 @@ graph TB
         KIBANA[Kibana<br/>• Log search & analysis<br/>• Visual analytics<br/>• Dashboard creation<br/>• Data exploration<br/>• Machine learning integration]
         
         CUSTOM_DASHBOARDS[Custom Analytics Dashboards<br/>• Business intelligence<br/>• Executive reporting<br/>• Trend analysis<br/>• Capacity planning]
-        
-        MOBILE_DASHBOARDS[Mobile Monitoring Apps<br/>• On-call notifications<br/>• Critical metric tracking<br/>• Incident response<br/>• Executive summaries]
     end
     
     subgraph "Alerting & Notification"
@@ -1555,7 +1530,7 @@ graph TB
         
         CUSTOM_ALERTING[Custom Alert Rules<br/>• Business logic alerts<br/>• SLA violation detection<br/>• Anomaly detection<br/>• Predictive alerting]
         
-        NOTIFICATION_CHANNELS[Notification Channels<br/>• Email notifications<br/>• Slack/Teams integration<br/>• SMS alerts<br/>• Webhook callbacks<br/>• Mobile push notifications]
+        NOTIFICATION_CHANNELS[Notification Channels<br/>• Email notifications<br/>• Slack/Teams integration<br/>• SMS alerts<br/>• Webhook callbacks]
         
         INCIDENT_MANAGEMENT[Incident Management<br/>• PagerDuty integration<br/>• On-call scheduling<br/>• Escalation workflows<br/>• Post-incident analysis]
     end
@@ -1583,7 +1558,7 @@ graph TB
     DISK_METRICS --> PROMETHEUS
     NETWORK_METRICS --> PROMETHEUS
     CONTAINER_METRICS --> PROMETHEUS
-    K8S_METRICS --> PROMETHEUS
+    SWARM_METRICS --> PROMETHEUS
     
     %% Alternative Storage
     BUSINESS_METRICS --> INFLUXDB
@@ -1608,7 +1583,6 @@ graph TB
     
     GRAFANA --> CUSTOM_DASHBOARDS
     KIBANA --> CUSTOM_DASHBOARDS
-    CUSTOM_DASHBOARDS --> MOBILE_DASHBOARDS
     
     %% Alerting Flow
     PROMETHEUS --> ALERT_MANAGER

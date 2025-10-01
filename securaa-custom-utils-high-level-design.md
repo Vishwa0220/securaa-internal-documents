@@ -39,7 +39,6 @@ graph TB
     subgraph "External Interfaces"
         WEB[Web UI]
         API[REST API Clients]
-        MOBILE[Mobile Apps]
     end
     
     subgraph "API Gateway Layer"
@@ -69,7 +68,6 @@ graph TB
     
     WEB --> LB
     API --> LB
-    MOBILE --> LB
     
     LB --> SSL
     SSL --> AUTH

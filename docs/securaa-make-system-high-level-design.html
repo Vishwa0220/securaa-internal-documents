@@ -110,7 +110,6 @@ graph TB
     subgraph "SECURAA Platform Architecture"
         subgraph "Client Layer"
             CL1[Web UI]
-            CL2[Mobile Apps]
             CL3[API Clients]
         end
         
@@ -508,7 +507,7 @@ graph TB
                     <tr>
                         <td>Cloud Services</td>
                         <td>30</td>
-                        <td>AWS, Azure, GCP, K8s</td>
+                        <td>AWS, Azure, GCP</td>
                         <td>REST, GraphQL</td>
                     </tr>
                     <tr>
@@ -642,7 +641,7 @@ graph TB
     subgraph "External Sources"
         ES1[SIEM<br/>Splunk, QRadar<br/>ArcSight, Elastic]
         ES2[Threat Intelligence<br/>VirusTotal, RecordedFuture<br/>ThreatConnect, MISP]
-        ES3[Cloud Services<br/>AWS, Azure<br/>GCP, K8s]
+        ES3[Cloud Services<br/>AWS, Azure<br/>GCP, Swarm]
         ES4[Tickets<br/>Jira, ServiceNow<br/>Confluence, ITSM]
     end
     
@@ -673,7 +672,6 @@ graph TB
     
     subgraph "Output Interfaces"
         OI1[Web UI<br/>Dashboards<br/>Reports<br/>Analytics<br/>Admin]
-        OI2[Mobile Apps<br/>iOS<br/>Android<br/>PWA<br/>Tablets]
         OI3[API Endpoints<br/>REST<br/>GraphQL<br/>Webhooks<br/>SSE]
         OI4[Notifications<br/>Email<br/>SMS<br/>Slack<br/>MSTeams]
     end

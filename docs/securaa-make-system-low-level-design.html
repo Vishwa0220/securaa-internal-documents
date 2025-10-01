@@ -517,7 +517,7 @@ security-sbom:
                     <li><strong>Non-root user</strong>: USER nobody directive</li>
                     <li><strong>Read-only filesystem</strong>: Immutable containers</li>
                     <li><strong>Minimal capabilities</strong>: Reduced Linux capabilities</li>
-                    <li><strong>Security contexts</strong>: Kubernetes security policies</li>
+                    <li><strong>Security contexts</strong>: Docker Swarm security policies</li>
                     <li><strong>AppArmor/SELinux</strong>: Mandatory access controls</li>
                 </ul>
 
@@ -541,7 +541,7 @@ graph LR
         SC[Source Control<br/>Git Webhook<br/>Branch Policy<br/>PR Approval]
         BS[Build System<br/>Make System<br/>Docker Build<br/>Package RPM]
         TS[Test Suite<br/>Unit Tests<br/>Integration Tests<br/>Security Scan]
-        DP[Deploy Pipeline<br/>K8s Deploy<br/>Helm Charts<br/>Rollback Support]
+        DP[Deploy Pipeline<br/>Swarm Deploy<br/>Docker Compose<br/>Rollback Support]
     end
     
     SC --> BS

@@ -1626,74 +1626,6 @@ EXPOSE 8109
 CMD ["/run.sh"]
 ```
 
-### Kubernetes Deployment
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: zona-custom-utils
-  labels:
-    app: zona-custom-utils
-    version: v1.0.0
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: zona-custom-utils
-  template:
-    metadata:
-      labels:
-        app: zona-custom-utils
-    spec:
-      containers:
-      - name: zona-custom-utils
-        image: zona/custom-utils:v1.0.0
-        ports:
-        - containerPort: 8109
-        env:
-        - name: MONGO_HOST
-          valueFrom:
-            secretKeyRef:
-              name: database-secret
-              key: host
-        - name: MONGO_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: database-secret
-              key: password
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8109
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8109
-          initialDelaySeconds: 5
-          periodSeconds: 5
-        volumeMounts:
-        - name: config-volume
-          mountPath: /opt/zona/config.json
-          subPath: config.json
-        - name: logs-volume
-          mountPath: /opt/zona/logs
-      volumes:
-      - name: config-volume
-        configMap:
-          name: zona-config
-      - name: logs-volume
-        emptyDir: {}
-```
-
 ### CI/CD Pipeline Configuration
 ```yaml
 # .github/workflows/deploy.yml
@@ -1750,8 +1682,7 @@ jobs:
     steps:
     - name: Deploy to production
       run: |
-        kubectl set image deployment/zona-custom-utils zona-custom-utils=zona/custom-utils:${{ github.sha }}
-        kubectl rollout status deployment/zona-custom-utils
+        docker stack deploy -c docker-compose.yml zona-custom-utils
 ```
 
 ---

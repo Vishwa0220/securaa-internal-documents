@@ -618,39 +618,6 @@ graph TB
 <p>COPY --from=builder /app/securaa-playbook-service .</p>
 <p>EXPOSE 8040</p>
 <p>CMD ["./securaa-playbook-service"]</code></pre></p>
-<h4>8.1.2 Kubernetes Deployment</h4>
-<pre><code class="language-yaml">apiVersion: apps/v1
-<p>kind: Deployment</p>
-<p>metadata:</p>
-<p>  name: securaa-playbook-service</p>
-<p>spec:</p>
-<p>  replicas: 3</p>
-<p>  selector:</p>
-<p>    matchLabels:</p>
-<p>      app: securaa-playbook-service</p>
-<p>  template:</p>
-<p>    metadata:</p>
-<p>      labels:</p>
-<p>        app: securaa-playbook-service</p>
-<p>    spec:</p>
-<p>      containers:</p>
-<p>      - name: securaa-playbook-service</p>
-<p>        image: securaa/playbook-service:latest</p>
-<p>        ports:</p>
-<p>        - containerPort: 8040</p>
-<p>        env:</p>
-<p>        - name: MONGO_URI</p>
-<p>          valueFrom:</p>
-<p>            secretKeyRef:</p>
-<p>              name: mongo-secret</p>
-<p>              key: uri</p>
-<p>        resources:</p>
-<p>          requests:</p>
-<p>            memory: "256Mi"</p>
-<p>            cpu: "250m"</p>
-<p>          limits:</p>
-<p>            memory: "512Mi"</p>
-<p>            cpu: "500m"</code></pre></p>
 <h3>8.2 Infrastructure Requirements</h3>
 <h4>8.2.1 Compute Resources</h4>
 <ul>

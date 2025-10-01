@@ -819,59 +819,6 @@ EXPOSE 8063
 
 CMD ["./securaa-custom-services"]</code></pre>
 
-        <h3>9.2 Kubernetes Deployment</h3>
-        <pre><code>apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: securaa-custom-services
-  labels:
-    app: securaa-custom-services
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: securaa-custom-services
-  template:
-    metadata:
-      labels:
-        app: securaa-custom-services
-    spec:
-      containers:
-      - name: securaa-custom-services
-        image: securaa/custom-services:latest
-        ports:
-        - containerPort: 8063
-        env:
-        - name: MONGO_URI
-          valueFrom:
-            secretKeyRef:
-              name: db-credentials
-              key: mongo-uri
-        - name: REDIS_URI
-          valueFrom:
-            secretKeyRef:
-              name: db-credentials
-              key: redis-uri
-        resources:
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8063
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8063
-          initialDelaySeconds: 5
-          periodSeconds: 5</code></pre>
-
         <h2 id="monitoring-implementation">10. Monitoring Implementation</h2>
         
         <h3>10.1 Health Check Implementation</h3>

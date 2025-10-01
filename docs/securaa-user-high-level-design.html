@@ -98,7 +98,6 @@
 graph TB
     subgraph "Client Layer"
         WEB[Web Applications<br/>Security Dashboards]
-        MOBILE[Mobile Applications<br/>iOS/Android]
         API_CLIENT[API Clients<br/>Third-party Systems]
         CLI[CLI Tools<br/>Administrative Tools]
     end
@@ -134,7 +133,6 @@ graph TB
     end
     
     WEB --> LB
-    MOBILE --> LB
     API_CLIENT --> LB
     CLI --> LB
     

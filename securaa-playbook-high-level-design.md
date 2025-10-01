@@ -600,42 +600,6 @@ EXPOSE 8040
 CMD ["./securaa-playbook-service"]
 ```
 
-#### 8.1.2 Kubernetes Deployment
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: securaa-playbook-service
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: securaa-playbook-service
-  template:
-    metadata:
-      labels:
-        app: securaa-playbook-service
-    spec:
-      containers:
-      - name: securaa-playbook-service
-        image: securaa/playbook-service:latest
-        ports:
-        - containerPort: 8040
-        env:
-        - name: MONGO_URI
-          valueFrom:
-            secretKeyRef:
-              name: mongo-secret
-              key: uri
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-```
-
 ### 8.2 Infrastructure Requirements
 
 #### 8.2.1 Compute Resources

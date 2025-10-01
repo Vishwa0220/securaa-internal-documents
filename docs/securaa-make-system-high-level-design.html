@@ -3,46 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SECURAA Make System - High Level Design</title>
+    <title>Securaa Make System - High Level Design - Securaa Platform Documentation</title>
     <link rel="stylesheet" href="assets/css/documentation.css">
-    <script src="lib/mermaid.min.js"></script>
-    <script>
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'default',
-            securityLevel: 'loose',
-            themeVariables: {
-                fontFamily: 'Segoe UI',
-                fontSize: '12px'
-            }
-        });
-    </script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-brand">
-            <img src="assets/lib/logo/firewall.svg" alt="SECURAA Logo" class="nav-logo">
-            <span>SECURAA Documentation</span>
-        </div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="#overview">Overview</a>
-            <a href="#architecture">Architecture</a>
-            <a href="#build-system">Build System</a>
-            <a href="#repositories">Repositories</a>
-            <a href="#performance">Performance</a>
-        </div>
+    <header class="main-header">
+        <h1>Securaa Platform Documentation</h1>
+        <p>Comprehensive documentation for Securaa security platform services</p>
+    </header>
+    
+    <nav class="documentation-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
+            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
+            <li><a href="optimization-guide.html">Optimization Guide</a></li>
+            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
+            <li><a href="securaa-siem-low-level-design.html">Securaa SIEM Low Level Design</a></li>
+            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
+            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
+            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
+            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
+            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
+            <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
+            <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
+            <li><a href="securaa-custom-utils-high-level-design.html">Securaa Custom Utils High Level Design</a></li>
+            <li><a href="securaa-custom-utils-low-level-design.html">Securaa Custom Utils Low Level Design</a></li>
+            <li><a href="securaa-make-system-high-level-design.html" class="active">Securaa Make System High Level Design</a></li>
+            <li><a href="securaa-make-system-low-level-design.html">Securaa Make System Low Level Design</a></li>
+        </ul>
     </nav>
-
-    <div class="container">
-        <header class="doc-header">
-            <h1 style="color: white;">SECURAA Make System - High Level Design</h1>
-            <p class="doc-subtitle">Comprehensive documentation for the SECURAA security platform build system</p>
-        </header>
-
-        <div class="content">
-            <section id="overview">
-                <h2>Overview</h2>
+    
+    <main class="main-content">
+        <h1>Securaa Make System - High Level Design</h1>
+        
+        <section id="overview">
+            <h2>Overview</h2>
                 <p>The SECURAA project employs a sophisticated multi-level Make system designed to manage the build, packaging, and deployment of a complex cybersecurity platform. This system orchestrates the compilation, testing, packaging, and deployment of over 200 microservices across multiple deployment environments.</p>
                 
                 <h3>Key Statistics</h3>
@@ -729,16 +725,27 @@ graph TB
                     <li><strong>Security scanning</strong> integrated into build pipeline</li>
                 </ul>
             </section>
-        </div>
-    </div>
+        </main>
 
-    <footer class="doc-footer">
-        <div class="footer-content">
-            <p>&copy; 2024 SECURAA Platform. All rights reserved.</p>
-            <p>Version 6.1.0 | Build System Documentation</p>
-        </div>
+    <footer>
+        <p>&copy; 2025 Securaa Platform. All rights reserved.</p>
     </footer>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#1976d2',
+                primaryTextColor: '#000000',
+                primaryBorderColor: '#0d47a1',
+                lineColor: '#1976d2',
+                secondaryColor: '#f5f5f5',
+                tertiaryColor: '#ffffff'
+            }
+        });
+    </script>
     <script src="assets/js/documentation.js"></script>
 </body>
 </html>

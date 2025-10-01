@@ -1451,3 +1451,12 @@ blockquote {
         grid-template-columns: 1fr;
     }
 }
+
+/* Search Highlight Styles */
+.search-highlight {
+    background-color: #ffd700;
+    color: #000;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 500;
+}

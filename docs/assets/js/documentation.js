@@ -271,17 +271,28 @@ function performSearch(query) {
     
     const regex = new RegExp(query, 'gi');
     let node;
+    const nodesToHighlight = [];
     
+    // Collect all matching nodes first (before modifying DOM)
     while (node = walker.nextNode()) {
+        regex.lastIndex = 0;
         if (regex.test(node.textContent)) {
-            highlightText(node, regex);
+            nodesToHighlight.push(node);
         }
     }
+    
+    // Now highlight all collected nodes
+    nodesToHighlight.forEach(textNode => {
+        highlightText(textNode, regex);
+    });
 }
 
 function highlightText(textNode, regex) {
     const parent = textNode.parentElement;
     if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE') return;
+    
+    // Reset regex lastIndex to ensure it starts from the beginning
+    regex.lastIndex = 0;
     
     const highlightedText = textNode.textContent.replace(regex, '<mark class="search-highlight">$&</mark>');
     

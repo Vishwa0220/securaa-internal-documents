@@ -231,59 +231,153 @@ func (taskRequest *TaskRequest) ExecuteTask() ([]byte, error, int, string,
 
 ### 1. Server-Side Class Hierarchy
 
-```
-App
-├── Router (mux.Router)
-├── DBSession (map[string]SessionStruct)
-├── ConfigObject (config.ConfigStruct)
-└── Controllers
-    ├── RISController
-    │   ├── GetAllRIS()
-    │   ├── AddNewRIS()
-    │   ├── UpdateRIS()
-    │   ├── DeleteRIS()
-    │   └── GetSingleRISClient()
-    ├── RemoteTenantController
-    └── CacheController
-
-Models
-├── RIS
-│   ├── ID, Name, Description
-│   ├── Host, Status, ConnectionStatus
-│   ├── GetRISList()
-│   ├── AddRIS()
-│   └── UpdateRIS()
-├── TenantDBInfo
-└── Response
+```mermaid
+classDiagram
+    class App {
+        +Router mux.Router
+        +DBSession map~string~SessionStruct
+        +ConfigObject config.ConfigStruct
+        +Initialize()
+        +Run()
+        +initializeRoutes()
+    }
+    
+    class RISController {
+        +GetAllRIS()
+        +AddNewRIS()
+        +UpdateRIS()
+        +DeleteRIS()
+        +GetSingleRISClient()
+    }
+    
+    class RemoteTenantController {
+        +GetTenantClient()
+        +GetTenantConfig()
+    }
+    
+    class CacheController {
+        +GetCache()
+        +SetCache()
+        +ClearCache()
+    }
+    
+    class RISModel {
+        +int ID
+        +string Name
+        +string Description
+        +string Host
+        +string Status
+        +string ConnectionStatus
+        +GetRISList()
+        +AddRIS()
+        +UpdateRIS()
+    }
+    
+    class TenantDBInfo {
+        +string DBName
+        +string DBUsername
+        +string DBPassword
+        +string DBHost
+    }
+    
+    class Response {
+        +bool Success
+        +interface Data
+        +string Error
+        +string DisplayMessage
+    }
+    
+    App --> RISController
+    App --> RemoteTenantController
+    App --> CacheController
+    RISController --> RISModel
+    RISController --> Response
+    RemoteTenantController --> TenantDBInfo
+    RemoteTenantController --> Response
 ```
 
 ### 2. Client-Side Class Hierarchy
 
-```
-App
-├── Router (mux.Router)
-├── ConfigObject (config.ConfigStruct)
-├── CLI (Docker Client)
-└── Controllers
-    ├── TaskHandlerController
-    │   ├── RunTaskByHandler()
-    │   ├── RunTask()
-    │   └── ADTestConnectivity()
-    ├── RISClientController
-    │   ├── CheckClientStatus()
-    │   ├── GetInternalIP()
-    │   └── DeployServices()
-    ├── RemoteConnectionController
-    └── ServiceController
-
-Models
-├── TaskHandlerRequest
-│   └── BuildAndExecuteTask()
-├── TaskRequest
-│   └── ExecuteTask()
-├── ClientInfo
-├── ClientStatus
-└── Response
+```mermaid
+classDiagram
+    class App {
+        +Router mux.Router
+        +ConfigObject config.ConfigStruct
+        +CLI client.Client
+        +Initialize()
+        +Run()
+        +initializeRoutes()
+        +risClient()
+    }
+    
+    class TaskHandlerController {
+        +RunTaskByHandler()
+        +RunTask()
+        +ADTestConnectivity()
+    }
+    
+    class RISClientController {
+        +CheckClientStatus()
+        +GetInternalIP()
+        +GetExternalIP()
+        +DeployServices()
+    }
+    
+    class RemoteConnectionController {
+        +TestConnection()
+        +ValidateCredentials()
+    }
+    
+    class ServiceController {
+        +ManageService()
+        +CheckServiceStatus()
+    }
+    
+    class TaskHandlerRequest {
+        +string Method
+        +string REST
+        +string Port
+        +string BaseURL
+        +BuildAndExecuteTask()
+    }
+    
+    class TaskRequest {
+        +string Method
+        +string RestURL
+        +string RequestHeaders
+        +byte[] Data
+        +ExecuteTask()
+    }
+    
+    class ClientInfo {
+        +string ClientHost
+        +string UniqueClientID
+        +string ConnectionStatus
+    }
+    
+    class ClientStatus {
+        +string Status
+        +string Version
+        +int64 Timestamp
+    }
+    
+    class Response {
+        +bool Success
+        +interface Data
+        +string Error
+        +string DisplayMessage
+    }
+    
+    App --> TaskHandlerController
+    App --> RISClientController
+    App --> RemoteConnectionController
+    App --> ServiceController
+    TaskHandlerController --> TaskHandlerRequest
+    TaskHandlerController --> TaskRequest
+    TaskHandlerController --> Response
+    RISClientController --> ClientInfo
+    RISClientController --> ClientStatus
+    RISClientController --> Response
 ```
 
 ## Database Design

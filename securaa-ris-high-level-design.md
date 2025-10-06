@@ -341,9 +341,9 @@ graph TB
     
     subgraph "Application Zone"
         subgraph "RIS Server Cluster"
-            RS1[RIS Server Pod 1<br/>Port: 8057]
-            RS2[RIS Server Pod 2<br/>Port: 8057]
-            RS3[RIS Server Pod 3<br/>Port: 8057]
+            RS1[RIS Server Service 1<br/>Port: 8057]
+            RS2[RIS Server Service 2<br/>Port: 8057]
+            RS3[RIS Server Service 3<br/>Port: 8057]
         end
         
         subgraph "Service Mesh"
@@ -1647,7 +1647,7 @@ graph TB
 
 ### Infrastructure
 - **Containerization**: Docker containers
-- **Orchestration**: Docker Swarm/Kubernetes
+- **Orchestration**: Docker Swarm
 - **Load Balancing**: NGINX/HAProxy
 - **Monitoring**: Prometheus/Grafana
 - **Service Mesh**: Istio (optional)
@@ -1682,9 +1682,9 @@ graph TB
 - **Enhanced Security**: Zero-trust architecture implementation
 
 ### 2. Technology Evolution
-- **Kubernetes Migration**: Container orchestration platform upgrade
 - **gRPC Integration**: High-performance RPC communication
 - **Event-driven Architecture**: Message queue integration
+- **Enhanced Orchestration**: Advanced Docker Swarm features and capabilities
 
 ## Integration Patterns
 
@@ -1841,10 +1841,10 @@ graph TB
 ### Infrastructure Technology Stack
 
 #### Orchestration and Deployment
-- **Kubernetes 1.28+**: Container orchestration platform (optional)
-- **Docker Swarm**: Lightweight container orchestration
-- **Helm Charts**: Kubernetes package management
-- **Docker Compose**: Development and small-scale deployments
+- **Docker Swarm**: Production-grade container orchestration
+- **Docker Compose**: Multi-container application definition and deployment
+- **Docker Stack**: Declarative service deployment in Swarm mode
+- **Docker Secrets**: Secure credential and configuration management
 
 #### Monitoring and Observability
 - **Prometheus**: Metrics collection and alerting

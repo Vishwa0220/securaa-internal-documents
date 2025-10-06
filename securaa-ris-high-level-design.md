@@ -122,38 +122,57 @@ The system embraces cloud-native design principles including:
 4. **Observability**: Built-in monitoring, logging, and tracing capabilities
 5. **Resilience**: Self-healing capabilities with automatic recovery
 
-```
-                    ┌─────────────────────────────────────┐
-                    │         RIS Server Hub              │
-                    │                                     │
-                    │  ┌─────────────┐ ┌─────────────┐   │
-                    │  │   WebSocket │ │    REST     │   │
-                    │  │   Gateway   │ │  API Gateway│   │
-                    │  └─────────────┘ └─────────────┘   │
-                    │                                     │
-                    │  ┌─────────────┐ ┌─────────────┐   │
-                    │  │   Task      │ │   Service   │   │
-                    │  │  Orchestrator│ │  Manager    │   │
-                    │  └─────────────┘ └─────────────┘   │
-                    │                                     │
-                    │  ┌─────────────────────────────┐   │
-                    │  │     Database Cluster        │   │
-                    │  │   (MongoDB + Redis)         │   │
-                    │  └─────────────────────────────┘   │
-                    └───────────┬─────────────────────────┘
-                                │
-            ┌───────────────────┼───────────────────┐
-            │                   │                   │
-      ┌─────▼─────┐       ┌─────▼─────┐       ┌─────▼─────┐
-      │RIS Client │       │RIS Client │       │RIS Client │
-      │    Spoke  │       │    Spoke  │       │    Spoke  │
-      │     1     │       │     2     │       │     N     │
-      │           │       │           │       │           │
-      │┌─────────┐│       │┌─────────┐│       │┌─────────┐│
-      ││ Docker  ││       ││ Docker  ││       ││ Docker  ││
-      ││ Engine  ││       ││ Engine  ││       ││ Engine  ││
-      │└─────────┘│       │└─────────┘│       │└─────────┘│
-      └───────────┘       └───────────┘       └───────────┘
+```mermaid
+graph TB
+    subgraph "RIS Server Hub"
+        WS_GW[WebSocket Gateway]
+        REST_GW[REST API Gateway]
+        ORCHESTRATOR[Task Orchestrator]
+        SVC_MGR[Service Manager]
+        DB_CLUSTER[Database Cluster<br/>MongoDB + Redis]
+        
+        WS_GW --> ORCHESTRATOR
+        REST_GW --> ORCHESTRATOR
+        ORCHESTRATOR --> SVC_MGR
+        ORCHESTRATOR --> DB_CLUSTER
+        SVC_MGR --> DB_CLUSTER
+    end
+    
+    subgraph "RIS Client Spoke 1"
+        RC1[RIS Client 1]
+        DOCKER1[Docker Engine 1]
+        RC1 --> DOCKER1
+    end
+    
+    subgraph "RIS Client Spoke 2"
+        RC2[RIS Client 2]
+        DOCKER2[Docker Engine 2]
+        RC2 --> DOCKER2
+    end
+    
+    subgraph "RIS Client Spoke N"
+        RCN[RIS Client N]
+        DOCKERN[Docker Engine N]
+        RCN --> DOCKERN
+    end
+    
+    %% Hub to Spoke connections
+    WS_GW -.->|WebSocket| RC1
+    WS_GW -.->|WebSocket| RC2
+    WS_GW -.->|WebSocket| RCN
+    
+    REST_GW -.->|HTTPS| RC1
+    REST_GW -.->|HTTPS| RC2
+    REST_GW -.->|HTTPS| RCN
+    
+    style WS_GW fill:#e3f2fd
+    style REST_GW fill:#e3f2fd
+    style ORCHESTRATOR fill:#fff3e0
+    style SVC_MGR fill:#fff3e0
+    style DB_CLUSTER fill:#e8f5e8
+    style RC1 fill:#fce4ec
+    style RC2 fill:#fce4ec
+    style RCN fill:#fce4ec
 ```
 
 ### Design Patterns Implementation
@@ -711,31 +730,86 @@ RIS Clients serve as intelligent agents that execute tasks and manage services i
 ## Component Interactions
 
 ### 1. Client Registration Flow
-```
-RIS Client → WebSocket Connection → RIS Server
-    │                                    │
-    ├─ Send ClientInfo                   ├─ Validate Client
-    ├─ Network Detection                 ├─ Update Database
-    ├─ Status Updates                    ├─ Send Acknowledgment
-    └─ Periodic Heartbeat                └─ Monitor Connection
+
+```mermaid
+sequenceDiagram
+    participant Client as RIS Client
+    participant WS as WebSocket Connection
+    participant Server as RIS Server
+    participant DB as Database
+    
+    Client->>WS: Establish Connection
+    WS->>Server: Connection Request
+    Server->>Server: Validate Client
+    
+    Client->>Server: Send ClientInfo
+    Server->>Server: Network Detection
+    Server->>DB: Update Database
+    DB-->>Server: Confirmation
+    
+    Server-->>Client: Send Acknowledgment
+    
+    loop Periodic Heartbeat
+        Client->>Server: Heartbeat
+        Server->>Server: Monitor Connection
+        Server-->>Client: Acknowledgment
+    end
+    
+    Note over Client,Server: Connection Active
 ```
 
 ### 2. Task Execution Flow
-```
-External Request → RIS Server → Target RIS Client
-      │                │              │
-      ├─ Authentication  ├─ Route Task  ├─ Execute Task
-      ├─ Authorization   ├─ Monitor     ├─ Return Result
-      └─ Response        └─ Log         └─ Update Status
+
+```mermaid
+sequenceDiagram
+    participant Ext as External Request
+    participant Server as RIS Server
+    participant Client as Target RIS Client
+    
+    Ext->>Server: Task Request
+    Server->>Server: Authentication
+    Server->>Server: Authorization
+    
+    alt Authorization Success
+        Server->>Client: Route Task
+        Server->>Server: Monitor
+        Client->>Client: Execute Task
+        Client-->>Server: Return Result
+        Server->>Server: Log
+        Server-->>Ext: Response
+    else Authorization Failed
+        Server-->>Ext: Access Denied
+    end
+    
+    Note over Server,Client: Update Status
 ```
 
 ### 3. Service Management Flow
-```
-Management Request → RIS Client → Docker Engine
-        │                │            │
-        ├─ Validate       ├─ Parse     ├─ Service Action
-        ├─ Authorize      ├─ Execute   ├─ Status Update
-        └─ Monitor        └─ Report    └─ Health Check
+
+```mermaid
+sequenceDiagram
+    participant Mgmt as Management Request
+    participant Client as RIS Client
+    participant Docker as Docker Engine
+    
+    Mgmt->>Client: Service Command
+    Client->>Client: Validate
+    Client->>Client: Authorize
+    
+    alt Authorized
+        Client->>Client: Parse Command
+        Client->>Docker: Service Action
+        Docker->>Docker: Execute Action
+        Docker-->>Client: Status Update
+        Client->>Client: Report
+        Docker->>Docker: Health Check
+        Client-->>Mgmt: Success Response
+    else Unauthorized
+        Client-->>Mgmt: Access Denied
+    end
+    
+    Client->>Client: Monitor
+    Note over Client,Docker: Service Active
 ```
 
 ## Data Flow and Process Flows
@@ -1464,22 +1538,22 @@ graph TB
 #### Firewall Rules and Policies
 
 **Ingress Rules:**
-```
-Protocol | Source | Destination | Port | Action | Description
-HTTPS   | ANY    | DMZ         | 443  | ALLOW  | Public web access
-HTTP    | ANY    | DMZ         | 80   | REDIRECT | Redirect to HTTPS
-SSH     | MGMT   | DMZ         | 22   | ALLOW  | Management access
-WSS     | CLIENT | APP         | 8057 | ALLOW  | WebSocket connections
-```
+
+| Protocol | Source | Destination | Port | Action   | Description             |
+|----------|--------|-------------|------|----------|-------------------------|
+| HTTPS    | ANY    | DMZ         | 443  | ALLOW    | Public web access       |
+| HTTP     | ANY    | DMZ         | 80   | REDIRECT | Redirect to HTTPS       |
+| SSH      | MGMT   | DMZ         | 22   | ALLOW    | Management access       |
+| WSS      | CLIENT | APP         | 8057 | ALLOW    | WebSocket connections   |
 
 **East-West Traffic Rules:**
-```
-Protocol | Source | Destination | Port  | Action | Description
-HTTP    | APP    | APP         | 8057  | ALLOW  | Inter-service communication
-MongoDB | APP    | DATA        | 27017 | ALLOW  | Database access
-Redis   | APP    | APP         | 6379  | ALLOW  | Cache access
-ICMP    | ANY    | ANY         | ANY   | ALLOW  | Network diagnostics
-```
+
+| Protocol | Source | Destination | Port  | Action | Description                 |
+|----------|--------|-------------|-------|--------|-----------------------------|
+| HTTP     | APP    | APP         | 8057  | ALLOW  | Inter-service communication |
+| MongoDB  | APP    | DATA        | 27017 | ALLOW  | Database access             |
+| Redis    | APP    | APP         | 6379  | ALLOW  | Cache access                |
+| ICMP     | ANY    | ANY         | ANY   | ALLOW  | Network diagnostics         |
 
 #### VPN and Remote Access
 

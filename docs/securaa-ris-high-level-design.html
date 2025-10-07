@@ -8,24 +8,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/documentation.css">
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
 </head>
 <body>
     <header class="main-header">
-        <div class="container">
-            <h1>Remote Integrated Services (RIS) - High Level Design</h1>
-            <p>Comprehensive architectural overview of the distributed RIS system for secure remote service management</p>
-            <div class="subtitle">
-                <div class="badge">
-                    🌐 Distributed Architecture
-                </div>
-                <div class="badge">
-                    🔒 Enterprise Security
-                </div>
-                <div class="badge">
-                    ⚡ Real-time Management
-                </div>
-            </div>
-        </div>
+        <h1>Securaa Platform Documentation</h1>
+        <p>Comprehensive documentation for Securaa security platform services</p>
     </header>
     
     <nav class="documentation-nav">
@@ -33,8 +24,6 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="securaa-ris-high-level-design.html" class="active">RIS High Level Design</a></li>
             <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-            <li><a href="securaa-ris-client-documentation.html">RIS Client Documentation</a></li>
-            <li><a href="securaa-ris-server-documentation.html">RIS Server Documentation</a></li>
             <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
             <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
             <li><a href="optimization-guide.html">Optimization Guide</a></li>
@@ -55,6 +44,9 @@
     </nav>
     
     <main class="main-content">
+        <h1>Remote Integrated Services (RIS) - High Level Design</h1>
+        <p><strong>Comprehensive architectural overview of the distributed RIS system for secure remote service management</strong></p>
+        
         <div class="doc-section">
             <h1 id="system-architecture">System Overview</h1>
             <p>

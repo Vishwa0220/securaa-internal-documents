@@ -430,113 +430,109 @@ graph TB
         </div>
 
         <div class="doc-section">
-            <h2>Deployment Architecture</h2>
+            <h2>Docker Swarm Deployment Architecture</h2>
             
-            <h3>Production Deployment</h3>
+            <h3>Production Swarm Deployment</h3>
             <div class="mermaid">
 graph TB
     subgraph "External Layer"
-        LB[Load Balancer<br/>NGINX/HAProxy]
+        LB[Load Balancer<br/>NGINX Ingress]
         CDN[CDN<br/>CloudFlare]
         DNS[DNS<br/>Route53]
     end
     
-    subgraph "Application Layer"
-        subgraph "Cluster A"
-            APP1[RIS Server 1]
-            APP2[RIS Server 2]
+    subgraph "Docker Swarm Cluster"
+        subgraph "Manager Nodes"
+            MGR1[Manager Node 1<br/>Leader]
+            MGR2[Manager Node 2]
+            MGR3[Manager Node 3]
         end
         
-        subgraph "Cluster B"
-            APP3[RIS Server 3]
-            APP4[RIS Server 4]
+        subgraph "Worker Nodes"
+            WORK1[Worker Node 1<br/>RIS Server Tasks]
+            WORK2[Worker Node 2<br/>RIS Server Tasks]
+            WORK3[Worker Node 3<br/>RIS Server Tasks]
+            WORK4[Worker Node 4<br/>Support Services]
         end
     end
     
     subgraph "Data Layer"
-        subgraph "Primary DB"
-            MONGO1[(MongoDB<br/>Primary)]
-            MONGO2[(MongoDB<br/>Secondary)]
-        end
-        
-        subgraph "Cache Layer"
-            REDIS1[Redis<br/>Master]
-            REDIS2[Redis<br/>Replica]
+        subgraph "Storage Nodes"
+            DB[MongoDB<br/>Replica Set]
+            CACHE[Redis<br/>Persistent]
         end
     end
     
-    subgraph "Monitoring"
-        PROM[Prometheus]
-        GRAF[Grafana]
-        ELK[ELK Stack]
+    subgraph "Monitoring Stack"
+        PROM[Prometheus<br/>Service]
+        GRAF[Grafana<br/>Service]
+        LOG[Logging<br/>Stack Service]
     end
     
     DNS --> CDN
     CDN --> LB
-    LB --> APP1
-    LB --> APP2
-    LB --> APP3
-    LB --> APP4
+    LB --> WORK1
+    LB --> WORK2
+    LB --> WORK3
     
-    APP1 --> MONGO1
-    APP2 --> MONGO1
-    APP3 --> MONGO1
-    APP4 --> MONGO1
+    WORK1 --> DB
+    WORK2 --> DB
+    WORK3 --> DB
     
-    MONGO1 -.-> MONGO2
+    WORK1 --> CACHE
+    WORK2 --> CACHE
+    WORK3 --> CACHE
     
-    APP1 --> REDIS1
-    APP2 --> REDIS1
-    APP3 --> REDIS1
-    APP4 --> REDIS1
+    WORK4 --> PROM
+    WORK4 --> GRAF
+    WORK4 --> LOG
     
-    REDIS1 -.-> REDIS2
-    
-    APP1 --> PROM
-    APP2 --> PROM
-    APP3 --> PROM
-    APP4 --> PROM
-    
-    PROM --> GRAF
-    PROM --> ELK
+    MGR1 -.-> MGR2
+    MGR1 -.-> MGR3
+    MGR2 -.-> MGR3
             </div>
 
-            <h3>Deployment Environments</h3>
+            <h3>Swarm Deployment Environments</h3>
             <div class="component-grid">
                 <div class="component-card">
-                    <h4>Development Environment</h4>
+                    <h4>Development Swarm</h4>
                     <ul>
-                        <li>Single server instance for development</li>
-                        <li>Local MongoDB and Redis instances</li>
-                        <li>Mock external services for testing</li>
-                        <li>Debug logging and profiling enabled</li>
+                        <li>Single manager node for development</li>
+                        <li>Local persistent volumes for data</li>
+                        <li>Simplified service configuration</li>
+                        <li>Integrated development tools</li>
+                        <li>Hot-reload capabilities</li>
                     </ul>
                 </div>
                 <div class="component-card">
-                    <h4>Staging Environment</h4>
+                    <h4>Staging Swarm</h4>
                     <ul>
-                        <li>Production-like setup with reduced capacity</li>
-                        <li>Integration testing with real services</li>
-                        <li>Performance testing and benchmarking</li>
-                        <li>Security testing and vulnerability assessment</li>
+                        <li>Multi-node swarm cluster</li>
+                        <li>Production-like configuration</li>
+                        <li>Automated testing integration</li>
+                        <li>Performance monitoring and testing</li>
+                        <li>Load testing environment</li>
                     </ul>
                 </div>
                 <div class="component-card">
-                    <h4>Production Environment</h4>
+                    <h4>Production Swarm</h4>
                     <ul>
-                        <li>High availability multi-server deployment</li>
-                        <li>Geographic redundancy and disaster recovery</li>
+                        <li>High availability multi-manager deployment</li>
+                        <li>Dedicated worker nodes for services</li>
+                        <li>External load balancer integration</li>
+                        <li>Automated backup and recovery</li>
                         <li>Comprehensive monitoring and alerting</li>
-                        <li>Automated backup and recovery procedures</li>
+                        <li>Security hardening and secrets management</li>
                     </ul>
                 </div>
                 <div class="component-card">
-                    <h4>Disaster Recovery</h4>
+                    <h4>Swarm Disaster Recovery</h4>
                     <ul>
-                        <li>Cross-region backup and replication</li>
-                        <li>Automated failover procedures</li>
-                        <li>Recovery time objective (RTO) &lt; 15 minutes</li>
-                        <li>Recovery point objective (RPO) &lt; 5 minutes</li>
+                        <li>Cross-datacenter swarm federation</li>
+                        <li>Automated service failover</li>
+                        <li>Persistent volume replication</li>
+                        <li>Recovery time objective (RTO) &lt; 10 minutes</li>
+                        <li>Recovery point objective (RPO) &lt; 2 minutes</li>
                     </ul>
                 </div>
             </div>
@@ -568,10 +564,12 @@ graph TB
                 <div class="optimization-card">
                     <h4>Container Orchestration</h4>
                     <ul>
-                        <li><strong>Docker:</strong> Direct container management</li>
-                        <li><strong>Kubernetes:</strong> Advanced orchestration capabilities</li>
-                        <li><strong>Docker Swarm:</strong> Native Docker clustering</li>
-                        <li><strong>Service Mesh:</strong> Istio integration for advanced networking</li>
+                        <li><strong>Docker Swarm:</strong> Native Docker clustering and orchestration</li>
+                        <li><strong>Service Discovery:</strong> Built-in DNS-based service discovery</li>
+                        <li><strong>Load Balancing:</strong> Automatic ingress load balancing</li>
+                        <li><strong>Rolling Updates:</strong> Zero-downtime service updates</li>
+                        <li><strong>Secrets Management:</strong> Secure secrets distribution</li>
+                        <li><strong>Health Checks:</strong> Service health monitoring and recovery</li>
                     </ul>
                 </div>
                 <div class="optimization-card">
@@ -589,155 +587,258 @@ graph TB
         <div class="doc-section">
             <h2>Server Deployment and Installation</h2>
             
-            <h3>Installation Methods</h3>
-            <div class="tab-container">
-                <div class="tab-nav">
-                    <button class="tab-btn active" onclick="showTab(event, 'docker-deploy')">Docker Deployment</button>
-                    <button class="tab-btn" onclick="showTab(event, 'k8s-deploy')">Kubernetes Deployment</button>
-                    <button class="tab-btn" onclick="showTab(event, 'binary-deploy')">Binary Installation</button>
-                </div>
-                
-                <div id="docker-deploy" class="tab-content active">
-                    <h4>Docker Compose Configuration</h4>
-                    <pre><code>version: '3.8'
+            <h3>Docker Swarm Deployment</h3>
+            <p>RIS is deployed using Docker Swarm for orchestration, providing high availability, load balancing, and simplified service management across multiple nodes.</p>
+            
+            <h4>Swarm Initialization</h4>
+            <pre><code># Initialize Docker Swarm on the manager node
+docker swarm init --advertise-addr <MANAGER-IP>
+
+# Join worker nodes to the swarm
+docker swarm join --token <WORKER-TOKEN> <MANAGER-IP>:2377
+
+# Verify swarm status
+docker node ls</code></pre>
+
+            <h4>Docker Stack Configuration</h4>
+            <pre><code>version: '3.8'
 
 services:
   ris-server:
     image: securaa/ris-server:latest
-    container_name: ris-server
-    restart: unless-stopped
+    deploy:
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+      rollback_config:
+        parallelism: 1
+        delay: 5s
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
     ports:
-      - "8057:8057"
-      - "9090:9090"  # Metrics
+      - target: 8057
+        published: 8057
+        protocol: tcp
+        mode: ingress
+      - target: 9090
+        published: 9090
+        protocol: tcp
+        mode: ingress
     environment:
       - RIS_ENV=production
-      - MONGODB_URI=mongodb://mongo1:27017,mongo2:27017,mongo3:27017/ris?replicaSet=rs0
-      - REDIS_URI=redis://redis-master:6379
+      - MONGODB_URI=mongodb://ris-mongo:27017/ris?replicaSet=rs0
+      - REDIS_URI=redis://ris-redis:6379
       - TLS_CERT_FILE=/app/certs/server.crt
       - TLS_KEY_FILE=/app/certs/server.key
+      - SWARM_MODE=true
     volumes:
-      - ./config:/app/config
-      - ./certs:/app/certs
-      - ./logs:/app/logs
+      - ris-config:/app/config
+      - ris-certs:/app/certs
+      - ris-logs:/app/logs
     networks:
-      - ris-network
-    depends_on:
-      - mongodb
-      - redis
+      - ris-overlay
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://localhost:8057/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
-  mongodb:
+  ris-mongo:
     image: mongo:6.0
-    container_name: ris-mongo
-    restart: unless-stopped
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.storage == primary
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 4G
+          cpus: '2.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
     ports:
-      - "27017:27017"
+      - target: 27017
+        published: 27017
+        protocol: tcp
+        mode: host
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=secure-password
+      - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/mongo_root_password
       - MONGO_INITDB_DATABASE=ris
     volumes:
       - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
     networks:
-      - ris-network
-    command: mongod --replSet rs0 --bind_ip_all
+      - ris-overlay
+    secrets:
+      - mongo_root_password
+    command: >
+      bash -c "
+        mongod --replSet rs0 --bind_ip_all --auth --keyFile /run/secrets/mongo_keyfile
+      "
 
-  redis:
+  ris-redis:
     image: redis:7.0-alpine
-    container_name: ris-redis
-    restart: unless-stopped
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.cache == primary
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.1'
     ports:
-      - "6379:6379"
+      - target: 6379
+        published: 6379
+        protocol: tcp
+        mode: host
     environment:
-      - REDIS_PASSWORD=secure-redis-password
+      - REDIS_PASSWORD_FILE=/run/secrets/redis_password
     volumes:
       - redis_data:/data
     networks:
-      - ris-network
+      - ris-overlay
+    secrets:
+      - redis_password
+    command: >
+      sh -c "
+        redis-server --requirepass $$(cat /run/secrets/redis_password) --appendonly yes
+      "
+
+  ris-nginx:
+    image: nginx:alpine
+    deploy:
+      replicas: 2
+      placement:
+        constraints:
+          - node.role == worker
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.25'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: ingress
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: ingress
+    volumes:
+      - nginx_config:/etc/nginx/conf.d
+      - ris-certs:/etc/ssl/certs
+    networks:
+      - ris-overlay
+    depends_on:
+      - ris-server
 
 networks:
-  ris-network:
-    driver: bridge
+  ris-overlay:
+    driver: overlay
+    driver_opts:
+      encrypted: "true"
+    attachable: true
 
 volumes:
   mongodb_data:
-  redis_data:</code></pre>
-                </div>
-                
-                <div id="k8s-deploy" class="tab-content">
-                    <h4>Kubernetes Deployment</h4>
-                    <pre><code>apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ris-server
-  namespace: ris-system
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: ris-server
-  template:
-    metadata:
-      labels:
-        app: ris-server
-    spec:
-      containers:
-      - name: ris-server
-        image: securaa/ris-server:latest
-        ports:
-        - containerPort: 8057
-          name: https
-        - containerPort: 9090
-          name: metrics
-        env:
-        - name: CONFIG_PATH
-          value: "/app/config/config.json"
-        volumeMounts:
-        - name: config
-          mountPath: /app/config
-        - name: certs
-          mountPath: /app/certs
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8057
-            scheme: HTTPS
-          initialDelaySeconds: 30
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8057
-            scheme: HTTPS
-          initialDelaySeconds: 5
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "250m"
-          limits:
-            memory: "2Gi"
-            cpu: "1000m"
-      volumes:
-      - name: config
-        configMap:
-          name: ris-server-config
-      - name: certs
-        secret:
-          secretName: ris-server-tls</code></pre>
-                </div>
-                
-                <div id="binary-deploy" class="tab-content">
-                    <h4>System Setup</h4>
-                    <pre><code># Create system user
-sudo useradd -r -s /bin/false ris-server
-sudo mkdir -p /opt/ris-server/{bin,config,logs,data}
-sudo mkdir -p /etc/ris-server
-sudo chown -R ris-server:ris-server /opt/ris-server /etc/ris-server
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/mongodb
+  mongodb_config:
+    driver: local
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/redis
+  ris-config:
+    driver: local
+  ris-certs:
+    driver: local
+  ris-logs:
+    driver: local
+  nginx_config:
+    driver: local
 
-# Download and install binary
-wget https://github.com/securaa/ris-server/releases/latest/download/ris-server-linux-amd64.tar.gz
-tar -xzf ris-server-linux-amd64.tar.gz
-sudo mv ris-server /opt/ris-server/bin/
-sudo chmod +x /opt/ris-server/bin/ris-server</code></pre>
-                </div>
+secrets:
+  mongo_root_password:
+    external: true
+  mongo_keyfile:
+    external: true
+  redis_password:
+    external: true</code></pre>
+
+            <h4>Deployment Commands</h4>
+            <pre><code># Create necessary secrets
+echo "your-mongo-password" | docker secret create mongo_root_password -
+openssl rand -base64 756 | docker secret create mongo_keyfile -
+echo "your-redis-password" | docker secret create redis_password -
+
+# Label nodes for placement constraints
+docker node update --label-add storage=primary <NODE-ID>
+docker node update --label-add cache=primary <NODE-ID>
+
+# Create required directories on storage nodes
+sudo mkdir -p /data/mongodb /data/redis
+sudo chown -R 999:999 /data/mongodb
+sudo chown -R 999:999 /data/redis
+
+# Deploy the stack
+docker stack deploy -c docker-compose.yml ris-stack
+
+# Verify deployment
+docker stack ls
+docker stack services ris-stack
+docker service ls</code></pre>
+
+            <h4>Swarm Management Commands</h4>
+            <pre><code># Scale services
+docker service scale ris-stack_ris-server=5
+
+# Update service
+docker service update --image securaa/ris-server:v2.0.0 ris-stack_ris-server
+
+# Rolling restart
+docker service update --force ris-stack_ris-server
+
+# View service logs
+docker service logs ris-stack_ris-server -f
+
+# Remove stack
+docker stack rm ris-stack</code></pre>
             </div>
         </div>
 
@@ -769,41 +870,45 @@ sudo chmod +x /opt/ris-server/bin/ris-server</code></pre>
                 </div>
             </div>
 
-            <h3>Client Installation Methods</h3>
-            <pre><code># Docker Installation
+            <h3>Client Docker Deployment</h3>
+            <pre><code># Docker Container Deployment
 docker run -d \
   --name ris-client \
   --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v ./config:/app/config \
   -v ./certs:/app/certs \
+  -v ./logs:/app/logs \
+  --network ris-overlay \
   securaa/ris-client:latest
 
-# Binary Installation
-wget https://github.com/securaa/ris-client/releases/latest/download/ris-client-linux-amd64.tar.gz
-tar -xzf ris-client-linux-amd64.tar.gz
-sudo mv ris-client /usr/local/bin/
-sudo chmod +x /usr/local/bin/ris-client
+# Docker Swarm Service Deployment
+docker service create \
+  --name ris-client \
+  --replicas 1 \
+  --constraint 'node.role==worker' \
+  --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+  --mount type=volume,source=ris-client-config,target=/app/config \
+  --mount type=volume,source=ris-client-certs,target=/app/certs \
+  --mount type=volume,source=ris-client-logs,target=/app/logs \
+  --network ris-overlay \
+  --restart-condition on-failure \
+  --restart-max-attempts 3 \
+  securaa/ris-client:latest
 
-# Systemd Service
-sudo tee /etc/systemd/system/ris-client.service << EOF
-[Unit]
-Description=RIS Client Agent
-After=network.target docker.service
-Requires=docker.service
+# Client Configuration Volume
+docker volume create ris-client-config
+docker volume create ris-client-certs
+docker volume create ris-client-logs
 
-[Service]
-Type=simple
-User=ris-client
-Group=docker
-ExecStart=/usr/local/bin/ris-client
-Restart=always
-RestartSec=10
-Environment=CONFIG_PATH=/etc/ris-client/config.json
+# Copy configuration files
+docker run --rm \
+  -v ris-client-config:/config \
+  -v $(pwd)/client-config.json:/source/config.json \
+  alpine cp /source/config.json /config/
 
-[Install]
-WantedBy=multi-user.target
-EOF</code></pre>
+# View client logs
+docker service logs ris-client -f</code></pre>
         </div>
 
         <div class="doc-section">
@@ -1015,20 +1120,6 @@ ris_client_memory_usage_bytes 2147483648</code></pre>
                 tertiaryColor: '#ffffff'
             }
         });
-
-        function showTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
 
         function printPage() {
             window.print();

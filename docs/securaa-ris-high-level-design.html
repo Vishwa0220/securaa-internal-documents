@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIS High Level Design - Securaa Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/documentation.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>Remote Integrated Services (RIS) - High Level Design</h1>
+            <p>Comprehensive architectural overview of the distributed RIS system for secure remote service management</p>
+            <div class="subtitle">
+                <div class="badge">
+                    🌐 Distributed Architecture
+                </div>
+                <div class="badge">
+                    🔒 Enterprise Security
+                </div>
+                <div class="badge">
+                    ⚡ Real-time Management
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <nav class="documentation-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="securaa-ris-high-level-design.html" class="active">RIS High Level Design</a></li>
+            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
+            <li><a href="securaa-ris-client-documentation.html">RIS Client Documentation</a></li>
+            <li><a href="securaa-ris-server-documentation.html">RIS Server Documentation</a></li>
+            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
+            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
+            <li><a href="optimization-guide.html">Optimization Guide</a></li>
+            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
+            <li><a href="securaa-siem-low-level-design.html">Securaa SIEM Low Level Design</a></li>
+            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
+            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
+            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
+            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
+            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
+            <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
+            <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
+            <li><a href="securaa-custom-utils-high-level-design.html">Securaa Custom Utils High Level Design</a></li>
+            <li><a href="securaa-custom-utils-low-level-design.html">Securaa Custom Utils Low Level Design</a></li>
+            <li><a href="securaa-make-system-high-level-design.html">Securaa Make System High Level Design</a></li>
+            <li><a href="securaa-make-system-low-level-design.html">Securaa Make System Low Level Design</a></li>
+        </ul>
+    </nav>
+    
+    <main class="main-content">
+        <div class="doc-section">
+            <h1 id="system-architecture">System Overview</h1>
+            <p>
+                The Remote Integrated Services (RIS) System is a sophisticated distributed architecture designed to enable secure, real-time remote execution of tasks and comprehensive management of services across multiple client environments. This enterprise-grade solution bridges the gap between centralized control and distributed execution, providing organizations with the ability to manage, monitor, and execute operations across geographically dispersed infrastructure.
+            </p>
+        </div>
+
+        <div class="doc-section">
+            <h2>Key Business Objectives</h2>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3 data-icon="🏗️">Centralized Remote Management</h3>
+                    <p>Provide unified control over distributed client environments from a central management console.</p>
+                </div>
+                <div class="doc-card">
+                    <h3 data-icon="👁️">Real-time Operational Visibility</h3>
+                    <p>Maintain continuous monitoring and health assessment of remote services and infrastructure.</p>
+                </div>
+                <div class="doc-card">
+                    <h3 data-icon="🔒">Secure Task Execution</h3>
+                    <p>Execute critical business tasks on remote systems with enterprise-grade security protocols.</p>
+                </div>
+                <div class="doc-card">
+                    <h3 data-icon="📈">Scalable Service Management</h3>
+                    <p>Manage containerized applications and services across multiple deployment environments.</p>
+                </div>
+                <div class="doc-card">
+                    <h3 data-icon="🏢">Multi-tenant Support</h3>
+                    <p>Support multiple organizational units or customers with complete data isolation and security.</p>
+                </div>
+                <div class="doc-card">
+                    <h3 data-icon="⚡">High Availability Operations</h3>
+                    <p>Ensure continuous service availability with fault tolerance and automatic recovery capabilities.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>System Capabilities</h2>
+            
+            <h3>Core Functional Capabilities</h3>
+            <div class="nfr-grid">
+                <div class="nfr-card">
+                    <h4>Remote Task Orchestration</h4>
+                    <p>Execute complex workflows and tasks on distributed client systems with intelligent scheduling and load balancing.</p>
+                </div>
+                <div class="nfr-card">
+                    <h4>Service Lifecycle Management</h4>
+                    <p>Complete Docker container and service management including deployment, scaling, and monitoring capabilities.</p>
+                </div>
+                <div class="nfr-card">
+                    <h4>Real-time Status Monitoring</h4>
+                    <p>Continuous health checks and status reporting across all connected clients with real-time dashboards.</p>
+                </div>
+                <div class="nfr-card">
+                    <h4>Configuration Management</h4>
+                    <p>Dynamic configuration distribution and management across client environments with version control.</p>
+                </div>
+            </div>
+
+            <h3>Advanced Capabilities</h3>
+            <div class="nfr-grid">
+                <div class="nfr-card">
+                    <h4>Intelligent Load Distribution</h4>
+                    <p>Smart routing of tasks based on client capacity, availability, and geographic proximity for optimal performance.</p>
+                </div>
+                <div class="nfr-card">
+                    <h4>Automated Failover</h4>
+                    <p>Automatic detection and recovery from client failures with seamless task redistribution and minimal downtime.</p>
+                </div>
+                <div class="nfr-card">
+                    <h4>Network Adaptability</h4>
+                    <p>Dynamic adaptation to network changes including IP address changes, connectivity issues, and bandwidth limitations.</p>
+                </div>
+                <div class="nfr-card">
+                    <h4>Performance Analytics</h4>
+                    <p>Detailed performance metrics and analytics for optimization with historical trending and predictive insights.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>Architecture Overview</h2>
+            <div class="mermaid">
+graph TB
+    subgraph "RIS Central Command"
+        SERVER[RIS Server<br/>Central Management]
+        DB[(Database<br/>MongoDB)]
+        CACHE[Cache Layer<br/>Redis]
+        AUTH[Authentication<br/>Service]
+    end
+    
+    subgraph "Remote Locations"
+        subgraph "Location A"
+            CLIENT1[RIS Client A]
+            DOCKER1[Docker Services]
+            APP1[Applications]
+        end
+        
+        subgraph "Location B"
+            CLIENT2[RIS Client B]
+            DOCKER2[Docker Services]
+            APP2[Applications]
+        end
+        
+        subgraph "Location C"
+            CLIENT3[RIS Client C]
+            DOCKER3[Docker Services]
+            APP3[Applications]
+        end
+    end
+    
+    subgraph "Management Interface"
+        WEB[Web Dashboard]
+        API[REST API]
+        CLI[CLI Tools]
+    end
+    
+    %% Central connections
+    SERVER --> DB
+    SERVER --> CACHE
+    SERVER --> AUTH
+    
+    %% Management connections
+    WEB --> API
+    CLI --> API
+    API --> SERVER
+    
+    %% Client connections
+    SERVER -.->|WebSocket<br/>Secure| CLIENT1
+    SERVER -.->|WebSocket<br/>Secure| CLIENT2
+    SERVER -.->|WebSocket<br/>Secure| CLIENT3
+    
+    %% Local connections
+    CLIENT1 --> DOCKER1
+    CLIENT1 --> APP1
+    CLIENT2 --> DOCKER2
+    CLIENT2 --> APP2
+    CLIENT3 --> DOCKER3
+    CLIENT3 --> APP3
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>System Components</h2>
+            
+            <h3>Central Management Components</h3>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h4>RIS Server</h4>
+                    <ul>
+                        <li><strong>Task Orchestrator:</strong> Manages task distribution and execution across clients</li>
+                        <li><strong>Connection Manager:</strong> Handles WebSocket connections and client health monitoring</li>
+                        <li><strong>Security Manager:</strong> Enforces authentication, authorization, and audit logging</li>
+                        <li><strong>Configuration Manager:</strong> Distributes and manages client configurations</li>
+                    </ul>
+                </div>
+                <div class="component-card">
+                    <h4>Database Layer</h4>
+                    <ul>
+                        <li><strong>MongoDB Primary:</strong> Stores client data, configurations, and task history</li>
+                        <li><strong>Redis Cache:</strong> High-performance caching for session data and real-time metrics</li>
+                        <li><strong>Backup Systems:</strong> Automated backup and disaster recovery mechanisms</li>
+                        <li><strong>Data Encryption:</strong> End-to-end encryption for data at rest and in transit</li>
+                    </ul>
+                </div>
+                <div class="component-card">
+                    <h4>Authentication Service</h4>
+                    <ul>
+                        <li><strong>JWT Token Manager:</strong> Issues and validates JSON Web Tokens</li>
+                        <li><strong>Certificate Authority:</strong> Manages X.509 certificates for client authentication</li>
+                        <li><strong>RBAC Engine:</strong> Role-based access control with fine-grained permissions</li>
+                        <li><strong>Multi-tenant Support:</strong> Isolated authentication domains per tenant</li>
+                    </ul>
+                </div>
+                <div class="component-card">
+                    <h4>Management Interface</h4>
+                    <ul>
+                        <li><strong>Web Dashboard:</strong> Real-time monitoring and management interface</li>
+                        <li><strong>REST API:</strong> Comprehensive API for programmatic access</li>
+                        <li><strong>CLI Tools:</strong> Command-line interface for system administration</li>
+                        <li><strong>Mobile App:</strong> Mobile dashboard for remote monitoring</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Remote Client Components</h3>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h4>RIS Client Agent</h4>
+                    <ul>
+                        <li><strong>Task Executor:</strong> Executes received tasks with proper isolation and security</li>
+                        <li><strong>Health Monitor:</strong> Continuous system health monitoring and reporting</li>
+                        <li><strong>Docker Interface:</strong> Direct integration with Docker daemon for container management</li>
+                        <li><strong>Security Agent:</strong> Local security enforcement and audit logging</li>
+                    </ul>
+                </div>
+                <div class="component-card">
+                    <h4>Communication Layer</h4>
+                    <ul>
+                        <li><strong>WebSocket Client:</strong> Persistent connection to RIS server with auto-reconnection</li>
+                        <li><strong>Message Handler:</strong> Protocol handling for different message types</li>
+                        <li><strong>Encryption Handler:</strong> End-to-end encryption for all communications</li>
+                        <li><strong>Network Adapter:</strong> Handles network changes and connectivity issues</li>
+                    </ul>
+                </div>
+                <div class="component-card">
+                    <h4>Local Services</h4>
+                    <ul>
+                        <li><strong>Docker Services:</strong> Containerized applications and services</li>
+                        <li><strong>System Services:</strong> Operating system level services and daemons</li>
+                        <li><strong>Application Services:</strong> Business applications and custom services</li>
+                        <li><strong>Monitoring Agents:</strong> Local monitoring and metrics collection</li>
+                    </ul>
+                </div>
+                <div class="component-card">
+                    <h4>Data Management</h4>
+                    <ul>
+                        <li><strong>Local Cache:</strong> Temporary storage for configurations and task data</li>
+                        <li><strong>Log Management:</strong> Centralized logging with log rotation and retention</li>
+                        <li><strong>Metrics Collection:</strong> Performance and operational metrics gathering</li>
+                        <li><strong>Backup Agent:</strong> Local backup coordination with central systems</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>Communication Protocols</h2>
+            
+            <h3>WebSocket Protocol</h3>
+            <pre><code>{
+  "message_type": "task_execution",
+  "task_id": "uuid-string",
+  "client_id": "client-identifier",
+  "payload": {
+    "task_type": "docker_management",
+    "action": "start_service",
+    "parameters": {
+      "service_name": "webapp",
+      "image": "nginx:latest",
+      "ports": ["80:8080"],
+      "environment": {
+        "ENV": "production"
+      }
+    }
+  },
+  "security": {
+    "signature": "cryptographic-signature",
+    "timestamp": "2025-10-07T10:30:00Z"
+  }
+}</code></pre>
+
+            <h3>Security Implementation</h3>
+            <div class="optimization-grid">
+                <div class="optimization-card">
+                    <h4>Transport Security</h4>
+                    <ul>
+                        <li><strong>TLS 1.3:</strong> Latest TLS protocol for all communications</li>
+                        <li><strong>Certificate Pinning:</strong> Prevents man-in-the-middle attacks</li>
+                        <li><strong>Perfect Forward Secrecy:</strong> Ensures past communications remain secure</li>
+                        <li><strong>Cipher Suite Control:</strong> Only approved cryptographic algorithms</li>
+                    </ul>
+                </div>
+                <div class="optimization-card">
+                    <h4>Authentication</h4>
+                    <ul>
+                        <li><strong>Mutual TLS:</strong> Both server and client certificate validation</li>
+                        <li><strong>JWT Tokens:</strong> Stateless authentication with configurable expiry</li>
+                        <li><strong>Multi-Factor Auth:</strong> Optional second factor for enhanced security</li>
+                        <li><strong>Session Management:</strong> Secure session handling with automatic timeout</li>
+                    </ul>
+                </div>
+                <div class="optimization-card">
+                    <h4>Authorization</h4>
+                    <ul>
+                        <li><strong>RBAC:</strong> Role-based access control with fine-grained permissions</li>
+                        <li><strong>Resource-Level Security:</strong> Permissions at individual resource level</li>
+                        <li><strong>Tenant Isolation:</strong> Complete isolation between different tenants</li>
+                        <li><strong>Audit Logging:</strong> Comprehensive audit trail for all operations</li>
+                    </ul>
+                </div>
+                <div class="optimization-card">
+                    <h4>Data Protection</h4>
+                    <ul>
+                        <li><strong>Encryption at Rest:</strong> AES-256 encryption for stored data</li>
+                        <li><strong>Encryption in Transit:</strong> End-to-end encryption for all communications</li>
+                        <li><strong>Key Management:</strong> Hardware security module integration</li>
+                        <li><strong>Data Masking:</strong> Sensitive data protection in logs and displays</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>Scalability and Performance</h2>
+            
+            <h3>Performance Targets</h3>
+            <table class="performance-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Target Value</th>
+                        <th>Current Achievement</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Concurrent Clients</td>
+                        <td>10,000+</td>
+                        <td>5,000 tested</td>
+                        <td>Per server instance</td>
+                    </tr>
+                    <tr>
+                        <td>Task Execution Latency</td>
+                        <td>&lt; 100ms</td>
+                        <td>45ms average</td>
+                        <td>Simple tasks</td>
+                    </tr>
+                    <tr>
+                        <td>Message Throughput</td>
+                        <td>100,000/sec</td>
+                        <td>75,000/sec</td>
+                        <td>Per server instance</td>
+                    </tr>
+                    <tr>
+                        <td>System Availability</td>
+                        <td>99.99%</td>
+                        <td>99.95%</td>
+                        <td>Including maintenance windows</td>
+                    </tr>
+                    <tr>
+                        <td>Data Consistency</td>
+                        <td>100%</td>
+                        <td>100%</td>
+                        <td>ACID compliance</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Scaling Strategies</h3>
+            <div class="nfr-grid">
+                <div class="nfr-card">
+                    <h4>Horizontal Scaling</h4>
+                    <ul>
+                        <li>Load balancer with sticky sessions</li>
+                        <li>Multiple server instances with shared database</li>
+                        <li>Geographic distribution of servers</li>
+                        <li>Auto-scaling based on load metrics</li>
+                    </ul>
+                </div>
+                <div class="nfr-card">
+                    <h4>Vertical Scaling</h4>
+                    <ul>
+                        <li>Multi-core CPU utilization optimization</li>
+                        <li>Memory pool management and optimization</li>
+                        <li>SSD storage with high IOPS capacity</li>
+                        <li>Network bandwidth optimization</li>
+                    </ul>
+                </div>
+                <div class="nfr-card">
+                    <h4>Database Scaling</h4>
+                    <ul>
+                        <li>MongoDB replica sets for read scaling</li>
+                        <li>Sharding for write scalability</li>
+                        <li>Redis clustering for cache scaling</li>
+                        <li>Connection pooling optimization</li>
+                    </ul>
+                </div>
+                <div class="nfr-card">
+                    <h4>Network Optimization</h4>
+                    <ul>
+                        <li>Content Delivery Network (CDN) integration</li>
+                        <li>TCP connection optimization</li>
+                        <li>Message compression algorithms</li>
+                        <li>Protocol buffer usage for efficiency</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>Deployment Architecture</h2>
+            
+            <h3>Production Deployment</h3>
+            <div class="mermaid">
+graph TB
+    subgraph "External Layer"
+        LB[Load Balancer<br/>NGINX/HAProxy]
+        CDN[CDN<br/>CloudFlare]
+        DNS[DNS<br/>Route53]
+    end
+    
+    subgraph "Application Layer"
+        subgraph "Cluster A"
+            APP1[RIS Server 1]
+            APP2[RIS Server 2]
+        end
+        
+        subgraph "Cluster B"
+            APP3[RIS Server 3]
+            APP4[RIS Server 4]
+        end
+    end
+    
+    subgraph "Data Layer"
+        subgraph "Primary DB"
+            MONGO1[(MongoDB<br/>Primary)]
+            MONGO2[(MongoDB<br/>Secondary)]
+        end
+        
+        subgraph "Cache Layer"
+            REDIS1[Redis<br/>Master]
+            REDIS2[Redis<br/>Replica]
+        end
+    end
+    
+    subgraph "Monitoring"
+        PROM[Prometheus]
+        GRAF[Grafana]
+        ELK[ELK Stack]
+    end
+    
+    DNS --> CDN
+    CDN --> LB
+    LB --> APP1
+    LB --> APP2
+    LB --> APP3
+    LB --> APP4
+    
+    APP1 --> MONGO1
+    APP2 --> MONGO1
+    APP3 --> MONGO1
+    APP4 --> MONGO1
+    
+    MONGO1 -.-> MONGO2
+    
+    APP1 --> REDIS1
+    APP2 --> REDIS1
+    APP3 --> REDIS1
+    APP4 --> REDIS1
+    
+    REDIS1 -.-> REDIS2
+    
+    APP1 --> PROM
+    APP2 --> PROM
+    APP3 --> PROM
+    APP4 --> PROM
+    
+    PROM --> GRAF
+    PROM --> ELK
+            </div>
+
+            <h3>Deployment Environments</h3>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h4>Development Environment</h4>
+                    <ul>
+                        <li>Single server instance for development</li>
+                        <li>Local MongoDB and Redis instances</li>
+                        <li>Mock external services for testing</li>
+                        <li>Debug logging and profiling enabled</li>
+                    </ul>
+                </div>
+                <div class="component-card">
+                    <h4>Staging Environment</h4>
+                    <ul>
+                        <li>Production-like setup with reduced capacity</li>
+                        <li>Integration testing with real services</li>
+                        <li>Performance testing and benchmarking</li>
+                        <li>Security testing and vulnerability assessment</li>
+                    </ul>
+                </div>
+                <div class="component-card">
+                    <h4>Production Environment</h4>
+                    <ul>
+                        <li>High availability multi-server deployment</li>
+                        <li>Geographic redundancy and disaster recovery</li>
+                        <li>Comprehensive monitoring and alerting</li>
+                        <li>Automated backup and recovery procedures</li>
+                    </ul>
+                </div>
+                <div class="component-card">
+                    <h4>Disaster Recovery</h4>
+                    <ul>
+                        <li>Cross-region backup and replication</li>
+                        <li>Automated failover procedures</li>
+                        <li>Recovery time objective (RTO) &lt; 15 minutes</li>
+                        <li>Recovery point objective (RPO) &lt; 5 minutes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>Integration Patterns</h2>
+            
+            <h3>External System Integration</h3>
+            <div class="optimization-grid">
+                <div class="optimization-card">
+                    <h4>Monitoring Systems</h4>
+                    <ul>
+                        <li><strong>Prometheus:</strong> Metrics collection and alerting</li>
+                        <li><strong>Grafana:</strong> Visualization and dashboards</li>
+                        <li><strong>ELK Stack:</strong> Log aggregation and analysis</li>
+                        <li><strong>Custom Metrics:</strong> Business-specific KPI tracking</li>
+                    </ul>
+                </div>
+                <div class="optimization-card">
+                    <h4>Identity Providers</h4>
+                    <ul>
+                        <li><strong>LDAP/AD:</strong> Enterprise directory integration</li>
+                        <li><strong>OAuth 2.0:</strong> Third-party authentication</li>
+                        <li><strong>SAML:</strong> Single sign-on integration</li>
+                        <li><strong>Multi-factor:</strong> SMS, TOTP, hardware tokens</li>
+                    </ul>
+                </div>
+                <div class="optimization-card">
+                    <h4>Container Orchestration</h4>
+                    <ul>
+                        <li><strong>Docker:</strong> Direct container management</li>
+                        <li><strong>Kubernetes:</strong> Advanced orchestration capabilities</li>
+                        <li><strong>Docker Swarm:</strong> Native Docker clustering</li>
+                        <li><strong>Service Mesh:</strong> Istio integration for advanced networking</li>
+                    </ul>
+                </div>
+                <div class="optimization-card">
+                    <h4>External APIs</h4>
+                    <ul>
+                        <li><strong>REST APIs:</strong> Standard HTTP API integration</li>
+                        <li><strong>GraphQL:</strong> Flexible query interface</li>
+                        <li><strong>Webhooks:</strong> Event-driven integrations</li>
+                        <li><strong>Message Queues:</strong> RabbitMQ, Apache Kafka integration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>Server Deployment and Installation</h2>
+            
+            <h3>Installation Methods</h3>
+            <div class="tab-container">
+                <div class="tab-nav">
+                    <button class="tab-btn active" onclick="showTab(event, 'docker-deploy')">Docker Deployment</button>
+                    <button class="tab-btn" onclick="showTab(event, 'k8s-deploy')">Kubernetes Deployment</button>
+                    <button class="tab-btn" onclick="showTab(event, 'binary-deploy')">Binary Installation</button>
+                </div>
+                
+                <div id="docker-deploy" class="tab-content active">
+                    <h4>Docker Compose Configuration</h4>
+                    <pre><code>version: '3.8'
+
+services:
+  ris-server:
+    image: securaa/ris-server:latest
+    container_name: ris-server
+    restart: unless-stopped
+    ports:
+      - "8057:8057"
+      - "9090:9090"  # Metrics
+    environment:
+      - RIS_ENV=production
+      - MONGODB_URI=mongodb://mongo1:27017,mongo2:27017,mongo3:27017/ris?replicaSet=rs0
+      - REDIS_URI=redis://redis-master:6379
+      - TLS_CERT_FILE=/app/certs/server.crt
+      - TLS_KEY_FILE=/app/certs/server.key
+    volumes:
+      - ./config:/app/config
+      - ./certs:/app/certs
+      - ./logs:/app/logs
+    networks:
+      - ris-network
+    depends_on:
+      - mongodb
+      - redis
+
+  mongodb:
+    image: mongo:6.0
+    container_name: ris-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secure-password
+      - MONGO_INITDB_DATABASE=ris
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - ris-network
+    command: mongod --replSet rs0 --bind_ip_all
+
+  redis:
+    image: redis:7.0-alpine
+    container_name: ris-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=secure-redis-password
+    volumes:
+      - redis_data:/data
+    networks:
+      - ris-network
+
+networks:
+  ris-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+  redis_data:</code></pre>
+                </div>
+                
+                <div id="k8s-deploy" class="tab-content">
+                    <h4>Kubernetes Deployment</h4>
+                    <pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ris-server
+  namespace: ris-system
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ris-server
+  template:
+    metadata:
+      labels:
+        app: ris-server
+    spec:
+      containers:
+      - name: ris-server
+        image: securaa/ris-server:latest
+        ports:
+        - containerPort: 8057
+          name: https
+        - containerPort: 9090
+          name: metrics
+        env:
+        - name: CONFIG_PATH
+          value: "/app/config/config.json"
+        volumeMounts:
+        - name: config
+          mountPath: /app/config
+        - name: certs
+          mountPath: /app/certs
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8057
+            scheme: HTTPS
+          initialDelaySeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8057
+            scheme: HTTPS
+          initialDelaySeconds: 5
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+      volumes:
+      - name: config
+        configMap:
+          name: ris-server-config
+      - name: certs
+        secret:
+          secretName: ris-server-tls</code></pre>
+                </div>
+                
+                <div id="binary-deploy" class="tab-content">
+                    <h4>System Setup</h4>
+                    <pre><code># Create system user
+sudo useradd -r -s /bin/false ris-server
+sudo mkdir -p /opt/ris-server/{bin,config,logs,data}
+sudo mkdir -p /etc/ris-server
+sudo chown -R ris-server:ris-server /opt/ris-server /etc/ris-server
+
+# Download and install binary
+wget https://github.com/securaa/ris-server/releases/latest/download/ris-server-linux-amd64.tar.gz
+tar -xzf ris-server-linux-amd64.tar.gz
+sudo mv ris-server /opt/ris-server/bin/
+sudo chmod +x /opt/ris-server/bin/ris-server</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>Client Architecture and Deployment</h2>
+            
+            <h3>RIS Client Overview</h3>
+            <p>
+                The RIS Client is a lightweight, secure agent that enables remote management and task execution across distributed environments. It serves as the intelligent endpoint in the RIS ecosystem, communicating with the central RIS Server to execute tasks, manage Docker services, and provide real-time status updates.
+            </p>
+
+            <h3>Client Key Features</h3>
+            <div class="optimization-grid">
+                <div class="optimization-card">
+                    <h4>Real-time Communication</h4>
+                    <p>WebSocket-based persistent connection with the RIS Server for instant command execution and status updates.</p>
+                </div>
+                <div class="optimization-card">
+                    <h4>Task Execution</h4>
+                    <p>Support for HTTP requests, system commands, and Docker operations with comprehensive error handling.</p>
+                </div>
+                <div class="optimization-card">
+                    <h4>Service Management</h4>
+                    <p>Comprehensive Docker container and service lifecycle management with health monitoring.</p>
+                </div>
+                <div class="optimization-card">
+                    <h4>Security & Monitoring</h4>
+                    <p>TLS encryption, certificate-based authentication, and continuous health checks with resource usage tracking.</p>
+                </div>
+            </div>
+
+            <h3>Client Installation Methods</h3>
+            <pre><code># Docker Installation
+docker run -d \
+  --name ris-client \
+  --restart unless-stopped \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v ./config:/app/config \
+  -v ./certs:/app/certs \
+  securaa/ris-client:latest
+
+# Binary Installation
+wget https://github.com/securaa/ris-client/releases/latest/download/ris-client-linux-amd64.tar.gz
+tar -xzf ris-client-linux-amd64.tar.gz
+sudo mv ris-client /usr/local/bin/
+sudo chmod +x /usr/local/bin/ris-client
+
+# Systemd Service
+sudo tee /etc/systemd/system/ris-client.service << EOF
+[Unit]
+Description=RIS Client Agent
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=ris-client
+Group=docker
+ExecStart=/usr/local/bin/ris-client
+Restart=always
+RestartSec=10
+Environment=CONFIG_PATH=/etc/ris-client/config.json
+
+[Install]
+WantedBy=multi-user.target
+EOF</code></pre>
+        </div>
+
+        <div class="doc-section">
+            <h2>Multi-Tenant Architecture</h2>
+            
+            <h3>Tenant Isolation Strategies</h3>
+            <div class="mermaid">
+graph TB
+    subgraph "Request Layer"
+        REQ[HTTP Request]
+        EXTRACT[Extract Tenant Context]
+        VALIDATE[Validate Tenant]
+    end
+    
+    subgraph "Data Layer Isolation"
+        subgraph "Database Level"
+            DB1[(Tenant A DB)]
+            DB2[(Tenant B DB)]
+            DB3[(Shared DB)]
+        end
+        
+        subgraph "Application Level"
+            FILTER[Data Filtering]
+            SCOPE[Query Scoping]
+            ENCRYPT[Tenant Encryption]
+        end
+    end
+    
+    subgraph "Resource Isolation"
+        CONN1[Tenant A Connections]
+        CONN2[Tenant B Connections]
+        CACHE1[Tenant A Cache]
+        CACHE2[Tenant B Cache]
+    end
+    
+    REQ --> EXTRACT
+    EXTRACT --> VALIDATE
+    VALIDATE --> FILTER
+    VALIDATE --> SCOPE
+    
+    FILTER --> DB1
+    FILTER --> DB2
+    FILTER --> DB3
+    
+    SCOPE --> ENCRYPT
+    ENCRYPT --> CONN1
+    ENCRYPT --> CONN2
+    
+    CONN1 --> CACHE1
+    CONN2 --> CACHE2
+            </div>
+
+            <h3>Tenant Management Features</h3>
+            <div class="nfr-grid">
+                <div class="nfr-card">
+                    <h4>Data Isolation</h4>
+                    <ul>
+                        <li>Database-level isolation with separate schemas</li>
+                        <li>Application-level filtering and scoping</li>
+                        <li>Encrypted data storage per tenant</li>
+                        <li>Secure inter-tenant communication</li>
+                    </ul>
+                </div>
+                <div class="nfr-card">
+                    <h4>Resource Management</h4>
+                    <ul>
+                        <li>Tenant-specific resource limits and quotas</li>
+                        <li>Isolated connection pools and caching</li>
+                        <li>Separate monitoring and metrics</li>
+                        <li>Independent backup and recovery</li>
+                    </ul>
+                </div>
+                <div class="nfr-card">
+                    <h4>Security Controls</h4>
+                    <ul>
+                        <li>Role-based access control per tenant</li>
+                        <li>Tenant-specific authentication providers</li>
+                        <li>Isolated audit logs and compliance</li>
+                        <li>Network-level security policies</li>
+                    </ul>
+                </div>
+                <div class="nfr-card">
+                    <h4>Configuration Management</h4>
+                    <ul>
+                        <li>Tenant-specific configuration settings</li>
+                        <li>Feature flags and customization</li>
+                        <li>Branding and localization support</li>
+                        <li>Independent deployment cycles</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>Monitoring & Observability</h2>
+            
+            <h3>Health Check Endpoints</h3>
+            <div class="component-grid">
+                <div class="component-card">
+                    <h4>Basic Health Check</h4>
+                    <pre><code>GET /health
+
+{
+  "status": "healthy",
+  "timestamp": "2025-10-07T10:30:00Z"
+}</code></pre>
+                </div>
+                <div class="component-card">
+                    <h4>Detailed Health Check</h4>
+                    <pre><code>GET /health?detailed=true
+
+{
+  "status": "healthy",
+  "components": {
+    "database": "connected",
+    "cache": "connected",
+    "clients": "23/25 connected"
+  }
+}</code></pre>
+                </div>
+                <div class="component-card">
+                    <h4>Client Health Metrics</h4>
+                    <pre><code>GET /client/{id}/health
+
+{
+  "status": "healthy",
+  "last_seen": "2025-10-07T10:30:00Z",
+  "system_load": 0.45,
+  "memory_usage": "65%",
+  "disk_usage": "78%"
+}</code></pre>
+                </div>
+                <div class="component-card">
+                    <h4>Performance Metrics</h4>
+                    <pre><code># Server Performance
+ris_server_requests_total{method="GET",status="200"} 15420
+ris_clients_connected 23
+ris_tasks_completed_total{status="success"} 1547
+
+# Client Performance  
+ris_client_tasks_executed_total 345
+ris_client_memory_usage_bytes 2147483648</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <h2>Version Information</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Version</th>
+                        <th>Release Date</th>
+                        <th>Compatibility</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>RIS Server</td>
+                        <td>1.0.0</td>
+                        <td>October 7, 2025</td>
+                        <td>Go 1.21+</td>
+                    </tr>
+                    <tr>
+                        <td>RIS Client</td>
+                        <td>1.0.0</td>
+                        <td>October 7, 2025</td>
+                        <td>Go 1.21+</td>
+                    </tr>
+                    <tr>
+                        <td>MongoDB Driver</td>
+                        <td>1.12.0</td>
+                        <td>October 7, 2025</td>
+                        <td>MongoDB 5.0+</td>
+                    </tr>
+                    <tr>
+                        <td>Redis Driver</td>
+                        <td>9.0.5</td>
+                        <td>October 7, 2025</td>
+                        <td>Redis 6.0+</td>
+                    </tr>
+                    <tr>
+                        <td>WebSocket Protocol</td>
+                        <td>1.0</td>
+                        <td>October 7, 2025</td>
+                        <td>RFC 6455</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <footer class="main-footer">
+        <p>&copy; 2025 Securaa Platform. All rights reserved. | <a href="#" onclick="printPage()" style="color: #ecf0f1;">Print</a> | <a href="#" onclick="exportToPDF()" style="color: #ecf0f1;">Export PDF</a></p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#1976d2',
+                primaryTextColor: '#000000',
+                primaryBorderColor: '#0d47a1',
+                lineColor: '#1976d2',
+                secondaryColor: '#f5f5f5',
+                tertiaryColor: '#ffffff'
+            }
+        });
+
+        function showTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function printPage() {
+            window.print();
+        }
+
+        function exportToPDF() {
+            alert("PDF export functionality would be implemented here");
+        }
+    </script>
+    <script src="assets/js/documentation.js"></script>
+</body>
+</html>

@@ -43,3 +43,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.log
+
+# Preview files (not needed in repo)
+pdf_preview/

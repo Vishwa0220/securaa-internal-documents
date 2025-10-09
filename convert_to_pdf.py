@@ -8,15 +8,10 @@ import markdown
 from weasyprint import HTML, CSS
 from pathlib import Path
 
-def create_cover_page():
-    """Create HTML for the cover page"""
+def create_cover_page_styles():
+    """Create CSS styles for the cover page"""
     return """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <style>
-            @page {
+            @page:first {
                 size: A4;
                 margin: 0;
             }
@@ -58,17 +53,17 @@ def create_cover_page():
                 margin-top: auto;
                 opacity: 0.9;
             }
-        </style>
-    </head>
-    <body>
+    """
+
+def create_cover_page_content():
+    """Create HTML content for the cover page"""
+    return """
         <div class="cover-page">
             <div class="cover-logo">SECURAA</div>
             <div class="cover-title">Information Security Policies</div>
             <div class="cover-subtitle">Comprehensive Security Framework</div>
             <div class="cover-date">© 2025 Securaa Platform. All rights reserved.</div>
         </div>
-    </body>
-    </html>
     """
 
 def preprocess_markdown(content):
@@ -138,6 +133,9 @@ def create_main_document_html(markdown_content):
     md = markdown.Markdown(extensions=['extra', 'tables', 'fenced_code', 'toc'])
     html_content = md.convert(markdown_content)
     
+    # Get cover page styles
+    cover_styles = create_cover_page_styles()
+    
     # Wrap in a full HTML document with styling
     full_html = f"""
     <!DOCTYPE html>
@@ -145,6 +143,8 @@ def create_main_document_html(markdown_content):
     <head>
         <meta charset="UTF-8">
         <style>
+            {cover_styles}
+            
             @page {{
                 size: A4;
                 margin: 20mm 15mm;
@@ -296,14 +296,14 @@ def main():
         markdown_content = f.read()
     
     print("Creating cover page...")
-    cover_html = create_cover_page()
+    cover_content = create_cover_page_content()
     
     print("Converting markdown to HTML...")
     main_html = create_main_document_html(markdown_content)
     
-    # Combine cover and main content
+    # Insert cover content at the beginning of the body
     print("Combining content...")
-    combined_html = cover_html.replace('</body>', '') + main_html.replace('<!DOCTYPE html>\n<html>\n<head>\n        <meta charset="UTF-8">', '').replace('</head>\n    <body>', '')
+    combined_html = main_html.replace('<body>', '<body>' + cover_content)
     
     print("Generating PDF...")
     output_file = Path('/home/runner/work/securaa-internal-documents/securaa-internal-documents/Information_Security_Policies_Securaa.pdf')

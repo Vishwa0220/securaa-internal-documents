@@ -76,64 +76,51 @@ SIA follows a **microservices-based architecture** with the following patterns:
 
 ### 2.3 High-Level Architecture Diagram
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         Client Layer                             │
-│              (Web UI, CLI, External Systems)                     │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    API Gateway (Tyk)                             │
-│          (Authentication, Rate Limiting, SSL/TLS)                │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                ┌─────────────┴─────────────┐
-                ▼                           ▼
-┌───────────────────────────┐   ┌──────────────────────────────┐
-│   FastAPI Web Service     │   │    Chat Service              │
-│   (main.py)               │   │    (Streaming Support)       │
-│   - Case Analysis         │   │    - Thread Management       │
-│   - Indexing              │   │    - Chat History            │
-│   - User Management       │   │    - LLM Integration         │
-└───────────────────────────┘   └──────────────────────────────┘
-                │                           │
-                └─────────────┬─────────────┘
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    Message Queue (Kafka)                         │
-│   Topics: indexing-topic, fpr-processing, fpr-results           │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-        ┌─────────────────────┼─────────────────────┐
-        ▼                     ▼                     ▼
-┌──────────────┐    ┌──────────────────┐   ┌──────────────────┐
-│ Celery       │    │ Kafka Indexer    │   │ FPR Processor    │
-│ Worker       │    │ (Vector DB       │   │ (Novelty         │
-│ (Background  │    │  Indexing)       │   │  Detection)      │
-│  Tasks)      │    │                  │   │                  │
-└──────────────┘    └──────────────────┘   └──────────────────┘
-        │                     │                     │
-        └─────────────────────┼─────────────────────┘
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      Data Layer                                  │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐         │
-│  │ PostgreSQL   │  │ Redis Cache  │  │ ChromaDB     │         │
-│  │ (pgvector)   │  │ (Celery +    │  │ (Optional    │         │
-│  │ Multi-Tenant │  │  Cache)      │  │  Vector DB)  │         │
-│  └──────────────┘  └──────────────┘  └──────────────┘         │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    External Services                             │
-│  - LLM Providers (OpenAI, Groq, Gemini, On-Prem)               │
-│  - Threat Intel (VirusTotal, TIP)                               │
-│  - SOAR Platform Integration                                     │
-│  - DTX Prompt Guard (Security)                                   │
-│  - Novelty Detection Service                                     │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    Client["Client Layer<br/>(Web UI, CLI, External Systems)"]
+    Gateway["API Gateway (Tyk)<br/>(Authentication, Rate Limiting, SSL/TLS)"]
+    FastAPI["FastAPI Web Service<br/>(main.py)<br/>- Case Analysis<br/>- Indexing<br/>- User Management"]
+    Chat["Chat Service<br/>(Streaming Support)<br/>- Thread Management<br/>- Chat History<br/>- LLM Integration"]
+    Kafka["Message Queue (Kafka)<br/>Topics: indexing-topic, fpr-processing, fpr-results"]
+    Celery["Celery Worker<br/>(Background Tasks)"]
+    KafkaIdx["Kafka Indexer<br/>(Vector DB Indexing)"]
+    FPR["FPR Processor<br/>(Novelty Detection)"]
+    DataLayer["Data Layer"]
+    PG["PostgreSQL<br/>(pgvector)<br/>Multi-Tenant"]
+    Redis["Redis Cache<br/>(Celery + Cache)"]
+    Chroma["ChromaDB<br/>(Optional Vector DB)"]
+    ExtSvc["External Services<br/>- LLM Providers (OpenAI, Groq, Gemini, On-Prem)<br/>- Threat Intel (VirusTotal, TIP)<br/>- SOAR Platform Integration<br/>- DTX Prompt Guard (Security)<br/>- Novelty Detection Service"]
+    
+    Client --> Gateway
+    Gateway --> FastAPI
+    Gateway --> Chat
+    FastAPI --> Kafka
+    Chat --> Kafka
+    Kafka --> Celery
+    Kafka --> KafkaIdx
+    Kafka --> FPR
+    Celery --> DataLayer
+    KafkaIdx --> DataLayer
+    FPR --> DataLayer
+    DataLayer --> PG
+    DataLayer --> Redis
+    DataLayer --> Chroma
+    DataLayer --> ExtSvc
+    
+    classDef clientStyle fill:#e1f5ff,stroke:#01579b,stroke-width:2px
+    classDef gatewayStyle fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    classDef serviceStyle fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
+    classDef queueStyle fill:#ffe0b2,stroke:#e65100,stroke-width:2px
+    classDef dataStyle fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef externalStyle fill:#ffccbc,stroke:#bf360c,stroke-width:2px
+    
+    class Client clientStyle
+    class Gateway gatewayStyle
+    class FastAPI,Chat serviceStyle
+    class Kafka,Celery,KafkaIdx,FPR queueStyle
+    class DataLayer,PG,Redis,Chroma dataStyle
+    class ExtSvc externalStyle
 ```
 
 ---

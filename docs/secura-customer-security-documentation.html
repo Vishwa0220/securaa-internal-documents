@@ -85,20 +85,20 @@ graph TB
         B[Data Breaches]
         C[Unauthorized Access]
     end
-
+    
     subgraph "SECURAA Security Controls"
         D[Multi-Factor Authentication]
         E[End-to-End Encryption]
         F[Real-time Monitoring]
         G[Access Controls]
     end
-
+    
     subgraph "Protected Assets"
         H[Customer Data]
         I[Business Intelligence]
         J[Security Analytics]
     end
-
+    
     A --> D
     B --> E
     C --> G
@@ -151,25 +151,25 @@ graph TB
         B[DDoS Protection]
         C[Intrusion Detection]
     end
-
+    
     subgraph "Layer 2: Application Security"
         D[API Gateway Security]
         E[Input Validation]
         F[Session Management]
     end
-
+    
     subgraph "Layer 3: Data Security"
         G[Encryption at Rest]
         H[Encryption in Transit]
         I[Key Management]
     end
-
+    
     subgraph "Layer 4: Infrastructure Security"
         J[Container Security]
         K[Network Segmentation]
         L[Endpoint Protection]
     end
-
+    
     A --> D
     B --> E
     C --> F
@@ -320,7 +320,7 @@ sequenceDiagram
     participant UI as SECURAA UI
     participant Auth as Auth Service
     participant DB as Database
-
+    
     U->>UI: Login Request
     UI->>UI: Input Validation
     UI->>Auth: Encrypted Credentials
@@ -390,14 +390,14 @@ graph TB
         C[Resource Limits]
         D[Process Monitoring]
     end
-
+    
     subgraph "Monitoring Systems"
         E[Health Checks]
         F[Performance Monitoring]
         G[Security Logging]
         H[Audit Trails]
     end
-
+    
     A --> E
     B --> F
     C --> G
@@ -496,21 +496,21 @@ graph TB
         C[User Activities]
         D[Network Traffic]
     end
-
+    
     subgraph "Analysis & Detection"
         E[Log Analysis]
         F[Anomaly Detection]
         G[Pattern Recognition]
         H[Threat Correlation]
     end
-
+    
     subgraph "Response Actions"
         I[Alert Generation]
         J[Automated Response]
         K[Incident Tracking]
         L[Escalation Procedures]
     end
-
+    
     A --> E
     B --> F
     C --> G

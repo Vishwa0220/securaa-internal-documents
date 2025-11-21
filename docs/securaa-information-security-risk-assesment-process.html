@@ -162,16 +162,16 @@ graph TB
     subgraph "RISK ASSESSMENT FRAMEWORK"
         A[RISK IDENTIFICATION] --> B[RISK ANALYSIS]
         B --> C[RISK EVALUATION]
-
+        
         A --> D[THREATS & VULNERABILITIES]
         B --> E[LIKELIHOOD & IMPACT]
         C --> F[RISK PRIORITY]
-
+        
         C --> G[RISK REPORTING]
         G --> H[RISK MONITORING]
         H --> I[RISK TREATMENT]
         I --> A
-
+        
         style A fill:#e1f5fe
         style B fill:#f3e5f5
         style C fill:#fff3e0
@@ -224,11 +224,11 @@ flowchart TD
     F --> G[Impact Assessment]
     G --> H[Risk Calculation]
     H --> I{Risk Level}
-
+    
     I -->|Critical/High| J[Immediate Treatment Required]
     I -->|Medium| K[Treatment Planning Required]
     I -->|Low/Very Low| L[Monitor and Review]
-
+    
     J --> M[Implement Controls]
     K --> M
     L --> N[Risk Register Update]
@@ -239,7 +239,7 @@ flowchart TD
     Q --> R{Significant Changes?}
     R -->|Yes| A
     R -->|No| P
-
+    
     style Start fill:#e1f5fe
     style I fill:#fff3e0
     style J fill:#ffebee
@@ -623,7 +623,7 @@ graph TB
             I4[4 - Major]
             I5[5 - Catastrophic]
         end
-
+        
         subgraph "Likelihood Level (1-5)"
             L1[1 - Very Low]
             L2[2 - Low]
@@ -631,7 +631,7 @@ graph TB
             L4[4 - High]
             L5[5 - Very High]
         end
-
+        
         subgraph "Risk Levels"
             VL[Very Low<br/>1-4<br/>Monitor]
             LOW[Low<br/>5-9<br/>3 Months]
@@ -639,7 +639,7 @@ graph TB
             HIGH[High<br/>15-19<br/>1 Week]
             CRIT[Critical<br/>20-25<br/>24 Hours]
         end
-
+        
         style VL fill:#4caf50
         style LOW fill:#8bc34a
         style MED fill:#ffeb3b
@@ -658,41 +658,41 @@ flowchart TD
     B -->|Critical/High| C{Can Risk be Eliminated?}
     B -->|Medium| D{Cost-Effective Controls Available?}
     B -->|Low| E{Within Risk Appetite?}
-
+    
     C -->|Yes| F[AVOID<br/>Eliminate Activity]
     C -->|No| G{Can Risk be Reduced?}
-
+    
     D -->|Yes| H[MITIGATE<br/>Implement Controls]
     D -->|No| I{Can Risk be Transferred?}
-
+    
     E -->|Yes| J[ACCEPT<br/>Monitor Risk]
     E -->|No| K{Can Risk be Reduced?}
-
+    
     G -->|Yes| H
     G -->|No| L{Can Risk be Transferred?}
-
+    
     I -->|Yes| M[TRANSFER<br/>Insurance/Contracts]
     I -->|No| N[MITIGATE<br/>Best Available Controls]
-
+    
     K -->|Yes| H
     K -->|No| O{Can Risk be Transferred?}
-
+    
     L -->|Yes| M
     L -->|No| P[ACCEPT<br/>Document Rationale]
-
+    
     O -->|Yes| M
     O -->|No| J
-
+    
     F --> Q[Document Decision]
     H --> Q
     M --> Q
     J --> Q
     N --> Q
     P --> Q
-
+    
     Q --> R[Implement Treatment]
     R --> S[Monitor Residual Risk]
-
+    
     style F fill:#ff5722
     style H fill:#4caf50
     style M fill:#2196f3
@@ -851,14 +851,14 @@ graph TB
             D[Audit Reports]
             E[Incident Reports]
         end
-
+        
         subgraph "Risk Analytics Engine"
             F[Risk Calculation<br/>Engine]
             G[Trend Analysis]
             H[Correlation Engine]
             I[Predictive Analytics]
         end
-
+        
         subgraph "Key Risk Indicators"
             J[Critical Vulnerabilities]
             K[Mean Time to Patch]
@@ -866,32 +866,32 @@ graph TB
             M[Failed Authentications]
             N[Compliance Score]
         end
-
+        
         subgraph "Reporting & Alerts"
             O[Executive Dashboard]
             P[Risk Heat Map]
             Q[Automated Alerts]
             R[Compliance Reports]
         end
-
+        
         A --> F
         B --> F
         C --> G
         D --> H
         E --> I
-
+        
         F --> J
         G --> K
         H --> L
         I --> M
         F --> N
-
+        
         J --> O
         K --> P
         L --> Q
         M --> R
         N --> O
-
+        
         style F fill:#e3f2fd
         style O fill:#fff3e0
         style Q fill:#ffebee
@@ -976,14 +976,14 @@ graph TD
         B[Chief Executive Officer]
         C[Chief Information Security Officer]
     end
-
+    
     subgraph "MANAGEMENT LEVEL"
         D[Information Security Manager]
         E[Risk Assessment Team Lead]
         F[Compliance Manager]
         G[Business Unit Managers]
     end
-
+    
     subgraph "OPERATIONAL LEVEL"
         H[Risk Assessment Analysts]
         I[Security Analysts]
@@ -991,14 +991,14 @@ graph TD
         K[Application Owners]
         L[Data Owners]
     end
-
+    
     subgraph "SUPPORT FUNCTIONS"
         M[Internal Audit]
         N[Legal Counsel]
         O[External Auditors]
         P[Third-Party Vendors]
     end
-
+    
     A --> B
     B --> C
     C --> D
@@ -1009,12 +1009,12 @@ graph TD
     G --> J
     G --> K
     G --> L
-
+    
     M -.-> C
     N -.-> C
     O -.-> A
     P -.-> G
-
+    
     style A fill:#e8eaf6
     style C fill:#e3f2fd
     style D fill:#e0f2f1
@@ -1286,25 +1286,25 @@ gantt
     Policy Creation         :phase1b, 2025-01-15, 2025-02-15
     Tool Setup              :phase1c, 2025-02-01, 2025-02-28
     Foundation Complete     :milestone, m2, 2025-02-28, 0d
-
+    
     section Phase 2: Initial Assessment
     Asset Inventory         :phase2a, 2025-03-01, 2025-03-31
     Risk Identification     :phase2b, 2025-03-15, 2025-04-15
     Risk Analysis           :phase2c, 2025-04-01, 2025-04-30
     Initial Assessment Complete :milestone, m3, 2025-04-30, 0d
-
+    
     section Phase 3: Treatment Implementation
     High Risk Treatment     :crit, phase3a, 2025-05-01, 2025-06-30
     Medium Risk Treatment   :phase3b, 2025-06-01, 2025-07-31
     Control Implementation  :phase3c, 2025-07-01, 2025-08-31
     Treatment Complete      :milestone, m4, 2025-08-31, 0d
-
+    
     section Phase 4: Optimization
     Process Refinement      :phase4a, 2025-09-01, 2025-10-31
     Automation Enhancement  :phase4b, 2025-10-01, 2025-11-30
     Audit Preparation       :phase4c, 2025-11-01, 2025-12-31
     Program Mature          :milestone, m5, 2025-12-31, 0d
-
+    
     section Ongoing Activities
     Monitoring & Review     :ongoing1, 2025-03-01, 2025-12-31
     Training & Awareness    :ongoing2, 2025-02-01, 2025-12-31

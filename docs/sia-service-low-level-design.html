@@ -1210,7 +1210,7 @@
 graph TB
     subgraph FastAPIApp["FastAPI Application"]
         MAIN[main.py<br/>Application Entry]
-
+        
         subgraph Routers
             R1[case.router]
             R2[chat.router]
@@ -1220,7 +1220,7 @@ graph TB
             R6[application.router]
             R7[code.router]
         end
-
+        
         subgraph Services
             S1[CaseAnalysisService]
             S2[ChatBotAgent]
@@ -1229,7 +1229,7 @@ graph TB
             S5[UserInfo]
             S6[TenantManager]
         end
-
+        
         subgraph Repositories
             REP1[CaseRepo]
             REP2[PlaybookTaskRepo]
@@ -1238,7 +1238,7 @@ graph TB
             REP5[TenantRepo]
             REP6[ApplicationRepo]
         end
-
+        
         MAIN --> R1
         MAIN --> R2
         MAIN --> R3
@@ -1246,14 +1246,14 @@ graph TB
         MAIN --> R5
         MAIN --> R6
         MAIN --> R7
-
+        
         R1 --> S1
         R2 --> S2
         R3 --> S3
         R1 --> S4
         R4 --> S5
         R5 --> S6
-
+        
         S1 --> REP1
         S1 --> REP2
         S2 --> REP2
@@ -1262,26 +1262,26 @@ graph TB
         S5 --> REP4
         S6 --> REP5
     end
-
+    
     subgraph DatabaseLayer["Database Layer"]
         DB[(PostgreSQL)]
         CACHE[(Redis)]
     end
-
+    
     REP1 --> DB
     REP2 --> DB
     REP3 --> DB
     REP4 --> DB
     REP5 --> DB
     REP6 --> DB
-
+    
     S1 --> CACHE
     S2 --> CACHE
-
+    
     classDef entry fill:#ffcc99,stroke:#333,stroke-width:2px
     classDef database fill:#99ff99,stroke:#333,stroke-width:2px
     classDef cache fill:#ff9999,stroke:#333,stroke-width:2px
-
+    
     class MAIN entry
     class DB database
     class CACHE cache
@@ -1294,62 +1294,62 @@ graph TB
         SRVICE[Analysis Services]
         CHAT[Chat Services]
     end
-
+    
     subgraph WrapperLayer["LLM Wrapper Layer"]
         WRAPPER[LLMWrapper<br/>Unified Interface]
-
+        
         subgraph Configuration
             CONFIG{LLM_BACKEND}
         end
-
+        
         subgraph Implementations
             OPENAI[ChatOpenAI]
             OLLAMA[ChatOllama]
         end
     end
-
+    
     subgraph Features
         STREAM[Streaming Support]
         STRUCT[Structured Output]
         PARSE[Output Parsing]
         RETRY[Retry Logic]
     end
-
+    
     subgraph LLMProviders["External LLM Providers"]
         GPT[OpenAI<br/>GPT-4/3.5]
         GROQ[Groq<br/>Llama3]
         GEMINI[Google<br/>Gemini]
         ONPREM[On-Premise<br/>Ollama]
     end
-
+    
     subgraph Security
         DTX[DTX Prompt Guard<br/>Injection Prevention]
     end
-
+    
     SRVICE --> WRAPPER
     CHAT --> WRAPPER
-
+    
     WRAPPER --> CONFIG
     CONFIG -->|OPENAI| OPENAI
     CONFIG -->|ONPREM| OLLAMA
-
+    
     WRAPPER --> STREAM
     WRAPPER --> STRUCT
     WRAPPER --> PARSE
     WRAPPER --> RETRY
-
+    
     OPENAI --> GPT
     OPENAI --> GEMINI
     OPENAI --> GROQ
     OLLAMA --> ONPREM
-
+    
     SRVICE --> DTX
     CHAT --> DTX
-
+    
     classDef wrapper fill:#99ccff,stroke:#333,stroke-width:2px
     classDef config fill:#ffcc99,stroke:#333,stroke-width:2px
     classDef security fill:#ff9999,stroke:#333,stroke-width:2px
-
+    
     class WRAPPER wrapper
     class CONFIG config
     class DTX security
@@ -1361,53 +1361,53 @@ flowchart LR
     subgraph "Input"
         TEXT[Text Input<br/>Task/Case/Query]
     end
-
+    
     subgraph "Embedding Generation"
         CHECK{Embedding<br/>Backend}
         OPENAI_EMBED[OpenAI<br/>text-embedding-ada-002]
         ONPREM_EMBED[On-Premise<br/>Embedding API]
     end
-
+    
     subgraph "Vector Storage"
         PG[(PostgreSQL<br/>pgvector)]
         CHROMA[(ChromaDB<br/>Optional)]
     end
-
+    
     subgraph "Vector Search"
         QUERY[Query Vector]
         SIMILARITY[Calculate Similarity<br/>L2 Distance]
         HNSW[HNSW Index<br/>Approximate NN]
         FILTER[Apply Filters<br/>tenant_id, case_id]
     end
-
+    
     subgraph "Output"
         RESULTS[Top-K Results]
         RERANK[Optional Re-ranking]
         FINAL[Final Context]
     end
-
+    
     TEXT --> CHECK
     CHECK -->|OPENAI| OPENAI_EMBED
     CHECK -->|ONPREM| ONPREM_EMBED
-
+    
     OPENAI_EMBED --> VECTOR[Embedding Vector<br/>1536 dimensions]
     ONPREM_EMBED --> VECTOR
-
+    
     VECTOR --> PG
     VECTOR -.-> CHROMA
-
+    
     QUERY --> SIMILARITY
     SIMILARITY --> HNSW
     HNSW --> PG
     HNSW -.-> CHROMA
-
+    
     PG --> FILTER
     CHROMA -.-> FILTER
-
+    
     FILTER --> RESULTS
     RESULTS --> RERANK
     RERANK --> FINAL
-
+    
     style TEXT fill:#99ff99
     style VECTOR fill:#ffcc99
     style PG fill:#99ccff
@@ -1418,32 +1418,32 @@ flowchart LR
 <div class="mermaid">
 stateDiagram-v2
     [*] --> Pending: Task Queued
-
+    
     Pending --> Running: Worker Picks Up
-
+    
     Running --> CheckCache: Start Processing
-
+    
     CheckCache --> CacheHit: Found in Redis
     CheckCache --> CacheMiss: Not Found
-
+    
     CacheHit --> Success: Return Cached
-
+    
     CacheMiss --> VectorSearch: Retrieve Context
     VectorSearch --> LLMGeneration: Build Prompt
     LLMGeneration --> Parsing: Parse Response
-
+    
     Parsing --> ParseSuccess: Valid JSON
     Parsing --> ParseFailed: Invalid JSON
-
+    
     ParseFailed --> Retry: Attempt Repair
     Retry --> Parsing: Re-parse
     Retry --> Failure: Max Retries
-
+    
     ParseSuccess --> StoreDB: Save Results
     StoreDB --> StoreCache: Cache for Future
     StoreCache --> TriggerRisk: Background Task
     TriggerRisk --> Success: Complete
-
+    
     Success --> [*]
     Failure --> [*]
 </div>
@@ -1457,44 +1457,44 @@ flowchart LR
         INDEXER[Kafka Indexer]
         FPR[FPR Processor]
     end
-
+    
     subgraph Topics
         T1[(indexing-topic)]
         T2[(fpr-processing)]
         T3[(fpr-results)]
     end
-
+    
     subgraph Consumers
         C1[Kafka Indexer]
         C2[FPR Processor]
         C3[Results Consumer]
     end
-
+    
     subgraph ConsumerGroups["Consumer Groups"]
         G1[indexing_group]
         G2[fp_reduction_group]
         G3[results_group]
     end
-
+    
     CLI --> T1
     API --> T1
-
+    
     T1 --> C1
     C1 -.-> G1
-
+    
     INDEXER --> T2
-
+    
     T2 --> C2
     C2 -.-> G2
-
+    
     FPR --> T3
-
+    
     T3 --> C3
     C3 -.-> G3
-
+    
     classDef topic fill:#ffcc99,stroke:#333,stroke-width:2px
     classDef consumer fill:#99ccff,stroke:#333,stroke-width:2px
-
+    
     class T1,T2,T3 topic
     class C1,C2,C3 consumer
 </div>
@@ -1510,13 +1510,13 @@ sequenceDiagram
     participant DB as PostgreSQL
     participant LLM
     participant Redis
-
+    
     Client->>TykGW: POST /case/analysis
     TykGW->>FastAPI: Authenticate & Forward
     FastAPI->>Celery: Queue Task
     Celery-->>FastAPI: task_id
     FastAPI-->>Client: {task_id}
-
+    
     Worker->>Redis: Check Cache
     alt Cache Hit
         Redis-->>Worker: Cached Result
@@ -1527,10 +1527,10 @@ sequenceDiagram
         LLM-->>Worker: Analysis Result
         Worker->>Redis: Store Cache
     end
-
+    
     Worker->>DB: Store Summary
     Worker->>Celery: Trigger Risk Scoring
-
+    
     Client->>FastAPI: GET /case/analysis/{task_id}
     FastAPI->>Celery: Get Result
     Celery-->>FastAPI: Result
@@ -1546,10 +1546,10 @@ sequenceDiagram
     participant Embed as Embedding Service
     participant DB as PostgreSQL
     participant FPR as FPR Processor
-
+    
     CLI->>Kafka: Publish Tasks
     Kafka-->>Indexer: Consume Message
-
+    
     loop For Each Task
         Indexer->>Indexer: Extract Text
         Indexer->>Embed: Generate Embedding
@@ -1557,7 +1557,7 @@ sequenceDiagram
         Indexer->>DB: Store Task + Vector
         Indexer->>Kafka: Publish to FPR Topic
     end
-
+    
     Kafka-->>FPR: Consume Enriched Case
     FPR->>FPR: Build Features
     FPR->>FPR: Check Novelty
@@ -1574,25 +1574,25 @@ sequenceDiagram
     participant DB as PostgreSQL
     participant VectorDB
     participant LLM
-
+    
     Client->>FastAPI: POST /chat/completions (stream=true)
     FastAPI->>ChatAgent: Process Request
-
+    
     ChatAgent->>DB: Get Thread History
     DB-->>ChatAgent: Recent Messages
-
+    
     ChatAgent->>VectorDB: Semantic Search
     VectorDB-->>ChatAgent: Relevant Context
-
+    
     ChatAgent->>ChatAgent: Build RAG Prompt
     ChatAgent->>LLM: Stream Request
-
+    
     loop Streaming
         LLM-->>ChatAgent: Chunk
         ChatAgent-->>FastAPI: Chunk
         FastAPI-->>Client: Stream Chunk
     end
-
+    
     ChatAgent->>DB: Store Message
 </div>
 
@@ -1609,7 +1609,7 @@ classDiagram
         +delete(id: str) bool
         +list(filters: dict) List~T~
     }
-
+    
     class CaseRepository {
         +get_by_case_id(case_id: str) Case
         +get_by_status(status: str) List~Case~
@@ -1617,51 +1617,51 @@ classDiagram
         +update_risk(case_id: str, risk: str)
         +set_as_noise(case_id: str)
     }
-
+    
     class PlaybookTaskRepository {
         +search_by_case(query: str, case_id: str, limit: int) List~Task~
         +search_by_deployment(query: str, deployment_id: str) List~Task~
         +get_by_embedding(vector: List~float~) List~Task~
         +bulk_insert(tasks: List~Task~)
     }
-
+    
     class ChatHistoryRepository {
         +create_thread(case_id: str, user_id: int) Thread
         +add_message(thread_id: str, role: str, content: str) Message
         +get_history(thread_id: str, limit: int) List~Message~
         +update_message(msg_id: str, content: str)
     }
-
+    
     class TaskClassificationRepository {
         +classify_task(task_id: str, category: str)
         +get_classification(task_id: str) Classification
         +bulk_classify(classifications: List)
     }
-
+    
     class CaseSummaryRepository {
         +store_summary(case_id: str, summary: dict)
         +get_summary(case_id: str) dict
         +update_analysis(case_id: str, analysis: dict)
     }
-
+    
     BaseRepository <|-- CaseRepository
     BaseRepository <|-- PlaybookTaskRepository
     BaseRepository <|-- ChatHistoryRepository
     BaseRepository <|-- TaskClassificationRepository
     BaseRepository <|-- CaseSummaryRepository
-
+    
     class EmbeddingClient {
         <<interface>>
         +create_embedding(text: str) List~float~
         +batch_create(texts: List~str~) List~List~float~~
     }
-
+    
     class OpenAIEmbedding
     class OnPremiseEmbedding
-
+    
     EmbeddingClient <|.. OpenAIEmbedding
     EmbeddingClient <|.. OnPremiseEmbedding
-
+    
     PlaybookTaskRepository --> EmbeddingClient : uses
 </div>
 
@@ -1674,28 +1674,28 @@ sequenceDiagram
     participant DB as PostgreSQL
     participant Kafka
     participant IndexSvc as Indexing Service
-
+    
     Admin->>API: POST /tenants<br/>{name, config}
     API->>TenantSvc: create_tenant(tenant_info)
-
+    
     TenantSvc->>DB: Create siadb_<tenant_id>
     DB-->>TenantSvc: Database created
-
+    
     TenantSvc->>DB: Run Alembic migrations
     DB-->>TenantSvc: Schema initialized
-
+    
     TenantSvc->>DB: INSERT INTO tenants
     DB-->>TenantSvc: Tenant record created
-
+    
     TenantSvc->>Kafka: Publish tenant_created event
-
+    
     TenantSvc-->>API: {tenant_id, status: "active"}
     API-->>Admin: Tenant created successfully
-
+    
     Kafka->>IndexSvc: tenant_created event
     IndexSvc->>IndexSvc: Create embedding collections
     IndexSvc->>DB: Initialize vector indexes
-
+    
     Note over IndexSvc: Background initialization<br/>completes asynchronously
 </div>
 
@@ -1703,51 +1703,51 @@ sequenceDiagram
 <div class="mermaid">
 flowchart TD
     START[API Request] --> VALIDATE{Valid<br/>Request?}
-
+    
     VALIDATE -->|No| ERROR_400[Return 400<br/>Bad Request]
     VALIDATE -->|Yes| AUTH{Authenticated?}
-
+    
     AUTH -->|No| ERROR_401[Return 401<br/>Unauthorized]
     AUTH -->|Yes| AUTHZ{Authorized?}
-
+    
     AUTHZ -->|No| ERROR_403[Return 403<br/>Forbidden]
     AUTHZ -->|Yes| PROCESS[Process Request]
-
+    
     PROCESS --> TRY{Success?}
-
+    
     TRY -->|DB Error| RETRY{Retryable?}
     TRY -->|LLM Error| LLM_RETRY{Retry Count?}
     TRY -->|External API Error| EXT_RETRY{Can Retry?}
     TRY -->|Success| SUCCESS[Return 200<br/>Success]
-
+    
     RETRY -->|Yes| WAIT1[Exponential Backoff]
     RETRY -->|No| ERROR_500[Return 500<br/>Internal Error]
-
+    
     LLM_RETRY -->|< Max| WAIT2[Backoff + Retry]
     LLM_RETRY -->|>= Max| ERROR_503[Return 503<br/>Service Unavailable]
-
+    
     EXT_RETRY -->|Yes| WAIT3[Retry with Timeout]
     EXT_RETRY -->|No| ERROR_502[Return 502<br/>Bad Gateway]
-
+    
     WAIT1 --> PROCESS
     WAIT2 --> PROCESS
     WAIT3 --> PROCESS
-
+    
     ERROR_400 --> LOG[Log Error]
     ERROR_401 --> LOG
     ERROR_403 --> LOG
     ERROR_500 --> LOG
     ERROR_502 --> LOG
     ERROR_503 --> LOG
-
+    
     LOG --> ALERT{Critical?}
     ALERT -->|Yes| NOTIFY[Send Alert]
     ALERT -->|No| METRIC[Update Metrics]
-
+    
     NOTIFY --> METRIC
     METRIC --> END[End]
     SUCCESS --> END
-
+    
     style SUCCESS fill:#99ff99
     style ERROR_400 fill:#ff9999
     style ERROR_401 fill:#ff9999
@@ -1772,12 +1772,12 @@ classDiagram
         +to_dict() dict
         +check_non_empty_fields()
     }
-
+    
     class Finding {
         +str source
         +str finding
     }
-
+    
     class PlaybookTask {
         +str deployment_id
         +str tenant_id
@@ -1786,7 +1786,7 @@ classDiagram
         +dict task_details
         +to_dict() dict
     }
-
+    
     Case "1" --> "*" Finding : contains
 </div>
 
@@ -1799,7 +1799,7 @@ classDiagram
         -CaseAnalysis _case_analysis
         +run(case: Case) Tuple
     }
-
+    
     class CaseAnalysis {
         -model
         -templates_factory
@@ -1808,13 +1808,13 @@ classDiagram
         -playbook_task_repo
         +run(case: Case) Tuple
     }
-
+    
     class ChatBotAgent {
         -Session session
         +stream() AsyncGenerator
         +extract_parameters() dict
     }
-
+    
     OpenAICaseAnalysisService --> CaseAnalysis : uses
     CaseAnalysis --> PlaybookTaskRepo : queries
     ChatBotAgent --> PlaybookTaskRepo : queries
@@ -1830,7 +1830,7 @@ classDiagram
         +search_by_case() List
         +update_risk_score()
     }
-
+    
     class CaseRepo {
         -Session session
         -AIEmbedding embedding
@@ -1838,14 +1838,14 @@ classDiagram
         +add_summary() CaseSummary
         +get_by_case_id() CaseModel
     }
-
+    
     class ChatHistory {
         -Session session
         +add_thread() dict
         +store_chat_history() dict
         +get_chat_history() List
     }
-
+    
     PlaybookTaskRepo --> PlaybookTaskModel : manages
     CaseRepo --> CaseModel : manages
     CaseRepo --> CaseSummary : manages
@@ -1867,18 +1867,18 @@ classDiagram
         +astream() AsyncGenerator
         +with_structured_output()
     }
-
+    
     class AIEmbedding {
         -str backend
         -str model
         +embed_text(text) List~float~
         +embed_batch(texts) List
     }
-
+    
     class SelfRepairJsonOutputParser {
         +parse(text) dict
     }
-
+    
     LLMWrapper --> ChatOpenAI : "backend=OPENAI"
     LLMWrapper --> ChatOllama : "backend=ONPREM"
     LLMWrapper --> SelfRepairJsonOutputParser : uses

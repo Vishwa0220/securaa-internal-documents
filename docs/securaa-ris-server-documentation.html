@@ -112,81 +112,81 @@ graph TB
         LB[Load Balancer<br/>NGINX/HAProxy]
         WAF[Web Application Firewall]
     end
-
+    
     subgraph "RIS Server Cluster"
         RS1[RIS Server 1<br/>Primary]
         RS2[RIS Server 2<br/>Secondary]
         RS3[RIS Server 3<br/>Backup]
     end
-
+    
     subgraph "Data Layer"
         subgraph "MongoDB Cluster"
             MDB1[(MongoDB Primary)]
             MDB2[(MongoDB Secondary)]
             MDB3[(MongoDB Arbiter)]
         end
-
+        
         subgraph "Cache Layer"
             REDIS1[Redis Master]
             REDIS2[Redis Replica]
         end
     end
-
+    
     subgraph "Monitoring Stack"
         PROM[Prometheus]
         GRAF[Grafana]
         ALERT[AlertManager]
         ELK[ELK Stack]
     end
-
+    
     subgraph "RIS Clients"
         RC1[RIS Client 1]
         RC2[RIS Client 2]
         RCN[RIS Client N]
     end
-
+    
     subgraph "External Systems"
         EXT[External APIs]
         LDAP[LDAP/AD]
         SMTP[SMTP Server]
     end
-
+    
     %% Traffic flow
     WAF --> LB
     LB --> RS1
     LB --> RS2
     LB --> RS3
-
+    
     %% Database connections
     RS1 --> MDB1
     RS2 --> MDB1
     RS3 --> MDB1
     MDB1 -.-> MDB2
     MDB2 -.-> MDB3
-
+    
     %% Cache connections
     RS1 --> REDIS1
     RS2 --> REDIS1
     RS3 --> REDIS1
     REDIS1 -.-> REDIS2
-
+    
     %% WebSocket connections
     RS1 -.->|WSS| RC1
     RS2 -.->|WSS| RC2
     RS3 -.->|WSS| RCN
-
+    
     %% Monitoring
     RS1 --> PROM
     RS2 --> PROM
     RS3 --> PROM
     PROM --> GRAF
     PROM --> ALERT
-
+    
     %% External integrations
     RS1 -.-> EXT
     RS1 -.-> LDAP
     RS1 -.-> SMTP
-
+    
     style LB fill:#e1bee7
     style RS1 fill:#e8f5e8
     style MDB1 fill:#fff9c4
@@ -203,20 +203,20 @@ graph TB
             WS[WebSocket Gateway]
             MW[Middleware Stack]
         end
-
+        
         subgraph "Business Logic"
             RC[RIS Controller]
             TC[Tenant Controller]
             ORCH[Task Orchestrator]
             CM[Client Manager]
         end
-
+        
         subgraph "Data Access"
             MDA[MongoDB Adapter]
             RDA[Redis Adapter]
             CACHE[Cache Manager]
         end
-
+        
         subgraph "Infrastructure"
             AUTH[Auth Service]
             LOG[Logging Service]
@@ -224,23 +224,23 @@ graph TB
             CONFIG[Config Manager]
         end
     end
-
+    
     REST --> MW
     WS --> MW
     MW --> RC
     MW --> TC
     RC --> ORCH
     RC --> CM
-
+    
     ORCH --> MDA
     CM --> MDA
     ORCH --> RDA
     CM --> CACHE
-
+    
     MW --> AUTH
     RC --> LOG
     ORCH --> METRICS
-
+    
     style REST fill:#e8f5e8
     style WS fill:#fff3e0
     style ORCH fill:#e1bee7
@@ -1254,25 +1254,25 @@ sequenceDiagram
     participant Server as RIS Server
     participant DB as Database
     participant Auth as Auth Service
-
+    
     Client->>LB: WebSocket Connection Request
     LB->>Server: Route to Available Server
     Server->>Auth: Validate Client Certificate
     Auth-->>Server: Certificate Valid
-
+    
     Server->>Server: Upgrade to WebSocket
     Server-->>Client: Connection Established
-
+    
     Client->>Server: Registration Data
     Note right of Client: {clienthost, unique_id,<br/>version, capabilities}
-
+    
     Server->>Server: Validate Registration
     Server->>DB: Store/Update Client Info
     DB-->>Server: Success
-
+    
     Server->>Server: Generate Configuration
     Server-->>Client: Registration Acknowledgment
-
+    
     loop Heartbeat
         Client->>Server: Heartbeat
         Server-->>Client: Heartbeat ACK
@@ -1375,45 +1375,45 @@ graph TB
         VALIDATE[Validate Task]
         AUTH[Authorize User]
     end
-
+    
     subgraph "Task Orchestration"
         QUEUE[Task Queue]
         ROUTER[Task Router]
         LB[Load Balancer]
         SELECTOR[Client Selector]
     end
-
+    
     subgraph "Task Execution"
         CLIENT1[RIS Client 1]
         CLIENT2[RIS Client 2]
         CLIENTN[RIS Client N]
     end
-
+    
     subgraph "Task Monitoring"
         TRACKER[Task Tracker]
         STATUS[Status Monitor]
         LOGGER[Audit Logger]
     end
-
+    
     API --> VALIDATE
     VALIDATE --> AUTH
     AUTH --> QUEUE
-
+    
     QUEUE --> ROUTER
     ROUTER --> LB
     LB --> SELECTOR
-
+    
     SELECTOR --> CLIENT1
     SELECTOR --> CLIENT2
     SELECTOR --> CLIENTN
-
+    
     CLIENT1 --> TRACKER
     CLIENT2 --> TRACKER
     CLIENTN --> TRACKER
-
+    
     TRACKER --> STATUS
     TRACKER --> LOGGER
-
+    
     style QUEUE fill:#fff3e0
     style ROUTER fill:#e8f5e8
     style TRACKER fill:#e3f2fd
@@ -1610,44 +1610,44 @@ graph TB
         EXTRACT[Extract Tenant Context]
         VALIDATE[Validate Tenant]
     end
-
+    
     subgraph "Data Layer Isolation"
         subgraph "Database Level"
             DB1[(Tenant A DB)]
             DB2[(Tenant B DB)]
             DB3[(Shared DB)]
         end
-
+        
         subgraph "Application Level"
             FILTER[Data Filtering]
             SCOPE[Query Scoping]
             ENCRYPT[Tenant Encryption]
         end
     end
-
+    
     subgraph "Resource Isolation"
         CONN1[Tenant A Connections]
         CONN2[Tenant B Connections]
         CACHE1[Tenant A Cache]
         CACHE2[Tenant B Cache]
     end
-
+    
     REQ --> EXTRACT
     EXTRACT --> VALIDATE
     VALIDATE --> FILTER
     VALIDATE --> SCOPE
-
+    
     FILTER --> DB1
     FILTER --> DB2
     FILTER --> DB3
-
+    
     SCOPE --> ENCRYPT
     ENCRYPT --> CONN1
     ENCRYPT --> CONN2
-
+    
     CONN1 --> CACHE1
     CONN2 --> CACHE2
-
+    
     style DB1 fill:#e8f5e8
     style DB2 fill:#fff3e0
     style DB3 fill:#e3f2fd

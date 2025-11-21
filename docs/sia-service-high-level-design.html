@@ -239,33 +239,33 @@ graph TB
         CLI[CLI Tools]
         EXT[External Systems]
     end
-
+    
     subgraph GatewayLayer["API Gateway Layer"]
         TYK[Tyk API Gateway<br/>Authentication & Routing]
     end
-
+    
     subgraph ApplicationLayer["Application Layer"]
         WEB[FastAPI Web Service<br/>Port 8000]
         CHAT[Chat Service<br/>Streaming Support]
     end
-
+    
     subgraph MessageQueue["Message Queue"]
         KAFKA[Apache Kafka<br/>Event Streaming]
         REDIS[Redis<br/>Task Queue & Cache]
     end
-
+    
     subgraph WorkerLayer["Worker Layer"]
         WORKER[Celery Workers<br/>Background Tasks]
         INDEXER[Kafka Indexer<br/>Vector Indexing]
         FPR[FPR Processor<br/>Noise Reduction]
         NWORKER[Novelty Worker<br/>ML Processing]
     end
-
+    
     subgraph DataLayer["Data Layer"]
         PG[(PostgreSQL<br/>pgvector)]
         CHROMA[(ChromaDB<br/>Vector Store)]
     end
-
+    
     subgraph ExternalServices["External Services"]
         LLM[LLM Providers<br/>OpenAI/Groq/Gemini]
         TIP[Threat Intel<br/>VirusTotal/TIP]
@@ -273,54 +273,54 @@ graph TB
         NDS[Novelty Detection<br/>Service]
         DTX[DTX Prompt Guard]
     end
-
+    
     UI --> TYK
     CLI --> TYK
     EXT --> TYK
-
+    
     TYK --> WEB
     TYK --> CHAT
-
+    
     WEB --> REDIS
     WEB --> KAFKA
     WEB --> PG
-
+    
     CHAT --> PG
     CHAT --> LLM
-
+    
     KAFKA --> INDEXER
     KAFKA --> FPR
-
+    
     REDIS --> WORKER
     REDIS --> NWORKER
-
+    
     WORKER --> PG
     WORKER --> LLM
     WORKER --> REDIS
-
+    
     INDEXER --> PG
     INDEXER --> KAFKA
-
+    
     FPR --> PG
     FPR --> NDS
     FPR --> KAFKA
-
+    
     NWORKER --> PG
     NWORKER --> NDS
-
+    
     WEB -.-> CHROMA
     INDEXER -.-> CHROMA
-
+    
     WEB --> TIP
     WEB --> SOAR
     WEB --> DTX
-
+    
     classDef gateway fill:#ff9999,stroke:#333,stroke-width:2px
     classDef application fill:#99ccff,stroke:#333,stroke-width:2px
     classDef queue fill:#ffcc99,stroke:#333,stroke-width:2px
     classDef database fill:#99ff99,stroke:#333,stroke-width:2px
     classDef external fill:#ff99ff,stroke:#333,stroke-width:2px
-
+    
     class TYK gateway
     class WEB,CHAT application
     class KAFKA,REDIS queue
@@ -341,7 +341,7 @@ sequenceDiagram
     participant P as PostgreSQL
     participant V as Vector Search
     participant L as LLM
-
+    
     C->>T: POST /case/analysis
     T->>T: Validate JWT Token
     T->>F: Forward Request
@@ -349,11 +349,11 @@ sequenceDiagram
     F->>CE: Queue Analysis Task
     CE-->>F: task_id
     F-->>C: 201 {task_id}
-
+    
     Note over W: Async Processing
     W->>CE: Dequeue Task
     W->>R: Check Cache (hash)
-
+    
     alt Cache Hit
         R-->>W: Cached Result
     else Cache Miss
@@ -369,9 +369,9 @@ sequenceDiagram
         W->>P: Store Case Summary
         W->>CE: Trigger Risk Scoring
     end
-
+    
     W-->>CE: Complete Task
-
+    
     C->>F: GET /case/analysis/{task_id}
     F->>CE: Get Task Result
     CE-->>F: Analysis Result
@@ -382,39 +382,39 @@ sequenceDiagram
 <div class="mermaid">
 flowchart TD
     START[Start: New Tasks] --> CLI{Source}
-
+    
     CLI -->|CLI Command| PROC1[JsonProcessor]
     CLI -->|API Call| PROC2[API Handler]
-
+    
     PROC1 --> KAFKA1[Kafka Producer]
     PROC2 --> KAFKA1
-
+    
     KAFKA1 --> TOPIC1[(indexing-topic)]
-
+    
     TOPIC1 --> INDEXER[Kafka Indexer Consumer]
-
+    
     INDEXER --> LOOP{For Each Task}
-
+    
     LOOP --> PARSE[Parse Task Details]
     PARSE --> SUMMARY[Generate Text Summary]
     SUMMARY --> EMBED[Generate Embedding]
-
+    
     EMBED --> CHECK{Tenant Session<br/>Exists?}
-
+    
     CHECK -->|No| CREATE[Create Tenant Session]
     CHECK -->|Yes| STORE
     CREATE --> STORE[Store in PostgreSQL]
-
+    
     STORE --> INDEX[Update Vector Index]
     INDEX --> FORWARD[Forward to FPR Topic]
-
+    
     FORWARD --> TOPIC2[(fpr-processing)]
-
+    
     LOOP -->|More Tasks| LOOP
     LOOP -->|Done| END[End]
-
+    
     TOPIC2 --> FPR[FPR Processor]
-
+    
     style START fill:#99ff99
     style END fill:#ff9999
     style TOPIC1 fill:#ffcc99
@@ -429,65 +429,65 @@ flowchart LR
     subgraph "Input"
         KAFKA[(fpr-processing<br/>Topic)]
     end
-
+    
     subgraph "Batching"
         BUFFER[Tenant Buffer]
         BATCH{Batch Size<br/>Reached?}
     end
-
+    
     subgraph "Feature Engineering"
         ENRICH[Enrich Case Data]
         EXTRACT[Extract Features]
         FEATURES[IOC Count<br/>Text Length<br/>Temporal<br/>Patterns]
     end
-
+    
     subgraph "Novelty Detection"
         EMBED[Generate Embedding]
         NDS[NDS API Call]
         NOVEL{Is Novel?}
         CLUSTER[Assign Cluster]
     end
-
+    
     subgraph "Scoring"
         SCORE[Calculate Score]
         RULES[Apply Rules]
         CLASSIFY{Classify}
     end
-
+    
     subgraph "Output"
         UPDATE[Update DB]
         MARK_FP[Mark as False Positive]
         MARK_LEGIT[Mark as Legitimate]
         PUBLISH[(fpr-results<br/>Topic)]
     end
-
+    
     KAFKA --> BUFFER
     BUFFER --> BATCH
     BATCH -->|No| BUFFER
     BATCH -->|Yes| ENRICH
-
+    
     ENRICH --> EXTRACT
     EXTRACT --> FEATURES
-
+    
     FEATURES --> EMBED
     EMBED --> NDS
     NDS --> NOVEL
     NOVEL -->|Yes| CLUSTER
     NOVEL -->|No| CLUSTER
-
+    
     CLUSTER --> SCORE
     FEATURES --> SCORE
     SCORE --> RULES
     RULES --> CLASSIFY
-
+    
     CLASSIFY -->|FP| MARK_FP
     CLASSIFY -->|Legit| MARK_LEGIT
-
+    
     MARK_FP --> UPDATE
     MARK_LEGIT --> UPDATE
-
+    
     UPDATE --> PUBLISH
-
+    
     style KAFKA fill:#ffcc99
     style NDS fill:#ff99ff
     style PUBLISH fill:#ffcc99
@@ -506,35 +506,35 @@ sequenceDiagram
     participant VECT as Vector Search
     participant LLM as LLM Service
     participant DB as PostgreSQL
-
+    
     U->>API: POST /chat/completions<br/>(stream=true)
     API->>AGENT: Initialize Agent
-
+    
     AGENT->>HIST: Get Thread History
     HIST->>DB: Query Last N Messages
     DB-->>HIST: Messages
     HIST-->>AGENT: Conversation Context
-
+    
     AGENT->>VECT: Semantic Search Query
     VECT->>DB: Vector Similarity Search
     DB-->>VECT: Similar Tasks/Cases
     VECT-->>AGENT: Relevant Context
-
+    
     AGENT->>AGENT: Build RAG Prompt<br/>History + Context + Query
-
+    
     AGENT->>LLM: Stream Request
-
+    
     loop Streaming Chunks
         LLM-->>AGENT: Chunk
         AGENT->>AGENT: Accumulate Response
         AGENT-->>API: Stream Chunk
         API-->>U: SSE Event
     end
-
+    
     AGENT->>HIST: Store User Message
     AGENT->>HIST: Store Assistant Response
     HIST->>DB: INSERT Messages
-
+    
     AGENT-->>API: Stream Complete
     API-->>U: Connection Close
 </div>
@@ -546,45 +546,45 @@ graph TB
         APP[FastAPI Application]
         INIT[init_tenant_sessions]
     end
-
+    
     subgraph "Session Management"
         MAP[SESSION_MAP<br/>Dictionary]
         FACTORY1[SessionFactory<br/>tenant_1]
         FACTORY2[SessionFactory<br/>tenant_2]
         FACTORY3[SessionFactory<br/>tenant_N]
     end
-
+    
     subgraph "PostgreSQL Server"
         PG_SERVER[(PostgreSQL)]
-
+        
         subgraph "System Databases"
             POSTGRES[(postgres)]
             TEMPLATE[(siadb_template)]
         end
-
+        
         subgraph "Tenant Databases"
             DB1[(siadb_tenant_1)]
             DB2[(siadb_tenant_2)]
             DBN[(siadb_tenant_N)]
         end
     end
-
+    
     APP --> INIT
     INIT --> PG_SERVER
     INIT --> MAP
-
+    
     MAP --> FACTORY1
     MAP --> FACTORY2
     MAP --> FACTORY3
-
+    
     FACTORY1 --> DB1
     FACTORY2 --> DB2
     FACTORY3 --> DBN
-
+    
     TEMPLATE -.->|Clone| DB1
     TEMPLATE -.->|Clone| DB2
     TEMPLATE -.->|Clone| DBN
-
+    
     style APP fill:#99ccff
     style MAP fill:#ffcc99
     style PG_SERVER fill:#99ff99
@@ -597,12 +597,12 @@ graph TB
     subgraph Gateway["Load Balancer / Gateway"]
         TYK[Tyk Gateway<br/>Port 8080]
     end
-
+    
     subgraph AppServices["Application Services"]
         WEB1[Web Service<br/>Port 8000]
         WEB2[Web Service<br/>Replica]
     end
-
+    
     subgraph Workers["Background Workers"]
         WORKER1[Celery Worker 1]
         WORKER2[Celery Worker 2]
@@ -611,60 +611,60 @@ graph TB
         NAPI[Novelty API<br/>Port 8001]
         NWORKER[Novelty Worker]
     end
-
+    
     subgraph MsgInfra["Message Infrastructure"]
         KAFKA[Kafka Broker<br/>Ports 9092, 19092]
         REDIS[Redis<br/>Port 6379]
     end
-
+    
     subgraph DataStores["Data Stores"]
         PG[PostgreSQL + pgvector<br/>Port 5432]
         CHROMA[ChromaDB<br/>Port 8002]
     end
-
+    
     subgraph Support["Support Services"]
         PGADMIN[pgAdmin<br/>Port 8081]
         FLUENTD[Fluentd<br/>Logging]
         DTX[DTX Guard<br/>Port 8003]
     end
-
+    
     TYK --> WEB1
     TYK --> WEB2
-
+    
     WEB1 --> REDIS
     WEB1 --> KAFKA
     WEB1 --> PG
     WEB1 --> DTX
-
+    
     WEB2 --> REDIS
     WEB2 --> KAFKA
     WEB2 --> PG
     WEB2 --> DTX
-
+    
     REDIS --> WORKER1
     REDIS --> WORKER2
     REDIS --> NWORKER
-
+    
     KAFKA --> INDEXER
     KAFKA --> FPR
-
+    
     WORKER1 --> PG
     WORKER2 --> PG
     INDEXER --> PG
     FPR --> PG
-
+    
     INDEXER -.-> CHROMA
-
+    
     FPR --> NAPI
     NWORKER --> NAPI
     NAPI --> PG
-
+    
     PGADMIN --> PG
-
+    
     classDef gateway fill:#ff9999,stroke:#333,stroke-width:2px
     classDef queue fill:#ffcc99,stroke:#333,stroke-width:2px
     classDef database fill:#99ff99,stroke:#333,stroke-width:2px
-
+    
     class TYK gateway
     class KAFKA,REDIS queue
     class PG,CHROMA database
@@ -677,7 +677,7 @@ erDiagram
     CASES ||--o{ CASE_SUSPICIOUS_ANALYSIS : has
     PLAYBOOK_TASKS ||--o{ TASK_CLASSIFICATION : has
     THREADS ||--o{ CHATHISTORY : contains
-
+    
     CASES {
         uuid id PK
         string case_id
@@ -691,7 +691,7 @@ erDiagram
         json playbook_recommendation
         timestamp created_at
     }
-
+    
     CASE_SUMMARY {
         int id PK
         uuid case_id FK
@@ -702,7 +702,7 @@ erDiagram
         vector embedding
         timestamp created_at
     }
-
+    
     PLAYBOOK_TASKS {
         uuid id PK
         string case_id
@@ -714,7 +714,7 @@ erDiagram
         float risk_score
         timestamp created_at
     }
-
+    
     TASK_CLASSIFICATION {
         int id PK
         uuid playbook_task_id FK
@@ -727,7 +727,7 @@ erDiagram
         vector embedding
         timestamp created_at
     }
-
+    
     THREADS {
         uuid thread_id PK
         string name
@@ -737,7 +737,7 @@ erDiagram
         int user_id
         timestamp created_ts
     }
-
+    
     CHATHISTORY {
         uuid id PK
         uuid thread_id FK
@@ -749,7 +749,7 @@ erDiagram
         string message_type
         timestamp created_ts
     }
-
+    
     CASE_SUSPICIOUS_ANALYSIS {
         int id PK
         uuid case_id FK
@@ -884,47 +884,47 @@ erDiagram
 <div class="mermaid">
 flowchart TD
     START[Security Event] --> SOAR[SOAR Platform]
-
+    
     SOAR --> API1[POST /case/analysis]
-
+    
     API1 --> VAL{Validate<br/>Payload}
     VAL -->|Invalid| ERR1[400 Error]
     VAL -->|Valid| QUEUE[Queue Celery Task]
-
+    
     QUEUE --> WORKER[Celery Worker]
-
+    
     WORKER --> CACHE{Check<br/>Cache}
     CACHE -->|Hit| RESULT1[Return Cached]
     CACHE -->|Miss| SEARCH[Vector Search]
-
+    
     SEARCH --> CONTEXT[Retrieve Context]
     CONTEXT --> PROMPT[Build RAG Prompt]
     PROMPT --> LLM[LLM Generation]
-
+    
     LLM --> PARSE{Parse<br/>JSON}
     PARSE -->|Failed| REPAIR[Self-Repair]
     PARSE -->|Success| STORE
     REPAIR --> STORE
-
+    
     STORE[Store Summary] --> RISK[Calculate Risk Score]
-
+    
     RISK --> KAFKA[Publish to Kafka]
     KAFKA --> FPR[FPR Processing]
-
+    
     FPR --> NOVELTY[Novelty Detection]
     NOVELTY --> SCORE[Suspicious Scoring]
     SCORE --> CLASS{Classify}
-
+    
     CLASS -->|False Positive| MARK_FP[Mark as Noise]
     CLASS -->|Legitimate| MARK_LEGIT[Keep Active]
-
+    
     MARK_FP --> UPDATE_DB[Update Database]
     MARK_LEGIT --> UPDATE_DB
-
+    
     UPDATE_DB --> NOTIFY[Notify SOAR]
-
+    
     NOTIFY --> END[End]
-
+    
     style START fill:#99ff99
     style END fill:#ff9999
     style LLM fill:#ff99ff
@@ -1286,56 +1286,56 @@ graph TB
     subgraph Application
         APP[SIA Services]
     end
-
+    
     subgraph Instrumentation
         TRACE[Traceloop SDK<br/>LLM Tracing]
         OTEL[OpenTelemetry<br/>Distributed Tracing]
         LOGS[Application Logs]
         METRICS[System Metrics]
     end
-
+    
     subgraph Collection
         FLUENTD[Fluentd<br/>Log Aggregation]
         AGENT[OTEL Collector]
     end
-
+    
     subgraph Storage
         LOGSTOR[(Log Storage)]
         TRACESTOR[(Trace Backend)]
         METRICSTOR[(Metrics DB)]
     end
-
+    
     subgraph Visualization
         DASH[Dashboards]
         ALERT[Alerting]
         ANALYZE[Analysis Tools]
     end
-
+    
     APP --> TRACE
     APP --> OTEL
     APP --> LOGS
     APP --> METRICS
-
+    
     TRACE --> AGENT
     OTEL --> AGENT
     LOGS --> FLUENTD
     METRICS --> AGENT
-
+    
     FLUENTD --> LOGSTOR
     AGENT --> TRACESTOR
     AGENT --> METRICSTOR
-
+    
     LOGSTOR --> DASH
     TRACESTOR --> DASH
     METRICSTOR --> DASH
-
+    
     DASH --> ALERT
     DASH --> ANALYZE
-
+    
     classDef application fill:#99ccff,stroke:#333,stroke-width:2px
     classDef collector fill:#ffcc99,stroke:#333,stroke-width:2px
     classDef dashboard fill:#99ff99,stroke:#333,stroke-width:2px
-
+    
     class APP application
     class FLUENTD,AGENT collector
     class DASH,ALERT,ANALYZE dashboard

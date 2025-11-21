@@ -108,21 +108,21 @@ graph TB
             ROUTER[HTTP Router]
             WS[WebSocket Client]
         end
-
+        
         subgraph "Controllers"
             TC[Task Handler Controller]
             RC[RIS Client Controller]
             SC[Service Controller]
             CC[Connection Controller]
         end
-
+        
         subgraph "Task Execution"
             TE[Task Executor]
             HTTP[HTTP Client]
             CMD[Command Executor]
             DOCKER[Docker Manager]
         end
-
+        
         subgraph "Infrastructure"
             CONFIG[Configuration Manager]
             LOG[Logging System]
@@ -130,36 +130,36 @@ graph TB
             NET[Network Manager]
         end
     end
-
+    
     subgraph "External Systems"
         RIS_SERVER[RIS Server]
         DOCKER_ENGINE[Docker Engine]
         TARGET_SERVICES[Target Services]
     end
-
+    
     APP --> ROUTER
     APP --> WS
     ROUTER --> TC
     ROUTER --> RC
     WS --> RC
-
+    
     TC --> TE
     RC --> SC
     SC --> DOCKER
-
+    
     TE --> HTTP
     TE --> CMD
     TE --> DOCKER
-
+    
     APP --> CONFIG
     APP --> LOG
     APP --> HEALTH
     APP --> NET
-
+    
     WS -.->|WSS| RIS_SERVER
     HTTP -.->|HTTPS| TARGET_SERVICES
     DOCKER -.->|API| DOCKER_ENGINE
-
+    
     style APP fill:#e8f5e8
     style WS fill:#fff3e0
     style DOCKER fill:#e3f2fd

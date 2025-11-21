@@ -53,6 +53,7 @@ async def inject_pdf_styles(page):
             h1, h2, h3, h4, h5, h6 {
                 color: #000 !important;
                 page-break-after: avoid;
+                page-break-inside: avoid;
             }
             
             /* Make paragraphs and list items visible */
@@ -80,19 +81,81 @@ async def inject_pdf_styles(page):
                 print-color-adjust: exact !important;
             }
             
-            /* Mermaid diagrams - reduce size */
+            /* Mermaid diagrams - intelligent sizing */
             .mermaid {
-                transform: scale(0.75);
-                transform-origin: top left;
-                margin: 20px 0 !important;
-                page-break-inside: avoid;
+                page-break-before: auto !important;
+                page-break-after: auto !important;
+                page-break-inside: avoid !important;
+                margin: 30px auto !important;
+                padding: 20px 0 !important;
+                display: block !important;
+                width: 100% !important;
                 max-width: 100% !important;
+                overflow: visible !important;
             }
             
-            /* SVG scaling for diagrams */
+            /* SVG scaling for diagrams with responsive sizing */
             .mermaid svg {
-                max-width: 100% !important;
+                max-width: 95% !important;
+                max-height: 900px !important;
+                width: auto !important;
                 height: auto !important;
+                margin: 0 auto !important;
+                display: block !important;
+            }
+            
+            /* Large diagrams (width > 1200px) - scale down more */
+            .mermaid svg[width^="1"], 
+            .mermaid svg[width^="2"],
+            .mermaid svg[width^="3"] {
+                transform: scale(0.65) !important;
+                transform-origin: center top !important;
+                margin-bottom: 40px !important;
+            }
+            
+            /* Medium diagrams (width 600-1200px) - moderate scaling */
+            .mermaid svg[width^="6"],
+            .mermaid svg[width^="7"],
+            .mermaid svg[width^="8"],
+            .mermaid svg[width^="9"] {
+                transform: scale(0.8) !important;
+                transform-origin: center top !important;
+                margin-bottom: 30px !important;
+            }
+            
+            /* Small diagrams - keep original size */
+            .mermaid svg[width^="4"],
+            .mermaid svg[width^="5"] {
+                transform: scale(0.9) !important;
+                transform-origin: center top !important;
+                margin-bottom: 20px !important;
+            }
+            
+            /* Flowchart specific styling */
+            .mermaid svg[id*="flowchart"],
+            .mermaid svg .flowchart {
+                max-height: 850px !important;
+            }
+            
+            /* Sequence diagrams */
+            .mermaid svg[id*="sequence"] {
+                max-height: 900px !important;
+                transform: scale(0.75) !important;
+                transform-origin: center top !important;
+            }
+            
+            /* Class diagrams */
+            .mermaid svg[id*="class"] {
+                max-height: 850px !important;
+                transform: scale(0.7) !important;
+                transform-origin: center top !important;
+            }
+            
+            /* ER diagrams */
+            .mermaid svg[id*="er"] {
+                max-height: 800px !important;
+                transform: scale(0.75) !important;
+                transform-origin: center top !important;
             }
             
             /* Ensure backgrounds print */
@@ -123,8 +186,9 @@ async def inject_pdf_styles(page):
             pre {
                 white-space: pre-wrap !important;
                 word-wrap: break-word !important;
-                font-size: 10px !important;
+                font-size: 9px !important;
                 padding: 10px !important;
+                page-break-inside: avoid !important;
             }
             
             /* Lists */
@@ -137,6 +201,24 @@ async def inject_pdf_styles(page):
                 border-left: 4px solid #4f46e5 !important;
                 padding-left: 15px !important;
                 color: #333 !important;
+                page-break-inside: avoid !important;
+            }
+            
+            /* Section breaks */
+            h2 {
+                page-break-before: auto !important;
+                margin-top: 30px !important;
+            }
+            
+            /* Keep related content together */
+            h3, h4 {
+                page-break-after: avoid !important;
+            }
+            
+            h3 + .mermaid,
+            h4 + .mermaid,
+            h2 + .mermaid {
+                page-break-before: avoid !important;
             }
         }
     """)
@@ -162,6 +244,64 @@ async def generate_pdf(html_file, pdf_file):
             await page.wait_for_selector('.mermaid svg', timeout=10000)
         except:
             pass  # Some pages might not have mermaid diagrams
+        
+        # Dynamically adjust diagram sizes based on dimensions
+        await page.evaluate("""
+            () => {
+                const diagrams = document.querySelectorAll('.mermaid svg');
+                diagrams.forEach((svg) => {
+                    const width = svg.getAttribute('width') || svg.viewBox?.baseVal.width || 0;
+                    const height = svg.getAttribute('height') || svg.viewBox?.baseVal.height || 0;
+                    
+                    const numWidth = parseFloat(width);
+                    const numHeight = parseFloat(height);
+                    
+                    // Very large diagrams (>1500px width or >1000px height)
+                    if (numWidth > 1500 || numHeight > 1000) {
+                        svg.style.transform = 'scale(0.55)';
+                        svg.style.transformOrigin = 'center top';
+                        svg.parentElement.style.marginBottom = '60px';
+                    }
+                    // Large diagrams (1000-1500px width or 700-1000px height)
+                    else if (numWidth > 1000 || numHeight > 700) {
+                        svg.style.transform = 'scale(0.65)';
+                        svg.style.transformOrigin = 'center top';
+                        svg.parentElement.style.marginBottom = '50px';
+                    }
+                    // Medium diagrams (700-1000px width or 500-700px height)
+                    else if (numWidth > 700 || numHeight > 500) {
+                        svg.style.transform = 'scale(0.75)';
+                        svg.style.transformOrigin = 'center top';
+                        svg.parentElement.style.marginBottom = '40px';
+                    }
+                    // Small-medium diagrams (500-700px width)
+                    else if (numWidth > 500) {
+                        svg.style.transform = 'scale(0.85)';
+                        svg.style.transformOrigin = 'center top';
+                        svg.parentElement.style.marginBottom = '30px';
+                    }
+                    // Small diagrams - keep at 95%
+                    else {
+                        svg.style.transform = 'scale(0.95)';
+                        svg.style.transformOrigin = 'center top';
+                        svg.parentElement.style.marginBottom = '20px';
+                    }
+                    
+                    // Center align all diagrams
+                    svg.style.display = 'block';
+                    svg.style.margin = '0 auto';
+                    svg.parentElement.style.textAlign = 'center';
+                    svg.parentElement.style.pageBreakInside = 'avoid';
+                    
+                    // Ensure container doesn't overflow
+                    svg.parentElement.style.overflow = 'visible';
+                    svg.parentElement.style.width = '100%';
+                });
+            }
+        """)
+        
+        # Additional wait after adjustments
+        await page.wait_for_timeout(2000)
         
         # Generate PDF with optimized settings
         await page.pdf(

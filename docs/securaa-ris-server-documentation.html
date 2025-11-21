@@ -106,144 +106,146 @@
 </ul>
 <h2 id="architecture">Architecture</h2>
 <h3 id="high-level-architecture">High-Level Architecture</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Load Balancer Tier&quot;</span>
-<span class="w">        </span><span class="n">LB</span><span class="p">[</span><span class="n">Load</span><span class="w"> </span><span class="n">Balancer</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">NGINX</span><span class="o">/</span><span class="n">HAProxy</span><span class="p">]</span>
-<span class="w">        </span><span class="n">WAF</span><span class="p">[</span><span class="n">Web</span><span class="w"> </span><span class="n">Application</span><span class="w"> </span><span class="n">Firewall</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "Load Balancer Tier"
+        LB[Load Balancer<br/>NGINX/HAProxy]
+        WAF[Web Application Firewall]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;RIS Server Cluster&quot;</span>
-<span class="w">        </span><span class="n">RS1</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Server</span><span class="w"> </span><span class="mi">1</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Primary</span><span class="p">]</span>
-<span class="w">        </span><span class="n">RS2</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Server</span><span class="w"> </span><span class="mi">2</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Secondary</span><span class="p">]</span>
-<span class="w">        </span><span class="n">RS3</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Server</span><span class="w"> </span><span class="mi">3</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Backup</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "RIS Server Cluster"
+        RS1[RIS Server 1<br/>Primary]
+        RS2[RIS Server 2<br/>Secondary]
+        RS3[RIS Server 3<br/>Backup]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Data Layer&quot;</span>
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;MongoDB Cluster&quot;</span>
-<span class="w">            </span><span class="n">MDB1</span><span class="p">[(</span><span class="n">MongoDB</span><span class="w"> </span><span class="n">Primary</span><span class="p">)]</span>
-<span class="w">            </span><span class="n">MDB2</span><span class="p">[(</span><span class="n">MongoDB</span><span class="w"> </span><span class="n">Secondary</span><span class="p">)]</span>
-<span class="w">            </span><span class="n">MDB3</span><span class="p">[(</span><span class="n">MongoDB</span><span class="w"> </span><span class="n">Arbiter</span><span class="p">)]</span>
-<span class="w">        </span><span class="n">end</span>
+    subgraph "Data Layer"
+        subgraph "MongoDB Cluster"
+            MDB1[(MongoDB Primary)]
+            MDB2[(MongoDB Secondary)]
+            MDB3[(MongoDB Arbiter)]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Cache Layer&quot;</span>
-<span class="w">            </span><span class="n">REDIS1</span><span class="p">[</span><span class="n">Redis</span><span class="w"> </span><span class="n">Master</span><span class="p">]</span>
-<span class="w">            </span><span class="n">REDIS2</span><span class="p">[</span><span class="n">Redis</span><span class="w"> </span><span class="n">Replica</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
-<span class="w">    </span><span class="n">end</span>
+        subgraph "Cache Layer"
+            REDIS1[Redis Master]
+            REDIS2[Redis Replica]
+        end
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Monitoring Stack&quot;</span>
-<span class="w">        </span><span class="n">PROM</span><span class="p">[</span><span class="n">Prometheus</span><span class="p">]</span>
-<span class="w">        </span><span class="n">GRAF</span><span class="p">[</span><span class="n">Grafana</span><span class="p">]</span>
-<span class="w">        </span><span class="n">ALERT</span><span class="p">[</span><span class="n">AlertManager</span><span class="p">]</span>
-<span class="w">        </span><span class="n">ELK</span><span class="p">[</span><span class="n">ELK</span><span class="w"> </span><span class="n">Stack</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Monitoring Stack"
+        PROM[Prometheus]
+        GRAF[Grafana]
+        ALERT[AlertManager]
+        ELK[ELK Stack]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;RIS Clients&quot;</span>
-<span class="w">        </span><span class="n">RC1</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
-<span class="w">        </span><span class="n">RC2</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
-<span class="w">        </span><span class="n">RCN</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="n">N</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "RIS Clients"
+        RC1[RIS Client 1]
+        RC2[RIS Client 2]
+        RCN[RIS Client N]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;External Systems&quot;</span>
-<span class="w">        </span><span class="n">EXT</span><span class="p">[</span><span class="n">External</span><span class="w"> </span><span class="n">APIs</span><span class="p">]</span>
-<span class="w">        </span><span class="n">LDAP</span><span class="p">[</span><span class="n">LDAP</span><span class="o">/</span><span class="n">AD</span><span class="p">]</span>
-<span class="w">        </span><span class="n">SMTP</span><span class="p">[</span><span class="n">SMTP</span><span class="w"> </span><span class="n">Server</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "External Systems"
+        EXT[External APIs]
+        LDAP[LDAP/AD]
+        SMTP[SMTP Server]
+    end
 
-<span class="w">    </span><span class="o">%%</span><span class="w"> </span><span class="n">Traffic</span><span class="w"> </span><span class="n">flow</span>
-<span class="w">    </span><span class="n">WAF</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LB</span>
-<span class="w">    </span><span class="n">LB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RS1</span>
-<span class="w">    </span><span class="n">LB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RS2</span>
-<span class="w">    </span><span class="n">LB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RS3</span>
+    %% Traffic flow
+    WAF --> LB
+    LB --> RS1
+    LB --> RS2
+    LB --> RS3
 
-<span class="w">    </span><span class="o">%%</span><span class="w"> </span><span class="n">Database</span><span class="w"> </span><span class="n">connections</span>
-<span class="w">    </span><span class="n">RS1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">MDB1</span>
-<span class="w">    </span><span class="n">RS2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">MDB1</span>
-<span class="w">    </span><span class="n">RS3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">MDB1</span>
-<span class="w">    </span><span class="n">MDB1</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">MDB2</span>
-<span class="w">    </span><span class="n">MDB2</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">MDB3</span>
+    %% Database connections
+    RS1 --> MDB1
+    RS2 --> MDB1
+    RS3 --> MDB1
+    MDB1 -.-> MDB2
+    MDB2 -.-> MDB3
 
-<span class="w">    </span><span class="o">%%</span><span class="w"> </span><span class="n">Cache</span><span class="w"> </span><span class="n">connections</span>
-<span class="w">    </span><span class="n">RS1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">REDIS1</span>
-<span class="w">    </span><span class="n">RS2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">REDIS1</span>
-<span class="w">    </span><span class="n">RS3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">REDIS1</span>
-<span class="w">    </span><span class="n">REDIS1</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">REDIS2</span>
+    %% Cache connections
+    RS1 --> REDIS1
+    RS2 --> REDIS1
+    RS3 --> REDIS1
+    REDIS1 -.-> REDIS2
 
-<span class="w">    </span><span class="o">%%</span><span class="w"> </span><span class="n">WebSocket</span><span class="w"> </span><span class="n">connections</span>
-<span class="w">    </span><span class="n">RS1</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;|</span><span class="n">WSS</span><span class="o">|</span><span class="w"> </span><span class="n">RC1</span>
-<span class="w">    </span><span class="n">RS2</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;|</span><span class="n">WSS</span><span class="o">|</span><span class="w"> </span><span class="n">RC2</span>
-<span class="w">    </span><span class="n">RS3</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;|</span><span class="n">WSS</span><span class="o">|</span><span class="w"> </span><span class="n">RCN</span>
+    %% WebSocket connections
+    RS1 -.->|WSS| RC1
+    RS2 -.->|WSS| RC2
+    RS3 -.->|WSS| RCN
 
-<span class="w">    </span><span class="o">%%</span><span class="w"> </span><span class="n">Monitoring</span>
-<span class="w">    </span><span class="n">RS1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PROM</span>
-<span class="w">    </span><span class="n">RS2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PROM</span>
-<span class="w">    </span><span class="n">RS3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PROM</span>
-<span class="w">    </span><span class="n">PROM</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">GRAF</span>
-<span class="w">    </span><span class="n">PROM</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ALERT</span>
+    %% Monitoring
+    RS1 --> PROM
+    RS2 --> PROM
+    RS3 --> PROM
+    PROM --> GRAF
+    PROM --> ALERT
 
-<span class="w">    </span><span class="o">%%</span><span class="w"> </span><span class="n">External</span><span class="w"> </span><span class="n">integrations</span>
-<span class="w">    </span><span class="n">RS1</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">EXT</span>
-<span class="w">    </span><span class="n">RS1</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">LDAP</span>
-<span class="w">    </span><span class="n">RS1</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">SMTP</span>
+    %% External integrations
+    RS1 -.-> EXT
+    RS1 -.-> LDAP
+    RS1 -.-> SMTP
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">LB</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e1bee7</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">RS1</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e8f5e8</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">MDB1</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fff9c4</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">REDIS1</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcdd2</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">RC1</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e3f2fd</span>
-</code></pre></div>
+    style LB fill:#e1bee7
+    style RS1 fill:#e8f5e8
+    style MDB1 fill:#fff9c4
+    style REDIS1 fill:#ffcdd2
+    style RC1 fill:#e3f2fd
+</div>
 
 <h3 id="component-architecture">Component Architecture</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;RIS Server Core&quot;</span>
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;API Layer&quot;</span>
-<span class="w">            </span><span class="n">REST</span><span class="p">[</span><span class="n">REST</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">Gateway</span><span class="p">]</span>
-<span class="w">            </span><span class="n">WS</span><span class="p">[</span><span class="n">WebSocket</span><span class="w"> </span><span class="n">Gateway</span><span class="p">]</span>
-<span class="w">            </span><span class="n">MW</span><span class="p">[</span><span class="n">Middleware</span><span class="w"> </span><span class="n">Stack</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "RIS Server Core"
+        subgraph "API Layer"
+            REST[REST API Gateway]
+            WS[WebSocket Gateway]
+            MW[Middleware Stack]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Business Logic&quot;</span>
-<span class="w">            </span><span class="n">RC</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Controller</span><span class="p">]</span>
-<span class="w">            </span><span class="n">TC</span><span class="p">[</span><span class="n">Tenant</span><span class="w"> </span><span class="n">Controller</span><span class="p">]</span>
-<span class="w">            </span><span class="n">ORCH</span><span class="p">[</span><span class="n">Task</span><span class="w"> </span><span class="n">Orchestrator</span><span class="p">]</span>
-<span class="w">            </span><span class="n">CM</span><span class="p">[</span><span class="n">Client</span><span class="w"> </span><span class="n">Manager</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
+        subgraph "Business Logic"
+            RC[RIS Controller]
+            TC[Tenant Controller]
+            ORCH[Task Orchestrator]
+            CM[Client Manager]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Data Access&quot;</span>
-<span class="w">            </span><span class="n">MDA</span><span class="p">[</span><span class="n">MongoDB</span><span class="w"> </span><span class="n">Adapter</span><span class="p">]</span>
-<span class="w">            </span><span class="n">RDA</span><span class="p">[</span><span class="n">Redis</span><span class="w"> </span><span class="n">Adapter</span><span class="p">]</span>
-<span class="w">            </span><span class="n">CACHE</span><span class="p">[</span><span class="n">Cache</span><span class="w"> </span><span class="n">Manager</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
+        subgraph "Data Access"
+            MDA[MongoDB Adapter]
+            RDA[Redis Adapter]
+            CACHE[Cache Manager]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Infrastructure&quot;</span>
-<span class="w">            </span><span class="n">AUTH</span><span class="p">[</span><span class="n">Auth</span><span class="w"> </span><span class="n">Service</span><span class="p">]</span>
-<span class="w">            </span><span class="n">LOG</span><span class="p">[</span><span class="n">Logging</span><span class="w"> </span><span class="n">Service</span><span class="p">]</span>
-<span class="w">            </span><span class="n">METRICS</span><span class="p">[</span><span class="n">Metrics</span><span class="w"> </span><span class="n">Service</span><span class="p">]</span>
-<span class="w">            </span><span class="n">CONFIG</span><span class="p">[</span><span class="n">Config</span><span class="w"> </span><span class="n">Manager</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
-<span class="w">    </span><span class="n">end</span>
+        subgraph "Infrastructure"
+            AUTH[Auth Service]
+            LOG[Logging Service]
+            METRICS[Metrics Service]
+            CONFIG[Config Manager]
+        end
+    end
 
-<span class="w">    </span><span class="n">REST</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">MW</span>
-<span class="w">    </span><span class="n">WS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">MW</span>
-<span class="w">    </span><span class="n">MW</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RC</span>
-<span class="w">    </span><span class="n">MW</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TC</span>
-<span class="w">    </span><span class="n">RC</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ORCH</span>
-<span class="w">    </span><span class="n">RC</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CM</span>
+    REST --> MW
+    WS --> MW
+    MW --> RC
+    MW --> TC
+    RC --> ORCH
+    RC --> CM
 
-<span class="w">    </span><span class="n">ORCH</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">MDA</span>
-<span class="w">    </span><span class="n">CM</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">MDA</span>
-<span class="w">    </span><span class="n">ORCH</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RDA</span>
-<span class="w">    </span><span class="n">CM</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CACHE</span>
+    ORCH --> MDA
+    CM --> MDA
+    ORCH --> RDA
+    CM --> CACHE
 
-<span class="w">    </span><span class="n">MW</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">AUTH</span>
-<span class="w">    </span><span class="n">RC</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOG</span>
-<span class="w">    </span><span class="n">ORCH</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">METRICS</span>
+    MW --> AUTH
+    RC --> LOG
+    ORCH --> METRICS
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">REST</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e8f5e8</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">WS</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fff3e0</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">ORCH</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e1bee7</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">AUTH</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcdd2</span>
-</code></pre></div>
+    style REST fill:#e8f5e8
+    style WS fill:#fff3e0
+    style ORCH fill:#e1bee7
+    style AUTH fill:#ffcdd2
+</div>
 
 <h3 id="detailed-component-design">Detailed Component Design</h3>
 <h4 id="1-api-gateway-layer">1. API Gateway Layer</h4>
@@ -1245,36 +1247,37 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="
 
 <h2 id="client-management">Client Management</h2>
 <h3 id="client-registration-process">Client Registration Process</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">RIS</span><span class="w"> </span><span class="n">Client</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">LB</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="kr">Load</span><span class="w"> </span><span class="n">Balancer</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Server</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">RIS</span><span class="w"> </span><span class="n">Server</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Database</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Auth</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Auth</span><span class="w"> </span><span class="kr">Service</span>
+<div class="mermaid">
+sequenceDiagram
+    participant Client as RIS Client
+    participant LB as Load Balancer
+    participant Server as RIS Server
+    participant DB as Database
+    participant Auth as Auth Service
 
-<span class="w">    </span><span class="n">Client</span><span class="o">-&gt;&gt;</span><span class="n">LB</span><span class="o">:</span><span class="w"> </span><span class="n">WebSocket</span><span class="w"> </span><span class="n">Connection</span><span class="w"> </span><span class="n">Request</span>
-<span class="w">    </span><span class="n">LB</span><span class="o">-&gt;&gt;</span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="n">Route</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Available</span><span class="w"> </span><span class="n">Server</span>
-<span class="w">    </span><span class="n">Server</span><span class="o">-&gt;&gt;</span><span class="n">Auth</span><span class="o">:</span><span class="w"> </span><span class="kr">Validate</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="n">Certificate</span>
-<span class="w">    </span><span class="n">Auth</span><span class="o">--&gt;&gt;</span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="n">Certificate</span><span class="w"> </span><span class="n">Valid</span>
+    Client->>LB: WebSocket Connection Request
+    LB->>Server: Route to Available Server
+    Server->>Auth: Validate Client Certificate
+    Auth-->>Server: Certificate Valid
 
-<span class="w">    </span><span class="n">Server</span><span class="o">-&gt;&gt;</span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="n">Upgrade</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">WebSocket</span>
-<span class="w">    </span><span class="n">Server</span><span class="o">--&gt;&gt;</span><span class="n">Client</span><span class="o">:</span><span class="w"> </span><span class="n">Connection</span><span class="w"> </span><span class="n">Established</span>
+    Server->>Server: Upgrade to WebSocket
+    Server-->>Client: Connection Established
 
-<span class="w">    </span><span class="n">Client</span><span class="o">-&gt;&gt;</span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="n">Registration</span><span class="w"> </span><span class="kt">Data</span>
-<span class="w">    </span><span class="n">Note</span><span class="w"> </span><span class="kr">right</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="n">Client</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="n">clienthost</span><span class="p">,</span><span class="w"> </span><span class="n">unique_id</span><span class="p">,</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">version</span><span class="p">,</span><span class="w"> </span><span class="n">capabilities</span><span class="p">}</span>
+    Client->>Server: Registration Data
+    Note right of Client: {clienthost, unique_id,<br/>version, capabilities}
 
-<span class="w">    </span><span class="n">Server</span><span class="o">-&gt;&gt;</span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="kr">Validate</span><span class="w"> </span><span class="n">Registration</span>
-<span class="w">    </span><span class="n">Server</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="kr">Store</span><span class="o">/</span><span class="n">Update</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="n">Info</span>
-<span class="w">    </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="kr">Success</span>
+    Server->>Server: Validate Registration
+    Server->>DB: Store/Update Client Info
+    DB-->>Server: Success
 
-<span class="w">    </span><span class="n">Server</span><span class="o">-&gt;&gt;</span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">Configuration</span>
-<span class="w">    </span><span class="n">Server</span><span class="o">--&gt;&gt;</span><span class="n">Client</span><span class="o">:</span><span class="w"> </span><span class="n">Registration</span><span class="w"> </span><span class="n">Acknowledgment</span>
+    Server->>Server: Generate Configuration
+    Server-->>Client: Registration Acknowledgment
 
-<span class="w">    </span><span class="nf">loop</span><span class="w"> </span><span class="n">Heartbeat</span>
-<span class="w">        </span><span class="n">Client</span><span class="o">-&gt;&gt;</span><span class="n">Server</span><span class="o">:</span><span class="w"> </span><span class="n">Heartbeat</span>
-<span class="w">        </span><span class="n">Server</span><span class="o">--&gt;&gt;</span><span class="n">Client</span><span class="o">:</span><span class="w"> </span><span class="n">Heartbeat</span><span class="w"> </span><span class="n">ACK</span>
-<span class="w">    </span><span class="kd">end</span>
-</code></pre></div>
+    loop Heartbeat
+        Client->>Server: Heartbeat
+        Server-->>Client: Heartbeat ACK
+    end
+</div>
 
 <h3 id="client-lifecycle-management">Client Lifecycle Management</h3>
 <h4 id="registration">Registration</h4>
@@ -1365,55 +1368,56 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="
 
 <h2 id="task-orchestration">Task Orchestration</h2>
 <h3 id="task-routing-engine">Task Routing Engine</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Task Submission&quot;</span>
-<span class="w">        </span><span class="n">API</span><span class="p">[</span><span class="n">API</span><span class="w"> </span><span class="n">Request</span><span class="p">]</span>
-<span class="w">        </span><span class="n">VALIDATE</span><span class="p">[</span><span class="n">Validate</span><span class="w"> </span><span class="n">Task</span><span class="p">]</span>
-<span class="w">        </span><span class="n">AUTH</span><span class="p">[</span><span class="n">Authorize</span><span class="w"> </span><span class="n">User</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "Task Submission"
+        API[API Request]
+        VALIDATE[Validate Task]
+        AUTH[Authorize User]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Task Orchestration&quot;</span>
-<span class="w">        </span><span class="n">QUEUE</span><span class="p">[</span><span class="n">Task</span><span class="w"> </span><span class="n">Queue</span><span class="p">]</span>
-<span class="w">        </span><span class="n">ROUTER</span><span class="p">[</span><span class="n">Task</span><span class="w"> </span><span class="n">Router</span><span class="p">]</span>
-<span class="w">        </span><span class="n">LB</span><span class="p">[</span><span class="n">Load</span><span class="w"> </span><span class="n">Balancer</span><span class="p">]</span>
-<span class="w">        </span><span class="n">SELECTOR</span><span class="p">[</span><span class="n">Client</span><span class="w"> </span><span class="n">Selector</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Task Orchestration"
+        QUEUE[Task Queue]
+        ROUTER[Task Router]
+        LB[Load Balancer]
+        SELECTOR[Client Selector]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Task Execution&quot;</span>
-<span class="w">        </span><span class="n">CLIENT1</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
-<span class="w">        </span><span class="n">CLIENT2</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
-<span class="w">        </span><span class="n">CLIENTN</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="n">N</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Task Execution"
+        CLIENT1[RIS Client 1]
+        CLIENT2[RIS Client 2]
+        CLIENTN[RIS Client N]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Task Monitoring&quot;</span>
-<span class="w">        </span><span class="n">TRACKER</span><span class="p">[</span><span class="n">Task</span><span class="w"> </span><span class="n">Tracker</span><span class="p">]</span>
-<span class="w">        </span><span class="n">STATUS</span><span class="p">[</span><span class="n">Status</span><span class="w"> </span><span class="n">Monitor</span><span class="p">]</span>
-<span class="w">        </span><span class="n">LOGGER</span><span class="p">[</span><span class="n">Audit</span><span class="w"> </span><span class="n">Logger</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Task Monitoring"
+        TRACKER[Task Tracker]
+        STATUS[Status Monitor]
+        LOGGER[Audit Logger]
+    end
 
-<span class="w">    </span><span class="n">API</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">VALIDATE</span>
-<span class="w">    </span><span class="n">VALIDATE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">AUTH</span>
-<span class="w">    </span><span class="n">AUTH</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">QUEUE</span>
+    API --> VALIDATE
+    VALIDATE --> AUTH
+    AUTH --> QUEUE
 
-<span class="w">    </span><span class="n">QUEUE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ROUTER</span>
-<span class="w">    </span><span class="n">ROUTER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LB</span>
-<span class="w">    </span><span class="n">LB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">SELECTOR</span>
+    QUEUE --> ROUTER
+    ROUTER --> LB
+    LB --> SELECTOR
 
-<span class="w">    </span><span class="n">SELECTOR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CLIENT1</span>
-<span class="w">    </span><span class="n">SELECTOR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CLIENT2</span>
-<span class="w">    </span><span class="n">SELECTOR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CLIENTN</span>
+    SELECTOR --> CLIENT1
+    SELECTOR --> CLIENT2
+    SELECTOR --> CLIENTN
 
-<span class="w">    </span><span class="n">CLIENT1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TRACKER</span>
-<span class="w">    </span><span class="n">CLIENT2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TRACKER</span>
-<span class="w">    </span><span class="n">CLIENTN</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TRACKER</span>
+    CLIENT1 --> TRACKER
+    CLIENT2 --> TRACKER
+    CLIENTN --> TRACKER
 
-<span class="w">    </span><span class="n">TRACKER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">STATUS</span>
-<span class="w">    </span><span class="n">TRACKER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOGGER</span>
+    TRACKER --> STATUS
+    TRACKER --> LOGGER
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">QUEUE</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fff3e0</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">ROUTER</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e8f5e8</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">TRACKER</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e3f2fd</span>
-</code></pre></div>
+    style QUEUE fill:#fff3e0
+    style ROUTER fill:#e8f5e8
+    style TRACKER fill:#e3f2fd
+</div>
 
 <h3 id="task-types-and-schemas">Task Types and Schemas</h3>
 <h4 id="http-request-task">HTTP Request Task</h4>
@@ -1599,55 +1603,56 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="
 
 <h2 id="multi-tenant-architecture">Multi-Tenant Architecture</h2>
 <h3 id="tenant-isolation-strategies">Tenant Isolation Strategies</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Request Layer&quot;</span>
-<span class="w">        </span><span class="n">REQ</span><span class="p">[</span><span class="n">HTTP</span><span class="w"> </span><span class="n">Request</span><span class="p">]</span>
-<span class="w">        </span><span class="n">EXTRACT</span><span class="p">[</span><span class="n">Extract</span><span class="w"> </span><span class="n">Tenant</span><span class="w"> </span><span class="n">Context</span><span class="p">]</span>
-<span class="w">        </span><span class="n">VALIDATE</span><span class="p">[</span><span class="n">Validate</span><span class="w"> </span><span class="n">Tenant</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "Request Layer"
+        REQ[HTTP Request]
+        EXTRACT[Extract Tenant Context]
+        VALIDATE[Validate Tenant]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Data Layer Isolation&quot;</span>
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Database Level&quot;</span>
-<span class="w">            </span><span class="n">DB1</span><span class="p">[(</span><span class="n">Tenant</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">DB</span><span class="p">)]</span>
-<span class="w">            </span><span class="n">DB2</span><span class="p">[(</span><span class="n">Tenant</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">DB</span><span class="p">)]</span>
-<span class="w">            </span><span class="n">DB3</span><span class="p">[(</span><span class="n">Shared</span><span class="w"> </span><span class="n">DB</span><span class="p">)]</span>
-<span class="w">        </span><span class="n">end</span>
+    subgraph "Data Layer Isolation"
+        subgraph "Database Level"
+            DB1[(Tenant A DB)]
+            DB2[(Tenant B DB)]
+            DB3[(Shared DB)]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Application Level&quot;</span>
-<span class="w">            </span><span class="n">FILTER</span><span class="p">[</span><span class="n">Data</span><span class="w"> </span><span class="n">Filtering</span><span class="p">]</span>
-<span class="w">            </span><span class="n">SCOPE</span><span class="p">[</span><span class="n">Query</span><span class="w"> </span><span class="n">Scoping</span><span class="p">]</span>
-<span class="w">            </span><span class="n">ENCRYPT</span><span class="p">[</span><span class="n">Tenant</span><span class="w"> </span><span class="n">Encryption</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
-<span class="w">    </span><span class="n">end</span>
+        subgraph "Application Level"
+            FILTER[Data Filtering]
+            SCOPE[Query Scoping]
+            ENCRYPT[Tenant Encryption]
+        end
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Resource Isolation&quot;</span>
-<span class="w">        </span><span class="n">CONN1</span><span class="p">[</span><span class="n">Tenant</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">Connections</span><span class="p">]</span>
-<span class="w">        </span><span class="n">CONN2</span><span class="p">[</span><span class="n">Tenant</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">Connections</span><span class="p">]</span>
-<span class="w">        </span><span class="n">CACHE1</span><span class="p">[</span><span class="n">Tenant</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">Cache</span><span class="p">]</span>
-<span class="w">        </span><span class="n">CACHE2</span><span class="p">[</span><span class="n">Tenant</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">Cache</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Resource Isolation"
+        CONN1[Tenant A Connections]
+        CONN2[Tenant B Connections]
+        CACHE1[Tenant A Cache]
+        CACHE2[Tenant B Cache]
+    end
 
-<span class="w">    </span><span class="n">REQ</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">EXTRACT</span>
-<span class="w">    </span><span class="n">EXTRACT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">VALIDATE</span>
-<span class="w">    </span><span class="n">VALIDATE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FILTER</span>
-<span class="w">    </span><span class="n">VALIDATE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">SCOPE</span>
+    REQ --> EXTRACT
+    EXTRACT --> VALIDATE
+    VALIDATE --> FILTER
+    VALIDATE --> SCOPE
 
-<span class="w">    </span><span class="n">FILTER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DB1</span>
-<span class="w">    </span><span class="n">FILTER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DB2</span>
-<span class="w">    </span><span class="n">FILTER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DB3</span>
+    FILTER --> DB1
+    FILTER --> DB2
+    FILTER --> DB3
 
-<span class="w">    </span><span class="n">SCOPE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ENCRYPT</span>
-<span class="w">    </span><span class="n">ENCRYPT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CONN1</span>
-<span class="w">    </span><span class="n">ENCRYPT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CONN2</span>
+    SCOPE --> ENCRYPT
+    ENCRYPT --> CONN1
+    ENCRYPT --> CONN2
 
-<span class="w">    </span><span class="n">CONN1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CACHE1</span>
-<span class="w">    </span><span class="n">CONN2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CACHE2</span>
+    CONN1 --> CACHE1
+    CONN2 --> CACHE2
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">DB1</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e8f5e8</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">DB2</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fff3e0</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">DB3</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e3f2fd</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">ENCRYPT</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcdd2</span>
-</code></pre></div>
+    style DB1 fill:#e8f5e8
+    style DB2 fill:#fff3e0
+    style DB3 fill:#e3f2fd
+    style ENCRYPT fill:#ffcdd2
+</div>
 
 <h3 id="tenant-management_1">Tenant Management</h3>
 <h4 id="tenant-model">Tenant Model</h4>

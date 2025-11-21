@@ -232,529 +232,537 @@
 <hr />
 <h2 id="3-architecture-diagrams">3. Architecture Diagrams</h2>
 <h3 id="31-system-architecture-overview">3.1 System Architecture Overview</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">ClientLayer</span><span class="p">[</span><span class="s">&quot;Client Layer&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">UI</span><span class="p">[</span><span class="n">Web</span><span class="w"> </span><span class="n">UI</span><span class="p">]</span>
-<span class="w">        </span><span class="n">CLI</span><span class="p">[</span><span class="n">CLI</span><span class="w"> </span><span class="n">Tools</span><span class="p">]</span>
-<span class="w">        </span><span class="n">EXT</span><span class="p">[</span><span class="n">External</span><span class="w"> </span><span class="n">Systems</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph ClientLayer["Client Layer"]
+        UI[Web UI]
+        CLI[CLI Tools]
+        EXT[External Systems]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">GatewayLayer</span><span class="p">[</span><span class="s">&quot;API Gateway Layer&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">TYK</span><span class="p">[</span><span class="n">Tyk</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">Gateway</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Authentication</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Routing</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph GatewayLayer["API Gateway Layer"]
+        TYK[Tyk API Gateway<br/>Authentication & Routing]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">ApplicationLayer</span><span class="p">[</span><span class="s">&quot;Application Layer&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">WEB</span><span class="p">[</span><span class="n">FastAPI</span><span class="w"> </span><span class="n">Web</span><span class="w"> </span><span class="n">Service</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Port</span><span class="w"> </span><span class="mi">8000</span><span class="p">]</span>
-<span class="w">        </span><span class="n">CHAT</span><span class="p">[</span><span class="n">Chat</span><span class="w"> </span><span class="n">Service</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Streaming</span><span class="w"> </span><span class="n">Support</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph ApplicationLayer["Application Layer"]
+        WEB[FastAPI Web Service<br/>Port 8000]
+        CHAT[Chat Service<br/>Streaming Support]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">MessageQueue</span><span class="p">[</span><span class="s">&quot;Message Queue&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">KAFKA</span><span class="p">[</span><span class="n">Apache</span><span class="w"> </span><span class="n">Kafka</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Event</span><span class="w"> </span><span class="n">Streaming</span><span class="p">]</span>
-<span class="w">        </span><span class="n">REDIS</span><span class="p">[</span><span class="n">Redis</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Task</span><span class="w"> </span><span class="n">Queue</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Cache</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph MessageQueue["Message Queue"]
+        KAFKA[Apache Kafka<br/>Event Streaming]
+        REDIS[Redis<br/>Task Queue & Cache]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">WorkerLayer</span><span class="p">[</span><span class="s">&quot;Worker Layer&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">WORKER</span><span class="p">[</span><span class="n">Celery</span><span class="w"> </span><span class="n">Workers</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Background</span><span class="w"> </span><span class="n">Tasks</span><span class="p">]</span>
-<span class="w">        </span><span class="n">INDEXER</span><span class="p">[</span><span class="n">Kafka</span><span class="w"> </span><span class="n">Indexer</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Vector</span><span class="w"> </span><span class="n">Indexing</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FPR</span><span class="p">[</span><span class="n">FPR</span><span class="w"> </span><span class="n">Processor</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Noise</span><span class="w"> </span><span class="n">Reduction</span><span class="p">]</span>
-<span class="w">        </span><span class="n">NWORKER</span><span class="p">[</span><span class="n">Novelty</span><span class="w"> </span><span class="n">Worker</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">ML</span><span class="w"> </span><span class="n">Processing</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph WorkerLayer["Worker Layer"]
+        WORKER[Celery Workers<br/>Background Tasks]
+        INDEXER[Kafka Indexer<br/>Vector Indexing]
+        FPR[FPR Processor<br/>Noise Reduction]
+        NWORKER[Novelty Worker<br/>ML Processing]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">DataLayer</span><span class="p">[</span><span class="s">&quot;Data Layer&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">PG</span><span class="p">[(</span><span class="n">PostgreSQL</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">pgvector</span><span class="p">)]</span>
-<span class="w">        </span><span class="n">CHROMA</span><span class="p">[(</span><span class="n">ChromaDB</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Vector</span><span class="w"> </span><span class="n">Store</span><span class="p">)]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph DataLayer["Data Layer"]
+        PG[(PostgreSQL<br/>pgvector)]
+        CHROMA[(ChromaDB<br/>Vector Store)]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">ExternalServices</span><span class="p">[</span><span class="s">&quot;External Services&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">LLM</span><span class="p">[</span><span class="n">LLM</span><span class="w"> </span><span class="n">Providers</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">OpenAI</span><span class="o">/</span><span class="n">Groq</span><span class="o">/</span><span class="n">Gemini</span><span class="p">]</span>
-<span class="w">        </span><span class="n">TIP</span><span class="p">[</span><span class="n">Threat</span><span class="w"> </span><span class="n">Intel</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">VirusTotal</span><span class="o">/</span><span class="n">TIP</span><span class="p">]</span>
-<span class="w">        </span><span class="n">SOAR</span><span class="p">[</span><span class="n">SOAR</span><span class="w"> </span><span class="n">Platform</span><span class="p">]</span>
-<span class="w">        </span><span class="n">NDS</span><span class="p">[</span><span class="n">Novelty</span><span class="w"> </span><span class="n">Detection</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Service</span><span class="p">]</span>
-<span class="w">        </span><span class="n">DTX</span><span class="p">[</span><span class="n">DTX</span><span class="w"> </span><span class="n">Prompt</span><span class="w"> </span><span class="n">Guard</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph ExternalServices["External Services"]
+        LLM[LLM Providers<br/>OpenAI/Groq/Gemini]
+        TIP[Threat Intel<br/>VirusTotal/TIP]
+        SOAR[SOAR Platform]
+        NDS[Novelty Detection<br/>Service]
+        DTX[DTX Prompt Guard]
+    end
 
-<span class="w">    </span><span class="n">UI</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TYK</span>
-<span class="w">    </span><span class="n">CLI</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TYK</span>
-<span class="w">    </span><span class="n">EXT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TYK</span>
+    UI --> TYK
+    CLI --> TYK
+    EXT --> TYK
 
-<span class="w">    </span><span class="n">TYK</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">WEB</span>
-<span class="w">    </span><span class="n">TYK</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CHAT</span>
+    TYK --> WEB
+    TYK --> CHAT
 
-<span class="w">    </span><span class="n">WEB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">REDIS</span>
-<span class="w">    </span><span class="n">WEB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">KAFKA</span>
-<span class="w">    </span><span class="n">WEB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
+    WEB --> REDIS
+    WEB --> KAFKA
+    WEB --> PG
 
-<span class="w">    </span><span class="n">CHAT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">CHAT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LLM</span>
+    CHAT --> PG
+    CHAT --> LLM
 
-<span class="w">    </span><span class="n">KAFKA</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">INDEXER</span>
-<span class="w">    </span><span class="n">KAFKA</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FPR</span>
+    KAFKA --> INDEXER
+    KAFKA --> FPR
 
-<span class="w">    </span><span class="n">REDIS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">WORKER</span>
-<span class="w">    </span><span class="n">REDIS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">NWORKER</span>
+    REDIS --> WORKER
+    REDIS --> NWORKER
 
-<span class="w">    </span><span class="n">WORKER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">WORKER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LLM</span>
-<span class="w">    </span><span class="n">WORKER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">REDIS</span>
+    WORKER --> PG
+    WORKER --> LLM
+    WORKER --> REDIS
 
-<span class="w">    </span><span class="n">INDEXER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">INDEXER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">KAFKA</span>
+    INDEXER --> PG
+    INDEXER --> KAFKA
 
-<span class="w">    </span><span class="n">FPR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">FPR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">NDS</span>
-<span class="w">    </span><span class="n">FPR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">KAFKA</span>
+    FPR --> PG
+    FPR --> NDS
+    FPR --> KAFKA
 
-<span class="w">    </span><span class="n">NWORKER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">NWORKER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">NDS</span>
+    NWORKER --> PG
+    NWORKER --> NDS
 
-<span class="w">    </span><span class="n">WEB</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">CHROMA</span>
-<span class="w">    </span><span class="n">INDEXER</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">CHROMA</span>
+    WEB -.-> CHROMA
+    INDEXER -.-> CHROMA
 
-<span class="w">    </span><span class="n">WEB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TIP</span>
-<span class="w">    </span><span class="n">WEB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">SOAR</span>
-<span class="w">    </span><span class="n">WEB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DTX</span>
+    WEB --> TIP
+    WEB --> SOAR
+    WEB --> DTX
 
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">gateway</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">application</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">99</span><span class="n">ccff</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">queue</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mf">99f</span><span class="n">f99</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">external</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff99ff</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
+    classDef gateway fill:#ff9999,stroke:#333,stroke-width:2px
+    classDef application fill:#99ccff,stroke:#333,stroke-width:2px
+    classDef queue fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef database fill:#99ff99,stroke:#333,stroke-width:2px
+    classDef external fill:#ff99ff,stroke:#333,stroke-width:2px
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">TYK</span><span class="w"> </span><span class="n">gateway</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">WEB</span><span class="p">,</span><span class="n">CHAT</span><span class="w"> </span><span class="n">application</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">KAFKA</span><span class="p">,</span><span class="n">REDIS</span><span class="w"> </span><span class="n">queue</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">PG</span><span class="p">,</span><span class="n">CHROMA</span><span class="w"> </span><span class="n">database</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">LLM</span><span class="p">,</span><span class="n">TIP</span><span class="p">,</span><span class="n">SOAR</span><span class="p">,</span><span class="n">NDS</span><span class="p">,</span><span class="n">DTX</span><span class="w"> </span><span class="n">external</span>
-</code></pre></div>
+    class TYK gateway
+    class WEB,CHAT application
+    class KAFKA,REDIS queue
+    class PG,CHROMA database
+    class LLM,TIP,SOAR,NDS,DTX external
+</div>
 
 <h3 id="32-case-analysis-flow-diagram">3.2 Case Analysis Flow Diagram</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
-<span class="w">    </span><span class="n">autonumber</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Client</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Tyk</span><span class="w"> </span><span class="n">Gateway</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">FastAPI</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">CE</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Celery</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Worker</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Redis</span><span class="w"> </span><span class="n">Cache</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">PostgreSQL</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">V</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">Vector</span><span class="w"> </span><span class="n">Search</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">LLM</span>
+<div class="mermaid">
+sequenceDiagram
+    autonumber
+    participant C as Client
+    participant T as Tyk Gateway
+    participant F as FastAPI
+    participant CE as Celery
+    participant W as Worker
+    participant R as Redis Cache
+    participant P as PostgreSQL
+    participant V as Vector Search
+    participant L as LLM
 
-<span class="w">    </span><span class="n">C</span><span class="o">-&gt;&gt;</span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">case</span><span class="o">/</span><span class="n">analysis</span>
-<span class="w">    </span><span class="n">T</span><span class="o">-&gt;&gt;</span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="n">Validate</span><span class="w"> </span><span class="n">JWT</span><span class="w"> </span><span class="n">Token</span>
-<span class="w">    </span><span class="n">T</span><span class="o">-&gt;&gt;</span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="n">Forward</span><span class="w"> </span><span class="n">Request</span>
-<span class="w">    </span><span class="n">F</span><span class="o">-&gt;&gt;</span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="n">Parse</span><span class="w"> </span><span class="n">Case</span><span class="w"> </span><span class="n">Payload</span>
-<span class="w">    </span><span class="n">F</span><span class="o">-&gt;&gt;</span><span class="n">CE</span><span class="p">:</span><span class="w"> </span><span class="n">Queue</span><span class="w"> </span><span class="n">Analysis</span><span class="w"> </span><span class="n">Task</span>
-<span class="w">    </span><span class="n">CE</span><span class="o">--&gt;&gt;</span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="n">task_id</span>
-<span class="w">    </span><span class="n">F</span><span class="o">--&gt;&gt;</span><span class="n">C</span><span class="p">:</span><span class="w"> </span><span class="mi">201</span><span class="w"> </span><span class="p">{</span><span class="n">task_id</span><span class="p">}</span>
+    C->>T: POST /case/analysis
+    T->>T: Validate JWT Token
+    T->>F: Forward Request
+    F->>F: Parse Case Payload
+    F->>CE: Queue Analysis Task
+    CE-->>F: task_id
+    F-->>C: 201 {task_id}
 
-<span class="w">    </span><span class="n">Note</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="n">W</span><span class="p">:</span><span class="w"> </span><span class="n">Async</span><span class="w"> </span><span class="n">Processing</span>
-<span class="w">    </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">CE</span><span class="p">:</span><span class="w"> </span><span class="n">Dequeue</span><span class="w"> </span><span class="n">Task</span>
-<span class="w">    </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">R</span><span class="p">:</span><span class="w"> </span><span class="n">Check</span><span class="w"> </span><span class="n">Cache</span><span class="w"> </span><span class="p">(</span><span class="nb">hash</span><span class="p">)</span>
+    Note over W: Async Processing
+    W->>CE: Dequeue Task
+    W->>R: Check Cache (hash)
 
-<span class="w">    </span><span class="n">alt</span><span class="w"> </span><span class="n">Cache</span><span class="w"> </span><span class="n">Hit</span>
-<span class="w">        </span><span class="n">R</span><span class="o">--&gt;&gt;</span><span class="n">W</span><span class="p">:</span><span class="w"> </span><span class="n">Cached</span><span class="w"> </span><span class="n">Result</span>
-<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">Cache</span><span class="w"> </span><span class="n">Miss</span>
-<span class="w">        </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">V</span><span class="p">:</span><span class="w"> </span><span class="n">Vector</span><span class="w"> </span><span class="n">Search</span><span class="w"> </span><span class="n">Similar</span><span class="w"> </span><span class="n">Tasks</span>
-<span class="w">        </span><span class="n">V</span><span class="o">-&gt;&gt;</span><span class="n">P</span><span class="p">:</span><span class="w"> </span><span class="n">Query</span><span class="w"> </span><span class="n">Embeddings</span>
-<span class="w">        </span><span class="n">P</span><span class="o">--&gt;&gt;</span><span class="n">V</span><span class="p">:</span><span class="w"> </span><span class="n">Similar</span><span class="w"> </span><span class="n">Tasks</span>
-<span class="w">        </span><span class="n">V</span><span class="o">--&gt;&gt;</span><span class="n">W</span><span class="p">:</span><span class="w"> </span><span class="n">Context</span><span class="w"> </span><span class="n">Tasks</span>
-<span class="w">        </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">W</span><span class="p">:</span><span class="w"> </span><span class="n">Build</span><span class="w"> </span><span class="n">RAG</span><span class="w"> </span><span class="n">Prompt</span>
-<span class="w">        </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">L</span><span class="p">:</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">Analysis</span>
-<span class="w">        </span><span class="n">L</span><span class="o">--&gt;&gt;</span><span class="n">W</span><span class="p">:</span><span class="w"> </span><span class="n">JSON</span><span class="w"> </span><span class="n">Response</span>
-<span class="w">        </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">W</span><span class="p">:</span><span class="w"> </span><span class="n">Parse</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Validate</span>
-<span class="w">        </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">R</span><span class="p">:</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">Cache</span>
-<span class="w">        </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">P</span><span class="p">:</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="n">Case</span><span class="w"> </span><span class="n">Summary</span>
-<span class="w">        </span><span class="n">W</span><span class="o">-&gt;&gt;</span><span class="n">CE</span><span class="p">:</span><span class="w"> </span><span class="n">Trigger</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">Scoring</span>
-<span class="w">    </span><span class="n">end</span>
+    alt Cache Hit
+        R-->>W: Cached Result
+    else Cache Miss
+        W->>V: Vector Search Similar Tasks
+        V->>P: Query Embeddings
+        P-->>V: Similar Tasks
+        V-->>W: Context Tasks
+        W->>W: Build RAG Prompt
+        W->>L: Generate Analysis
+        L-->>W: JSON Response
+        W->>W: Parse & Validate
+        W->>R: Store in Cache
+        W->>P: Store Case Summary
+        W->>CE: Trigger Risk Scoring
+    end
 
-<span class="w">    </span><span class="n">W</span><span class="o">--&gt;&gt;</span><span class="n">CE</span><span class="p">:</span><span class="w"> </span><span class="n">Complete</span><span class="w"> </span><span class="n">Task</span>
+    W-->>CE: Complete Task
 
-<span class="w">    </span><span class="n">C</span><span class="o">-&gt;&gt;</span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="o">/</span><span class="n">case</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="p">{</span><span class="n">task_id</span><span class="p">}</span>
-<span class="w">    </span><span class="n">F</span><span class="o">-&gt;&gt;</span><span class="n">CE</span><span class="p">:</span><span class="w"> </span><span class="n">Get</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="n">Result</span>
-<span class="w">    </span><span class="n">CE</span><span class="o">--&gt;&gt;</span><span class="n">F</span><span class="p">:</span><span class="w"> </span><span class="n">Analysis</span><span class="w"> </span><span class="n">Result</span>
-<span class="w">    </span><span class="n">F</span><span class="o">--&gt;&gt;</span><span class="n">C</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="p">{</span><span class="n">result</span><span class="p">}</span>
-</code></pre></div>
+    C->>F: GET /case/analysis/{task_id}
+    F->>CE: Get Task Result
+    CE-->>F: Analysis Result
+    F-->>C: 200 {result}
+</div>
 
 <h3 id="33-task-indexing-pipeline">3.3 Task Indexing Pipeline</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
-<span class="w">    </span><span class="n">START</span><span class="p">[</span><span class="n">Start</span><span class="o">:</span><span class="w"> </span><span class="n">New</span><span class="w"> </span><span class="n">Tasks</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CLI</span><span class="p">{</span><span class="n">Source</span><span class="p">}</span>
+<div class="mermaid">
+flowchart TD
+    START[Start: New Tasks] --> CLI{Source}
 
-<span class="w">    </span><span class="n">CLI</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">CLI</span><span class="w"> </span><span class="n">Command</span><span class="o">|</span><span class="w"> </span><span class="n">PROC1</span><span class="p">[</span><span class="n">JsonProcessor</span><span class="p">]</span>
-<span class="w">    </span><span class="n">CLI</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">API</span><span class="w"> </span><span class="n">Call</span><span class="o">|</span><span class="w"> </span><span class="n">PROC2</span><span class="p">[</span><span class="n">API</span><span class="w"> </span><span class="n">Handler</span><span class="p">]</span>
+    CLI -->|CLI Command| PROC1[JsonProcessor]
+    CLI -->|API Call| PROC2[API Handler]
 
-<span class="w">    </span><span class="n">PROC1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">KAFKA1</span><span class="p">[</span><span class="n">Kafka</span><span class="w"> </span><span class="n">Producer</span><span class="p">]</span>
-<span class="w">    </span><span class="n">PROC2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">KAFKA1</span>
+    PROC1 --> KAFKA1[Kafka Producer]
+    PROC2 --> KAFKA1
 
-<span class="w">    </span><span class="n">KAFKA1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TOPIC1</span><span class="p">[(</span><span class="n">indexing</span><span class="o">-</span><span class="n">topic</span><span class="p">)]</span>
+    KAFKA1 --> TOPIC1[(indexing-topic)]
 
-<span class="w">    </span><span class="n">TOPIC1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">INDEXER</span><span class="p">[</span><span class="n">Kafka</span><span class="w"> </span><span class="n">Indexer</span><span class="w"> </span><span class="n">Consumer</span><span class="p">]</span>
+    TOPIC1 --> INDEXER[Kafka Indexer Consumer]
 
-<span class="w">    </span><span class="n">INDEXER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOOP</span><span class="p">{</span><span class="n">For</span><span class="w"> </span><span class="n">Each</span><span class="w"> </span><span class="n">Task</span><span class="p">}</span>
+    INDEXER --> LOOP{For Each Task}
 
-<span class="w">    </span><span class="n">LOOP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PARSE</span><span class="p">[</span><span class="n">Parse</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="n">Details</span><span class="p">]</span>
-<span class="w">    </span><span class="n">PARSE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">SUMMARY</span><span class="p">[</span><span class="n">Generate</span><span class="w"> </span><span class="n">Text</span><span class="w"> </span><span class="n">Summary</span><span class="p">]</span>
-<span class="w">    </span><span class="n">SUMMARY</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">EMBED</span><span class="p">[</span><span class="n">Generate</span><span class="w"> </span><span class="n">Embedding</span><span class="p">]</span>
+    LOOP --> PARSE[Parse Task Details]
+    PARSE --> SUMMARY[Generate Text Summary]
+    SUMMARY --> EMBED[Generate Embedding]
 
-<span class="w">    </span><span class="n">EMBED</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CHECK</span><span class="p">{</span><span class="n">Tenant</span><span class="w"> </span><span class="n">Session</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Exists</span><span class="o">?</span><span class="p">}</span>
+    EMBED --> CHECK{Tenant Session<br/>Exists?}
 
-<span class="w">    </span><span class="n">CHECK</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">CREATE</span><span class="p">[</span><span class="n">Create</span><span class="w"> </span><span class="n">Tenant</span><span class="w"> </span><span class="n">Session</span><span class="p">]</span>
-<span class="w">    </span><span class="n">CHECK</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">STORE</span>
-<span class="w">    </span><span class="n">CREATE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">STORE</span><span class="p">[</span><span class="n">Store</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">PostgreSQL</span><span class="p">]</span>
+    CHECK -->|No| CREATE[Create Tenant Session]
+    CHECK -->|Yes| STORE
+    CREATE --> STORE[Store in PostgreSQL]
 
-<span class="w">    </span><span class="n">STORE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">INDEX</span><span class="p">[</span><span class="n">Update</span><span class="w"> </span><span class="n">Vector</span><span class="w"> </span><span class="n">Index</span><span class="p">]</span>
-<span class="w">    </span><span class="n">INDEX</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FORWARD</span><span class="p">[</span><span class="n">Forward</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">FPR</span><span class="w"> </span><span class="n">Topic</span><span class="p">]</span>
+    STORE --> INDEX[Update Vector Index]
+    INDEX --> FORWARD[Forward to FPR Topic]
 
-<span class="w">    </span><span class="n">FORWARD</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TOPIC2</span><span class="p">[(</span><span class="n">fpr</span><span class="o">-</span><span class="n">processing</span><span class="p">)]</span>
+    FORWARD --> TOPIC2[(fpr-processing)]
 
-<span class="w">    </span><span class="n">LOOP</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">More</span><span class="w"> </span><span class="n">Tasks</span><span class="o">|</span><span class="w"> </span><span class="n">LOOP</span>
-<span class="w">    </span><span class="n">LOOP</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Done</span><span class="o">|</span><span class="w"> </span><span class="n">END</span><span class="p">[</span><span class="n">End</span><span class="p">]</span>
+    LOOP -->|More Tasks| LOOP
+    LOOP -->|Done| END[End]
 
-<span class="w">    </span><span class="n">TOPIC2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FPR</span><span class="p">[</span><span class="n">FPR</span><span class="w"> </span><span class="n">Processor</span><span class="p">]</span>
+    TOPIC2 --> FPR[FPR Processor]
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mf">99f</span><span class="n">f99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">END</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">TOPIC1</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">TOPIC2</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">INDEXER</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">99</span><span class="n">ccff</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">FPR</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff99ff</span>
-</code></pre></div>
+    style START fill:#99ff99
+    style END fill:#ff9999
+    style TOPIC1 fill:#ffcc99
+    style TOPIC2 fill:#ffcc99
+    style INDEXER fill:#99ccff
+    style FPR fill:#ff99ff
+</div>
 
 <h3 id="34-false-positive-reduction-pipeline">3.4 False Positive Reduction Pipeline</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Input&quot;</span>
-<span class="w">        </span><span class="n">KAFKA</span><span class="p">[(</span><span class="n">fpr</span><span class="o">-</span><span class="n">processing</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Topic</span><span class="p">)]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+flowchart LR
+    subgraph "Input"
+        KAFKA[(fpr-processing<br/>Topic)]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Batching&quot;</span>
-<span class="w">        </span><span class="n">BUFFER</span><span class="p">[</span><span class="n">Tenant</span><span class="w"> </span><span class="n">Buffer</span><span class="p">]</span>
-<span class="w">        </span><span class="n">BATCH</span><span class="p">{</span><span class="n">Batch</span><span class="w"> </span><span class="n">Size</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Reached</span><span class="o">?</span><span class="p">}</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Batching"
+        BUFFER[Tenant Buffer]
+        BATCH{Batch Size<br/>Reached?}
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Feature Engineering&quot;</span>
-<span class="w">        </span><span class="n">ENRICH</span><span class="p">[</span><span class="n">Enrich</span><span class="w"> </span><span class="n">Case</span><span class="w"> </span><span class="n">Data</span><span class="p">]</span>
-<span class="w">        </span><span class="n">EXTRACT</span><span class="p">[</span><span class="n">Extract</span><span class="w"> </span><span class="n">Features</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FEATURES</span><span class="p">[</span><span class="n">IOC</span><span class="w"> </span><span class="n">Count</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Text</span><span class="w"> </span><span class="n">Length</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Temporal</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Patterns</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Feature Engineering"
+        ENRICH[Enrich Case Data]
+        EXTRACT[Extract Features]
+        FEATURES[IOC Count<br/>Text Length<br/>Temporal<br/>Patterns]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Novelty Detection&quot;</span>
-<span class="w">        </span><span class="n">EMBED</span><span class="p">[</span><span class="n">Generate</span><span class="w"> </span><span class="n">Embedding</span><span class="p">]</span>
-<span class="w">        </span><span class="n">NDS</span><span class="p">[</span><span class="n">NDS</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">Call</span><span class="p">]</span>
-<span class="w">        </span><span class="n">NOVEL</span><span class="p">{</span><span class="n">Is</span><span class="w"> </span><span class="n">Novel</span><span class="o">?</span><span class="p">}</span>
-<span class="w">        </span><span class="n">CLUSTER</span><span class="p">[</span><span class="n">Assign</span><span class="w"> </span><span class="n">Cluster</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Novelty Detection"
+        EMBED[Generate Embedding]
+        NDS[NDS API Call]
+        NOVEL{Is Novel?}
+        CLUSTER[Assign Cluster]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Scoring&quot;</span>
-<span class="w">        </span><span class="n">SCORE</span><span class="p">[</span><span class="n">Calculate</span><span class="w"> </span><span class="n">Score</span><span class="p">]</span>
-<span class="w">        </span><span class="n">RULES</span><span class="p">[</span><span class="n">Apply</span><span class="w"> </span><span class="n">Rules</span><span class="p">]</span>
-<span class="w">        </span><span class="n">CLASSIFY</span><span class="p">{</span><span class="n">Classify</span><span class="p">}</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Scoring"
+        SCORE[Calculate Score]
+        RULES[Apply Rules]
+        CLASSIFY{Classify}
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Output&quot;</span>
-<span class="w">        </span><span class="n">UPDATE</span><span class="p">[</span><span class="n">Update</span><span class="w"> </span><span class="n">DB</span><span class="p">]</span>
-<span class="w">        </span><span class="n">MARK_FP</span><span class="p">[</span><span class="n">Mark</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">False</span><span class="w"> </span><span class="n">Positive</span><span class="p">]</span>
-<span class="w">        </span><span class="n">MARK_LEGIT</span><span class="p">[</span><span class="n">Mark</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">Legitimate</span><span class="p">]</span>
-<span class="w">        </span><span class="n">PUBLISH</span><span class="p">[(</span><span class="n">fpr</span><span class="o">-</span><span class="n">results</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Topic</span><span class="p">)]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Output"
+        UPDATE[Update DB]
+        MARK_FP[Mark as False Positive]
+        MARK_LEGIT[Mark as Legitimate]
+        PUBLISH[(fpr-results<br/>Topic)]
+    end
 
-<span class="w">    </span><span class="n">KAFKA</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">BUFFER</span>
-<span class="w">    </span><span class="n">BUFFER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">BATCH</span>
-<span class="w">    </span><span class="n">BATCH</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">BUFFER</span>
-<span class="w">    </span><span class="n">BATCH</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">ENRICH</span>
+    KAFKA --> BUFFER
+    BUFFER --> BATCH
+    BATCH -->|No| BUFFER
+    BATCH -->|Yes| ENRICH
 
-<span class="w">    </span><span class="n">ENRICH</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">EXTRACT</span>
-<span class="w">    </span><span class="n">EXTRACT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FEATURES</span>
+    ENRICH --> EXTRACT
+    EXTRACT --> FEATURES
 
-<span class="w">    </span><span class="n">FEATURES</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">EMBED</span>
-<span class="w">    </span><span class="n">EMBED</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">NDS</span>
-<span class="w">    </span><span class="n">NDS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">NOVEL</span>
-<span class="w">    </span><span class="n">NOVEL</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">CLUSTER</span>
-<span class="w">    </span><span class="n">NOVEL</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">CLUSTER</span>
+    FEATURES --> EMBED
+    EMBED --> NDS
+    NDS --> NOVEL
+    NOVEL -->|Yes| CLUSTER
+    NOVEL -->|No| CLUSTER
 
-<span class="w">    </span><span class="n">CLUSTER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">SCORE</span>
-<span class="w">    </span><span class="n">FEATURES</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">SCORE</span>
-<span class="w">    </span><span class="n">SCORE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RULES</span>
-<span class="w">    </span><span class="n">RULES</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CLASSIFY</span>
+    CLUSTER --> SCORE
+    FEATURES --> SCORE
+    SCORE --> RULES
+    RULES --> CLASSIFY
 
-<span class="w">    </span><span class="n">CLASSIFY</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">FP</span><span class="o">|</span><span class="w"> </span><span class="n">MARK_FP</span>
-<span class="w">    </span><span class="n">CLASSIFY</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Legit</span><span class="o">|</span><span class="w"> </span><span class="n">MARK_LEGIT</span>
+    CLASSIFY -->|FP| MARK_FP
+    CLASSIFY -->|Legit| MARK_LEGIT
 
-<span class="w">    </span><span class="n">MARK_FP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">UPDATE</span>
-<span class="w">    </span><span class="n">MARK_LEGIT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">UPDATE</span>
+    MARK_FP --> UPDATE
+    MARK_LEGIT --> UPDATE
 
-<span class="w">    </span><span class="n">UPDATE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PUBLISH</span>
+    UPDATE --> PUBLISH
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">KAFKA</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">NDS</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff99ff</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">PUBLISH</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">MARK_FP</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">MARK_LEGIT</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mf">99f</span><span class="n">f99</span>
-</code></pre></div>
+    style KAFKA fill:#ffcc99
+    style NDS fill:#ff99ff
+    style PUBLISH fill:#ffcc99
+    style MARK_FP fill:#ff9999
+    style MARK_LEGIT fill:#99ff99
+</div>
 
 <h3 id="35-chat-with-rag-flow">3.5 Chat with RAG Flow</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
-<span class="w">    </span><span class="n">autonumber</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">User</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Chat</span><span class="w"> </span><span class="n">API</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">AGENT</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">ChatBotAgent</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">HIST</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">ChatHistory</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">VECT</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Vector</span><span class="w"> </span><span class="n">Search</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="kr">Service</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">PostgreSQL</span>
+<div class="mermaid">
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant API as Chat API
+    participant AGENT as ChatBotAgent
+    participant HIST as ChatHistory
+    participant VECT as Vector Search
+    participant LLM as LLM Service
+    participant DB as PostgreSQL
 
-<span class="w">    </span><span class="n">U</span><span class="o">-&gt;&gt;</span><span class="n">API</span><span class="o">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">chat</span><span class="o">/</span><span class="n">completions</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="kr">true</span><span class="p">)</span>
-<span class="w">    </span><span class="n">API</span><span class="o">-&gt;&gt;</span><span class="n">AGENT</span><span class="o">:</span><span class="w"> </span><span class="n">Initialize</span><span class="w"> </span><span class="n">Agent</span>
+    U->>API: POST /chat/completions<br/>(stream=true)
+    API->>AGENT: Initialize Agent
 
-<span class="w">    </span><span class="n">AGENT</span><span class="o">-&gt;&gt;</span><span class="n">HIST</span><span class="o">:</span><span class="w"> </span><span class="n">Get</span><span class="w"> </span><span class="n">Thread</span><span class="w"> </span><span class="n">History</span>
-<span class="w">    </span><span class="n">HIST</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">Query</span><span class="w"> </span><span class="kr">Last</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="n">Messages</span>
-<span class="w">    </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">HIST</span><span class="o">:</span><span class="w"> </span><span class="n">Messages</span>
-<span class="w">    </span><span class="n">HIST</span><span class="o">--&gt;&gt;</span><span class="n">AGENT</span><span class="o">:</span><span class="w"> </span><span class="n">Conversation</span><span class="w"> </span><span class="n">Context</span>
+    AGENT->>HIST: Get Thread History
+    HIST->>DB: Query Last N Messages
+    DB-->>HIST: Messages
+    HIST-->>AGENT: Conversation Context
 
-<span class="w">    </span><span class="n">AGENT</span><span class="o">-&gt;&gt;</span><span class="n">VECT</span><span class="o">:</span><span class="w"> </span><span class="n">Semantic</span><span class="w"> </span><span class="n">Search</span><span class="w"> </span><span class="n">Query</span>
-<span class="w">    </span><span class="n">VECT</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">Vector</span><span class="w"> </span><span class="n">Similarity</span><span class="w"> </span><span class="n">Search</span>
-<span class="w">    </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">VECT</span><span class="o">:</span><span class="w"> </span><span class="n">Similar</span><span class="w"> </span><span class="n">Tasks</span><span class="o">/</span><span class="n">Cases</span>
-<span class="w">    </span><span class="n">VECT</span><span class="o">--&gt;&gt;</span><span class="n">AGENT</span><span class="o">:</span><span class="w"> </span><span class="n">Relevant</span><span class="w"> </span><span class="n">Context</span>
+    AGENT->>VECT: Semantic Search Query
+    VECT->>DB: Vector Similarity Search
+    DB-->>VECT: Similar Tasks/Cases
+    VECT-->>AGENT: Relevant Context
 
-<span class="w">    </span><span class="n">AGENT</span><span class="o">-&gt;&gt;</span><span class="n">AGENT</span><span class="o">:</span><span class="w"> </span><span class="kr">Build</span><span class="w"> </span><span class="n">RAG</span><span class="w"> </span><span class="n">Prompt</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">History</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Context</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Query</span>
+    AGENT->>AGENT: Build RAG Prompt<br/>History + Context + Query
 
-<span class="w">    </span><span class="n">AGENT</span><span class="o">-&gt;&gt;</span><span class="n">LLM</span><span class="o">:</span><span class="w"> </span><span class="n">Stream</span><span class="w"> </span><span class="n">Request</span>
+    AGENT->>LLM: Stream Request
 
-<span class="w">    </span><span class="nf">loop</span><span class="w"> </span><span class="n">Streaming</span><span class="w"> </span><span class="n">Chunks</span>
-<span class="w">        </span><span class="n">LLM</span><span class="o">--&gt;&gt;</span><span class="n">AGENT</span><span class="o">:</span><span class="w"> </span><span class="n">Chunk</span>
-<span class="w">        </span><span class="n">AGENT</span><span class="o">-&gt;&gt;</span><span class="n">AGENT</span><span class="o">:</span><span class="w"> </span><span class="n">Accumulate</span><span class="w"> </span><span class="n">Response</span>
-<span class="w">        </span><span class="n">AGENT</span><span class="o">--&gt;&gt;</span><span class="n">API</span><span class="o">:</span><span class="w"> </span><span class="n">Stream</span><span class="w"> </span><span class="n">Chunk</span>
-<span class="w">        </span><span class="n">API</span><span class="o">--&gt;&gt;</span><span class="n">U</span><span class="o">:</span><span class="w"> </span><span class="n">SSE</span><span class="w"> </span><span class="nf">Event</span>
-<span class="w">    </span><span class="kd">end</span>
+    loop Streaming Chunks
+        LLM-->>AGENT: Chunk
+        AGENT->>AGENT: Accumulate Response
+        AGENT-->>API: Stream Chunk
+        API-->>U: SSE Event
+    end
 
-<span class="w">    </span><span class="n">AGENT</span><span class="o">-&gt;&gt;</span><span class="n">HIST</span><span class="o">:</span><span class="w"> </span><span class="kr">Store</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">Message</span>
-<span class="w">    </span><span class="n">AGENT</span><span class="o">-&gt;&gt;</span><span class="n">HIST</span><span class="o">:</span><span class="w"> </span><span class="kr">Store</span><span class="w"> </span><span class="n">Assistant</span><span class="w"> </span><span class="n">Response</span>
-<span class="w">    </span><span class="n">HIST</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">INSERT</span><span class="w"> </span><span class="n">Messages</span>
+    AGENT->>HIST: Store User Message
+    AGENT->>HIST: Store Assistant Response
+    HIST->>DB: INSERT Messages
 
-<span class="w">    </span><span class="n">AGENT</span><span class="o">--&gt;&gt;</span><span class="n">API</span><span class="o">:</span><span class="w"> </span><span class="n">Stream</span><span class="w"> </span><span class="n">Complete</span>
-<span class="w">    </span><span class="n">API</span><span class="o">--&gt;&gt;</span><span class="n">U</span><span class="o">:</span><span class="w"> </span><span class="n">Connection</span><span class="w"> </span><span class="n">Close</span>
-</code></pre></div>
+    AGENT-->>API: Stream Complete
+    API-->>U: Connection Close
+</div>
 
 <h3 id="36-multi-tenant-database-architecture">3.6 Multi-Tenant Database Architecture</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Application Layer&quot;</span>
-<span class="w">        </span><span class="n">APP</span><span class="p">[</span><span class="n">FastAPI</span><span class="w"> </span><span class="n">Application</span><span class="p">]</span>
-<span class="w">        </span><span class="n">INIT</span><span class="p">[</span><span class="n">init_tenant_sessions</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "Application Layer"
+        APP[FastAPI Application]
+        INIT[init_tenant_sessions]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Session Management&quot;</span>
-<span class="w">        </span><span class="n">MAP</span><span class="p">[</span><span class="n">SESSION_MAP</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Dictionary</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FACTORY1</span><span class="p">[</span><span class="n">SessionFactory</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">tenant_1</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FACTORY2</span><span class="p">[</span><span class="n">SessionFactory</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">tenant_2</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FACTORY3</span><span class="p">[</span><span class="n">SessionFactory</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">tenant_N</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Session Management"
+        MAP[SESSION_MAP<br/>Dictionary]
+        FACTORY1[SessionFactory<br/>tenant_1]
+        FACTORY2[SessionFactory<br/>tenant_2]
+        FACTORY3[SessionFactory<br/>tenant_N]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;PostgreSQL Server&quot;</span>
-<span class="w">        </span><span class="n">PG_SERVER</span><span class="p">[(</span><span class="n">PostgreSQL</span><span class="p">)]</span>
+    subgraph "PostgreSQL Server"
+        PG_SERVER[(PostgreSQL)]
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;System Databases&quot;</span>
-<span class="w">            </span><span class="n">POSTGRES</span><span class="p">[(</span><span class="n">postgres</span><span class="p">)]</span>
-<span class="w">            </span><span class="n">TEMPLATE</span><span class="p">[(</span><span class="n">siadb_template</span><span class="p">)]</span>
-<span class="w">        </span><span class="n">end</span>
+        subgraph "System Databases"
+            POSTGRES[(postgres)]
+            TEMPLATE[(siadb_template)]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Tenant Databases&quot;</span>
-<span class="w">            </span><span class="n">DB1</span><span class="p">[(</span><span class="n">siadb_tenant_1</span><span class="p">)]</span>
-<span class="w">            </span><span class="n">DB2</span><span class="p">[(</span><span class="n">siadb_tenant_2</span><span class="p">)]</span>
-<span class="w">            </span><span class="n">DBN</span><span class="p">[(</span><span class="n">siadb_tenant_N</span><span class="p">)]</span>
-<span class="w">        </span><span class="n">end</span>
-<span class="w">    </span><span class="n">end</span>
+        subgraph "Tenant Databases"
+            DB1[(siadb_tenant_1)]
+            DB2[(siadb_tenant_2)]
+            DBN[(siadb_tenant_N)]
+        end
+    end
 
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">INIT</span>
-<span class="w">    </span><span class="n">INIT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG_SERVER</span>
-<span class="w">    </span><span class="n">INIT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">MAP</span>
+    APP --> INIT
+    INIT --> PG_SERVER
+    INIT --> MAP
 
-<span class="w">    </span><span class="n">MAP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FACTORY1</span>
-<span class="w">    </span><span class="n">MAP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FACTORY2</span>
-<span class="w">    </span><span class="n">MAP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FACTORY3</span>
+    MAP --> FACTORY1
+    MAP --> FACTORY2
+    MAP --> FACTORY3
 
-<span class="w">    </span><span class="n">FACTORY1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DB1</span>
-<span class="w">    </span><span class="n">FACTORY2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DB2</span>
-<span class="w">    </span><span class="n">FACTORY3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DBN</span>
+    FACTORY1 --> DB1
+    FACTORY2 --> DB2
+    FACTORY3 --> DBN
 
-<span class="w">    </span><span class="n">TEMPLATE</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;|</span><span class="n">Clone</span><span class="o">|</span><span class="w"> </span><span class="n">DB1</span>
-<span class="w">    </span><span class="n">TEMPLATE</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;|</span><span class="n">Clone</span><span class="o">|</span><span class="w"> </span><span class="n">DB2</span>
-<span class="w">    </span><span class="n">TEMPLATE</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;|</span><span class="n">Clone</span><span class="o">|</span><span class="w"> </span><span class="n">DBN</span>
+    TEMPLATE -.->|Clone| DB1
+    TEMPLATE -.->|Clone| DB2
+    TEMPLATE -.->|Clone| DBN
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">APP</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">99</span><span class="n">ccff</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">MAP</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">PG_SERVER</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mf">99f</span><span class="n">f99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">TEMPLATE</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff99ff</span>
-</code></pre></div>
+    style APP fill:#99ccff
+    style MAP fill:#ffcc99
+    style PG_SERVER fill:#99ff99
+    style TEMPLATE fill:#ff99ff
+</div>
 
 <h3 id="37-deployment-architecture">3.7 Deployment Architecture</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Gateway</span><span class="p">[</span><span class="s">&quot;Load Balancer / Gateway&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">TYK</span><span class="p">[</span><span class="n">Tyk</span><span class="w"> </span><span class="n">Gateway</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Port</span><span class="w"> </span><span class="mi">8080</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph Gateway["Load Balancer / Gateway"]
+        TYK[Tyk Gateway<br/>Port 8080]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">AppServices</span><span class="p">[</span><span class="s">&quot;Application Services&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">WEB1</span><span class="p">[</span><span class="n">Web</span><span class="w"> </span><span class="n">Service</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Port</span><span class="w"> </span><span class="mi">8000</span><span class="p">]</span>
-<span class="w">        </span><span class="n">WEB2</span><span class="p">[</span><span class="n">Web</span><span class="w"> </span><span class="n">Service</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Replica</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph AppServices["Application Services"]
+        WEB1[Web Service<br/>Port 8000]
+        WEB2[Web Service<br/>Replica]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Workers</span><span class="p">[</span><span class="s">&quot;Background Workers&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">WORKER1</span><span class="p">[</span><span class="n">Celery</span><span class="w"> </span><span class="n">Worker</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span>
-<span class="w">        </span><span class="n">WORKER2</span><span class="p">[</span><span class="n">Celery</span><span class="w"> </span><span class="n">Worker</span><span class="w"> </span><span class="mi">2</span><span class="p">]</span>
-<span class="w">        </span><span class="n">INDEXER</span><span class="p">[</span><span class="n">Kafka</span><span class="w"> </span><span class="n">Indexer</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FPR</span><span class="p">[</span><span class="n">FPR</span><span class="w"> </span><span class="n">Processor</span><span class="p">]</span>
-<span class="w">        </span><span class="n">NAPI</span><span class="p">[</span><span class="n">Novelty</span><span class="w"> </span><span class="n">API</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Port</span><span class="w"> </span><span class="mi">8001</span><span class="p">]</span>
-<span class="w">        </span><span class="n">NWORKER</span><span class="p">[</span><span class="n">Novelty</span><span class="w"> </span><span class="n">Worker</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph Workers["Background Workers"]
+        WORKER1[Celery Worker 1]
+        WORKER2[Celery Worker 2]
+        INDEXER[Kafka Indexer]
+        FPR[FPR Processor]
+        NAPI[Novelty API<br/>Port 8001]
+        NWORKER[Novelty Worker]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">MsgInfra</span><span class="p">[</span><span class="s">&quot;Message Infrastructure&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">KAFKA</span><span class="p">[</span><span class="n">Kafka</span><span class="w"> </span><span class="n">Broker</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Ports</span><span class="w"> </span><span class="mi">9092</span><span class="p">,</span><span class="w"> </span><span class="mi">19092</span><span class="p">]</span>
-<span class="w">        </span><span class="n">REDIS</span><span class="p">[</span><span class="n">Redis</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Port</span><span class="w"> </span><span class="mi">6379</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph MsgInfra["Message Infrastructure"]
+        KAFKA[Kafka Broker<br/>Ports 9092, 19092]
+        REDIS[Redis<br/>Port 6379]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">DataStores</span><span class="p">[</span><span class="s">&quot;Data Stores&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">PG</span><span class="p">[</span><span class="n">PostgreSQL</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pgvector</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Port</span><span class="w"> </span><span class="mi">5432</span><span class="p">]</span>
-<span class="w">        </span><span class="n">CHROMA</span><span class="p">[</span><span class="n">ChromaDB</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Port</span><span class="w"> </span><span class="mi">8002</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph DataStores["Data Stores"]
+        PG[PostgreSQL + pgvector<br/>Port 5432]
+        CHROMA[ChromaDB<br/>Port 8002]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Support</span><span class="p">[</span><span class="s">&quot;Support Services&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">PGADMIN</span><span class="p">[</span><span class="n">pgAdmin</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Port</span><span class="w"> </span><span class="mi">8081</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FLUENTD</span><span class="p">[</span><span class="n">Fluentd</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Logging</span><span class="p">]</span>
-<span class="w">        </span><span class="n">DTX</span><span class="p">[</span><span class="n">DTX</span><span class="w"> </span><span class="n">Guard</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Port</span><span class="w"> </span><span class="mi">8003</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph Support["Support Services"]
+        PGADMIN[pgAdmin<br/>Port 8081]
+        FLUENTD[Fluentd<br/>Logging]
+        DTX[DTX Guard<br/>Port 8003]
+    end
 
-<span class="w">    </span><span class="n">TYK</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">WEB1</span>
-<span class="w">    </span><span class="n">TYK</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">WEB2</span>
+    TYK --> WEB1
+    TYK --> WEB2
 
-<span class="w">    </span><span class="n">WEB1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">REDIS</span>
-<span class="w">    </span><span class="n">WEB1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">KAFKA</span>
-<span class="w">    </span><span class="n">WEB1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">WEB1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DTX</span>
+    WEB1 --> REDIS
+    WEB1 --> KAFKA
+    WEB1 --> PG
+    WEB1 --> DTX
 
-<span class="w">    </span><span class="n">WEB2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">REDIS</span>
-<span class="w">    </span><span class="n">WEB2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">KAFKA</span>
-<span class="w">    </span><span class="n">WEB2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">WEB2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DTX</span>
+    WEB2 --> REDIS
+    WEB2 --> KAFKA
+    WEB2 --> PG
+    WEB2 --> DTX
 
-<span class="w">    </span><span class="n">REDIS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">WORKER1</span>
-<span class="w">    </span><span class="n">REDIS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">WORKER2</span>
-<span class="w">    </span><span class="n">REDIS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">NWORKER</span>
+    REDIS --> WORKER1
+    REDIS --> WORKER2
+    REDIS --> NWORKER
 
-<span class="w">    </span><span class="n">KAFKA</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">INDEXER</span>
-<span class="w">    </span><span class="n">KAFKA</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FPR</span>
+    KAFKA --> INDEXER
+    KAFKA --> FPR
 
-<span class="w">    </span><span class="n">WORKER1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">WORKER2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">INDEXER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">FPR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
+    WORKER1 --> PG
+    WORKER2 --> PG
+    INDEXER --> PG
+    FPR --> PG
 
-<span class="w">    </span><span class="n">INDEXER</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">CHROMA</span>
+    INDEXER -.-> CHROMA
 
-<span class="w">    </span><span class="n">FPR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">NAPI</span>
-<span class="w">    </span><span class="n">NWORKER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">NAPI</span>
-<span class="w">    </span><span class="n">NAPI</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
+    FPR --> NAPI
+    NWORKER --> NAPI
+    NAPI --> PG
 
-<span class="w">    </span><span class="n">PGADMIN</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
+    PGADMIN --> PG
 
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">gateway</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">queue</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mf">99f</span><span class="n">f99</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
+    classDef gateway fill:#ff9999,stroke:#333,stroke-width:2px
+    classDef queue fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef database fill:#99ff99,stroke:#333,stroke-width:2px
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">TYK</span><span class="w"> </span><span class="n">gateway</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">KAFKA</span><span class="p">,</span><span class="n">REDIS</span><span class="w"> </span><span class="n">queue</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">PG</span><span class="p">,</span><span class="n">CHROMA</span><span class="w"> </span><span class="n">database</span>
-</code></pre></div>
+    class TYK gateway
+    class KAFKA,REDIS queue
+    class PG,CHROMA database
+</div>
 
 <h3 id="38-database-schema-er-diagram">3.8 Database Schema (ER Diagram)</h3>
-<div class="codehilite"><pre><span></span><code><span class="nx">erDiagram</span>
-<span class="w">    </span><span class="nx">CASES</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">CASE_SUMMARY</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">has</span>
-<span class="w">    </span><span class="nx">CASES</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">CASE_SUSPICIOUS_ANALYSIS</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">has</span>
-<span class="w">    </span><span class="nx">PLAYBOOK_TASKS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">TASK_CLASSIFICATION</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">has</span>
-<span class="w">    </span><span class="nx">THREADS</span><span class="w"> </span><span class="o">||--</span><span class="nx">o</span><span class="p">{</span><span class="w"> </span><span class="nx">CHATHISTORY</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">contains</span>
+<div class="mermaid">
+erDiagram
+    CASES ||--o{ CASE_SUMMARY : has
+    CASES ||--o{ CASE_SUSPICIOUS_ANALYSIS : has
+    PLAYBOOK_TASKS ||--o{ TASK_CLASSIFICATION : has
+    THREADS ||--o{ CHATHISTORY : contains
 
-<span class="w">    </span><span class="nx">CASES</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="nx">PK</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">case_id</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">deployment_id</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">tenant_id</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">iocs</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">status</span>
-<span class="w">        </span><span class="nx">int</span><span class="w"> </span><span class="nx">analyst_id</span>
-<span class="w">        </span><span class="nx">json</span><span class="w"> </span><span class="nx">text</span>
-<span class="w">        </span><span class="nx">json</span><span class="w"> </span><span class="nx">timeline_analysis</span>
-<span class="w">        </span><span class="nx">json</span><span class="w"> </span><span class="nx">playbook_recommendation</span>
-<span class="w">        </span><span class="nx">timestamp</span><span class="w"> </span><span class="nx">created_at</span>
-<span class="w">    </span><span class="p">}</span>
+    CASES {
+        uuid id PK
+        string case_id
+        string deployment_id
+        string tenant_id
+        string iocs
+        string status
+        int analyst_id
+        json text
+        json timeline_analysis
+        json playbook_recommendation
+        timestamp created_at
+    }
 
-<span class="w">    </span><span class="nx">CASE_SUMMARY</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">int</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="nx">PK</span>
-<span class="w">        </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">case_id</span><span class="w"> </span><span class="nx">FK</span>
-<span class="w">        </span><span class="nx">json</span><span class="w"> </span><span class="nx">summary</span>
-<span class="w">        </span><span class="nx">int</span><span class="w"> </span><span class="nx">version</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">conclusion</span>
-<span class="w">        </span><span class="nx">float</span><span class="w"> </span><span class="nx">risk_score</span>
-<span class="w">        </span><span class="nx">vector</span><span class="w"> </span><span class="nx">embedding</span>
-<span class="w">        </span><span class="nx">timestamp</span><span class="w"> </span><span class="nx">created_at</span>
-<span class="w">    </span><span class="p">}</span>
+    CASE_SUMMARY {
+        int id PK
+        uuid case_id FK
+        json summary
+        int version
+        string conclusion
+        float risk_score
+        vector embedding
+        timestamp created_at
+    }
 
-<span class="w">    </span><span class="nx">PLAYBOOK_TASKS</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="nx">PK</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">case_id</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">deployment_id</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">tenant_id</span>
-<span class="w">        </span><span class="nx">json</span><span class="w"> </span><span class="nx">text</span>
-<span class="w">        </span><span class="nx">vector</span><span class="w"> </span><span class="nx">embedding</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">text_summary</span>
-<span class="w">        </span><span class="nx">float</span><span class="w"> </span><span class="nx">risk_score</span>
-<span class="w">        </span><span class="nx">timestamp</span><span class="w"> </span><span class="nx">created_at</span>
-<span class="w">    </span><span class="p">}</span>
+    PLAYBOOK_TASKS {
+        uuid id PK
+        string case_id
+        string deployment_id
+        string tenant_id
+        json text
+        vector embedding
+        string text_summary
+        float risk_score
+        timestamp created_at
+    }
 
-<span class="w">    </span><span class="nx">TASK_CLASSIFICATION</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">int</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="nx">PK</span>
-<span class="w">        </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">playbook_task_id</span><span class="w"> </span><span class="nx">FK</span>
-<span class="w">        </span><span class="nx">int</span><span class="w"> </span><span class="nx">version</span>
-<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="nx">lookup</span>
-<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="nx">action</span>
-<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="nx">decision</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">task_name</span>
-<span class="w">        </span><span class="nx">json</span><span class="w"> </span><span class="nx">iocs</span>
-<span class="w">        </span><span class="nx">vector</span><span class="w"> </span><span class="nx">embedding</span>
-<span class="w">        </span><span class="nx">timestamp</span><span class="w"> </span><span class="nx">created_at</span>
-<span class="w">    </span><span class="p">}</span>
+    TASK_CLASSIFICATION {
+        int id PK
+        uuid playbook_task_id FK
+        int version
+        bool lookup
+        bool action
+        bool decision
+        string task_name
+        json iocs
+        vector embedding
+        timestamp created_at
+    }
 
-<span class="w">    </span><span class="nx">THREADS</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">thread_id</span><span class="w"> </span><span class="nx">PK</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">name</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">deployment_id</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">tenant_id</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">case_id</span>
-<span class="w">        </span><span class="nx">int</span><span class="w"> </span><span class="nx">user_id</span>
-<span class="w">        </span><span class="nx">timestamp</span><span class="w"> </span><span class="nx">created_ts</span>
-<span class="w">    </span><span class="p">}</span>
+    THREADS {
+        uuid thread_id PK
+        string name
+        string deployment_id
+        string tenant_id
+        string case_id
+        int user_id
+        timestamp created_ts
+    }
 
-<span class="w">    </span><span class="nx">CHATHISTORY</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="nx">PK</span>
-<span class="w">        </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">thread_id</span><span class="w"> </span><span class="nx">FK</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">user</span>
-<span class="w">        </span><span class="nx">int</span><span class="w"> </span><span class="nx">user_id</span>
-<span class="w">        </span><span class="nx">text</span><span class="w"> </span><span class="nx">message</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">deployment_id</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">tenant_id</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">message_type</span>
-<span class="w">        </span><span class="nx">timestamp</span><span class="w"> </span><span class="nx">created_ts</span>
-<span class="w">    </span><span class="p">}</span>
+    CHATHISTORY {
+        uuid id PK
+        uuid thread_id FK
+        string user
+        int user_id
+        text message
+        string deployment_id
+        string tenant_id
+        string message_type
+        timestamp created_ts
+    }
 
-<span class="w">    </span><span class="nx">CASE_SUSPICIOUS_ANALYSIS</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">int</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="nx">PK</span>
-<span class="w">        </span><span class="nx">uuid</span><span class="w"> </span><span class="nx">case_id</span><span class="w"> </span><span class="nx">FK</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">deployment_id</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">tenant_id</span>
-<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="nx">is_novel</span>
-<span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="nx">cluster_id</span>
-<span class="w">        </span><span class="nx">float</span><span class="w"> </span><span class="nx">suspicious_score</span>
-<span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="nx">is_fp</span>
-<span class="w">        </span><span class="nx">json</span><span class="w"> </span><span class="nx">enriched_case</span>
-<span class="w">        </span><span class="nx">timestamp</span><span class="w"> </span><span class="nx">created_at</span>
-<span class="w">    </span><span class="p">}</span>
-</code></pre></div>
+    CASE_SUSPICIOUS_ANALYSIS {
+        int id PK
+        uuid case_id FK
+        string deployment_id
+        string tenant_id
+        bool is_novel
+        string cluster_id
+        float suspicious_score
+        bool is_fp
+        json enriched_case
+        timestamp created_at
+    }
+</div>
 
 <hr />
 <h2 id="4-component-details">4. Component Details</h2>
@@ -873,56 +881,57 @@
 <hr />
 <h2 id="5-data-flow-workflows">5. Data Flow &amp; Workflows</h2>
 <h3 id="51-complete-case-analysis-workflow">5.1 Complete Case Analysis Workflow</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
-<span class="w">    </span><span class="n">START</span><span class="p">[</span><span class="n">Security</span><span class="w"> </span><span class="n">Event</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">SOAR</span><span class="p">[</span><span class="n">SOAR</span><span class="w"> </span><span class="n">Platform</span><span class="p">]</span>
+<div class="mermaid">
+flowchart TD
+    START[Security Event] --> SOAR[SOAR Platform]
 
-<span class="w">    </span><span class="n">SOAR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">API1</span><span class="p">[</span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="k">case</span><span class="o">/</span><span class="no">analysis</span><span class="p">]</span>
+    SOAR --> API1[POST /case/analysis]
 
-<span class="w">    </span><span class="no">API1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">VAL</span><span class="err">{</span><span class="no">Validate</span><span class="o">&lt;</span><span class="no">br</span><span class="o">/&gt;</span><span class="no">Payload</span><span class="err">}</span>
-<span class="w">    </span><span class="no">VAL</span><span class="w"> </span><span class="o">--&gt;|</span><span class="no">Invalid</span><span class="o">|</span><span class="w"> </span><span class="no">ERR1</span><span class="p">[</span><span class="mi">400</span><span class="w"> </span><span class="no">Error</span><span class="p">]</span>
-<span class="w">    </span><span class="no">VAL</span><span class="w"> </span><span class="o">--&gt;|</span><span class="no">Valid</span><span class="o">|</span><span class="w"> </span><span class="no">QUEUE</span><span class="p">[</span><span class="no">Queue</span><span class="w"> </span><span class="no">Celery</span><span class="w"> </span><span class="no">Task</span><span class="p">]</span>
+    API1 --> VAL{Validate<br/>Payload}
+    VAL -->|Invalid| ERR1[400 Error]
+    VAL -->|Valid| QUEUE[Queue Celery Task]
 
-<span class="w">    </span><span class="no">QUEUE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">WORKER</span><span class="p">[</span><span class="no">Celery</span><span class="w"> </span><span class="no">Worker</span><span class="p">]</span>
+    QUEUE --> WORKER[Celery Worker]
 
-<span class="w">    </span><span class="no">WORKER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">CACHE</span><span class="err">{</span><span class="no">Check</span><span class="o">&lt;</span><span class="no">br</span><span class="o">/&gt;</span><span class="no">Cache</span><span class="err">}</span>
-<span class="w">    </span><span class="no">CACHE</span><span class="w"> </span><span class="o">--&gt;|</span><span class="no">Hit</span><span class="o">|</span><span class="w"> </span><span class="no">RESULT1</span><span class="p">[</span><span class="no">Return</span><span class="w"> </span><span class="no">Cached</span><span class="p">]</span>
-<span class="w">    </span><span class="no">CACHE</span><span class="w"> </span><span class="o">--&gt;|</span><span class="no">Miss</span><span class="o">|</span><span class="w"> </span><span class="no">SEARCH</span><span class="p">[</span><span class="no">Vector</span><span class="w"> </span><span class="no">Search</span><span class="p">]</span>
+    WORKER --> CACHE{Check<br/>Cache}
+    CACHE -->|Hit| RESULT1[Return Cached]
+    CACHE -->|Miss| SEARCH[Vector Search]
 
-<span class="w">    </span><span class="no">SEARCH</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">CONTEXT</span><span class="p">[</span><span class="no">Retrieve</span><span class="w"> </span><span class="no">Context</span><span class="p">]</span>
-<span class="w">    </span><span class="no">CONTEXT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">PROMPT</span><span class="p">[</span><span class="no">Build</span><span class="w"> </span><span class="no">RAG</span><span class="w"> </span><span class="no">Prompt</span><span class="p">]</span>
-<span class="w">    </span><span class="no">PROMPT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">LLM</span><span class="p">[</span><span class="no">LLM</span><span class="w"> </span><span class="no">Generation</span><span class="p">]</span>
+    SEARCH --> CONTEXT[Retrieve Context]
+    CONTEXT --> PROMPT[Build RAG Prompt]
+    PROMPT --> LLM[LLM Generation]
 
-<span class="w">    </span><span class="no">LLM</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">PARSE</span><span class="err">{</span><span class="no">Parse</span><span class="o">&lt;</span><span class="no">br</span><span class="o">/&gt;</span><span class="no">JSON</span><span class="err">}</span>
-<span class="w">    </span><span class="no">PARSE</span><span class="w"> </span><span class="o">--&gt;|</span><span class="no">Failed</span><span class="o">|</span><span class="w"> </span><span class="no">REPAIR</span><span class="p">[</span><span class="no">Self</span><span class="o">-</span><span class="no">Repair</span><span class="p">]</span>
-<span class="w">    </span><span class="no">PARSE</span><span class="w"> </span><span class="o">--&gt;|</span><span class="no">Success</span><span class="o">|</span><span class="w"> </span><span class="no">STORE</span>
-<span class="w">    </span><span class="no">REPAIR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">STORE</span>
+    LLM --> PARSE{Parse<br/>JSON}
+    PARSE -->|Failed| REPAIR[Self-Repair]
+    PARSE -->|Success| STORE
+    REPAIR --> STORE
 
-<span class="w">    </span><span class="no">STORE</span><span class="p">[</span><span class="no">Store</span><span class="w"> </span><span class="no">Summary</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">RISK</span><span class="p">[</span><span class="no">Calculate</span><span class="w"> </span><span class="no">Risk</span><span class="w"> </span><span class="no">Score</span><span class="p">]</span>
+    STORE[Store Summary] --> RISK[Calculate Risk Score]
 
-<span class="w">    </span><span class="no">RISK</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">KAFKA</span><span class="p">[</span><span class="no">Publish</span><span class="w"> </span><span class="no">to</span><span class="w"> </span><span class="no">Kafka</span><span class="p">]</span>
-<span class="w">    </span><span class="no">KAFKA</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">FPR</span><span class="p">[</span><span class="no">FPR</span><span class="w"> </span><span class="no">Processing</span><span class="p">]</span>
+    RISK --> KAFKA[Publish to Kafka]
+    KAFKA --> FPR[FPR Processing]
 
-<span class="w">    </span><span class="no">FPR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">NOVELTY</span><span class="p">[</span><span class="no">Novelty</span><span class="w"> </span><span class="no">Detection</span><span class="p">]</span>
-<span class="w">    </span><span class="no">NOVELTY</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">SCORE</span><span class="p">[</span><span class="no">Suspicious</span><span class="w"> </span><span class="no">Scoring</span><span class="p">]</span>
-<span class="w">    </span><span class="no">SCORE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">CLASS</span><span class="err">{</span><span class="no">Classify</span><span class="err">}</span>
+    FPR --> NOVELTY[Novelty Detection]
+    NOVELTY --> SCORE[Suspicious Scoring]
+    SCORE --> CLASS{Classify}
 
-<span class="w">    </span><span class="no">CLASS</span><span class="w"> </span><span class="o">--&gt;|</span><span class="no">False</span><span class="w"> </span><span class="no">Positive</span><span class="o">|</span><span class="w"> </span><span class="no">MARK_FP</span><span class="p">[</span><span class="no">Mark</span><span class="w"> </span><span class="no">as</span><span class="w"> </span><span class="no">Noise</span><span class="p">]</span>
-<span class="w">    </span><span class="no">CLASS</span><span class="w"> </span><span class="o">--&gt;|</span><span class="no">Legitimate</span><span class="o">|</span><span class="w"> </span><span class="no">MARK_LEGIT</span><span class="p">[</span><span class="no">Keep</span><span class="w"> </span><span class="no">Active</span><span class="p">]</span>
+    CLASS -->|False Positive| MARK_FP[Mark as Noise]
+    CLASS -->|Legitimate| MARK_LEGIT[Keep Active]
 
-<span class="w">    </span><span class="no">MARK_FP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">UPDATE_DB</span><span class="p">[</span><span class="no">Update</span><span class="w"> </span><span class="no">Database</span><span class="p">]</span>
-<span class="w">    </span><span class="no">MARK_LEGIT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">UPDATE_DB</span>
+    MARK_FP --> UPDATE_DB[Update Database]
+    MARK_LEGIT --> UPDATE_DB
 
-<span class="w">    </span><span class="no">UPDATE_DB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">NOTIFY</span><span class="p">[</span><span class="no">Notify</span><span class="w"> </span><span class="no">SOAR</span><span class="p">]</span>
+    UPDATE_DB --> NOTIFY[Notify SOAR]
 
-<span class="w">    </span><span class="no">NOTIFY</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="no">END</span><span class="p">[</span><span class="no">End</span><span class="p">]</span>
+    NOTIFY --> END[End]
 
-<span class="w">    </span><span class="no">style</span><span class="w"> </span><span class="no">START</span><span class="w"> </span><span class="no">fill</span><span class="p">:</span><span class="err">#</span><span class="mf">99f</span><span class="n">f99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">END</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff99ff</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">FPR</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">MARK_FP</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff6666</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">MARK_LEGIT</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mf">66f</span><span class="n">f66</span>
-</code></pre></div>
+    style START fill:#99ff99
+    style END fill:#ff9999
+    style LLM fill:#ff99ff
+    style FPR fill:#ffcc99
+    style MARK_FP fill:#ff6666
+    style MARK_LEGIT fill:#66ff66
+</div>
 
 <h3 id="52-case-analysis-flow-details">5.2 Case Analysis Flow Details</h3>
 <div class="codehilite"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Tyk</span><span class="w"> </span><span class="n">Gateway</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">FastAPI</span>
@@ -1272,64 +1281,65 @@
 <hr />
 <h2 id="14-monitoring-observability">14. Monitoring &amp; Observability</h2>
 <h3 id="141-observability-stack">14.1 Observability Stack</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Application</span>
-<span class="w">        </span><span class="n">APP</span><span class="p">[</span><span class="n">SIA</span><span class="w"> </span><span class="n">Services</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph Application
+        APP[SIA Services]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Instrumentation</span>
-<span class="w">        </span><span class="n">TRACE</span><span class="p">[</span><span class="n">Traceloop</span><span class="w"> </span><span class="n">SDK</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">LLM</span><span class="w"> </span><span class="n">Tracing</span><span class="p">]</span>
-<span class="w">        </span><span class="n">OTEL</span><span class="p">[</span><span class="n">OpenTelemetry</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Distributed</span><span class="w"> </span><span class="n">Tracing</span><span class="p">]</span>
-<span class="w">        </span><span class="n">LOGS</span><span class="p">[</span><span class="n">Application</span><span class="w"> </span><span class="n">Logs</span><span class="p">]</span>
-<span class="w">        </span><span class="n">METRICS</span><span class="p">[</span><span class="n">System</span><span class="w"> </span><span class="n">Metrics</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph Instrumentation
+        TRACE[Traceloop SDK<br/>LLM Tracing]
+        OTEL[OpenTelemetry<br/>Distributed Tracing]
+        LOGS[Application Logs]
+        METRICS[System Metrics]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Collection</span>
-<span class="w">        </span><span class="n">FLUENTD</span><span class="p">[</span><span class="n">Fluentd</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Log</span><span class="w"> </span><span class="n">Aggregation</span><span class="p">]</span>
-<span class="w">        </span><span class="n">AGENT</span><span class="p">[</span><span class="n">OTEL</span><span class="w"> </span><span class="n">Collector</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph Collection
+        FLUENTD[Fluentd<br/>Log Aggregation]
+        AGENT[OTEL Collector]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Storage</span>
-<span class="w">        </span><span class="n">LOGSTOR</span><span class="p">[(</span><span class="n">Log</span><span class="w"> </span><span class="n">Storage</span><span class="p">)]</span>
-<span class="w">        </span><span class="n">TRACESTOR</span><span class="p">[(</span><span class="n">Trace</span><span class="w"> </span><span class="n">Backend</span><span class="p">)]</span>
-<span class="w">        </span><span class="n">METRICSTOR</span><span class="p">[(</span><span class="n">Metrics</span><span class="w"> </span><span class="n">DB</span><span class="p">)]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph Storage
+        LOGSTOR[(Log Storage)]
+        TRACESTOR[(Trace Backend)]
+        METRICSTOR[(Metrics DB)]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Visualization</span>
-<span class="w">        </span><span class="n">DASH</span><span class="p">[</span><span class="n">Dashboards</span><span class="p">]</span>
-<span class="w">        </span><span class="n">ALERT</span><span class="p">[</span><span class="n">Alerting</span><span class="p">]</span>
-<span class="w">        </span><span class="n">ANALYZE</span><span class="p">[</span><span class="n">Analysis</span><span class="w"> </span><span class="n">Tools</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph Visualization
+        DASH[Dashboards]
+        ALERT[Alerting]
+        ANALYZE[Analysis Tools]
+    end
 
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TRACE</span>
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">OTEL</span>
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOGS</span>
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">METRICS</span>
+    APP --> TRACE
+    APP --> OTEL
+    APP --> LOGS
+    APP --> METRICS
 
-<span class="w">    </span><span class="n">TRACE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">AGENT</span>
-<span class="w">    </span><span class="n">OTEL</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">AGENT</span>
-<span class="w">    </span><span class="n">LOGS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FLUENTD</span>
-<span class="w">    </span><span class="n">METRICS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">AGENT</span>
+    TRACE --> AGENT
+    OTEL --> AGENT
+    LOGS --> FLUENTD
+    METRICS --> AGENT
 
-<span class="w">    </span><span class="n">FLUENTD</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOGSTOR</span>
-<span class="w">    </span><span class="n">AGENT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TRACESTOR</span>
-<span class="w">    </span><span class="n">AGENT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">METRICSTOR</span>
+    FLUENTD --> LOGSTOR
+    AGENT --> TRACESTOR
+    AGENT --> METRICSTOR
 
-<span class="w">    </span><span class="n">LOGSTOR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DASH</span>
-<span class="w">    </span><span class="n">TRACESTOR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DASH</span>
-<span class="w">    </span><span class="n">METRICSTOR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DASH</span>
+    LOGSTOR --> DASH
+    TRACESTOR --> DASH
+    METRICSTOR --> DASH
 
-<span class="w">    </span><span class="n">DASH</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ALERT</span>
-<span class="w">    </span><span class="n">DASH</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ANALYZE</span>
+    DASH --> ALERT
+    DASH --> ANALYZE
 
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">application</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">99</span><span class="n">ccff</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">collector</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">dashboard</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mf">99f</span><span class="n">f99</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
+    classDef application fill:#99ccff,stroke:#333,stroke-width:2px
+    classDef collector fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef dashboard fill:#99ff99,stroke:#333,stroke-width:2px
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">APP</span><span class="w"> </span><span class="n">application</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">FLUENTD</span><span class="p">,</span><span class="n">AGENT</span><span class="w"> </span><span class="n">collector</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">DASH</span><span class="p">,</span><span class="n">ALERT</span><span class="p">,</span><span class="n">ANALYZE</span><span class="w"> </span><span class="n">dashboard</span>
-</code></pre></div>
+    class APP application
+    class FLUENTD,AGENT collector
+    class DASH,ALERT,ANALYZE dashboard
+</div>
 
 <h3 id="142-key-metrics-to-monitor">14.2 Key Metrics to Monitor</h3>
 <p><strong>Application Metrics</strong>:

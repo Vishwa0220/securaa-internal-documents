@@ -78,34 +78,35 @@
 <h2 id="platform-security-overview">Platform Security Overview</h2>
 <h3 id="security-first-design-philosophy">Security-First Design Philosophy</h3>
 <p>SECURAA has been architected from the ground up with security as the foundational principle. Every component, service, and data flow implements multiple layers of security controls based on industry best practices and regulatory requirements.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;External Threats&quot;</span>
-<span class="w">        </span><span class="n">A</span><span class="p">[</span><span class="n">Cyber</span><span class="w"> </span><span class="n">Attacks</span><span class="p">]</span><span class="w"> </span>
-<span class="w">        </span><span class="n">B</span><span class="p">[</span><span class="n">Data</span><span class="w"> </span><span class="n">Breaches</span><span class="p">]</span>
-<span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">Unauthorized</span><span class="w"> </span><span class="n">Access</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "External Threats"
+        A[Cyber Attacks] 
+        B[Data Breaches]
+        C[Unauthorized Access]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;SECURAA Security Controls&quot;</span>
-<span class="w">        </span><span class="n">D</span><span class="p">[</span><span class="n">Multi</span><span class="o">-</span><span class="n">Factor</span><span class="w"> </span><span class="n">Authentication</span><span class="p">]</span>
-<span class="w">        </span><span class="n">E</span><span class="p">[</span><span class="n">End</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">End</span><span class="w"> </span><span class="n">Encryption</span><span class="p">]</span>
-<span class="w">        </span><span class="n">F</span><span class="p">[</span><span class="n">Real</span><span class="o">-</span><span class="n">time</span><span class="w"> </span><span class="n">Monitoring</span><span class="p">]</span>
-<span class="w">        </span><span class="n">G</span><span class="p">[</span><span class="n">Access</span><span class="w"> </span><span class="n">Controls</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "SECURAA Security Controls"
+        D[Multi-Factor Authentication]
+        E[End-to-End Encryption]
+        F[Real-time Monitoring]
+        G[Access Controls]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Protected Assets&quot;</span>
-<span class="w">        </span><span class="n">H</span><span class="p">[</span><span class="n">Customer</span><span class="w"> </span><span class="n">Data</span><span class="p">]</span>
-<span class="w">        </span><span class="n">I</span><span class="p">[</span><span class="n">Business</span><span class="w"> </span><span class="n">Intelligence</span><span class="p">]</span>
-<span class="w">        </span><span class="n">J</span><span class="p">[</span><span class="n">Security</span><span class="w"> </span><span class="n">Analytics</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Protected Assets"
+        H[Customer Data]
+        I[Business Intelligence]
+        J[Security Analytics]
+    end
 
-<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span>
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span>
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">I</span>
-<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">J</span>
-<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span>
-</code></pre></div>
+    A --> D
+    B --> E
+    C --> G
+    D --> H
+    E --> I
+    F --> J
+    G --> H
+</div>
 
 <h3 id="core-security-principles">Core Security Principles</h3>
 <table>
@@ -143,41 +144,42 @@
 <h2 id="security-architecture">Security Architecture</h2>
 <h3 id="multi-layered-defense-strategy">Multi-Layered Defense Strategy</h3>
 <p>SECURAA implements a comprehensive defense-in-depth strategy with multiple security layers protecting your data and operations.</p>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Layer 1: Perimeter Security&quot;</span>
-<span class="w">        </span><span class="n">A</span><span class="p">[</span><span class="n">Web</span><span class="w"> </span><span class="n">Application</span><span class="w"> </span><span class="n">Firewall</span><span class="p">]</span>
-<span class="w">        </span><span class="n">B</span><span class="p">[</span><span class="n">DDoS</span><span class="w"> </span><span class="n">Protection</span><span class="p">]</span>
-<span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">Intrusion</span><span class="w"> </span><span class="n">Detection</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "Layer 1: Perimeter Security"
+        A[Web Application Firewall]
+        B[DDoS Protection]
+        C[Intrusion Detection]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Layer 2: Application Security&quot;</span>
-<span class="w">        </span><span class="n">D</span><span class="p">[</span><span class="n">API</span><span class="w"> </span><span class="n">Gateway</span><span class="w"> </span><span class="n">Security</span><span class="p">]</span>
-<span class="w">        </span><span class="n">E</span><span class="p">[</span><span class="n">Input</span><span class="w"> </span><span class="n">Validation</span><span class="p">]</span>
-<span class="w">        </span><span class="n">F</span><span class="p">[</span><span class="n">Session</span><span class="w"> </span><span class="n">Management</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Layer 2: Application Security"
+        D[API Gateway Security]
+        E[Input Validation]
+        F[Session Management]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Layer 3: Data Security&quot;</span>
-<span class="w">        </span><span class="n">G</span><span class="p">[</span><span class="n">Encryption</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">Rest</span><span class="p">]</span>
-<span class="w">        </span><span class="n">H</span><span class="p">[</span><span class="n">Encryption</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">Transit</span><span class="p">]</span>
-<span class="w">        </span><span class="n">I</span><span class="p">[</span><span class="n">Key</span><span class="w"> </span><span class="n">Management</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Layer 3: Data Security"
+        G[Encryption at Rest]
+        H[Encryption in Transit]
+        I[Key Management]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Layer 4: Infrastructure Security&quot;</span>
-<span class="w">        </span><span class="n">J</span><span class="p">[</span><span class="n">Container</span><span class="w"> </span><span class="n">Security</span><span class="p">]</span>
-<span class="w">        </span><span class="n">K</span><span class="p">[</span><span class="n">Network</span><span class="w"> </span><span class="n">Segmentation</span><span class="p">]</span>
-<span class="w">        </span><span class="n">L</span><span class="p">[</span><span class="n">Endpoint</span><span class="w"> </span><span class="n">Protection</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Layer 4: Infrastructure Security"
+        J[Container Security]
+        K[Network Segmentation]
+        L[Endpoint Protection]
+    end
 
-<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span>
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span>
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span>
-<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">I</span>
-<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">J</span>
-<span class="w">    </span><span class="n">H</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K</span>
-<span class="w">    </span><span class="n">I</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L</span>
-</code></pre></div>
+    A --> D
+    B --> E
+    C --> F
+    D --> G
+    E --> H
+    F --> I
+    G --> J
+    H --> K
+    I --> L
+</div>
 
 <h3 id="implemented-security-components">Implemented Security Components</h3>
 <h4 id="frontend-security-zonareact">Frontend Security (zonareact)</h4>
@@ -312,22 +314,23 @@
 <h3 id="authentication-framework">Authentication Framework</h3>
 <p>SECURAA implements a robust authentication system with multiple security layers.</p>
 <h4 id="multi-factor-authentication-design">Multi-Factor Authentication Design</h4>
-<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">User</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">UI</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">SECURAA</span><span class="w"> </span><span class="n">UI</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Auth</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Auth</span><span class="w"> </span><span class="kr">Service</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Database</span>
+<div class="mermaid">
+sequenceDiagram
+    participant U as User
+    participant UI as SECURAA UI
+    participant Auth as Auth Service
+    participant DB as Database
 
-<span class="w">    </span><span class="n">U</span><span class="o">-&gt;&gt;</span><span class="n">UI</span><span class="o">:</span><span class="w"> </span><span class="n">Login</span><span class="w"> </span><span class="n">Request</span>
-<span class="w">    </span><span class="n">UI</span><span class="o">-&gt;&gt;</span><span class="n">UI</span><span class="o">:</span><span class="w"> </span><span class="n">Input</span><span class="w"> </span><span class="n">Validation</span>
-<span class="w">    </span><span class="n">UI</span><span class="o">-&gt;&gt;</span><span class="n">Auth</span><span class="o">:</span><span class="w"> </span><span class="n">Encrypted</span><span class="w"> </span><span class="n">Credentials</span>
-<span class="w">    </span><span class="n">Auth</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">Verification</span>
-<span class="w">    </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">Auth</span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="kt">Data</span>
-<span class="w">    </span><span class="n">Auth</span><span class="o">-&gt;&gt;</span><span class="n">Auth</span><span class="o">:</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">JWT</span><span class="w"> </span><span class="kt">Token</span>
-<span class="w">    </span><span class="n">Auth</span><span class="o">--&gt;&gt;</span><span class="n">UI</span><span class="o">:</span><span class="w"> </span><span class="n">Signed</span><span class="w"> </span><span class="kt">Token</span>
-<span class="w">    </span><span class="n">UI</span><span class="o">-&gt;&gt;</span><span class="n">UI</span><span class="o">:</span><span class="w"> </span><span class="n">Secure</span><span class="w"> </span><span class="n">Session</span><span class="w"> </span><span class="n">Setup</span>
-<span class="w">    </span><span class="n">UI</span><span class="o">--&gt;&gt;</span><span class="n">U</span><span class="o">:</span><span class="w"> </span><span class="n">Access</span><span class="w"> </span><span class="n">Granted</span>
-</code></pre></div>
+    U->>UI: Login Request
+    UI->>UI: Input Validation
+    UI->>Auth: Encrypted Credentials
+    Auth->>DB: User Verification
+    DB-->>Auth: User Data
+    Auth->>Auth: Generate JWT Token
+    Auth-->>UI: Signed Token
+    UI->>UI: Secure Session Setup
+    UI-->>U: Access Granted
+</div>
 
 <h4 id="access-control-implementation">Access Control Implementation</h4>
 <p><strong>Role-Based Access Control (RBAC):</strong></p>
@@ -379,26 +382,27 @@
 <h3 id="container-and-service-security">Container and Service Security</h3>
 <p>SECURAA leverages containerized architecture with comprehensive security controls.</p>
 <h4 id="current-security-implementations">Current Security Implementations</h4>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Security Controls&quot;</span>
-<span class="w">        </span><span class="n">A</span><span class="p">[</span><span class="n">Container</span><span class="w"> </span><span class="n">Isolation</span><span class="p">]</span>
-<span class="w">        </span><span class="n">B</span><span class="p">[</span><span class="n">Network</span><span class="w"> </span><span class="n">Segmentation</span><span class="p">]</span>
-<span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">Resource</span><span class="w"> </span><span class="n">Limits</span><span class="p">]</span>
-<span class="w">        </span><span class="n">D</span><span class="p">[</span><span class="n">Process</span><span class="w"> </span><span class="n">Monitoring</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "Security Controls"
+        A[Container Isolation]
+        B[Network Segmentation]
+        C[Resource Limits]
+        D[Process Monitoring]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Monitoring Systems&quot;</span>
-<span class="w">        </span><span class="n">E</span><span class="p">[</span><span class="n">Health</span><span class="w"> </span><span class="n">Checks</span><span class="p">]</span>
-<span class="w">        </span><span class="n">F</span><span class="p">[</span><span class="n">Performance</span><span class="w"> </span><span class="n">Monitoring</span><span class="p">]</span>
-<span class="w">        </span><span class="n">G</span><span class="p">[</span><span class="n">Security</span><span class="w"> </span><span class="n">Logging</span><span class="p">]</span>
-<span class="w">        </span><span class="n">H</span><span class="p">[</span><span class="n">Audit</span><span class="w"> </span><span class="n">Trails</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Monitoring Systems"
+        E[Health Checks]
+        F[Performance Monitoring]
+        G[Security Logging]
+        H[Audit Trails]
+    end
 
-<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span>
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span>
-</code></pre></div>
+    A --> E
+    B --> F
+    C --> G
+    D --> H
+</div>
 
 <p><strong>Implemented Features:</strong>
 - <strong>Container Security</strong>: Isolated service environments
@@ -484,37 +488,38 @@
 <h3 id="security-operations-capabilities">Security Operations Capabilities</h3>
 <p>SECURAA implements comprehensive security monitoring and incident response capabilities designed for enterprise security requirements.</p>
 <h4 id="real-time-security-monitoring">Real-Time Security Monitoring</h4>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Data Collection&quot;</span>
-<span class="w">        </span><span class="n">A</span><span class="p">[</span><span class="n">Application</span><span class="w"> </span><span class="n">Logs</span><span class="p">]</span>
-<span class="w">        </span><span class="n">B</span><span class="p">[</span><span class="n">System</span><span class="w"> </span><span class="n">Events</span><span class="p">]</span>
-<span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">User</span><span class="w"> </span><span class="n">Activities</span><span class="p">]</span>
-<span class="w">        </span><span class="n">D</span><span class="p">[</span><span class="n">Network</span><span class="w"> </span><span class="n">Traffic</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "Data Collection"
+        A[Application Logs]
+        B[System Events]
+        C[User Activities]
+        D[Network Traffic]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Analysis &amp; Detection&quot;</span>
-<span class="w">        </span><span class="n">E</span><span class="p">[</span><span class="n">Log</span><span class="w"> </span><span class="n">Analysis</span><span class="p">]</span>
-<span class="w">        </span><span class="n">F</span><span class="p">[</span><span class="n">Anomaly</span><span class="w"> </span><span class="n">Detection</span><span class="p">]</span>
-<span class="w">        </span><span class="n">G</span><span class="p">[</span><span class="n">Pattern</span><span class="w"> </span><span class="n">Recognition</span><span class="p">]</span>
-<span class="w">        </span><span class="n">H</span><span class="p">[</span><span class="n">Threat</span><span class="w"> </span><span class="n">Correlation</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Analysis & Detection"
+        E[Log Analysis]
+        F[Anomaly Detection]
+        G[Pattern Recognition]
+        H[Threat Correlation]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Response Actions&quot;</span>
-<span class="w">        </span><span class="n">I</span><span class="p">[</span><span class="n">Alert</span><span class="w"> </span><span class="n">Generation</span><span class="p">]</span>
-<span class="w">        </span><span class="n">J</span><span class="p">[</span><span class="n">Automated</span><span class="w"> </span><span class="n">Response</span><span class="p">]</span>
-<span class="w">        </span><span class="n">K</span><span class="p">[</span><span class="n">Incident</span><span class="w"> </span><span class="n">Tracking</span><span class="p">]</span>
-<span class="w">        </span><span class="n">L</span><span class="p">[</span><span class="n">Escalation</span><span class="w"> </span><span class="n">Procedures</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Response Actions"
+        I[Alert Generation]
+        J[Automated Response]
+        K[Incident Tracking]
+        L[Escalation Procedures]
+    end
 
-<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span>
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span>
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">I</span>
-<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">J</span>
-<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K</span>
-<span class="w">    </span><span class="n">H</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L</span>
-</code></pre></div>
+    A --> E
+    B --> F
+    C --> G
+    D --> H
+    E --> I
+    F --> J
+    G --> K
+    H --> L
+</div>
 
 <h4 id="implemented-monitoring-features">Implemented Monitoring Features</h4>
 <p><strong>Current Capabilities:</strong>
@@ -670,14 +675,15 @@
 </table>
 <h4 id="ongoing-security-commitment">Ongoing Security Commitment</h4>
 <p><strong>Security Improvement Process:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">LR</span>
-<span class="w">    </span><span class="n">A</span><span class="p">[</span><span class="n">Security</span><span class="w"> </span><span class="n">Assessment</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">Gap</span><span class="w"> </span><span class="n">Analysis</span><span class="p">]</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">Enhancement</span><span class="w"> </span><span class="n">Planning</span><span class="p">]</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="n">Implementation</span><span class="p">]</span>
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span><span class="p">[</span><span class="n">Testing</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Validation</span><span class="p">]</span>
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="n">Deployment</span><span class="p">]</span>
-<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A</span>
-</code></pre></div>
+<div class="mermaid">
+graph LR
+    A[Security Assessment] --> B[Gap Analysis]
+    B --> C[Enhancement Planning]
+    C --> D[Implementation]
+    D --> E[Testing & Validation]
+    E --> F[Deployment]
+    F --> A
+</div>
 
 <p><strong>Security Resources:</strong>
 - Regular security updates and enhancements

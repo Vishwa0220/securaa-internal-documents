@@ -100,70 +100,71 @@
 </ul>
 <h2 id="architecture">Architecture</h2>
 <h3 id="component-overview">Component Overview</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;RIS Client Architecture&quot;</span>
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Application Layer&quot;</span>
-<span class="w">            </span><span class="n">APP</span><span class="p">[</span><span class="n">Main</span><span class="w"> </span><span class="n">Application</span><span class="p">]</span>
-<span class="w">            </span><span class="n">ROUTER</span><span class="p">[</span><span class="n">HTTP</span><span class="w"> </span><span class="n">Router</span><span class="p">]</span>
-<span class="w">            </span><span class="n">WS</span><span class="p">[</span><span class="n">WebSocket</span><span class="w"> </span><span class="n">Client</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "RIS Client Architecture"
+        subgraph "Application Layer"
+            APP[Main Application]
+            ROUTER[HTTP Router]
+            WS[WebSocket Client]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Controllers&quot;</span>
-<span class="w">            </span><span class="n">TC</span><span class="p">[</span><span class="n">Task</span><span class="w"> </span><span class="n">Handler</span><span class="w"> </span><span class="n">Controller</span><span class="p">]</span>
-<span class="w">            </span><span class="n">RC</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="n">Controller</span><span class="p">]</span>
-<span class="w">            </span><span class="n">SC</span><span class="p">[</span><span class="n">Service</span><span class="w"> </span><span class="n">Controller</span><span class="p">]</span>
-<span class="w">            </span><span class="n">CC</span><span class="p">[</span><span class="n">Connection</span><span class="w"> </span><span class="n">Controller</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
+        subgraph "Controllers"
+            TC[Task Handler Controller]
+            RC[RIS Client Controller]
+            SC[Service Controller]
+            CC[Connection Controller]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Task Execution&quot;</span>
-<span class="w">            </span><span class="n">TE</span><span class="p">[</span><span class="n">Task</span><span class="w"> </span><span class="n">Executor</span><span class="p">]</span>
-<span class="w">            </span><span class="n">HTTP</span><span class="p">[</span><span class="n">HTTP</span><span class="w"> </span><span class="n">Client</span><span class="p">]</span>
-<span class="w">            </span><span class="n">CMD</span><span class="p">[</span><span class="n">Command</span><span class="w"> </span><span class="n">Executor</span><span class="p">]</span>
-<span class="w">            </span><span class="n">DOCKER</span><span class="p">[</span><span class="n">Docker</span><span class="w"> </span><span class="n">Manager</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
+        subgraph "Task Execution"
+            TE[Task Executor]
+            HTTP[HTTP Client]
+            CMD[Command Executor]
+            DOCKER[Docker Manager]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Infrastructure&quot;</span>
-<span class="w">            </span><span class="n">CONFIG</span><span class="p">[</span><span class="n">Configuration</span><span class="w"> </span><span class="n">Manager</span><span class="p">]</span>
-<span class="w">            </span><span class="n">LOG</span><span class="p">[</span><span class="n">Logging</span><span class="w"> </span><span class="n">System</span><span class="p">]</span>
-<span class="w">            </span><span class="n">HEALTH</span><span class="p">[</span><span class="n">Health</span><span class="w"> </span><span class="n">Monitor</span><span class="p">]</span>
-<span class="w">            </span><span class="n">NET</span><span class="p">[</span><span class="n">Network</span><span class="w"> </span><span class="n">Manager</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
-<span class="w">    </span><span class="n">end</span>
+        subgraph "Infrastructure"
+            CONFIG[Configuration Manager]
+            LOG[Logging System]
+            HEALTH[Health Monitor]
+            NET[Network Manager]
+        end
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;External Systems&quot;</span>
-<span class="w">        </span><span class="n">RIS_SERVER</span><span class="p">[</span><span class="n">RIS</span><span class="w"> </span><span class="n">Server</span><span class="p">]</span>
-<span class="w">        </span><span class="n">DOCKER_ENGINE</span><span class="p">[</span><span class="n">Docker</span><span class="w"> </span><span class="n">Engine</span><span class="p">]</span>
-<span class="w">        </span><span class="n">TARGET_SERVICES</span><span class="p">[</span><span class="n">Target</span><span class="w"> </span><span class="n">Services</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "External Systems"
+        RIS_SERVER[RIS Server]
+        DOCKER_ENGINE[Docker Engine]
+        TARGET_SERVICES[Target Services]
+    end
 
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ROUTER</span>
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">WS</span>
-<span class="w">    </span><span class="n">ROUTER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TC</span>
-<span class="w">    </span><span class="n">ROUTER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RC</span>
-<span class="w">    </span><span class="n">WS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RC</span>
+    APP --> ROUTER
+    APP --> WS
+    ROUTER --> TC
+    ROUTER --> RC
+    WS --> RC
 
-<span class="w">    </span><span class="n">TC</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TE</span>
-<span class="w">    </span><span class="n">RC</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">SC</span>
-<span class="w">    </span><span class="n">SC</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DOCKER</span>
+    TC --> TE
+    RC --> SC
+    SC --> DOCKER
 
-<span class="w">    </span><span class="n">TE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">HTTP</span>
-<span class="w">    </span><span class="n">TE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CMD</span>
-<span class="w">    </span><span class="n">TE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DOCKER</span>
+    TE --> HTTP
+    TE --> CMD
+    TE --> DOCKER
 
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CONFIG</span>
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOG</span>
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">HEALTH</span>
-<span class="w">    </span><span class="n">APP</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">NET</span>
+    APP --> CONFIG
+    APP --> LOG
+    APP --> HEALTH
+    APP --> NET
 
-<span class="w">    </span><span class="n">WS</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;|</span><span class="n">WSS</span><span class="o">|</span><span class="w"> </span><span class="n">RIS_SERVER</span>
-<span class="w">    </span><span class="n">HTTP</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;|</span><span class="n">HTTPS</span><span class="o">|</span><span class="w"> </span><span class="n">TARGET_SERVICES</span>
-<span class="w">    </span><span class="n">DOCKER</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;|</span><span class="n">API</span><span class="o">|</span><span class="w"> </span><span class="n">DOCKER_ENGINE</span>
+    WS -.->|WSS| RIS_SERVER
+    HTTP -.->|HTTPS| TARGET_SERVICES
+    DOCKER -.->|API| DOCKER_ENGINE
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">APP</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e8f5e8</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">WS</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fff3e0</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">DOCKER</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e3f2fd</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">RIS_SERVER</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fce4ec</span>
-</code></pre></div>
+    style APP fill:#e8f5e8
+    style WS fill:#fff3e0
+    style DOCKER fill:#e3f2fd
+    style RIS_SERVER fill:#fce4ec
+</div>
 
 <h3 id="core-components">Core Components</h3>
 <h4 id="1-application-framework">1. Application Framework</h4>

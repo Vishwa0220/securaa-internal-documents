@@ -1206,668 +1206,683 @@
 <hr />
 <h2 id="11-implementation-diagrams">11. Implementation Diagrams</h2>
 <h3 id="111-component-interaction-diagram">11.1 Component Interaction Diagram</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">FastAPIApp</span><span class="o">[</span><span class="n">&quot;FastAPI Application&quot;</span><span class="o">]</span>
-<span class="w">        </span><span class="n">MAIN</span><span class="o">[</span><span class="n">main.py&lt;br/&gt;Application Entry</span><span class="o">]</span>
+<div class="mermaid">
+graph TB
+    subgraph FastAPIApp["FastAPI Application"]
+        MAIN[main.py<br/>Application Entry]
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Routers</span>
-<span class="w">            </span><span class="n">R1</span><span class="o">[</span><span class="n">case.router</span><span class="o">]</span>
-<span class="w">            </span><span class="n">R2</span><span class="o">[</span><span class="n">chat.router</span><span class="o">]</span>
-<span class="w">            </span><span class="n">R3</span><span class="o">[</span><span class="n">index.router</span><span class="o">]</span>
-<span class="w">            </span><span class="n">R4</span><span class="o">[</span><span class="n">user.router</span><span class="o">]</span>
-<span class="w">            </span><span class="n">R5</span><span class="o">[</span><span class="n">tenant.router</span><span class="o">]</span>
-<span class="w">            </span><span class="n">R6</span><span class="o">[</span><span class="n">application.router</span><span class="o">]</span>
-<span class="w">            </span><span class="n">R7</span><span class="o">[</span><span class="n">code.router</span><span class="o">]</span>
-<span class="w">        </span><span class="k">end</span>
+        subgraph Routers
+            R1[case.router]
+            R2[chat.router]
+            R3[index.router]
+            R4[user.router]
+            R5[tenant.router]
+            R6[application.router]
+            R7[code.router]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Services</span>
-<span class="w">            </span><span class="n">S1</span><span class="o">[</span><span class="n">CaseAnalysisService</span><span class="o">]</span>
-<span class="w">            </span><span class="n">S2</span><span class="o">[</span><span class="n">ChatBotAgent</span><span class="o">]</span>
-<span class="w">            </span><span class="n">S3</span><span class="o">[</span><span class="n">IndexingService</span><span class="o">]</span>
-<span class="w">            </span><span class="n">S4</span><span class="o">[</span><span class="n">CaseInformation</span><span class="o">]</span>
-<span class="w">            </span><span class="n">S5</span><span class="o">[</span><span class="n">UserInfo</span><span class="o">]</span>
-<span class="w">            </span><span class="n">S6</span><span class="o">[</span><span class="n">TenantManager</span><span class="o">]</span>
-<span class="w">        </span><span class="k">end</span>
+        subgraph Services
+            S1[CaseAnalysisService]
+            S2[ChatBotAgent]
+            S3[IndexingService]
+            S4[CaseInformation]
+            S5[UserInfo]
+            S6[TenantManager]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Repositories</span>
-<span class="w">            </span><span class="n">REP1</span><span class="o">[</span><span class="n">CaseRepo</span><span class="o">]</span>
-<span class="w">            </span><span class="n">REP2</span><span class="o">[</span><span class="n">PlaybookTaskRepo</span><span class="o">]</span>
-<span class="w">            </span><span class="n">REP3</span><span class="o">[</span><span class="n">ChatHistory</span><span class="o">]</span>
-<span class="w">            </span><span class="n">REP4</span><span class="o">[</span><span class="n">UserRepo</span><span class="o">]</span>
-<span class="w">            </span><span class="n">REP5</span><span class="o">[</span><span class="n">TenantRepo</span><span class="o">]</span>
-<span class="w">            </span><span class="n">REP6</span><span class="o">[</span><span class="n">ApplicationRepo</span><span class="o">]</span>
-<span class="w">        </span><span class="k">end</span>
+        subgraph Repositories
+            REP1[CaseRepo]
+            REP2[PlaybookTaskRepo]
+            REP3[ChatHistory]
+            REP4[UserRepo]
+            REP5[TenantRepo]
+            REP6[ApplicationRepo]
+        end
 
-<span class="w">        </span><span class="n">MAIN</span><span class="w"> </span><span class="c1">--&gt; R1</span>
-<span class="w">        </span><span class="n">MAIN</span><span class="w"> </span><span class="c1">--&gt; R2</span>
-<span class="w">        </span><span class="n">MAIN</span><span class="w"> </span><span class="c1">--&gt; R3</span>
-<span class="w">        </span><span class="n">MAIN</span><span class="w"> </span><span class="c1">--&gt; R4</span>
-<span class="w">        </span><span class="n">MAIN</span><span class="w"> </span><span class="c1">--&gt; R5</span>
-<span class="w">        </span><span class="n">MAIN</span><span class="w"> </span><span class="c1">--&gt; R6</span>
-<span class="w">        </span><span class="n">MAIN</span><span class="w"> </span><span class="c1">--&gt; R7</span>
+        MAIN --> R1
+        MAIN --> R2
+        MAIN --> R3
+        MAIN --> R4
+        MAIN --> R5
+        MAIN --> R6
+        MAIN --> R7
 
-<span class="w">        </span><span class="n">R1</span><span class="w"> </span><span class="c1">--&gt; S1</span>
-<span class="w">        </span><span class="n">R2</span><span class="w"> </span><span class="c1">--&gt; S2</span>
-<span class="w">        </span><span class="n">R3</span><span class="w"> </span><span class="c1">--&gt; S3</span>
-<span class="w">        </span><span class="n">R1</span><span class="w"> </span><span class="c1">--&gt; S4</span>
-<span class="w">        </span><span class="n">R4</span><span class="w"> </span><span class="c1">--&gt; S5</span>
-<span class="w">        </span><span class="n">R5</span><span class="w"> </span><span class="c1">--&gt; S6</span>
+        R1 --> S1
+        R2 --> S2
+        R3 --> S3
+        R1 --> S4
+        R4 --> S5
+        R5 --> S6
 
-<span class="w">        </span><span class="n">S1</span><span class="w"> </span><span class="c1">--&gt; REP1</span>
-<span class="w">        </span><span class="n">S1</span><span class="w"> </span><span class="c1">--&gt; REP2</span>
-<span class="w">        </span><span class="n">S2</span><span class="w"> </span><span class="c1">--&gt; REP2</span>
-<span class="w">        </span><span class="n">S2</span><span class="w"> </span><span class="c1">--&gt; REP3</span>
-<span class="w">        </span><span class="n">S4</span><span class="w"> </span><span class="c1">--&gt; REP1</span>
-<span class="w">        </span><span class="n">S5</span><span class="w"> </span><span class="c1">--&gt; REP4</span>
-<span class="w">        </span><span class="n">S6</span><span class="w"> </span><span class="c1">--&gt; REP5</span>
-<span class="w">    </span><span class="k">end</span>
+        S1 --> REP1
+        S1 --> REP2
+        S2 --> REP2
+        S2 --> REP3
+        S4 --> REP1
+        S5 --> REP4
+        S6 --> REP5
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">DatabaseLayer</span><span class="o">[</span><span class="n">&quot;Database Layer&quot;</span><span class="o">]</span>
-<span class="w">        </span><span class="n">DB</span><span class="o">[</span><span class="n">(PostgreSQL)</span><span class="o">]</span>
-<span class="w">        </span><span class="n">CACHE</span><span class="o">[</span><span class="n">(Redis)</span><span class="o">]</span>
-<span class="w">    </span><span class="k">end</span>
+    subgraph DatabaseLayer["Database Layer"]
+        DB[(PostgreSQL)]
+        CACHE[(Redis)]
+    end
 
-<span class="w">    </span><span class="n">REP1</span><span class="w"> </span><span class="c1">--&gt; DB</span>
-<span class="w">    </span><span class="n">REP2</span><span class="w"> </span><span class="c1">--&gt; DB</span>
-<span class="w">    </span><span class="n">REP3</span><span class="w"> </span><span class="c1">--&gt; DB</span>
-<span class="w">    </span><span class="n">REP4</span><span class="w"> </span><span class="c1">--&gt; DB</span>
-<span class="w">    </span><span class="n">REP5</span><span class="w"> </span><span class="c1">--&gt; DB</span>
-<span class="w">    </span><span class="n">REP6</span><span class="w"> </span><span class="c1">--&gt; DB</span>
+    REP1 --> DB
+    REP2 --> DB
+    REP3 --> DB
+    REP4 --> DB
+    REP5 --> DB
+    REP6 --> DB
 
-<span class="w">    </span><span class="n">S1</span><span class="w"> </span><span class="c1">--&gt; CACHE</span>
-<span class="w">    </span><span class="n">S2</span><span class="w"> </span><span class="c1">--&gt; CACHE</span>
+    S1 --> CACHE
+    S2 --> CACHE
 
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="nl">fill</span><span class="p">:</span><span class="n">#ffcc99</span><span class="p">,</span><span class="nl">stroke</span><span class="p">:</span><span class="n">#333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="nl">width</span><span class="p">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="nl">fill</span><span class="p">:</span><span class="n">#99ff99</span><span class="p">,</span><span class="nl">stroke</span><span class="p">:</span><span class="n">#333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="nl">width</span><span class="p">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">cache</span><span class="w"> </span><span class="nl">fill</span><span class="p">:</span><span class="n">#ff9999</span><span class="p">,</span><span class="nl">stroke</span><span class="p">:</span><span class="n">#333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="nl">width</span><span class="p">:</span><span class="mi">2</span><span class="n">px</span>
+    classDef entry fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef database fill:#99ff99,stroke:#333,stroke-width:2px
+    classDef cache fill:#ff9999,stroke:#333,stroke-width:2px
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">MAIN</span><span class="w"> </span><span class="n">entry</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="k">database</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">CACHE</span><span class="w"> </span><span class="n">cache</span>
-</code></pre></div>
+    class MAIN entry
+    class DB database
+    class CACHE cache
+</div>
 
 <h3 id="112-llm-integration-architecture">11.2 LLM Integration Architecture</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">AppLayer</span><span class="p">[</span><span class="s">&quot;Application Layer&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">SRVICE</span><span class="p">[</span><span class="n">Analysis</span><span class="w"> </span><span class="n">Services</span><span class="p">]</span>
-<span class="w">        </span><span class="n">CHAT</span><span class="p">[</span><span class="n">Chat</span><span class="w"> </span><span class="n">Services</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph AppLayer["Application Layer"]
+        SRVICE[Analysis Services]
+        CHAT[Chat Services]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">WrapperLayer</span><span class="p">[</span><span class="s">&quot;LLM Wrapper Layer&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">WRAPPER</span><span class="p">[</span><span class="n">LLMWrapper</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Unified</span><span class="w"> </span><span class="n">Interface</span><span class="p">]</span>
+    subgraph WrapperLayer["LLM Wrapper Layer"]
+        WRAPPER[LLMWrapper<br/>Unified Interface]
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Configuration</span>
-<span class="w">            </span><span class="n">CONFIG</span><span class="p">{</span><span class="n">LLM_BACKEND</span><span class="p">}</span>
-<span class="w">        </span><span class="n">end</span>
+        subgraph Configuration
+            CONFIG{LLM_BACKEND}
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Implementations</span>
-<span class="w">            </span><span class="n">OPENAI</span><span class="p">[</span><span class="n">ChatOpenAI</span><span class="p">]</span>
-<span class="w">            </span><span class="n">OLLAMA</span><span class="p">[</span><span class="n">ChatOllama</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
-<span class="w">    </span><span class="n">end</span>
+        subgraph Implementations
+            OPENAI[ChatOpenAI]
+            OLLAMA[ChatOllama]
+        end
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Features</span>
-<span class="w">        </span><span class="n">STREAM</span><span class="p">[</span><span class="n">Streaming</span><span class="w"> </span><span class="n">Support</span><span class="p">]</span>
-<span class="w">        </span><span class="n">STRUCT</span><span class="p">[</span><span class="n">Structured</span><span class="w"> </span><span class="n">Output</span><span class="p">]</span>
-<span class="w">        </span><span class="n">PARSE</span><span class="p">[</span><span class="n">Output</span><span class="w"> </span><span class="n">Parsing</span><span class="p">]</span>
-<span class="w">        </span><span class="n">RETRY</span><span class="p">[</span><span class="n">Retry</span><span class="w"> </span><span class="n">Logic</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph Features
+        STREAM[Streaming Support]
+        STRUCT[Structured Output]
+        PARSE[Output Parsing]
+        RETRY[Retry Logic]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">LLMProviders</span><span class="p">[</span><span class="s">&quot;External LLM Providers&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">GPT</span><span class="p">[</span><span class="n">OpenAI</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">GPT</span><span class="mi">-4</span><span class="o">/</span><span class="mf">3.5</span><span class="p">]</span>
-<span class="w">        </span><span class="n">GROQ</span><span class="p">[</span><span class="n">Groq</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Llama3</span><span class="p">]</span>
-<span class="w">        </span><span class="n">GEMINI</span><span class="p">[</span><span class="n">Google</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Gemini</span><span class="p">]</span>
-<span class="w">        </span><span class="n">ONPREM</span><span class="p">[</span><span class="n">On</span><span class="o">-</span><span class="n">Premise</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Ollama</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph LLMProviders["External LLM Providers"]
+        GPT[OpenAI<br/>GPT-4/3.5]
+        GROQ[Groq<br/>Llama3]
+        GEMINI[Google<br/>Gemini]
+        ONPREM[On-Premise<br/>Ollama]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Security</span>
-<span class="w">        </span><span class="n">DTX</span><span class="p">[</span><span class="n">DTX</span><span class="w"> </span><span class="n">Prompt</span><span class="w"> </span><span class="n">Guard</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Injection</span><span class="w"> </span><span class="n">Prevention</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph Security
+        DTX[DTX Prompt Guard<br/>Injection Prevention]
+    end
 
-<span class="w">    </span><span class="n">SRVICE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">WRAPPER</span>
-<span class="w">    </span><span class="n">CHAT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">WRAPPER</span>
+    SRVICE --> WRAPPER
+    CHAT --> WRAPPER
 
-<span class="w">    </span><span class="n">WRAPPER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CONFIG</span>
-<span class="w">    </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">OPENAI</span><span class="o">|</span><span class="w"> </span><span class="n">OPENAI</span>
-<span class="w">    </span><span class="n">CONFIG</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">ONPREM</span><span class="o">|</span><span class="w"> </span><span class="n">OLLAMA</span>
+    WRAPPER --> CONFIG
+    CONFIG -->|OPENAI| OPENAI
+    CONFIG -->|ONPREM| OLLAMA
 
-<span class="w">    </span><span class="n">WRAPPER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">STREAM</span>
-<span class="w">    </span><span class="n">WRAPPER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">STRUCT</span>
-<span class="w">    </span><span class="n">WRAPPER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PARSE</span>
-<span class="w">    </span><span class="n">WRAPPER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RETRY</span>
+    WRAPPER --> STREAM
+    WRAPPER --> STRUCT
+    WRAPPER --> PARSE
+    WRAPPER --> RETRY
 
-<span class="w">    </span><span class="n">OPENAI</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">GPT</span>
-<span class="w">    </span><span class="n">OPENAI</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">GEMINI</span>
-<span class="w">    </span><span class="n">OPENAI</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">GROQ</span>
-<span class="w">    </span><span class="n">OLLAMA</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ONPREM</span>
+    OPENAI --> GPT
+    OPENAI --> GEMINI
+    OPENAI --> GROQ
+    OLLAMA --> ONPREM
 
-<span class="w">    </span><span class="n">SRVICE</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DTX</span>
-<span class="w">    </span><span class="n">CHAT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">DTX</span>
+    SRVICE --> DTX
+    CHAT --> DTX
 
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">wrapper</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">99</span><span class="n">ccff</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">security</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
+    classDef wrapper fill:#99ccff,stroke:#333,stroke-width:2px
+    classDef config fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef security fill:#ff9999,stroke:#333,stroke-width:2px
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">WRAPPER</span><span class="w"> </span><span class="n">wrapper</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">CONFIG</span><span class="w"> </span><span class="n">config</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">DTX</span><span class="w"> </span><span class="n">security</span>
-</code></pre></div>
+    class WRAPPER wrapper
+    class CONFIG config
+    class DTX security
+</div>
 
 <h3 id="113-vector-search-implementation">11.3 Vector Search Implementation</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Input&quot;</span>
-<span class="w">        </span><span class="n">TEXT</span><span class="p">[</span><span class="n">Text</span><span class="w"> </span><span class="n">Input</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Task</span><span class="o">/</span><span class="n">Case</span><span class="o">/</span><span class="n">Query</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+flowchart LR
+    subgraph "Input"
+        TEXT[Text Input<br/>Task/Case/Query]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Embedding Generation&quot;</span>
-<span class="w">        </span><span class="n">CHECK</span><span class="p">{</span><span class="n">Embedding</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Backend</span><span class="p">}</span>
-<span class="w">        </span><span class="n">OPENAI_EMBED</span><span class="p">[</span><span class="n">OpenAI</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">text</span><span class="o">-</span><span class="n">embedding</span><span class="o">-</span><span class="n">ada</span><span class="mo">-002</span><span class="p">]</span>
-<span class="w">        </span><span class="n">ONPREM_EMBED</span><span class="p">[</span><span class="n">On</span><span class="o">-</span><span class="n">Premise</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Embedding</span><span class="w"> </span><span class="n">API</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Embedding Generation"
+        CHECK{Embedding<br/>Backend}
+        OPENAI_EMBED[OpenAI<br/>text-embedding-ada-002]
+        ONPREM_EMBED[On-Premise<br/>Embedding API]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Vector Storage&quot;</span>
-<span class="w">        </span><span class="n">PG</span><span class="p">[(</span><span class="n">PostgreSQL</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">pgvector</span><span class="p">)]</span>
-<span class="w">        </span><span class="n">CHROMA</span><span class="p">[(</span><span class="n">ChromaDB</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Optional</span><span class="p">)]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Vector Storage"
+        PG[(PostgreSQL<br/>pgvector)]
+        CHROMA[(ChromaDB<br/>Optional)]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Vector Search&quot;</span>
-<span class="w">        </span><span class="n">QUERY</span><span class="p">[</span><span class="n">Query</span><span class="w"> </span><span class="n">Vector</span><span class="p">]</span>
-<span class="w">        </span><span class="n">SIMILARITY</span><span class="p">[</span><span class="n">Calculate</span><span class="w"> </span><span class="n">Similarity</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">L2</span><span class="w"> </span><span class="n">Distance</span><span class="p">]</span>
-<span class="w">        </span><span class="n">HNSW</span><span class="p">[</span><span class="n">HNSW</span><span class="w"> </span><span class="n">Index</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Approximate</span><span class="w"> </span><span class="n">NN</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FILTER</span><span class="p">[</span><span class="n">Apply</span><span class="w"> </span><span class="n">Filters</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">tenant_id</span><span class="p">,</span><span class="w"> </span><span class="n">case_id</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Vector Search"
+        QUERY[Query Vector]
+        SIMILARITY[Calculate Similarity<br/>L2 Distance]
+        HNSW[HNSW Index<br/>Approximate NN]
+        FILTER[Apply Filters<br/>tenant_id, case_id]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Output&quot;</span>
-<span class="w">        </span><span class="n">RESULTS</span><span class="p">[</span><span class="n">Top</span><span class="o">-</span><span class="n">K</span><span class="w"> </span><span class="n">Results</span><span class="p">]</span>
-<span class="w">        </span><span class="n">RERANK</span><span class="p">[</span><span class="n">Optional</span><span class="w"> </span><span class="n">Re</span><span class="o">-</span><span class="n">ranking</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FINAL</span><span class="p">[</span><span class="n">Final</span><span class="w"> </span><span class="n">Context</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "Output"
+        RESULTS[Top-K Results]
+        RERANK[Optional Re-ranking]
+        FINAL[Final Context]
+    end
 
-<span class="w">    </span><span class="n">TEXT</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CHECK</span>
-<span class="w">    </span><span class="n">CHECK</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">OPENAI</span><span class="o">|</span><span class="w"> </span><span class="n">OPENAI_EMBED</span>
-<span class="w">    </span><span class="n">CHECK</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">ONPREM</span><span class="o">|</span><span class="w"> </span><span class="n">ONPREM_EMBED</span>
+    TEXT --> CHECK
+    CHECK -->|OPENAI| OPENAI_EMBED
+    CHECK -->|ONPREM| ONPREM_EMBED
 
-<span class="w">    </span><span class="n">OPENAI_EMBED</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">VECTOR</span><span class="p">[</span><span class="n">Embedding</span><span class="w"> </span><span class="n">Vector</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="mi">1536</span><span class="w"> </span><span class="n">dimensions</span><span class="p">]</span>
-<span class="w">    </span><span class="n">ONPREM_EMBED</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">VECTOR</span>
+    OPENAI_EMBED --> VECTOR[Embedding Vector<br/>1536 dimensions]
+    ONPREM_EMBED --> VECTOR
 
-<span class="w">    </span><span class="n">VECTOR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">VECTOR</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">CHROMA</span>
+    VECTOR --> PG
+    VECTOR -.-> CHROMA
 
-<span class="w">    </span><span class="n">QUERY</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">SIMILARITY</span>
-<span class="w">    </span><span class="n">SIMILARITY</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">HNSW</span>
-<span class="w">    </span><span class="n">HNSW</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PG</span>
-<span class="w">    </span><span class="n">HNSW</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">CHROMA</span>
+    QUERY --> SIMILARITY
+    SIMILARITY --> HNSW
+    HNSW --> PG
+    HNSW -.-> CHROMA
 
-<span class="w">    </span><span class="n">PG</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FILTER</span>
-<span class="w">    </span><span class="n">CHROMA</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">FILTER</span>
+    PG --> FILTER
+    CHROMA -.-> FILTER
 
-<span class="w">    </span><span class="n">FILTER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RESULTS</span>
-<span class="w">    </span><span class="n">RESULTS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">RERANK</span>
-<span class="w">    </span><span class="n">RERANK</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">FINAL</span>
+    FILTER --> RESULTS
+    RESULTS --> RERANK
+    RERANK --> FINAL
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">TEXT</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mf">99f</span><span class="n">f99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">VECTOR</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">PG</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">99</span><span class="n">ccff</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">FINAL</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff99ff</span>
-</code></pre></div>
+    style TEXT fill:#99ff99
+    style VECTOR fill:#ffcc99
+    style PG fill:#99ccff
+    style FINAL fill:#ff99ff
+</div>
 
 <h3 id="114-celery-task-state-machine">11.4 Celery Task State Machine</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">stateDiagram</span><span class="o">-</span><span class="n">v2</span>
-<span class="w">    </span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Pending</span><span class="o">:</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="n">Queued</span>
+<div class="mermaid">
+stateDiagram-v2
+    [*] --> Pending: Task Queued
 
-<span class="w">    </span><span class="n">Pending</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Running</span><span class="o">:</span><span class="w"> </span><span class="n">Worker</span><span class="w"> </span><span class="n">Picks</span><span class="w"> </span><span class="n">Up</span>
+    Pending --> Running: Worker Picks Up
 
-<span class="w">    </span><span class="n">Running</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CheckCache</span><span class="o">:</span><span class="w"> </span><span class="n">Start</span><span class="w"> </span><span class="n">Processing</span>
+    Running --> CheckCache: Start Processing
 
-<span class="w">    </span><span class="n">CheckCache</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CacheHit</span><span class="o">:</span><span class="w"> </span><span class="n">Found</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="n">Redis</span>
-<span class="w">    </span><span class="n">CheckCache</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">CacheMiss</span><span class="o">:</span><span class="w"> </span><span class="kr">Not</span><span class="w"> </span><span class="n">Found</span>
+    CheckCache --> CacheHit: Found in Redis
+    CheckCache --> CacheMiss: Not Found
 
-<span class="w">    </span><span class="n">CacheHit</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="kr">Success</span><span class="o">:</span><span class="w"> </span><span class="kr">Return</span><span class="w"> </span><span class="n">Cached</span>
+    CacheHit --> Success: Return Cached
 
-<span class="w">    </span><span class="n">CacheMiss</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">VectorSearch</span><span class="o">:</span><span class="w"> </span><span class="n">Retrieve</span><span class="w"> </span><span class="n">Context</span>
-<span class="w">    </span><span class="n">VectorSearch</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LLMGeneration</span><span class="o">:</span><span class="w"> </span><span class="kr">Build</span><span class="w"> </span><span class="n">Prompt</span>
-<span class="w">    </span><span class="n">LLMGeneration</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Parsing</span><span class="o">:</span><span class="w"> </span><span class="nf">Parse</span><span class="w"> </span><span class="n">Response</span>
+    CacheMiss --> VectorSearch: Retrieve Context
+    VectorSearch --> LLMGeneration: Build Prompt
+    LLMGeneration --> Parsing: Parse Response
 
-<span class="w">    </span><span class="n">Parsing</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ParseSuccess</span><span class="o">:</span><span class="w"> </span><span class="n">Valid</span><span class="w"> </span><span class="n">JSON</span>
-<span class="w">    </span><span class="n">Parsing</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ParseFailed</span><span class="o">:</span><span class="w"> </span><span class="n">Invalid</span><span class="w"> </span><span class="n">JSON</span>
+    Parsing --> ParseSuccess: Valid JSON
+    Parsing --> ParseFailed: Invalid JSON
 
-<span class="w">    </span><span class="n">ParseFailed</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Retry</span><span class="o">:</span><span class="w"> </span><span class="n">Attempt</span><span class="w"> </span><span class="n">Repair</span>
-<span class="w">    </span><span class="n">Retry</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Parsing</span><span class="o">:</span><span class="w"> </span><span class="n">Re</span><span class="o">-</span><span class="nf">parse</span>
-<span class="w">    </span><span class="n">Retry</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="kr">Failure</span><span class="o">:</span><span class="w"> </span><span class="nf">Max</span><span class="w"> </span><span class="n">Retries</span>
+    ParseFailed --> Retry: Attempt Repair
+    Retry --> Parsing: Re-parse
+    Retry --> Failure: Max Retries
 
-<span class="w">    </span><span class="n">ParseSuccess</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">StoreDB</span><span class="o">:</span><span class="w"> </span><span class="n">Save</span><span class="w"> </span><span class="n">Results</span>
-<span class="w">    </span><span class="n">StoreDB</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">StoreCache</span><span class="o">:</span><span class="w"> </span><span class="n">Cache</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">Future</span>
-<span class="w">    </span><span class="n">StoreCache</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TriggerRisk</span><span class="o">:</span><span class="w"> </span><span class="n">Background</span><span class="w"> </span><span class="n">Task</span>
-<span class="w">    </span><span class="n">TriggerRisk</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="kr">Success</span><span class="o">:</span><span class="w"> </span><span class="n">Complete</span>
+    ParseSuccess --> StoreDB: Save Results
+    StoreDB --> StoreCache: Cache for Future
+    StoreCache --> TriggerRisk: Background Task
+    TriggerRisk --> Success: Complete
 
-<span class="w">    </span><span class="kr">Success</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="p">[</span><span class="o">*</span><span class="p">]</span>
-<span class="w">    </span><span class="kr">Failure</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="p">[</span><span class="o">*</span><span class="p">]</span>
-</code></pre></div>
+    Success --> [*]
+    Failure --> [*]
+</div>
 
 <h3 id="115-kafka-topic-flow">11.5 Kafka Topic Flow</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">LR</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Producers</span>
-<span class="w">        </span><span class="n">CLI</span><span class="p">[</span><span class="n">CLI</span><span class="w"> </span><span class="n">Indexer</span><span class="p">]</span>
-<span class="w">        </span><span class="n">API</span><span class="p">[</span><span class="n">API</span><span class="w"> </span><span class="n">Service</span><span class="p">]</span>
-<span class="w">        </span><span class="n">INDEXER</span><span class="p">[</span><span class="n">Kafka</span><span class="w"> </span><span class="n">Indexer</span><span class="p">]</span>
-<span class="w">        </span><span class="n">FPR</span><span class="p">[</span><span class="n">FPR</span><span class="w"> </span><span class="n">Processor</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+flowchart LR
+    subgraph Producers
+        CLI[CLI Indexer]
+        API[API Service]
+        INDEXER[Kafka Indexer]
+        FPR[FPR Processor]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Topics</span>
-<span class="w">        </span><span class="n">T1</span><span class="p">[(</span><span class="n">indexing</span><span class="o">-</span><span class="n">topic</span><span class="p">)]</span>
-<span class="w">        </span><span class="n">T2</span><span class="p">[(</span><span class="n">fpr</span><span class="o">-</span><span class="n">processing</span><span class="p">)]</span>
-<span class="w">        </span><span class="n">T3</span><span class="p">[(</span><span class="n">fpr</span><span class="o">-</span><span class="n">results</span><span class="p">)]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph Topics
+        T1[(indexing-topic)]
+        T2[(fpr-processing)]
+        T3[(fpr-results)]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">Consumers</span>
-<span class="w">        </span><span class="n">C1</span><span class="p">[</span><span class="n">Kafka</span><span class="w"> </span><span class="n">Indexer</span><span class="p">]</span>
-<span class="w">        </span><span class="n">C2</span><span class="p">[</span><span class="n">FPR</span><span class="w"> </span><span class="n">Processor</span><span class="p">]</span>
-<span class="w">        </span><span class="n">C3</span><span class="p">[</span><span class="n">Results</span><span class="w"> </span><span class="n">Consumer</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph Consumers
+        C1[Kafka Indexer]
+        C2[FPR Processor]
+        C3[Results Consumer]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="n">ConsumerGroups</span><span class="p">[</span><span class="s">&quot;Consumer Groups&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="n">G1</span><span class="p">[</span><span class="n">indexing_group</span><span class="p">]</span>
-<span class="w">        </span><span class="n">G2</span><span class="p">[</span><span class="n">fp_reduction_group</span><span class="p">]</span>
-<span class="w">        </span><span class="n">G3</span><span class="p">[</span><span class="n">results_group</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph ConsumerGroups["Consumer Groups"]
+        G1[indexing_group]
+        G2[fp_reduction_group]
+        G3[results_group]
+    end
 
-<span class="w">    </span><span class="n">CLI</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">T1</span>
-<span class="w">    </span><span class="n">API</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">T1</span>
+    CLI --> T1
+    API --> T1
 
-<span class="w">    </span><span class="n">T1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C1</span>
-<span class="w">    </span><span class="n">C1</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">G1</span>
+    T1 --> C1
+    C1 -.-> G1
 
-<span class="w">    </span><span class="n">INDEXER</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">T2</span>
+    INDEXER --> T2
 
-<span class="w">    </span><span class="n">T2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C2</span>
-<span class="w">    </span><span class="n">C2</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">G2</span>
+    T2 --> C2
+    C2 -.-> G2
 
-<span class="w">    </span><span class="n">FPR</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">T3</span>
+    FPR --> T3
 
-<span class="w">    </span><span class="n">T3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C3</span>
-<span class="w">    </span><span class="n">C3</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">G3</span>
+    T3 --> C3
+    C3 -.-> G3
 
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">topic</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffcc99</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
-<span class="w">    </span><span class="n">classDef</span><span class="w"> </span><span class="n">consumer</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">99</span><span class="n">ccff</span><span class="p">,</span><span class="n">stroke</span><span class="o">:</span><span class="err">#</span><span class="mi">333</span><span class="p">,</span><span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">:</span><span class="mi">2</span><span class="n">px</span>
+    classDef topic fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef consumer fill:#99ccff,stroke:#333,stroke-width:2px
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">T1</span><span class="p">,</span><span class="n">T2</span><span class="p">,</span><span class="n">T3</span><span class="w"> </span><span class="n">topic</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">C1</span><span class="p">,</span><span class="n">C2</span><span class="p">,</span><span class="n">C3</span><span class="w"> </span><span class="n">consumer</span>
-</code></pre></div>
+    class T1,T2,T3 topic
+    class C1,C2,C3 consumer
+</div>
 
 <h3 id="116-sequence-diagram-case-analysis-flow">11.6 Sequence Diagram: Case Analysis Flow</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Client</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">TykGW</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Tyk</span><span class="w"> </span><span class="n">Gateway</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">FastAPI</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Celery</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Worker</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">PostgreSQL</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">LLM</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Redis</span>
+<div class="mermaid">
+sequenceDiagram
+    participant Client
+    participant TykGW as Tyk Gateway
+    participant FastAPI
+    participant Celery
+    participant Worker
+    participant DB as PostgreSQL
+    participant LLM
+    participant Redis
 
-<span class="w">    </span><span class="n">Client</span><span class="o">-&gt;&gt;</span><span class="n">TykGW</span><span class="o">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="kr">case</span><span class="o">/</span><span class="n">analysis</span>
-<span class="w">    </span><span class="n">TykGW</span><span class="o">-&gt;&gt;</span><span class="n">FastAPI</span><span class="o">:</span><span class="w"> </span><span class="n">Authenticate</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">Forward</span>
-<span class="w">    </span><span class="n">FastAPI</span><span class="o">-&gt;&gt;</span><span class="n">Celery</span><span class="o">:</span><span class="w"> </span><span class="n">Queue</span><span class="w"> </span><span class="n">Task</span>
-<span class="w">    </span><span class="n">Celery</span><span class="o">--&gt;&gt;</span><span class="n">FastAPI</span><span class="o">:</span><span class="w"> </span><span class="n">task_id</span>
-<span class="w">    </span><span class="n">FastAPI</span><span class="o">--&gt;&gt;</span><span class="n">Client</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="n">task_id</span><span class="p">}</span>
+    Client->>TykGW: POST /case/analysis
+    TykGW->>FastAPI: Authenticate & Forward
+    FastAPI->>Celery: Queue Task
+    Celery-->>FastAPI: task_id
+    FastAPI-->>Client: {task_id}
 
-<span class="w">    </span><span class="n">Worker</span><span class="o">-&gt;&gt;</span><span class="n">Redis</span><span class="o">:</span><span class="w"> </span><span class="n">Check</span><span class="w"> </span><span class="n">Cache</span>
-<span class="w">    </span><span class="n">alt</span><span class="w"> </span><span class="n">Cache</span><span class="w"> </span><span class="n">Hit</span>
-<span class="w">        </span><span class="n">Redis</span><span class="o">--&gt;&gt;</span><span class="n">Worker</span><span class="o">:</span><span class="w"> </span><span class="n">Cached</span><span class="w"> </span><span class="n">Result</span>
-<span class="w">    </span><span class="n">else</span><span class="w"> </span><span class="n">Cache</span><span class="w"> </span><span class="n">Miss</span>
-<span class="w">        </span><span class="n">Worker</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">Search</span><span class="w"> </span><span class="n">Similar</span><span class="w"> </span><span class="n">Tasks</span>
-<span class="w">        </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">Worker</span><span class="o">:</span><span class="w"> </span><span class="n">Context</span><span class="w"> </span><span class="n">Tasks</span>
-<span class="w">        </span><span class="n">Worker</span><span class="o">-&gt;&gt;</span><span class="n">LLM</span><span class="o">:</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">Analysis</span>
-<span class="w">        </span><span class="n">LLM</span><span class="o">--&gt;&gt;</span><span class="n">Worker</span><span class="o">:</span><span class="w"> </span><span class="n">Analysis</span><span class="w"> </span><span class="n">Result</span>
-<span class="w">        </span><span class="n">Worker</span><span class="o">-&gt;&gt;</span><span class="n">Redis</span><span class="o">:</span><span class="w"> </span><span class="kr">Store</span><span class="w"> </span><span class="n">Cache</span>
-<span class="w">    </span><span class="kd">end</span>
+    Worker->>Redis: Check Cache
+    alt Cache Hit
+        Redis-->>Worker: Cached Result
+    else Cache Miss
+        Worker->>DB: Search Similar Tasks
+        DB-->>Worker: Context Tasks
+        Worker->>LLM: Generate Analysis
+        LLM-->>Worker: Analysis Result
+        Worker->>Redis: Store Cache
+    end
 
-<span class="w">    </span><span class="n">Worker</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="kr">Store</span><span class="w"> </span><span class="n">Summary</span>
-<span class="w">    </span><span class="n">Worker</span><span class="o">-&gt;&gt;</span><span class="n">Celery</span><span class="o">:</span><span class="w"> </span><span class="n">Trigger</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">Scoring</span>
+    Worker->>DB: Store Summary
+    Worker->>Celery: Trigger Risk Scoring
 
-<span class="w">    </span><span class="n">Client</span><span class="o">-&gt;&gt;</span><span class="n">FastAPI</span><span class="o">:</span><span class="w"> </span><span class="n">GET</span><span class="w"> </span><span class="o">/</span><span class="kr">case</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="p">{</span><span class="n">task_id</span><span class="p">}</span>
-<span class="w">    </span><span class="n">FastAPI</span><span class="o">-&gt;&gt;</span><span class="n">Celery</span><span class="o">:</span><span class="w"> </span><span class="n">Get</span><span class="w"> </span><span class="n">Result</span>
-<span class="w">    </span><span class="n">Celery</span><span class="o">--&gt;&gt;</span><span class="n">FastAPI</span><span class="o">:</span><span class="w"> </span><span class="n">Result</span>
-<span class="w">    </span><span class="n">FastAPI</span><span class="o">--&gt;&gt;</span><span class="n">Client</span><span class="o">:</span><span class="w"> </span><span class="n">Analysis</span><span class="w"> </span><span class="n">Result</span>
-</code></pre></div>
+    Client->>FastAPI: GET /case/analysis/{task_id}
+    FastAPI->>Celery: Get Result
+    Celery-->>FastAPI: Result
+    FastAPI-->>Client: Analysis Result
+</div>
 
 <h3 id="112-task-indexing-flow">11.2 Task Indexing Flow</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">CLI</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Kafka</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Indexer</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Embed</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Embedding</span><span class="w"> </span><span class="kr">Service</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">PostgreSQL</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">FPR</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">FPR</span><span class="w"> </span><span class="n">Processor</span>
+<div class="mermaid">
+sequenceDiagram
+    participant CLI
+    participant Kafka
+    participant Indexer
+    participant Embed as Embedding Service
+    participant DB as PostgreSQL
+    participant FPR as FPR Processor
 
-<span class="w">    </span><span class="n">CLI</span><span class="o">-&gt;&gt;</span><span class="n">Kafka</span><span class="o">:</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">Tasks</span>
-<span class="w">    </span><span class="n">Kafka</span><span class="o">--&gt;&gt;</span><span class="n">Indexer</span><span class="o">:</span><span class="w"> </span><span class="n">Consume</span><span class="w"> </span><span class="n">Message</span>
+    CLI->>Kafka: Publish Tasks
+    Kafka-->>Indexer: Consume Message
 
-<span class="w">    </span><span class="nf">loop</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">Each</span><span class="w"> </span><span class="n">Task</span>
-<span class="w">        </span><span class="n">Indexer</span><span class="o">-&gt;&gt;</span><span class="n">Indexer</span><span class="o">:</span><span class="w"> </span><span class="n">Extract</span><span class="w"> </span><span class="n">Text</span>
-<span class="w">        </span><span class="n">Indexer</span><span class="o">-&gt;&gt;</span><span class="n">Embed</span><span class="o">:</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">Embedding</span>
-<span class="w">        </span><span class="n">Embed</span><span class="o">--&gt;&gt;</span><span class="n">Indexer</span><span class="o">:</span><span class="w"> </span><span class="n">Vector</span>
-<span class="w">        </span><span class="n">Indexer</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="kr">Store</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Vector</span>
-<span class="w">        </span><span class="n">Indexer</span><span class="o">-&gt;&gt;</span><span class="n">Kafka</span><span class="o">:</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">FPR</span><span class="w"> </span><span class="n">Topic</span>
-<span class="w">    </span><span class="kd">end</span>
+    loop For Each Task
+        Indexer->>Indexer: Extract Text
+        Indexer->>Embed: Generate Embedding
+        Embed-->>Indexer: Vector
+        Indexer->>DB: Store Task + Vector
+        Indexer->>Kafka: Publish to FPR Topic
+    end
 
-<span class="w">    </span><span class="n">Kafka</span><span class="o">--&gt;&gt;</span><span class="n">FPR</span><span class="o">:</span><span class="w"> </span><span class="n">Consume</span><span class="w"> </span><span class="n">Enriched</span><span class="w"> </span><span class="kr">Case</span>
-<span class="w">    </span><span class="n">FPR</span><span class="o">-&gt;&gt;</span><span class="n">FPR</span><span class="o">:</span><span class="w"> </span><span class="kr">Build</span><span class="w"> </span><span class="n">Features</span>
-<span class="w">    </span><span class="n">FPR</span><span class="o">-&gt;&gt;</span><span class="n">FPR</span><span class="o">:</span><span class="w"> </span><span class="n">Check</span><span class="w"> </span><span class="n">Novelty</span>
-<span class="w">    </span><span class="n">FPR</span><span class="o">-&gt;&gt;</span><span class="n">FPR</span><span class="o">:</span><span class="w"> </span><span class="n">Score</span><span class="w"> </span><span class="n">Suspiciousness</span>
-<span class="w">    </span><span class="n">FPR</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">Update</span><span class="w"> </span><span class="n">Analysis</span>
-</code></pre></div>
+    Kafka-->>FPR: Consume Enriched Case
+    FPR->>FPR: Build Features
+    FPR->>FPR: Check Novelty
+    FPR->>FPR: Score Suspiciousness
+    FPR->>DB: Update Analysis
+</div>
 
 <h3 id="113-chat-flow-with-rag">11.3 Chat Flow with RAG</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Client</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">FastAPI</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">ChatAgent</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">PostgreSQL</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">VectorDB</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">LLM</span>
+<div class="mermaid">
+sequenceDiagram
+    participant Client
+    participant FastAPI
+    participant ChatAgent
+    participant DB as PostgreSQL
+    participant VectorDB
+    participant LLM
 
-<span class="w">    </span><span class="n">Client</span><span class="o">-&gt;&gt;</span><span class="n">FastAPI</span><span class="o">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">chat</span><span class="o">/</span><span class="n">completions</span><span class="w"> </span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="kr">true</span><span class="p">)</span>
-<span class="w">    </span><span class="n">FastAPI</span><span class="o">-&gt;&gt;</span><span class="n">ChatAgent</span><span class="o">:</span><span class="w"> </span><span class="nf">Process</span><span class="w"> </span><span class="n">Request</span>
+    Client->>FastAPI: POST /chat/completions (stream=true)
+    FastAPI->>ChatAgent: Process Request
 
-<span class="w">    </span><span class="n">ChatAgent</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">Get</span><span class="w"> </span><span class="n">Thread</span><span class="w"> </span><span class="n">History</span>
-<span class="w">    </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">ChatAgent</span><span class="o">:</span><span class="w"> </span><span class="n">Recent</span><span class="w"> </span><span class="n">Messages</span>
+    ChatAgent->>DB: Get Thread History
+    DB-->>ChatAgent: Recent Messages
 
-<span class="w">    </span><span class="n">ChatAgent</span><span class="o">-&gt;&gt;</span><span class="n">VectorDB</span><span class="o">:</span><span class="w"> </span><span class="n">Semantic</span><span class="w"> </span><span class="n">Search</span>
-<span class="w">    </span><span class="n">VectorDB</span><span class="o">--&gt;&gt;</span><span class="n">ChatAgent</span><span class="o">:</span><span class="w"> </span><span class="n">Relevant</span><span class="w"> </span><span class="n">Context</span>
+    ChatAgent->>VectorDB: Semantic Search
+    VectorDB-->>ChatAgent: Relevant Context
 
-<span class="w">    </span><span class="n">ChatAgent</span><span class="o">-&gt;&gt;</span><span class="n">ChatAgent</span><span class="o">:</span><span class="w"> </span><span class="kr">Build</span><span class="w"> </span><span class="n">RAG</span><span class="w"> </span><span class="n">Prompt</span>
-<span class="w">    </span><span class="n">ChatAgent</span><span class="o">-&gt;&gt;</span><span class="n">LLM</span><span class="o">:</span><span class="w"> </span><span class="n">Stream</span><span class="w"> </span><span class="n">Request</span>
+    ChatAgent->>ChatAgent: Build RAG Prompt
+    ChatAgent->>LLM: Stream Request
 
-<span class="w">    </span><span class="nf">loop</span><span class="w"> </span><span class="n">Streaming</span>
-<span class="w">        </span><span class="n">LLM</span><span class="o">--&gt;&gt;</span><span class="n">ChatAgent</span><span class="o">:</span><span class="w"> </span><span class="n">Chunk</span>
-<span class="w">        </span><span class="n">ChatAgent</span><span class="o">--&gt;&gt;</span><span class="n">FastAPI</span><span class="o">:</span><span class="w"> </span><span class="n">Chunk</span>
-<span class="w">        </span><span class="n">FastAPI</span><span class="o">--&gt;&gt;</span><span class="n">Client</span><span class="o">:</span><span class="w"> </span><span class="n">Stream</span><span class="w"> </span><span class="n">Chunk</span>
-<span class="w">    </span><span class="kd">end</span>
+    loop Streaming
+        LLM-->>ChatAgent: Chunk
+        ChatAgent-->>FastAPI: Chunk
+        FastAPI-->>Client: Stream Chunk
+    end
 
-<span class="w">    </span><span class="n">ChatAgent</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="kr">Store</span><span class="w"> </span><span class="n">Message</span>
-</code></pre></div>
+    ChatAgent->>DB: Store Message
+</div>
 
 <h3 id="114-repository-pattern-class-diagram">11.4 Repository Pattern Class Diagram</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">classDiagram</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">BaseRepository</span><span class="o">~</span><span class="n">T</span><span class="o">~</span><span class="w"> </span><span class="o">{</span>
-<span class="w">        </span><span class="o">&lt;&lt;</span><span class="k">abstract</span><span class="o">&gt;&gt;</span>
-<span class="w">        </span><span class="o">#</span><span class="n">db</span><span class="o">:</span><span class="w"> </span><span class="n">Session</span>
-<span class="w">        </span><span class="o">#</span><span class="n">tenant_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span>
-<span class="w">        </span><span class="o">+</span><span class="n">create</span><span class="o">(</span><span class="n">entity</span><span class="o">:</span><span class="w"> </span><span class="n">T</span><span class="o">)</span><span class="w"> </span><span class="n">T</span>
-<span class="w">        </span><span class="o">+</span><span class="n">get</span><span class="o">(</span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span><span class="w"> </span><span class="n">Optional</span><span class="o">~</span><span class="n">T</span><span class="o">~</span>
-<span class="w">        </span><span class="o">+</span><span class="n">update</span><span class="o">(</span><span class="n">entity</span><span class="o">:</span><span class="w"> </span><span class="n">T</span><span class="o">)</span><span class="w"> </span><span class="n">T</span>
-<span class="w">        </span><span class="o">+</span><span class="n">delete</span><span class="o">(</span><span class="n">id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span><span class="w"> </span><span class="kt">bool</span>
-<span class="w">        </span><span class="o">+</span><span class="kt">list</span><span class="o">(</span><span class="n">filters</span><span class="o">:</span><span class="w"> </span><span class="n">dict</span><span class="o">)</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="n">T</span><span class="o">~</span>
-<span class="w">    </span><span class="o">}</span>
+<div class="mermaid">
+classDiagram
+    class BaseRepository~T~ {
+        <<abstract>>
+        #db: Session
+        #tenant_id: str
+        +create(entity: T) T
+        +get(id: str) Optional~T~
+        +update(entity: T) T
+        +delete(id: str) bool
+        +list(filters: dict) List~T~
+    }
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">CaseRepository</span><span class="w"> </span><span class="o">{</span>
-<span class="w">        </span><span class="o">+</span><span class="n">get_by_case_id</span><span class="o">(</span><span class="n">case_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span><span class="w"> </span><span class="n">Case</span>
-<span class="w">        </span><span class="o">+</span><span class="n">get_by_status</span><span class="o">(</span><span class="n">status</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="n">Case</span><span class="o">~</span>
-<span class="w">        </span><span class="o">+</span><span class="n">update_summary</span><span class="o">(</span><span class="n">case_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">summary</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span>
-<span class="w">        </span><span class="o">+</span><span class="n">update_risk</span><span class="o">(</span><span class="n">case_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">risk</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span>
-<span class="w">        </span><span class="o">+</span><span class="n">set_as_noise</span><span class="o">(</span><span class="n">case_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span>
-<span class="w">    </span><span class="o">}</span>
+    class CaseRepository {
+        +get_by_case_id(case_id: str) Case
+        +get_by_status(status: str) List~Case~
+        +update_summary(case_id: str, summary: str)
+        +update_risk(case_id: str, risk: str)
+        +set_as_noise(case_id: str)
+    }
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">PlaybookTaskRepository</span><span class="w"> </span><span class="o">{</span>
-<span class="w">        </span><span class="o">+</span><span class="n">search_by_case</span><span class="o">(</span><span class="n">query</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">case_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">limit</span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="o">)</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="n">Task</span><span class="o">~</span>
-<span class="w">        </span><span class="o">+</span><span class="n">search_by_deployment</span><span class="o">(</span><span class="n">query</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">deployment_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="n">Task</span><span class="o">~</span>
-<span class="w">        </span><span class="o">+</span><span class="n">get_by_embedding</span><span class="o">(</span><span class="n">vector</span><span class="o">:</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="kt">float</span><span class="o">~)</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="n">Task</span><span class="o">~</span>
-<span class="w">        </span><span class="o">+</span><span class="n">bulk_insert</span><span class="o">(</span><span class="n">tasks</span><span class="o">:</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="n">Task</span><span class="o">~)</span>
-<span class="w">    </span><span class="o">}</span>
+    class PlaybookTaskRepository {
+        +search_by_case(query: str, case_id: str, limit: int) List~Task~
+        +search_by_deployment(query: str, deployment_id: str) List~Task~
+        +get_by_embedding(vector: List~float~) List~Task~
+        +bulk_insert(tasks: List~Task~)
+    }
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">ChatHistoryRepository</span><span class="w"> </span><span class="o">{</span>
-<span class="w">        </span><span class="o">+</span><span class="n">create_thread</span><span class="o">(</span><span class="n">case_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">user_id</span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="o">)</span><span class="w"> </span><span class="n">Thread</span>
-<span class="w">        </span><span class="o">+</span><span class="n">add_message</span><span class="o">(</span><span class="n">thread_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">role</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">content</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span><span class="w"> </span><span class="n">Message</span>
-<span class="w">        </span><span class="o">+</span><span class="n">get_history</span><span class="o">(</span><span class="n">thread_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">limit</span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="o">)</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="n">Message</span><span class="o">~</span>
-<span class="w">        </span><span class="o">+</span><span class="n">update_message</span><span class="o">(</span><span class="n">msg_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">content</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span>
-<span class="w">    </span><span class="o">}</span>
+    class ChatHistoryRepository {
+        +create_thread(case_id: str, user_id: int) Thread
+        +add_message(thread_id: str, role: str, content: str) Message
+        +get_history(thread_id: str, limit: int) List~Message~
+        +update_message(msg_id: str, content: str)
+    }
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">TaskClassificationRepository</span><span class="w"> </span><span class="o">{</span>
-<span class="w">        </span><span class="o">+</span><span class="n">classify_task</span><span class="o">(</span><span class="n">task_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">category</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span>
-<span class="w">        </span><span class="o">+</span><span class="n">get_classification</span><span class="o">(</span><span class="n">task_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span><span class="w"> </span><span class="n">Classification</span>
-<span class="w">        </span><span class="o">+</span><span class="n">bulk_classify</span><span class="o">(</span><span class="n">classifications</span><span class="o">:</span><span class="w"> </span><span class="n">List</span><span class="o">)</span>
-<span class="w">    </span><span class="o">}</span>
+    class TaskClassificationRepository {
+        +classify_task(task_id: str, category: str)
+        +get_classification(task_id: str) Classification
+        +bulk_classify(classifications: List)
+    }
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">CaseSummaryRepository</span><span class="w"> </span><span class="o">{</span>
-<span class="w">        </span><span class="o">+</span><span class="n">store_summary</span><span class="o">(</span><span class="n">case_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">summary</span><span class="o">:</span><span class="w"> </span><span class="n">dict</span><span class="o">)</span>
-<span class="w">        </span><span class="o">+</span><span class="n">get_summary</span><span class="o">(</span><span class="n">case_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span><span class="w"> </span><span class="n">dict</span>
-<span class="w">        </span><span class="o">+</span><span class="n">update_analysis</span><span class="o">(</span><span class="n">case_id</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">,</span><span class="w"> </span><span class="n">analysis</span><span class="o">:</span><span class="w"> </span><span class="n">dict</span><span class="o">)</span>
-<span class="w">    </span><span class="o">}</span>
+    class CaseSummaryRepository {
+        +store_summary(case_id: str, summary: dict)
+        +get_summary(case_id: str) dict
+        +update_analysis(case_id: str, analysis: dict)
+    }
 
-<span class="w">    </span><span class="n">BaseRepository</span><span class="w"> </span><span class="o">&lt;|--</span><span class="w"> </span><span class="n">CaseRepository</span>
-<span class="w">    </span><span class="n">BaseRepository</span><span class="w"> </span><span class="o">&lt;|--</span><span class="w"> </span><span class="n">PlaybookTaskRepository</span>
-<span class="w">    </span><span class="n">BaseRepository</span><span class="w"> </span><span class="o">&lt;|--</span><span class="w"> </span><span class="n">ChatHistoryRepository</span>
-<span class="w">    </span><span class="n">BaseRepository</span><span class="w"> </span><span class="o">&lt;|--</span><span class="w"> </span><span class="n">TaskClassificationRepository</span>
-<span class="w">    </span><span class="n">BaseRepository</span><span class="w"> </span><span class="o">&lt;|--</span><span class="w"> </span><span class="n">CaseSummaryRepository</span>
+    BaseRepository <|-- CaseRepository
+    BaseRepository <|-- PlaybookTaskRepository
+    BaseRepository <|-- ChatHistoryRepository
+    BaseRepository <|-- TaskClassificationRepository
+    BaseRepository <|-- CaseSummaryRepository
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">EmbeddingClient</span><span class="w"> </span><span class="o">{</span>
-<span class="w">        </span><span class="o">&lt;&lt;</span><span class="k">interface</span><span class="o">&gt;&gt;</span>
-<span class="w">        </span><span class="o">+</span><span class="n">create_embedding</span><span class="o">(</span><span class="n">text</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="o">)</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="kt">float</span><span class="o">~</span>
-<span class="w">        </span><span class="o">+</span><span class="n">batch_create</span><span class="o">(</span><span class="n">texts</span><span class="o">:</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="n">str</span><span class="o">~)</span><span class="w"> </span><span class="n">List</span><span class="o">~</span><span class="n">List</span><span class="o">~</span><span class="kt">float</span><span class="o">~~</span>
-<span class="w">    </span><span class="o">}</span>
+    class EmbeddingClient {
+        <<interface>>
+        +create_embedding(text: str) List~float~
+        +batch_create(texts: List~str~) List~List~float~~
+    }
 
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">OpenAIEmbedding</span>
-<span class="w">    </span><span class="k">class</span><span class="w"> </span><span class="n">OnPremiseEmbedding</span>
+    class OpenAIEmbedding
+    class OnPremiseEmbedding
 
-<span class="w">    </span><span class="n">EmbeddingClient</span><span class="w"> </span><span class="o">&lt;|..</span><span class="w"> </span><span class="n">OpenAIEmbedding</span>
-<span class="w">    </span><span class="n">EmbeddingClient</span><span class="w"> </span><span class="o">&lt;|..</span><span class="w"> </span><span class="n">OnPremiseEmbedding</span>
+    EmbeddingClient <|.. OpenAIEmbedding
+    EmbeddingClient <|.. OnPremiseEmbedding
 
-<span class="w">    </span><span class="n">PlaybookTaskRepository</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">EmbeddingClient</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">uses</span>
-</code></pre></div>
+    PlaybookTaskRepository --> EmbeddingClient : uses
+</div>
 
 <h3 id="115-tenant-onboarding-workflow">11.5 Tenant Onboarding Workflow</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">sequenceDiagram</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Admin</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">Gateway</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">TenantSvc</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Tenant</span><span class="w"> </span><span class="kr">Service</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">DB</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">PostgreSQL</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">Kafka</span>
-<span class="w">    </span><span class="n">participant</span><span class="w"> </span><span class="n">IndexSvc</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">Indexing</span><span class="w"> </span><span class="kr">Service</span>
+<div class="mermaid">
+sequenceDiagram
+    participant Admin
+    participant API as API Gateway
+    participant TenantSvc as Tenant Service
+    participant DB as PostgreSQL
+    participant Kafka
+    participant IndexSvc as Indexing Service
 
-<span class="w">    </span><span class="n">Admin</span><span class="o">-&gt;&gt;</span><span class="n">API</span><span class="o">:</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">tenants</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="p">{</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">}</span>
-<span class="w">    </span><span class="n">API</span><span class="o">-&gt;&gt;</span><span class="n">TenantSvc</span><span class="o">:</span><span class="w"> </span><span class="n">create_tenant</span><span class="p">(</span><span class="n">tenant_info</span><span class="p">)</span>
+    Admin->>API: POST /tenants<br/>{name, config}
+    API->>TenantSvc: create_tenant(tenant_info)
 
-<span class="w">    </span><span class="n">TenantSvc</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">Create</span><span class="w"> </span><span class="n">siadb_</span><span class="o">&lt;</span><span class="n">tenant_id</span><span class="o">&gt;</span>
-<span class="w">    </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">TenantSvc</span><span class="o">:</span><span class="w"> </span><span class="n">Database</span><span class="w"> </span><span class="n">created</span>
+    TenantSvc->>DB: Create siadb_<tenant_id>
+    DB-->>TenantSvc: Database created
 
-<span class="w">    </span><span class="n">TenantSvc</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">Run</span><span class="w"> </span><span class="n">Alembic</span><span class="w"> </span><span class="n">migrations</span>
-<span class="w">    </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">TenantSvc</span><span class="o">:</span><span class="w"> </span><span class="n">Schema</span><span class="w"> </span><span class="n">initialized</span>
+    TenantSvc->>DB: Run Alembic migrations
+    DB-->>TenantSvc: Schema initialized
 
-<span class="w">    </span><span class="n">TenantSvc</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">INSERT</span><span class="w"> </span><span class="n">INTO</span><span class="w"> </span><span class="n">tenants</span>
-<span class="w">    </span><span class="n">DB</span><span class="o">--&gt;&gt;</span><span class="n">TenantSvc</span><span class="o">:</span><span class="w"> </span><span class="n">Tenant</span><span class="w"> </span><span class="kd">record </span><span class="n">created</span>
+    TenantSvc->>DB: INSERT INTO tenants
+    DB-->>TenantSvc: Tenant record created
 
-<span class="w">    </span><span class="n">TenantSvc</span><span class="o">-&gt;&gt;</span><span class="n">Kafka</span><span class="o">:</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">tenant_created</span><span class="w"> </span><span class="nf">event</span>
+    TenantSvc->>Kafka: Publish tenant_created event
 
-<span class="w">    </span><span class="n">TenantSvc</span><span class="o">--&gt;&gt;</span><span class="n">API</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="n">tenant_id</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;active&quot;</span><span class="p">}</span>
-<span class="w">    </span><span class="n">API</span><span class="o">--&gt;&gt;</span><span class="n">Admin</span><span class="o">:</span><span class="w"> </span><span class="n">Tenant</span><span class="w"> </span><span class="n">created</span><span class="w"> </span><span class="n">successfully</span>
+    TenantSvc-->>API: {tenant_id, status: "active"}
+    API-->>Admin: Tenant created successfully
 
-<span class="w">    </span><span class="n">Kafka</span><span class="o">-&gt;&gt;</span><span class="n">IndexSvc</span><span class="o">:</span><span class="w"> </span><span class="n">tenant_created</span><span class="w"> </span><span class="nf">event</span>
-<span class="w">    </span><span class="n">IndexSvc</span><span class="o">-&gt;&gt;</span><span class="n">IndexSvc</span><span class="o">:</span><span class="w"> </span><span class="n">Create</span><span class="w"> </span><span class="n">embedding</span><span class="w"> </span><span class="n">collections</span>
-<span class="w">    </span><span class="n">IndexSvc</span><span class="o">-&gt;&gt;</span><span class="n">DB</span><span class="o">:</span><span class="w"> </span><span class="n">Initialize</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">indexes</span>
+    Kafka->>IndexSvc: tenant_created event
+    IndexSvc->>IndexSvc: Create embedding collections
+    IndexSvc->>DB: Initialize vector indexes
 
-<span class="w">    </span><span class="n">Note</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="n">IndexSvc</span><span class="o">:</span><span class="w"> </span><span class="n">Background</span><span class="w"> </span><span class="n">initialization</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">completes</span><span class="w"> </span><span class="n">asynchronously</span>
-</code></pre></div>
+    Note over IndexSvc: Background initialization<br/>completes asynchronously
+</div>
 
 <h3 id="116-error-handling-flow">11.6 Error Handling Flow</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
-<span class="w">    </span><span class="n">START</span><span class="p">[</span><span class="n">API</span><span class="w"> </span><span class="n">Request</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">VALIDATE</span><span class="p">{</span><span class="n">Valid</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Request</span><span class="o">?</span><span class="p">}</span>
+<div class="mermaid">
+flowchart TD
+    START[API Request] --> VALIDATE{Valid<br/>Request?}
 
-<span class="w">    </span><span class="n">VALIDATE</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">ERROR_400</span><span class="p">[</span><span class="n">Return</span><span class="w"> </span><span class="mi">400</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Bad</span><span class="w"> </span><span class="n">Request</span><span class="p">]</span>
-<span class="w">    </span><span class="n">VALIDATE</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">AUTH</span><span class="p">{</span><span class="n">Authenticated</span><span class="o">?</span><span class="p">}</span>
+    VALIDATE -->|No| ERROR_400[Return 400<br/>Bad Request]
+    VALIDATE -->|Yes| AUTH{Authenticated?}
 
-<span class="w">    </span><span class="n">AUTH</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">ERROR_401</span><span class="p">[</span><span class="n">Return</span><span class="w"> </span><span class="mi">401</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Unauthorized</span><span class="p">]</span>
-<span class="w">    </span><span class="n">AUTH</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">AUTHZ</span><span class="p">{</span><span class="n">Authorized</span><span class="o">?</span><span class="p">}</span>
+    AUTH -->|No| ERROR_401[Return 401<br/>Unauthorized]
+    AUTH -->|Yes| AUTHZ{Authorized?}
 
-<span class="w">    </span><span class="n">AUTHZ</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">ERROR_403</span><span class="p">[</span><span class="n">Return</span><span class="w"> </span><span class="mi">403</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Forbidden</span><span class="p">]</span>
-<span class="w">    </span><span class="n">AUTHZ</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">PROCESS</span><span class="p">[</span><span class="n">Process</span><span class="w"> </span><span class="n">Request</span><span class="p">]</span>
+    AUTHZ -->|No| ERROR_403[Return 403<br/>Forbidden]
+    AUTHZ -->|Yes| PROCESS[Process Request]
 
-<span class="w">    </span><span class="n">PROCESS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">TRY</span><span class="p">{</span><span class="n">Success</span><span class="o">?</span><span class="p">}</span>
+    PROCESS --> TRY{Success?}
 
-<span class="w">    </span><span class="n">TRY</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">DB</span><span class="w"> </span><span class="n">Error</span><span class="o">|</span><span class="w"> </span><span class="n">RETRY</span><span class="p">{</span><span class="n">Retryable</span><span class="o">?</span><span class="p">}</span>
-<span class="w">    </span><span class="n">TRY</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">LLM</span><span class="w"> </span><span class="n">Error</span><span class="o">|</span><span class="w"> </span><span class="n">LLM_RETRY</span><span class="p">{</span><span class="n">Retry</span><span class="w"> </span><span class="n">Count</span><span class="o">?</span><span class="p">}</span>
-<span class="w">    </span><span class="n">TRY</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">External</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">Error</span><span class="o">|</span><span class="w"> </span><span class="n">EXT_RETRY</span><span class="p">{</span><span class="n">Can</span><span class="w"> </span><span class="n">Retry</span><span class="o">?</span><span class="p">}</span>
-<span class="w">    </span><span class="n">TRY</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Success</span><span class="o">|</span><span class="w"> </span><span class="n">SUCCESS</span><span class="p">[</span><span class="n">Return</span><span class="w"> </span><span class="mi">200</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Success</span><span class="p">]</span>
+    TRY -->|DB Error| RETRY{Retryable?}
+    TRY -->|LLM Error| LLM_RETRY{Retry Count?}
+    TRY -->|External API Error| EXT_RETRY{Can Retry?}
+    TRY -->|Success| SUCCESS[Return 200<br/>Success]
 
-<span class="w">    </span><span class="n">RETRY</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">WAIT1</span><span class="p">[</span><span class="n">Exponential</span><span class="w"> </span><span class="n">Backoff</span><span class="p">]</span>
-<span class="w">    </span><span class="n">RETRY</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">ERROR_500</span><span class="p">[</span><span class="n">Return</span><span class="w"> </span><span class="mi">500</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Internal</span><span class="w"> </span><span class="n">Error</span><span class="p">]</span>
+    RETRY -->|Yes| WAIT1[Exponential Backoff]
+    RETRY -->|No| ERROR_500[Return 500<br/>Internal Error]
 
-<span class="w">    </span><span class="n">LLM_RETRY</span><span class="w"> </span><span class="o">--&gt;|&lt;</span><span class="w"> </span><span class="n">Max</span><span class="o">|</span><span class="w"> </span><span class="n">WAIT2</span><span class="p">[</span><span class="n">Backoff</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Retry</span><span class="p">]</span>
-<span class="w">    </span><span class="n">LLM_RETRY</span><span class="w"> </span><span class="o">--&gt;|&gt;=</span><span class="w"> </span><span class="n">Max</span><span class="o">|</span><span class="w"> </span><span class="n">ERROR_503</span><span class="p">[</span><span class="n">Return</span><span class="w"> </span><span class="mi">503</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Service</span><span class="w"> </span><span class="n">Unavailable</span><span class="p">]</span>
+    LLM_RETRY -->|< Max| WAIT2[Backoff + Retry]
+    LLM_RETRY -->|>= Max| ERROR_503[Return 503<br/>Service Unavailable]
 
-<span class="w">    </span><span class="n">EXT_RETRY</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">WAIT3</span><span class="p">[</span><span class="n">Retry</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">Timeout</span><span class="p">]</span>
-<span class="w">    </span><span class="n">EXT_RETRY</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">ERROR_502</span><span class="p">[</span><span class="n">Return</span><span class="w"> </span><span class="mi">502</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Bad</span><span class="w"> </span><span class="n">Gateway</span><span class="p">]</span>
+    EXT_RETRY -->|Yes| WAIT3[Retry with Timeout]
+    EXT_RETRY -->|No| ERROR_502[Return 502<br/>Bad Gateway]
 
-<span class="w">    </span><span class="n">WAIT1</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PROCESS</span>
-<span class="w">    </span><span class="n">WAIT2</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PROCESS</span>
-<span class="w">    </span><span class="n">WAIT3</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">PROCESS</span>
+    WAIT1 --> PROCESS
+    WAIT2 --> PROCESS
+    WAIT3 --> PROCESS
 
-<span class="w">    </span><span class="n">ERROR_400</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOG</span><span class="p">[</span><span class="n">Log</span><span class="w"> </span><span class="n">Error</span><span class="p">]</span>
-<span class="w">    </span><span class="n">ERROR_401</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOG</span>
-<span class="w">    </span><span class="n">ERROR_403</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOG</span>
-<span class="w">    </span><span class="n">ERROR_500</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOG</span>
-<span class="w">    </span><span class="n">ERROR_502</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOG</span>
-<span class="w">    </span><span class="n">ERROR_503</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">LOG</span>
+    ERROR_400 --> LOG[Log Error]
+    ERROR_401 --> LOG
+    ERROR_403 --> LOG
+    ERROR_500 --> LOG
+    ERROR_502 --> LOG
+    ERROR_503 --> LOG
 
-<span class="w">    </span><span class="n">LOG</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ALERT</span><span class="p">{</span><span class="n">Critical</span><span class="o">?</span><span class="p">}</span>
-<span class="w">    </span><span class="n">ALERT</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">NOTIFY</span><span class="p">[</span><span class="n">Send</span><span class="w"> </span><span class="n">Alert</span><span class="p">]</span>
-<span class="w">    </span><span class="n">ALERT</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">METRIC</span><span class="p">[</span><span class="n">Update</span><span class="w"> </span><span class="n">Metrics</span><span class="p">]</span>
+    LOG --> ALERT{Critical?}
+    ALERT -->|Yes| NOTIFY[Send Alert]
+    ALERT -->|No| METRIC[Update Metrics]
 
-<span class="w">    </span><span class="n">NOTIFY</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">METRIC</span>
-<span class="w">    </span><span class="n">METRIC</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">END</span><span class="p">[</span><span class="n">End</span><span class="p">]</span>
-<span class="w">    </span><span class="n">SUCCESS</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">END</span>
+    NOTIFY --> METRIC
+    METRIC --> END[End]
+    SUCCESS --> END
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">SUCCESS</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mf">99f</span><span class="n">f99</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">ERROR_400</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">ERROR_401</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">ERROR_403</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">ERROR_500</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">ERROR_502</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">ERROR_503</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9999</span>
-</code></pre></div>
+    style SUCCESS fill:#99ff99
+    style ERROR_400 fill:#ff9999
+    style ERROR_401 fill:#ff9999
+    style ERROR_403 fill:#ff9999
+    style ERROR_500 fill:#ff9999
+    style ERROR_502 fill:#ff9999
+    style ERROR_503 fill:#ff9999
+</div>
 
 <hr />
 <h2 id="12-class-diagrams">12. Class Diagrams</h2>
 <h3 id="121-domain-model">12.1 Domain Model</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">classDiagram</span>
-    <span class="k">class</span> <span class="n">Case</span> {
-        +<span class="n">str</span> <span class="n">deployment_id</span>
-        +<span class="n">str</span> <span class="n">tenant_id</span>
-        +<span class="n">str</span> <span class="n">case_id</span>
-        +<span class="n">str</span> <span class="n">case_detail</span>
-        +<span class="n">str</span> <span class="n">iocs</span>
-        +<span class="nb">List</span><span class="o">~</span><span class="n">Finding</span>~ <span class="n">findings</span>
-        +<span class="n">to_dict</span>() <span class="n">dict</span>
-        +<span class="n">check_non_empty_fields</span>()
+<div class="mermaid">
+classDiagram
+    class Case {
+        +str deployment_id
+        +str tenant_id
+        +str case_id
+        +str case_detail
+        +str iocs
+        +List~Finding~ findings
+        +to_dict() dict
+        +check_non_empty_fields()
     }
 
-    <span class="k">class</span> <span class="n">Finding</span> {
-        +<span class="n">str</span> <span class="nb">source</span>
-        +<span class="n">str</span> <span class="n">finding</span>
+    class Finding {
+        +str source
+        +str finding
     }
 
-    <span class="k">class</span> <span class="n">PlaybookTask</span> {
-        +<span class="n">str</span> <span class="n">deployment_id</span>
-        +<span class="n">str</span> <span class="n">tenant_id</span>
-        +<span class="n">str</span> <span class="n">case_id</span>
-        +<span class="n">str</span> <span class="n">playbook_run_id</span>
-        +<span class="n">dict</span> <span class="n">task_details</span>
-        +<span class="n">to_dict</span>() <span class="n">dict</span>
+    class PlaybookTask {
+        +str deployment_id
+        +str tenant_id
+        +str case_id
+        +str playbook_run_id
+        +dict task_details
+        +to_dict() dict
     }
 
-    <span class="n">Case</span> <span class="s">&quot;1&quot;</span> --&gt; <span class="s">&quot;*&quot;</span> <span class="n">Finding</span> : <span class="nb">contains</span>
-</code></pre></div>
+    Case "1" --> "*" Finding : contains
+</div>
 
 <h3 id="122-service-layer">12.2 Service Layer</h3>
-<div class="codehilite"><pre><span></span><code><span class="nx">classDiagram</span>
-<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nx">OpenAICaseAnalysisService</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">LLMWrapper</span><span class="w"> </span><span class="nx">model</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">SelfRepairJsonOutputParser</span><span class="w"> </span><span class="nx">parser</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">CaseAnalysis</span><span class="w"> </span><span class="nx">_case_analysis</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">run</span><span class="p">(</span><span class="k">case</span><span class="p">:</span><span class="w"> </span><span class="nx">Case</span><span class="p">)</span><span class="w"> </span><span class="nx">Tuple</span>
-<span class="w">    </span><span class="p">}</span>
+<div class="mermaid">
+classDiagram
+    class OpenAICaseAnalysisService {
+        -LLMWrapper model
+        -SelfRepairJsonOutputParser parser
+        -CaseAnalysis _case_analysis
+        +run(case: Case) Tuple
+    }
 
-<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nx">CaseAnalysis</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">model</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">templates_factory</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">case2template</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">parser</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">playbook_task_repo</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">run</span><span class="p">(</span><span class="k">case</span><span class="p">:</span><span class="w"> </span><span class="nx">Case</span><span class="p">)</span><span class="w"> </span><span class="nx">Tuple</span>
-<span class="w">    </span><span class="p">}</span>
+    class CaseAnalysis {
+        -model
+        -templates_factory
+        -case2template
+        -parser
+        -playbook_task_repo
+        +run(case: Case) Tuple
+    }
 
-<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nx">ChatBotAgent</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">Session</span><span class="w"> </span><span class="nx">session</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">stream</span><span class="p">()</span><span class="w"> </span><span class="nx">AsyncGenerator</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">extract_parameters</span><span class="p">()</span><span class="w"> </span><span class="nx">dict</span>
-<span class="w">    </span><span class="p">}</span>
+    class ChatBotAgent {
+        -Session session
+        +stream() AsyncGenerator
+        +extract_parameters() dict
+    }
 
-<span class="w">    </span><span class="nx">OpenAICaseAnalysisService</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">CaseAnalysis</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">uses</span>
-<span class="w">    </span><span class="nx">CaseAnalysis</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">PlaybookTaskRepo</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">queries</span>
-<span class="w">    </span><span class="nx">ChatBotAgent</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">PlaybookTaskRepo</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">queries</span>
-</code></pre></div>
+    OpenAICaseAnalysisService --> CaseAnalysis : uses
+    CaseAnalysis --> PlaybookTaskRepo : queries
+    ChatBotAgent --> PlaybookTaskRepo : queries
+</div>
 
 <h3 id="123-repository-layer">12.3 Repository Layer</h3>
-<div class="codehilite"><pre><span></span><code><span class="n">classDiagram</span>
-    <span class="k">class</span> <span class="n">PlaybookTaskRepo</span> {
-        -<span class="n">Session</span> <span class="n">session</span>
-        -<span class="n">AIEmbedding</span> <span class="n">embedding</span>
-        +<span class="n">add_task</span>(<span class="n">task</span>) <span class="n">PlaybookTaskModel</span>
-        +<span class="n">search_by_case</span>() <span class="nb">List</span>
-        +<span class="n">update_risk_score</span>()
+<div class="mermaid">
+classDiagram
+    class PlaybookTaskRepo {
+        -Session session
+        -AIEmbedding embedding
+        +add_task(task) PlaybookTaskModel
+        +search_by_case() List
+        +update_risk_score()
     }
 
-    <span class="k">class</span> <span class="n">CaseRepo</span> {
-        -<span class="n">Session</span> <span class="n">session</span>
-        -<span class="n">AIEmbedding</span> <span class="n">embedding</span>
-        +<span class="n">create_case</span>() <span class="n">CaseModel</span>
-        +<span class="n">add_summary</span>() <span class="n">CaseSummary</span>
-        +<span class="n">get_by_case_id</span>() <span class="n">CaseModel</span>
+    class CaseRepo {
+        -Session session
+        -AIEmbedding embedding
+        +create_case() CaseModel
+        +add_summary() CaseSummary
+        +get_by_case_id() CaseModel
     }
 
-    <span class="k">class</span> <span class="n">ChatHistory</span> {
-        -<span class="n">Session</span> <span class="n">session</span>
-        +<span class="n">add_thread</span>() <span class="n">dict</span>
-        +<span class="n">store_chat_history</span>() <span class="n">dict</span>
-        +<span class="n">get_chat_history</span>() <span class="nb">List</span>
+    class ChatHistory {
+        -Session session
+        +add_thread() dict
+        +store_chat_history() dict
+        +get_chat_history() List
     }
 
-    <span class="n">PlaybookTaskRepo</span> --&gt; <span class="n">PlaybookTaskModel</span> : <span class="n">manages</span>
-    <span class="n">CaseRepo</span> --&gt; <span class="n">CaseModel</span> : <span class="n">manages</span>
-    <span class="n">CaseRepo</span> --&gt; <span class="n">CaseSummary</span> : <span class="n">manages</span>
-    <span class="n">ChatHistory</span> --&gt; <span class="n">Threads</span> : <span class="n">manages</span>
-    <span class="n">ChatHistory</span> --&gt; <span class="n">ChatHistoryModel</span> : <span class="n">manages</span>
-</code></pre></div>
+    PlaybookTaskRepo --> PlaybookTaskModel : manages
+    CaseRepo --> CaseModel : manages
+    CaseRepo --> CaseSummary : manages
+    ChatHistory --> Threads : manages
+    ChatHistory --> ChatHistoryModel : manages
+</div>
 
 <h3 id="124-llm-integration">12.4 LLM Integration</h3>
-<div class="codehilite"><pre><span></span><code><span class="nx">classDiagram</span>
-<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nx">LLMWrapper</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">str</span><span class="w"> </span><span class="nx">backend</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">str</span><span class="w"> </span><span class="nx">model</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">float</span><span class="w"> </span><span class="nx">temperature</span>
-<span class="w">        </span><span class="o">-</span><span class="kt">bool</span><span class="w"> </span><span class="nx">streaming</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">llm</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">invoke</span><span class="p">()</span><span class="w"> </span><span class="nx">Any</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">stream</span><span class="p">()</span><span class="w"> </span><span class="nx">Generator</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">astream</span><span class="p">()</span><span class="w"> </span><span class="nx">AsyncGenerator</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">with_structured_output</span><span class="p">()</span>
-<span class="w">    </span><span class="p">}</span>
+<div class="mermaid">
+classDiagram
+    class LLMWrapper {
+        -str backend
+        -str model
+        -float temperature
+        -bool streaming
+        -llm
+        +invoke() Any
+        +stream() Generator
+        +astream() AsyncGenerator
+        +with_structured_output()
+    }
 
-<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nx">AIEmbedding</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">str</span><span class="w"> </span><span class="nx">backend</span>
-<span class="w">        </span><span class="o">-</span><span class="nx">str</span><span class="w"> </span><span class="nx">model</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">embed_text</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><span class="w"> </span><span class="nx">List</span><span class="o">~</span><span class="nx">float</span><span class="o">~</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">embed_batch</span><span class="p">(</span><span class="nx">texts</span><span class="p">)</span><span class="w"> </span><span class="nx">List</span>
-<span class="w">    </span><span class="p">}</span>
+    class AIEmbedding {
+        -str backend
+        -str model
+        +embed_text(text) List~float~
+        +embed_batch(texts) List
+    }
 
-<span class="w">    </span><span class="kd">class</span><span class="w"> </span><span class="nx">SelfRepairJsonOutputParser</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="o">+</span><span class="nx">parse</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span><span class="w"> </span><span class="nx">dict</span>
-<span class="w">    </span><span class="p">}</span>
+    class SelfRepairJsonOutputParser {
+        +parse(text) dict
+    }
 
-<span class="w">    </span><span class="nx">LLMWrapper</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">ChatOpenAI</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;backend=OPENAI&quot;</span>
-<span class="w">    </span><span class="nx">LLMWrapper</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">ChatOllama</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;backend=ONPREM&quot;</span>
-<span class="w">    </span><span class="nx">LLMWrapper</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">SelfRepairJsonOutputParser</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nx">uses</span>
-</code></pre></div>
+    LLMWrapper --> ChatOpenAI : "backend=OPENAI"
+    LLMWrapper --> ChatOllama : "backend=ONPREM"
+    LLMWrapper --> SelfRepairJsonOutputParser : uses
+</div>
 
 <hr />
 <h2 id="13-key-design-patterns">13. Key Design Patterns</h2>

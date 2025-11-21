@@ -157,26 +157,27 @@
 <h2 id="risk-assessment-framework">Risk Assessment Framework</h2>
 <h3 id="risk-assessment-model">Risk Assessment Model</h3>
 <p>SECURAA utilizes a comprehensive risk assessment framework based on industry best practices:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;RISK ASSESSMENT FRAMEWORK&quot;</span>
-<span class="w">        </span><span class="n">A</span><span class="p">[</span><span class="n">RISK</span><span class="w"> </span><span class="n">IDENTIFICATION</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">RISK</span><span class="w"> </span><span class="n">ANALYSIS</span><span class="p">]</span>
-<span class="w">        </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">RISK</span><span class="w"> </span><span class="n">EVALUATION</span><span class="p">]</span>
+<div class="mermaid">
+graph TB
+    subgraph "RISK ASSESSMENT FRAMEWORK"
+        A[RISK IDENTIFICATION] --> B[RISK ANALYSIS]
+        B --> C[RISK EVALUATION]
 
-<span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="n">THREATS</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">VULNERABILITIES</span><span class="p">]</span>
-<span class="w">        </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span><span class="p">[</span><span class="n">LIKELIHOOD</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">IMPACT</span><span class="p">]</span>
-<span class="w">        </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="n">RISK</span><span class="w"> </span><span class="n">PRIORITY</span><span class="p">]</span>
+        A --> D[THREATS & VULNERABILITIES]
+        B --> E[LIKELIHOOD & IMPACT]
+        C --> F[RISK PRIORITY]
 
-<span class="w">        </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span><span class="p">[</span><span class="n">RISK</span><span class="w"> </span><span class="n">REPORTING</span><span class="p">]</span>
-<span class="w">        </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span><span class="p">[</span><span class="n">RISK</span><span class="w"> </span><span class="n">MONITORING</span><span class="p">]</span>
-<span class="w">        </span><span class="n">H</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">I</span><span class="p">[</span><span class="n">RISK</span><span class="w"> </span><span class="n">TREATMENT</span><span class="p">]</span>
-<span class="w">        </span><span class="n">I</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A</span>
+        C --> G[RISK REPORTING]
+        G --> H[RISK MONITORING]
+        H --> I[RISK TREATMENT]
+        I --> A
 
-<span class="w">        </span><span class="n">style</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e1f5fe</span>
-<span class="w">        </span><span class="n">style</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">f3e5f5</span>
-<span class="w">        </span><span class="n">style</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fff3e0</span>
-<span class="w">        </span><span class="n">style</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e8f5e8</span>
-<span class="w">    </span><span class="n">end</span>
-</code></pre></div>
+        style A fill:#e1f5fe
+        style B fill:#f3e5f5
+        style C fill:#fff3e0
+        style I fill:#e8f5e8
+    end
+</div>
 
 <h3 id="risk-categories">Risk Categories</h3>
 <p>Information security risks are categorized into the following areas:</p>
@@ -212,39 +213,40 @@
 <h2 id="risk-assessment-methodology">Risk Assessment Methodology</h2>
 <h3 id="risk-assessment-approach">Risk Assessment Approach</h3>
 <p>SECURAA employs a hybrid approach combining qualitative and quantitative risk assessment methods:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
-<span class="w">    </span><span class="n">Start</span><span class="p">([</span><span class="n">Start</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">Assessment</span><span class="p">])</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">Asset</span><span class="w"> </span><span class="n">Identification</span><span class="p">]</span>
-<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">Asset</span><span class="w"> </span><span class="n">Classification</span><span class="p">]</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span><span class="p">[</span><span class="n">Threat</span><span class="w"> </span><span class="n">Identification</span><span class="p">]</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">[</span><span class="n">Vulnerability</span><span class="w"> </span><span class="n">Assessment</span><span class="p">]</span>
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span><span class="p">[</span><span class="n">Risk</span><span class="w"> </span><span class="n">Scenario</span><span class="w"> </span><span class="n">Development</span><span class="p">]</span>
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="n">Likelihood</span><span class="w"> </span><span class="n">Assessment</span><span class="p">]</span>
-<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span><span class="p">[</span><span class="n">Impact</span><span class="w"> </span><span class="n">Assessment</span><span class="p">]</span>
-<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span><span class="p">[</span><span class="n">Risk</span><span class="w"> </span><span class="n">Calculation</span><span class="p">]</span>
-<span class="w">    </span><span class="n">H</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">I</span><span class="p">{</span><span class="n">Risk</span><span class="w"> </span><span class="n">Level</span><span class="p">}</span>
+<div class="mermaid">
+flowchart TD
+    Start([Start Risk Assessment]) --> A[Asset Identification]
+    A --> B[Asset Classification]
+    B --> C[Threat Identification]
+    C --> D[Vulnerability Assessment]
+    D --> E[Risk Scenario Development]
+    E --> F[Likelihood Assessment]
+    F --> G[Impact Assessment]
+    G --> H[Risk Calculation]
+    H --> I{Risk Level}
 
-<span class="w">    </span><span class="n">I</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Critical</span><span class="o">/</span><span class="n">High</span><span class="o">|</span><span class="w"> </span><span class="n">J</span><span class="p">[</span><span class="n">Immediate</span><span class="w"> </span><span class="n">Treatment</span><span class="w"> </span><span class="n">Required</span><span class="p">]</span>
-<span class="w">    </span><span class="n">I</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Medium</span><span class="o">|</span><span class="w"> </span><span class="n">K</span><span class="p">[</span><span class="n">Treatment</span><span class="w"> </span><span class="n">Planning</span><span class="w"> </span><span class="n">Required</span><span class="p">]</span>
-<span class="w">    </span><span class="n">I</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Low</span><span class="o">/</span><span class="n">Very</span><span class="w"> </span><span class="n">Low</span><span class="o">|</span><span class="w"> </span><span class="n">L</span><span class="p">[</span><span class="n">Monitor</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">Review</span><span class="p">]</span>
+    I -->|Critical/High| J[Immediate Treatment Required]
+    I -->|Medium| K[Treatment Planning Required]
+    I -->|Low/Very Low| L[Monitor and Review]
 
-<span class="w">    </span><span class="n">J</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M</span><span class="p">[</span><span class="n">Implement</span><span class="w"> </span><span class="n">Controls</span><span class="p">]</span>
-<span class="w">    </span><span class="n">K</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M</span>
-<span class="w">    </span><span class="n">L</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">N</span><span class="p">[</span><span class="n">Risk</span><span class="w"> </span><span class="n">Register</span><span class="w"> </span><span class="n">Update</span><span class="p">]</span>
-<span class="w">    </span><span class="n">M</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O</span><span class="p">[</span><span class="n">Residual</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">Assessment</span><span class="p">]</span>
-<span class="w">    </span><span class="n">O</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">N</span>
-<span class="w">    </span><span class="n">N</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P</span><span class="p">[</span><span class="n">Risk</span><span class="w"> </span><span class="n">Monitoring</span><span class="p">]</span>
-<span class="w">    </span><span class="n">P</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Q</span><span class="p">[</span><span class="n">Periodic</span><span class="w"> </span><span class="n">Review</span><span class="p">]</span>
-<span class="w">    </span><span class="n">Q</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R</span><span class="p">{</span><span class="n">Significant</span><span class="w"> </span><span class="n">Changes</span><span class="o">?</span><span class="p">}</span>
-<span class="w">    </span><span class="n">R</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">A</span>
-<span class="w">    </span><span class="n">R</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">P</span>
+    J --> M[Implement Controls]
+    K --> M
+    L --> N[Risk Register Update]
+    M --> O[Residual Risk Assessment]
+    O --> N
+    N --> P[Risk Monitoring]
+    P --> Q[Periodic Review]
+    Q --> R{Significant Changes?}
+    R -->|Yes| A
+    R -->|No| P
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">Start</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e1f5fe</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fff3e0</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">J</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffebee</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">K</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fff8e1</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e8f5e8</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">f3e5f5</span>
-</code></pre></div>
+    style Start fill:#e1f5fe
+    style I fill:#fff3e0
+    style J fill:#ffebee
+    style K fill:#fff8e1
+    style L fill:#e8f5e8
+    style M fill:#f3e5f5
+</div>
 
 <h4 id="qualitative-assessment">Qualitative Assessment</h4>
 <ul>
@@ -378,7 +380,8 @@
 </table>
 <h3 id="threat-identification">Threat Identification</h3>
 <h4 id="comprehensive-threat-landscape">Comprehensive Threat Landscape</h4>
-<div class="codehilite"><pre><span></span><code>mindmap
+<div class="mermaid">
+mindmap
   root((THREAT LANDSCAPE))
     Internal Threats
       Malicious Insiders
@@ -423,7 +426,7 @@
         Unauthorized Access
         Theft
         Vandalism
-</code></pre></div>
+</div>
 
 <h4 id="internal-threats">Internal Threats</h4>
 <ul>
@@ -610,91 +613,93 @@
 - Risks threatening business continuity
 - Risks beyond organizational risk tolerance</p>
 <h4 id="risk-prioritization-matrix">Risk Prioritization Matrix</h4>
-<div class="codehilite"><pre><span></span><code><span class="nv">graph</span><span class="w"> </span><span class="nv">TB</span>
-<span class="w">    </span><span class="nv">subgraph</span><span class="w"> </span><span class="s2">&quot;RISK PRIORITIZATION MATRIX&quot;</span>
-<span class="w">        </span><span class="nv">subgraph</span><span class="w"> </span><span class="s2">&quot;Impact Level (1-5)&quot;</span>
-<span class="w">            </span><span class="nv">I1</span>[<span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Negligible</span>]
-<span class="w">            </span><span class="nv">I2</span>[<span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Minor</span>]
-<span class="w">            </span><span class="nv">I3</span>[<span class="mi">3</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Moderate</span>]
-<span class="w">            </span><span class="nv">I4</span>[<span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Major</span>]
-<span class="w">            </span><span class="nv">I5</span>[<span class="mi">5</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Catastrophic</span>]
-<span class="w">        </span><span class="k">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "RISK PRIORITIZATION MATRIX"
+        subgraph "Impact Level (1-5)"
+            I1[1 - Negligible]
+            I2[2 - Minor]
+            I3[3 - Moderate]
+            I4[4 - Major]
+            I5[5 - Catastrophic]
+        end
 
-<span class="w">        </span><span class="nv">subgraph</span><span class="w"> </span><span class="s2">&quot;Likelihood Level (1-5)&quot;</span>
-<span class="w">            </span><span class="nv">L1</span>[<span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Very</span><span class="w"> </span><span class="nv">Low</span>]
-<span class="w">            </span><span class="nv">L2</span>[<span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Low</span>]
-<span class="w">            </span><span class="nv">L3</span>[<span class="mi">3</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Medium</span>]
-<span class="w">            </span><span class="nv">L4</span>[<span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">High</span>]
-<span class="w">            </span><span class="nv">L5</span>[<span class="mi">5</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Very</span><span class="w"> </span><span class="nv">High</span>]
-<span class="w">        </span><span class="k">end</span>
+        subgraph "Likelihood Level (1-5)"
+            L1[1 - Very Low]
+            L2[2 - Low]
+            L3[3 - Medium]
+            L4[4 - High]
+            L5[5 - Very High]
+        end
 
-<span class="w">        </span><span class="nv">subgraph</span><span class="w"> </span><span class="s2">&quot;Risk Levels&quot;</span>
-<span class="w">            </span><span class="nv">VL</span>[<span class="nv">Very</span><span class="w"> </span><span class="nv">Low</span><span class="o">&lt;</span><span class="nv">br</span><span class="o">/&gt;</span><span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="o">&lt;</span><span class="nv">br</span><span class="o">/&gt;</span><span class="nv">Monitor</span>]
-<span class="w">            </span><span class="nv">LOW</span>[<span class="nv">Low</span><span class="o">&lt;</span><span class="nv">br</span><span class="o">/&gt;</span><span class="mi">5</span><span class="o">-</span><span class="mi">9</span><span class="o">&lt;</span><span class="nv">br</span><span class="o">/&gt;</span><span class="mi">3</span><span class="w"> </span><span class="nv">Months</span>]
-<span class="w">            </span><span class="nv">MED</span>[<span class="nv">Medium</span><span class="o">&lt;</span><span class="nv">br</span><span class="o">/&gt;</span><span class="mi">10</span><span class="o">-</span><span class="mi">14</span><span class="o">&lt;</span><span class="nv">br</span><span class="o">/&gt;</span><span class="mi">1</span><span class="w"> </span><span class="nv">Month</span>]
-<span class="w">            </span><span class="nv">HIGH</span>[<span class="nv">High</span><span class="o">&lt;</span><span class="nv">br</span><span class="o">/&gt;</span><span class="mi">15</span><span class="o">-</span><span class="mi">19</span><span class="o">&lt;</span><span class="nv">br</span><span class="o">/&gt;</span><span class="mi">1</span><span class="w"> </span><span class="nv">Week</span>]
-<span class="w">            </span><span class="nv">CRIT</span>[<span class="nv">Critical</span><span class="o">&lt;</span><span class="nv">br</span><span class="o">/&gt;</span><span class="mi">20</span><span class="o">-</span><span class="mi">25</span><span class="o">&lt;</span><span class="nv">br</span><span class="o">/&gt;</span><span class="mi">24</span><span class="w"> </span><span class="nv">Hours</span>]
-<span class="w">        </span><span class="k">end</span>
+        subgraph "Risk Levels"
+            VL[Very Low<br/>1-4<br/>Monitor]
+            LOW[Low<br/>5-9<br/>3 Months]
+            MED[Medium<br/>10-14<br/>1 Month]
+            HIGH[High<br/>15-19<br/>1 Week]
+            CRIT[Critical<br/>20-25<br/>24 Hours]
+        end
 
-<span class="w">        </span><span class="nv">style</span><span class="w"> </span><span class="nv">VL</span><span class="w"> </span><span class="nv">fill</span>:<span class="sc">#4</span><span class="nv">caf50</span>
-<span class="w">        </span><span class="nv">style</span><span class="w"> </span><span class="nv">LOW</span><span class="w"> </span><span class="nv">fill</span>:<span class="sc">#8</span><span class="nv">bc34a</span>
-<span class="w">        </span><span class="nv">style</span><span class="w"> </span><span class="nv">MED</span><span class="w"> </span><span class="nv">fill</span>:#<span class="nv">ffeb3b</span>
-<span class="w">        </span><span class="nv">style</span><span class="w"> </span><span class="nv">HIGH</span><span class="w"> </span><span class="nv">fill</span>:#<span class="nv">ff9800</span>
-<span class="w">        </span><span class="nv">style</span><span class="w"> </span><span class="nv">CRIT</span><span class="w"> </span><span class="nv">fill</span>:#<span class="nv">f44336</span>
-<span class="w">    </span><span class="k">end</span>
-</code></pre></div>
+        style VL fill:#4caf50
+        style LOW fill:#8bc34a
+        style MED fill:#ffeb3b
+        style HIGH fill:#ff9800
+        style CRIT fill:#f44336
+    end
+</div>
 
 <hr />
 <h2 id="risk-treatment-and-mitigation">Risk Treatment and Mitigation</h2>
 <h3 id="risk-treatment-options">Risk Treatment Options</h3>
 <h4 id="risk-treatment-decision-framework">Risk Treatment Decision Framework</h4>
-<div class="codehilite"><pre><span></span><code><span class="n">flowchart</span><span class="w"> </span><span class="n">TD</span>
-<span class="w">    </span><span class="n">A</span><span class="p">[</span><span class="n">Risk</span><span class="w"> </span><span class="n">Identified</span><span class="p">]</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span><span class="p">{</span><span class="n">Risk</span><span class="w"> </span><span class="n">Level</span><span class="p">}</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Critical</span><span class="o">/</span><span class="n">High</span><span class="o">|</span><span class="w"> </span><span class="n">C</span><span class="p">{</span><span class="n">Can</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">Eliminated</span><span class="o">?</span><span class="p">}</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Medium</span><span class="o">|</span><span class="w"> </span><span class="n">D</span><span class="p">{</span><span class="n">Cost</span><span class="o">-</span><span class="n">Effective</span><span class="w"> </span><span class="n">Controls</span><span class="w"> </span><span class="n">Available</span><span class="o">?</span><span class="p">}</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Low</span><span class="o">|</span><span class="w"> </span><span class="n">E</span><span class="p">{</span><span class="n">Within</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">Appetite</span><span class="o">?</span><span class="p">}</span>
+<div class="mermaid">
+flowchart TD
+    A[Risk Identified] --> B{Risk Level}
+    B -->|Critical/High| C{Can Risk be Eliminated?}
+    B -->|Medium| D{Cost-Effective Controls Available?}
+    B -->|Low| E{Within Risk Appetite?}
 
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">F</span><span class="p">[</span><span class="n">AVOID</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Eliminate</span><span class="w"> </span><span class="n">Activity</span><span class="p">]</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">G</span><span class="p">{</span><span class="n">Can</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">Reduced</span><span class="o">?</span><span class="p">}</span>
+    C -->|Yes| F[AVOID<br/>Eliminate Activity]
+    C -->|No| G{Can Risk be Reduced?}
 
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">H</span><span class="p">[</span><span class="n">MITIGATE</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Implement</span><span class="w"> </span><span class="n">Controls</span><span class="p">]</span>
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">I</span><span class="p">{</span><span class="n">Can</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">Transferred</span><span class="o">?</span><span class="p">}</span>
+    D -->|Yes| H[MITIGATE<br/>Implement Controls]
+    D -->|No| I{Can Risk be Transferred?}
 
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">J</span><span class="p">[</span><span class="n">ACCEPT</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Monitor</span><span class="w"> </span><span class="n">Risk</span><span class="p">]</span>
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">K</span><span class="p">{</span><span class="n">Can</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">Reduced</span><span class="o">?</span><span class="p">}</span>
+    E -->|Yes| J[ACCEPT<br/>Monitor Risk]
+    E -->|No| K{Can Risk be Reduced?}
 
-<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">H</span>
-<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">L</span><span class="p">{</span><span class="n">Can</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">Transferred</span><span class="o">?</span><span class="p">}</span>
+    G -->|Yes| H
+    G -->|No| L{Can Risk be Transferred?}
 
-<span class="w">    </span><span class="n">I</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">M</span><span class="p">[</span><span class="n">TRANSFER</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Insurance</span><span class="o">/</span><span class="n">Contracts</span><span class="p">]</span>
-<span class="w">    </span><span class="n">I</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">N</span><span class="p">[</span><span class="n">MITIGATE</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Best</span><span class="w"> </span><span class="n">Available</span><span class="w"> </span><span class="n">Controls</span><span class="p">]</span>
+    I -->|Yes| M[TRANSFER<br/>Insurance/Contracts]
+    I -->|No| N[MITIGATE<br/>Best Available Controls]
 
-<span class="w">    </span><span class="n">K</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">H</span>
-<span class="w">    </span><span class="n">K</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">O</span><span class="p">{</span><span class="n">Can</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">Transferred</span><span class="o">?</span><span class="p">}</span>
+    K -->|Yes| H
+    K -->|No| O{Can Risk be Transferred?}
 
-<span class="w">    </span><span class="n">L</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">M</span>
-<span class="w">    </span><span class="n">L</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">P</span><span class="p">[</span><span class="n">ACCEPT</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Document</span><span class="w"> </span><span class="n">Rationale</span><span class="p">]</span>
+    L -->|Yes| M
+    L -->|No| P[ACCEPT<br/>Document Rationale]
 
-<span class="w">    </span><span class="n">O</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">Yes</span><span class="o">|</span><span class="w"> </span><span class="n">M</span>
-<span class="w">    </span><span class="n">O</span><span class="w"> </span><span class="o">--&gt;|</span><span class="n">No</span><span class="o">|</span><span class="w"> </span><span class="n">J</span>
+    O -->|Yes| M
+    O -->|No| J
 
-<span class="w">    </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Q</span><span class="p">[</span><span class="n">Document</span><span class="w"> </span><span class="n">Decision</span><span class="p">]</span>
-<span class="w">    </span><span class="n">H</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Q</span>
-<span class="w">    </span><span class="n">M</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Q</span>
-<span class="w">    </span><span class="n">J</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Q</span>
-<span class="w">    </span><span class="n">N</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Q</span>
-<span class="w">    </span><span class="n">P</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Q</span>
+    F --> Q[Document Decision]
+    H --> Q
+    M --> Q
+    J --> Q
+    N --> Q
+    P --> Q
 
-<span class="w">    </span><span class="n">Q</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R</span><span class="p">[</span><span class="n">Implement</span><span class="w"> </span><span class="n">Treatment</span><span class="p">]</span>
-<span class="w">    </span><span class="n">R</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">S</span><span class="p">[</span><span class="n">Monitor</span><span class="w"> </span><span class="n">Residual</span><span class="w"> </span><span class="n">Risk</span><span class="p">]</span>
+    Q --> R[Implement Treatment]
+    R --> S[Monitor Residual Risk]
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff5722</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">4</span><span class="n">caf50</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mf">2196f</span><span class="mi">3</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">J</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9800</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="mi">4</span><span class="n">caf50</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ff9800</span>
-</code></pre></div>
+    style F fill:#ff5722
+    style H fill:#4caf50
+    style M fill:#2196f3
+    style J fill:#ff9800
+    style N fill:#4caf50
+    style P fill:#ff9800
+</div>
 
 <h4 id="1-risk-mitigation-reduce">1. Risk Mitigation (Reduce)</h4>
 <p>Implement controls to reduce likelihood or impact:</p>
@@ -836,61 +841,62 @@
 <h2 id="risk-monitoring-and-review">Risk Monitoring and Review</h2>
 <h3 id="continuous-risk-monitoring">Continuous Risk Monitoring</h3>
 <h4 id="risk-monitoring-dashboard-framework">Risk Monitoring Dashboard Framework</h4>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TB</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;RISK MONITORING ECOSYSTEM&quot;</span>
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Data Sources&quot;</span>
-<span class="w">            </span><span class="n">A</span><span class="p">[</span><span class="n">Vulnerability</span><span class="w"> </span><span class="n">Scanners</span><span class="p">]</span>
-<span class="w">            </span><span class="n">B</span><span class="p">[</span><span class="n">Security</span><span class="w"> </span><span class="n">Information</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Event</span><span class="w"> </span><span class="n">Management</span><span class="p">]</span>
-<span class="w">            </span><span class="n">C</span><span class="p">[</span><span class="n">Threat</span><span class="w"> </span><span class="n">Intelligence</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Feeds</span><span class="p">]</span>
-<span class="w">            </span><span class="n">D</span><span class="p">[</span><span class="n">Audit</span><span class="w"> </span><span class="n">Reports</span><span class="p">]</span>
-<span class="w">            </span><span class="n">E</span><span class="p">[</span><span class="n">Incident</span><span class="w"> </span><span class="n">Reports</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
+<div class="mermaid">
+graph TB
+    subgraph "RISK MONITORING ECOSYSTEM"
+        subgraph "Data Sources"
+            A[Vulnerability Scanners]
+            B[Security Information<br/>Event Management]
+            C[Threat Intelligence<br/>Feeds]
+            D[Audit Reports]
+            E[Incident Reports]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Risk Analytics Engine&quot;</span>
-<span class="w">            </span><span class="n">F</span><span class="p">[</span><span class="n">Risk</span><span class="w"> </span><span class="n">Calculation</span><span class="o">&lt;</span><span class="n">br</span><span class="o">/&gt;</span><span class="n">Engine</span><span class="p">]</span>
-<span class="w">            </span><span class="n">G</span><span class="p">[</span><span class="n">Trend</span><span class="w"> </span><span class="n">Analysis</span><span class="p">]</span>
-<span class="w">            </span><span class="n">H</span><span class="p">[</span><span class="n">Correlation</span><span class="w"> </span><span class="n">Engine</span><span class="p">]</span>
-<span class="w">            </span><span class="n">I</span><span class="p">[</span><span class="n">Predictive</span><span class="w"> </span><span class="n">Analytics</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
+        subgraph "Risk Analytics Engine"
+            F[Risk Calculation<br/>Engine]
+            G[Trend Analysis]
+            H[Correlation Engine]
+            I[Predictive Analytics]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Key Risk Indicators&quot;</span>
-<span class="w">            </span><span class="n">J</span><span class="p">[</span><span class="n">Critical</span><span class="w"> </span><span class="n">Vulnerabilities</span><span class="p">]</span>
-<span class="w">            </span><span class="n">K</span><span class="p">[</span><span class="n">Mean</span><span class="w"> </span><span class="n">Time</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">Patch</span><span class="p">]</span>
-<span class="w">            </span><span class="n">L</span><span class="p">[</span><span class="n">Security</span><span class="w"> </span><span class="n">Incidents</span><span class="p">]</span>
-<span class="w">            </span><span class="n">M</span><span class="p">[</span><span class="n">Failed</span><span class="w"> </span><span class="n">Authentications</span><span class="p">]</span>
-<span class="w">            </span><span class="n">N</span><span class="p">[</span><span class="n">Compliance</span><span class="w"> </span><span class="n">Score</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
+        subgraph "Key Risk Indicators"
+            J[Critical Vulnerabilities]
+            K[Mean Time to Patch]
+            L[Security Incidents]
+            M[Failed Authentications]
+            N[Compliance Score]
+        end
 
-<span class="w">        </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;Reporting &amp; Alerts&quot;</span>
-<span class="w">            </span><span class="n">O</span><span class="p">[</span><span class="n">Executive</span><span class="w"> </span><span class="n">Dashboard</span><span class="p">]</span>
-<span class="w">            </span><span class="n">P</span><span class="p">[</span><span class="n">Risk</span><span class="w"> </span><span class="n">Heat</span><span class="w"> </span><span class="n">Map</span><span class="p">]</span>
-<span class="w">            </span><span class="n">Q</span><span class="p">[</span><span class="n">Automated</span><span class="w"> </span><span class="n">Alerts</span><span class="p">]</span>
-<span class="w">            </span><span class="n">R</span><span class="p">[</span><span class="n">Compliance</span><span class="w"> </span><span class="n">Reports</span><span class="p">]</span>
-<span class="w">        </span><span class="n">end</span>
+        subgraph "Reporting & Alerts"
+            O[Executive Dashboard]
+            P[Risk Heat Map]
+            Q[Automated Alerts]
+            R[Compliance Reports]
+        end
 
-<span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span>
-<span class="w">        </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span>
-<span class="w">        </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">G</span>
-<span class="w">        </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span>
-<span class="w">        </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">I</span>
+        A --> F
+        B --> F
+        C --> G
+        D --> H
+        E --> I
 
-<span class="w">        </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">J</span>
-<span class="w">        </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K</span>
-<span class="w">        </span><span class="n">H</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L</span>
-<span class="w">        </span><span class="n">I</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">M</span>
-<span class="w">        </span><span class="n">F</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">N</span>
+        F --> J
+        G --> K
+        H --> L
+        I --> M
+        F --> N
 
-<span class="w">        </span><span class="n">J</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O</span>
-<span class="w">        </span><span class="n">K</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">P</span>
-<span class="w">        </span><span class="n">L</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">Q</span>
-<span class="w">        </span><span class="n">M</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">R</span>
-<span class="w">        </span><span class="n">N</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">O</span>
+        J --> O
+        K --> P
+        L --> Q
+        M --> R
+        N --> O
 
-<span class="w">        </span><span class="n">style</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e3f2fd</span>
-<span class="w">        </span><span class="n">style</span><span class="w"> </span><span class="n">O</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fff3e0</span>
-<span class="w">        </span><span class="n">style</span><span class="w"> </span><span class="n">Q</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">ffebee</span>
-<span class="w">    </span><span class="n">end</span>
-</code></pre></div>
+        style F fill:#e3f2fd
+        style O fill:#fff3e0
+        style Q fill:#ffebee
+    end
+</div>
 
 <h4 id="monitoring-objectives">Monitoring Objectives</h4>
 <ul>
@@ -963,57 +969,58 @@
 <h2 id="roles-and-responsibilities">Roles and Responsibilities</h2>
 <h3 id="risk-assessment-team-structure">Risk Assessment Team Structure</h3>
 <h4 id="organizational-risk-management-hierarchy">Organizational Risk Management Hierarchy</h4>
-<div class="codehilite"><pre><span></span><code><span class="n">graph</span><span class="w"> </span><span class="n">TD</span>
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;EXECUTIVE LEVEL&quot;</span>
-<span class="w">        </span><span class="n">A</span><span class="p">[</span><span class="n">Board</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">Directors</span><span class="p">]</span>
-<span class="w">        </span><span class="n">B</span><span class="p">[</span><span class="n">Chief</span><span class="w"> </span><span class="n">Executive</span><span class="w"> </span><span class="n">Officer</span><span class="p">]</span>
-<span class="w">        </span><span class="n">C</span><span class="p">[</span><span class="n">Chief</span><span class="w"> </span><span class="n">Information</span><span class="w"> </span><span class="n">Security</span><span class="w"> </span><span class="n">Officer</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+<div class="mermaid">
+graph TD
+    subgraph "EXECUTIVE LEVEL"
+        A[Board of Directors]
+        B[Chief Executive Officer]
+        C[Chief Information Security Officer]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;MANAGEMENT LEVEL&quot;</span>
-<span class="w">        </span><span class="n">D</span><span class="p">[</span><span class="n">Information</span><span class="w"> </span><span class="n">Security</span><span class="w"> </span><span class="n">Manager</span><span class="p">]</span>
-<span class="w">        </span><span class="n">E</span><span class="p">[</span><span class="n">Risk</span><span class="w"> </span><span class="n">Assessment</span><span class="w"> </span><span class="n">Team</span><span class="w"> </span><span class="n">Lead</span><span class="p">]</span>
-<span class="w">        </span><span class="n">F</span><span class="p">[</span><span class="n">Compliance</span><span class="w"> </span><span class="n">Manager</span><span class="p">]</span>
-<span class="w">        </span><span class="n">G</span><span class="p">[</span><span class="n">Business</span><span class="w"> </span><span class="n">Unit</span><span class="w"> </span><span class="n">Managers</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "MANAGEMENT LEVEL"
+        D[Information Security Manager]
+        E[Risk Assessment Team Lead]
+        F[Compliance Manager]
+        G[Business Unit Managers]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;OPERATIONAL LEVEL&quot;</span>
-<span class="w">        </span><span class="n">H</span><span class="p">[</span><span class="n">Risk</span><span class="w"> </span><span class="n">Assessment</span><span class="w"> </span><span class="n">Analysts</span><span class="p">]</span>
-<span class="w">        </span><span class="n">I</span><span class="p">[</span><span class="n">Security</span><span class="w"> </span><span class="n">Analysts</span><span class="p">]</span>
-<span class="w">        </span><span class="n">J</span><span class="p">[</span><span class="n">System</span><span class="w"> </span><span class="n">Owners</span><span class="p">]</span>
-<span class="w">        </span><span class="n">K</span><span class="p">[</span><span class="n">Application</span><span class="w"> </span><span class="n">Owners</span><span class="p">]</span>
-<span class="w">        </span><span class="n">L</span><span class="p">[</span><span class="n">Data</span><span class="w"> </span><span class="n">Owners</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "OPERATIONAL LEVEL"
+        H[Risk Assessment Analysts]
+        I[Security Analysts]
+        J[System Owners]
+        K[Application Owners]
+        L[Data Owners]
+    end
 
-<span class="w">    </span><span class="n">subgraph</span><span class="w"> </span><span class="s">&quot;SUPPORT FUNCTIONS&quot;</span>
-<span class="w">        </span><span class="n">M</span><span class="p">[</span><span class="n">Internal</span><span class="w"> </span><span class="n">Audit</span><span class="p">]</span>
-<span class="w">        </span><span class="n">N</span><span class="p">[</span><span class="n">Legal</span><span class="w"> </span><span class="n">Counsel</span><span class="p">]</span>
-<span class="w">        </span><span class="n">O</span><span class="p">[</span><span class="n">External</span><span class="w"> </span><span class="n">Auditors</span><span class="p">]</span>
-<span class="w">        </span><span class="n">P</span><span class="p">[</span><span class="n">Third</span><span class="o">-</span><span class="n">Party</span><span class="w"> </span><span class="n">Vendors</span><span class="p">]</span>
-<span class="w">    </span><span class="n">end</span>
+    subgraph "SUPPORT FUNCTIONS"
+        M[Internal Audit]
+        N[Legal Counsel]
+        O[External Auditors]
+        P[Third-Party Vendors]
+    end
 
-<span class="w">    </span><span class="n">A</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">B</span>
-<span class="w">    </span><span class="n">B</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">C</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">D</span>
-<span class="w">    </span><span class="n">C</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">F</span>
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">E</span>
-<span class="w">    </span><span class="n">D</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">H</span>
-<span class="w">    </span><span class="n">E</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">I</span>
-<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">J</span>
-<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">K</span>
-<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">L</span>
+    A --> B
+    B --> C
+    C --> D
+    C --> F
+    D --> E
+    D --> H
+    E --> I
+    G --> J
+    G --> K
+    G --> L
 
-<span class="w">    </span><span class="n">M</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">C</span>
-<span class="w">    </span><span class="n">N</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">C</span>
-<span class="w">    </span><span class="n">O</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">A</span>
-<span class="w">    </span><span class="n">P</span><span class="w"> </span><span class="o">-</span><span class="p">.</span><span class="o">-&gt;</span><span class="w"> </span><span class="n">G</span>
+    M -.-> C
+    N -.-> C
+    O -.-> A
+    P -.-> G
 
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e8eaf6</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e3f2fd</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">e0f2f1</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">fff3e0</span>
-<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="n">H</span><span class="w"> </span><span class="n">fill</span><span class="o">:</span><span class="err">#</span><span class="n">f3e5f5</span>
-</code></pre></div>
+    style A fill:#e8eaf6
+    style C fill:#e3f2fd
+    style D fill:#e0f2f1
+    style E fill:#fff3e0
+    style H fill:#f3e5f5
+</div>
 
 <h4 id="chief-information-security-officer-ciso">Chief Information Security Officer (CISO)</h4>
 <p><strong>Primary Responsibilities:</strong>
@@ -1269,7 +1276,8 @@
 <h2 id="implementation-guidelines">Implementation Guidelines</h2>
 <h3 id="risk-assessment-implementation-roadmap">Risk Assessment Implementation Roadmap</h3>
 <h4 id="12-month-implementation-timeline">12-Month Implementation Timeline</h4>
-<div class="codehilite"><pre><span></span><code>gantt
+<div class="mermaid">
+gantt
     title Risk Assessment Implementation Timeline
     dateFormat  YYYY-MM-DD
     section Phase 1: Foundation
@@ -1298,10 +1306,10 @@
     Program Mature          :milestone, m5, 2025-12-31, 0d
 
     section Ongoing Activities
-    Monitoring &amp; Review     :ongoing1, 2025-03-01, 2025-12-31
-    Training &amp; Awareness    :ongoing2, 2025-02-01, 2025-12-31
+    Monitoring & Review     :ongoing1, 2025-03-01, 2025-12-31
+    Training & Awareness    :ongoing2, 2025-02-01, 2025-12-31
     Compliance Reporting    :ongoing3, 2025-04-01, 2025-12-31
-</code></pre></div>
+</div>
 
 <h4 id="phase-1-foundation-months-1-2">Phase 1: Foundation (Months 1-2)</h4>
 <p><strong>Objectives:</strong>

@@ -1253,10 +1253,10 @@ class NDSClient:
 
 ```mermaid
 graph TB
-    subgraph "FastAPI Application"
+    subgraph FastAPIApp["FastAPI Application"]
         MAIN[main.py<br/>Application Entry]
         
-        subgraph "Routers"
+        subgraph Routers
             R1[case.router]
             R2[chat.router]
             R3[index.router]
@@ -1266,7 +1266,7 @@ graph TB
             R7[code.router]
         end
         
-        subgraph "Services"
+        subgraph Services
             S1[CaseAnalysisService]
             S2[ChatBotAgent]
             S3[IndexingService]
@@ -1275,7 +1275,7 @@ graph TB
             S6[TenantManager]
         end
         
-        subgraph "Repositories"
+        subgraph Repositories
             REP1[CaseRepo]
             REP2[PlaybookTaskRepo]
             REP3[ChatHistory]
@@ -1308,7 +1308,7 @@ graph TB
         S6 --> REP5
     end
     
-    subgraph "Database Layer"
+    subgraph DatabaseLayer["Database Layer"]
         DB[(PostgreSQL)]
         CACHE[(Redis)]
     end
@@ -1323,48 +1323,52 @@ graph TB
     S1 --> CACHE
     S2 --> CACHE
     
-    style MAIN fill:#ffcc99
-    style DB fill:#99ff99
-    style CACHE fill:#ff9999
+    classDef entry fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef database fill:#99ff99,stroke:#333,stroke-width:2px
+    classDef cache fill:#ff9999,stroke:#333,stroke-width:2px
+    
+    class MAIN entry
+    class DB database
+    class CACHE cache
 ```
 
 ### 11.2 LLM Integration Architecture
 
 ```mermaid
 graph TB
-    subgraph "Application Layer"
+    subgraph AppLayer["Application Layer"]
         SRVICE[Analysis Services]
         CHAT[Chat Services]
     end
     
-    subgraph "LLM Wrapper Layer"
+    subgraph WrapperLayer["LLM Wrapper Layer"]
         WRAPPER[LLMWrapper<br/>Unified Interface]
         
-        subgraph "Configuration"
+        subgraph Configuration
             CONFIG{LLM_BACKEND}
         end
         
-        subgraph "Implementations"
+        subgraph Implementations
             OPENAI[ChatOpenAI]
             OLLAMA[ChatOllama]
         end
     end
     
-    subgraph "Features"
+    subgraph Features
         STREAM[Streaming Support]
         STRUCT[Structured Output]
         PARSE[Output Parsing]
         RETRY[Retry Logic]
     end
     
-    subgraph "External LLM Providers"
+    subgraph LLMProviders["External LLM Providers"]
         GPT[OpenAI<br/>GPT-4/3.5]
         GROQ[Groq<br/>Llama3]
         GEMINI[Google<br/>Gemini]
         ONPREM[On-Premise<br/>Ollama]
     end
     
-    subgraph "Security"
+    subgraph Security
         DTX[DTX Prompt Guard<br/>Injection Prevention]
     end
     
@@ -1388,9 +1392,13 @@ graph TB
     SRVICE --> DTX
     CHAT --> DTX
     
-    style WRAPPER fill:#99ccff
-    style CONFIG fill:#ffcc99
-    style DTX fill:#ff9999
+    classDef wrapper fill:#99ccff,stroke:#333,stroke-width:2px
+    classDef config fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef security fill:#ff9999,stroke:#333,stroke-width:2px
+    
+    class WRAPPER wrapper
+    class CONFIG config
+    class DTX security
 ```
 
 ### 11.3 Vector Search Implementation
@@ -1492,26 +1500,26 @@ stateDiagram-v2
 
 ```mermaid
 flowchart LR
-    subgraph "Producers"
+    subgraph Producers
         CLI[CLI Indexer]
         API[API Service]
         INDEXER[Kafka Indexer]
         FPR[FPR Processor]
     end
     
-    subgraph "Topics"
+    subgraph Topics
         T1[(indexing-topic)]
         T2[(fpr-processing)]
         T3[(fpr-results)]
     end
     
-    subgraph "Consumers"
+    subgraph Consumers
         C1[Kafka Indexer]
         C2[FPR Processor]
         C3[Results Consumer]
     end
     
-    subgraph "Consumer Groups"
+    subgraph ConsumerGroups["Consumer Groups"]
         G1[indexing_group]
         G2[fp_reduction_group]
         G3[results_group]
@@ -1533,12 +1541,11 @@ flowchart LR
     T3 --> C3
     C3 -.-> G3
     
-    style T1 fill:#ffcc99
-    style T2 fill:#ffcc99
-    style T3 fill:#ffcc99
-    style C1 fill:#99ccff
-    style C2 fill:#99ccff
-    style C3 fill:#99ccff
+    classDef topic fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef consumer fill:#99ccff,stroke:#333,stroke-width:2px
+    
+    class T1,T2,T3 topic
+    class C1,C2,C3 consumer
 ```
 
 ### 11.6 Sequence Diagram: Case Analysis Flow

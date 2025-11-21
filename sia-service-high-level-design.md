@@ -144,39 +144,39 @@ SIA follows a **microservices-based architecture** with the following patterns:
 
 ```mermaid
 graph TB
-    subgraph "Client Layer"
+    subgraph ClientLayer["Client Layer"]
         UI[Web UI]
         CLI[CLI Tools]
         EXT[External Systems]
     end
     
-    subgraph "API Gateway Layer"
+    subgraph GatewayLayer["API Gateway Layer"]
         TYK[Tyk API Gateway<br/>Authentication & Routing]
     end
     
-    subgraph "Application Layer"
+    subgraph ApplicationLayer["Application Layer"]
         WEB[FastAPI Web Service<br/>Port 8000]
         CHAT[Chat Service<br/>Streaming Support]
     end
     
-    subgraph "Message Queue"
+    subgraph MessageQueue["Message Queue"]
         KAFKA[Apache Kafka<br/>Event Streaming]
         REDIS[Redis<br/>Task Queue & Cache]
     end
     
-    subgraph "Worker Layer"
+    subgraph WorkerLayer["Worker Layer"]
         WORKER[Celery Workers<br/>Background Tasks]
         INDEXER[Kafka Indexer<br/>Vector Indexing]
         FPR[FPR Processor<br/>Noise Reduction]
         NWORKER[Novelty Worker<br/>ML Processing]
     end
     
-    subgraph "Data Layer"
+    subgraph DataLayer["Data Layer"]
         PG[(PostgreSQL<br/>pgvector)]
         CHROMA[(ChromaDB<br/>Vector Store)]
     end
     
-    subgraph "External Services"
+    subgraph ExternalServices["External Services"]
         LLM[LLM Providers<br/>OpenAI/Groq/Gemini]
         TIP[Threat Intel<br/>VirusTotal/TIP]
         SOAR[SOAR Platform]
@@ -225,11 +225,17 @@ graph TB
     WEB --> SOAR
     WEB --> DTX
     
-    style TYK fill:#ff9999
-    style WEB fill:#99ccff
-    style KAFKA fill:#ffcc99
-    style PG fill:#99ff99
-    style LLM fill:#ff99ff
+    classDef gateway fill:#ff9999,stroke:#333,stroke-width:2px
+    classDef application fill:#99ccff,stroke:#333,stroke-width:2px
+    classDef queue fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef database fill:#99ff99,stroke:#333,stroke-width:2px
+    classDef external fill:#ff99ff,stroke:#333,stroke-width:2px
+    
+    class TYK gateway
+    class WEB,CHAT application
+    class KAFKA,REDIS queue
+    class PG,CHROMA database
+    class LLM,TIP,SOAR,NDS,DTX external
 ```
 
 ### 3.2 Case Analysis Flow Diagram
@@ -504,16 +510,16 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "Load Balancer / Gateway"
+    subgraph Gateway["Load Balancer / Gateway"]
         TYK[Tyk Gateway<br/>Port 8080]
     end
     
-    subgraph "Application Services"
+    subgraph AppServices["Application Services"]
         WEB1[Web Service<br/>Port 8000]
         WEB2[Web Service<br/>Replica]
     end
     
-    subgraph "Background Workers"
+    subgraph Workers["Background Workers"]
         WORKER1[Celery Worker 1]
         WORKER2[Celery Worker 2]
         INDEXER[Kafka Indexer]
@@ -522,17 +528,17 @@ graph TB
         NWORKER[Novelty Worker]
     end
     
-    subgraph "Message Infrastructure"
+    subgraph MsgInfra["Message Infrastructure"]
         KAFKA[Kafka Broker<br/>Ports 9092, 19092]
         REDIS[Redis<br/>Port 6379]
     end
     
-    subgraph "Data Stores"
+    subgraph DataStores["Data Stores"]
         PG[PostgreSQL + pgvector<br/>Port 5432]
         CHROMA[ChromaDB<br/>Port 8002]
     end
     
-    subgraph "Support Services"
+    subgraph Support["Support Services"]
         PGADMIN[pgAdmin<br/>Port 8081]
         FLUENTD[Fluentd<br/>Logging]
         DTX[DTX Guard<br/>Port 8003]
@@ -571,9 +577,13 @@ graph TB
     
     PGADMIN --> PG
     
-    style TYK fill:#ff9999
-    style KAFKA fill:#ffcc99
-    style PG fill:#99ff99
+    classDef gateway fill:#ff9999,stroke:#333,stroke-width:2px
+    classDef queue fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef database fill:#99ff99,stroke:#333,stroke-width:2px
+    
+    class TYK gateway
+    class KAFKA,REDIS queue
+    class PG,CHROMA database
 ```
 
 ### 3.8 Database Schema (ER Diagram)
@@ -1225,29 +1235,29 @@ test: add unit tests for chat service
 
 ```mermaid
 graph TB
-    subgraph "Application"
+    subgraph Application
         APP[SIA Services]
     end
     
-    subgraph "Instrumentation"
+    subgraph Instrumentation
         TRACE[Traceloop SDK<br/>LLM Tracing]
         OTEL[OpenTelemetry<br/>Distributed Tracing]
         LOGS[Application Logs]
         METRICS[System Metrics]
     end
     
-    subgraph "Collection"
+    subgraph Collection
         FLUENTD[Fluentd<br/>Log Aggregation]
         AGENT[OTEL Collector]
     end
     
-    subgraph "Storage"
+    subgraph Storage
         LOGSTOR[(Log Storage)]
         TRACESTOR[(Trace Backend)]
         METRICSTOR[(Metrics DB)]
     end
     
-    subgraph "Visualization"
+    subgraph Visualization
         DASH[Dashboards]
         ALERT[Alerting]
         ANALYZE[Analysis Tools]
@@ -1274,9 +1284,13 @@ graph TB
     DASH --> ALERT
     DASH --> ANALYZE
     
-    style APP fill:#99ccff
-    style FLUENTD fill:#ffcc99
-    style DASH fill:#99ff99
+    classDef application fill:#99ccff,stroke:#333,stroke-width:2px
+    classDef collector fill:#ffcc99,stroke:#333,stroke-width:2px
+    classDef dashboard fill:#99ff99,stroke:#333,stroke-width:2px
+    
+    class APP application
+    class FLUENTD,AGENT collector
+    class DASH,ALERT,ANALYZE dashboard
 ```
 
 ### 14.2 Key Metrics to Monitor

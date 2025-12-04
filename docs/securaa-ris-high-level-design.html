@@ -3,1132 +3,2647 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIS High Level Design - Securaa Platform</title>
+    <meta name="description" content="Securaa Platform Documentation - Securaa RIS - High Level Design">
+    <title>Securaa RIS - High Level Design - Securaa Documentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/documentation.css">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
-    
+
     <nav class="documentation-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-ris-high-level-design.html" class="active">RIS High Level Design</a></li>
-            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-            <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-            <li><a href="securaa-siem-low-level-design.html">Securaa SIEM Low Level Design</a></li>
-            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-            <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
-            <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
-            <li><a href="securaa-custom-utils-high-level-design.html">Securaa Custom Utils High Level Design</a></li>
-            <li><a href="securaa-custom-utils-low-level-design.html">Securaa Custom Utils Low Level Design</a></li>
-            <li><a href="securaa-make-system-high-level-design.html">Securaa Make System High Level Design</a></li>
-            <li><a href="securaa-make-system-low-level-design.html">Securaa Make System Low Level Design</a></li>
-        </ul>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
     </nav>
-    
+
     <main class="main-content">
-        <h1>Remote Integrated Services (RIS) - High Level Design</h1>
-        <p><strong>Comprehensive architectural overview of the distributed RIS system for secure remote service management</strong></p>
-        
-        <div class="doc-section">
-            <h1 id="system-architecture">System Overview</h1>
-            <p>
-                The Remote Integrated Services (RIS) System is a sophisticated distributed architecture designed to enable secure, real-time remote execution of tasks and comprehensive management of services across multiple client environments. This enterprise-grade solution bridges the gap between centralized control and distributed execution, providing organizations with the ability to manage, monitor, and execute operations across geographically dispersed infrastructure.
-            </p>
-        </div>
-
-        <div class="doc-section">
-            <h2>Key Business Objectives</h2>
-            <div class="doc-grid">
-                <div class="doc-card">
-                    <h3 data-icon="🏗️">Centralized Remote Management</h3>
-                    <p>Provide unified control over distributed client environments from a central management console.</p>
-                </div>
-                <div class="doc-card">
-                    <h3 data-icon="👁️">Real-time Operational Visibility</h3>
-                    <p>Maintain continuous monitoring and health assessment of remote services and infrastructure.</p>
-                </div>
-                <div class="doc-card">
-                    <h3 data-icon="🔒">Secure Task Execution</h3>
-                    <p>Execute critical business tasks on remote systems with enterprise-grade security protocols.</p>
-                </div>
-                <div class="doc-card">
-                    <h3 data-icon="📈">Scalable Service Management</h3>
-                    <p>Manage containerized applications and services across multiple deployment environments.</p>
-                </div>
-                <div class="doc-card">
-                    <h3 data-icon="🏢">Multi-tenant Support</h3>
-                    <p>Support multiple organizational units or customers with complete data isolation and security.</p>
-                </div>
-                <div class="doc-card">
-                    <h3 data-icon="⚡">High Availability Operations</h3>
-                    <p>Ensure continuous service availability with fault tolerance and automatic recovery capabilities.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="doc-section">
-            <h2>System Capabilities</h2>
-            
-            <h3>Core Functional Capabilities</h3>
-            <div class="nfr-grid">
-                <div class="nfr-card">
-                    <h4>Remote Task Orchestration</h4>
-                    <p>Execute complex workflows and tasks on distributed client systems with intelligent scheduling and load balancing.</p>
-                </div>
-                <div class="nfr-card">
-                    <h4>Service Lifecycle Management</h4>
-                    <p>Complete Docker container and service management including deployment, scaling, and monitoring capabilities.</p>
-                </div>
-                <div class="nfr-card">
-                    <h4>Real-time Status Monitoring</h4>
-                    <p>Continuous health checks and status reporting across all connected clients with real-time dashboards.</p>
-                </div>
-                <div class="nfr-card">
-                    <h4>Configuration Management</h4>
-                    <p>Dynamic configuration distribution and management across client environments with version control.</p>
-                </div>
-            </div>
-
-            <h3>Advanced Capabilities</h3>
-            <div class="nfr-grid">
-                <div class="nfr-card">
-                    <h4>Intelligent Load Distribution</h4>
-                    <p>Smart routing of tasks based on client capacity, availability, and geographic proximity for optimal performance.</p>
-                </div>
-                <div class="nfr-card">
-                    <h4>Automated Failover</h4>
-                    <p>Automatic detection and recovery from client failures with seamless task redistribution and minimal downtime.</p>
-                </div>
-                <div class="nfr-card">
-                    <h4>Network Adaptability</h4>
-                    <p>Dynamic adaptation to network changes including IP address changes, connectivity issues, and bandwidth limitations.</p>
-                </div>
-                <div class="nfr-card">
-                    <h4>Performance Analytics</h4>
-                    <p>Detailed performance metrics and analytics for optimization with historical trending and predictive insights.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="doc-section">
-            <h2>Architecture Overview</h2>
-            <div class="mermaid">
+        <h1 id="remote-integrated-services-ris-system-high-level-design-hld">Remote Integrated Services (RIS) System - High-Level Design (HLD)<a class="headerlink" href="#remote-integrated-services-ris-system-high-level-design-hld" title="Permanent link">&para;</a></h1>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#system-overview">System Overview</a></li>
+<li><a href="#business-context-and-requirements">Business Context and Requirements</a></li>
+<li><a href="#architecture-overview">Architecture Overview</a></li>
+<li><a href="#system-architecture-diagrams">System Architecture Diagrams</a></li>
+<li><a href="#system-components">System Components</a></li>
+<li><a href="#component-interactions">Component Interactions</a></li>
+<li><a href="#data-flow-and-process-flows">Data Flow and Process Flows</a></li>
+<li><a href="#communication-protocols">Communication Protocols</a></li>
+<li><a href="#security-architecture">Security Architecture</a></li>
+<li><a href="#deployment-architecture">Deployment Architecture</a></li>
+<li><a href="#network-topology">Network Topology</a></li>
+<li><a href="#system-interfaces">System Interfaces</a></li>
+<li><a href="#scalability-and-performance">Scalability and Performance</a></li>
+<li><a href="#operational-workflows">Operational Workflows</a></li>
+<li><a href="#integration-patterns">Integration Patterns</a></li>
+</ol>
+<h2 id="system-overview">System Overview<a class="headerlink" href="#system-overview" title="Permanent link">&para;</a></h2>
+<p>The Remote Integrated Services (RIS) System is a sophisticated distributed architecture designed to enable secure, real-time remote execution of tasks and comprehensive management of services across multiple client environments. This enterprise-grade solution bridges the gap between centralized control and distributed execution, providing organizations with the ability to manage, monitor, and execute operations across geographically dispersed infrastructure.</p>
+<h3 id="key-business-objectives">Key Business Objectives<a class="headerlink" href="#key-business-objectives" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Centralized Remote Management</strong>: Provide unified control over distributed client environments from a central management console</li>
+<li><strong>Real-time Operational Visibility</strong>: Maintain continuous monitoring and health assessment of remote services and infrastructure</li>
+<li><strong>Secure Task Execution</strong>: Execute critical business tasks on remote systems with enterprise-grade security protocols</li>
+<li><strong>Scalable Service Management</strong>: Manage containerized applications and services across multiple deployment environments</li>
+<li><strong>Multi-tenant Support</strong>: Support multiple organizational units or customers with complete data isolation and security</li>
+<li><strong>High Availability Operations</strong>: Ensure continuous service availability with fault tolerance and automatic recovery capabilities</li>
+</ul>
+<h3 id="system-capabilities">System Capabilities<a class="headerlink" href="#system-capabilities" title="Permanent link">&para;</a></h3>
+<h4 id="core-functional-capabilities">Core Functional Capabilities<a class="headerlink" href="#core-functional-capabilities" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Remote Task Orchestration</strong>: Execute complex workflows and tasks on distributed client systems</li>
+<li><strong>Service Lifecycle Management</strong>: Complete Docker container and service management including deployment, scaling, and monitoring</li>
+<li><strong>Real-time Status Monitoring</strong>: Continuous health checks and status reporting across all connected clients</li>
+<li><strong>Configuration Management</strong>: Dynamic configuration distribution and management across client environments</li>
+<li><strong>Security Enforcement</strong>: Comprehensive security controls including authentication, authorization, and audit logging</li>
+<li><strong>Multi-protocol Support</strong>: Support for various communication protocols including WebSocket, HTTPS, and Docker APIs</li>
+</ol>
+<h4 id="advanced-capabilities">Advanced Capabilities<a class="headerlink" href="#advanced-capabilities" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Intelligent Load Distribution</strong>: Smart routing of tasks based on client capacity and availability</li>
+<li><strong>Automated Failover</strong>: Automatic detection and recovery from client failures</li>
+<li><strong>Network Adaptability</strong>: Dynamic adaptation to network changes including IP address changes and connectivity issues</li>
+<li><strong>Tenant Isolation</strong>: Complete data and operational isolation for multi-tenant environments</li>
+<li><strong>Audit and Compliance</strong>: Comprehensive logging and audit trails for regulatory compliance</li>
+<li><strong>Performance Analytics</strong>: Detailed performance metrics and analytics for optimization</li>
+</ol>
+<h2 id="business-context-and-requirements">Business Context and Requirements<a class="headerlink" href="#business-context-and-requirements" title="Permanent link">&para;</a></h2>
+<h3 id="business-drivers">Business Drivers<a class="headerlink" href="#business-drivers" title="Permanent link">&para;</a></h3>
+<h4 id="operational-efficiency">Operational Efficiency<a class="headerlink" href="#operational-efficiency" title="Permanent link">&para;</a></h4>
+<p>The RIS system addresses the critical need for organizations to manage distributed infrastructure efficiently. Traditional approaches to remote management often involve manual processes, multiple tools, and complex coordination. RIS provides a unified platform that streamlines operations, reduces manual intervention, and ensures consistent execution across all environments.</p>
+<h4 id="security-and-compliance">Security and Compliance<a class="headerlink" href="#security-and-compliance" title="Permanent link">&para;</a></h4>
+<p>In today's security-conscious environment, organizations require robust security controls for remote operations. RIS implements enterprise-grade security measures including end-to-end encryption, multi-factor authentication, and comprehensive audit logging to meet stringent security and compliance requirements.</p>
+<h4 id="scalability-and-growth">Scalability and Growth<a class="headerlink" href="#scalability-and-growth" title="Permanent link">&para;</a></h4>
+<p>As organizations grow and expand their infrastructure footprint, the need for scalable management solutions becomes critical. RIS is designed to scale horizontally, supporting hundreds of remote clients while maintaining performance and reliability.</p>
+<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
+<h4 id="core-requirements">Core Requirements<a class="headerlink" href="#core-requirements" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Real-time Communication</strong>: Establish and maintain persistent, low-latency connections between server and clients</li>
+<li><strong>Task Execution</strong>: Support various types of task execution including HTTP requests, system commands, and service management</li>
+<li><strong>Service Management</strong>: Comprehensive Docker service lifecycle management including deployment, scaling, monitoring, and termination</li>
+<li><strong>Status Monitoring</strong>: Real-time monitoring of client health, service status, and system performance</li>
+<li><strong>Configuration Management</strong>: Dynamic configuration distribution and updates without service interruption</li>
+<li><strong>Multi-tenancy</strong>: Support multiple isolated tenant environments with secure data separation</li>
+</ol>
+<h4 id="advanced-requirements">Advanced Requirements<a class="headerlink" href="#advanced-requirements" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>High Availability</strong>: 99.9% uptime with automatic failover and recovery</li>
+<li><strong>Security</strong>: End-to-end encryption, authentication, authorization, and audit logging</li>
+<li><strong>Scalability</strong>: Support for 1000+ concurrent client connections</li>
+<li><strong>Performance</strong>: &lt;100ms response time for API calls, &lt;5s for task execution</li>
+<li><strong>Integration</strong>: RESTful APIs and WebSocket interfaces for external system integration</li>
+<li><strong>Monitoring</strong>: Comprehensive monitoring and alerting capabilities</li>
+</ol>
+<h3 id="non-functional-requirements">Non-Functional Requirements<a class="headerlink" href="#non-functional-requirements" title="Permanent link">&para;</a></h3>
+<h4 id="performance-requirements">Performance Requirements<a class="headerlink" href="#performance-requirements" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Response Time</strong>: API calls must respond within 100 milliseconds under normal load</li>
+<li><strong>Throughput</strong>: System must support 1000+ concurrent WebSocket connections per server instance</li>
+<li><strong>Task Execution</strong>: Remote tasks must complete within 5 seconds for standard operations</li>
+<li><strong>Database Performance</strong>: Database queries must complete within 50 milliseconds for 95% of requests</li>
+</ul>
+<h4 id="reliability-requirements">Reliability Requirements<a class="headerlink" href="#reliability-requirements" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Availability</strong>: 99.9% uptime (8.76 hours downtime per year maximum)</li>
+<li><strong>Recovery Time</strong>: System must recover from failures within 30 seconds</li>
+<li><strong>Data Consistency</strong>: Zero data loss during normal operations and planned maintenance</li>
+<li><strong>Connection Resilience</strong>: Automatic reconnection with exponential backoff for network interruptions</li>
+</ul>
+<h4 id="security-requirements">Security Requirements<a class="headerlink" href="#security-requirements" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Data Encryption</strong>: All data must be encrypted in transit using TLS 1.2 or higher</li>
+<li><strong>Authentication</strong>: Multi-factor authentication for administrative access</li>
+<li><strong>Authorization</strong>: Role-based access control with principle of least privilege</li>
+<li><strong>Audit Logging</strong>: Complete audit trail of all system operations and access</li>
+<li><strong>Network Security</strong>: Network segmentation and firewall protection</li>
+</ul>
+<h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h2>
+<p>The RIS system implements a sophisticated <strong>Hub-and-Spoke</strong> architectural pattern, enhanced with microservices principles and cloud-native design patterns. This architecture provides a robust foundation for distributed operations while maintaining centralized control and monitoring capabilities.</p>
+<h3 id="architectural-philosophy">Architectural Philosophy<a class="headerlink" href="#architectural-philosophy" title="Permanent link">&para;</a></h3>
+<h4 id="hub-and-spoke-design">Hub-and-Spoke Design<a class="headerlink" href="#hub-and-spoke-design" title="Permanent link">&para;</a></h4>
+<p>The architecture centers around a powerful RIS Server (hub) that manages multiple distributed RIS Clients (spokes). This design provides several key advantages:</p>
+<ol>
+<li><strong>Centralized Control</strong>: All management operations flow through the central hub, providing unified control and visibility</li>
+<li><strong>Simplified Communication</strong>: Client-to-client communication is eliminated, reducing complexity and potential security vulnerabilities</li>
+<li><strong>Scalable Management</strong>: Adding new clients requires only connection to the hub, not reconfiguration of existing clients</li>
+<li><strong>Consistent Policy Enforcement</strong>: Security policies, configurations, and operational procedures are enforced consistently across all clients</li>
+</ol>
+<h4 id="cloud-native-principles">Cloud-Native Principles<a class="headerlink" href="#cloud-native-principles" title="Permanent link">&para;</a></h4>
+<p>The system embraces cloud-native design principles including:</p>
+<ol>
+<li><strong>Containerization</strong>: All components run in containers for portability and consistency</li>
+<li><strong>Microservices</strong>: Loosely coupled services with specific responsibilities</li>
+<li><strong>API-First Design</strong>: All interactions occur through well-defined APIs</li>
+<li><strong>Observability</strong>: Built-in monitoring, logging, and tracing capabilities</li>
+<li><strong>Resilience</strong>: Self-healing capabilities with automatic recovery</li>
+</ol>
+<div class="mermaid">
 graph TB
-    subgraph "RIS Central Command"
-        SERVER[RIS Server<br/>Central Management]
-        DB[(Database<br/>MongoDB)]
-        CACHE[Cache Layer<br/>Redis]
-        AUTH[Authentication<br/>Service]
+    subgraph "RIS Server Hub"
+        WS_GW[WebSocket Gateway]
+        REST_GW[REST API Gateway]
+        ORCHESTRATOR[Task Orchestrator]
+        SVC_MGR[Service Manager]
+        DB_CLUSTER[Database Cluster<br/>MongoDB + Redis]
+
+        WS_GW --> ORCHESTRATOR
+        REST_GW --> ORCHESTRATOR
+        ORCHESTRATOR --> SVC_MGR
+        ORCHESTRATOR --> DB_CLUSTER
+        SVC_MGR --> DB_CLUSTER
     end
-    
-    subgraph "Remote Locations"
-        subgraph "Location A"
-            CLIENT1[RIS Client A]
-            DOCKER1[Docker Services]
-            APP1[Applications]
+
+    subgraph "RIS Client Spoke 1"
+        RC1[RIS Client 1]
+        DOCKER1[Docker Engine 1]
+        RC1 --> DOCKER1
+    end
+
+    subgraph "RIS Client Spoke 2"
+        RC2[RIS Client 2]
+        DOCKER2[Docker Engine 2]
+        RC2 --> DOCKER2
+    end
+
+    subgraph "RIS Client Spoke N"
+        RCN[RIS Client N]
+        DOCKERN[Docker Engine N]
+        RCN --> DOCKERN
+    end
+
+    %% Hub to Spoke connections
+    WS_GW -.->|WebSocket| RC1
+    WS_GW -.->|WebSocket| RC2
+    WS_GW -.->|WebSocket| RCN
+
+    REST_GW -.->|HTTPS| RC1
+    REST_GW -.->|HTTPS| RC2
+    REST_GW -.->|HTTPS| RCN
+
+    style WS_GW fill:#e3f2fd
+    style REST_GW fill:#e3f2fd
+    style ORCHESTRATOR fill:#fff3e0
+    style SVC_MGR fill:#fff3e0
+    style DB_CLUSTER fill:#e8f5e8
+    style RC1 fill:#fce4ec
+    style RC2 fill:#fce4ec
+    style RCN fill:#fce4ec
+</div>
+
+<h3 id="design-patterns-implementation">Design Patterns Implementation<a class="headerlink" href="#design-patterns-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="1-event-driven-architecture">1. Event-Driven Architecture<a class="headerlink" href="#1-event-driven-architecture" title="Permanent link">&para;</a></h4>
+<p>The system implements event-driven patterns for real-time responsiveness:<br />
+- <strong>Event Sourcing</strong>: All state changes are captured as events<br />
+- <strong>CQRS (Command Query Responsibility Segregation)</strong>: Separate read and write operations for optimal performance<br />
+- <strong>Pub/Sub Messaging</strong>: Asynchronous communication between components</p>
+<h4 id="2-circuit-breaker-pattern">2. Circuit Breaker Pattern<a class="headerlink" href="#2-circuit-breaker-pattern" title="Permanent link">&para;</a></h4>
+<p>Protection against cascading failures:<br />
+- <strong>Failure Detection</strong>: Automatic detection of service failures<br />
+- <strong>Graceful Degradation</strong>: Partial functionality during component failures<br />
+- <strong>Automatic Recovery</strong>: Self-healing when services recover</p>
+<h4 id="3-bulkhead-pattern">3. Bulkhead Pattern<a class="headerlink" href="#3-bulkhead-pattern" title="Permanent link">&para;</a></h4>
+<p>Isolation of critical resources:<br />
+- <strong>Resource Isolation</strong>: Separate connection pools for different operations<br />
+- <strong>Failure Containment</strong>: Prevent failures in one area from affecting others<br />
+- <strong>Performance Isolation</strong>: Dedicated resources for critical operations</p>
+<h4 id="4-saga-pattern">4. Saga Pattern<a class="headerlink" href="#4-saga-pattern" title="Permanent link">&para;</a></h4>
+<p>Distributed transaction management:<br />
+- <strong>Choreography</strong>: Distributed coordination without central orchestrator<br />
+- <strong>Compensation</strong>: Rollback mechanisms for failed operations<br />
+- <strong>Consistency</strong>: Eventual consistency across distributed components</p>
+<h3 id="architectural-layers">Architectural Layers<a class="headerlink" href="#architectural-layers" title="Permanent link">&para;</a></h3>
+<h4 id="presentation-layer">Presentation Layer<a class="headerlink" href="#presentation-layer" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>API Gateway</strong>: Single entry point for all external requests</li>
+<li><strong>WebSocket Gateway</strong>: Real-time communication hub</li>
+<li><strong>Load Balancer</strong>: Traffic distribution and high availability</li>
+</ul>
+<h4 id="application-layer">Application Layer<a class="headerlink" href="#application-layer" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Business Logic Services</strong>: Core application functionality</li>
+<li><strong>Orchestration Services</strong>: Workflow and task coordination</li>
+<li><strong>Integration Services</strong>: External system connectivity</li>
+</ul>
+<h4 id="data-layer">Data Layer<a class="headerlink" href="#data-layer" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Primary Database</strong>: MongoDB cluster for operational data</li>
+<li><strong>Cache Layer</strong>: Redis for high-performance data access</li>
+<li><strong>Message Queue</strong>: Asynchronous communication</li>
+<li><strong>File Storage</strong>: Document and artifact storage</li>
+</ul>
+<h4 id="infrastructure-layer">Infrastructure Layer<a class="headerlink" href="#infrastructure-layer" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Container Runtime</strong>: Docker for application packaging</li>
+<li><strong>Service Mesh</strong>: Inter-service communication</li>
+<li><strong>Monitoring Stack</strong>: Observability and alerting</li>
+<li><strong>Security Stack</strong>: Authentication, authorization, and encryption</li>
+</ul>
+<h2 id="system-architecture-diagrams">System Architecture Diagrams<a class="headerlink" href="#system-architecture-diagrams" title="Permanent link">&para;</a></h2>
+<h3 id="high-level-system-architecture">High-Level System Architecture<a class="headerlink" href="#high-level-system-architecture" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph TB
+    subgraph "External Systems"
+        EXT[External Applications/Users]
+        LB[Load Balancer]
+    end
+
+    subgraph "RIS Server Infrastructure"
+        subgraph "Application Layer"
+            RS1[RIS Server Instance 1]
+            RS2[RIS Server Instance 2]
+            RS3[RIS Server Instance N]
         end
-        
-        subgraph "Location B"
-            CLIENT2[RIS Client B]
-            DOCKER2[Docker Services]
-            APP2[Applications]
+
+        subgraph "Data Layer"
+            MDB[(MongoDB Primary)]
+            MDB2[(MongoDB Secondary)]
+            MDB3[(MongoDB Arbiter)]
+            CACHE[(Redis Cache)]
         end
-        
-        subgraph "Location C"
-            CLIENT3[RIS Client C]
-            DOCKER3[Docker Services]
-            APP3[Applications]
+
+        subgraph "Security Layer"
+            TLS[TLS/SSL Termination]
+            AUTH[Authentication Service]
+            AUTHZ[Authorization Service]
         end
     end
-    
-    subgraph "Management Interface"
-        WEB[Web Dashboard]
-        API[REST API]
-        CLI[CLI Tools]
+
+    subgraph "RIS Client Environments"
+        subgraph "Client Site 1"
+            RC1[RIS Client 1]
+            DC1[Docker Engine 1]
+            APP1[Application Services 1]
+        end
+
+        subgraph "Client Site 2"
+            RC2[RIS Client 2]
+            DC2[Docker Engine 2]
+            APP2[Application Services 2]
+        end
+
+        subgraph "Client Site N"
+            RCN[RIS Client N]
+            DCN[Docker Engine N]
+            APPN[Application Services N]
+        end
     end
-    
-    %% Central connections
-    SERVER --> DB
-    SERVER --> CACHE
-    SERVER --> AUTH
-    
+
+    %% External connections
+    EXT --> LB
+    LB --> TLS
+    TLS --> RS1
+    TLS --> RS2
+    TLS --> RS3
+
+    %% Server internal connections
+    RS1 --> MDB
+    RS2 --> MDB
+    RS3 --> MDB
+    MDB --> MDB2
+    MDB2 --> MDB3
+    RS1 --> CACHE
+    RS2 --> CACHE
+    RS3 --> CACHE
+
+    %% Authentication flow
+    RS1 --> AUTH
+    RS2 --> AUTH
+    RS3 --> AUTH
+    AUTH --> AUTHZ
+
+    %% WebSocket connections to clients
+    RS1 -.->|WebSocket/TLS| RC1
+    RS1 -.->|WebSocket/TLS| RC2
+    RS2 -.->|WebSocket/TLS| RCN
+
+    %% Client internal connections
+    RC1 --> DC1
+    DC1 --> APP1
+    RC2 --> DC2
+    DC2 --> APP2
+    RCN --> DCN
+    DCN --> APPN
+
+    style EXT fill:#e1f5fe
+    style LB fill:#f3e5f5
+    style TLS fill:#fff3e0
+    style RS1 fill:#e8f5e8
+    style RS2 fill:#e8f5e8
+    style RS3 fill:#e8f5e8
+    style MDB fill:#fff9c4
+    style RC1 fill:#fce4ec
+    style RC2 fill:#fce4ec
+    style RCN fill:#fce4ec
+</div>
+
+<h3 id="deployment-architecture">Deployment Architecture<a class="headerlink" href="#deployment-architecture" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph TB
+    subgraph "Internet"
+        USER[End Users]
+        API[API Clients]
+    end
+
+    subgraph "DMZ Zone"
+        WAF[Web Application Firewall]
+        LB[Load Balancer]
+    end
+
+    subgraph "Application Zone"
+        subgraph "RIS Server Cluster"
+            RS1[RIS Server Service 1<br/>Port: 8057]
+            RS2[RIS Server Service 2<br/>Port: 8057]
+            RS3[RIS Server Service 3<br/>Port: 8057]
+        end
+
+        subgraph "Service Mesh"
+            ISTIO[Istio Proxy]
+            CONSUL[Service Discovery]
+        end
+    end
+
+    subgraph "Data Zone"
+        subgraph "MongoDB Cluster"
+            MDB1[(Primary)]
+            MDB2[(Secondary)]
+            MDB3[(Arbiter)]
+        end
+
+        subgraph "Cache Layer"
+            REDIS[(Redis Cluster)]
+        end
+    end
+
+    subgraph "Remote Client Sites"
+        subgraph "Site A"
+            RCA[RIS Client A<br/>Port: 9000]
+            DOCKA[Docker Swarm A]
+        end
+
+        subgraph "Site B"
+            RCB[RIS Client B<br/>Port: 9000]
+            DOCKB[Docker Swarm B]
+        end
+    end
+
+    subgraph "Monitoring & Logging"
+        PROM[Prometheus]
+        GRAF[Grafana]
+        ELK[ELK Stack]
+        ALERT[AlertManager]
+    end
+
+    %% User connections
+    USER --> WAF
+    API --> WAF
+    WAF --> LB
+
+    %% Load balancer to servers
+    LB --> RS1
+    LB --> RS2
+    LB --> RS3
+
+    %% Service mesh
+    RS1 --> ISTIO
+    RS2 --> ISTIO
+    RS3 --> ISTIO
+    ISTIO --> CONSUL
+
+    %% Database connections
+    RS1 --> MDB1
+    RS2 --> MDB1
+    RS3 --> MDB1
+    MDB1 --> MDB2
+    MDB2 --> MDB3
+
+    %% Cache connections
+    RS1 --> REDIS
+    RS2 --> REDIS
+    RS3 --> REDIS
+
+    %% WebSocket to clients
+    RS1 -.->|WSS| RCA
+    RS2 -.->|WSS| RCB
+
+    %% Client internal
+    RCA --> DOCKA
+    RCB --> DOCKB
+
+    %% Monitoring connections
+    RS1 --> PROM
+    RS2 --> PROM
+    RS3 --> PROM
+    RCA --> PROM
+    RCB --> PROM
+    PROM --> GRAF
+    PROM --> ALERT
+
+    %% Logging
+    RS1 --> ELK
+    RS2 --> ELK
+    RS3 --> ELK
+    RCA --> ELK
+    RCB --> ELK
+
+    style USER fill:#e3f2fd
+    style WAF fill:#fff3e0
+    style LB fill:#f3e5f5
+    style RS1 fill:#e8f5e8
+    style RS2 fill:#e8f5e8
+    style RS3 fill:#e8f5e8
+    style MDB1 fill:#fff9c4
+    style RCA fill:#fce4ec
+    style RCB fill:#fce4ec
+</div>
+
+<h3 id="component-interaction-architecture">Component Interaction Architecture<a class="headerlink" href="#component-interaction-architecture" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph LR
+    subgraph "RIS Server Components"
+        WS[WebSocket Handler]
+        REST[REST API Handler]
+        AUTH[Authentication Module]
+        ROUTE[Task Router]
+        MON[Monitor Service]
+        DB[Database Manager]
+    end
+
+    subgraph "RIS Client Components"
+        WSC[WebSocket Client]
+        TASK[Task Executor]
+        DOCKER[Docker Manager]
+        HEALTH[Health Monitor]
+        CONFIG[Config Manager]
+    end
+
+    %% Server component interactions
+    WS <--> REST
+    REST --> AUTH
+    AUTH --> ROUTE
+    ROUTE --> MON
+    MON --> DB
+    WS --> DB
+
+    %% Client component interactions
+    WSC <--> TASK
+    TASK --> DOCKER
+    DOCKER --> HEALTH
+    HEALTH --> CONFIG
+    CONFIG --> WSC
+
+    %% Cross-system interactions
+    WS <-.->|WebSocket| WSC
+    REST <-.->|HTTPS| TASK
+    MON <-.->|Status| HEALTH
+
+    style WS fill:#ffcdd2
+    style REST fill:#c8e6c9
+    style AUTH fill:#fff9c4
+    style ROUTE fill:#e1bee7
+    style WSC fill:#bbdefb
+    style TASK fill:#d7ccc8
+</div>
+
+<h2 id="system-components">System Components<a class="headerlink" href="#system-components" title="Permanent link">&para;</a></h2>
+<p>The RIS system is architected as a collection of specialized components that work together to provide comprehensive remote service management capabilities. Each component has specific responsibilities and interfaces that enable seamless integration and operation.</p>
+<h3 id="1-ris-server-components">1. RIS Server Components<a class="headerlink" href="#1-ris-server-components" title="Permanent link">&para;</a></h3>
+<p>The RIS Server serves as the central command and control hub for the entire system, providing unified management, monitoring, and coordination capabilities.</p>
+<h4 id="core-application-layer-zona_ris_server">Core Application Layer (<code>zona_ris_server</code>)<a class="headerlink" href="#core-application-layer-zona_ris_server" title="Permanent link">&para;</a></h4>
+<p><strong>Main Application Engine</strong><br />
+- <strong>Purpose</strong>: Serves as the primary entry point and orchestration engine for all server operations<br />
+- <strong>Responsibilities</strong>: <br />
+  - Application lifecycle management and initialization<br />
+  - Graceful startup and shutdown procedures<br />
+  - Global error handling and recovery mechanisms<br />
+  - Performance monitoring and optimization<br />
+- <strong>Key Features</strong>:<br />
+  - Multi-threaded request processing with goroutine pools<br />
+  - Memory management and garbage collection optimization<br />
+  - Configuration hot-reloading capabilities<br />
+  - Health check endpoints for load balancer integration</p>
+<p><strong>HTTP/WebSocket Server</strong><br />
+- <strong>Purpose</strong>: Provides dual-protocol communication capabilities for different interaction patterns<br />
+- <strong>HTTP Server Capabilities</strong>:<br />
+  - RESTful API endpoints for CRUD operations<br />
+  - Request routing and middleware processing<br />
+  - Content negotiation and response formatting<br />
+  - Rate limiting and throttling<br />
+- <strong>WebSocket Server Capabilities</strong>:<br />
+  - Persistent bidirectional communication channels<br />
+  - Real-time event broadcasting<br />
+  - Connection lifecycle management<br />
+  - Heartbeat and keepalive mechanisms</p>
+<p><strong>TLS Security Engine</strong><br />
+- <strong>Purpose</strong>: Ensures all communications are encrypted and secure<br />
+- <strong>Features</strong>:<br />
+  - TLS 1.2/1.3 support with configurable cipher suites<br />
+  - Certificate management and rotation<br />
+  - Perfect Forward Secrecy (PFS)<br />
+  - HSTS (HTTP Strict Transport Security) enforcement</p>
+<p><strong>Middleware Infrastructure</strong><br />
+- <strong>Authentication Middleware</strong>: JWT token validation and user session management<br />
+- <strong>Authorization Middleware</strong>: Role-based access control and permission enforcement<br />
+- <strong>Logging Middleware</strong>: Comprehensive request/response logging with sanitization<br />
+- <strong>Metrics Middleware</strong>: Performance metrics collection and aggregation<br />
+- <strong>Tenant Isolation Middleware</strong>: Multi-tenant request routing and data isolation</p>
+<h4 id="business-logic-layer">Business Logic Layer<a class="headerlink" href="#business-logic-layer" title="Permanent link">&para;</a></h4>
+<p><strong>RIS Controller</strong><br />
+- <strong>Client Lifecycle Management</strong>:<br />
+  - New client registration and onboarding<br />
+  - Client authentication and authorization<br />
+  - Connection status monitoring and management<br />
+  - Client configuration distribution<br />
+- <strong>Operations Management</strong>:<br />
+  - Task routing and distribution<br />
+  - Load balancing across available clients<br />
+  - Failover and recovery coordination<br />
+  - Performance optimization and tuning</p>
+<p><strong>Tenant Management Controller</strong><br />
+- <strong>Multi-tenancy Support</strong>:<br />
+  - Tenant provisioning and deprovisioning<br />
+  - Data isolation and security enforcement<br />
+  - Resource allocation and quota management<br />
+  - Billing and usage tracking integration<br />
+- <strong>Database Management</strong>:<br />
+  - Tenant-specific database connections<br />
+  - Schema management and migration<br />
+  - Backup and disaster recovery coordination</p>
+<p><strong>Task Orchestration Controller</strong><br />
+- <strong>Workflow Management</strong>:<br />
+  - Complex task workflow definition and execution<br />
+  - Dependency management and sequencing<br />
+  - Parallel execution and synchronization<br />
+  - Error handling and retry mechanisms<br />
+- <strong>Resource Management</strong>:<br />
+  - Client capacity monitoring and allocation<br />
+  - Queue management and prioritization<br />
+  - SLA monitoring and enforcement</p>
+<h4 id="data-management-layer">Data Management Layer<a class="headerlink" href="#data-management-layer" title="Permanent link">&para;</a></h4>
+<p><strong>MongoDB Integration Engine</strong><br />
+- <strong>Primary Database Operations</strong>:<br />
+  - Connection pooling and management<br />
+  - Transaction coordination and consistency<br />
+  - Index optimization and maintenance<br />
+  - Query performance monitoring<br />
+- <strong>High Availability Features</strong>:<br />
+  - Replica set management<br />
+  - Automatic failover coordination<br />
+  - Read preference optimization<br />
+  - Write concern configuration</p>
+<p><strong>Caching Infrastructure</strong><br />
+- <strong>Redis Integration</strong>:<br />
+  - Session state management<br />
+  - Frequently accessed data caching<br />
+  - Pub/sub messaging for real-time events<br />
+  - Distributed locking mechanisms<br />
+- <strong>Cache Strategies</strong>:<br />
+  - Write-through and write-behind caching<br />
+  - Cache invalidation and consistency<br />
+  - TTL management and optimization<br />
+  - Memory usage monitoring and optimization</p>
+<h3 id="2-ris-client-components">2. RIS Client Components<a class="headerlink" href="#2-ris-client-components" title="Permanent link">&para;</a></h3>
+<p>RIS Clients serve as intelligent agents that execute tasks and manage services in remote environments while maintaining constant communication with the central server.</p>
+<h4 id="client-application-core-zona_task_handler">Client Application Core (<code>zona_task_handler</code>)<a class="headerlink" href="#client-application-core-zona_task_handler" title="Permanent link">&para;</a></h4>
+<p><strong>Application Framework</strong><br />
+- <strong>Purpose</strong>: Provides the foundational runtime environment for client operations<br />
+- <strong>Capabilities</strong>:<br />
+  - Lightweight, resource-efficient operation<br />
+  - Self-monitoring and health reporting<br />
+  - Automatic updates and configuration synchronization<br />
+  - Local caching and offline operation support<br />
+- <strong>Resilience Features</strong>:<br />
+  - Circuit breaker patterns for external dependencies<br />
+  - Exponential backoff for retry operations<br />
+  - Graceful degradation during connectivity issues<br />
+  - Local queue management for delayed execution</p>
+<p><strong>WebSocket Client Engine</strong><br />
+- <strong>Connection Management</strong>:<br />
+  - Persistent connection establishment and maintenance<br />
+  - Automatic reconnection with intelligent backoff<br />
+  - Network change detection and adaptation<br />
+  - Connection health monitoring and reporting<br />
+- <strong>Message Processing</strong>:<br />
+  - Real-time command processing<br />
+  - Asynchronous response handling<br />
+  - Message queuing and delivery guarantees<br />
+  - Protocol version negotiation</p>
+<p><strong>Docker Integration Platform</strong><br />
+- <strong>Container Management</strong>:<br />
+  - Docker API integration and abstraction<br />
+  - Service lifecycle management (create, start, stop, remove)<br />
+  - Image management and optimization<br />
+  - Resource monitoring and allocation<br />
+- <strong>Orchestration Capabilities</strong>:<br />
+  - Docker Compose support<br />
+  - Swarm mode integration<br />
+  - Health check configuration and monitoring<br />
+  - Log aggregation and forwarding</p>
+<h4 id="task-execution-framework">Task Execution Framework<a class="headerlink" href="#task-execution-framework" title="Permanent link">&para;</a></h4>
+<p><strong>Task Handler Controller</strong><br />
+- <strong>Execution Engine</strong>:<br />
+  - Multi-protocol task execution (HTTP, shell, Docker)<br />
+  - Timeout management and cancellation<br />
+  - Resource isolation and sandboxing<br />
+  - Result validation and formatting<br />
+- <strong>Security Features</strong>:<br />
+  - Execution environment isolation<br />
+  - Input validation and sanitization<br />
+  - Output filtering and anonymization<br />
+  - Audit logging for all operations</p>
+<p><strong>Remote Connection Manager</strong><br />
+- <strong>Connectivity Testing</strong>:<br />
+  - Network reachability verification<br />
+  - Protocol-specific health checks<br />
+  - Performance benchmarking<br />
+  - Latency and throughput monitoring<br />
+- <strong>Authentication Integration</strong>:<br />
+  - LDAP/Active Directory connectivity testing<br />
+  - Certificate validation and management<br />
+  - SSO integration verification<br />
+  - Multi-factor authentication support</p>
+<p><strong>Service Management Controller</strong><br />
+- <strong>Docker Service Operations</strong>:<br />
+  - Service deployment and scaling<br />
+  - Configuration management<br />
+  - Version control and rollback<br />
+  - Performance monitoring and optimization<br />
+- <strong>Application Lifecycle</strong>:<br />
+  - Blue-green deployments<br />
+  - Canary releases<br />
+  - Backup and recovery operations<br />
+  - Disaster recovery coordination</p>
+<h4 id="client-infrastructure-services">Client Infrastructure Services<a class="headerlink" href="#client-infrastructure-services" title="Permanent link">&para;</a></h4>
+<p><strong>Network Intelligence Module</strong><br />
+- <strong>Network Discovery</strong>:<br />
+  - IP address detection and monitoring<br />
+  - Network topology mapping<br />
+  - Bandwidth and latency measurement<br />
+  - Route optimization<br />
+- <strong>Adaptive Connectivity</strong>:<br />
+  - Dynamic IP address updates<br />
+  - NAT traversal and firewall adaptation<br />
+  - VPN and proxy integration<br />
+  - Quality of service optimization</p>
+<p><strong>Configuration Management System</strong><br />
+- <strong>Dynamic Configuration</strong>:<br />
+  - Real-time configuration updates<br />
+  - Configuration validation and rollback<br />
+  - Environment-specific settings<br />
+  - Secret and credential management<br />
+- <strong>Change Management</strong>:<br />
+  - Configuration versioning and history<br />
+  - Change approval workflows<br />
+  - Impact analysis and testing<br />
+  - Automated rollback procedures</p>
+<p><strong>Monitoring and Observability</strong><br />
+- <strong>Health Monitoring</strong>:<br />
+  - System resource monitoring (CPU, memory, disk)<br />
+  - Application performance monitoring<br />
+  - Service dependency health checks<br />
+  - Predictive failure analysis<br />
+- <strong>Logging and Metrics</strong>:<br />
+  - Structured logging with correlation IDs<br />
+  - Metrics collection and aggregation<br />
+  - Distributed tracing support<br />
+  - Real-time alerting and notification</p>
+<h2 id="component-interactions">Component Interactions<a class="headerlink" href="#component-interactions" title="Permanent link">&para;</a></h2>
+<h3 id="1-client-registration-flow">1. Client Registration Flow<a class="headerlink" href="#1-client-registration-flow" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+sequenceDiagram
+    participant Client as RIS Client
+    participant WS as WebSocket Connection
+    participant Server as RIS Server
+    participant DB as Database
+
+    Client->>WS: Establish Connection
+    WS->>Server: Connection Request
+    Server->>Server: Validate Client
+
+    Client->>Server: Send ClientInfo
+    Server->>Server: Network Detection
+    Server->>DB: Update Database
+    DB-->>Server: Confirmation
+
+    Server-->>Client: Send Acknowledgment
+
+    loop Periodic Heartbeat
+        Client->>Server: Heartbeat
+        Server->>Server: Monitor Connection
+        Server-->>Client: Acknowledgment
+    end
+
+    Note over Client,Server: Connection Active
+</div>
+
+<h3 id="2-task-execution-flow">2. Task Execution Flow<a class="headerlink" href="#2-task-execution-flow" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+sequenceDiagram
+    participant Ext as External Request
+    participant Server as RIS Server
+    participant Client as Target RIS Client
+
+    Ext->>Server: Task Request
+    Server->>Server: Authentication
+    Server->>Server: Authorization
+
+    alt Authorization Success
+        Server->>Client: Route Task
+        Server->>Server: Monitor
+        Client->>Client: Execute Task
+        Client-->>Server: Return Result
+        Server->>Server: Log
+        Server-->>Ext: Response
+    else Authorization Failed
+        Server-->>Ext: Access Denied
+    end
+
+    Note over Server,Client: Update Status
+</div>
+
+<h3 id="3-service-management-flow">3. Service Management Flow<a class="headerlink" href="#3-service-management-flow" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+sequenceDiagram
+    participant Mgmt as Management Request
+    participant Client as RIS Client
+    participant Docker as Docker Engine
+
+    Mgmt->>Client: Service Command
+    Client->>Client: Validate
+    Client->>Client: Authorize
+
+    alt Authorized
+        Client->>Client: Parse Command
+        Client->>Docker: Service Action
+        Docker->>Docker: Execute Action
+        Docker-->>Client: Status Update
+        Client->>Client: Report
+        Docker->>Docker: Health Check
+        Client-->>Mgmt: Success Response
+    else Unauthorized
+        Client-->>Mgmt: Access Denied
+    end
+
+    Client->>Client: Monitor
+    Note over Client,Docker: Service Active
+</div>
+
+<h2 id="data-flow-and-process-flows">Data Flow and Process Flows<a class="headerlink" href="#data-flow-and-process-flows" title="Permanent link">&para;</a></h2>
+<p>The RIS system implements sophisticated data flow patterns that ensure reliable, secure, and efficient information exchange between all system components. These flows are designed to handle various operational scenarios while maintaining data integrity and system performance.</p>
+<h3 id="primary-data-flow-patterns">Primary Data Flow Patterns<a class="headerlink" href="#primary-data-flow-patterns" title="Permanent link">&para;</a></h3>
+<h4 id="1-client-registration-and-onboarding-flow">1. Client Registration and Onboarding Flow<a class="headerlink" href="#1-client-registration-and-onboarding-flow" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+sequenceDiagram
+    participant Client as RIS Client
+    participant Server as RIS Server
+    participant DB as MongoDB
+    participant Config as Config Service
+
+    Note over Client: Initial Startup
+    Client->>Client: Load Local Configuration
+    Client->>Client: Initialize Docker Client
+    Client->>Client: Start Health Monitoring
+
+    Note over Client,Server: Registration Process
+    Client->>Server: WebSocket Connection Request
+    Server->>Server: Validate Client Credentials
+    Server->>DB: Query Client Authorization
+    DB-->>Server: Client Access Rights
+
+    alt Client Authorized
+        Server->>Server: Upgrade to WebSocket
+        Server-->>Client: Connection Established
+
+        Client->>Server: Send Registration Data
+        Note right of Client: Includes IP, capabilities,<br/>version, system info
+
+        Server->>DB: Store Client Information
+        Server->>Config: Get Client Configuration
+        Config-->>Server: Client-Specific Config
+        Server-->>Client: Configuration Package
+
+        Client->>Client: Apply Configuration
+        Client-->>Server: Registration Complete
+
+    else Client Unauthorized
+        Server-->>Client: Connection Rejected
+        Client->>Client: Log Error & Retry
+    end
+</div>
+
+<p><strong>Detailed Flow Description:</strong><br />
+- <strong>Phase 1 - Client Initialization</strong>: Client loads configuration, initializes Docker client, and starts monitoring services<br />
+- <strong>Phase 2 - Connection Establishment</strong>: Secure WebSocket connection with mutual authentication<br />
+- <strong>Phase 3 - Registration</strong>: Exchange of client capabilities, system information, and network details<br />
+- <strong>Phase 4 - Configuration</strong>: Server provides client-specific configuration and policies<br />
+- <strong>Phase 5 - Activation</strong>: Client becomes active and ready for task execution</p>
+<h4 id="2-task-execution-flow-architecture">2. Task Execution Flow Architecture<a class="headerlink" href="#2-task-execution-flow-architecture" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+flowchart TD
+    A[Task Request Received] --> B{Authentication Valid?}
+    B -->|No| C[Return 401 Unauthorized]
+    B -->|Yes| D{Authorization Check}
+    D -->|Denied| E[Return 403 Forbidden]
+    D -->|Granted| F[Task Validation]
+
+    F --> G{Task Valid?}
+    G -->|No| H[Return 400 Bad Request]
+    G -->|Yes| I[Client Selection]
+
+    I --> J{Client Available?}
+    J -->|No| K[Queue Task]
+    J -->|Yes| L[Route to Client]
+
+    L --> M[Client Execution]
+    M --> N{Execution Success?}
+    N -->|No| O[Error Handling]
+    N -->|Yes| P[Result Processing]
+
+    O --> Q{Retry Possible?}
+    Q -->|Yes| R[Schedule Retry]
+    Q -->|No| S[Return Error Response]
+
+    P --> T[Audit Logging]
+    T --> U[Return Success Response]
+
+    K --> V{Queue Full?}
+    V -->|Yes| W[Return 503 Service Unavailable]
+    V -->|No| X[Add to Queue]
+    X --> Y[Return 202 Accepted]
+
+    R --> I
+
+    style C fill:#ffcdd2
+    style E fill:#ffcdd2
+    style H fill:#ffcdd2
+    style S fill:#ffcdd2
+    style W fill:#ffcdd2
+    style U fill:#c8e6c9
+    style Y fill:#fff3e0
+</div>
+
+<p><strong>Task Execution States:</strong><br />
+1. <strong>Queued</strong>: Task accepted and waiting for available client<br />
+2. <strong>Routing</strong>: Task being assigned to appropriate client<br />
+3. <strong>Executing</strong>: Task currently running on client<br />
+4. <strong>Completed</strong>: Task finished successfully<br />
+5. <strong>Failed</strong>: Task execution failed<br />
+6. <strong>Retrying</strong>: Task being retried after failure<br />
+7. <strong>Cancelled</strong>: Task cancelled by user or system</p>
+<h4 id="3-real-time-monitoring-and-status-flow">3. Real-time Monitoring and Status Flow<a class="headerlink" href="#3-real-time-monitoring-and-status-flow" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+graph TB
+    subgraph "Data Sources"
+        CLIENT[Client Systems]
+        DOCKER[Docker Engine]
+        SYSTEM[System Metrics]
+        NETWORK[Network Stats]
+    end
+
+    subgraph "Collection Layer"
+        AGENT[Monitoring Agents]
+        WS[WebSocket Streams]
+        API[Metrics API]
+    end
+
+    subgraph "Processing Layer"
+        AGG[Data Aggregator]
+        FILTER[Event Filter]
+        ALERT[Alert Engine]
+        STORE[Data Store]
+    end
+
+    subgraph "Distribution Layer"
+        DASH[Dashboards]
+        NOTIFY[Notifications]
+        LOGS[Log Aggregation]
+        METRICS[Metrics Export]
+    end
+
+    CLIENT --> AGENT
+    DOCKER --> AGENT
+    SYSTEM --> WS
+    NETWORK --> API
+
+    AGENT --> AGG
+    WS --> AGG
+    API --> AGG
+
+    AGG --> FILTER
+    FILTER --> ALERT
+    FILTER --> STORE
+
+    ALERT --> NOTIFY
+    STORE --> DASH
+    STORE --> LOGS
+    STORE --> METRICS
+
+    style CLIENT fill:#e3f2fd
+    style ALERT fill:#fff3e0
+    style NOTIFY fill:#ffebee
+    style DASH fill:#e8f5e8
+</div>
+
+<h3 id="advanced-data-flow-scenarios">Advanced Data Flow Scenarios<a class="headerlink" href="#advanced-data-flow-scenarios" title="Permanent link">&para;</a></h3>
+<h4 id="4-multi-tenant-data-isolation-flow">4. Multi-Tenant Data Isolation Flow<a class="headerlink" href="#4-multi-tenant-data-isolation-flow" title="Permanent link">&para;</a></h4>
+<p><strong>Tenant Context Propagation:</strong><br />
+1. <strong>Request Ingress</strong>: All requests include tenant identification<br />
+2. <strong>Context Extraction</strong>: Middleware extracts and validates tenant context<br />
+3. <strong>Session Routing</strong>: Requests routed to tenant-specific database sessions<br />
+4. <strong>Data Access</strong>: All data operations scoped to tenant context<br />
+5. <strong>Response Isolation</strong>: Responses filtered for tenant-specific data only</p>
+<p><strong>Data Isolation Mechanisms:</strong><br />
+- <strong>Database Level</strong>: Separate databases or collections per tenant<br />
+- <strong>Application Level</strong>: Tenant-aware queries and data filtering<br />
+- <strong>Network Level</strong>: VLAN or subnet isolation for sensitive tenants<br />
+- <strong>Encryption Level</strong>: Tenant-specific encryption keys</p>
+<h4 id="5-configuration-management-flow">5. Configuration Management Flow<a class="headerlink" href="#5-configuration-management-flow" title="Permanent link">&para;</a></h4>
+<p><strong>Configuration Distribution Pipeline:</strong><br />
+1. <strong>Configuration Change</strong>: Admin updates configuration through UI/API<br />
+2. <strong>Validation</strong>: Configuration validated against schema and policies<br />
+3. <strong>Staging</strong>: Configuration deployed to staging environment for testing<br />
+4. <strong>Approval</strong>: Change approval workflow (manual or automated)<br />
+5. <strong>Rollout</strong>: Phased deployment to production clients<br />
+6. <strong>Monitoring</strong>: Real-time monitoring of configuration impact<br />
+7. <strong>Rollback</strong>: Automatic rollback on error detection</p>
+<h4 id="6-disaster-recovery-flow">6. Disaster Recovery Flow<a class="headerlink" href="#6-disaster-recovery-flow" title="Permanent link">&para;</a></h4>
+<p><strong>Failure Detection and Recovery:</strong><br />
+1. <strong>Health Monitoring</strong>: Continuous health checks and monitoring<br />
+2. <strong>Failure Detection</strong>: Automated detection of service failures<br />
+3. <strong>Impact Assessment</strong>: Analysis of failure scope and impact<br />
+4. <strong>Failover Initiation</strong>: Automatic or manual failover procedures<br />
+5. <strong>Service Recovery</strong>: Restoration of services on backup infrastructure<br />
+6. <strong>Data Synchronization</strong>: Synchronization of data and state<br />
+7. <strong>Service Validation</strong>: Comprehensive testing of recovered services<br />
+8. <strong>Traffic Restoration</strong>: Gradual restoration of normal traffic flow</p>
+<h3 id="data-quality-and-integrity">Data Quality and Integrity<a class="headerlink" href="#data-quality-and-integrity" title="Permanent link">&para;</a></h3>
+<h4 id="data-validation-framework">Data Validation Framework<a class="headerlink" href="#data-validation-framework" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Input Validation</strong>: Schema-based validation for all incoming data</li>
+<li><strong>Business Rules</strong>: Application of business logic validation</li>
+<li><strong>Data Consistency</strong>: Cross-reference validation and consistency checks</li>
+<li><strong>Audit Trail</strong>: Complete audit trail for all data modifications</li>
+</ul>
+<h4 id="data-synchronization-strategies">Data Synchronization Strategies<a class="headerlink" href="#data-synchronization-strategies" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Eventually Consistent</strong>: Asynchronous synchronization for performance</li>
+<li><strong>Strongly Consistent</strong>: Synchronous updates for critical data</li>
+<li><strong>Conflict Resolution</strong>: Automated conflict detection and resolution</li>
+<li><strong>Versioning</strong>: Data versioning for conflict resolution and rollback</li>
+</ul>
+<h2 id="communication-protocols">Communication Protocols<a class="headerlink" href="#communication-protocols" title="Permanent link">&para;</a></h2>
+<h3 id="1-websocket-protocol">1. WebSocket Protocol<a class="headerlink" href="#1-websocket-protocol" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Connection Management</strong>: Persistent bidirectional channels</li>
+<li><strong>Message Format</strong>: JSON-based message structures</li>
+<li><strong>Heartbeat Mechanism</strong>: Periodic ping/pong for connection health</li>
+<li><strong>Reconnection Logic</strong>: Automatic reconnection with exponential backoff</li>
+</ul>
+<h3 id="2-httpsrest-api">2. HTTPS/REST API<a class="headerlink" href="#2-httpsrest-api" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Authentication</strong>: JWT token-based authentication</li>
+<li><strong>Authorization</strong>: Role-based access control</li>
+<li><strong>Versioning</strong>: API versioning for backward compatibility</li>
+<li><strong>Rate Limiting</strong>: Request throttling and quota management</li>
+</ul>
+<h3 id="3-docker-api">3. Docker API<a class="headerlink" href="#3-docker-api" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Service Management</strong>: Docker Swarm/Compose service operations</li>
+<li><strong>Container Monitoring</strong>: Health checks and resource monitoring</li>
+<li><strong>Image Management</strong>: Container image deployment and updates</li>
+</ul>
+<h2 id="security-architecture">Security Architecture<a class="headerlink" href="#security-architecture" title="Permanent link">&para;</a></h2>
+<p>The RIS system implements a comprehensive, defense-in-depth security architecture that protects against a wide range of threats while maintaining system usability and performance. The security model is built on industry best practices and compliance frameworks.</p>
+<h3 id="security-design-principles">Security Design Principles<a class="headerlink" href="#security-design-principles" title="Permanent link">&para;</a></h3>
+<h4 id="1-zero-trust-architecture">1. Zero Trust Architecture<a class="headerlink" href="#1-zero-trust-architecture" title="Permanent link">&para;</a></h4>
+<p>The system operates on a "never trust, always verify" principle:<br />
+- <strong>Identity Verification</strong>: Every user and device must be authenticated<br />
+- <strong>Device Validation</strong>: All devices are validated before access<br />
+- <strong>Network Segmentation</strong>: Micro-segmentation limits lateral movement<br />
+- <strong>Continuous Monitoring</strong>: Real-time security monitoring and analysis</p>
+<h4 id="2-defense-in-depth">2. Defense in Depth<a class="headerlink" href="#2-defense-in-depth" title="Permanent link">&para;</a></h4>
+<p>Multiple layers of security controls:<br />
+- <strong>Perimeter Security</strong>: Firewalls, WAF, and DDoS protection<br />
+- <strong>Network Security</strong>: VPNs, network segmentation, and monitoring<br />
+- <strong>Application Security</strong>: Input validation, output encoding, authentication<br />
+- <strong>Data Security</strong>: Encryption, access controls, and data classification<br />
+- <strong>Infrastructure Security</strong>: Hardened systems, patch management, monitoring</p>
+<h3 id="security-layers-implementation">Security Layers Implementation<a class="headerlink" href="#security-layers-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="network-security-layer">Network Security Layer<a class="headerlink" href="#network-security-layer" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+graph TB
+    subgraph "Internet"
+        THREAT[External Threats]
+    end
+
+    subgraph "Perimeter Defense"
+        WAF[Web Application Firewall]
+        DDoS[DDoS Protection]
+        FW[Network Firewall]
+        IPS[Intrusion Prevention]
+    end
+
+    subgraph "Network Segmentation"
+        DMZ[DMZ Network]
+        APP[Application Network]
+        DATA[Data Network]
+        MGMT[Management Network]
+    end
+
+    subgraph "Access Control"
+        VPN[VPN Gateway]
+        NAC[Network Access Control]
+        VLAN[VLAN Isolation]
+    end
+
+    THREAT --> WAF
+    WAF --> DDoS
+    DDoS --> FW
+    FW --> IPS
+
+    IPS --> DMZ
+    DMZ --> APP
+    APP --> DATA
+
+    VPN --> NAC
+    NAC --> VLAN
+    VLAN --> MGMT
+
+    style THREAT fill:#ffcdd2
+    style WAF fill:#fff3e0
+    style FW fill:#e8f5e8
+    style VPN fill:#e1bee7
+</div>
+
+<p><strong>Network Security Features:</strong><br />
+- <strong>Firewall Rules</strong>: Stateful inspection with application-aware filtering<br />
+- <strong>VPN Access</strong>: Site-to-site and remote access VPN with strong encryption<br />
+- <strong>Network Segmentation</strong>: Isolated network zones with controlled access<br />
+- <strong>Intrusion Detection</strong>: Real-time monitoring for malicious activities<br />
+- <strong>DDoS Protection</strong>: Traffic analysis and automated mitigation</p>
+<h4 id="application-security-layer">Application Security Layer<a class="headerlink" href="#application-security-layer" title="Permanent link">&para;</a></h4>
+<p><strong>Authentication and Authorization Framework:</strong></p>
+<div class="mermaid">
+sequenceDiagram
+    participant User as User/System
+    participant Gateway as API Gateway
+    participant Auth as Auth Service
+    participant IAM as Identity Provider
+    participant App as Application
+    participant Audit as Audit Service
+
+    User->>Gateway: Request with Credentials
+    Gateway->>Auth: Validate Request
+    Auth->>IAM: Authenticate User
+    IAM-->>Auth: User Identity + Claims
+
+    Auth->>Auth: Generate JWT Token
+    Auth-->>Gateway: JWT + Permissions
+
+    Gateway->>App: Request + JWT
+    App->>App: Validate JWT
+    App->>App: Check Permissions
+
+    alt Authorized
+        App->>App: Process Request
+        App-->>Gateway: Response
+        Gateway-->>User: Success Response
+        App->>Audit: Log Access
+    else Unauthorized
+        App-->>Gateway: 403 Forbidden
+        Gateway-->>User: Access Denied
+        App->>Audit: Log Violation
+    end
+</div>
+
+<p><strong>Security Controls:</strong><br />
+- <strong>Multi-Factor Authentication</strong>: TOTP, SMS, hardware tokens<br />
+- <strong>Single Sign-On</strong>: SAML, OAuth 2.0, OpenID Connect integration<br />
+- <strong>Role-Based Access Control</strong>: Granular permissions and role inheritance<br />
+- <strong>Session Management</strong>: Secure session handling with timeout controls<br />
+- <strong>API Security</strong>: Rate limiting, input validation, output encoding</p>
+<h4 id="data-security-layer">Data Security Layer<a class="headerlink" href="#data-security-layer" title="Permanent link">&para;</a></h4>
+<p><strong>Encryption Strategy:</strong></p>
+<div class="mermaid">
+graph LR
+    subgraph "Data at Rest"
+        DB[(Database<br/>AES-256)]
+        FILES[File Storage<br/>AES-256]
+        BACKUP[Backups<br/>AES-256]
+    end
+
+    subgraph "Data in Transit"
+        TLS[TLS 1.3<br/>Perfect Forward Secrecy]
+        VPN_ENC[VPN Encryption<br/>IPSec/WireGuard]
+        API_ENC[API Encryption<br/>HTTPS/WSS]
+    end
+
+    subgraph "Key Management"
+        HSM[Hardware Security Module]
+        KMS[Key Management Service]
+        ROTATE[Key Rotation]
+    end
+
+    subgraph "Data Classification"
+        PUBLIC[Public Data]
+        INTERNAL[Internal Data]
+        CONFIDENTIAL[Confidential Data]
+        SECRET[Secret Data]
+    end
+
+    HSM --> KMS
+    KMS --> DB
+    KMS --> FILES
+    KMS --> BACKUP
+    KMS --> ROTATE
+
+    TLS --> VPN_ENC
+    VPN_ENC --> API_ENC
+
+    PUBLIC --> INTERNAL
+    INTERNAL --> CONFIDENTIAL
+    CONFIDENTIAL --> SECRET
+
+    style HSM fill:#ffcdd2
+    style SECRET fill:#ffebee
+    style CONFIDENTIAL fill:#fff3e0
+</div>
+
+<p><strong>Data Protection Features:</strong><br />
+- <strong>Encryption at Rest</strong>: AES-256 encryption for all stored data<br />
+- <strong>Encryption in Transit</strong>: TLS 1.3 with Perfect Forward Secrecy<br />
+- <strong>Key Management</strong>: Hardware Security Module (HSM) for key protection<br />
+- <strong>Data Classification</strong>: Automated data classification and labeling<br />
+- <strong>Access Logging</strong>: Comprehensive audit trail for all data access<br />
+- <strong>Data Loss Prevention</strong>: Monitoring and prevention of data exfiltration</p>
+<h3 id="compliance-and-governance">Compliance and Governance<a class="headerlink" href="#compliance-and-governance" title="Permanent link">&para;</a></h3>
+<h4 id="regulatory-compliance">Regulatory Compliance<a class="headerlink" href="#regulatory-compliance" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>SOC 2 Type II</strong>: Security, availability, processing integrity</li>
+<li><strong>ISO 27001</strong>: Information security management systems</li>
+<li><strong>GDPR</strong>: Data protection and privacy compliance</li>
+<li><strong>HIPAA</strong>: Healthcare data protection (where applicable)</li>
+<li><strong>PCI DSS</strong>: Payment card industry standards (where applicable)</li>
+</ul>
+<h4 id="security-governance-framework">Security Governance Framework<a class="headerlink" href="#security-governance-framework" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Security Policies</strong>: Comprehensive security policy framework</li>
+<li><strong>Risk Assessment</strong>: Regular security risk assessments and mitigation</li>
+<li><strong>Incident Response</strong>: 24/7 security incident response procedures</li>
+<li><strong>Vulnerability Management</strong>: Continuous vulnerability scanning and remediation</li>
+<li><strong>Security Training</strong>: Regular security awareness training programs</li>
+</ul>
+<h3 id="threat-detection-and-response">Threat Detection and Response<a class="headerlink" href="#threat-detection-and-response" title="Permanent link">&para;</a></h3>
+<h4 id="security-monitoring">Security Monitoring<a class="headerlink" href="#security-monitoring" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+graph TB
+    subgraph "Data Collection"
+        LOGS[Application Logs]
+        NETWORK[Network Traffic]
+        SYSTEM[System Events]
+        USER[User Activities]
+    end
+
+    subgraph "Analysis Engine"
+        SIEM[SIEM Platform]
+        ML[Machine Learning]
+        CORRELATION[Event Correlation]
+        BEHAVIORAL[Behavioral Analysis]
+    end
+
+    subgraph "Response Actions"
+        ALERT[Automated Alerts]
+        BLOCK[Automatic Blocking]
+        ISOLATE[System Isolation]
+        FORENSICS[Digital Forensics]
+    end
+
+    subgraph "Threat Intelligence"
+        FEEDS[Threat Feeds]
+        IOC[Indicators of Compromise]
+        SANDBOX[Malware Sandbox]
+        REPUTATION[Reputation Scoring]
+    end
+
+    LOGS --> SIEM
+    NETWORK --> SIEM
+    SYSTEM --> SIEM
+    USER --> SIEM
+
+    SIEM --> ML
+    SIEM --> CORRELATION
+    SIEM --> BEHAVIORAL
+
+    ML --> ALERT
+    CORRELATION --> BLOCK
+    BEHAVIORAL --> ISOLATE
+
+    FEEDS --> SIEM
+    IOC --> SIEM
+    SANDBOX --> SIEM
+    REPUTATION --> SIEM
+
+    ALERT --> FORENSICS
+    BLOCK --> FORENSICS
+    ISOLATE --> FORENSICS
+
+    style SIEM fill:#e8f5e8
+    style ALERT fill:#fff3e0
+    style BLOCK fill:#ffcdd2
+    style ISOLATE fill:#ffebee
+</div>
+
+<h4 id="incident-response-procedures">Incident Response Procedures<a class="headerlink" href="#incident-response-procedures" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Detection</strong>: Automated threat detection and alert generation</li>
+<li><strong>Analysis</strong>: Security team analysis and threat classification</li>
+<li><strong>Containment</strong>: Immediate containment to prevent spread</li>
+<li><strong>Eradication</strong>: Complete removal of threats and vulnerabilities</li>
+<li><strong>Recovery</strong>: Secure restoration of affected systems</li>
+<li><strong>Lessons Learned</strong>: Post-incident analysis and improvement</li>
+</ol>
+<h3 id="security-operations">Security Operations<a class="headerlink" href="#security-operations" title="Permanent link">&para;</a></h3>
+<h4 id="continuous-security-monitoring">Continuous Security Monitoring<a class="headerlink" href="#continuous-security-monitoring" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>24/7 SOC</strong>: Security Operations Center with round-the-clock monitoring</li>
+<li><strong>Threat Hunting</strong>: Proactive threat hunting and investigation</li>
+<li><strong>Vulnerability Scanning</strong>: Continuous vulnerability assessment</li>
+<li><strong>Penetration Testing</strong>: Regular penetration testing and security assessments</li>
+<li><strong>Security Metrics</strong>: Key security performance indicators and reporting</li>
+</ul>
+<h4 id="security-automation">Security Automation<a class="headerlink" href="#security-automation" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Automated Patching</strong>: Automated security patch deployment</li>
+<li><strong>Threat Response</strong>: Automated incident response and remediation</li>
+<li><strong>Compliance Monitoring</strong>: Continuous compliance monitoring and reporting</li>
+<li><strong>Security Orchestration</strong>: SOAR platform integration for workflow automation</li>
+</ul>
+<h2 id="network-topology">Network Topology<a class="headerlink" href="#network-topology" title="Permanent link">&para;</a></h2>
+<p>The RIS system implements a sophisticated network architecture designed for security, performance, and scalability. The topology incorporates multiple network zones, redundant paths, and advanced networking features to ensure reliable and secure operations.</p>
+<h3 id="network-architecture-overview">Network Architecture Overview<a class="headerlink" href="#network-architecture-overview" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph TB
+    subgraph "Public Internet"
+        INET[Internet]
+        CDN[Content Delivery Network]
+    end
+
+    subgraph "Corporate Network (10.0.0.0/16)"
+        subgraph "DMZ Subnet (10.0.1.0/24)"
+            FW[Edge Firewall<br/>10.0.1.1]
+            WAF[Web App Firewall<br/>10.0.1.5]
+            LB[Load Balancer<br/>10.0.1.10]
+            JUMP[Jump Server<br/>10.0.1.20]
+        end
+
+        subgraph "Application Subnet (10.0.2.0/24)"
+            RS1[RIS Server 1<br/>10.0.2.10:8057]
+            RS2[RIS Server 2<br/>10.0.2.11:8057]
+            RS3[RIS Server 3<br/>10.0.2.12:8057]
+            REDIS[Redis Cluster<br/>10.0.2.20-22:6379]
+        end
+
+        subgraph "Database Subnet (10.0.3.0/24)"
+            MDB1[MongoDB Primary<br/>10.0.3.10:27017]
+            MDB2[MongoDB Secondary<br/>10.0.3.11:27017]
+            MDB3[MongoDB Arbiter<br/>10.0.3.12:27017]
+        end
+
+        subgraph "Management Subnet (10.0.4.0/24)"
+            MON[Monitoring Server<br/>10.0.4.10]
+            LOG[Log Server<br/>10.0.4.11]
+            BACKUP[Backup Server<br/>10.0.4.12]
+        end
+    end
+
+    subgraph "Remote Site A (192.168.1.0/24)"
+        RCA[RIS Client A<br/>192.168.1.100:9000]
+        APPA[App Services A<br/>192.168.1.101-110]
+        ROUTER_A[Site Router<br/>192.168.1.1]
+    end
+
+    subgraph "Remote Site B (192.168.2.0/24)"
+        RCB[RIS Client B<br/>192.168.2.100:9000]
+        APPB[App Services B<br/>192.168.2.101-110]
+        ROUTER_B[Site Router<br/>192.168.2.1]
+    end
+
+    subgraph "Cloud Provider VPC (172.16.0.0/16)"
+        subgraph "Public Subnet (172.16.1.0/24)"
+            NAT[NAT Gateway<br/>172.16.1.10]
+            IGW[Internet Gateway]
+            ELB[Elastic Load Balancer<br/>172.16.1.20]
+        end
+
+        subgraph "Private Subnet (172.16.2.0/24)"
+            RCC[RIS Client C<br/>172.16.2.100:9000]
+            APPC[App Services C<br/>172.16.2.101-110]
+        end
+    end
+
+    %% Internet connections
+    INET --> CDN
+    CDN --> FW
+    INET -.->|VPN/SSL| ROUTER_A
+    INET -.->|VPN/SSL| ROUTER_B
+    INET --> IGW
+
+    %% Internal network flow
+    FW --> WAF
+    WAF --> LB
+    LB --> RS1
+    LB --> RS2
+    LB --> RS3
+
+    RS1 --> MDB1
+    RS2 --> MDB1
+    RS3 --> MDB1
+    MDB1 -.-> MDB2
+    MDB2 -.-> MDB3
+
+    RS1 --> REDIS
+    RS2 --> REDIS
+    RS3 --> REDIS
+
     %% Management connections
-    WEB --> API
-    CLI --> API
-    API --> SERVER
-    
-    %% Client connections
-    SERVER -.->|WebSocket<br/>Secure| CLIENT1
-    SERVER -.->|WebSocket<br/>Secure| CLIENT2
-    SERVER -.->|WebSocket<br/>Secure| CLIENT3
-    
+    RS1 -.-> MON
+    RS2 -.-> MON
+    RS3 -.-> MON
+    MON --> LOG
+    MON --> BACKUP
+
+    %% WebSocket connections
+    RS1 -.->|WSS:443| RCA
+    RS2 -.->|WSS:443| RCB
+    RS3 -.->|WSS:443| RCC
+
     %% Local connections
-    CLIENT1 --> DOCKER1
-    CLIENT1 --> APP1
-    CLIENT2 --> DOCKER2
-    CLIENT2 --> APP2
-    CLIENT3 --> DOCKER3
-    CLIENT3 --> APP3
-            </div>
-        </div>
+    RCA --> APPA
+    RCB --> APPB
+    RCC --> APPC
 
-        <div class="doc-section">
-            <h2>System Components</h2>
-            
-            <h3>Central Management Components</h3>
-            <div class="component-grid">
-                <div class="component-card">
-                    <h4>RIS Server</h4>
-                    <ul>
-                        <li><strong>Task Orchestrator:</strong> Manages task distribution and execution across clients</li>
-                        <li><strong>Connection Manager:</strong> Handles WebSocket connections and client health monitoring</li>
-                        <li><strong>Security Manager:</strong> Enforces authentication, authorization, and audit logging</li>
-                        <li><strong>Configuration Manager:</strong> Distributes and manages client configurations</li>
-                    </ul>
-                </div>
-                <div class="component-card">
-                    <h4>Database Layer</h4>
-                    <ul>
-                        <li><strong>MongoDB Primary:</strong> Stores client data, configurations, and task history</li>
-                        <li><strong>Redis Cache:</strong> High-performance caching for session data and real-time metrics</li>
-                        <li><strong>Backup Systems:</strong> Automated backup and disaster recovery mechanisms</li>
-                        <li><strong>Data Encryption:</strong> End-to-end encryption for data at rest and in transit</li>
-                    </ul>
-                </div>
-                <div class="component-card">
-                    <h4>Authentication Service</h4>
-                    <ul>
-                        <li><strong>JWT Token Manager:</strong> Issues and validates JSON Web Tokens</li>
-                        <li><strong>Certificate Authority:</strong> Manages X.509 certificates for client authentication</li>
-                        <li><strong>RBAC Engine:</strong> Role-based access control with fine-grained permissions</li>
-                        <li><strong>Multi-tenant Support:</strong> Isolated authentication domains per tenant</li>
-                    </ul>
-                </div>
-                <div class="component-card">
-                    <h4>Management Interface</h4>
-                    <ul>
-                        <li><strong>Web Dashboard:</strong> Real-time monitoring and management interface</li>
-                        <li><strong>REST API:</strong> Comprehensive API for programmatic access</li>
-                        <li><strong>CLI Tools:</strong> Command-line interface for system administration</li>
-                        <li><strong>Mobile App:</strong> Mobile dashboard for remote monitoring</li>
-                    </ul>
-                </div>
-            </div>
+    %% Cloud connections
+    IGW --> ELB
+    ELB --> NAT
+    NAT --> RCC
 
-            <h3>Remote Client Components</h3>
-            <div class="component-grid">
-                <div class="component-card">
-                    <h4>RIS Client Agent</h4>
-                    <ul>
-                        <li><strong>Task Executor:</strong> Executes received tasks with proper isolation and security</li>
-                        <li><strong>Health Monitor:</strong> Continuous system health monitoring and reporting</li>
-                        <li><strong>Docker Interface:</strong> Direct integration with Docker daemon for container management</li>
-                        <li><strong>Security Agent:</strong> Local security enforcement and audit logging</li>
-                    </ul>
-                </div>
-                <div class="component-card">
-                    <h4>Communication Layer</h4>
-                    <ul>
-                        <li><strong>WebSocket Client:</strong> Persistent connection to RIS server with auto-reconnection</li>
-                        <li><strong>Message Handler:</strong> Protocol handling for different message types</li>
-                        <li><strong>Encryption Handler:</strong> End-to-end encryption for all communications</li>
-                        <li><strong>Network Adapter:</strong> Handles network changes and connectivity issues</li>
-                    </ul>
-                </div>
-                <div class="component-card">
-                    <h4>Local Services</h4>
-                    <ul>
-                        <li><strong>Docker Services:</strong> Containerized applications and services</li>
-                        <li><strong>System Services:</strong> Operating system level services and daemons</li>
-                        <li><strong>Application Services:</strong> Business applications and custom services</li>
-                        <li><strong>Monitoring Agents:</strong> Local monitoring and metrics collection</li>
-                    </ul>
-                </div>
-                <div class="component-card">
-                    <h4>Data Management</h4>
-                    <ul>
-                        <li><strong>Local Cache:</strong> Temporary storage for configurations and task data</li>
-                        <li><strong>Log Management:</strong> Centralized logging with log rotation and retention</li>
-                        <li><strong>Metrics Collection:</strong> Performance and operational metrics gathering</li>
-                        <li><strong>Backup Agent:</strong> Local backup coordination with central systems</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    style INET fill:#e3f2fd
+    style FW fill:#ffebee
+    style LB fill:#f3e5f5
+    style RS1 fill:#e8f5e8
+    style MDB1 fill:#fff9c4
+    style RCA fill:#fce4ec
+    style RCB fill:#fce4ec
+    style RCC fill:#e0f2f1
+</div>
 
-        <div class="doc-section">
-            <h2>Communication Protocols</h2>
-            
-            <h3>WebSocket Protocol</h3>
-            <pre><code>{
-  "message_type": "task_execution",
-  "task_id": "uuid-string",
-  "client_id": "client-identifier",
-  "payload": {
-    "task_type": "docker_management",
-    "action": "start_service",
-    "parameters": {
-      "service_name": "webapp",
-      "image": "nginx:latest",
-      "ports": ["80:8080"],
-      "environment": {
-        "ENV": "production"
-      }
-    }
-  },
-  "security": {
-    "signature": "cryptographic-signature",
-    "timestamp": "2025-10-07T10:30:00Z"
-  }
-}</code></pre>
-
-            <h3>Security Implementation</h3>
-            <div class="optimization-grid">
-                <div class="optimization-card">
-                    <h4>Transport Security</h4>
-                    <ul>
-                        <li><strong>TLS 1.3:</strong> Latest TLS protocol for all communications</li>
-                        <li><strong>Certificate Pinning:</strong> Prevents man-in-the-middle attacks</li>
-                        <li><strong>Perfect Forward Secrecy:</strong> Ensures past communications remain secure</li>
-                        <li><strong>Cipher Suite Control:</strong> Only approved cryptographic algorithms</li>
-                    </ul>
-                </div>
-                <div class="optimization-card">
-                    <h4>Authentication</h4>
-                    <ul>
-                        <li><strong>Mutual TLS:</strong> Both server and client certificate validation</li>
-                        <li><strong>JWT Tokens:</strong> Stateless authentication with configurable expiry</li>
-                        <li><strong>Multi-Factor Auth:</strong> Optional second factor for enhanced security</li>
-                        <li><strong>Session Management:</strong> Secure session handling with automatic timeout</li>
-                    </ul>
-                </div>
-                <div class="optimization-card">
-                    <h4>Authorization</h4>
-                    <ul>
-                        <li><strong>RBAC:</strong> Role-based access control with fine-grained permissions</li>
-                        <li><strong>Resource-Level Security:</strong> Permissions at individual resource level</li>
-                        <li><strong>Tenant Isolation:</strong> Complete isolation between different tenants</li>
-                        <li><strong>Audit Logging:</strong> Comprehensive audit trail for all operations</li>
-                    </ul>
-                </div>
-                <div class="optimization-card">
-                    <h4>Data Protection</h4>
-                    <ul>
-                        <li><strong>Encryption at Rest:</strong> AES-256 encryption for stored data</li>
-                        <li><strong>Encryption in Transit:</strong> End-to-end encryption for all communications</li>
-                        <li><strong>Key Management:</strong> Hardware security module integration</li>
-                        <li><strong>Data Masking:</strong> Sensitive data protection in logs and displays</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="doc-section">
-            <h2>Scalability and Performance</h2>
-            
-            <h3>Performance Targets</h3>
-            <table class="performance-table">
-                <thead>
-                    <tr>
-                        <th>Metric</th>
-                        <th>Target Value</th>
-                        <th>Current Achievement</th>
-                        <th>Notes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Concurrent Clients</td>
-                        <td>10,000+</td>
-                        <td>5,000 tested</td>
-                        <td>Per server instance</td>
-                    </tr>
-                    <tr>
-                        <td>Task Execution Latency</td>
-                        <td>&lt; 100ms</td>
-                        <td>45ms average</td>
-                        <td>Simple tasks</td>
-                    </tr>
-                    <tr>
-                        <td>Message Throughput</td>
-                        <td>100,000/sec</td>
-                        <td>75,000/sec</td>
-                        <td>Per server instance</td>
-                    </tr>
-                    <tr>
-                        <td>System Availability</td>
-                        <td>99.99%</td>
-                        <td>99.95%</td>
-                        <td>Including maintenance windows</td>
-                    </tr>
-                    <tr>
-                        <td>Data Consistency</td>
-                        <td>100%</td>
-                        <td>100%</td>
-                        <td>ACID compliance</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Scaling Strategies</h3>
-            <div class="nfr-grid">
-                <div class="nfr-card">
-                    <h4>Horizontal Scaling</h4>
-                    <ul>
-                        <li>Load balancer with sticky sessions</li>
-                        <li>Multiple server instances with shared database</li>
-                        <li>Geographic distribution of servers</li>
-                        <li>Auto-scaling based on load metrics</li>
-                    </ul>
-                </div>
-                <div class="nfr-card">
-                    <h4>Vertical Scaling</h4>
-                    <ul>
-                        <li>Multi-core CPU utilization optimization</li>
-                        <li>Memory pool management and optimization</li>
-                        <li>SSD storage with high IOPS capacity</li>
-                        <li>Network bandwidth optimization</li>
-                    </ul>
-                </div>
-                <div class="nfr-card">
-                    <h4>Database Scaling</h4>
-                    <ul>
-                        <li>MongoDB replica sets for read scaling</li>
-                        <li>Sharding for write scalability</li>
-                        <li>Redis clustering for cache scaling</li>
-                        <li>Connection pooling optimization</li>
-                    </ul>
-                </div>
-                <div class="nfr-card">
-                    <h4>Network Optimization</h4>
-                    <ul>
-                        <li>Content Delivery Network (CDN) integration</li>
-                        <li>TCP connection optimization</li>
-                        <li>Message compression algorithms</li>
-                        <li>Protocol buffer usage for efficiency</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="doc-section">
-            <h2>Docker Swarm Deployment Architecture</h2>
-            
-            <h3>Production Swarm Deployment</h3>
-            <div class="mermaid">
+<h3 id="network-zones-and-segmentation">Network Zones and Segmentation<a class="headerlink" href="#network-zones-and-segmentation" title="Permanent link">&para;</a></h3>
+<h4 id="zone-based-architecture">Zone-Based Architecture<a class="headerlink" href="#zone-based-architecture" title="Permanent link">&para;</a></h4>
+<p><strong>DMZ Zone (Demilitarized Zone)</strong><br />
+- <strong>Purpose</strong>: Hosts public-facing services and security controls<br />
+- <strong>Security Level</strong>: High security with restricted access<br />
+- <strong>Components</strong>: Firewalls, load balancers, WAF, jump servers<br />
+- <strong>Access Control</strong>: Strictly controlled ingress/egress rules</p>
+<p><strong>Application Zone</strong><br />
+- <strong>Purpose</strong>: Hosts core application services<br />
+- <strong>Security Level</strong>: Medium security with application-specific controls<br />
+- <strong>Components</strong>: RIS servers, application services, caching layer<br />
+- <strong>Network Controls</strong>: Inter-service communication policies</p>
+<p><strong>Data Zone</strong><br />
+- <strong>Purpose</strong>: Hosts databases and persistent storage<br />
+- <strong>Security Level</strong>: Highest security with minimal external access<br />
+- <strong>Components</strong>: MongoDB cluster, backup systems<br />
+- <strong>Encryption</strong>: All data encrypted at rest and in transit</p>
+<p><strong>Management Zone</strong><br />
+- <strong>Purpose</strong>: Hosts monitoring, logging, and administrative services<br />
+- <strong>Security Level</strong>: High security with audit logging<br />
+- <strong>Components</strong>: Monitoring systems, log aggregation, backup services<br />
+- <strong>Access</strong>: Restricted to authorized administrators only</p>
+<h3 id="network-services-and-protocols">Network Services and Protocols<a class="headerlink" href="#network-services-and-protocols" title="Permanent link">&para;</a></h3>
+<h4 id="load-balancing-architecture">Load Balancing Architecture<a class="headerlink" href="#load-balancing-architecture" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
 graph TB
-    subgraph "External Layer"
-        LB[Load Balancer<br/>NGINX Ingress]
-        CDN[CDN<br/>CloudFlare]
-        DNS[DNS<br/>Route53]
+    subgraph "Load Balancing Tier"
+        LB1[Load Balancer 1<br/>Active]
+        LB2[Load Balancer 2<br/>Standby]
+        VIP[Virtual IP<br/>10.0.1.100]
     end
-    
-    subgraph "Docker Swarm Cluster"
-        subgraph "Manager Nodes"
-            MGR1[Manager Node 1<br/>Leader]
-            MGR2[Manager Node 2]
-            MGR3[Manager Node 3]
-        end
-        
-        subgraph "Worker Nodes"
-            WORK1[Worker Node 1<br/>RIS Server Tasks]
-            WORK2[Worker Node 2<br/>RIS Server Tasks]
-            WORK3[Worker Node 3<br/>RIS Server Tasks]
-            WORK4[Worker Node 4<br/>Support Services]
-        end
+
+    subgraph "Application Tier"
+        RS1[RIS Server 1<br/>Weight: 100]
+        RS2[RIS Server 2<br/>Weight: 100]
+        RS3[RIS Server 3<br/>Weight: 50]
     end
-    
-    subgraph "Data Layer"
-        subgraph "Storage Nodes"
-            DB[MongoDB<br/>Replica Set]
-            CACHE[Redis<br/>Persistent]
-        end
+
+    subgraph "Health Checks"
+        HTTP_CHECK[HTTP Health Check<br/>/health]
+        TCP_CHECK[TCP Health Check<br/>Port 8057]
+        CUSTOM_CHECK[Custom Health Check<br/>Application Logic]
     end
-    
-    subgraph "Monitoring Stack"
-        PROM[Prometheus<br/>Service]
-        GRAF[Grafana<br/>Service]
-        LOG[Logging<br/>Stack Service]
+
+    VIP --> LB1
+    VIP -.-> LB2
+
+    LB1 --> RS1
+    LB1 --> RS2
+    LB1 --> RS3
+
+    LB1 --> HTTP_CHECK
+    LB1 --> TCP_CHECK
+    LB1 --> CUSTOM_CHECK
+
+    style VIP fill:#e1bee7
+    style LB1 fill:#c8e6c9
+    style LB2 fill:#ffcdd2
+</div>
+
+<p><strong>Load Balancing Features:</strong><br />
+- <strong>Algorithm</strong>: Weighted round-robin with health check integration<br />
+- <strong>Session Persistence</strong>: Sticky sessions for WebSocket connections<br />
+- <strong>SSL Termination</strong>: TLS termination at load balancer level<br />
+- <strong>Health Monitoring</strong>: Multi-tier health checks with automatic failover<br />
+- <strong>Geographic Distribution</strong>: Support for multiple data center deployments</p>
+<h4 id="dns-and-service-discovery">DNS and Service Discovery<a class="headerlink" href="#dns-and-service-discovery" title="Permanent link">&para;</a></h4>
+<p><strong>DNS Architecture:</strong><br />
+- <strong>External DNS</strong>: Public DNS for external service resolution<br />
+- <strong>Internal DNS</strong>: Private DNS for internal service discovery<br />
+- <strong>Service Discovery</strong>: Consul-based service registration and discovery<br />
+- <strong>Load Balancing</strong>: DNS-based load balancing with health checks</p>
+<h3 id="network-security-implementation">Network Security Implementation<a class="headerlink" href="#network-security-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="firewall-rules-and-policies">Firewall Rules and Policies<a class="headerlink" href="#firewall-rules-and-policies" title="Permanent link">&para;</a></h4>
+<p><strong>Ingress Rules:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Source</th>
+<th>Destination</th>
+<th>Port</th>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTPS</td>
+<td>ANY</td>
+<td>DMZ</td>
+<td>443</td>
+<td>ALLOW</td>
+<td>Public web access</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>ANY</td>
+<td>DMZ</td>
+<td>80</td>
+<td>REDIRECT</td>
+<td>Redirect to HTTPS</td>
+</tr>
+<tr>
+<td>SSH</td>
+<td>MGMT</td>
+<td>DMZ</td>
+<td>22</td>
+<td>ALLOW</td>
+<td>Management access</td>
+</tr>
+<tr>
+<td>WSS</td>
+<td>CLIENT</td>
+<td>APP</td>
+<td>8057</td>
+<td>ALLOW</td>
+<td>WebSocket connections</td>
+</tr>
+</tbody>
+</table>
+<p><strong>East-West Traffic Rules:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Source</th>
+<th>Destination</th>
+<th>Port</th>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP</td>
+<td>APP</td>
+<td>APP</td>
+<td>8057</td>
+<td>ALLOW</td>
+<td>Inter-service communication</td>
+</tr>
+<tr>
+<td>MongoDB</td>
+<td>APP</td>
+<td>DATA</td>
+<td>27017</td>
+<td>ALLOW</td>
+<td>Database access</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td>APP</td>
+<td>APP</td>
+<td>6379</td>
+<td>ALLOW</td>
+<td>Cache access</td>
+</tr>
+<tr>
+<td>ICMP</td>
+<td>ANY</td>
+<td>ANY</td>
+<td>ANY</td>
+<td>ALLOW</td>
+<td>Network diagnostics</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vpn-and-remote-access">VPN and Remote Access<a class="headerlink" href="#vpn-and-remote-access" title="Permanent link">&para;</a></h4>
+<p><strong>Site-to-Site VPN:</strong><br />
+- <strong>Protocol</strong>: IPSec with IKEv2<br />
+- <strong>Encryption</strong>: AES-256-GCM with SHA-256 HMAC<br />
+- <strong>Authentication</strong>: Pre-shared keys and certificate-based<br />
+- <strong>Redundancy</strong>: Multiple VPN tunnels for high availability</p>
+<p><strong>Remote Access VPN:</strong><br />
+- <strong>Protocol</strong>: SSL VPN with OpenVPN or WireGuard<br />
+- <strong>Authentication</strong>: Multi-factor authentication required<br />
+- <strong>Client Certificates</strong>: X.509 client certificates for device authentication<br />
+- <strong>Split Tunneling</strong>: Configured based on security policies</p>
+<h3 id="network-monitoring-and-performance">Network Monitoring and Performance<a class="headerlink" href="#network-monitoring-and-performance" title="Permanent link">&para;</a></h3>
+<h4 id="network-performance-monitoring">Network Performance Monitoring<a class="headerlink" href="#network-performance-monitoring" title="Permanent link">&para;</a></h4>
+<p><strong>Metrics Collection:</strong><br />
+- <strong>Bandwidth Utilization</strong>: Real-time bandwidth monitoring<br />
+- <strong>Latency Measurement</strong>: End-to-end latency tracking<br />
+- <strong>Packet Loss Detection</strong>: Network reliability monitoring<br />
+- <strong>Connection Quality</strong>: WebSocket connection quality metrics</p>
+<p><strong>Performance Optimization:</strong><br />
+- <strong>Quality of Service (QoS)</strong>: Traffic prioritization and shaping<br />
+- <strong>Bandwidth Management</strong>: Dynamic bandwidth allocation<br />
+- <strong>Caching Strategies</strong>: Network-level caching for performance<br />
+- <strong>Content Delivery</strong>: CDN integration for static content</p>
+<h4 id="network-security-monitoring">Network Security Monitoring<a class="headerlink" href="#network-security-monitoring" title="Permanent link">&para;</a></h4>
+<p><strong>Traffic Analysis:</strong><br />
+- <strong>Deep Packet Inspection</strong>: Real-time traffic analysis<br />
+- <strong>Anomaly Detection</strong>: ML-based network anomaly detection<br />
+- <strong>Threat Intelligence</strong>: Integration with threat intelligence feeds<br />
+- <strong>Behavioral Analysis</strong>: Network behavior baseline and deviation detection</p>
+<p><strong>Incident Response:</strong><br />
+- <strong>Automated Blocking</strong>: Automatic blocking of malicious traffic<br />
+- <strong>Traffic Redirection</strong>: Redirection of suspicious traffic to honeypots<br />
+- <strong>Network Isolation</strong>: Rapid isolation of compromised network segments<br />
+- <strong>Forensic Analysis</strong>: Network traffic capture and analysis capabilities</p>
+<h2 id="system-interfaces">System Interfaces<a class="headerlink" href="#system-interfaces" title="Permanent link">&para;</a></h2>
+<h3 id="1-external-interfaces">1. External Interfaces<a class="headerlink" href="#1-external-interfaces" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>REST API</strong>: Standard HTTP/HTTPS endpoints for external integration</li>
+<li><strong>WebSocket API</strong>: Real-time bidirectional communication</li>
+<li><strong>Docker API</strong>: Container and service management</li>
+<li><strong>Database API</strong>: MongoDB driver for data persistence</li>
+</ul>
+<h3 id="2-internal-interfaces">2. Internal Interfaces<a class="headerlink" href="#2-internal-interfaces" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Controller Interfaces</strong>: Standardized request/response handling</li>
+<li><strong>Model Interfaces</strong>: Data access and manipulation</li>
+<li><strong>Service Interfaces</strong>: Business logic encapsulation</li>
+</ul>
+<h2 id="scalability-and-performance">Scalability and Performance<a class="headerlink" href="#scalability-and-performance" title="Permanent link">&para;</a></h2>
+<h3 id="1-horizontal-scaling">1. Horizontal Scaling<a class="headerlink" href="#1-horizontal-scaling" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Server Clustering</strong>: Multiple RIS server instances with load balancing</li>
+<li><strong>Database Sharding</strong>: MongoDB replica sets and sharding</li>
+<li><strong>Client Distribution</strong>: Geographic distribution of RIS clients</li>
+</ul>
+<h3 id="2-performance-optimization">2. Performance Optimization<a class="headerlink" href="#2-performance-optimization" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Connection Pooling</strong>: Efficient database connection management</li>
+<li><strong>Caching</strong>: Redis/Memory caching for frequently accessed data</li>
+<li><strong>Async Processing</strong>: Non-blocking I/O and concurrent task execution</li>
+</ul>
+<h3 id="3-monitoring-and-metrics">3. Monitoring and Metrics<a class="headerlink" href="#3-monitoring-and-metrics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Real-time Dashboards</strong>: System health and performance monitoring</li>
+<li><strong>Alerting</strong>: Proactive issue detection and notification</li>
+<li><strong>Analytics</strong>: Historical data analysis and trending</li>
+</ul>
+<h2 id="technology-stack">Technology Stack<a class="headerlink" href="#technology-stack" title="Permanent link">&para;</a></h2>
+<h3 id="server-side">Server Side<a class="headerlink" href="#server-side" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Language</strong>: Go (Golang)</li>
+<li><strong>Web Framework</strong>: Gorilla Mux</li>
+<li><strong>Database</strong>: MongoDB with replica sets</li>
+<li><strong>Caching</strong>: Redis/In-memory caching</li>
+<li><strong>Security</strong>: TLS, JWT, X.509 certificates</li>
+</ul>
+<h3 id="client-side">Client Side<a class="headerlink" href="#client-side" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Language</strong>: Go (Golang)</li>
+<li><strong>Container Platform</strong>: Docker/Docker Swarm</li>
+<li><strong>Networking</strong>: WebSocket, HTTPS</li>
+<li><strong>Configuration</strong>: JSON-based configuration</li>
+<li><strong>Logging</strong>: Structured logging with rotation</li>
+</ul>
+<h3 id="infrastructure">Infrastructure<a class="headerlink" href="#infrastructure" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Containerization</strong>: Docker containers</li>
+<li><strong>Orchestration</strong>: Docker Swarm</li>
+<li><strong>Load Balancing</strong>: NGINX/HAProxy</li>
+<li><strong>Monitoring</strong>: Prometheus/Grafana</li>
+<li><strong>Service Mesh</strong>: Istio (optional)</li>
+</ul>
+<h2 id="quality-attributes">Quality Attributes<a class="headerlink" href="#quality-attributes" title="Permanent link">&para;</a></h2>
+<h3 id="1-reliability">1. Reliability<a class="headerlink" href="#1-reliability" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>High Availability</strong>: 99.9% uptime target</li>
+<li><strong>Fault Tolerance</strong>: Graceful degradation and recovery</li>
+<li><strong>Data Consistency</strong>: ACID transactions and data integrity</li>
+</ul>
+<h3 id="2-security">2. Security<a class="headerlink" href="#2-security" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Defense in Depth</strong>: Multiple security layers</li>
+<li><strong>Compliance</strong>: Industry standard compliance (SOC2, ISO27001)</li>
+<li><strong>Vulnerability Management</strong>: Regular security assessments</li>
+</ul>
+<h3 id="3-performance">3. Performance<a class="headerlink" href="#3-performance" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Response Time</strong>: &lt;100ms for API calls, &lt;5s for task execution</li>
+<li><strong>Throughput</strong>: 1000+ concurrent connections per server</li>
+<li><strong>Scalability</strong>: Linear scaling with additional resources</li>
+</ul>
+<h3 id="4-maintainability">4. Maintainability<a class="headerlink" href="#4-maintainability" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Modular Design</strong>: Loosely coupled components</li>
+<li><strong>Documentation</strong>: Comprehensive technical documentation</li>
+<li><strong>Monitoring</strong>: Detailed logging and metrics collection</li>
+</ul>
+<h2 id="future-considerations">Future Considerations<a class="headerlink" href="#future-considerations" title="Permanent link">&para;</a></h2>
+<h3 id="1-enhancement-opportunities">1. Enhancement Opportunities<a class="headerlink" href="#1-enhancement-opportunities" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>AI/ML Integration</strong>: Intelligent task routing and optimization</li>
+<li><strong>Multi-cloud Support</strong>: Cross-cloud deployment capabilities</li>
+<li><strong>Enhanced Security</strong>: Zero-trust architecture implementation</li>
+</ul>
+<h3 id="2-technology-evolution">2. Technology Evolution<a class="headerlink" href="#2-technology-evolution" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>gRPC Integration</strong>: High-performance RPC communication</li>
+<li><strong>Event-driven Architecture</strong>: Message queue integration</li>
+<li><strong>Enhanced Orchestration</strong>: Advanced Docker Swarm features and capabilities</li>
+</ul>
+<h2 id="integration-patterns">Integration Patterns<a class="headerlink" href="#integration-patterns" title="Permanent link">&para;</a></h2>
+<p>The RIS system implements various integration patterns to support seamless connectivity with external systems, third-party services, and enterprise infrastructure. These patterns ensure flexibility, reliability, and maintainability of integrations.</p>
+<h3 id="api-integration-patterns">API Integration Patterns<a class="headerlink" href="#api-integration-patterns" title="Permanent link">&para;</a></h3>
+<h4 id="1-restful-api-gateway-pattern">1. RESTful API Gateway Pattern<a class="headerlink" href="#1-restful-api-gateway-pattern" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+graph LR
+    subgraph "External Systems"
+        ERP[ERP System]
+        CRM[CRM System]
+        THIRD[Third-party APIs]
+        LEGACY[Legacy Systems]
     end
-    
-    DNS --> CDN
-    CDN --> LB
-    LB --> WORK1
-    LB --> WORK2
-    LB --> WORK3
-    
-    WORK1 --> DB
-    WORK2 --> DB
-    WORK3 --> DB
-    
-    WORK1 --> CACHE
-    WORK2 --> CACHE
-    WORK3 --> CACHE
-    
-    WORK4 --> PROM
-    WORK4 --> GRAF
-    WORK4 --> LOG
-    
-    MGR1 -.-> MGR2
-    MGR1 -.-> MGR3
-    MGR2 -.-> MGR3
-            </div>
 
-            <h3>Swarm Deployment Environments</h3>
-            <div class="component-grid">
-                <div class="component-card">
-                    <h4>Development Swarm</h4>
-                    <ul>
-                        <li>Single manager node for development</li>
-                        <li>Local persistent volumes for data</li>
-                        <li>Simplified service configuration</li>
-                        <li>Integrated development tools</li>
-                        <li>Hot-reload capabilities</li>
-                    </ul>
-                </div>
-                <div class="component-card">
-                    <h4>Staging Swarm</h4>
-                    <ul>
-                        <li>Multi-node swarm cluster</li>
-                        <li>Production-like configuration</li>
-                        <li>Automated testing integration</li>
-                        <li>Performance monitoring and testing</li>
-                        <li>Load testing environment</li>
-                    </ul>
-                </div>
-                <div class="component-card">
-                    <h4>Production Swarm</h4>
-                    <ul>
-                        <li>High availability multi-manager deployment</li>
-                        <li>Dedicated worker nodes for services</li>
-                        <li>External load balancer integration</li>
-                        <li>Automated backup and recovery</li>
-                        <li>Comprehensive monitoring and alerting</li>
-                        <li>Security hardening and secrets management</li>
-                    </ul>
-                </div>
-                <div class="component-card">
-                    <h4>Swarm Disaster Recovery</h4>
-                    <ul>
-                        <li>Cross-datacenter swarm federation</li>
-                        <li>Automated service failover</li>
-                        <li>Persistent volume replication</li>
-                        <li>Recovery time objective (RTO) &lt; 10 minutes</li>
-                        <li>Recovery point objective (RPO) &lt; 2 minutes</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    subgraph "API Gateway"
+        GATEWAY[API Gateway]
+        AUTH[Authentication]
+        RATE[Rate Limiting]
+        TRANSFORM[Data Transformation]
+    end
 
-        <div class="doc-section">
-            <h2>Integration Patterns</h2>
-            
-            <h3>External System Integration</h3>
-            <div class="optimization-grid">
-                <div class="optimization-card">
-                    <h4>Monitoring Systems</h4>
-                    <ul>
-                        <li><strong>Prometheus:</strong> Metrics collection and alerting</li>
-                        <li><strong>Grafana:</strong> Visualization and dashboards</li>
-                        <li><strong>ELK Stack:</strong> Log aggregation and analysis</li>
-                        <li><strong>Custom Metrics:</strong> Business-specific KPI tracking</li>
-                    </ul>
-                </div>
-                <div class="optimization-card">
-                    <h4>Identity Providers</h4>
-                    <ul>
-                        <li><strong>LDAP/AD:</strong> Enterprise directory integration</li>
-                        <li><strong>OAuth 2.0:</strong> Third-party authentication</li>
-                        <li><strong>SAML:</strong> Single sign-on integration</li>
-                        <li><strong>Multi-factor:</strong> SMS, TOTP, hardware tokens</li>
-                    </ul>
-                </div>
-                <div class="optimization-card">
-                    <h4>Container Orchestration</h4>
-                    <ul>
-                        <li><strong>Docker Swarm:</strong> Native Docker clustering and orchestration</li>
-                        <li><strong>Service Discovery:</strong> Built-in DNS-based service discovery</li>
-                        <li><strong>Load Balancing:</strong> Automatic ingress load balancing</li>
-                        <li><strong>Rolling Updates:</strong> Zero-downtime service updates</li>
-                        <li><strong>Secrets Management:</strong> Secure secrets distribution</li>
-                        <li><strong>Health Checks:</strong> Service health monitoring and recovery</li>
-                    </ul>
-                </div>
-                <div class="optimization-card">
-                    <h4>External APIs</h4>
-                    <ul>
-                        <li><strong>REST APIs:</strong> Standard HTTP API integration</li>
-                        <li><strong>GraphQL:</strong> Flexible query interface</li>
-                        <li><strong>Webhooks:</strong> Event-driven integrations</li>
-                        <li><strong>Message Queues:</strong> RabbitMQ, Apache Kafka integration</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    subgraph "RIS Core"
+        CONTROLLER[Controllers]
+        SERVICE[Business Services]
+        DATA[Data Layer]
+    end
 
-        <div class="doc-section">
-            <h2>Server Deployment and Installation</h2>
-            
-            <h3>Docker Swarm Deployment</h3>
-            <p>RIS is deployed using Docker Swarm for orchestration, providing high availability, load balancing, and simplified service management across multiple nodes.</p>
-            
-            <h4>Swarm Initialization</h4>
-            <pre><code># Initialize Docker Swarm on the manager node
-docker swarm init --advertise-addr <MANAGER-IP>
+    ERP --> GATEWAY
+    CRM --> GATEWAY
+    THIRD --> GATEWAY
+    LEGACY --> GATEWAY
 
-# Join worker nodes to the swarm
-docker swarm join --token <WORKER-TOKEN> <MANAGER-IP>:2377
+    GATEWAY --> AUTH
+    AUTH --> RATE
+    RATE --> TRANSFORM
+    TRANSFORM --> CONTROLLER
 
-# Verify swarm status
-docker node ls</code></pre>
+    CONTROLLER --> SERVICE
+    SERVICE --> DATA
 
-            <h4>Docker Stack Configuration</h4>
-            <pre><code>version: '3.8'
+    style GATEWAY fill:#e8f5e8
+    style AUTH fill:#fff3e0
+    style TRANSFORM fill:#e1bee7
+</div>
 
-services:
-  ris-server:
-    image: securaa/ris-server:latest
-    deploy:
-      replicas: 3
-      placement:
-        constraints:
-          - node.role == worker
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-      update_config:
-        parallelism: 1
-        delay: 10s
-        failure_action: rollback
-      rollback_config:
-        parallelism: 1
-        delay: 5s
-      resources:
-        limits:
-          memory: 2G
-          cpus: '1.0'
-        reservations:
-          memory: 512M
-          cpus: '0.25'
-    ports:
-      - target: 8057
-        published: 8057
-        protocol: tcp
-        mode: ingress
-      - target: 9090
-        published: 9090
-        protocol: tcp
-        mode: ingress
-    environment:
-      - RIS_ENV=production
-      - MONGODB_URI=mongodb://ris-mongo:27017/ris?replicaSet=rs0
-      - REDIS_URI=redis://ris-redis:6379
-      - TLS_CERT_FILE=/app/certs/server.crt
-      - TLS_KEY_FILE=/app/certs/server.key
-      - SWARM_MODE=true
-    volumes:
-      - ris-config:/app/config
-      - ris-certs:/app/certs
-      - ris-logs:/app/logs
-    networks:
-      - ris-overlay
-    healthcheck:
-      test: ["CMD", "curl", "-f", "https://localhost:8057/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-
-  ris-mongo:
-    image: mongo:6.0
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.labels.storage == primary
-      restart_policy:
-        condition: on-failure
-      resources:
-        limits:
-          memory: 4G
-          cpus: '2.0'
-        reservations:
-          memory: 1G
-          cpus: '0.5'
-    ports:
-      - target: 27017
-        published: 27017
-        protocol: tcp
-        mode: host
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/mongo_root_password
-      - MONGO_INITDB_DATABASE=ris
-    volumes:
-      - mongodb_data:/data/db
-      - mongodb_config:/data/configdb
-    networks:
-      - ris-overlay
-    secrets:
-      - mongo_root_password
-    command: >
-      bash -c "
-        mongod --replSet rs0 --bind_ip_all --auth --keyFile /run/secrets/mongo_keyfile
-      "
-
-  ris-redis:
-    image: redis:7.0-alpine
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.labels.cache == primary
-      restart_policy:
-        condition: on-failure
-      resources:
-        limits:
-          memory: 1G
-          cpus: '0.5'
-        reservations:
-          memory: 256M
-          cpus: '0.1'
-    ports:
-      - target: 6379
-        published: 6379
-        protocol: tcp
-        mode: host
-    environment:
-      - REDIS_PASSWORD_FILE=/run/secrets/redis_password
-    volumes:
-      - redis_data:/data
-    networks:
-      - ris-overlay
-    secrets:
-      - redis_password
-    command: >
-      sh -c "
-        redis-server --requirepass $$(cat /run/secrets/redis_password) --appendonly yes
-      "
-
-  ris-nginx:
-    image: nginx:alpine
-    deploy:
-      replicas: 2
-      placement:
-        constraints:
-          - node.role == worker
-      restart_policy:
-        condition: on-failure
-      resources:
-        limits:
-          memory: 512M
-          cpus: '0.25'
-        reservations:
-          memory: 128M
-          cpus: '0.1'
-    ports:
-      - target: 80
-        published: 80
-        protocol: tcp
-        mode: ingress
-      - target: 443
-        published: 443
-        protocol: tcp
-        mode: ingress
-    volumes:
-      - nginx_config:/etc/nginx/conf.d
-      - ris-certs:/etc/ssl/certs
-    networks:
-      - ris-overlay
-    depends_on:
-      - ris-server
-
-networks:
-  ris-overlay:
-    driver: overlay
-    driver_opts:
-      encrypted: "true"
-    attachable: true
-
-volumes:
-  mongodb_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /data/mongodb
-  mongodb_config:
-    driver: local
-  redis_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /data/redis
-  ris-config:
-    driver: local
-  ris-certs:
-    driver: local
-  ris-logs:
-    driver: local
-  nginx_config:
-    driver: local
-
-secrets:
-  mongo_root_password:
-    external: true
-  mongo_keyfile:
-    external: true
-  redis_password:
-    external: true</code></pre>
-
-            <h4>Deployment Commands</h4>
-            <pre><code># Create necessary secrets
-echo "your-mongo-password" | docker secret create mongo_root_password -
-openssl rand -base64 756 | docker secret create mongo_keyfile -
-echo "your-redis-password" | docker secret create redis_password -
-
-# Label nodes for placement constraints
-docker node update --label-add storage=primary <NODE-ID>
-docker node update --label-add cache=primary <NODE-ID>
-
-# Create required directories on storage nodes
-sudo mkdir -p /data/mongodb /data/redis
-sudo chown -R 999:999 /data/mongodb
-sudo chown -R 999:999 /data/redis
-
-# Deploy the stack
-docker stack deploy -c docker-compose.yml ris-stack
-
-# Verify deployment
-docker stack ls
-docker stack services ris-stack
-docker service ls</code></pre>
-
-            <h4>Swarm Management Commands</h4>
-            <pre><code># Scale services
-docker service scale ris-stack_ris-server=5
-
-# Update service
-docker service update --image securaa/ris-server:v2.0.0 ris-stack_ris-server
-
-# Rolling restart
-docker service update --force ris-stack_ris-server
-
-# View service logs
-docker service logs ris-stack_ris-server -f
-
-# Remove stack
-docker stack rm ris-stack</code></pre>
-            </div>
-        </div>
-
-        <div class="doc-section">
-            <h2>Client Architecture and Deployment</h2>
-            
-            <h3>RIS Client Overview</h3>
-            <p>
-                The RIS Client is a lightweight, secure agent that enables remote management and task execution across distributed environments. It serves as the intelligent endpoint in the RIS ecosystem, communicating with the central RIS Server to execute tasks, manage Docker services, and provide real-time status updates.
-            </p>
-
-            <h3>Client Key Features</h3>
-            <div class="optimization-grid">
-                <div class="optimization-card">
-                    <h4>Real-time Communication</h4>
-                    <p>WebSocket-based persistent connection with the RIS Server for instant command execution and status updates.</p>
-                </div>
-                <div class="optimization-card">
-                    <h4>Task Execution</h4>
-                    <p>Support for HTTP requests, system commands, and Docker operations with comprehensive error handling.</p>
-                </div>
-                <div class="optimization-card">
-                    <h4>Service Management</h4>
-                    <p>Comprehensive Docker container and service lifecycle management with health monitoring.</p>
-                </div>
-                <div class="optimization-card">
-                    <h4>Security & Monitoring</h4>
-                    <p>TLS encryption, certificate-based authentication, and continuous health checks with resource usage tracking.</p>
-                </div>
-            </div>
-
-            <h3>Client Docker Deployment</h3>
-            <pre><code># Docker Container Deployment
-docker run -d \
-  --name ris-client \
-  --restart unless-stopped \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v ./config:/app/config \
-  -v ./certs:/app/certs \
-  -v ./logs:/app/logs \
-  --network ris-overlay \
-  securaa/ris-client:latest
-
-# Docker Swarm Service Deployment
-docker service create \
-  --name ris-client \
-  --replicas 1 \
-  --constraint 'node.role==worker' \
-  --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
-  --mount type=volume,source=ris-client-config,target=/app/config \
-  --mount type=volume,source=ris-client-certs,target=/app/certs \
-  --mount type=volume,source=ris-client-logs,target=/app/logs \
-  --network ris-overlay \
-  --restart-condition on-failure \
-  --restart-max-attempts 3 \
-  securaa/ris-client:latest
-
-# Client Configuration Volume
-docker volume create ris-client-config
-docker volume create ris-client-certs
-docker volume create ris-client-logs
-
-# Copy configuration files
-docker run --rm \
-  -v ris-client-config:/config \
-  -v $(pwd)/client-config.json:/source/config.json \
-  alpine cp /source/config.json /config/
-
-# View client logs
-docker service logs ris-client -f</code></pre>
-        </div>
-
-        <div class="doc-section">
-            <h2>Multi-Tenant Architecture</h2>
-            
-            <h3>Tenant Isolation Strategies</h3>
-            <div class="mermaid">
+<h4 id="2-event-driven-integration-pattern">2. Event-Driven Integration Pattern<a class="headerlink" href="#2-event-driven-integration-pattern" title="Permanent link">&para;</a></h4>
+<p>The system supports asynchronous integration through event-driven patterns:</p>
+<ul>
+<li><strong>Event Publishing</strong>: System publishes events for external consumption</li>
+<li><strong>Event Subscription</strong>: System subscribes to external events</li>
+<li><strong>Event Routing</strong>: Intelligent routing of events to appropriate handlers</li>
+<li><strong>Event Transformation</strong>: Format transformation for different systems</li>
+</ul>
+<h4 id="3-webhook-integration-pattern">3. Webhook Integration Pattern<a class="headerlink" href="#3-webhook-integration-pattern" title="Permanent link">&para;</a></h4>
+<p>Support for webhook-based integrations:</p>
+<ul>
+<li><strong>Outbound Webhooks</strong>: RIS system calls external webhook endpoints</li>
+<li><strong>Inbound Webhooks</strong>: External systems call RIS webhook endpoints</li>
+<li><strong>Webhook Security</strong>: HMAC signature verification and authentication</li>
+<li><strong>Retry Logic</strong>: Intelligent retry mechanisms for failed webhook deliveries</li>
+</ul>
+<h3 id="enterprise-integration-patterns">Enterprise Integration Patterns<a class="headerlink" href="#enterprise-integration-patterns" title="Permanent link">&para;</a></h3>
+<h4 id="message-queue-integration">Message Queue Integration<a class="headerlink" href="#message-queue-integration" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
 graph TB
-    subgraph "Request Layer"
-        REQ[HTTP Request]
-        EXTRACT[Extract Tenant Context]
-        VALIDATE[Validate Tenant]
+    subgraph "Message Producers"
+        RIS[RIS Server]
+        CLIENT[RIS Clients]
+        EXTERNAL[External Systems]
     end
-    
-    subgraph "Data Layer Isolation"
-        subgraph "Database Level"
-            DB1[(Tenant A DB)]
-            DB2[(Tenant B DB)]
-            DB3[(Shared DB)]
-        end
-        
-        subgraph "Application Level"
-            FILTER[Data Filtering]
-            SCOPE[Query Scoping]
-            ENCRYPT[Tenant Encryption]
-        end
+
+    subgraph "Message Infrastructure"
+        QUEUE[Message Queue]
+        TOPIC[Topic/Exchange]
+        DLQ[Dead Letter Queue]
     end
-    
-    subgraph "Resource Isolation"
-        CONN1[Tenant A Connections]
-        CONN2[Tenant B Connections]
-        CACHE1[Tenant A Cache]
-        CACHE2[Tenant B Cache]
+
+    subgraph "Message Consumers"
+        PROCESSOR[Message Processor]
+        HANDLER[Event Handler]
+        NOTIFIER[Notification Service]
     end
-    
-    REQ --> EXTRACT
-    EXTRACT --> VALIDATE
-    VALIDATE --> FILTER
-    VALIDATE --> SCOPE
-    
-    FILTER --> DB1
-    FILTER --> DB2
-    FILTER --> DB3
-    
-    SCOPE --> ENCRYPT
-    ENCRYPT --> CONN1
-    ENCRYPT --> CONN2
-    
-    CONN1 --> CACHE1
-    CONN2 --> CACHE2
-            </div>
 
-            <h3>Tenant Management Features</h3>
-            <div class="nfr-grid">
-                <div class="nfr-card">
-                    <h4>Data Isolation</h4>
-                    <ul>
-                        <li>Database-level isolation with separate schemas</li>
-                        <li>Application-level filtering and scoping</li>
-                        <li>Encrypted data storage per tenant</li>
-                        <li>Secure inter-tenant communication</li>
-                    </ul>
-                </div>
-                <div class="nfr-card">
-                    <h4>Resource Management</h4>
-                    <ul>
-                        <li>Tenant-specific resource limits and quotas</li>
-                        <li>Isolated connection pools and caching</li>
-                        <li>Separate monitoring and metrics</li>
-                        <li>Independent backup and recovery</li>
-                    </ul>
-                </div>
-                <div class="nfr-card">
-                    <h4>Security Controls</h4>
-                    <ul>
-                        <li>Role-based access control per tenant</li>
-                        <li>Tenant-specific authentication providers</li>
-                        <li>Isolated audit logs and compliance</li>
-                        <li>Network-level security policies</li>
-                    </ul>
-                </div>
-                <div class="nfr-card">
-                    <h4>Configuration Management</h4>
-                    <ul>
-                        <li>Tenant-specific configuration settings</li>
-                        <li>Feature flags and customization</li>
-                        <li>Branding and localization support</li>
-                        <li>Independent deployment cycles</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    RIS --> QUEUE
+    CLIENT --> QUEUE
+    EXTERNAL --> TOPIC
 
-        <div class="doc-section">
-            <h2>Monitoring & Observability</h2>
-            
-            <h3>Health Check Endpoints</h3>
-            <div class="component-grid">
-                <div class="component-card">
-                    <h4>Basic Health Check</h4>
-                    <pre><code>GET /health
+    QUEUE --> PROCESSOR
+    TOPIC --> HANDLER
+    PROCESSOR --> NOTIFIER
 
-{
-  "status": "healthy",
-  "timestamp": "2025-10-07T10:30:00Z"
-}</code></pre>
-                </div>
-                <div class="component-card">
-                    <h4>Detailed Health Check</h4>
-                    <pre><code>GET /health?detailed=true
+    QUEUE -.-> DLQ
+    TOPIC -.-> DLQ
 
-{
-  "status": "healthy",
-  "components": {
-    "database": "connected",
-    "cache": "connected",
-    "clients": "23/25 connected"
-  }
-}</code></pre>
-                </div>
-                <div class="component-card">
-                    <h4>Client Health Metrics</h4>
-                    <pre><code>GET /client/{id}/health
+    style QUEUE fill:#e8f5e8
+    style DLQ fill:#ffcdd2
+    style PROCESSOR fill:#e1bee7
+</div>
 
-{
-  "status": "healthy",
-  "last_seen": "2025-10-07T10:30:00Z",
-  "system_load": 0.45,
-  "memory_usage": "65%",
-  "disk_usage": "78%"
-}</code></pre>
-                </div>
-                <div class="component-card">
-                    <h4>Performance Metrics</h4>
-                    <pre><code># Server Performance
-ris_server_requests_total{method="GET",status="200"} 15420
-ris_clients_connected 23
-ris_tasks_completed_total{status="success"} 1547
+<h3 id="database-integration-patterns">Database Integration Patterns<a class="headerlink" href="#database-integration-patterns" title="Permanent link">&para;</a></h3>
+<h4 id="multi-database-support">Multi-Database Support<a class="headerlink" href="#multi-database-support" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Primary Database</strong>: MongoDB for operational data</li>
+<li><strong>Time-Series Database</strong>: InfluxDB for metrics and monitoring data</li>
+<li><strong>Search Engine</strong>: Elasticsearch for full-text search and analytics</li>
+<li><strong>Cache Layer</strong>: Redis for high-performance caching</li>
+</ul>
+<h4 id="data-synchronization-patterns">Data Synchronization Patterns<a class="headerlink" href="#data-synchronization-patterns" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Change Data Capture</strong>: Real-time data change detection and propagation</li>
+<li><strong>Event Sourcing</strong>: Event-based data synchronization</li>
+<li><strong>Bulk Synchronization</strong>: Scheduled batch data synchronization</li>
+<li><strong>Conflict Resolution</strong>: Automated conflict detection and resolution</li>
+</ul>
+<h2 id="technology-stack-deep-dive">Technology Stack Deep Dive<a class="headerlink" href="#technology-stack-deep-dive" title="Permanent link">&para;</a></h2>
+<h3 id="server-side-technology-stack">Server-Side Technology Stack<a class="headerlink" href="#server-side-technology-stack" title="Permanent link">&para;</a></h3>
+<h4 id="programming-language-and-framework">Programming Language and Framework<a class="headerlink" href="#programming-language-and-framework" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Go (Golang) 1.21+</strong>: High-performance, concurrent programming language</li>
+<li><strong>Gorilla Mux</strong>: HTTP router and dispatcher for Go</li>
+<li><strong>Gorilla WebSocket</strong>: WebSocket implementation for real-time communication</li>
+<li><strong>Standard Library</strong>: Extensive use of Go standard library for reliability</li>
+</ul>
+<h4 id="database-technologies">Database Technologies<a class="headerlink" href="#database-technologies" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>MongoDB 6.0+</strong>: Primary NoSQL database with replica set configuration</li>
+<li><strong>Features</strong>: ACID transactions, GridFS for file storage, aggregation framework</li>
+<li><strong>Drivers</strong>: Official MongoDB Go driver with connection pooling</li>
+<li><strong>Redis 7.0+</strong>: In-memory data structure store for caching and session management</li>
+<li><strong>Features</strong>: Pub/Sub messaging, Redis Cluster for high availability</li>
+<li><strong>Use Cases</strong>: Session storage, caching, message queuing</li>
+</ul>
+<h4 id="security-technologies">Security Technologies<a class="headerlink" href="#security-technologies" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>TLS 1.3</strong>: Latest transport layer security protocol</li>
+<li><strong>JWT</strong>: JSON Web Tokens for stateless authentication</li>
+<li><strong>bcrypt</strong>: Password hashing with configurable cost</li>
+<li><strong>X.509 Certificates</strong>: Public key infrastructure for client authentication</li>
+</ul>
+<h3 id="client-side-technology-stack">Client-Side Technology Stack<a class="headerlink" href="#client-side-technology-stack" title="Permanent link">&para;</a></h3>
+<h4 id="container-platform">Container Platform<a class="headerlink" href="#container-platform" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Docker Engine 24.0+</strong>: Container runtime for application packaging</li>
+<li><strong>Docker Compose</strong>: Multi-container application definition and deployment</li>
+<li><strong>Docker Swarm</strong>: Optional container orchestration for multi-node deployments</li>
+</ul>
+<h4 id="networking-and-communication">Networking and Communication<a class="headerlink" href="#networking-and-communication" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>WebSocket Client</strong>: Persistent real-time communication with server</li>
+<li><strong>HTTP Client</strong>: RESTful API communication</li>
+<li><strong>Network Discovery</strong>: Automatic network configuration detection</li>
+</ul>
+<h3 id="infrastructure-technology-stack">Infrastructure Technology Stack<a class="headerlink" href="#infrastructure-technology-stack" title="Permanent link">&para;</a></h3>
+<h4 id="orchestration-and-deployment">Orchestration and Deployment<a class="headerlink" href="#orchestration-and-deployment" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Docker Swarm</strong>: Production-grade container orchestration</li>
+<li><strong>Docker Compose</strong>: Multi-container application definition and deployment</li>
+<li><strong>Docker Stack</strong>: Declarative service deployment in Swarm mode</li>
+<li><strong>Docker Secrets</strong>: Secure credential and configuration management</li>
+</ul>
+<h4 id="monitoring-and-observability">Monitoring and Observability<a class="headerlink" href="#monitoring-and-observability" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Prometheus</strong>: Metrics collection and alerting</li>
+<li><strong>Grafana</strong>: Visualization and dashboards</li>
+<li><strong>ELK Stack</strong>: Centralized logging (Elasticsearch, Logstash, Kibana)</li>
+<li><strong>Jaeger</strong>: Distributed tracing (optional)</li>
+</ul>
+<h4 id="load-balancing-and-proxy">Load Balancing and Proxy<a class="headerlink" href="#load-balancing-and-proxy" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>NGINX</strong>: Reverse proxy and load balancer</li>
+<li><strong>HAProxy</strong>: High-availability load balancer</li>
+<li><strong>Istio</strong>: Service mesh for advanced traffic management (optional)</li>
+</ul>
+<h2 id="performance-and-scalability-analysis">Performance and Scalability Analysis<a class="headerlink" href="#performance-and-scalability-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="performance-characteristics">Performance Characteristics<a class="headerlink" href="#performance-characteristics" title="Permanent link">&para;</a></h3>
+<h4 id="throughput-metrics">Throughput Metrics<a class="headerlink" href="#throughput-metrics" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>WebSocket Connections</strong>: 1,000+ concurrent connections per server instance</li>
+<li><strong>HTTP Requests</strong>: 10,000+ requests per second</li>
+<li><strong>Database Operations</strong>: 5,000+ operations per second</li>
+<li><strong>Task Execution</strong>: 100+ concurrent task executions</li>
+</ul>
+<h4 id="latency-metrics">Latency Metrics<a class="headerlink" href="#latency-metrics" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>API Response Time</strong>: &lt;100ms for 95% of requests</li>
+<li><strong>WebSocket Latency</strong>: &lt;50ms for real-time messages</li>
+<li><strong>Database Query Time</strong>: &lt;10ms for indexed queries</li>
+<li><strong>Task Execution Time</strong>: &lt;5 seconds for standard operations</li>
+</ul>
+<h3 id="scalability-strategies">Scalability Strategies<a class="headerlink" href="#scalability-strategies" title="Permanent link">&para;</a></h3>
+<h4 id="horizontal-scaling">Horizontal Scaling<a class="headerlink" href="#horizontal-scaling" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+graph TB
+    subgraph "Load Balancer Tier"
+        LB[Load Balancer]
+    end
 
-# Client Performance  
-ris_client_tasks_executed_total 345
-ris_client_memory_usage_bytes 2147483648</code></pre>
-                </div>
-            </div>
-        </div>
+    subgraph "Application Tier"
+        APP1[RIS Server 1]
+        APP2[RIS Server 2]
+        APP3[RIS Server N]
+    end
 
-        <div class="doc-section">
-            <h2>Version Information</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Component</th>
-                        <th>Version</th>
-                        <th>Release Date</th>
-                        <th>Compatibility</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>RIS Server</td>
-                        <td>1.0.0</td>
-                        <td>October 7, 2025</td>
-                        <td>Go 1.21+</td>
-                    </tr>
-                    <tr>
-                        <td>RIS Client</td>
-                        <td>1.0.0</td>
-                        <td>October 7, 2025</td>
-                        <td>Go 1.21+</td>
-                    </tr>
-                    <tr>
-                        <td>MongoDB Driver</td>
-                        <td>1.12.0</td>
-                        <td>October 7, 2025</td>
-                        <td>MongoDB 5.0+</td>
-                    </tr>
-                    <tr>
-                        <td>Redis Driver</td>
-                        <td>9.0.5</td>
-                        <td>October 7, 2025</td>
-                        <td>Redis 6.0+</td>
-                    </tr>
-                    <tr>
-                        <td>WebSocket Protocol</td>
-                        <td>1.0</td>
-                        <td>October 7, 2025</td>
-                        <td>RFC 6455</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    subgraph "Database Tier"
+        DB1[(MongoDB Primary)]
+        DB2[(MongoDB Secondary)]
+        DB3[(MongoDB Secondary)]
+    end
+
+    subgraph "Cache Tier"
+        CACHE1[Redis Node 1]
+        CACHE2[Redis Node 2]
+        CACHE3[Redis Node N]
+    end
+
+    LB --> APP1
+    LB --> APP2
+    LB --> APP3
+
+    APP1 --> DB1
+    APP2 --> DB1
+    APP3 --> DB1
+
+    DB1 -.-> DB2
+    DB1 -.-> DB3
+
+    APP1 --> CACHE1
+    APP2 --> CACHE2
+    APP3 --> CACHE3
+
+    style LB fill:#e1bee7
+    style DB1 fill:#fff9c4
+    style CACHE1 fill:#e8f5e8
+</div>
+
+<h4 id="vertical-scaling">Vertical Scaling<a class="headerlink" href="#vertical-scaling" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>CPU Scaling</strong>: Multi-core utilization with goroutine-based concurrency</li>
+<li><strong>Memory Scaling</strong>: Efficient memory management with garbage collection optimization</li>
+<li><strong>Storage Scaling</strong>: SSD storage with optimized I/O patterns</li>
+<li><strong>Network Scaling</strong>: High-bandwidth network interfaces</li>
+</ul>
+<h3 id="performance-optimization-techniques">Performance Optimization Techniques<a class="headerlink" href="#performance-optimization-techniques" title="Permanent link">&para;</a></h3>
+<h4 id="database-optimization">Database Optimization<a class="headerlink" href="#database-optimization" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Index Strategy</strong>: Comprehensive indexing for query optimization</li>
+<li><strong>Connection Pooling</strong>: Efficient database connection management</li>
+<li><strong>Query Optimization</strong>: Query plan analysis and optimization</li>
+<li><strong>Caching Strategy</strong>: Multi-level caching for frequent operations</li>
+</ul>
+<h4 id="application-optimization">Application Optimization<a class="headerlink" href="#application-optimization" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Goroutine Pools</strong>: Worker pool pattern for concurrent processing</li>
+<li><strong>Memory Management</strong>: Efficient memory allocation and garbage collection</li>
+<li><strong>Protocol Optimization</strong>: Binary protocols for high-performance communication</li>
+<li><strong>Compression</strong>: Data compression for network and storage efficiency</li>
+</ul>
+<hr />
+<p><em>Document Version: 2.0</em><br />
+<em>Last Updated: October 6, 2025</em><br />
+<em>Comprehensive High-Level Design for RIS System</em></p>
     </main>
-    
-    <footer class="main-footer">
-        <p>&copy; 2025 Securaa Platform. All rights reserved. | <a href="#" onclick="printPage()" style="color: #ecf0f1;">Print</a> | <a href="#" onclick="exportToPDF()" style="color: #ecf0f1;">Export PDF</a></p>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
     </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
-        mermaid.initialize({ 
+        mermaid.initialize({
             startOnLoad: true,
-            theme: 'default',
+            theme: 'base',
             themeVariables: {
-                primaryColor: '#1976d2',
-                primaryTextColor: '#000000',
-                primaryBorderColor: '#0d47a1',
-                lineColor: '#1976d2',
-                secondaryColor: '#f5f5f5',
-                tertiaryColor: '#ffffff'
-            }
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
         });
 
-        function printPage() {
-            window.print();
-        }
-
-        function exportToPDF() {
-            alert("PDF export functionality would be implemented here");
-        }
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
+        });
     </script>
-    <script src="assets/js/documentation.js"></script>
 </body>
 </html>

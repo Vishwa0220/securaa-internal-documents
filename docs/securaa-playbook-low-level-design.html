@@ -3,40 +3,625 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Securaa Playbook Service - Low Level Design - Securaa Platform Documentation</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
+    <meta name="description" content="Securaa Platform Documentation - Securaa Playbook Service - Low Level Design">
+    <title>Securaa Playbook Service - Low Level Design - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
-    
-    
-        <nav class="documentation-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-ris-high-level-design.html">RIS High Level Design</a></li>
-            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-                <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-                <li><a href="securaa-playbook-low-level-design.html" class="active">Securaa Playbook Low Level Design</a></li>
-                <li><a href="optimization-guide.html">Optimization Guide</a></li>
-                <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-                <li><a href="securaa-siem-low-level-design.html">Securaa SIEM Low Level Design</a></li>
-                <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-                <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-                <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-                <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-                <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-                <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
-                <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
-            </ul>
-        </nav>
-        
-    
+
+    <nav class="documentation-nav">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
+    </nav>
+
     <main class="main-content">
-        <h1>Securaa Playbook Service - Low Level Design Document</h1>
-<h2>Document Information</h2>
+        <h1 id="securaa-playbook-service-low-level-design-document">Securaa Playbook Service - Low Level Design Document<a class="headerlink" href="#securaa-playbook-service-low-level-design-document" title="Permanent link">&para;</a></h1>
+<h2 id="document-information">Document Information<a class="headerlink" href="#document-information" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Service Name</strong>: Securaa Playbook Service</li>
 <li><strong>Version</strong>: 1.0</li>
@@ -44,7 +629,7 @@
 <li><strong>Author</strong>: Development Team</li>
 <li><strong>Related Documents</strong>: <a href="./HIGH_LEVEL_DESIGN.md">High Level Design</a></li>
 </ul>
-<h2>Table of Contents</h2>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ol>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#detailed-component-design">Detailed Component Design</a></li>
@@ -55,105 +640,109 @@
 <li><a href="#algorithm-specifications">Algorithm Specifications</a></li>
 <li><a href="#configuration-management">Configuration Management</a></li>
 <li><a href="#error-handling-implementation">Error Handling Implementation</a></li>
-<li><a href="#concurrency--thread-safety">Concurrency & Thread Safety</a></li>
+<li><a href="#concurrency--thread-safety">Concurrency &amp; Thread Safety</a></li>
 <li><a href="#performance-optimizations">Performance Optimizations</a></li>
 <li><a href="#testing-strategy">Testing Strategy</a></li>
 </ol>
-<p>---</p>
-<h2>1. Overview</h2>
+<hr />
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
 <p>The Low Level Design document provides detailed implementation specifications for the Securaa Playbook Service, including class structures, method signatures, algorithm implementations, and detailed interaction patterns.</p>
-<h3>1.1 Scope</h3>
-<p>This document covers:</p>
-<ul>
-<li>Detailed class and method specifications</li>
-<li>Database schema with indexes and constraints</li>
-<li>Complete API specifications with validation rules</li>
-<li>Concurrency patterns and thread safety mechanisms</li>
-<li>Performance optimization techniques</li>
-<li>Error handling and recovery strategies</li>
-</ul>
-<p>---</p>
-<h2>2. Detailed Component Design</h2>
-<h3>2.1 Core Package Structure</h3>
-<pre><code class="language-">zona_services/zona_playbook/
-<p>├── main.go                     // Application entry point</p>
-<p>├── app.go                      // Application initialization</p>
-<p>├── controllers/                // HTTP request handlers</p>
-<p>│   ├── playbookcontroller.go</p>
-<p>│   ├── listController.go</p>
-<p>│   ├── caseController.go</p>
-<p>│   ├── supportcontroller.go</p>
-<p>│   └── processController.go</p>
-<p>├── executionControllers/       // Execution orchestration</p>
-<p>│   ├── playbookExecutionController.go</p>
-<p>│   ├── runTaskController.go</p>
-<p>│   ├── conditionController.go</p>
-<p>│   └── subPlaybookController.go</p>
-<p>├── models/                     // Data models</p>
-<p>│   ├── playbook.go</p>
-<p>│   ├── case.go</p>
-<p>│   ├── task.go</p>
-<p>│   └── Response.go</p>
-<p>├── executionModels/           // Execution-specific models</p>
-<p>│   ├── playbook.go</p>
-<p>│   ├── Tasks.go</p>
-<p>│   └── incidents.go</p>
-<p>├── services/                  // Business logic</p>
-<p>│   ├── genericTaskService.go</p>
-<p>│   ├── processService.go</p>
-<p>│   └── filterNTransformService.go</p>
-<p>├── utils/                     // Utility functions</p>
-<p>│   ├── filterConditionUtils.go</p>
-<p>│   ├── matchConditionUtils.go</p>
-<p>│   └── executionUtils.go</p>
-<p>├── handlers/                  // Error and response handlers</p>
-<p>│   ├── errorHandler.go</p>
-<p>│   └── taskResponse.go</p>
-<p>├── constants/                 // Application constants</p>
-<p>│   └── constants.go</p>
-<p>└── cacheControllers/         // Cache management</p>
-<p>    └── cacheController.go</code></pre></p>
-<h3>2.2 Main Application Structure</h3>
-<h4>2.2.1 App Structure</h4>
-<pre><code class="language-go">type App struct {
-<p>    Router             <em>mux.Router                    // HTTP router</p>
-<p>    AccessTokenHashMap map[string]int64               // Session management</p>
-<p>    DBSession          map[string]common.SessionStruct // Database sessions</p>
-<p>    ConfigObject       config.ConfigStruct            // Configuration</p>
-<p>    BuildType          string                         // Enterprise/MSSP</p>
-<p>    LicenseType        string                         // License information</p>
-<p>    RequestResponseLog bool                           // Logging flag</p>
-<p>    DockerNodeID       string                         // Docker node identifier</p>
-<p>}</code></pre></p>
-<h4>2.2.2 Initialization Flow</h4>
-<pre><code class="language-go">func (a </em>App) Initialize() {
-<p>    // 1. Load configuration</p>
-<p>    a.ConfigObject = utils.InitConfig()</p>
-    
-<p>    // 2. Initialize database sessions</p>
-<p>    a.InitMongoSession(a.ConfigObject)</p>
-    
-<p>    // 3. Initialize access token map</p>
-<p>    a.AccessTokenHashMap = make(map[string]int64)</p>
-    
-<p>    // 4. Setup HTTP router</p>
-<p>    a.Router = mux.NewRouter()</p>
-<p>    a.initializeRoutes()</p>
-    
-<p>    // 5. Initialize Docker client</p>
-<p>    cli, err := client.NewEnvClient()</p>
-<p>    a.DockerNodeID, err = docker.GetNodeID(cli)</p>
-    
-<p>    // 6. Start background services</p>
-<p>    go cache.CacheHealthCheck("test")</p>
-<p>    go counter.SetMaxActiveTasksUtilsCount(cli, a.ConfigObject, false)</p>
-    
-<p>    // 7. Update playbook status on startup</p>
-<p>    err = controllers.UpdatePlaybookStatus(a.ConfigObject)</p>
-<p>}</code></pre></p>
-<p>---</p>
-<h2>3. Class Diagrams</h2>
-<h3>3.1 Playbook Execution Model</h3>
+<h3 id="11-scope">1.1 Scope<a class="headerlink" href="#11-scope" title="Permanent link">&para;</a></h3>
+<p>This document covers:<br />
+- Detailed class and method specifications<br />
+- Database schema with indexes and constraints<br />
+- Complete API specifications with validation rules<br />
+- Concurrency patterns and thread safety mechanisms<br />
+- Performance optimization techniques<br />
+- Error handling and recovery strategies</p>
+<hr />
+<h2 id="2-detailed-component-design">2. Detailed Component Design<a class="headerlink" href="#2-detailed-component-design" title="Permanent link">&para;</a></h2>
+<h3 id="21-core-package-structure">2.1 Core Package Structure<a class="headerlink" href="#21-core-package-structure" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code>securaa_services/securaa_playbook/
+├── main.go                     // Application entry point
+├── app.go                      // Application initialization
+├── controllers/                // HTTP request handlers
+│   ├── playbookcontroller.go
+│   ├── listController.go
+│   ├── caseController.go
+│   ├── supportcontroller.go
+│   └── processController.go
+├── executionControllers/       // Execution orchestration
+│   ├── playbookExecutionController.go
+│   ├── runTaskController.go
+│   ├── conditionController.go
+│   └── subPlaybookController.go
+├── models/                     // Data models
+│   ├── playbook.go
+│   ├── case.go
+│   ├── task.go
+│   └── Response.go
+├── executionModels/           // Execution-specific models
+│   ├── playbook.go
+│   ├── Tasks.go
+│   └── incidents.go
+├── services/                  // Business logic
+│   ├── genericTaskService.go
+│   ├── processService.go
+│   └── filterNTransformService.go
+├── utils/                     // Utility functions
+│   ├── filterConditionUtils.go
+│   ├── matchConditionUtils.go
+│   └── executionUtils.go
+├── handlers/                  // Error and response handlers
+│   ├── errorHandler.go
+│   └── taskResponse.go
+├── constants/                 // Application constants
+│   └── constants.go
+└── cacheControllers/         // Cache management
+    └── cacheController.go
+</code></pre>
+
+<h3 id="22-main-application-structure">2.2 Main Application Structure<a class="headerlink" href="#22-main-application-structure" title="Permanent link">&para;</a></h3>
+<h4 id="221-app-structure">2.2.1 App Structure<a class="headerlink" href="#221-app-structure" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type App struct {
+    Router             *mux.Router                    // HTTP router
+    AccessTokenHashMap map[string]int64               // Session management
+    DBSession          map[string]common.SessionStruct // Database sessions
+    ConfigObject       config.ConfigStruct            // Configuration
+    BuildType          string                         // Enterprise/MSSP
+    LicenseType        string                         // License information
+    RequestResponseLog bool                           // Logging flag
+    DockerNodeID       string                         // Docker node identifier
+}
+</code></pre>
+
+<h4 id="222-initialization-flow">2.2.2 Initialization Flow<a class="headerlink" href="#222-initialization-flow" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func (a *App) Initialize() {
+    // 1. Load configuration
+    a.ConfigObject = utils.InitConfig()
+
+    // 2. Initialize database sessions
+    a.InitMongoSession(a.ConfigObject)
+
+    // 3. Initialize access token map
+    a.AccessTokenHashMap = make(map[string]int64)
+
+    // 4. Setup HTTP router
+    a.Router = mux.NewRouter()
+    a.initializeRoutes()
+
+    // 5. Initialize Docker client
+    cli, err := client.NewEnvClient()
+    a.DockerNodeID, err = docker.GetNodeID(cli)
+
+    // 6. Start background services
+    go cache.CacheHealthCheck(&quot;test&quot;)
+    go counter.SetMaxActiveTasksUtilsCount(cli, a.ConfigObject, false)
+
+    // 7. Update playbook status on startup
+    err = controllers.UpdatePlaybookStatus(a.ConfigObject)
+}
+</code></pre>
+
+<hr />
+<h2 id="3-class-diagrams">3. Class Diagrams<a class="headerlink" href="#3-class-diagrams" title="Permanent link">&para;</a></h2>
+<h3 id="31-playbook-execution-model">3.1 Playbook Execution Model<a class="headerlink" href="#31-playbook-execution-model" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 classDiagram
     class PlaybookExecutionController {
@@ -169,7 +758,6 @@ classDiagram
         +IndicatorValue string
         +Completed bool
         +Stopped bool
-        
         +RunSelectedPlaybook() error
         +ReadAndRunPlayBook() error
         +ProcessAndExecuteTask() error
@@ -180,7 +768,6 @@ classDiagram
         +GetStopStatus() bool
         +SetStopStatus(bool)
     }
-    
     class PlayBookTask {
         +TaskID int
         +TaskSeq int
@@ -201,13 +788,11 @@ classDiagram
         +Status string
         +HasFlowControl bool
         +ConditionResult bool
-        
         +GetTaskData() error
         +UpdatePlayBookErrorStatus() error
         +UpdatePlayBookExecutionStatus() error
         +CreateFailedTaskEntry() error
     }
-    
     class PlaybookObject {
         +ID int
         +Name string
@@ -219,16 +804,15 @@ classDiagram
         +Status string
         +IsParallelPlaybook bool
         +TotalTasksCount int
-        
         +GetPlaybookData() error
         +ImportPlaybook2() error
         +CreateImportedPlaybook() error
     }
-    
     PlaybookExecutionController --> PlayBookTask : manages
     PlayBookTask --> PlaybookObject : executes
 </div>
-<h3>3.2 Task Execution Model</h3>
+
+<h3 id="32-task-execution-model">3.2 Task Execution Model<a class="headerlink" href="#32-task-execution-model" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 classDiagram
     class TaskRequest {
@@ -248,10 +832,8 @@ classDiagram
         +AlertID int
         +Status string
         +ExecutionStatus string
-        
         +CreateTaskRequest() error
     }
-    
     class TaskResponse {
         +TaskResponseID int
         +TaskRequestID string
@@ -261,7 +843,6 @@ classDiagram
         +ApprovalStatus string
         +PlaybookName string
     }
-    
     class ActiveInstanceObject {
         +InstanceID int
         +IntegrationID int64
@@ -274,11 +855,11 @@ classDiagram
         +BaseURL string
         +IsCustomApp bool
     }
-    
     TaskRequest --> TaskResponse : generates
     TaskRequest --> ActiveInstanceObject : uses
 </div>
-<h3>3.3 Filter & Transform Model</h3>
+
+<h3 id="33-filter-transform-model">3.3 Filter &amp; Transform Model<a class="headerlink" href="#33-filter-transform-model" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 classDiagram
     class Inputfields {
@@ -294,33 +875,30 @@ classDiagram
         +Transformers []Transformer
         +Item string
     }
-    
     class Filter {
         +Field string
         +ConditionTag string
         +Value Object
     }
-    
     class Transformer {
         +Name string
         +Data Object
         +Filter Object
     }
-    
     class FilterTransformService {
         +TransformValues() Object
         +VerifyFilterCondition() bool
         +GetFieldValue() Object
         +MatchCondition() bool
     }
-    
     Inputfields --> Filter : contains
     Inputfields --> Transformer : contains
     FilterTransformService --> Inputfields : processes
 </div>
-<p>---</p>
-<h2>4. Sequence Diagrams</h2>
-<h3>4.1 Playbook Execution Flow</h3>
+
+<hr />
+<h2 id="4-sequence-diagrams">4. Sequence Diagrams<a class="headerlink" href="#4-sequence-diagrams" title="Permanent link">&para;</a></h2>
+<h3 id="41-playbook-execution-flow">4.1 Playbook Execution Flow<a class="headerlink" href="#41-playbook-execution-flow" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 sequenceDiagram
     participant Client
@@ -330,17 +908,13 @@ sequenceDiagram
     participant TaskExecutor
     participant Database
     participant ExternalSystem
-    
     Client->>Router: POST /runplaybook/
     Router->>Controller: Route request
     Controller->>ExecutionController: RunSelectedPlaybook()
-    
     ExecutionController->>Database: Get playbook definition
     Database-->>ExecutionController: Playbook data
-    
     ExecutionController->>ExecutionController: ReadAndRunPlayBook()
     ExecutionController->>Database: Create execution entry
-    
     loop For each task
         ExecutionController->>TaskExecutor: ProcessAndExecuteTask()
         TaskExecutor->>Database: Get task configuration
@@ -349,13 +923,13 @@ sequenceDiagram
         TaskExecutor->>Database: Save task response
         TaskExecutor-->>ExecutionController: Task completed
     end
-    
     ExecutionController->>Database: Update execution status
     ExecutionController-->>Controller: Execution complete
     Controller-->>Router: Response
     Router-->>Client: Final response
 </div>
-<h3>4.2 Task Execution with Conditions</h3>
+
+<h3 id="42-task-execution-with-conditions">4.2 Task Execution with Conditions<a class="headerlink" href="#42-task-execution-with-conditions" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 sequenceDiagram
     participant ExecutionController
@@ -363,42 +937,39 @@ sequenceDiagram
     participant TaskExecutor
     participant FilterEngine
     participant Database
-    
+
     ExecutionController->>ConditionProcessor: ProcessConditionTask()
     ConditionProcessor->>FilterEngine: EvaluateConditions()
-    
+
     loop For each condition
         FilterEngine->>Database: Get case data
         Database-->>FilterEngine: Field values
         FilterEngine->>FilterEngine: MatchCondition()
     end
-    
     FilterEngine-->>ConditionProcessor: Condition result
-    
+
     alt Condition true
         ConditionProcessor->>TaskExecutor: Execute NextTaskOnTrue
     else Condition false
         ConditionProcessor->>TaskExecutor: Execute NextTaskOnFalse
     end
-    
     TaskExecutor-->>ExecutionController: Continue execution
 </div>
-<h3>4.3 Error Handling Flow</h3>
+
+<h3 id="43-error-handling-flow">4.3 Error Handling Flow<a class="headerlink" href="#43-error-handling-flow" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 sequenceDiagram
     participant TaskExecutor
     participant ErrorHandler
     participant Database
     participant NotificationService
-    
     TaskExecutor->>TaskExecutor: Execute task
-    
+
     alt Task fails
         TaskExecutor->>ErrorHandler: HandleTaskError()
         ErrorHandler->>Database: Log error details
         ErrorHandler->>Database: Update execution status
         ErrorHandler->>NotificationService: Send failure notification
-        
         alt Recoverable error
             ErrorHandler->>TaskExecutor: Retry with backoff
         else Non-recoverable error
@@ -406,1251 +977,1340 @@ sequenceDiagram
         end
     end
 </div>
-<p>---</p>
-<h2>5. Database Schema</h2>
-<h3>5.1 MongoDB Collections Schema</h3>
-<h4>5.1.1 Playbook Collection</h4>
-<pre><code class="language-javascript">{
-<p>  "_id": ObjectId,</p>
-<p>  "id": 1001,                           // Auto-increment ID</p>
-<p>  "name": "Malware Response Playbook",   // Unique per tenant</p>
-<p>  "description": "Automated malware response workflow",</p>
-<p>  "version": "1.0.0",</p>
-<p>  "definition": "...",                   // JSON string of task definitions</p>
-<p>  "chart_definition": "...",             // Visual representation</p>
-<p>  "tenant_code": "tenant123",</p>
-<p>  "category_id": 5,</p>
-<p>  "status": "active",                    // active, draft, archived</p>
-<p>  "created_date": 1694443200000,</p>
-<p>  "updated_date": 1694443200000,</p>
-<p>  "user_id": 1001,</p>
-<p>  "group_id": 100,</p>
-<p>  "type": "case",                        // case, indicator</p>
-<p>  "filename": "1001_tenant123.json",</p>
-<p>  "commit_id": "abc123",</p>
-<p>  "list_names": ["suspicious_ips", "malware_domains"],</p>
-<p>  "all_nodes_connected": "yes",</p>
-<p>  "custom_utils_added": false,</p>
-<p>  "custom_utils_names": [],</p>
-<p>  "vertical_pb": false,</p>
-<p>  "is_parallel_playbook": true,</p>
-<p>  "total_tasks_count": 15,</p>
-<p>  "total_utils_count": 3,</p>
-<p>  "shard_bucket": 1                      // For sharding</p>
-<p>}</p>
-<p>// Indexes</p>
-<p>db.playbook_collection.createIndex({"tenant_code": 1, "name": 1}, {unique: true})</p>
-<p>db.playbook_collection.createIndex({"tenant_code": 1, "status": 1})</p>
-<p>db.playbook_collection.createIndex({"category_id": 1, "status": 1})</p>
-<p>db.playbook_collection.createIndex({"shard_bucket": 1})</code></pre></p>
-<h4>5.1.2 Playbook Execution Collection</h4>
-<pre><code class="language-javascript">{
-<p>  "_id": ObjectId,</p>
-<p>  "id": "pb_exec_123456",                // Execution ID</p>
-<p>  "parent_playbook_execution_id": "pb_exec_123455",</p>
-<p>  "pid": 1001,                           // Playbook ID</p>
-<p>  "uid": 2001,                           // User ID</p>
-<p>  "request_data": "...",                 // Original request</p>
-<p>  "tenant_code": "tenant123",</p>
-<p>  "alert_id": 50001,                     // Case/Incident ID</p>
-<p>  "is_evidence": "n",</p>
-<p>  "created_date": 1694443200000,</p>
-<p>  "status": "active",</p>
-<p>  "execution_status": "inprogress",      // inprogress, completed, failed, stopped</p>
-<p>  "execution_completion_time": 1694443500000,</p>
-<p>  "execution_error_msg": "",</p>
-<p>  "execution_error_path": "",</p>
-<p>  "username": "security_analyst",</p>
-<p>  "indicator": "192.168.1.100",</p>
-<p>  "playbook_stopped_manually": false,</p>
-<p>  "stop_playbook_data": {</p>
-<p>    "sub_playbook_execution_id": "pb_exec_sub_001"</p>
-<p>  },</p>
-<p>  "last_executed_task_seq": 5,</p>
-<p>  "total_tasks_count": 15,</p>
-<p>  "total_utils_count": 3,</p>
-<p>  "playbook_name": "Malware Response",</p>
-<p>  "playbook_runtime": 45000,             // milliseconds</p>
-<p>  "source": "ui",                        // ui, api, scheduled</p>
-<p>  "node_id": "docker_node_1",</p>
-<p>  "shard_bucket": 1</p>
-<p>}</p>
-<p>// Indexes</p>
-<p>db.playbook_execution_collection.createIndex({"tenant_code": 1, "alert_id": 1})</p>
-<p>db.playbook_execution_collection.createIndex({"execution_status": 1, "created_date": -1})</p>
-<p>db.playbook_execution_collection.createIndex({"uid": 1, "created_date": -1})</p>
-<p>db.playbook_execution_collection.createIndex({"shard_bucket": 1})</code></pre></p>
-<h4>5.1.3 Task Execution Collection</h4>
-<pre><code class="language-javascript">{
-<p>  "_id": ObjectId,</p>
-<p>  "task_request_id": "task_req_789012",</p>
-<p>  "description": "Block malicious IP",</p>
-<p>  "logo_path": "lib/logo/firewall.png",</p>
-<p>  "tenant_code": "tenant123",</p>
-<p>  "name": "Block IP Address",</p>
-<p>  "app_name": "Palo Alto Firewall",</p>
-<p>  "task_id": 301,</p>
-<p>  "user_id": 2001,</p>
-<p>  "username": "security_analyst",</p>
-<p>  "input": "...",                        // Serialized input data</p>
-<p>  "processed": "y",                      // y, n</p>
-<p>  "created_date": 1694443200000,</p>
-<p>  "updated_date": 1694443300000,</p>
-<p>  "tasks_tag": "palo_alto_block_ip",</p>
-<p>  "rest_url": "https://firewall.api/block",</p>
-<p>  "method": "POST",</p>
-<p>  "alert_id": 50001,</p>
-<p>  "integration_id": 15,</p>
-<p>  "instance_id": 150,</p>
-<p>  "task_handler": "palo_alto",</p>
-<p>  "response": "...",                     // Serialized response</p>
-<p>  "is_demo": false,</p>
-<p>  "peid": "pb_exec_123456",              // Playbook execution ID</p>
-<p>  "task_peid": "",                       // Sub-playbook execution ID</p>
-<p>  "task_seq": 3,</p>
-<p>  "is_condition": "n",</p>
-<p>  "task_condition": "",</p>
-<p>  "condition_operator": "",</p>
-<p>  "is_evidence": "n",</p>
-<p>  "status": "completed",                 // not_started, inprogress, completed, failed</p>
-<p>  "playbook_id": "1001",</p>
-<p>  "instance_name": "Production Firewall",</p>
-<p>  "indicator_type": "ip",</p>
-<p>  "task_response_time_stamp": 1694443300000,</p>
-<p>  "reputation": "malicious",</p>
-<p>  "category": "network_security",</p>
-<p>  "function_name": "block_ip_address",</p>
-<p>  "filename": "palo_alto_tasks.py",</p>
-<p>  "credentials_required": true,</p>
-<p>  "task_operator_id": "op_001",</p>
-<p>  "indicator": "192.168.1.100",</p>
-<p>  "case_description": "Malware infection detected",</p>
-<p>  "type": "integration",</p>
-<p>  "command": "",</p>
-<p>  "generic": false,</p>
-<p>  "headers": {</p>
-<p>    "Content-Type": "application/json",</p>
-<p>    "Authorization": "Bearer token123"</p>
-<p>  },</p>
-<p>  "content_type": "application/json",</p>
-<p>  "request_body": "...",</p>
-<p>  "request_type": "POST",</p>
-<p>  "task_type": "blocking",</p>
-<p>  "custom_task_name": "",</p>
-<p>  "playbook_name": "Malware Response",</p>
-<p>  "node_id": "docker_node_1",</p>
-<p>  "iterate_task": false,</p>
-<p>  "iteration_config": "",</p>
-<p>  "execution_status": "completed",</p>
-<p>  "shard_bucket": 1</p>
-<p>}</p>
-<p>// Indexes</p>
-<p>db.task_execution_collection.createIndex({"peid": 1, "task_seq": 1})</p>
-<p>db.task_execution_collection.createIndex({"tenant_code": 1, "alert_id": 1})</p>
-<p>db.task_execution_collection.createIndex({"processed": 1, "created_date": 1})</p>
-<p>db.task_execution_collection.createIndex({"shard_bucket": 1})</code></pre></p>
-<h4>5.1.4 Stopped Tasks Collection</h4>
-<pre><code class="language-javascript">{
-<p>  "_id": ObjectId,</p>
-<p>  "case_id": "50001",</p>
-<p>  "peid": "pb_exec_123456",</p>
-<p>  "task_seq": 5,</p>
-<p>  "routine": "MAIN",                     // MAIN, SUB</p>
-<p>  "task_name": "Block IP Address",</p>
-<p>  "status": "stopped"                    // stopped, resumed</p>
-<p>}</p>
-<p>// Indexes</p>
-<p>db.stopped_tasks_collection.createIndex({"peid": 1, "case_id": 1, "status": 1})</code></pre></p>
-<h3>5.2 Data Relationships</h3>
+
+<hr />
+<h2 id="5-database-schema">5. Database Schema<a class="headerlink" href="#5-database-schema" title="Permanent link">&para;</a></h2>
+<h3 id="51-mongodb-collections-schema">5.1 MongoDB Collections Schema<a class="headerlink" href="#51-mongodb-collections-schema" title="Permanent link">&para;</a></h3>
+<h4 id="511-playbook-collection">5.1.1 Playbook Collection<a class="headerlink" href="#511-playbook-collection" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-javascript">{
+  &quot;_id&quot;: ObjectId,
+  &quot;id&quot;: 1001,                           // Auto-increment ID
+  &quot;name&quot;: &quot;Malware Response Playbook&quot;,   // Unique per tenant
+  &quot;description&quot;: &quot;Automated malware response workflow&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;definition&quot;: &quot;...&quot;,                   // JSON string of task definitions
+  &quot;chart_definition&quot;: &quot;...&quot;,             // Visual representation
+  &quot;tenant_code&quot;: &quot;tenant123&quot;,
+  &quot;category_id&quot;: 5,
+  &quot;status&quot;: &quot;active&quot;,                    // active, draft, archived
+  &quot;created_date&quot;: 1694443200000,
+  &quot;updated_date&quot;: 1694443200000,
+  &quot;user_id&quot;: 1001,
+  &quot;group_id&quot;: 100,
+  &quot;type&quot;: &quot;case&quot;,                        // case, indicator
+  &quot;filename&quot;: &quot;1001_tenant123.json&quot;,
+  &quot;commit_id&quot;: &quot;abc123&quot;,
+  &quot;list_names&quot;: [&quot;suspicious_ips&quot;, &quot;malware_domains&quot;],
+  &quot;all_nodes_connected&quot;: &quot;yes&quot;,
+  &quot;custom_utils_added&quot;: false,
+  &quot;custom_utils_names&quot;: [],
+  &quot;vertical_pb&quot;: false,
+  &quot;is_parallel_playbook&quot;: true,
+  &quot;total_tasks_count&quot;: 15,
+  &quot;total_utils_count&quot;: 3,
+  &quot;shard_bucket&quot;: 1                      // For sharding
+}
+// Indexes
+db.playbook_collection.createIndex({&quot;tenant_code&quot;: 1, &quot;name&quot;: 1}, {unique: true})
+db.playbook_collection.createIndex({&quot;tenant_code&quot;: 1, &quot;status&quot;: 1})
+db.playbook_collection.createIndex({&quot;category_id&quot;: 1, &quot;status&quot;: 1})
+db.playbook_collection.createIndex({&quot;shard_bucket&quot;: 1})
+</code></pre>
+
+<h4 id="512-playbook-execution-collection">5.1.2 Playbook Execution Collection<a class="headerlink" href="#512-playbook-execution-collection" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-javascript">{
+  &quot;_id&quot;: ObjectId,
+  &quot;id&quot;: &quot;pb_exec_123456&quot;,                // Execution ID
+  &quot;parent_playbook_execution_id&quot;: &quot;pb_exec_123455&quot;,
+  &quot;pid&quot;: 1001,                           // Playbook ID
+  &quot;uid&quot;: 2001,                           // User ID
+  &quot;request_data&quot;: &quot;...&quot;,                 // Original request
+  &quot;tenant_code&quot;: &quot;tenant123&quot;,
+  &quot;alert_id&quot;: 50001,                     // Case/Incident ID
+  &quot;is_evidence&quot;: &quot;n&quot;,
+  &quot;created_date&quot;: 1694443200000,
+  &quot;status&quot;: &quot;active&quot;,
+  &quot;execution_status&quot;: &quot;inprogress&quot;,      // inprogress, completed, failed, stopped
+  &quot;execution_completion_time&quot;: 1694443500000,
+  &quot;execution_error_msg&quot;: &quot;&quot;,
+  &quot;execution_error_path&quot;: &quot;&quot;,
+  &quot;username&quot;: &quot;security_analyst&quot;,
+  &quot;indicator&quot;: &quot;192.168.1.100&quot;,
+  &quot;playbook_stopped_manually&quot;: false,
+  &quot;stop_playbook_data&quot;: {
+    &quot;sub_playbook_execution_id&quot;: &quot;pb_exec_sub_001&quot;
+  },
+  &quot;last_executed_task_seq&quot;: 5,
+  &quot;total_tasks_count&quot;: 15,
+  &quot;total_utils_count&quot;: 3,
+  &quot;playbook_name&quot;: &quot;Malware Response&quot;,
+  &quot;playbook_runtime&quot;: 45000,             // milliseconds
+  &quot;source&quot;: &quot;ui&quot;,                        // ui, api, scheduled
+  &quot;node_id&quot;: &quot;docker_node_1&quot;,
+  &quot;shard_bucket&quot;: 1
+}
+// Indexes
+db.playbook_execution_collection.createIndex({&quot;tenant_code&quot;: 1, &quot;alert_id&quot;: 1})
+db.playbook_execution_collection.createIndex({&quot;execution_status&quot;: 1, &quot;created_date&quot;: -1})
+db.playbook_execution_collection.createIndex({&quot;uid&quot;: 1, &quot;created_date&quot;: -1})
+db.playbook_execution_collection.createIndex({&quot;shard_bucket&quot;: 1})
+</code></pre>
+
+<h4 id="513-task-execution-collection">5.1.3 Task Execution Collection<a class="headerlink" href="#513-task-execution-collection" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-javascript">{
+  &quot;_id&quot;: ObjectId,
+  &quot;task_request_id&quot;: &quot;task_req_789012&quot;,
+  &quot;description&quot;: &quot;Block malicious IP&quot;,
+  &quot;logo_path&quot;: &quot;lib/logo/firewall.png&quot;,
+  &quot;tenant_code&quot;: &quot;tenant123&quot;,
+  &quot;name&quot;: &quot;Block IP Address&quot;,
+  &quot;app_name&quot;: &quot;Palo Alto Firewall&quot;,
+  &quot;task_id&quot;: 301,
+  &quot;user_id&quot;: 2001,
+  &quot;username&quot;: &quot;security_analyst&quot;,
+  &quot;input&quot;: &quot;...&quot;,                        // Serialized input data
+  &quot;processed&quot;: &quot;y&quot;,                      // y, n
+  &quot;created_date&quot;: 1694443200000,
+  &quot;updated_date&quot;: 1694443300000,
+  &quot;tasks_tag&quot;: &quot;palo_alto_block_ip&quot;,
+  &quot;rest_url&quot;: &quot;https://firewall.api/block&quot;,
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;alert_id&quot;: 50001,
+  &quot;integration_id&quot;: 15,
+  &quot;instance_id&quot;: 150,
+  &quot;task_handler&quot;: &quot;palo_alto&quot;,
+  &quot;response&quot;: &quot;...&quot;,                     // Serialized response
+  &quot;is_demo&quot;: false,
+  &quot;peid&quot;: &quot;pb_exec_123456&quot;,              // Playbook execution ID
+  &quot;task_peid&quot;: &quot;&quot;,                       // Sub-playbook execution ID
+  &quot;task_seq&quot;: 3,
+  &quot;is_condition&quot;: &quot;n&quot;,
+  &quot;task_condition&quot;: &quot;&quot;,
+  &quot;condition_operator&quot;: &quot;&quot;,
+  &quot;is_evidence&quot;: &quot;n&quot;,
+  &quot;status&quot;: &quot;completed&quot;,                 // not_started, inprogress, completed, failed
+  &quot;playbook_id&quot;: &quot;1001&quot;,
+  &quot;instance_name&quot;: &quot;Production Firewall&quot;,
+  &quot;indicator_type&quot;: &quot;ip&quot;,
+  &quot;task_response_time_stamp&quot;: 1694443300000,
+  &quot;reputation&quot;: &quot;malicious&quot;,
+  &quot;category&quot;: &quot;network_security&quot;,
+  &quot;function_name&quot;: &quot;block_ip_address&quot;,
+  &quot;filename&quot;: &quot;palo_alto_tasks.py&quot;,
+  &quot;credentials_required&quot;: true,
+  &quot;task_operator_id&quot;: &quot;op_001&quot;,
+  &quot;indicator&quot;: &quot;192.168.1.100&quot;,
+  &quot;case_description&quot;: &quot;Malware infection detected&quot;,
+  &quot;type&quot;: &quot;integration&quot;,
+  &quot;command&quot;: &quot;&quot;,
+  &quot;generic&quot;: false,
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;,
+    &quot;Authorization&quot;: &quot;Bearer token123&quot;
+  },
+  &quot;content_type&quot;: &quot;application/json&quot;,
+  &quot;request_body&quot;: &quot;...&quot;,
+  &quot;request_type&quot;: &quot;POST&quot;,
+  &quot;task_type&quot;: &quot;blocking&quot;,
+  &quot;custom_task_name&quot;: &quot;&quot;,
+  &quot;playbook_name&quot;: &quot;Malware Response&quot;,
+  &quot;node_id&quot;: &quot;docker_node_1&quot;,
+  &quot;iterate_task&quot;: false,
+  &quot;iteration_config&quot;: &quot;&quot;,
+  &quot;execution_status&quot;: &quot;completed&quot;,
+  &quot;shard_bucket&quot;: 1
+}
+// Indexes
+db.task_execution_collection.createIndex({&quot;peid&quot;: 1, &quot;task_seq&quot;: 1})
+db.task_execution_collection.createIndex({&quot;tenant_code&quot;: 1, &quot;alert_id&quot;: 1})
+db.task_execution_collection.createIndex({&quot;processed&quot;: 1, &quot;created_date&quot;: 1})
+db.task_execution_collection.createIndex({&quot;shard_bucket&quot;: 1})
+</code></pre>
+
+<h4 id="514-stopped-tasks-collection">5.1.4 Stopped Tasks Collection<a class="headerlink" href="#514-stopped-tasks-collection" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-javascript">{
+  &quot;_id&quot;: ObjectId,
+  &quot;case_id&quot;: &quot;50001&quot;,
+  &quot;peid&quot;: &quot;pb_exec_123456&quot;,
+  &quot;task_seq&quot;: 5,
+  &quot;routine&quot;: &quot;MAIN&quot;,                     // MAIN, SUB
+  &quot;task_name&quot;: &quot;Block IP Address&quot;,
+  &quot;status&quot;: &quot;stopped&quot;                    // stopped, resumed
+}
+// Indexes
+db.stopped_tasks_collection.createIndex({&quot;peid&quot;: 1, &quot;case_id&quot;: 1, &quot;status&quot;: 1})
+</code></pre>
+
+<h3 id="52-data-relationships">5.2 Data Relationships<a class="headerlink" href="#52-data-relationships" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 erDiagram
-    PLAYBOOK_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : "executes"
-    PLAYBOOK_EXECUTION_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : "contains"
-    PLAYBOOK_EXECUTION_COLLECTION ||--o{ STOPPED_TASKS_COLLECTION : "may_have"
-    INCIDENTS_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : "triggers"
-    TASK_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : "defines"
-    INTEGRATION_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : "provides"
-    INSTANCE_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : "executes_on"
+    PLAYBOOK_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : executes
+    PLAYBOOK_EXECUTION_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : contains
+    PLAYBOOK_EXECUTION_COLLECTION ||--o{ STOPPED_TASKS_COLLECTION : may_have
+    INCIDENTS_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : triggers
+    TASK_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : defines
+    INTEGRATION_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : provides
+    INSTANCE_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : executes_on
 </div>
-<p>---</p>
-<h2>6. API Specifications</h2>
-<h3>6.1 Playbook Management APIs</h3>
-<h4>6.1.1 Create Playbook</h4>
-<pre><code class="language-http">POST /createplaybook/
-<p>Content-Type: application/json</p>
-<p>Authorization: Bearer {jwt_token}</p>
-<p>Request Body:</p>
-<p>{</p>
-<p>  "name": "Malware Response Playbook",</p>
-<p>  "description": "Automated response to malware incidents",</p>
-<p>  "definition": "...",                    // JSON string</p>
-<p>  "chart_definition": "...",              // Visual representation</p>
-<p>  "category_id": 5,</p>
-<p>  "type": "case",</p>
-<p>  "tenant_code": "tenant123",</p>
-<p>  "user_id": 1001,</p>
-<p>  "version": "1.0.0",</p>
-<p>  "is_parallel_playbook": true,</p>
-<p>  "total_tasks_count": 15,</p>
-<p>  "total_utils_count": 3</p>
-<p>}</p>
-<p>Response:</p>
-<p>{</p>
-<p>  "success": true,</p>
-<p>  "data": {</p>
-<p>    "playbook_id": 1001,</p>
-<p>    "filename": "1001_tenant123.json",</p>
-<p>    "commit_id": "abc123"</p>
-<p>  },</p>
-<p>  "error": "",</p>
-<p>  "displayMessage": "Playbook created successfully",</p>
-<p>  "time": 1694443200000</p>
-<p>}</p>
-<p>Validation Rules:</p>
-<ul>
-<li>name: Required, max 255 chars, unique per tenant</li>
-<li>description: Optional, max 1000 chars</li>
-<li>definition: Required, valid JSON</li>
-<li>category_id: Required, must exist</li>
-<li>type: Required, enum [case, indicator]</li>
-<li>tenant_code: Required, valid tenant</li>
-<li>user_id: Required, valid user</code></pre></li>
-</ul>
-<h4>6.1.2 Run Playbook</h4>
-<pre><code class="language-http">POST /runplaybook/
-<p>Content-Type: application/json</p>
-<p>Authorization: Bearer {jwt_token}</p>
-<p>Request Body:</p>
-<p>{</p>
-<p>  "tenantcode": "tenant123",</p>
-<p>  "playbook_name": "Malware Response Playbook",</p>
-<p>  "case_id": "50001",</p>
-<p>  "is_bot": "false",</p>
-<p>  "uid": "1001",</p>
-<p>  "username": "security_analyst",</p>
-<p>  "type": "case",</p>
-<p>  "indicator": "192.168.1.100",</p>
-<p>  "playbook_execution_id": "",           // For resume</p>
-<p>  "resume_playbook": "false"</p>
-<p>}</p>
-<p>Response:</p>
-<p>{</p>
-<p>  "success": true,</p>
-<p>  "data": {</p>
-<p>    "playbook_execution_id": "pb_exec_123456",</p>
-<p>    "status": "inprogress",</p>
-<p>    "total_tasks": 15,</p>
-<p>    "estimated_duration": 300000         // milliseconds</p>
-<p>  },</p>
-<p>  "error": "",</p>
-<p>  "displayMessage": "Playbook execution started",</p>
-<p>  "time": 1694443200000</p>
-<p>}</p>
-<p>Validation Rules:</p>
-<ul>
-<li>tenantcode: Required, valid tenant</li>
-<li>playbook_name: Required, must exist and be active</li>
-<li>case_id: Required for type=case</li>
-<li>uid: Required, valid user</li>
-<li>type: Required, enum [case, indicator]</li>
-<li>indicator: Required for type=indicator</code></pre></li>
-</ul>
-<h3>6.2 Task Management APIs</h3>
-<h4>6.2.1 Run Single Task</h4>
-<pre><code class="language-http">POST /runtask/
-<p>Content-Type: application/json</p>
-<p>Authorization: Bearer {jwt_token}</p>
-<p>Request Body:</p>
-<p>{</p>
-<p>  "task_id": 301,</p>
-<p>  "tenant_code": "tenant123",</p>
-<p>  "case_id": 50001,</p>
-<p>  "user_id": 1001,</p>
-<p>  "input_fields": [</p>
-<p>    {</p>
-<p>      "name": "ip_address",</p>
-<p>      "value": "192.168.1.100",</p>
-<p>      "type": "string"</p>
-<p>    }</p>
-<p>  ],</p>
-<p>  "instance_id": 150,</p>
-<p>  "is_demo": false</p>
-<p>}</p>
-<p>Response:</p>
-<p>{</p>
-<p>  "success": true,</p>
-<p>  "data": {</p>
-<p>    "task_request_id": "task_req_789012",</p>
-<p>    "status": "inprogress"</p>
-<p>  },</p>
-<p>  "error": "",</p>
-<p>  "displayMessage": "Task execution started",</p>
-<p>  "time": 1694443200000</p>
-<p>}</code></pre></p>
-<h3>6.3 Error Response Format</h3>
-<pre><code class="language-json">{
-<p>  "success": false,</p>
-<p>  "data": null,</p>
-<p>  "error": "Invalid playbook configuration",</p>
-<p>  "displayMessage": "The playbook contains invalid task definitions",</p>
-<p>  "errorPath": "ExecutionController.ProcessAndExecuteTask",</p>
-<p>  "status": "failed",</p>
-<p>  "time": 1694443200000</p>
-<p>}</code></pre></p>
-<p>---</p>
-<h2>7. Algorithm Specifications</h2>
-<h3>7.1 Parallel Task Execution Algorithm</h3>
-<pre><code class="language-go">func (executionController <em>PlaybookExecutionController) executeParallelTasks(
-<p>    tasks []executionModels.PlayBookTask,</p>
-<p>    dockerNodeID string,</p>
-<p>    mongodbSession mongo_driver.MongoClientWrapper,</p>
-<p>    coreMongodbSession mongo_driver.MongoClientWrapper,</p>
-<p>    configObject config.ConfigStruct,</p>
-<p>    dbSession map[string]common.SessionStruct,</p>
-<p>) error {</p>
-    
-<p>    var wg sync.WaitGroup</p>
-<p>    var mutex sync.Mutex</p>
-<p>    errorChan := make(chan error, len(tasks))</p>
-<p>    panicChan := make(chan interface{}, len(tasks))</p>
-<p>    ctx, cancel := context.WithCancel(context.Background())</p>
-<p>    defer cancel()</p>
-    
-<p>    // Create stop lookup channel</p>
-<p>    stopLookup := make(chan bool, 1)</p>
-<p>    var lookupWg sync.WaitGroup</p>
-<p>    lookupWg.Add(1)</p>
-    
-<p>    // Start stop lookup goroutine</p>
-<p>    go func() {</p>
-<p>        defer lookupWg.Done()</p>
-<p>        ticker := time.NewTicker(2 </em> time.Second)</p>
-<p>        defer ticker.Stop()</p>
-        
-<p>        for {</p>
-<p>            select {</p>
-<p>            case <-stopLookup:</p>
-<p>                return</p>
-<p>            case <-ticker.C:</p>
-<p>                // Check if playbook should be stopped</p>
-<p>                if executionController.checkStopCondition() {</p>
-<p>                    cancel()</p>
-<p>                    return</p>
-<p>                }</p>
-<p>            }</p>
-<p>        }</p>
-<p>    }()</p>
-    
-<p>    // Execute tasks in parallel</p>
-<p>    for i, task := range tasks {</p>
-<p>        wg.Add(1)</p>
-<p>        go func(taskIndex int, t executionModels.PlayBookTask) {</p>
-<p>            defer wg.Done()</p>
-<p>            defer func() {</p>
-<p>                if r := recover(); r != nil {</p>
-<p>                    panicChan <- r</p>
-<p>                }</p>
-<p>            }()</p>
-            
-<p>            select {</p>
-<p>            case <-ctx.Done():</p>
-<p>                // Context cancelled, stop execution</p>
-<p>                return</p>
-<p>            default:</p>
-<p>                // Execute task</p>
-<p>                err := executionController.ProcessAndExecuteTask(</p>
-<p>                    t.TaskSeq,</p>
-<p>                    dockerNodeID,</p>
-<p>                    mongodbSession,</p>
-<p>                    coreMongodbSession,</p>
-<p>                    configObject,</p>
-<p>                    dbSession,</p>
-<p>                    &wg,</p>
-<p>                    "PARALLEL",</p>
-<p>                    ctx,</p>
-<p>                    panicChan,</p>
-<p>                )</p>
-                
-<p>                if err != nil {</p>
-<p>                    mutex.Lock()</p>
-<p>                    select {</p>
-<p>                    case errorChan <- err:</p>
-<p>                    default:</p>
-<p>                    }</p>
-<p>                    mutex.Unlock()</p>
-                    
-<p>                    if t.StopOnError {</p>
-<p>                        cancel() // Stop all parallel tasks</p>
-<p>                    }</p>
-<p>                }</p>
-<p>            }</p>
-<p>        }(i, task)</p>
-<p>    }</p>
-    
-<p>    // Wait for all tasks to complete</p>
-<p>    wg.Wait()</p>
-    
-<p>    // Stop the lookup goroutine</p>
-<p>    close(stopLookup)</p>
-<p>    lookupWg.Wait()</p>
-    
-<p>    // Check for errors</p>
-<p>    close(errorChan)</p>
-<p>    for err := range errorChan {</p>
-<p>        if err != nil {</p>
-<p>            return err</p>
-<p>        }</p>
-<p>    }</p>
-    
-<p>    // Check for panics</p>
-<p>    close(panicChan)</p>
-<p>    for panic := range panicChan {</p>
-<p>        if panic != nil {</p>
-<p>            return fmt.Errorf("panic in task execution: %v", panic)</p>
-<p>        }</p>
-<p>    }</p>
-    
-<p>    return nil</p>
-<p>}</code></pre></p>
-<h3>7.2 Condition Evaluation Algorithm</h3>
-<pre><code class="language-go">func (cc <em>ConditionController) evaluateConditions(
-<p>    conditions []executionModels.PlayBookCondition,</p>
-<p>    conditionOperator string,</p>
-<p>    alertData models.RunPlayBookRequest2,</p>
-<p>    executedConditions []executionModels.ExecutedConditionStatus,</p>
-<p>) (bool, error) {</p>
-    
-<p>    if len(conditions) == 0 {</p>
-<p>        return true, nil</p>
-<p>    }</p>
-    
-<p>    var results []bool</p>
-    
-<p>    for _, condition := range conditions {</p>
-<p>        result, err := cc.evaluateSingleCondition(</p>
-<p>            condition,</p>
-<p>            alertData,</p>
-<p>            executedConditions,</p>
-<p>        )</p>
-<p>        if err != nil {</p>
-<p>            return false, err</p>
-<p>        }</p>
-<p>        results = append(results, result)</p>
-<p>    }</p>
-    
-<p>    // Apply logical operator</p>
-<p>    switch strings.ToLower(conditionOperator) {</p>
-<p>    case "and":</p>
-<p>        return cc.applyAndOperator(results), nil</p>
-<p>    case "or":</p>
-<p>        return cc.applyOrOperator(results), nil</p>
-<p>    default:</p>
-<p>        return false, fmt.Errorf("unsupported condition operator: %s", conditionOperator)</p>
-<p>    }</p>
-<p>}</p>
-<p>func (cc </em>ConditionController) evaluateSingleCondition(</p>
-<p>    condition executionModels.PlayBookCondition,</p>
-<p>    alertData models.RunPlayBookRequest2,</p>
-<p>    executedConditions []executionModels.ExecutedConditionStatus,</p>
-<p>) (bool, error) {</p>
-    
-<p>    // Get field value from case data or previous task response</p>
-<p>    var fieldValue interface{}</p>
-<p>    var err error</p>
-    
-<p>    if condition.ConditionKeyValue != nil {</p>
-<p>        // Static value condition</p>
-<p>        fieldValue = condition.ConditionKeyValue</p>
-<p>    } else if condition.TaskName != "" {</p>
-<p>        // Previous task response condition</p>
-<p>        fieldValue, err = cc.getPreviousTaskResponse(</p>
-<p>            condition.TaskName,</p>
-<p>            condition.ConditionKey,</p>
-<p>            executedConditions,</p>
-<p>        )</p>
-<p>        if err != nil {</p>
-<p>            return false, err</p>
-<p>        }</p>
-<p>    } else {</p>
-<p>        // Case field condition</p>
-<p>        fieldValue = utils.GetFieldValue(alertData, condition.ConditionKey)</p>
-<p>    }</p>
-    
-<p>    // Evaluate condition</p>
-<p>    return utils.MatchCondition(</p>
-<p>        fieldValue,</p>
-<p>        condition.ConditionType,</p>
-<p>        condition.ConditionValue,</p>
-<p>    )</p>
-<p>}</p>
-<p>func (cc <em>ConditionController) applyAndOperator(results []bool) bool {</p>
-<p>    for _, result := range results {</p>
-<p>        if !result {</p>
-<p>            return false</p>
-<p>        }</p>
-<p>    }</p>
-<p>    return true</p>
-<p>}</p>
-<p>func (cc </em>ConditionController) applyOrOperator(results []bool) bool {</p>
-<p>    for _, result := range results {</p>
-<p>        if result {</p>
-<p>            return true</p>
-<p>        }</p>
-<p>    }</p>
-<p>    return false</p>
-<p>}</code></pre></p>
-<h3>7.3 Cache Management Algorithm</h3>
-<pre><code class="language-go">type CacheManager struct {
-<p>    redisClient   <em>redis.Client</p>
-<p>    localCache    </em>sync.Map</p>
-<p>    ttlMap        <em>sync.Map</p>
-<p>    mutex         sync.RWMutex</p>
-<p>    cleanupTicker </em>time.Ticker</p>
-<p>}</p>
-<p>func (cm <em>CacheManager) Get(key string) (interface{}, bool) {</p>
-<p>    cm.mutex.RLock()</p>
-<p>    defer cm.mutex.RUnlock()</p>
-    
-<p>    // Check local cache first</p>
-<p>    if value, exists := cm.localCache.Load(key); exists {</p>
-<p>        // Check TTL</p>
-<p>        if ttl, ok := cm.ttlMap.Load(key); ok {</p>
-<p>            if time.Now().Unix() > ttl.(int64) {</p>
-<p>                cm.localCache.Delete(key)</p>
-<p>                cm.ttlMap.Delete(key)</p>
-<p>                return nil, false</p>
-<p>            }</p>
-<p>            return value, true</p>
-<p>        }</p>
-<p>    }</p>
-    
-<p>    // Fall back to Redis</p>
-<p>    result, err := cm.redisClient.Get(key).Result()</p>
-<p>    if err != nil {</p>
-<p>        return nil, false</p>
-<p>    }</p>
-    
-<p>    // Parse and cache locally</p>
-<p>    var value interface{}</p>
-<p>    json.Unmarshal([]byte(result), &value)</p>
-<p>    cm.localCache.Store(key, value)</p>
-    
-<p>    return value, true</p>
-<p>}</p>
-<p>func (cm </em>CacheManager) Set(key string, value interface{}, ttl time.Duration) error {</p>
-<p>    cm.mutex.Lock()</p>
-<p>    defer cm.mutex.Unlock()</p>
-    
-<p>    // Store in local cache</p>
-<p>    cm.localCache.Store(key, value)</p>
-    
-<p>    if ttl > 0 {</p>
-<p>        expiryTime := time.Now().Add(ttl).Unix()</p>
-<p>        cm.ttlMap.Store(key, expiryTime)</p>
-<p>    }</p>
-    
-<p>    // Store in Redis</p>
-<p>    data, err := json.Marshal(value)</p>
-<p>    if err != nil {</p>
-<p>        return err</p>
-<p>    }</p>
-    
-<p>    return cm.redisClient.Set(key, data, ttl).Err()</p>
-<p>}</p>
-<p>func (cm <em>CacheManager) startCleanupRoutine() {</p>
-<p>    cm.cleanupTicker = time.NewTicker(5 </em> time.Minute)</p>
-    
-<p>    go func() {</p>
-<p>        for range cm.cleanupTicker.C {</p>
-<p>            now := time.Now().Unix()</p>
-<p>            cm.ttlMap.Range(func(key, value interface{}) bool {</p>
-<p>                if now > value.(int64) {</p>
-<p>                    cm.localCache.Delete(key)</p>
-<p>                    cm.ttlMap.Delete(key)</p>
-<p>                }</p>
-<p>                return true</p>
-<p>            })</p>
-<p>        }</p>
-<p>    }()</p>
-<p>}</code></pre></p>
-<p>---</p>
-<h2>8. Configuration Management</h2>
-<h3>8.1 Configuration Structure</h3>
-<pre><code class="language-go">type ConfigStruct struct {
-<p>    DatabaseConfig    DatabaseConfig    <code>json:"database"</code></p>
-<p>    RedisConfig       RedisConfig       <code>json:"redis"</code></p>
-<p>    DockerConfig      DockerConfig      <code>json:"docker"</code></p>
-<p>    SecurityConfig    SecurityConfig    <code>json:"security"</code></p>
-<p>    LoggingConfig     LoggingConfig     <code>json:"logging"</code></p>
-<p>    IntegrationConfig IntegrationConfig <code>json:"integration"</code></p>
-<p>}</p>
-<p>type DatabaseConfig struct {</p>
-<p>    MongoURI        string <code>json:"mongo_uri"</code></p>
-<p>    DatabaseName    string <code>json:"database_name"</code></p>
-<p>    MaxPoolSize     int    <code>json:"max_pool_size"</code></p>
-<p>    MinPoolSize     int    <code>json:"min_pool_size"</code></p>
-<p>    MaxIdleTime     int    <code>json:"max_idle_time"</code></p>
-<p>    ConnectTimeout  int    <code>json:"connect_timeout"</code></p>
-<p>    ShardBucketCount int   <code>json:"shard_bucket_count"</code></p>
-<p>}</p>
-<p>type RedisConfig struct {</p>
-<p>    Host            string <code>json:"host"</code></p>
-<p>    Port            int    <code>json:"port"</code></p>
-<p>    Password        string <code>json:"password"</code></p>
-<p>    Database        int    <code>json:"database"</code></p>
-<p>    MaxRetries      int    <code>json:"max_retries"</code></p>
-<p>    PoolSize        int    <code>json:"pool_size"</code></p>
-<p>    IdleTimeout     int    <code>json:"idle_timeout"</code></p>
-<p>}</p>
-<p>type SecurityConfig struct {</p>
-<p>    JWTSecret           string <code>json:"jwt_secret"</code></p>
-<p>    SessionTimeout      int    <code>json:"session_timeout"</code></p>
-<p>    MaxLoginAttempts    int    <code>json:"max_login_attempts"</code></p>
-<p>    PasswordComplexity  bool   <code>json:"password_complexity"</code></p>
-<p>    EncryptionKey       string <code>json:"encryption_key"</code></p>
-<p>}</code></pre></p>
-<h3>8.2 Environment-Based Configuration</h3>
-<pre><code class="language-go">func LoadConfiguration() ConfigStruct {
-<p>    var config ConfigStruct</p>
-    
-<p>    // Load from environment variables</p>
-<p>    config.DatabaseConfig.MongoURI = getEnvOrDefault("MONGO_URI", "mongodb://localhost:27017")</p>
-<p>    config.DatabaseConfig.DatabaseName = getEnvOrDefault("DB_NAME", "zona_playbook")</p>
-<p>    config.DatabaseConfig.MaxPoolSize = getEnvIntOrDefault("DB_MAX_POOL_SIZE", 100)</p>
-    
-<p>    config.RedisConfig.Host = getEnvOrDefault("REDIS_HOST", "localhost")</p>
-<p>    config.RedisConfig.Port = getEnvIntOrDefault("REDIS_PORT", 6379)</p>
-<p>    config.RedisConfig.Password = getEnvOrDefault("REDIS_PASSWORD", "")</p>
-    
-<p>    config.SecurityConfig.JWTSecret = getEnvOrDefault("JWT_SECRET", "")</p>
-<p>    config.SecurityConfig.SessionTimeout = getEnvIntOrDefault("SESSION_TIMEOUT", 3600)</p>
-    
-<p>    // Load from config file if exists</p>
-<p>    if configFile := os.Getenv("CONFIG_FILE"); configFile != "" {</p>
-<p>        loadFromFile(&config, configFile)</p>
-<p>    }</p>
-    
-<p>    // Validate configuration</p>
-<p>    if err := validateConfig(config); err != nil {</p>
-<p>        log.Fatal("Invalid configuration:", err)</p>
-<p>    }</p>
-    
-<p>    return config</p>
-<p>}</p>
-<p>func validateConfig(config ConfigStruct) error {</p>
-<p>    if config.DatabaseConfig.MongoURI == "" {</p>
-<p>        return errors.New("mongo_uri is required")</p>
-<p>    }</p>
-    
-<p>    if config.SecurityConfig.JWTSecret == "" {</p>
-<p>        return errors.New("jwt_secret is required")</p>
-<p>    }</p>
-    
-<p>    if config.DatabaseConfig.MaxPoolSize <= 0 {</p>
-<p>        return errors.New("max_pool_size must be positive")</p>
-<p>    }</p>
-    
-<p>    return nil</p>
-<p>}</code></pre></p>
-<p>---</p>
-<h2>9. Error Handling Implementation</h2>
-<h3>9.1 Error Types and Hierarchy</h3>
-<pre><code class="language-go">type ErrorType string
-<p>const (</p>
-<p>    ValidationError    ErrorType = "VALIDATION_ERROR"</p>
-<p>    DatabaseError      ErrorType = "DATABASE_ERROR"</p>
-<p>    IntegrationError   ErrorType = "INTEGRATION_ERROR"</p>
-<p>    AuthenticationError ErrorType = "AUTHENTICATION_ERROR"</p>
-<p>    AuthorizationError ErrorType = "AUTHORIZATION_ERROR"</p>
-<p>    BusinessLogicError ErrorType = "BUSINESS_LOGIC_ERROR"</p>
-<p>    SystemError        ErrorType = "SYSTEM_ERROR"</p>
-<p>    NetworkError       ErrorType = "NETWORK_ERROR"</p>
-<p>)</p>
-<p>type ServiceError struct {</p>
-<p>    Type        ErrorType <code>json:"type"</code></p>
-<p>    Code        string    <code>json:"code"</code></p>
-<p>    Message     string    <code>json:"message"</code></p>
-<p>    Details     string    <code>json:"details"</code></p>
-<p>    Timestamp   int64     <code>json:"timestamp"</code></p>
-<p>    RequestID   string    <code>json:"request_id"</code></p>
-<p>    UserID      int       <code>json:"user_id"</code></p>
-<p>    TenantCode  string    <code>json:"tenant_code"</code></p>
-<p>    StackTrace  string    <code>json:"stack_trace,omitempty"</code></p>
-<p>    Cause       error     <code>json:"-"</code></p>
-<p>}</p>
-<p>func (e <em>ServiceError) Error() string {</p>
-<p>    return fmt.Sprintf("[%s] %s: %s", e.Type, e.Code, e.Message)</p>
-<p>}</p>
-<p>func NewServiceError(errorType ErrorType, code string, message string) </em>ServiceError {</p>
-<p>    return &ServiceError{</p>
-<p>        Type:      errorType,</p>
-<p>        Code:      code,</p>
-<p>        Message:   message,</p>
-<p>        Timestamp: time.Now().UnixMilli(),</p>
-<p>    }</p>
-<p>}</code></pre></p>
-<h3>9.2 Error Handler Implementation</h3>
-<pre><code class="language-go">func HandleError(err error, context string) models.Response {
-<p>    var response models.Response</p>
-<p>    response.Success = false</p>
-<p>    response.Time = time.Now().UnixMilli()</p>
-    
-<p>    if serviceErr, ok := err.(<em>ServiceError); ok {</p>
-<p>        response.Error = serviceErr.Message</p>
-<p>        response.ErrorPath = context</p>
-<p>        response.Status = string(serviceErr.Type)</p>
-        
-<p>        // Log structured error</p>
-<p>        logger.Error("Service Error", </p>
-<p>            "type", serviceErr.Type,</p>
-<p>            "code", serviceErr.Code,</p>
-<p>            "message", serviceErr.Message,</p>
-<p>            "context", context,</p>
-<p>            "timestamp", serviceErr.Timestamp,</p>
-<p>        )</p>
-        
-<p>        // Determine appropriate HTTP status</p>
-<p>        switch serviceErr.Type {</p>
-<p>        case ValidationError:</p>
-<p>            response.DisplayMessage = "Invalid input provided"</p>
-<p>        case AuthenticationError:</p>
-<p>            response.DisplayMessage = "Authentication required"</p>
-<p>        case AuthorizationError:</p>
-<p>            response.DisplayMessage = "Access denied"</p>
-<p>        case DatabaseError:</p>
-<p>            response.DisplayMessage = "Data operation failed"</p>
-<p>        case IntegrationError:</p>
-<p>            response.DisplayMessage = "External service unavailable"</p>
-<p>        default:</p>
-<p>            response.DisplayMessage = "An unexpected error occurred"</p>
-<p>        }</p>
-<p>    } else {</p>
-<p>        // Handle generic errors</p>
-<p>        response.Error = err.Error()</p>
-<p>        response.ErrorPath = context</p>
-<p>        response.Status = "error"</p>
-<p>        response.DisplayMessage = "An unexpected error occurred"</p>
-        
-<p>        logger.Error("Unhandled Error", </p>
-<p>            "error", err.Error(),</p>
-<p>            "context", context,</p>
-<p>        )</p>
-<p>    }</p>
-    
-<p>    return response</p>
-<p>}</code></pre></p>
-<h3>9.3 Retry Mechanism</h3>
-<pre><code class="language-go">type RetryConfig struct {
-<p>    MaxAttempts   int           <code>json:"max_attempts"</code></p>
-<p>    InitialDelay  time.Duration <code>json:"initial_delay"</code></p>
-<p>    MaxDelay      time.Duration <code>json:"max_delay"</code></p>
-<p>    BackoffFactor float64       <code>json:"backoff_factor"</code></p>
-<p>    RetryableErrors []ErrorType <code>json:"retryable_errors"</code></p>
-<p>}</p>
-<p>func RetryWithBackoff(</p>
-<p>    operation func() error,</p>
-<p>    config RetryConfig,</p>
-<p>) error {</p>
-<p>    var lastErr error</p>
-<p>    delay := config.InitialDelay</p>
-    
-<p>    for attempt := 1; attempt <= config.MaxAttempts; attempt++ {</p>
-<p>        err := operation()</p>
-<p>        if err == nil {</p>
-<p>            return nil</p>
-<p>        }</p>
-        
-<p>        lastErr = err</p>
-        
-<p>        // Check if error is retryable</p>
-<p>        if serviceErr, ok := err.(</em>ServiceError); ok {</p>
-<p>            retryable := false</p>
-<p>            for _, retryableType := range config.RetryableErrors {</p>
-<p>                if serviceErr.Type == retryableType {</p>
-<p>                    retryable = true</p>
-<p>                    break</p>
-<p>                }</p>
-<p>            }</p>
-<p>            if !retryable {</p>
-<p>                return err</p>
-<p>            }</p>
-<p>        }</p>
-        
-<p>        if attempt < config.MaxAttempts {</p>
-<p>            logger.Warn("Operation failed, retrying",</p>
-<p>                "attempt", attempt,</p>
-<p>                "max_attempts", config.MaxAttempts,</p>
-<p>                "delay", delay,</p>
-<p>                "error", err.Error(),</p>
-<p>            )</p>
-            
-<p>            time.Sleep(delay)</p>
-            
-<p>            // Calculate next delay with exponential backoff</p>
-<p>            delay = time.Duration(float64(delay) <em> config.BackoffFactor)</p>
-<p>            if delay > config.MaxDelay {</p>
-<p>                delay = config.MaxDelay</p>
-<p>            }</p>
-<p>        }</p>
-<p>    }</p>
-    
-<p>    return fmt.Errorf("operation failed after %d attempts: %w", </p>
-<p>        config.MaxAttempts, lastErr)</p>
-<p>}</code></pre></p>
-<p>---</p>
-<h2>10. Concurrency & Thread Safety</h2>
-<h3>10.1 Task Map Thread Safety</h3>
-<pre><code class="language-go">type ThreadSafeTaskMap struct {
-<p>    tasks map[int]executionModels.PlayBookTask</p>
-<p>    mutex sync.RWMutex</p>
-<p>}</p>
-<p>func NewThreadSafeTaskMap() </em>ThreadSafeTaskMap {</p>
-<p>    return &ThreadSafeTaskMap{</p>
-<p>        tasks: make(map[int]executionModels.PlayBookTask),</p>
-<p>    }</p>
-<p>}</p>
-<p>func (tsm <em>ThreadSafeTaskMap) Set(taskSeq int, task executionModels.PlayBookTask) {</p>
-<p>    tsm.mutex.Lock()</p>
-<p>    defer tsm.mutex.Unlock()</p>
-<p>    tsm.tasks[taskSeq] = task</p>
-<p>}</p>
-<p>func (tsm </em>ThreadSafeTaskMap) Get(taskSeq int) (executionModels.PlayBookTask, bool) {</p>
-<p>    tsm.mutex.RLock()</p>
-<p>    defer tsm.mutex.RUnlock()</p>
-<p>    task, exists := tsm.tasks[taskSeq]</p>
-<p>    return task, exists</p>
-<p>}</p>
-<p>func (tsm <em>ThreadSafeTaskMap) GetAll() map[int]executionModels.PlayBookTask {</p>
-<p>    tsm.mutex.RLock()</p>
-<p>    defer tsm.mutex.RUnlock()</p>
-    
-<p>    // Create a copy to avoid external modifications</p>
-<p>    copy := make(map[int]executionModels.PlayBookTask)</p>
-<p>    for k, v := range tsm.tasks {</p>
-<p>        copy[k] = v</p>
-<p>    }</p>
-<p>    return copy</p>
-<p>}</p>
-<p>func (tsm </em>ThreadSafeTaskMap) Delete(taskSeq int) {</p>
-<p>    tsm.mutex.Lock()</p>
-<p>    defer tsm.mutex.Unlock()</p>
-<p>    delete(tsm.tasks, taskSeq)</p>
-<p>}</code></pre></p>
-<h3>10.2 Channel-Based Communication</h3>
-<pre><code class="language-go">type TaskChannel struct {
-<p>    taskQueue    chan executionModels.PlayBookTask</p>
-<p>    resultQueue  chan TaskResult</p>
-<p>    errorQueue   chan error</p>
-<p>    stopSignal   chan struct{}</p>
-<p>    workerCount  int</p>
-<p>    wg           sync.WaitGroup</p>
-<p>}</p>
-<p>type TaskResult struct {</p>
-<p>    TaskSeq  int</p>
-<p>    Success  bool</p>
-<p>    Response string</p>
-<p>    Error    error</p>
-<p>}</p>
-<p>func NewTaskChannel(bufferSize, workerCount int) <em>TaskChannel {</p>
-<p>    return &TaskChannel{</p>
-<p>        taskQueue:   make(chan executionModels.PlayBookTask, bufferSize),</p>
-<p>        resultQueue: make(chan TaskResult, bufferSize),</p>
-<p>        errorQueue:  make(chan error, bufferSize),</p>
-<p>        stopSignal:  make(chan struct{}),</p>
-<p>        workerCount: workerCount,</p>
-<p>    }</p>
-<p>}</p>
-<p>func (tc </em>TaskChannel) Start() {</p>
-<p>    for i := 0; i < tc.workerCount; i++ {</p>
-<p>        tc.wg.Add(1)</p>
-<p>        go tc.worker(i)</p>
-<p>    }</p>
-<p>}</p>
-<p>func (tc <em>TaskChannel) worker(workerID int) {</p>
-<p>    defer tc.wg.Done()</p>
-    
-<p>    for {</p>
-<p>        select {</p>
-<p>        case task := <-tc.taskQueue:</p>
-<p>            result := tc.executeTask(task)</p>
-<p>            tc.resultQueue <- result</p>
-            
-<p>        case <-tc.stopSignal:</p>
-<p>            logger.Info("Worker stopping", "worker_id", workerID)</p>
-<p>            return</p>
-<p>        }</p>
-<p>    }</p>
-<p>}</p>
-<p>func (tc </em>TaskChannel) SubmitTask(task executionModels.PlayBookTask) {</p>
-<p>    select {</p>
-<p>    case tc.taskQueue <- task:</p>
-<p>        // Task submitted successfully</p>
-<p>    case <-time.After(5 <em> time.Second):</p>
-<p>        logger.Error("Task submission timeout", "task_seq", task.TaskSeq)</p>
-<p>    }</p>
-<p>}</p>
-<p>func (tc </em>TaskChannel) Stop() {</p>
-<p>    close(tc.stopSignal)</p>
-<p>    tc.wg.Wait()</p>
-<p>    close(tc.taskQueue)</p>
-<p>    close(tc.resultQueue)</p>
-<p>    close(tc.errorQueue)</p>
-<p>}</code></pre></p>
-<h3>10.3 Context-Based Cancellation</h3>
-<pre><code class="language-go">func (executionController <em>PlaybookExecutionController) ProcessWithContext(
-<p>    ctx context.Context,</p>
-<p>    task executionModels.PlayBookTask,</p>
-<p>) error {</p>
-    
-<p>    // Create a derived context with timeout</p>
-<p>    taskCtx, cancel := context.WithTimeout(ctx, 5</em>time.Minute)</p>
-<p>    defer cancel()</p>
-    
-<p>    // Create result channel</p>
-<p>    resultChan := make(chan error, 1)</p>
-    
-<p>    // Execute task in goroutine</p>
-<p>    go func() {</p>
-<p>        defer func() {</p>
-<p>            if r := recover(); r != nil {</p>
-<p>                resultChan <- fmt.Errorf("task panicked: %v", r)</p>
-<p>            }</p>
-<p>        }()</p>
-        
-<p>        err := executionController.executeTaskInternal(taskCtx, task)</p>
-<p>        resultChan <- err</p>
-<p>    }()</p>
-    
-<p>    // Wait for completion or cancellation</p>
-<p>    select {</p>
-<p>    case err := <-resultChan:</p>
-<p>        return err</p>
-        
-<p>    case <-taskCtx.Done():</p>
-<p>        if taskCtx.Err() == context.DeadlineExceeded {</p>
-<p>            return NewServiceError(SystemError, "TASK_TIMEOUT", </p>
-<p>                fmt.Sprintf("Task %d timed out", task.TaskSeq))</p>
-<p>        }</p>
-<p>        return NewServiceError(SystemError, "TASK_CANCELLED", </p>
-<p>            fmt.Sprintf("Task %d was cancelled", task.TaskSeq))</p>
-<p>    }</p>
-<p>}</code></pre></p>
-<p>---</p>
-<h2>11. Performance Optimizations</h2>
-<h3>11.1 Connection Pool Management</h3>
-<pre><code class="language-go">type ConnectionPoolManager struct {
-<p>    mongoPool   <em>mongo.Client</p>
-<p>    redisPool   </em>redis.Client</p>
-<p>    httpPool    <em>http.Client</p>
-<p>    config      PoolConfig</p>
-<p>}</p>
-<p>type PoolConfig struct {</p>
-<p>    MongoMaxPoolSize    int</p>
-<p>    MongoMinPoolSize    int</p>
-<p>    MongoMaxIdleTime    time.Duration</p>
-<p>    RedisPoolSize       int</p>
-<p>    RedisIdleTimeout    time.Duration</p>
-<p>    HTTPMaxIdleConns    int</p>
-<p>    HTTPIdleConnTimeout time.Duration</p>
-<p>}</p>
-<p>func NewConnectionPoolManager(config PoolConfig) </em>ConnectionPoolManager {</p>
-<p>    // Configure MongoDB connection pool</p>
-<p>    mongoOpts := options.Client().</p>
-<p>        SetMaxPoolSize(uint64(config.MongoMaxPoolSize)).</p>
-<p>        SetMinPoolSize(uint64(config.MongoMinPoolSize)).</p>
-<p>        SetMaxConnIdleTime(config.MongoMaxIdleTime)</p>
-    
-<p>    mongoClient, _ := mongo.Connect(context.Background(), mongoOpts)</p>
-    
-<p>    // Configure Redis connection pool</p>
-<p>    redisClient := redis.NewClient(&redis.Options{</p>
-<p>        PoolSize:    config.RedisPoolSize,</p>
-<p>        IdleTimeout: config.RedisIdleTimeout,</p>
-<p>    })</p>
-    
-<p>    // Configure HTTP client pool</p>
-<p>    httpClient := &http.Client{</p>
-<p>        Transport: &http.Transport{</p>
-<p>            MaxIdleConns:        config.HTTPMaxIdleConns,</p>
-<p>            IdleConnTimeout:     config.HTTPIdleConnTimeout,</p>
-<p>            TLSHandshakeTimeout: 10 <em> time.Second,</p>
-<p>        },</p>
-<p>        Timeout: 30 </em> time.Second,</p>
-<p>    }</p>
-    
-<p>    return &ConnectionPoolManager{</p>
-<p>        mongoPool: mongoClient,</p>
-<p>        redisPool: redisClient,</p>
-<p>        httpPool:  httpClient,</p>
-<p>        config:    config,</p>
-<p>    }</p>
-<p>}</code></pre></p>
-<h3>11.2 Batch Operations</h3>
-<pre><code class="language-go">func (service <em>TaskService) BatchUpdateTaskStatus(
-<p>    updates []TaskStatusUpdate,</p>
-<p>) error {</p>
-<p>    const batchSize = 1000</p>
-    
-<p>    for i := 0; i < len(updates); i += batchSize {</p>
-<p>        end := i + batchSize</p>
-<p>        if end > len(updates) {</p>
-<p>            end = len(updates)</p>
-<p>        }</p>
-        
-<p>        batch := updates[i:end]</p>
-<p>        if err := service.processBatch(batch); err != nil {</p>
-<p>            return err</p>
-<p>        }</p>
-<p>    }</p>
-    
-<p>    return nil</p>
-<p>}</p>
-<p>func (service </em>TaskService) processBatch(batch []TaskStatusUpdate) error {</p>
-<p>    // Build bulk write operations</p>
-<p>    var operations []mongo.WriteModel</p>
-    
-<p>    for _, update := range batch {</p>
-<p>        filter := bson.M{"task_request_id": update.TaskRequestID}</p>
-<p>        updateDoc := bson.M{</p>
-<p>            "$set": bson.M{</p>
-<p>                "status":         update.Status,</p>
-<p>                "response":       update.Response,</p>
-<p>                "updated_date":   time.Now().UnixMilli(),</p>
-<p>            },</p>
-<p>        }</p>
-        
-<p>        operation := mongo.NewUpdateOneModel().</p>
-<p>            SetFilter(filter).</p>
-<p>            SetUpdate(updateDoc)</p>
-        
-<p>        operations = append(operations, operation)</p>
-<p>    }</p>
-    
-<p>    // Execute bulk write</p>
-<p>    opts := options.BulkWrite().SetOrdered(false)</p>
-<p>    _, err := service.collection.BulkWrite(</p>
-<p>        context.Background(),</p>
-<p>        operations,</p>
-<p>        opts,</p>
-<p>    )</p>
-    
-<p>    return err</p>
-<p>}</code></pre></p>
-<h3>11.3 Memory Management</h3>
-<pre><code class="language-go">type ObjectPool struct {
-<p>    pool sync.Pool</p>
-<p>}</p>
-<p>func NewObjectPool(factory func() interface{}) <em>ObjectPool {</p>
-<p>    return &ObjectPool{</p>
-<p>        pool: sync.Pool{</p>
-<p>            New: factory,</p>
-<p>        },</p>
-<p>    }</p>
-<p>}</p>
-<p>func (op </em>ObjectPool) Get() interface{} {</p>
-<p>    return op.pool.Get()</p>
-<p>}</p>
-<p>func (op <em>ObjectPool) Put(obj interface{}) {</p>
-<p>    op.pool.Put(obj)</p>
-<p>}</p>
-<p>// Example usage for task requests</p>
-<p>var taskRequestPool = NewObjectPool(func() interface{} {</p>
-<p>    return &models.TaskRequest{}</p>
-<p>})</p>
-<p>func ProcessTaskRequest(data []byte) error {</p>
-<p>    // Get object from pool</p>
-<p>    req := taskRequestPool.Get().(</em>models.TaskRequest)</p>
-<p>    defer taskRequestPool.Put(req)</p>
-    
-<p>    // Reset object state</p>
-<p>    <em>req = models.TaskRequest{}</p>
-    
-<p>    // Process request</p>
-<p>    if err := json.Unmarshal(data, req); err != nil {</p>
-<p>        return err</p>
-<p>    }</p>
-    
-<p>    // ... process request</p>
-    
-<p>    return nil</p>
-<p>}</code></pre></p>
-<p>---</p>
-<h2>12. Testing Strategy</h2>
-<h3>12.1 Unit Testing Structure</h3>
-<pre><code class="language-go">// Test file: controllers/playbookcontroller_test.go
-<p>package controllers</p>
-<p>import (</p>
-<p>    "testing"</p>
-<p>    "github.com/stretchr/testify/assert"</p>
-<p>    "github.com/stretchr/testify/mock"</p>
-<p>)</p>
-<p>type MockMongoSession struct {</p>
-<p>    mock.Mock</p>
-<p>}</p>
-<p>func (m </em>MockMongoSession) FindSingleDocument(filter, opts, result interface{}) error {</p>
-<p>    args := m.Called(filter, opts, result)</p>
-<p>    return args.Error(0)</p>
-<p>}</p>
-<p>func TestPlaybookController_RunSelectedPlaybook(t <em>testing.T) {</p>
-<p>    // Arrange</p>
-<p>    mockSession := new(MockMongoSession)</p>
-<p>    controller := NewPlaybookController()</p>
-    
-<p>    expectedPlaybook := models.PlaybookObject{</p>
-<p>        ID:   1001,</p>
-<p>        Name: "Test Playbook",</p>
-<p>        Definition: <code>[{"task_seq": 1, "type": "start"}]</code>,</p>
-<p>    }</p>
-    
-<p>    mockSession.On("FindSingleDocument", </p>
-<p>        mock.Anything, mock.Anything, mock.Anything).</p>
-<p>        Return(nil).</p>
-<p>        Run(func(args mock.Arguments) {</p>
-<p>            result := args.Get(2).(</em>models.PlaybookObject)</p>
-<p>            <em>result = expectedPlaybook</p>
-<p>        })</p>
-    
-<p>    // Act</p>
-<p>    result, err := controller.RunSelectedPlaybook(</p>
-<p>        "test_tenant",</p>
-<p>        "Test Playbook",</p>
-<p>        "12345",</p>
-<p>        mockSession,</p>
-<p>    )</p>
-    
-<p>    // Assert</p>
-<p>    assert.NoError(t, err)</p>
-<p>    assert.NotEmpty(t, result.PlaybookExecutionID)</p>
-<p>    mockSession.AssertExpectations(t)</p>
-<p>}</p>
-<p>func TestPlaybookExecutionController_ParallelExecution(t </em>testing.T) {</p>
-<p>    // Test parallel task execution</p>
-<p>    controller := &PlaybookExecutionController{</p>
-<p>        PlayBookTasksMap: make(map[int]executionModels.PlayBookTask),</p>
-<p>    }</p>
-    
-<p>    // Create test tasks</p>
-<p>    tasks := []executionModels.PlayBookTask{</p>
-<p>        {TaskSeq: 1, TaskName: "Task 1", Type: "integration"},</p>
-<p>        {TaskSeq: 2, TaskName: "Task 2", Type: "integration"},</p>
-<p>        {TaskSeq: 3, TaskName: "Task 3", Type: "integration"},</p>
-<p>    }</p>
-    
-<p>    // Execute parallel tasks</p>
-<p>    err := controller.executeParallelTasks(tasks, mockSession)</p>
-    
-<p>    assert.NoError(t, err)</p>
-<p>    assert.Equal(t, 3, len(controller.PlayBookTasksMap))</p>
-<p>}</code></pre></p>
-<h3>12.2 Integration Testing</h3>
-<pre><code class="language-go">// Test file: integration/playbook_execution_test.go
-<p>package integration</p>
-<p>import (</p>
-<p>    "testing"</p>
-<p>    "context"</p>
-<p>    "time"</p>
-<p>)</p>
-<p>func TestPlaybookExecutionEndToEnd(t <em>testing.T) {</p>
-<p>    // Setup test environment</p>
-<p>    testDB := setupTestDatabase(t)</p>
-<p>    defer cleanupTestDatabase(testDB)</p>
-    
-<p>    testRedis := setupTestRedis(t)</p>
-<p>    defer cleanupTestRedis(testRedis)</p>
-    
-<p>    // Create test playbook</p>
-<p>    playbook := createTestPlaybook(t, testDB)</p>
-    
-<p>    // Create test case</p>
-<p>    testCase := createTestCase(t, testDB)</p>
-    
-<p>    // Execute playbook</p>
-<p>    executionID, err := executePlaybook(</p>
-<p>        playbook.Name,</p>
-<p>        testCase.ID,</p>
-<p>        testDB,</p>
-<p>        testRedis,</p>
-<p>    )</p>
-    
-<p>    assert.NoError(t, err)</p>
-<p>    assert.NotEmpty(t, executionID)</p>
-    
-<p>    // Wait for completion</p>
-<p>    timeout := time.After(30 </em> time.Second)</p>
-<p>    ticker := time.Tick(1 <em> time.Second)</p>
-    
-<p>    for {</p>
-<p>        select {</p>
-<p>        case <-timeout:</p>
-<p>            t.Fatal("Playbook execution timeout")</p>
-<p>        case <-ticker:</p>
-<p>            status := getExecutionStatus(executionID, testDB)</p>
-<p>            if status == "completed" {</p>
-<p>                return</p>
-<p>            }</p>
-<p>            if status == "failed" {</p>
-<p>                t.Fatal("Playbook execution failed")</p>
-<p>            }</p>
-<p>        }</p>
-<p>    }</p>
-<p>}</code></pre></p>
-<h3>12.3 Performance Testing</h3>
-<pre><code class="language-go">// Test file: performance/load_test.go
-<p>package performance</p>
-<p>import (</p>
-<p>    "testing"</p>
-<p>    "sync"</p>
-<p>    "time"</p>
-<p>)</p>
-<p>func BenchmarkParallelPlaybookExecution(b </em>testing.B) {</p>
-<p>    controller := setupPlaybookController()</p>
-    
-<p>    b.ResetTimer()</p>
-<p>    b.RunParallel(func(pb <em>testing.PB) {</p>
-<p>        for pb.Next() {</p>
-<p>            _, err := controller.RunSelectedPlaybook(</p>
-<p>                "test_tenant",</p>
-<p>                "Load Test Playbook",</p>
-<p>                generateRandomCaseID(),</p>
-<p>                mockSession,</p>
-<p>            )</p>
-<p>            if err != nil {</p>
-<p>                b.Error(err)</p>
-<p>            }</p>
-<p>        }</p>
-<p>    })</p>
-<p>}</p>
-<p>func TestConcurrentPlaybookExecution(t </em>testing.T) {</p>
-<p>    const numGoroutines = 100</p>
-<p>    const numExecutions = 10</p>
-    
-<p>    var wg sync.WaitGroup</p>
-<p>    controller := setupPlaybookController()</p>
-    
-<p>    for i := 0; i < numGoroutines; i++ {</p>
-<p>        wg.Add(1)</p>
-<p>        go func(routineID int) {</p>
-<p>            defer wg.Done()</p>
-            
-<p>            for j := 0; j < numExecutions; j++ {</p>
-<p>                _, err := controller.RunSelectedPlaybook(</p>
-<p>                    fmt.Sprintf("tenant_%d", routineID),</p>
-<p>                    "Concurrent Test Playbook",</p>
-<p>                    fmt.Sprintf("case_%d_%d", routineID, j),</p>
-<p>                    mockSession,</p>
-<p>                )</p>
-                
-<p>                if err != nil {</p>
-<p>                    t.Errorf("Execution failed: %v", err)</p>
-<p>                }</p>
-<p>            }</p>
-<p>        }(i)</p>
-<p>    }</p>
-    
-<p>    wg.Wait()</p>
-<p>}</code></pre></p>
-<p>---</p>
-<h2>Conclusion</h2>
+
+<hr />
+<h2 id="6-api-specifications">6. API Specifications<a class="headerlink" href="#6-api-specifications" title="Permanent link">&para;</a></h2>
+<h3 id="61-playbook-management-apis">6.1 Playbook Management APIs<a class="headerlink" href="#61-playbook-management-apis" title="Permanent link">&para;</a></h3>
+<h4 id="611-create-playbook">6.1.1 Create Playbook<a class="headerlink" href="#611-create-playbook" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-http">POST /createplaybook/
+Content-Type: application/json
+Authorization: Bearer {jwt_token}
+
+Request Body:
+{
+  &quot;name&quot;: &quot;Malware Response Playbook&quot;,
+  &quot;description&quot;: &quot;Automated response to malware incidents&quot;,
+  &quot;definition&quot;: &quot;...&quot;,                    // JSON string
+  &quot;chart_definition&quot;: &quot;...&quot;,              // Visual representation
+  &quot;category_id&quot;: 5,
+  &quot;type&quot;: &quot;case&quot;,
+  &quot;tenant_code&quot;: &quot;tenant123&quot;,
+  &quot;user_id&quot;: 1001,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;is_parallel_playbook&quot;: true,
+  &quot;total_tasks_count&quot;: 15,
+  &quot;total_utils_count&quot;: 3
+}
+
+Response:
+{
+  &quot;success&quot;: true,
+  &quot;data&quot;: {
+    &quot;playbook_id&quot;: 1001,
+    &quot;filename&quot;: &quot;1001_tenant123.json&quot;,
+    &quot;commit_id&quot;: &quot;abc123&quot;
+  },
+  &quot;error&quot;: &quot;&quot;,
+  &quot;displayMessage&quot;: &quot;Playbook created successfully&quot;,
+  &quot;time&quot;: 1694443200000
+}
+Validation Rules:
+- name: Required, max 255 chars, unique per tenant
+- description: Optional, max 1000 chars
+- definition: Required, valid JSON
+- category_id: Required, must exist
+- type: Required, enum [case, indicator]
+- tenant_code: Required, valid tenant
+- user_id: Required, valid user
+</code></pre>
+
+<h4 id="612-run-playbook">6.1.2 Run Playbook<a class="headerlink" href="#612-run-playbook" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-http">POST /runplaybook/
+Content-Type: application/json
+Authorization: Bearer {jwt_token}
+
+Request Body:
+{
+  &quot;tenantcode&quot;: &quot;tenant123&quot;,
+  &quot;playbook_name&quot;: &quot;Malware Response Playbook&quot;,
+  &quot;case_id&quot;: &quot;50001&quot;,
+  &quot;is_bot&quot;: &quot;false&quot;,
+  &quot;uid&quot;: &quot;1001&quot;,
+  &quot;username&quot;: &quot;security_analyst&quot;,
+  &quot;type&quot;: &quot;case&quot;,
+  &quot;indicator&quot;: &quot;192.168.1.100&quot;,
+  &quot;playbook_execution_id&quot;: &quot;&quot;,           // For resume
+  &quot;resume_playbook&quot;: &quot;false&quot;
+}
+Response:
+{
+  &quot;success&quot;: true,
+  &quot;data&quot;: {
+    &quot;playbook_execution_id&quot;: &quot;pb_exec_123456&quot;,
+    &quot;status&quot;: &quot;inprogress&quot;,
+    &quot;total_tasks&quot;: 15,
+    &quot;estimated_duration&quot;: 300000         // milliseconds
+  },
+  &quot;error&quot;: &quot;&quot;,
+  &quot;displayMessage&quot;: &quot;Playbook execution started&quot;,
+  &quot;time&quot;: 1694443200000
+}
+
+Validation Rules:
+- tenantcode: Required, valid tenant
+- playbook_name: Required, must exist and be active
+- case_id: Required for type=case
+- uid: Required, valid user
+- type: Required, enum [case, indicator]
+- indicator: Required for type=indicator
+</code></pre>
+
+<h3 id="62-task-management-apis">6.2 Task Management APIs<a class="headerlink" href="#62-task-management-apis" title="Permanent link">&para;</a></h3>
+<h4 id="621-run-single-task">6.2.1 Run Single Task<a class="headerlink" href="#621-run-single-task" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-http">POST /runtask/
+Content-Type: application/json
+Authorization: Bearer {jwt_token}
+
+Request Body:
+{
+  &quot;task_id&quot;: 301,
+  &quot;tenant_code&quot;: &quot;tenant123&quot;,
+  &quot;case_id&quot;: 50001,
+  &quot;user_id&quot;: 1001,
+  &quot;input_fields&quot;: [
+    {
+      &quot;name&quot;: &quot;ip_address&quot;,
+      &quot;value&quot;: &quot;192.168.1.100&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  ],
+  &quot;instance_id&quot;: 150,
+  &quot;is_demo&quot;: false
+}
+Response:
+{
+  &quot;success&quot;: true,
+  &quot;data&quot;: {
+    &quot;task_request_id&quot;: &quot;task_req_789012&quot;,
+    &quot;status&quot;: &quot;inprogress&quot;
+  },
+  &quot;error&quot;: &quot;&quot;,
+  &quot;displayMessage&quot;: &quot;Task execution started&quot;,
+  &quot;time&quot;: 1694443200000
+}
+</code></pre>
+
+<h3 id="63-error-response-format">6.3 Error Response Format<a class="headerlink" href="#63-error-response-format" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-json">{
+  &quot;success&quot;: false,
+  &quot;data&quot;: null,
+  &quot;error&quot;: &quot;Invalid playbook configuration&quot;,
+  &quot;displayMessage&quot;: &quot;The playbook contains invalid task definitions&quot;,
+  &quot;errorPath&quot;: &quot;ExecutionController.ProcessAndExecuteTask&quot;,
+  &quot;status&quot;: &quot;failed&quot;,
+  &quot;time&quot;: 1694443200000
+}
+</code></pre>
+
+<hr />
+<h2 id="7-algorithm-specifications">7. Algorithm Specifications<a class="headerlink" href="#7-algorithm-specifications" title="Permanent link">&para;</a></h2>
+<h3 id="71-parallel-task-execution-algorithm">7.1 Parallel Task Execution Algorithm<a class="headerlink" href="#71-parallel-task-execution-algorithm" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func (executionController *PlaybookExecutionController) executeParallelTasks(
+    tasks []executionModels.PlayBookTask,
+    dockerNodeID string,
+    mongodbSession mongo_driver.MongoClientWrapper,
+    coreMongodbSession mongo_driver.MongoClientWrapper,
+    configObject config.ConfigStruct,
+    dbSession map[string]common.SessionStruct,
+) error {
+
+    var wg sync.WaitGroup
+    var mutex sync.Mutex
+    errorChan := make(chan error, len(tasks))
+    panicChan := make(chan interface{}, len(tasks))
+    ctx, cancel := context.WithCancel(context.Background())
+    defer cancel()
+
+    // Create stop lookup channel
+    stopLookup := make(chan bool, 1)
+    var lookupWg sync.WaitGroup
+    lookupWg.Add(1)
+
+    // Start stop lookup goroutine
+    go func() {
+        defer lookupWg.Done()
+        ticker := time.NewTicker(2 * time.Second)
+        defer ticker.Stop()
+
+        for {
+            select {
+            case &lt;-stopLookup:
+                return
+            case &lt;-ticker.C:
+                // Check if playbook should be stopped
+                if executionController.checkStopCondition() {
+                    cancel()
+                    return
+                }
+            }
+        }
+    }()
+
+    // Execute tasks in parallel
+    for i, task := range tasks {
+        wg.Add(1)
+        go func(taskIndex int, t executionModels.PlayBookTask) {
+            defer wg.Done()
+            defer func() {
+                if r := recover(); r != nil {
+                    panicChan &lt;- r
+                }
+            }()
+
+            select {
+            case &lt;-ctx.Done():
+                // Context cancelled, stop execution
+                return
+            default:
+                // Execute task
+                err := executionController.ProcessAndExecuteTask(
+                    t.TaskSeq,
+                    dockerNodeID,
+                    mongodbSession,
+                    coreMongodbSession,
+                    configObject,
+                    dbSession,
+                    &amp;wg,
+                    &quot;PARALLEL&quot;,
+                    ctx,
+                    panicChan,
+                )
+
+                if err != nil {
+                    mutex.Lock()
+                    select {
+                    case errorChan &lt;- err:
+                    default:
+                    }
+                    mutex.Unlock()
+
+                    if t.StopOnError {
+                        cancel() // Stop all parallel tasks
+                    }
+                }
+            }
+        }(i, task)
+    }
+
+    // Wait for all tasks to complete
+    wg.Wait()
+
+    // Stop the lookup goroutine
+    close(stopLookup)
+    lookupWg.Wait()
+
+    // Check for errors
+    close(errorChan)
+    for err := range errorChan {
+        if err != nil {
+            return err
+        }
+    }
+
+    // Check for panics
+    close(panicChan)
+    for panic := range panicChan {
+        if panic != nil {
+            return fmt.Errorf(&quot;panic in task execution: %v&quot;, panic)
+        }
+    }
+
+    return nil
+}
+</code></pre>
+
+<h3 id="72-condition-evaluation-algorithm">7.2 Condition Evaluation Algorithm<a class="headerlink" href="#72-condition-evaluation-algorithm" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func (cc *ConditionController) evaluateConditions(
+    conditions []executionModels.PlayBookCondition,
+    conditionOperator string,
+    alertData models.RunPlayBookRequest2,
+    executedConditions []executionModels.ExecutedConditionStatus,
+) (bool, error) {
+
+    if len(conditions) == 0 {
+        return true, nil
+    }
+
+    var results []bool
+
+    for _, condition := range conditions {
+        result, err := cc.evaluateSingleCondition(
+            condition,
+            alertData,
+            executedConditions,
+        )
+        if err != nil {
+            return false, err
+        }
+        results = append(results, result)
+    }
+
+    // Apply logical operator
+    switch strings.ToLower(conditionOperator) {
+    case &quot;and&quot;:
+        return cc.applyAndOperator(results), nil
+    case &quot;or&quot;:
+        return cc.applyOrOperator(results), nil
+    default:
+        return false, fmt.Errorf(&quot;unsupported condition operator: %s&quot;, conditionOperator)
+    }
+}
+
+func (cc *ConditionController) evaluateSingleCondition(
+    condition executionModels.PlayBookCondition,
+    alertData models.RunPlayBookRequest2,
+    executedConditions []executionModels.ExecutedConditionStatus,
+) (bool, error) {
+    // Get field value from case data or previous task response
+    var fieldValue interface{}
+    var err error
+    if condition.ConditionKeyValue != nil {
+        // Static value condition
+        fieldValue = condition.ConditionKeyValue
+    } else if condition.TaskName != &quot;&quot; {
+        // Previous task response condition
+        fieldValue, err = cc.getPreviousTaskResponse(
+            condition.TaskName,
+            condition.ConditionKey,
+            executedConditions,
+        )
+        if err != nil {
+            return false, err
+        }
+    } else {
+        // Case field condition
+        fieldValue = utils.GetFieldValue(alertData, condition.ConditionKey)
+    }
+
+    // Evaluate condition
+    return utils.MatchCondition(
+        fieldValue,
+        condition.ConditionType,
+        condition.ConditionValue,
+    )
+}
+
+func (cc *ConditionController) applyAndOperator(results []bool) bool {
+    for _, result := range results {
+        if !result {
+            return false
+        }
+    }
+    return true
+}
+func (cc *ConditionController) applyOrOperator(results []bool) bool {
+    for _, result := range results {
+        if result {
+            return true
+        }
+    }
+    return false
+}
+</code></pre>
+
+<h3 id="73-cache-management-algorithm">7.3 Cache Management Algorithm<a class="headerlink" href="#73-cache-management-algorithm" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type CacheManager struct {
+    redisClient   *redis.Client
+    localCache    *sync.Map
+    ttlMap        *sync.Map
+    mutex         sync.RWMutex
+    cleanupTicker *time.Ticker
+}
+
+func (cm *CacheManager) Get(key string) (interface{}, bool) {
+    cm.mutex.RLock()
+    defer cm.mutex.RUnlock()
+    // Check local cache first
+    if value, exists := cm.localCache.Load(key); exists {
+        // Check TTL
+        if ttl, ok := cm.ttlMap.Load(key); ok {
+            if time.Now().Unix() &gt; ttl.(int64) {
+                cm.localCache.Delete(key)
+                cm.ttlMap.Delete(key)
+                return nil, false
+            }
+            return value, true
+        }
+    }
+
+    // Fall back to Redis
+    result, err := cm.redisClient.Get(key).Result()
+    if err != nil {
+        return nil, false
+    }
+
+    // Parse and cache locally
+    var value interface{}
+    json.Unmarshal([]byte(result), &amp;value)
+    cm.localCache.Store(key, value)
+
+    return value, true
+}
+
+func (cm *CacheManager) Set(key string, value interface{}, ttl time.Duration) error {
+    cm.mutex.Lock()
+    defer cm.mutex.Unlock()
+    // Store in local cache
+    cm.localCache.Store(key, value)
+    if ttl &gt; 0 {
+        expiryTime := time.Now().Add(ttl).Unix()
+        cm.ttlMap.Store(key, expiryTime)
+    }
+    // Store in Redis
+    data, err := json.Marshal(value)
+    if err != nil {
+        return err
+    }
+
+    return cm.redisClient.Set(key, data, ttl).Err()
+}
+
+func (cm *CacheManager) startCleanupRoutine() {
+    cm.cleanupTicker = time.NewTicker(5 * time.Minute)
+
+    go func() {
+        for range cm.cleanupTicker.C {
+            now := time.Now().Unix()
+            cm.ttlMap.Range(func(key, value interface{}) bool {
+                if now &gt; value.(int64) {
+                    cm.localCache.Delete(key)
+                    cm.ttlMap.Delete(key)
+                }
+                return true
+            })
+        }
+    }()
+}
+</code></pre>
+
+<hr />
+<h2 id="8-configuration-management">8. Configuration Management<a class="headerlink" href="#8-configuration-management" title="Permanent link">&para;</a></h2>
+<h3 id="81-configuration-structure">8.1 Configuration Structure<a class="headerlink" href="#81-configuration-structure" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type ConfigStruct struct {
+    DatabaseConfig    DatabaseConfig    `json:&quot;database&quot;`
+    RedisConfig       RedisConfig       `json:&quot;redis&quot;`
+    DockerConfig      DockerConfig      `json:&quot;docker&quot;`
+    SecurityConfig    SecurityConfig    `json:&quot;security&quot;`
+    LoggingConfig     LoggingConfig     `json:&quot;logging&quot;`
+    IntegrationConfig IntegrationConfig `json:&quot;integration&quot;`
+}
+
+type DatabaseConfig struct {
+    MongoURI        string `json:&quot;mongo_uri&quot;`
+    DatabaseName    string `json:&quot;database_name&quot;`
+    MaxPoolSize     int    `json:&quot;max_pool_size&quot;`
+    MinPoolSize     int    `json:&quot;min_pool_size&quot;`
+    MaxIdleTime     int    `json:&quot;max_idle_time&quot;`
+    ConnectTimeout  int    `json:&quot;connect_timeout&quot;`
+    ShardBucketCount int   `json:&quot;shard_bucket_count&quot;`
+}
+
+type RedisConfig struct {
+    Host            string `json:&quot;host&quot;`
+    Port            int    `json:&quot;port&quot;`
+    Password        string `json:&quot;password&quot;`
+    Database        int    `json:&quot;database&quot;`
+    MaxRetries      int    `json:&quot;max_retries&quot;`
+    PoolSize        int    `json:&quot;pool_size&quot;`
+    IdleTimeout     int    `json:&quot;idle_timeout&quot;`
+}
+type SecurityConfig struct {
+    JWTSecret           string `json:&quot;jwt_secret&quot;`
+    SessionTimeout      int    `json:&quot;session_timeout&quot;`
+    MaxLoginAttempts    int    `json:&quot;max_login_attempts&quot;`
+    PasswordComplexity  bool   `json:&quot;password_complexity&quot;`
+    EncryptionKey       string `json:&quot;encryption_key&quot;`
+}
+</code></pre>
+
+<h3 id="82-environment-based-configuration">8.2 Environment-Based Configuration<a class="headerlink" href="#82-environment-based-configuration" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func LoadConfiguration() ConfigStruct {
+    var config ConfigStruct
+
+    // Load from environment variables
+    config.DatabaseConfig.MongoURI = getEnvOrDefault(&quot;MONGO_URI&quot;, &quot;mongodb://localhost:27017&quot;)
+    config.DatabaseConfig.DatabaseName = getEnvOrDefault(&quot;DB_NAME&quot;, &quot;securaa_playbook&quot;)
+    config.DatabaseConfig.MaxPoolSize = getEnvIntOrDefault(&quot;DB_MAX_POOL_SIZE&quot;, 100)
+
+    config.RedisConfig.Host = getEnvOrDefault(&quot;REDIS_HOST&quot;, &quot;localhost&quot;)
+    config.RedisConfig.Port = getEnvIntOrDefault(&quot;REDIS_PORT&quot;, 6379)
+    config.RedisConfig.Password = getEnvOrDefault(&quot;REDIS_PASSWORD&quot;, &quot;&quot;)
+
+    config.SecurityConfig.JWTSecret = getEnvOrDefault(&quot;JWT_SECRET&quot;, &quot;&quot;)
+    config.SecurityConfig.SessionTimeout = getEnvIntOrDefault(&quot;SESSION_TIMEOUT&quot;, 3600)
+
+    // Load from config file if exists
+    if configFile := os.Getenv(&quot;CONFIG_FILE&quot;); configFile != &quot;&quot; {
+        loadFromFile(&amp;config, configFile)
+    }
+
+    // Validate configuration
+    if err := validateConfig(config); err != nil {
+        log.Fatal(&quot;Invalid configuration:&quot;, err)
+    }
+
+    return config
+}
+
+func validateConfig(config ConfigStruct) error {
+    if config.DatabaseConfig.MongoURI == &quot;&quot; {
+        return errors.New(&quot;mongo_uri is required&quot;)
+    }
+
+    if config.SecurityConfig.JWTSecret == &quot;&quot; {
+        return errors.New(&quot;jwt_secret is required&quot;)
+    }
+
+    if config.DatabaseConfig.MaxPoolSize &lt;= 0 {
+        return errors.New(&quot;max_pool_size must be positive&quot;)
+    }
+
+    return nil
+}
+</code></pre>
+
+<hr />
+<h2 id="9-error-handling-implementation">9. Error Handling Implementation<a class="headerlink" href="#9-error-handling-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="91-error-types-and-hierarchy">9.1 Error Types and Hierarchy<a class="headerlink" href="#91-error-types-and-hierarchy" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type ErrorType string
+
+const (
+    ValidationError    ErrorType = &quot;VALIDATION_ERROR&quot;
+    DatabaseError      ErrorType = &quot;DATABASE_ERROR&quot;
+    IntegrationError   ErrorType = &quot;INTEGRATION_ERROR&quot;
+    AuthenticationError ErrorType = &quot;AUTHENTICATION_ERROR&quot;
+    AuthorizationError ErrorType = &quot;AUTHORIZATION_ERROR&quot;
+    BusinessLogicError ErrorType = &quot;BUSINESS_LOGIC_ERROR&quot;
+    SystemError        ErrorType = &quot;SYSTEM_ERROR&quot;
+    NetworkError       ErrorType = &quot;NETWORK_ERROR&quot;
+)
+
+type ServiceError struct {
+    Type        ErrorType `json:&quot;type&quot;`
+    Code        string    `json:&quot;code&quot;`
+    Message     string    `json:&quot;message&quot;`
+    Details     string    `json:&quot;details&quot;`
+    Timestamp   int64     `json:&quot;timestamp&quot;`
+    RequestID   string    `json:&quot;request_id&quot;`
+    UserID      int       `json:&quot;user_id&quot;`
+    TenantCode  string    `json:&quot;tenant_code&quot;`
+    StackTrace  string    `json:&quot;stack_trace,omitempty&quot;`
+    Cause       error     `json:&quot;-&quot;`
+}
+
+func (e *ServiceError) Error() string {
+    return fmt.Sprintf(&quot;[%s] %s: %s&quot;, e.Type, e.Code, e.Message)
+}
+
+func NewServiceError(errorType ErrorType, code string, message string) *ServiceError {
+    return &amp;ServiceError{
+        Type:      errorType,
+        Code:      code,
+        Message:   message,
+        Timestamp: time.Now().UnixMilli(),
+    }
+}
+</code></pre>
+
+<h3 id="92-error-handler-implementation">9.2 Error Handler Implementation<a class="headerlink" href="#92-error-handler-implementation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func HandleError(err error, context string) models.Response {
+    var response models.Response
+    response.Success = false
+    response.Time = time.Now().UnixMilli()
+
+    if serviceErr, ok := err.(*ServiceError); ok {
+        response.Error = serviceErr.Message
+        response.ErrorPath = context
+        response.Status = string(serviceErr.Type)
+
+        // Log structured error
+        logger.Error(&quot;Service Error&quot;, 
+            &quot;type&quot;, serviceErr.Type,
+            &quot;code&quot;, serviceErr.Code,
+            &quot;message&quot;, serviceErr.Message,
+            &quot;context&quot;, context,
+            &quot;timestamp&quot;, serviceErr.Timestamp,
+        )
+
+        // Determine appropriate HTTP status
+        switch serviceErr.Type {
+        case ValidationError:
+            response.DisplayMessage = &quot;Invalid input provided&quot;
+        case AuthenticationError:
+            response.DisplayMessage = &quot;Authentication required&quot;
+        case AuthorizationError:
+            response.DisplayMessage = &quot;Access denied&quot;
+        case DatabaseError:
+            response.DisplayMessage = &quot;Data operation failed&quot;
+        case IntegrationError:
+            response.DisplayMessage = &quot;External service unavailable&quot;
+        default:
+            response.DisplayMessage = &quot;An unexpected error occurred&quot;
+        }
+    } else {
+        // Handle generic errors
+        response.Error = err.Error()
+        response.ErrorPath = context
+        response.Status = &quot;error&quot;
+        response.DisplayMessage = &quot;An unexpected error occurred&quot;
+
+        logger.Error(&quot;Unhandled Error&quot;, 
+            &quot;error&quot;, err.Error(),
+            &quot;context&quot;, context,
+        )
+    }
+
+    return response
+}
+</code></pre>
+
+<h3 id="93-retry-mechanism">9.3 Retry Mechanism<a class="headerlink" href="#93-retry-mechanism" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type RetryConfig struct {
+    MaxAttempts   int           `json:&quot;max_attempts&quot;`
+    InitialDelay  time.Duration `json:&quot;initial_delay&quot;`
+    MaxDelay      time.Duration `json:&quot;max_delay&quot;`
+    BackoffFactor float64       `json:&quot;backoff_factor&quot;`
+    RetryableErrors []ErrorType `json:&quot;retryable_errors&quot;`
+}
+
+func RetryWithBackoff(
+    operation func() error,
+    config RetryConfig,
+) error {
+    var lastErr error
+    delay := config.InitialDelay
+
+    for attempt := 1; attempt &lt;= config.MaxAttempts; attempt++ {
+        err := operation()
+        if err == nil {
+            return nil
+        }
+
+        lastErr = err
+
+        // Check if error is retryable
+        if serviceErr, ok := err.(*ServiceError); ok {
+            retryable := false
+            for _, retryableType := range config.RetryableErrors {
+                if serviceErr.Type == retryableType {
+                    retryable = true
+                    break
+                }
+            }
+            if !retryable {
+                return err
+            }
+        }
+
+        if attempt &lt; config.MaxAttempts {
+            logger.Warn(&quot;Operation failed, retrying&quot;,
+                &quot;attempt&quot;, attempt,
+                &quot;max_attempts&quot;, config.MaxAttempts,
+                &quot;delay&quot;, delay,
+                &quot;error&quot;, err.Error(),
+            )
+
+            time.Sleep(delay)
+
+            // Calculate next delay with exponential backoff
+            delay = time.Duration(float64(delay) * config.BackoffFactor)
+            if delay &gt; config.MaxDelay {
+                delay = config.MaxDelay
+            }
+        }
+    }
+
+    return fmt.Errorf(&quot;operation failed after %d attempts: %w&quot;, 
+        config.MaxAttempts, lastErr)
+}
+</code></pre>
+
+<hr />
+<h2 id="10-concurrency-thread-safety">10. Concurrency &amp; Thread Safety<a class="headerlink" href="#10-concurrency-thread-safety" title="Permanent link">&para;</a></h2>
+<h3 id="101-task-map-thread-safety">10.1 Task Map Thread Safety<a class="headerlink" href="#101-task-map-thread-safety" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type ThreadSafeTaskMap struct {
+    tasks map[int]executionModels.PlayBookTask
+    mutex sync.RWMutex
+}
+
+func NewThreadSafeTaskMap() *ThreadSafeTaskMap {
+    return &amp;ThreadSafeTaskMap{
+        tasks: make(map[int]executionModels.PlayBookTask),
+    }
+}
+
+func (tsm *ThreadSafeTaskMap) Set(taskSeq int, task executionModels.PlayBookTask) {
+    tsm.mutex.Lock()
+    defer tsm.mutex.Unlock()
+    tsm.tasks[taskSeq] = task
+}
+
+func (tsm *ThreadSafeTaskMap) Get(taskSeq int) (executionModels.PlayBookTask, bool) {
+    tsm.mutex.RLock()
+    defer tsm.mutex.RUnlock()
+    task, exists := tsm.tasks[taskSeq]
+    return task, exists
+}
+
+func (tsm *ThreadSafeTaskMap) GetAll() map[int]executionModels.PlayBookTask {
+    tsm.mutex.RLock()
+    defer tsm.mutex.RUnlock()
+
+    // Create a copy to avoid external modifications
+    copy := make(map[int]executionModels.PlayBookTask)
+    for k, v := range tsm.tasks {
+        copy[k] = v
+    }
+    return copy
+}
+
+func (tsm *ThreadSafeTaskMap) Delete(taskSeq int) {
+    tsm.mutex.Lock()
+    defer tsm.mutex.Unlock()
+    delete(tsm.tasks, taskSeq)
+}
+</code></pre>
+
+<h3 id="102-channel-based-communication">10.2 Channel-Based Communication<a class="headerlink" href="#102-channel-based-communication" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type TaskChannel struct {
+    taskQueue    chan executionModels.PlayBookTask
+    resultQueue  chan TaskResult
+    errorQueue   chan error
+    stopSignal   chan struct{}
+    workerCount  int
+    wg           sync.WaitGroup
+}
+
+type TaskResult struct {
+    TaskSeq  int
+    Success  bool
+    Response string
+    Error    error
+}
+
+func NewTaskChannel(bufferSize, workerCount int) *TaskChannel {
+    return &amp;TaskChannel{
+        taskQueue:   make(chan executionModels.PlayBookTask, bufferSize),
+        resultQueue: make(chan TaskResult, bufferSize),
+        errorQueue:  make(chan error, bufferSize),
+        stopSignal:  make(chan struct{}),
+        workerCount: workerCount,
+    }
+}
+
+func (tc *TaskChannel) Start() {
+    for i := 0; i &lt; tc.workerCount; i++ {
+        tc.wg.Add(1)
+        go tc.worker(i)
+    }
+}
+
+func (tc *TaskChannel) worker(workerID int) {
+    defer tc.wg.Done()
+
+    for {
+        select {
+        case task := &lt;-tc.taskQueue:
+            result := tc.executeTask(task)
+            tc.resultQueue &lt;- result
+
+        case &lt;-tc.stopSignal:
+            logger.Info(&quot;Worker stopping&quot;, &quot;worker_id&quot;, workerID)
+            return
+        }
+    }
+}
+
+func (tc *TaskChannel) SubmitTask(task executionModels.PlayBookTask) {
+    select {
+    case tc.taskQueue &lt;- task:
+        // Task submitted successfully
+    case &lt;-time.After(5 * time.Second):
+        logger.Error(&quot;Task submission timeout&quot;, &quot;task_seq&quot;, task.TaskSeq)
+    }
+}
+
+func (tc *TaskChannel) Stop() {
+    close(tc.stopSignal)
+    tc.wg.Wait()
+    close(tc.taskQueue)
+    close(tc.resultQueue)
+    close(tc.errorQueue)
+}
+</code></pre>
+
+<h3 id="103-context-based-cancellation">10.3 Context-Based Cancellation<a class="headerlink" href="#103-context-based-cancellation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func (executionController *PlaybookExecutionController) ProcessWithContext(
+    ctx context.Context,
+    task executionModels.PlayBookTask,
+) error {
+
+    // Create a derived context with timeout
+    taskCtx, cancel := context.WithTimeout(ctx, 5*time.Minute)
+    defer cancel()
+
+    // Create result channel
+    resultChan := make(chan error, 1)
+
+    // Execute task in goroutine
+    go func() {
+        defer func() {
+            if r := recover(); r != nil {
+                resultChan &lt;- fmt.Errorf(&quot;task panicked: %v&quot;, r)
+            }
+        }()
+
+        err := executionController.executeTaskInternal(taskCtx, task)
+        resultChan &lt;- err
+    }()
+
+    // Wait for completion or cancellation
+    select {
+    case err := &lt;-resultChan:
+        return err
+
+    case &lt;-taskCtx.Done():
+        if taskCtx.Err() == context.DeadlineExceeded {
+            return NewServiceError(SystemError, &quot;TASK_TIMEOUT&quot;, 
+                fmt.Sprintf(&quot;Task %d timed out&quot;, task.TaskSeq))
+        }
+        return NewServiceError(SystemError, &quot;TASK_CANCELLED&quot;, 
+            fmt.Sprintf(&quot;Task %d was cancelled&quot;, task.TaskSeq))
+    }
+}
+</code></pre>
+
+<hr />
+<h2 id="11-performance-optimizations">11. Performance Optimizations<a class="headerlink" href="#11-performance-optimizations" title="Permanent link">&para;</a></h2>
+<h3 id="111-connection-pool-management">11.1 Connection Pool Management<a class="headerlink" href="#111-connection-pool-management" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type ConnectionPoolManager struct {
+    mongoPool   *mongo.Client
+    redisPool   *redis.Client
+    httpPool    *http.Client
+    config      PoolConfig
+}
+
+type PoolConfig struct {
+    MongoMaxPoolSize    int
+    MongoMinPoolSize    int
+    MongoMaxIdleTime    time.Duration
+    RedisPoolSize       int
+    RedisIdleTimeout    time.Duration
+    HTTPMaxIdleConns    int
+    HTTPIdleConnTimeout time.Duration
+}
+
+func NewConnectionPoolManager(config PoolConfig) *ConnectionPoolManager {
+    // Configure MongoDB connection pool
+    mongoOpts := options.Client().
+        SetMaxPoolSize(uint64(config.MongoMaxPoolSize)).
+        SetMinPoolSize(uint64(config.MongoMinPoolSize)).
+        SetMaxConnIdleTime(config.MongoMaxIdleTime)
+
+    mongoClient, _ := mongo.Connect(context.Background(), mongoOpts)
+
+    // Configure Redis connection pool
+    redisClient := redis.NewClient(&amp;redis.Options{
+        PoolSize:    config.RedisPoolSize,
+        IdleTimeout: config.RedisIdleTimeout,
+    })
+
+    // Configure HTTP client pool
+    httpClient := &amp;http.Client{
+        Transport: &amp;http.Transport{
+            MaxIdleConns:        config.HTTPMaxIdleConns,
+            IdleConnTimeout:     config.HTTPIdleConnTimeout,
+            TLSHandshakeTimeout: 10 * time.Second,
+        },
+        Timeout: 30 * time.Second,
+    }
+
+    return &amp;ConnectionPoolManager{
+        mongoPool: mongoClient,
+        redisPool: redisClient,
+        httpPool:  httpClient,
+        config:    config,
+    }
+}
+</code></pre>
+
+<h3 id="112-batch-operations">11.2 Batch Operations<a class="headerlink" href="#112-batch-operations" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func (service *TaskService) BatchUpdateTaskStatus(
+    updates []TaskStatusUpdate,
+) error {
+    const batchSize = 1000
+
+    for i := 0; i &lt; len(updates); i += batchSize {
+        end := i + batchSize
+        if end &gt; len(updates) {
+            end = len(updates)
+        }
+
+        batch := updates[i:end]
+        if err := service.processBatch(batch); err != nil {
+            return err
+        }
+    }
+
+    return nil
+}
+
+func (service *TaskService) processBatch(batch []TaskStatusUpdate) error {
+    // Build bulk write operations
+    var operations []mongo.WriteModel
+
+    for _, update := range batch {
+        filter := bson.M{&quot;task_request_id&quot;: update.TaskRequestID}
+        updateDoc := bson.M{
+            &quot;$set&quot;: bson.M{
+                &quot;status&quot;:         update.Status,
+                &quot;response&quot;:       update.Response,
+                &quot;updated_date&quot;:   time.Now().UnixMilli(),
+            },
+        }
+
+        operation := mongo.NewUpdateOneModel().
+            SetFilter(filter).
+            SetUpdate(updateDoc)
+
+        operations = append(operations, operation)
+    }
+
+    // Execute bulk write
+    opts := options.BulkWrite().SetOrdered(false)
+    _, err := service.collection.BulkWrite(
+        context.Background(),
+        operations,
+        opts,
+    )
+
+    return err
+}
+</code></pre>
+
+<h3 id="113-memory-management">11.3 Memory Management<a class="headerlink" href="#113-memory-management" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type ObjectPool struct {
+    pool sync.Pool
+}
+
+func NewObjectPool(factory func() interface{}) *ObjectPool {
+    return &amp;ObjectPool{
+        pool: sync.Pool{
+            New: factory,
+        },
+    }
+}
+
+func (op *ObjectPool) Get() interface{} {
+    return op.pool.Get()
+}
+
+func (op *ObjectPool) Put(obj interface{}) {
+    op.pool.Put(obj)
+}
+
+// Example usage for task requests
+var taskRequestPool = NewObjectPool(func() interface{} {
+    return &amp;models.TaskRequest{}
+})
+
+func ProcessTaskRequest(data []byte) error {
+    // Get object from pool
+    req := taskRequestPool.Get().(*models.TaskRequest)
+    defer taskRequestPool.Put(req)
+
+    // Reset object state
+    *req = models.TaskRequest{}
+
+    // Process request
+    if err := json.Unmarshal(data, req); err != nil {
+        return err
+    }
+
+    // ... process request
+
+    return nil
+}
+</code></pre>
+
+<hr />
+<h2 id="12-testing-strategy">12. Testing Strategy<a class="headerlink" href="#12-testing-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="121-unit-testing-structure">12.1 Unit Testing Structure<a class="headerlink" href="#121-unit-testing-structure" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">// Test file: controllers/playbookcontroller_test.go
+package controllers
+
+import (
+    &quot;testing&quot;
+    &quot;github.com/stretchr/testify/assert&quot;
+    &quot;github.com/stretchr/testify/mock&quot;
+)
+
+type MockMongoSession struct {
+    mock.Mock
+}
+
+func (m *MockMongoSession) FindSingleDocument(filter, opts, result interface{}) error {
+    args := m.Called(filter, opts, result)
+    return args.Error(0)
+}
+
+func TestPlaybookController_RunSelectedPlaybook(t *testing.T) {
+    // Arrange
+    mockSession := new(MockMongoSession)
+    controller := NewPlaybookController()
+
+    expectedPlaybook := models.PlaybookObject{
+        ID:   1001,
+        Name: &quot;Test Playbook&quot;,
+        Definition: `[{&quot;task_seq&quot;: 1, &quot;type&quot;: &quot;start&quot;}]`,
+    }
+
+    mockSession.On(&quot;FindSingleDocument&quot;, 
+        mock.Anything, mock.Anything, mock.Anything).
+        Return(nil).
+        Run(func(args mock.Arguments) {
+            result := args.Get(2).(*models.PlaybookObject)
+            *result = expectedPlaybook
+        })
+
+    // Act
+    result, err := controller.RunSelectedPlaybook(
+        &quot;test_tenant&quot;,
+        &quot;Test Playbook&quot;,
+        &quot;12345&quot;,
+        mockSession,
+    )
+
+    // Assert
+    assert.NoError(t, err)
+    assert.NotEmpty(t, result.PlaybookExecutionID)
+    mockSession.AssertExpectations(t)
+}
+
+func TestPlaybookExecutionController_ParallelExecution(t *testing.T) {
+    // Test parallel task execution
+    controller := &amp;PlaybookExecutionController{
+        PlayBookTasksMap: make(map[int]executionModels.PlayBookTask),
+    }
+
+    // Create test tasks
+    tasks := []executionModels.PlayBookTask{
+        {TaskSeq: 1, TaskName: &quot;Task 1&quot;, Type: &quot;integration&quot;},
+        {TaskSeq: 2, TaskName: &quot;Task 2&quot;, Type: &quot;integration&quot;},
+        {TaskSeq: 3, TaskName: &quot;Task 3&quot;, Type: &quot;integration&quot;},
+    }
+
+    // Execute parallel tasks
+    err := controller.executeParallelTasks(tasks, mockSession)
+
+    assert.NoError(t, err)
+    assert.Equal(t, 3, len(controller.PlayBookTasksMap))
+}
+</code></pre>
+
+<h3 id="122-integration-testing">12.2 Integration Testing<a class="headerlink" href="#122-integration-testing" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">// Test file: integration/playbook_execution_test.go
+package integration
+
+import (
+    &quot;testing&quot;
+    &quot;context&quot;
+    &quot;time&quot;
+)
+
+func TestPlaybookExecutionEndToEnd(t *testing.T) {
+    // Setup test environment
+    testDB := setupTestDatabase(t)
+    defer cleanupTestDatabase(testDB)
+
+    testRedis := setupTestRedis(t)
+    defer cleanupTestRedis(testRedis)
+
+    // Create test playbook
+    playbook := createTestPlaybook(t, testDB)
+
+    // Create test case
+    testCase := createTestCase(t, testDB)
+
+    // Execute playbook
+    executionID, err := executePlaybook(
+        playbook.Name,
+        testCase.ID,
+        testDB,
+        testRedis,
+    )
+
+    assert.NoError(t, err)
+    assert.NotEmpty(t, executionID)
+
+    // Wait for completion
+    timeout := time.After(30 * time.Second)
+    ticker := time.Tick(1 * time.Second)
+
+    for {
+        select {
+        case &lt;-timeout:
+            t.Fatal(&quot;Playbook execution timeout&quot;)
+        case &lt;-ticker:
+            status := getExecutionStatus(executionID, testDB)
+            if status == &quot;completed&quot; {
+                return
+            }
+            if status == &quot;failed&quot; {
+                t.Fatal(&quot;Playbook execution failed&quot;)
+            }
+        }
+    }
+}
+</code></pre>
+
+<h3 id="123-performance-testing">12.3 Performance Testing<a class="headerlink" href="#123-performance-testing" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">// Test file: performance/load_test.go
+package performance
+
+import (
+    &quot;testing&quot;
+    &quot;sync&quot;
+    &quot;time&quot;
+)
+
+func BenchmarkParallelPlaybookExecution(b *testing.B) {
+    controller := setupPlaybookController()
+
+    b.ResetTimer()
+    b.RunParallel(func(pb *testing.PB) {
+        for pb.Next() {
+            _, err := controller.RunSelectedPlaybook(
+                &quot;test_tenant&quot;,
+                &quot;Load Test Playbook&quot;,
+                generateRandomCaseID(),
+                mockSession,
+            )
+            if err != nil {
+                b.Error(err)
+            }
+        }
+    })
+}
+
+func TestConcurrentPlaybookExecution(t *testing.T) {
+    const numGoroutines = 100
+    const numExecutions = 10
+
+    var wg sync.WaitGroup
+    controller := setupPlaybookController()
+
+    for i := 0; i &lt; numGoroutines; i++ {
+        wg.Add(1)
+        go func(routineID int) {
+            defer wg.Done()
+
+            for j := 0; j &lt; numExecutions; j++ {
+                _, err := controller.RunSelectedPlaybook(
+                    fmt.Sprintf(&quot;tenant_%d&quot;, routineID),
+                    &quot;Concurrent Test Playbook&quot;,
+                    fmt.Sprintf(&quot;case_%d_%d&quot;, routineID, j),
+                    mockSession,
+                )
+
+                if err != nil {
+                    t.Errorf(&quot;Execution failed: %v&quot;, err)
+                }
+            }
+        }(i)
+    }
+
+    wg.Wait()
+}
+</code></pre>
+
+<hr />
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>This Low Level Design document provides comprehensive implementation details for the Securaa Playbook Service, including:</p>
 <ul>
 <li><strong>Detailed component specifications</strong> with class diagrams and method signatures</li>
@@ -1662,28 +2322,94 @@ erDiagram
 <li><strong>Testing strategies</strong> for quality assurance</li>
 </ul>
 <p>This document serves as the technical blueprint for implementing, maintaining, and extending the Securaa Playbook Service at the code level.</p>
-
     </main>
-    
-    <footer class="main-footer">
-        <p>&copy; 2025 Securaa Platform. All rights reserved.</p>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
     </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
-        mermaid.initialize({ 
+        mermaid.initialize({
             startOnLoad: true,
-            theme: 'default',
+            theme: 'base',
             themeVariables: {
-                primaryColor: '#1976d2',
-                primaryTextColor: '#000000',
-                primaryBorderColor: '#0d47a1',
-                lineColor: '#1976d2',
-                secondaryColor: '#f5f5f5',
-                tertiaryColor: '#ffffff'
-            }
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
         });
     </script>
-    <script src="assets/js/documentation.js"></script>
 </body>
 </html>

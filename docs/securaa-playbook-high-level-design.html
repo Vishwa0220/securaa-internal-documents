@@ -3,51 +3,632 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Securaa Playbook Service - High Level Design - Securaa Platform Documentation</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
+    <meta name="description" content="Securaa Platform Documentation - Securaa Playbook Service - High Level Design">
+    <title>Securaa Playbook Service - High Level Design - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
-    
-    
-        <nav class="documentation-nav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-<li><a href="securaa-ris-high-level-design.html">RIS High Level Design</a></li>
-<li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-<li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-<li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-<li><a href="optimization-guide.html">Optimization Guide</a></li>
-<li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-<li><a href="securaa-siem-low-level-design.html">Securaa SIEM Low Level Design</a></li>
-<li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-<li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-<li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-<li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-<li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-<li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
-<li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
-<li><a href="securaa-custom-utils-high-level-design.html">Securaa Custom Utils High Level Design</a></li>
-<li><a href="securaa-custom-utils-low-level-design.html">Securaa Custom Utils Low Level Design</a></li>
-<li><a href="securaa-make-system-high-level-design.html">Securaa Make System High Level Design</a></li>
-<li><a href="securaa-make-system-low-level-design.html">Securaa Make System Low Level Design</a></li>
-            </ul>
-        </nav>
-        
-    
+
+    <nav class="documentation-nav">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
+    </nav>
+
     <main class="main-content">
-        <h1>Securaa Playbook Service - High Level Design Document</h1>
-<h2>Document Information</h2>
+        <h1 id="securaa-playbook-service-high-level-design-document">Securaa Playbook Service - High Level Design Document<a class="headerlink" href="#securaa-playbook-service-high-level-design-document" title="Permanent link">&para;</a></h1>
+<h2 id="document-information">Document Information<a class="headerlink" href="#document-information" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Service Name</strong>: Securaa Playbook Service</li>
 <li><strong>Version</strong>: 1.0</li>
 <li><strong>Date</strong>: September 11, 2025</li>
 <li><strong>Author</strong>: System Architecture Team</li>
 </ul>
-<h2>Table of Contents</h2>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ol>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#system-architecture">System Architecture</a></li>
@@ -55,17 +636,17 @@
 <li><a href="#data-architecture">Data Architecture</a></li>
 <li><a href="#api-design">API Design</a></li>
 <li><a href="#security-architecture">Security Architecture</a></li>
-<li><a href="#scalability--performance">Scalability & Performance</a></li>
+<li><a href="#scalability--performance">Scalability &amp; Performance</a></li>
 <li><a href="#deployment-architecture">Deployment Architecture</a></li>
-<li><a href="#monitoring--observability">Monitoring & Observability</a></li>
-<li><a href="#error-handling--recovery">Error Handling & Recovery</a></li>
+<li><a href="#monitoring--observability">Monitoring &amp; Observability</a></li>
+<li><a href="#error-handling--recovery">Error Handling &amp; Recovery</a></li>
 <li><a href="#integration-architecture">Integration Architecture</a></li>
 </ol>
-<p>---</p>
-<h2>1. Overview</h2>
-<h3>1.1 Purpose</h3>
+<hr />
+<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<h3 id="11-purpose">1.1 Purpose<a class="headerlink" href="#11-purpose" title="Permanent link">&para;</a></h3>
 <p>The Securaa Playbook Service is a core component of the Securaa Security Platform that provides automated security orchestration, automation, and response (SOAR) capabilities. It enables organizations to create, execute, and manage security playbooks for incident response and threat mitigation.</p>
-<h3>1.2 Key Features</h3>
+<h3 id="12-key-features">1.2 Key Features<a class="headerlink" href="#12-key-features" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Automated Workflow Execution</strong>: Execute complex security workflows with conditional logic</li>
 <li><strong>Multi-tenant Architecture</strong>: Support for multiple organizations with complete data isolation</li>
@@ -73,9 +654,9 @@
 <li><strong>Parallel Task Execution</strong>: Concurrent execution of independent tasks for performance</li>
 <li><strong>Integration Hub</strong>: Connect with 100+ security tools and platforms</li>
 <li><strong>Real-time Monitoring</strong>: Live execution tracking and performance metrics</li>
-<li><strong>Audit & Compliance</strong>: Complete audit trails for regulatory compliance</li>
+<li><strong>Audit &amp; Compliance</strong>: Complete audit trails for regulatory compliance</li>
 </ul>
-<h3>1.3 Business Context</h3>
+<h3 id="13-business-context">1.3 Business Context<a class="headerlink" href="#13-business-context" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 graph TB
     A[Security Incident] --> B[Securaa SIEM/Case Management]
@@ -86,28 +667,29 @@ graph TB
     C --> G[Threat Intelligence]
     C --> H[Incident Timeline]
 </div>
-<p>---</p>
-<h2>2. System Architecture</h2>
-<h3>2.1 High-Level Architecture</h3>
+
+<hr />
+<h2 id="2-system-architecture">2. System Architecture<a class="headerlink" href="#2-system-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="21-high-level-architecture">2.1 High-Level Architecture<a class="headerlink" href="#21-high-level-architecture" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 graph TB
     subgraph "Client Layer"
         A[Web UI] --> B[REST API Gateway]
         C[External APIs] --> B
     end
-    
+
     subgraph "Application Layer"
         B --> D[Securaa Playbook Service]
         D --> E[Controllers]
         E --> F[Execution Engine]
         F --> G[Services Layer]
     end
-    
+
     subgraph "Integration Layer"
         H[Docker Runtime] --> I[Task Containers]
         J[Python Utils Service] --> K[Data Processing]
     end
-    
+
     subgraph "Data Layer"
         L[(MongoDB)] --> M[Playbook Definitions]
         L --> N[Execution Data]
@@ -115,66 +697,67 @@ graph TB
         P[(Redis)] --> Q[Caching Layer]
         R[(Git)] --> S[Version Control]
     end
-    
+
     G --> H
     G --> J
     G --> L
     G --> P
     G --> R
 </div>
-<h3>2.2 Technology Stack</h3>
+
+<h3 id="22-technology-stack">2.2 Technology Stack<a class="headerlink" href="#22-technology-stack" title="Permanent link">&para;</a></h3>
 <table>
-    <thead>
-        <tr>
-            <th>Layer</th>
-            <th>Technology</th>
-            <th>Purpose</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Runtime</td>
-            <td>Go 1.17+</td>
-            <td>High-performance backend service</td>
-        </tr>
-        <tr>
-            <td>Web Framework</td>
-            <td>Gorilla Mux</td>
-            <td>HTTP routing and middleware</td>
-        </tr>
-        <tr>
-            <td>Database</td>
-            <td>MongoDB</td>
-            <td>Primary data store with sharding</td>
-        </tr>
-        <tr>
-            <td>Cache</td>
-            <td>Redis</td>
-            <td>High-speed data caching</td>
-        </tr>
-        <tr>
-            <td>Containerization</td>
-            <td>Docker</td>
-            <td>Isolated task execution</td>
-        </tr>
-        <tr>
-            <td>Version Control</td>
-            <td>Git</td>
-            <td>Playbook versioning</td>
-        </tr>
-        <tr>
-            <td>Message Queue</td>
-            <td>Go Channels</td>
-            <td>Internal communication</td>
-        </tr>
-        <tr>
-            <td>Monitoring</td>
-            <td>Custom Metrics</td>
-            <td>Performance tracking</td>
-        </tr>
-    </tbody>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Technology</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Runtime</td>
+<td>Go 1.17+</td>
+<td>High-performance backend service</td>
+</tr>
+<tr>
+<td>Web Framework</td>
+<td>Gorilla Mux</td>
+<td>HTTP routing and middleware</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>MongoDB</td>
+<td>Primary data store with sharding</td>
+</tr>
+<tr>
+<td>Cache</td>
+<td>Redis</td>
+<td>High-speed data caching</td>
+</tr>
+<tr>
+<td>Containerization</td>
+<td>Docker</td>
+<td>Isolated task execution</td>
+</tr>
+<tr>
+<td>Version Control</td>
+<td>Git</td>
+<td>Playbook versioning</td>
+</tr>
+<tr>
+<td>Message Queue</td>
+<td>Go Channels</td>
+<td>Internal communication</td>
+</tr>
+<tr>
+<td>Monitoring</td>
+<td>Custom Metrics</td>
+<td>Performance tracking</td>
+</tr>
+</tbody>
 </table>
-<h3>2.3 Service Boundaries</h3>
+<h3 id="23-service-boundaries">2.3 Service Boundaries<a class="headerlink" href="#23-service-boundaries" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 graph LR
     subgraph "Securaa Playbook Service"
@@ -183,15 +766,15 @@ graph LR
         C[Task Processing]
         D[Integration Management]
     end
-    
     E[Securaa User Service] --> A
     F[Securaa Case Service] --> B
     G[External Security Tools] --> D
     C --> H[Securaa Notification Service]
 </div>
-<p>---</p>
-<h2>3. Component Design</h2>
-<h3>3.1 Component Architecture</h3>
+
+<hr />
+<h2 id="3-component-design">3. Component Design<a class="headerlink" href="#3-component-design" title="Permanent link">&para;</a></h2>
+<h3 id="31-component-architecture">3.1 Component Architecture<a class="headerlink" href="#31-component-architecture" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 graph TB
     subgraph "HTTP Layer"
@@ -201,7 +784,7 @@ graph TB
         A3[TaskController]
         A4[SupportController]
     end
-    
+
     subgraph "Business Logic Layer"
         B[Services]
         B1[PlaybookService]
@@ -209,7 +792,7 @@ graph TB
         B3[GenericTaskService]
         B4[FilterTransformService]
     end
-    
+
     subgraph "Execution Layer"
         C[Execution Controllers]
         C1[PlaybookExecutionController]
@@ -217,7 +800,7 @@ graph TB
         C3[ConditionController]
         C4[SubPlaybookController]
     end
-    
+
     subgraph "Data Layer"
         D[Models]
         D1[PlaybookObject]
@@ -225,51 +808,50 @@ graph TB
         D3[ExecutionModels]
         D4[CaseData]
     end
-    
+
     A --> B
     B --> C
     C --> D
 </div>
-<h3>3.2 Key Components</h3>
-<h4>3.2.1 Playbook Execution Controller</h4>
-<strong>Purpose</strong>: Orchestrates the entire playbook execution lifecycle
-<strong>Key Responsibilities</strong>:
-<ul>
-<li>Manages playbook execution state</li>
-<li>Coordinates parallel task execution</li>
-<li>Handles task dependencies and flow control</li>
-<li>Implements stop/resume functionality</li>
-</ul>
-<strong>Key Methods</strong>:
-<pre><code class="language-go">type PlaybookExecutionController struct {
-<p>    PlayBookTasksMap map[int]executionModels.PlayBookTask</p>
-<p>    MapMutex         sync.RWMutex</p>
-<p>    Completed        bool</p>
-<p>    Stopped          bool</p>
-<p>    // ... other fields</p>
-<p>}</p>
-<p>func (pec <em>PlaybookExecutionController) RunSelectedPlaybook()</p>
-<p>func (pec </em>PlaybookExecutionController) ReadAndRunPlayBook()</p>
-<p>func (pec <em>PlaybookExecutionController) ProcessAndExecuteTask()</code></pre></p>
-<h4>3.2.2 Task Execution Engine</h4>
-<strong>Purpose</strong>: Executes individual tasks within playbooks
-<strong>Task Types Supported</strong>:
-<ul>
-<li><strong>Integration Tasks</strong>: API calls to external systems</li>
-<li><strong>Utility Tasks</strong>: Data processing and transformation</li>
-<li><strong>Condition Tasks</strong>: Decision points in workflow</li>
-<li><strong>Manual Tasks</strong>: Human intervention required</li>
-<li><strong>Sub-Playbook Tasks</strong>: Nested workflow execution</li>
-<li><strong>Approval Tasks</strong>: Workflow gates requiring approval</li>
-</ul>
-<strong>Execution Flow</strong>:
+
+<h3 id="32-key-components">3.2 Key Components<a class="headerlink" href="#32-key-components" title="Permanent link">&para;</a></h3>
+<h4 id="321-playbook-execution-controller">3.2.1 Playbook Execution Controller<a class="headerlink" href="#321-playbook-execution-controller" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Orchestrates the entire playbook execution lifecycle</p>
+<p><strong>Key Responsibilities</strong>:<br />
+- Manages playbook execution state<br />
+- Coordinates parallel task execution<br />
+- Handles task dependencies and flow control<br />
+- Implements stop/resume functionality</p>
+<p><strong>Key Methods</strong>:</p>
+<pre class="highlight"><code class="language-go">type PlaybookExecutionController struct {
+    PlayBookTasksMap map[int]executionModels.PlayBookTask
+    MapMutex         sync.RWMutex
+    Completed        bool
+    Stopped          bool
+    // ... other fields
+}
+func (pec *PlaybookExecutionController) RunSelectedPlaybook()
+func (pec *PlaybookExecutionController) ReadAndRunPlayBook()
+func (pec *PlaybookExecutionController) ProcessAndExecuteTask()
+</code></pre>
+
+<h4 id="322-task-execution-engine">3.2.2 Task Execution Engine<a class="headerlink" href="#322-task-execution-engine" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Executes individual tasks within playbooks</p>
+<p><strong>Task Types Supported</strong>:<br />
+- <strong>Integration Tasks</strong>: API calls to external systems<br />
+- <strong>Utility Tasks</strong>: Data processing and transformation<br />
+- <strong>Condition Tasks</strong>: Decision points in workflow<br />
+- <strong>Manual Tasks</strong>: Human intervention required<br />
+- <strong>Sub-Playbook Tasks</strong>: Nested workflow execution<br />
+- <strong>Approval Tasks</strong>: Workflow gates requiring approval</p>
+<p><strong>Execution Flow</strong>:</p>
 <div class="mermaid">
 sequenceDiagram
     participant PE as PlaybookExecutionController
     participant TE as TaskExecutor
     participant TS as TaskService
     participant ES as ExternalSystem
-    
+
     PE->>TE: Execute Task
     TE->>TS: Prepare Task Data
     TS->>TE: Task Configuration
@@ -277,29 +859,26 @@ sequenceDiagram
     ES->>TE: Task Response
     TE->>PE: Update Execution State
 </div>
-<h4>3.2.3 Filter & Transform Engine</h4>
-<strong>Purpose</strong>: Processes and transforms data within task execution
-<strong>Features</strong>:
-<ul>
-<li><strong>Conditional Processing</strong>: Execute tasks based on case data conditions</li>
-<li><strong>Data Transformation</strong>: Format and process data using Python utilities</li>
-<li><strong>Field Resolution</strong>: Dynamic field value extraction from case metadata</li>
-<li><strong>Filter Chaining</strong>: Multiple condition evaluation</li>
-</ul>
-<h4>3.2.4 Integration Management</h4>
-<strong>Purpose</strong>: Manages connections to external security tools
-<strong>Supported Integration Types</strong>:
-<ul>
-<li>SIEM platforms (QRadar, Splunk, ArcSight)</li>
-<li>Ticketing systems (Jira, ServiceNow, Remedy)</li>
-<li>Security tools (Endpoint protection, Firewalls, SOAR platforms)</li>
-<li>Communication platforms (Slack, Teams, Email)</li>
-<li>Threat intelligence feeds</li>
-</ul>
-<p>---</p>
-<h2>4. Data Architecture</h2>
-<h3>4.1 Database Design</h3>
-<h4>4.1.1 MongoDB Collections</h4>
+
+<h4 id="323-filter-transform-engine">3.2.3 Filter &amp; Transform Engine<a class="headerlink" href="#323-filter-transform-engine" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Processes and transforms data within task execution</p>
+<p><strong>Features</strong>:<br />
+- <strong>Conditional Processing</strong>: Execute tasks based on case data conditions<br />
+- <strong>Data Transformation</strong>: Format and process data using Python utilities<br />
+- <strong>Field Resolution</strong>: Dynamic field value extraction from case metadata<br />
+- <strong>Filter Chaining</strong>: Multiple condition evaluation</p>
+<h4 id="324-integration-management">3.2.4 Integration Management<a class="headerlink" href="#324-integration-management" title="Permanent link">&para;</a></h4>
+<p><strong>Purpose</strong>: Manages connections to external security tools</p>
+<p><strong>Supported Integration Types</strong>:<br />
+- SIEM platforms (QRadar, Splunk, ArcSight)<br />
+- Ticketing systems (Jira, ServiceNow, Remedy)<br />
+- Security tools (Endpoint protection, Firewalls, SOAR platforms)<br />
+- Communication platforms (Slack, Teams, Email)<br />
+- Threat intelligence feeds</p>
+<hr />
+<h2 id="4-data-architecture">4. Data Architecture<a class="headerlink" href="#4-data-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="41-database-design">4.1 Database Design<a class="headerlink" href="#41-database-design" title="Permanent link">&para;</a></h3>
+<h4 id="411-mongodb-collections">4.1.1 MongoDB Collections<a class="headerlink" href="#411-mongodb-collections" title="Permanent link">&para;</a></h4>
 <div class="mermaid">
 erDiagram
     PLAYBOOK_COLLECTION {
@@ -316,7 +895,7 @@ erDiagram
         int user_id
         string version
     }
-    
+
     PLAYBOOK_EXECUTION_COLLECTION {
         string id PK
         string parent_playbook_execution_id
@@ -329,7 +908,7 @@ erDiagram
         string execution_error_msg
         int last_executed_task_seq
     }
-    
+
     TASK_EXECUTION_COLLECTION {
         string task_request_id PK
         string peid FK
@@ -343,135 +922,145 @@ erDiagram
         string tasks_tag
         int task_seq
     }
-    
+
     INCIDENTS_COLLECTION {
-        int zona_z_incident_id PK
+        int securaa_s_incident_id PK
         string description
-        array zona_z_source_ips
-        array zona_z_destination_ips
-        string zona_z_status
-        string zona_z_severity
-        datetime zona_z_created_ts
-        array zona_z_timeline
+        array securaa_s_source_ips
+        array securaa_s_destination_ips
+        string securaa_s_status
+        string securaa_s_severity
+        datetime securaa_s_created_ts
+        array securaa_s_timeline
     }
-    
+
     PLAYBOOK_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : executes
     PLAYBOOK_EXECUTION_COLLECTION ||--o{ TASK_EXECUTION_COLLECTION : contains
     INCIDENTS_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : triggers
 </div>
-<h4>4.1.2 Sharding Strategy</h4>
-<strong>Sharding Key</strong>: <code>zona_z_incident_id % SHARD_BUCKET_COUNT</code>
-<ul>
-<li>Distributes case data across multiple shards</li>
-<li>Ensures even data distribution</li>
-<li>Optimizes query performance for case-based operations</li>
-</ul>
-<h4>4.1.3 Data Models</h4>
-<strong>Playbook Definition</strong>:
-<pre><code class="language-go">type PlaybookObject struct {
-<p>    ID                 int      <code>json:"id" bson:"id"</code></p>
-<p>    Name               string   <code>json:"name" bson:"name"</code></p>
-<p>    Description        string   <code>json:"description" bson:"description"</code></p>
-<p>    Definition         string   <code>json:"definition" bson:"definition"</code></p>
-<p>    ChartDefinition    string   <code>json:"chartdefinition" bson:"chartdefinition"</code></p>
-<p>    TenantCode         string   <code>json:"tenantcode" bson:"tenantcode"</code></p>
-<p>    CategoryID         int      <code>json:"category_id" bson:"category_id"</code></p>
-<p>    Status             string   <code>json:"status" bson:"status"</code></p>
-<p>    IsParallelPlaybook bool     <code>json:"is_parallel_playbook" bson:"is_parallel_playbook"</code></p>
-<p>    TotalTasksCount    int      <code>json:"total_tasks_count" bson:"total_tasks_count"</code></p>
-<p>}</code></pre></p>
-<strong>Task Execution Model</strong>:
-<pre><code class="language-go">type PlayBookTask struct {
-<p>    TaskSeq                int                    <code>json:"task_seq"</code></p>
-<p>    Type                   string                 <code>json:"type"</code></p>
-<p>    TaskName               string                 <code>json:"task_name"</code></p>
-<p>    TaskTag                string                 <code>json:"tasks_tag"</code></p>
-<p>    InputFields            []models.Inputfields   <code>json:"inputfields"</code></p>
-<p>    NextTask               interface{}            <code>json:"next_task"</code></p>
-<p>    Conditions             []PlayBookCondition    <code>json:"conditions"</code></p>
-<p>    ConditionOperator      string                 <code>json:"condition_operator"</code></p>
-<p>    Status                 string</p>
-<p>    HasFlowControl         bool</p>
-<p>    TotalTasksCount        int</p>
-<p>    TotalUtilsCount        int</p>
-<p>}</code></pre></p>
-<h3>4.2 Caching Strategy</h3>
-<h4>4.2.1 Redis Cache Structure</h4>
-<pre><code class="language-">zona_playbook:tenant:{tenant_code}:playbook:{playbook_name}
-<p>zona_playbook:tenant:{tenant_code}:task:{task_tag}</p>
-<p>zona_playbook:tenant:{tenant_code}:lists</p>
-<p>zona_playbook:tenant:{tenant_code}:user:{user_id}</p>
-<p>zona_playbook:execution:{execution_id}:count</code></pre></p>
-<h4>4.2.2 Cache Policies</h4>
+
+<h4 id="412-sharding-strategy">4.1.2 Sharding Strategy<a class="headerlink" href="#412-sharding-strategy" title="Permanent link">&para;</a></h4>
+<p><strong>Sharding Key</strong>: <code>securaa_s_incident_id % SHARD_BUCKET_COUNT</code><br />
+- Distributes case data across multiple shards<br />
+- Ensures even data distribution<br />
+- Optimizes query performance for case-based operations</p>
+<h4 id="413-data-models">4.1.3 Data Models<a class="headerlink" href="#413-data-models" title="Permanent link">&para;</a></h4>
+<p><strong>Playbook Definition</strong>:</p>
+<pre class="highlight"><code class="language-go">type PlaybookObject struct {
+    ID                 int      `json:&quot;id&quot; bson:&quot;id&quot;`
+    Name               string   `json:&quot;name&quot; bson:&quot;name&quot;`
+    Description        string   `json:&quot;description&quot; bson:&quot;description&quot;`
+    Definition         string   `json:&quot;definition&quot; bson:&quot;definition&quot;`
+    ChartDefinition    string   `json:&quot;chartdefinition&quot; bson:&quot;chartdefinition&quot;`
+    TenantCode         string   `json:&quot;tenantcode&quot; bson:&quot;tenantcode&quot;`
+    CategoryID         int      `json:&quot;category_id&quot; bson:&quot;category_id&quot;`
+    Status             string   `json:&quot;status&quot; bson:&quot;status&quot;`
+    IsParallelPlaybook bool     `json:&quot;is_parallel_playbook&quot; bson:&quot;is_parallel_playbook&quot;`
+    TotalTasksCount    int      `json:&quot;total_tasks_count&quot; bson:&quot;total_tasks_count&quot;`
+}
+</code></pre>
+
+<p><strong>Task Execution Model</strong>:</p>
+<pre class="highlight"><code class="language-go">type PlayBookTask struct {
+    TaskSeq                int                    `json:&quot;task_seq&quot;`
+    Type                   string                 `json:&quot;type&quot;`
+    TaskName               string                 `json:&quot;task_name&quot;`
+    TaskTag                string                 `json:&quot;tasks_tag&quot;`
+    InputFields            []models.Inputfields   `json:&quot;inputfields&quot;`
+    NextTask               interface{}            `json:&quot;next_task&quot;`
+    Conditions             []PlayBookCondition    `json:&quot;conditions&quot;`
+    ConditionOperator      string                 `json:&quot;condition_operator&quot;`
+    Status                 string
+    HasFlowControl         bool
+    TotalTasksCount        int
+    TotalUtilsCount        int
+}
+</code></pre>
+
+<h3 id="42-caching-strategy">4.2 Caching Strategy<a class="headerlink" href="#42-caching-strategy" title="Permanent link">&para;</a></h3>
+<h4 id="421-redis-cache-structure">4.2.1 Redis Cache Structure<a class="headerlink" href="#421-redis-cache-structure" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code>securaa_playbook:tenant:{tenant_code}:playbook:{playbook_name}
+securaa_playbook:tenant:{tenant_code}:task:{task_tag}
+securaa_playbook:tenant:{tenant_code}:lists
+securaa_playbook:tenant:{tenant_code}:user:{user_id}
+securaa_playbook:execution:{execution_id}:count
+</code></pre>
+
+<h4 id="422-cache-policies">4.2.2 Cache Policies<a class="headerlink" href="#422-cache-policies" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Playbook Definitions</strong>: Long-term caching with manual invalidation</li>
 <li><strong>Task Metadata</strong>: Medium-term caching (1 hour TTL)</li>
 <li><strong>Execution State</strong>: Short-term caching (5 minutes TTL)</li>
 <li><strong>User Sessions</strong>: Session-based TTL</li>
 </ul>
-<p>---</p>
-<h2>5. API Design</h2>
-<h3>5.1 RESTful API Structure</h3>
-<h4>5.1.1 Core Endpoints</h4>
-<pre><code class="language-yaml"><h1>Playbook Management</h1>
-<p>GET    /getplaybookinfo/{tenantcode}/{category_id}/{status}/{type}/</p>
-<p>POST   /createplaybook/</p>
-<p>PUT    /updateplaybook/</p>
-<p>DELETE /deleteplaybook/{tenantcode}/{playbook_id}/{userid}/</p>
-<p>POST   /importplaybook/</p>
-<p>POST   /exportplaybook/</p>
-<h1>Playbook Execution</h1>
-<p>POST   /runplaybook/</p>
-<p>GET    /getinprogressplaybooks/{tenantcode}/{caseid}/{userid}/{type}/{indicator}/</p>
-<p>POST   /stopplaybook/</p>
-<p>POST   /getrunningplaybooks/</p>
-<h1>Task Management</h1>
-<p>POST   /runtask/</p>
-<p>GET    /getplaybooktasks/{tenantcode}/{playbook_name}/{type}/</p>
-<h1>Data Processing</h1>
-<p>POST   /executeRest/</p>
-<p>POST   /validateregex/</p>
-<p>POST   /stringtoarray/</p>
-<p>POST   /arraytostring/</p>
-<p>POST   /deduplicate/</code></pre></p>
-<h4>5.1.2 Request/Response Patterns</h4>
-<strong>Playbook Execution Request</strong>:
-<pre><code class="language-json">{
-<p>  "tenantcode": "tenant123",</p>
-<p>  "playbook_name": "Malware Response",</p>
-<p>  "case_id": "12345",</p>
-<p>  "is_bot": "false",</p>
-<p>  "uid": "1001",</p>
-<p>  "username": "security_analyst",</p>
-<p>  "type": "case",</p>
-<p>  "indicator": "192.168.1.100",</p>
-<p>  "resume_playbook": "false"</p>
-<p>}</code></pre></p>
-<strong>Standard API Response</strong>:
-<pre><code class="language-json">{
-<p>  "success": true,</p>
-<p>  "data": {</p>
-<p>    "playbook_execution_id": "pb_exec_123456",</p>
-<p>    "status": "inprogress",</p>
-<p>    "total_tasks": 15,</p>
-<p>    "completed_tasks": 5</p>
-<p>  },</p>
-<p>  "error": "",</p>
-<p>  "displayMessage": "Playbook execution started successfully",</p>
-<p>  "time": 1694443200000</p>
-<p>}</code></pre></p>
-<h3>5.2 WebSocket Integration</h3>
-<p>For real-time updates during playbook execution:</p>
-<ul>
-<li>Execution progress updates</li>
-<li>Task completion notifications</li>
-<li>Error alerts</li>
-<li>Status changes</li>
-</ul>
-<p>---</p>
-<h2>6. Security Architecture</h2>
-<h3>6.1 Multi-Tenant Security Model</h3>
-<h4>6.1.1 Tenant Isolation</h4>
+<hr />
+<h2 id="5-api-design">5. API Design<a class="headerlink" href="#5-api-design" title="Permanent link">&para;</a></h2>
+<h3 id="51-restful-api-structure">5.1 RESTful API Structure<a class="headerlink" href="#51-restful-api-structure" title="Permanent link">&para;</a></h3>
+<h4 id="511-core-endpoints">5.1.1 Core Endpoints<a class="headerlink" href="#511-core-endpoints" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-yaml"># Playbook Management
+GET    /getplaybookinfo/{tenantcode}/{category_id}/{status}/{type}/
+POST   /createplaybook/
+PUT    /updateplaybook/
+DELETE /deleteplaybook/{tenantcode}/{playbook_id}/{userid}/
+POST   /importplaybook/
+POST   /exportplaybook/
+# Playbook Execution
+POST   /runplaybook/
+GET    /getinprogressplaybooks/{tenantcode}/{caseid}/{userid}/{type}/{indicator}/
+POST   /stopplaybook/
+POST   /getrunningplaybooks/
+# Task Management
+POST   /runtask/
+GET    /getplaybooktasks/{tenantcode}/{playbook_name}/{type}/
+
+# Data Processing
+POST   /executeRest/
+POST   /validateregex/
+POST   /stringtoarray/
+POST   /arraytostring/
+POST   /deduplicate/
+</code></pre>
+
+<h4 id="512-requestresponse-patterns">5.1.2 Request/Response Patterns<a class="headerlink" href="#512-requestresponse-patterns" title="Permanent link">&para;</a></h4>
+<p><strong>Playbook Execution Request</strong>:</p>
+<pre class="highlight"><code class="language-json">{
+  &quot;tenantcode&quot;: &quot;tenant123&quot;,
+  &quot;playbook_name&quot;: &quot;Malware Response&quot;,
+  &quot;case_id&quot;: &quot;12345&quot;,
+  &quot;is_bot&quot;: &quot;false&quot;,
+  &quot;uid&quot;: &quot;1001&quot;,
+  &quot;username&quot;: &quot;security_analyst&quot;,
+  &quot;type&quot;: &quot;case&quot;,
+  &quot;indicator&quot;: &quot;192.168.1.100&quot;,
+  &quot;resume_playbook&quot;: &quot;false&quot;
+}
+</code></pre>
+
+<p><strong>Standard API Response</strong>:</p>
+<pre class="highlight"><code class="language-json">{
+  &quot;success&quot;: true,
+  &quot;data&quot;: {
+    &quot;playbook_execution_id&quot;: &quot;pb_exec_123456&quot;,
+    &quot;status&quot;: &quot;inprogress&quot;,
+    &quot;total_tasks&quot;: 15,
+    &quot;completed_tasks&quot;: 5
+  },
+  &quot;error&quot;: &quot;&quot;,
+  &quot;displayMessage&quot;: &quot;Playbook execution started successfully&quot;,
+  &quot;time&quot;: 1694443200000
+}
+</code></pre>
+
+<h3 id="52-websocket-integration">5.2 WebSocket Integration<a class="headerlink" href="#52-websocket-integration" title="Permanent link">&para;</a></h3>
+<p>For real-time updates during playbook execution:<br />
+- Execution progress updates<br />
+- Task completion notifications<br />
+- Error alerts<br />
+- Status changes</p>
+<hr />
+<h2 id="6-security-architecture">6. Security Architecture<a class="headerlink" href="#6-security-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="61-multi-tenant-security-model">6.1 Multi-Tenant Security Model<a class="headerlink" href="#61-multi-tenant-security-model" title="Permanent link">&para;</a></h3>
+<h4 id="611-tenant-isolation">6.1.1 Tenant Isolation<a class="headerlink" href="#611-tenant-isolation" title="Permanent link">&para;</a></h4>
 <div class="mermaid">
 graph TB
     subgraph "Tenant A"
@@ -480,303 +1069,320 @@ graph TB
         B1 --> C1[Database A]
         B2 --> C1
     end
-    
+
     subgraph "Tenant B"
         A3[User B1] --> B3[Session B]
         A4[User B2] --> B4[Session B]
         B3 --> C2[Database B]
         B4 --> C2
     end
-    
+
     subgraph "Core Services"
         D[Authentication Service]
         E[Authorization Service]
         F[Audit Service]
     end
-    
+
     B1 --> D
     B2 --> D
     B3 --> D
     B4 --> D
 </div>
-<h4>6.1.2 Authentication & Authorization</h4>
+
+<h4 id="612-authentication-authorization">6.1.2 Authentication &amp; Authorization<a class="headerlink" href="#612-authentication-authorization" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>JWT-based Authentication</strong>: Stateless token-based auth</li>
 <li><strong>Role-Based Access Control (RBAC)</strong>: Granular permissions</li>
 <li><strong>Tenant-Scoped Resources</strong>: Complete data isolation</li>
 <li><strong>Session Management</strong>: Configurable session timeouts</li>
 </ul>
-<h4>6.1.3 Data Security</h4>
+<h4 id="613-data-security">6.1.3 Data Security<a class="headerlink" href="#613-data-security" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Encryption at Rest</strong>: MongoDB encrypted storage</li>
 <li><strong>Encryption in Transit</strong>: TLS/SSL for all communications</li>
 <li><strong>Credential Management</strong>: Secure storage of integration credentials</li>
 <li><strong>Audit Logging</strong>: Complete audit trail for compliance</li>
 </ul>
-<h3>6.2 Security Controls</h3>
-<h4>6.2.1 Input Validation</h4>
+<h3 id="62-security-controls">6.2 Security Controls<a class="headerlink" href="#62-security-controls" title="Permanent link">&para;</a></h3>
+<h4 id="621-input-validation">6.2.1 Input Validation<a class="headerlink" href="#621-input-validation" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Schema validation for all API inputs</li>
 <li>SQL injection prevention</li>
 <li>XSS protection</li>
 <li>Parameter sanitization</li>
 </ul>
-<h4>6.2.2 Access Control</h4>
-<pre><code class="language-go">// Middleware example
-<p>func (a </em>App) loggingMiddleware(next http.Handler) http.Handler {</p>
-<p>    return http.HandlerFunc(func(w http.ResponseWriter, r <em>http.Request) {</p>
-<p>        // Tenant verification</p>
-<p>        // Access token validation</p>
-<p>        // Permission checks</p>
-<p>        // Audit logging</p>
-<p>    })</p>
-<p>}</code></pre></p>
-<p>---</p>
-<h2>7. Scalability & Performance</h2>
-<h3>7.1 Horizontal Scaling</h3>
-<h4>7.1.1 Service Scaling</h4>
+<h4 id="622-access-control">6.2.2 Access Control<a class="headerlink" href="#622-access-control" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">// Middleware example
+func (a *App) loggingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        // Tenant verification
+        // Access token validation
+        // Permission checks
+        // Audit logging
+    })
+}
+</code></pre>
+
+<hr />
+<h2 id="7-scalability-performance">7. Scalability &amp; Performance<a class="headerlink" href="#7-scalability-performance" title="Permanent link">&para;</a></h2>
+<h3 id="71-horizontal-scaling">7.1 Horizontal Scaling<a class="headerlink" href="#71-horizontal-scaling" title="Permanent link">&para;</a></h3>
+<h4 id="711-service-scaling">7.1.1 Service Scaling<a class="headerlink" href="#711-service-scaling" title="Permanent link">&para;</a></h4>
 <div class="mermaid">
 graph TB
     subgraph "Load Balancer"
         A[ALB/Nginx]
     end
-    
+
     subgraph "Application Layer"
         B1[Playbook Service 1]
         B2[Playbook Service 2]
         B3[Playbook Service N]
     end
-    
+
     subgraph "Data Layer"
         C1[(MongoDB Shard 1)]
         C2[(MongoDB Shard 2)]
         C3[(MongoDB Shard N)]
         D[(Redis Cluster)]
     end
-    
+
     A --> B1
     A --> B2
     A --> B3
-    
+
     B1 --> C1
     B1 --> C2
     B1 --> C3
     B1 --> D
-    
+
     B2 --> C1
     B2 --> C2
     B2 --> C3
     B2 --> D
 </div>
-<h4>7.1.2 Database Sharding</h4>
+
+<h4 id="712-database-sharding">7.1.2 Database Sharding<a class="headerlink" href="#712-database-sharding" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Horizontal Partitioning</strong>: Case data distributed across shards</li>
 <li><strong>Query Routing</strong>: Automatic routing to appropriate shard</li>
 <li><strong>Cross-Shard Queries</strong>: Aggregation across multiple shards</li>
 <li><strong>Replication</strong>: Master-slave replication for high availability</li>
 </ul>
-<h3>7.2 Performance Optimization</h3>
-<h4>7.2.1 Caching Strategy</h4>
+<h3 id="72-performance-optimization">7.2 Performance Optimization<a class="headerlink" href="#72-performance-optimization" title="Permanent link">&para;</a></h3>
+<h4 id="721-caching-strategy">7.2.1 Caching Strategy<a class="headerlink" href="#721-caching-strategy" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Multi-level Caching</strong>: Application, database, and CDN caching</li>
 <li><strong>Cache Warming</strong>: Proactive cache population</li>
 <li><strong>Intelligent Invalidation</strong>: Smart cache invalidation policies</li>
 <li><strong>Cache Metrics</strong>: Monitoring cache hit/miss ratios</li>
 </ul>
-<h4>7.2.2 Parallel Processing</h4>
-<pre><code class="language-go">// Parallel task execution example
-<p>func (executionController </em>PlaybookExecutionController) executeParallelTasks() {</p>
-<p>    var wg sync.WaitGroup</p>
-<p>    for i := 0; i < taskCount; i++ {</p>
-<p>        wg.Add(1)</p>
-<p>        go func(taskIndex int) {</p>
-<p>            defer wg.Done()</p>
-<p>            executionController.ProcessAndExecuteTask(taskIndex, ...)</p>
-<p>        }(i)</p>
-<p>    }</p>
-<p>    wg.Wait()</p>
-<p>}</code></pre></p>
-<h3>7.3 Resource Management</h3>
-<h4>7.3.1 Docker Container Management</h4>
+<h4 id="722-parallel-processing">7.2.2 Parallel Processing<a class="headerlink" href="#722-parallel-processing" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">// Parallel task execution example
+func (executionController *PlaybookExecutionController) executeParallelTasks() {
+    var wg sync.WaitGroup
+    for i := 0; i &lt; taskCount; i++ {
+        wg.Add(1)
+        go func(taskIndex int) {
+            defer wg.Done()
+            executionController.ProcessAndExecuteTask(taskIndex, ...)
+        }(i)
+    }
+    wg.Wait()
+}
+</code></pre>
+
+<h3 id="73-resource-management">7.3 Resource Management<a class="headerlink" href="#73-resource-management" title="Permanent link">&para;</a></h3>
+<h4 id="731-docker-container-management">7.3.1 Docker Container Management<a class="headerlink" href="#731-docker-container-management" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Resource Limits</strong>: CPU and memory constraints</li>
 <li><strong>Container Lifecycle</strong>: Automatic cleanup</li>
 <li><strong>Image Management</strong>: Optimized container images</li>
 <li><strong>Health Checks</strong>: Container health monitoring</li>
 </ul>
-<h4>7.3.2 Connection Pooling</h4>
+<h4 id="732-connection-pooling">7.3.2 Connection Pooling<a class="headerlink" href="#732-connection-pooling" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Database Connections</strong>: MongoDB connection pooling</li>
 <li><strong>Redis Connections</strong>: Connection pool for cache operations</li>
 <li><strong>HTTP Client Pooling</strong>: Reusable HTTP clients for integrations</li>
 </ul>
-<p>---</p>
-<h2>8. Deployment Architecture</h2>
-<h3>8.1 Containerization</h3>
-<h4>8.1.1 Docker Configuration</h4>
-<pre><code class="language-dockerfile">FROM golang:1.17-alpine AS builder
-<p>WORKDIR /app</p>
-<p>COPY . .</p>
-<p>RUN go mod download</p>
-<p>RUN CGO_ENABLED=0 GOOS=linux go build -o securaa-playbook-service</p>
-<p>FROM alpine:latest</p>
-<p>RUN apk --no-cache add ca-certificates</p>
-<p>WORKDIR /root/</p>
-<p>COPY --from=builder /app/securaa-playbook-service .</p>
-<p>EXPOSE 8040</p>
-<p>CMD ["./securaa-playbook-service"]</code></pre></p>
-<h3>8.2 Infrastructure Requirements</h3>
-<h4>8.2.1 Compute Resources</h4>
+<hr />
+<h2 id="8-deployment-architecture">8. Deployment Architecture<a class="headerlink" href="#8-deployment-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="81-containerization">8.1 Containerization<a class="headerlink" href="#81-containerization" title="Permanent link">&para;</a></h3>
+<h4 id="811-docker-configuration">8.1.1 Docker Configuration<a class="headerlink" href="#811-docker-configuration" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-dockerfile">FROM golang:1.17-alpine AS builder
+WORKDIR /app
+COPY . .
+RUN go mod download
+RUN CGO_ENABLED=0 GOOS=linux go build -o securaa-playbook-service
+
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=builder /app/securaa-playbook-service .
+EXPOSE 8040
+CMD [&quot;./securaa-playbook-service&quot;]
+</code></pre>
+
+<h3 id="82-infrastructure-requirements">8.2 Infrastructure Requirements<a class="headerlink" href="#82-infrastructure-requirements" title="Permanent link">&para;</a></h3>
+<h4 id="821-compute-resources">8.2.1 Compute Resources<a class="headerlink" href="#821-compute-resources" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>CPU</strong>: 2+ cores per service instance</li>
 <li><strong>Memory</strong>: 4GB+ RAM per service instance</li>
 <li><strong>Storage</strong>: SSD storage for optimal performance</li>
 <li><strong>Network</strong>: Low-latency networking for real-time execution</li>
 </ul>
-<h4>8.2.2 Database Infrastructure</h4>
+<h4 id="822-database-infrastructure">8.2.2 Database Infrastructure<a class="headerlink" href="#822-database-infrastructure" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>MongoDB</strong>: Replica set with 3+ nodes</li>
 <li><strong>Redis</strong>: Cluster mode with persistence</li>
 <li><strong>Backup</strong>: Automated backup and recovery</li>
 <li><strong>Monitoring</strong>: Real-time performance monitoring</li>
 </ul>
-<p>---</p>
-<h2>9. Monitoring & Observability</h2>
-<h3>9.1 Metrics & KPIs</h3>
-<h4>9.1.1 Business Metrics</h4>
+<hr />
+<h2 id="9-monitoring-observability">9. Monitoring &amp; Observability<a class="headerlink" href="#9-monitoring-observability" title="Permanent link">&para;</a></h2>
+<h3 id="91-metrics-kpis">9.1 Metrics &amp; KPIs<a class="headerlink" href="#91-metrics-kpis" title="Permanent link">&para;</a></h3>
+<h4 id="911-business-metrics">9.1.1 Business Metrics<a class="headerlink" href="#911-business-metrics" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Playbook Execution Success Rate</strong>: % of successful executions</li>
 <li><strong>Mean Time to Resolution (MTTR)</strong>: Average incident response time</li>
 <li><strong>Task Completion Rate</strong>: Individual task success rates</li>
 <li><strong>User Adoption</strong>: Active playbook usage statistics</li>
 </ul>
-<h4>9.1.2 Technical Metrics</h4>
+<h4 id="912-technical-metrics">9.1.2 Technical Metrics<a class="headerlink" href="#912-technical-metrics" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Response Time</strong>: API response latencies</li>
 <li><strong>Throughput</strong>: Requests per second</li>
 <li><strong>Error Rates</strong>: 4xx/5xx error percentages</li>
 <li><strong>Resource Utilization</strong>: CPU, memory, disk usage</li>
 </ul>
-<h3>9.2 Logging Strategy</h3>
-<h4>9.2.1 Log Levels</h4>
-<pre><code class="language-go">logger.Debug("Task execution started")
-<p>logger.Info("Playbook execution completed successfully")</p>
-<p>logger.Warn("Task execution timeout, retrying...")</p>
-<p>logger.Error("Database connection failed", err.Error())</code></pre></p>
-<h4>9.2.2 Structured Logging</h4>
-<pre><code class="language-json">{
-<p>  "timestamp": "2025-09-11T10:30:00Z",</p>
-<p>  "level": "INFO",</p>
-<p>  "service": "securaa-playbook-service",</p>
-<p>  "tenant": "tenant123",</p>
-<p>  "playbook_id": "pb_001",</p>
-<p>  "execution_id": "exec_123456",</p>
-<p>  "message": "Task completed successfully",</p>
-<p>  "duration_ms": 1250,</p>
-<p>  "task_seq": 5</p>
-<p>}</code></pre></p>
-<h3>9.3 Alerting & Notifications</h3>
-<h4>9.3.1 Alert Conditions</h4>
+<h3 id="92-logging-strategy">9.2 Logging Strategy<a class="headerlink" href="#92-logging-strategy" title="Permanent link">&para;</a></h3>
+<h4 id="921-log-levels">9.2.1 Log Levels<a class="headerlink" href="#921-log-levels" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">logger.Debug(&quot;Task execution started&quot;)
+logger.Info(&quot;Playbook execution completed successfully&quot;)
+logger.Warn(&quot;Task execution timeout, retrying...&quot;)
+logger.Error(&quot;Database connection failed&quot;, err.Error())
+</code></pre>
+
+<h4 id="922-structured-logging">9.2.2 Structured Logging<a class="headerlink" href="#922-structured-logging" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-json">{
+  &quot;timestamp&quot;: &quot;2025-09-11T10:30:00Z&quot;,
+  &quot;level&quot;: &quot;INFO&quot;,
+  &quot;service&quot;: &quot;securaa-playbook-service&quot;,
+  &quot;tenant&quot;: &quot;tenant123&quot;,
+  &quot;playbook_id&quot;: &quot;pb_001&quot;,
+  &quot;execution_id&quot;: &quot;exec_123456&quot;,
+  &quot;message&quot;: &quot;Task completed successfully&quot;,
+  &quot;duration_ms&quot;: 1250,
+  &quot;task_seq&quot;: 5
+}
+</code></pre>
+
+<h3 id="93-alerting-notifications">9.3 Alerting &amp; Notifications<a class="headerlink" href="#93-alerting-notifications" title="Permanent link">&para;</a></h3>
+<h4 id="931-alert-conditions">9.3.1 Alert Conditions<a class="headerlink" href="#931-alert-conditions" title="Permanent link">&para;</a></h4>
 <ul>
-<li><strong>High Error Rate</strong>: >5% error rate over 5 minutes</li>
-<li><strong>High Latency</strong>: P95 response time >2 seconds</li>
-<li><strong>Resource Exhaustion</strong>: CPU/Memory >80%</li>
+<li><strong>High Error Rate</strong>: &gt;5% error rate over 5 minutes</li>
+<li><strong>High Latency</strong>: P95 response time &gt;2 seconds</li>
+<li><strong>Resource Exhaustion</strong>: CPU/Memory &gt;80%</li>
 <li><strong>Database Issues</strong>: Connection failures or timeouts</li>
 </ul>
-<h4>9.3.2 Notification Channels</h4>
+<h4 id="932-notification-channels">9.3.2 Notification Channels<a class="headerlink" href="#932-notification-channels" title="Permanent link">&para;</a></h4>
 <ul>
 <li>Email alerts for critical issues</li>
 <li>Slack/Teams integration for team notifications</li>
 <li>PagerDuty integration for on-call escalation</li>
 <li>Dashboard alerts for operations team</li>
 </ul>
-<p>---</p>
-<h2>10. Error Handling & Recovery</h2>
-<h3>10.1 Error Handling Strategy</h3>
-<h4>10.1.1 Error Categories</h4>
+<hr />
+<h2 id="10-error-handling-recovery">10. Error Handling &amp; Recovery<a class="headerlink" href="#10-error-handling-recovery" title="Permanent link">&para;</a></h2>
+<h3 id="101-error-handling-strategy">10.1 Error Handling Strategy<a class="headerlink" href="#101-error-handling-strategy" title="Permanent link">&para;</a></h3>
+<h4 id="1011-error-categories">10.1.1 Error Categories<a class="headerlink" href="#1011-error-categories" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Transient Errors</strong>: Network timeouts, temporary service unavailability</li>
 <li><strong>Permanent Errors</strong>: Invalid configuration, authentication failures</li>
 <li><strong>Business Logic Errors</strong>: Invalid playbook definitions, condition failures</li>
 <li><strong>System Errors</strong>: Database failures, resource exhaustion</li>
 </ul>
-<h4>10.1.2 Error Response Pattern</h4>
-<pre><code class="language-go">type Response struct {
-<p>    Success        bool        <code>json:"success"</code></p>
-<p>    Data           interface{} <code>json:"data"</code></p>
-<p>    Error          string      <code>json:"error"</code></p>
-<p>    DisplayMessage string      <code>json:"displaymessage"</code></p>
-<p>    ErrorPath      string      <code>json:"errorpath"</code></p>
-<p>    Status         string      <code>json:"status"</code></p>
-<p>}</code></pre></p>
-<h3>10.2 Recovery Mechanisms</h3>
-<h4>10.2.1 Retry Logic</h4>
-<pre><code class="language-go">func retryWithBackoff(operation func() error, maxRetries int) error {
-<p>    for i := 0; i < maxRetries; i++ {</p>
-<p>        err := operation()</p>
-<p>        if err == nil {</p>
-<p>            return nil</p>
-<p>        }</p>
-<p>        backoffTime := time.Duration(math.Pow(2, float64(i))) * time.Second</p>
-<p>        time.Sleep(backoffTime)</p>
-<p>    }</p>
-<p>    return fmt.Errorf("operation failed after %d retries", maxRetries)</p>
-<p>}</code></pre></p>
-<h4>10.2.2 Circuit Breaker Pattern</h4>
+<h4 id="1012-error-response-pattern">10.1.2 Error Response Pattern<a class="headerlink" href="#1012-error-response-pattern" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type Response struct {
+    Success        bool        `json:&quot;success&quot;`
+    Data           interface{} `json:&quot;data&quot;`
+    Error          string      `json:&quot;error&quot;`
+    DisplayMessage string      `json:&quot;displaymessage&quot;`
+    ErrorPath      string      `json:&quot;errorpath&quot;`
+    Status         string      `json:&quot;status&quot;`
+}
+</code></pre>
+
+<h3 id="102-recovery-mechanisms">10.2 Recovery Mechanisms<a class="headerlink" href="#102-recovery-mechanisms" title="Permanent link">&para;</a></h3>
+<h4 id="1021-retry-logic">10.2.1 Retry Logic<a class="headerlink" href="#1021-retry-logic" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func retryWithBackoff(operation func() error, maxRetries int) error {
+    for i := 0; i &lt; maxRetries; i++ {
+        err := operation()
+        if err == nil {
+            return nil
+        }
+        backoffTime := time.Duration(math.Pow(2, float64(i))) * time.Second
+        time.Sleep(backoffTime)
+    }
+    return fmt.Errorf(&quot;operation failed after %d retries&quot;, maxRetries)
+}
+</code></pre>
+
+<h4 id="1022-circuit-breaker-pattern">10.2.2 Circuit Breaker Pattern<a class="headerlink" href="#1022-circuit-breaker-pattern" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Closed State</strong>: Normal operation</li>
 <li><strong>Open State</strong>: Fail fast when service is down</li>
 <li><strong>Half-Open State</strong>: Test if service has recovered</li>
 </ul>
-<h3>10.3 Data Consistency</h3>
-<h4>10.3.1 Transaction Management</h4>
+<h3 id="103-data-consistency">10.3 Data Consistency<a class="headerlink" href="#103-data-consistency" title="Permanent link">&para;</a></h3>
+<h4 id="1031-transaction-management">10.3.1 Transaction Management<a class="headerlink" href="#1031-transaction-management" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>ACID Compliance</strong>: Ensure data consistency</li>
 <li><strong>Compensating Transactions</strong>: Rollback on failures</li>
 <li><strong>Idempotent Operations</strong>: Safe retry mechanisms</li>
 <li><strong>Event Sourcing</strong>: Audit trail for state changes</li>
 </ul>
-<h4>10.3.2 Backup & Recovery</h4>
+<h4 id="1032-backup-recovery">10.3.2 Backup &amp; Recovery<a class="headerlink" href="#1032-backup-recovery" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Automated Backups</strong>: Daily full backups</li>
 <li><strong>Point-in-Time Recovery</strong>: Restore to specific timestamps</li>
 <li><strong>Cross-Region Replication</strong>: Disaster recovery</li>
 <li><strong>Data Validation</strong>: Integrity checks after recovery</li>
 </ul>
-<p>---</p>
-<h2>11. Integration Architecture</h2>
-<h3>11.1 External System Integration</h3>
-<h4>11.1.1 Integration Types</h4>
+<hr />
+<h2 id="11-integration-architecture">11. Integration Architecture<a class="headerlink" href="#11-integration-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="111-external-system-integration">11.1 External System Integration<a class="headerlink" href="#111-external-system-integration" title="Permanent link">&para;</a></h3>
+<h4 id="1111-integration-types">11.1.1 Integration Types<a class="headerlink" href="#1111-integration-types" title="Permanent link">&para;</a></h4>
 <div class="mermaid">
 graph TB
     subgraph "Securaa Playbook Service"
         A[Integration Manager]
     end
-    
+
     subgraph "SIEM Platforms"
         B1[QRadar]
         B2[Splunk]
         B3[ArcSight]
     end
-    
+
     subgraph "Ticketing Systems"
         C1[ServiceNow]
         C2[Jira]
         C3[Remedy]
     end
-    
+
     subgraph "Security Tools"
         D1[CrowdStrike]
         D2[Palo Alto]
         D3[FireEye]
     end
-    
+
     subgraph "Communication"
         E1[Slack]
         E2[Teams]
         E3[Email]
     end
-    
+
     A --> B1
     A --> B2
     A --> B3
@@ -790,52 +1396,55 @@ graph TB
     A --> E2
     A --> E3
 </div>
-<h4>11.1.2 Integration Patterns</h4>
+
+<h4 id="1112-integration-patterns">11.1.2 Integration Patterns<a class="headerlink" href="#1112-integration-patterns" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>RESTful APIs</strong>: HTTP-based integrations</li>
 <li><strong>Webhook Support</strong>: Event-driven integration</li>
 <li><strong>Custom Connectors</strong>: Proprietary protocol support</li>
 <li><strong>Batch Processing</strong>: Bulk data operations</li>
 </ul>
-<h3>11.2 Data Exchange</h3>
-<h4>11.2.1 Data Formats</h4>
+<h3 id="112-data-exchange">11.2 Data Exchange<a class="headerlink" href="#112-data-exchange" title="Permanent link">&para;</a></h3>
+<h4 id="1121-data-formats">11.2.1 Data Formats<a class="headerlink" href="#1121-data-formats" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>JSON</strong>: Primary data format</li>
 <li><strong>XML</strong>: Legacy system support</li>
 <li><strong>CSV</strong>: Bulk data operations</li>
 <li><strong>Binary</strong>: File transfers and attachments</li>
 </ul>
-<h4>11.2.2 Transformation Engine</h4>
-<pre><code class="language-go">type Transformer struct {
-<p>    Name   string      <code>json:"name"</code></p>
-<p>    Data   interface{} <code>json:"data"</code></p>
-<p>    Filter interface{} <code>json:"filter"</code></p>
-<p>}</p>
-<p>func TransformValues(alertData models.RunPlayBookRequest2, </p>
-<p>                    inputFields models.Inputfields) (interface{}, error) {</p>
-<p>    // Apply filters</p>
-<p>    // Transform data</p>
-<p>    // Validate output</p>
-<p>}</code></pre></p>
-<h3>11.3 API Management</h3>
-<h4>11.3.1 Rate Limiting</h4>
+<h4 id="1122-transformation-engine">11.2.2 Transformation Engine<a class="headerlink" href="#1122-transformation-engine" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type Transformer struct {
+    Name   string      `json:&quot;name&quot;`
+    Data   interface{} `json:&quot;data&quot;`
+    Filter interface{} `json:&quot;filter&quot;`
+}
+func TransformValues(alertData models.RunPlayBookRequest2, 
+                    inputFields models.Inputfields) (interface{}, error) {
+    // Apply filters
+    // Transform data
+    // Validate output
+}
+</code></pre>
+
+<h3 id="113-api-management">11.3 API Management<a class="headerlink" href="#113-api-management" title="Permanent link">&para;</a></h3>
+<h4 id="1131-rate-limiting">11.3.1 Rate Limiting<a class="headerlink" href="#1131-rate-limiting" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Per-tenant limits</strong>: Prevent resource exhaustion</li>
 <li><strong>API quotas</strong>: Fair usage policies</li>
 <li><strong>Burst handling</strong>: Handle traffic spikes</li>
 <li><strong>Throttling</strong>: Graceful degradation</li>
 </ul>
-<h4>11.3.2 Authentication Methods</h4>
+<h4 id="1132-authentication-methods">11.3.2 Authentication Methods<a class="headerlink" href="#1132-authentication-methods" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>API Keys</strong>: Simple authentication</li>
 <li><strong>OAuth 2.0</strong>: Secure delegated access</li>
 <li><strong>JWT Tokens</strong>: Stateless authentication</li>
 <li><strong>Mutual TLS</strong>: Certificate-based auth</li>
 </ul>
-<p>---</p>
-<h2>Conclusion</h2>
+<hr />
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>The Securaa Playbook Service represents a sophisticated, enterprise-grade security orchestration platform designed for high-scale, multi-tenant environments. Its modular architecture, robust error handling, and comprehensive integration capabilities make it suitable for large security operations centers and managed security service providers.</p>
-<h3>Key Strengths</h3>
+<h3 id="key-strengths">Key Strengths<a class="headerlink" href="#key-strengths" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Scalable Architecture</strong>: Supports horizontal scaling and high availability</li>
 <li><strong>Security First</strong>: Comprehensive security controls and multi-tenant isolation</li>
@@ -843,7 +1452,7 @@ graph TB
 <li><strong>Performance Optimized</strong>: Parallel execution and intelligent caching</li>
 <li><strong>Operations Ready</strong>: Comprehensive monitoring and observability</li>
 </ul>
-<h3>Future Considerations</h3>
+<h3 id="future-considerations">Future Considerations<a class="headerlink" href="#future-considerations" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>AI/ML Integration</strong>: Intelligent playbook optimization</li>
 <li><strong>Event Streaming</strong>: Real-time event processing</li>
@@ -852,28 +1461,94 @@ graph TB
 <li><strong>Edge Computing</strong>: Distributed execution capabilities</li>
 </ul>
 <p>This design document serves as the foundation for understanding, maintaining, and extending the Securaa Playbook Service architecture.</p>
-
     </main>
-    
-    <footer class="main-footer">
-        <p>&copy; 2025 Securaa Platform. All rights reserved.</p>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
     </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
-        mermaid.initialize({ 
+        mermaid.initialize({
             startOnLoad: true,
-            theme: 'default',
+            theme: 'base',
             themeVariables: {
-                primaryColor: '#1976d2',
-                primaryTextColor: '#000000',
-                primaryBorderColor: '#0d47a1',
-                lineColor: '#1976d2',
-                secondaryColor: '#f5f5f5',
-                tertiaryColor: '#ffffff'
-            }
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
         });
     </script>
-    <script src="assets/js/documentation.js"></script>
 </body>
 </html>

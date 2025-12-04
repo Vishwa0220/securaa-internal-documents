@@ -3,621 +3,2339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Securaa Custom Utils - Low Level Design - Securaa Platform Documentation</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
+    <meta name="description" content="Securaa Platform Documentation - Securaa Custom Utils - Low Level Design">
+    <title>Securaa Custom Utils - Low Level Design - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
-    
+
     <nav class="documentation-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-ris-high-level-design.html">RIS High Level Design</a></li>
-            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-            <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-            <li><a href="securaa-siem-low-level-design.html">Securaa SIEM Low Level Design</a></li>
-            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-            <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
-            <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
-            <li><a href="securaa-custom-utils-high-level-design.html">Securaa Custom Utils High Level Design</a></li>
-            <li><a href="securaa-custom-utils-low-level-design.html" class="active">Securaa Custom Utils Low Level Design</a></li>
-        </ul>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
     </nav>
-    
+
     <main class="main-content">
-        <h1>Securaa Custom Utils - Low Level Design</h1>
+        <h1 id="zona-custom-utils-service-low-level-design-lld">Zona Custom Utils Service - Low-Level Design (LLD)<a class="headerlink" href="#zona-custom-utils-service-low-level-design-lld" title="Permanent link">&para;</a></h1>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#technical-implementation-overview">Technical Implementation Overview</a></li>
+<li><a href="#detailed-component-design">Detailed Component Design</a></li>
+<li><a href="#database-design">Database Design</a></li>
+<li><a href="#api-implementation">API Implementation</a></li>
+<li><a href="#security-implementation">Security Implementation</a></li>
+<li><a href="#performance-implementation">Performance Implementation</a></li>
+<li><a href="#error-handling-implementation">Error Handling Implementation</a></li>
+<li><a href="#monitoring-and-logging-implementation">Monitoring and Logging Implementation</a></li>
+<li><a href="#configuration-management">Configuration Management</a></li>
+<li><a href="#development-guidelines">Development Guidelines</a></li>
+<li><a href="#testing-strategy">Testing Strategy</a></li>
+<li><a href="#deployment-implementation">Deployment Implementation</a></li>
+</ol>
+<h2 id="technical-implementation-overview">Technical Implementation Overview<a class="headerlink" href="#technical-implementation-overview" title="Permanent link">&para;</a></h2>
+<h3 id="technology-stack-details">Technology Stack Details<a class="headerlink" href="#technology-stack-details" title="Permanent link">&para;</a></h3>
+<h4 id="core-technologies">Core Technologies<a class="headerlink" href="#core-technologies" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">// Go 1.17+ with essential libraries
+module zona_services/zona_custom_utils
 
-        <h2>Document Information</h2>
-        <ul>
-            <li><strong>Service Name</strong>: Securaa Custom Utils Service</li>
-            <li><strong>Version</strong>: 1.0</li>
-            <li><strong>Date</strong>: September 2025</li>
-            <li><strong>Author</strong>: Development Team</li>
-            <li><strong>Related Documents</strong>: <a href="securaa-custom-utils-high-level-design.html">High Level Design</a></li>
-        </ul>
-        
-        <h2>Table of Contents</h2>
-        <ol>
-            <li><a href="#technical-implementation">Technical Implementation</a></li>
-            <li><a href="#database-design">Database Design</a></li>
-            <li><a href="#api-specifications">API Specifications</a></li>
-            <li><a href="#class-design">Class Design</a></li>
-            <li><a href="#security-implementation">Security Implementation</a></li>
-            <li><a href="#performance-optimization">Performance Optimization</a></li>
-            <li><a href="#error-handling">Error Handling</a></li>
-            <li><a href="#deployment-configuration">Deployment Configuration</a></li>
-            <li><a href="#monitoring-logging">Monitoring & Logging</a></li>
-        </ol>
+require (
+    github.com/gorilla/mux v1.8.0           // HTTP routing
+    go.mongodb.org/mongo-driver v1.14.0     // MongoDB driver
+    github.com/go-redis/redis/v8 v8.11.5    // Redis client
+    github.com/docker/docker v1.13.0        // Docker API client
+    github.com/dgrijalva/jwt-go v3.2.0       // JWT token handling
+    securaa_lib v0.0.0                      // Internal utilities
+)
+</code></pre>
 
-        <h2 id="technical-implementation">Technical Implementation</h2>
-        <h3>Technology Stack</h3>
-        <ul>
-            <li><strong>Programming Language</strong>: Python 3.9+</li>
-            <li><strong>Web Framework</strong>: FastAPI</li>
-            <li><strong>Database</strong>: MongoDB with Motor (async driver)</li>
-            <li><strong>Cache</strong>: Redis with aioredis</li>
-            <li><strong>Container Runtime</strong>: Docker</li>
-            <li><strong>Authentication</strong>: JWT with custom middleware</li>
-            <li><strong>Validation</strong>: Pydantic models</li>
-            <li><strong>Testing</strong>: pytest with async support</li>
-        </ul>
+<h4 id="service-architecture">Service Architecture<a class="headerlink" href="#service-architecture" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Port</strong>: 8109 (HTTP REST API)</li>
+<li><strong>Runtime</strong>: Go 1.17+ on Ubuntu 20.04</li>
+<li><strong>Container</strong>: Docker with multi-stage build</li>
+<li><strong>Dependencies</strong>: MongoDB, Redis, Docker Engine</li>
+</ul>
+<h3 id="application-structure">Application Structure<a class="headerlink" href="#application-structure" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code>zona_custom_utils/
+├── main.go                 # Entry point
+├── app.go                  # Application setup
+├── Dockerfile             # Container definition
+├── Makefile               # Build automation
+├── go.mod                 # Module dependencies
+├── controllers/           # HTTP request handlers
+├── services/              # Business logic
+├── models/                # Data structures
+├── utils/                 # Utility functions
+├── builders/              # Object builders
+├── handlers/              # Error handlers
+└── constants/             # Application constants
+</code></pre>
 
-        <h3>Project Structure</h3>
-        <pre><code>
-securaa_custom_utils/
-├── app/
-│   ├── __init__.py
-│   ├── main.py                 # FastAPI application entry point
-│   ├── config.py               # Configuration management
-│   ├── dependencies.py         # Dependency injection setup
-│   │
-│   ├── api/
-│   │   ├── __init__.py
-│   │   ├── v1/
-│   │   │   ├── __init__.py
-│   │   │   ├── endpoints/
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── utils.py    # Utils management endpoints
-│   │   │   │   ├── execution.py # Code execution endpoints
-│   │   │   │   └── health.py   # Health check endpoints
-│   │   │   └── api.py          # API router
-│   │   └── deps.py             # API dependencies
-│   │
-│   ├── core/
-│   │   ├── __init__.py
-│   │   ├── config.py           # Core configuration
-│   │   ├── security.py         # Security utilities
-│   │   ├── logging.py          # Logging configuration
-│   │   └── exceptions.py       # Custom exceptions
-│   │
-│   ├── models/
-│   │   ├── __init__.py
-│   │   ├── base.py             # Base Pydantic models
-│   │   ├── utils.py            # Utils domain models
-│   │   ├── execution.py        # Execution models
-│   │   └── user.py             # User models
-│   │
-│   ├── schemas/
-│   │   ├── __init__.py
-│   │   ├── utils.py            # Utils API schemas
-│   │   ├── execution.py        # Execution API schemas
-│   │   └── common.py           # Common response schemas
-│   │
-│   ├── services/
-│   │   ├── __init__.py
-│   │   ├── utils_service.py    # Utils business logic
-│   │   ├── execution_service.py # Execution business logic
-│   │   ├── validation_service.py # Code validation service
-│   │   ├── container_service.py # Container management
-│   │   └── audit_service.py    # Audit logging service
-│   │
-│   ├── repositories/
-│   │   ├── __init__.py
-│   │   ├── base.py             # Base repository pattern
-│   │   ├── utils_repository.py # Utils data access
-│   │   ├── execution_repository.py # Execution data access
-│   │   └── cache_repository.py # Cache operations
-│   │
-│   ├── utils/
-│   │   ├── __init__.py
-│   │   ├── security.py         # Security utilities
-│   │   ├── validation.py       # Code validation utilities
-│   │   ├── container.py        # Container utilities
-│   │   └── file_manager.py     # File management utilities
-│   │
-│   └── middleware/
-│       ├── __init__.py
-│       ├── auth.py             # Authentication middleware
-│       ├── tenant.py           # Multi-tenant middleware
-│       └── logging.py          # Request logging middleware
-│
-├── tests/
-├── deployment/
-├── docs/
-├── requirements.txt
-├── pyproject.toml
-└── README.md
-        </code></pre>
+<h2 id="detailed-component-design">Detailed Component Design<a class="headerlink" href="#detailed-component-design" title="Permanent link">&para;</a></h2>
+<h3 id="application-layer-implementation">Application Layer Implementation<a class="headerlink" href="#application-layer-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="maingo-service-entry-point">main.go - Service Entry Point<a class="headerlink" href="#maingo-service-entry-point" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">package main
 
-        <h2 id="database-design">Database Design</h2>
-        <h3>MongoDB Collections</h3>
+import &quot;securaa_lib/securaalog&quot;
 
-        <h4>Custom Utils Collection</h4>
-        <pre><code>
-{
-  "_id": "ObjectId",
-  "util_id": "string (UUID)",
-  "tenant_id": "string",
-  "user_id": "string",
-  "name": "string",
-  "description": "string",
-  "code": "string",
-  "language": "python",
-  "parameters": {
-    "input_schema": {},
-    "output_schema": {},
-    "dependencies": []
-  },
-  "metadata": {
-    "version": "string",
-    "tags": [],
-    "category": "string"
-  },
-  "validation": {
-    "is_valid": "boolean",
-    "validation_errors": [],
-    "security_score": "number"
-  },
-  "execution_config": {
-    "timeout_seconds": "number",
-    "memory_limit_mb": "number",
-    "cpu_limit": "number"
-  },
-  "status": "active|inactive|deleted",
-  "created_at": "datetime",
-  "updated_at": "datetime",
-  "created_by": "string",
-  "updated_by": "string"
+var logger = securaalog.New(&quot;zona_custom_utils&quot;)
+
+func main() {
+    // Initialize logging subsystem
+    securaalog.Init(&quot;CORE_SERVICE_LOGS&quot;)
+
+    // Create and initialize application
+    a := App{}
+    a.Initialize()
+
+    // Start HTTP server on port 8109
+    a.Run(&quot;:8109&quot;)
 }
-        </code></pre>
+</code></pre>
 
-        <h3>Database Indexes</h3>
-        <div class="mermaid">
-graph TB
-    subgraph "MongoDB Indexes"
-        subgraph "Custom Utils Indexes"
-            UTIL_TENANT["{tenant_id: 1, status: 1}"]
-            UTIL_USER["{user_id: 1, created_at: -1}"]
-            UTIL_NAME["{tenant_id: 1, name: 1}"]
-            UTIL_STATUS["{status: 1, updated_at: -1}"]
-        end
-        
-        subgraph "Execution History Indexes"
-            EXEC_UTIL["{util_id: 1, started_at: -1}"]
-            EXEC_USER["{user_id: 1, started_at: -1}"]
-            EXEC_STATUS["{status: 1, started_at: -1}"]
-            EXEC_TENANT["{tenant_id: 1, started_at: -1}"]
-        end
-    end
-        </div>
+<h4 id="appgo-application-configuration">app.go - Application Configuration<a class="headerlink" href="#appgo-application-configuration" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type App struct {
+    Router             *mux.Router                    // HTTP router
+    AccessTokenHashMap map[string]int64              // Token cache
+    DBSession          map[string]common.SessionStruct // DB connections
+    ConfigObject       config.ConfigStruct           // Configuration
+    BuildType          string                        // Deployment type
+    RequestResponseLog bool                          // Logging flag
+}
 
-        <h2 id="api-specifications">API Specifications</h2>
-        <h3>REST API Endpoints</h3>
+func (a *App) Initialize() {
+    a.AccessTokenHashMap = make(map[string]int64)
+    a.InitConfig()                    // Load configuration
+    a.InitMongoSession(a.ConfigObject) // Setup databases
+    a.Router = mux.NewRouter()
+    a.initializeRoutes()              // Setup API routes
+    go cache.CacheHealthCheck(&quot;test&quot;) // Start cache monitoring
+    a.ClearCache()                    // Clear startup cache
+}
+</code></pre>
 
-        <h4>Utils Management APIs</h4>
-        <table>
-            <thead>
-                <tr>
-                    <th>Endpoint</th>
-                    <th>Method</th>
-                    <th>Description</th>
-                    <th>Request Body</th>
-                    <th>Response</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>/api/v1/utils</td>
-                    <td>POST</td>
-                    <td>Create custom utility</td>
-                    <td>CreateUtilRequest</td>
-                    <td>UtilResponse</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/utils</td>
-                    <td>GET</td>
-                    <td>List utilities (paginated)</td>
-                    <td>Query parameters</td>
-                    <td>PaginatedUtilResponse</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/utils/{util_id}</td>
-                    <td>GET</td>
-                    <td>Get utility details</td>
-                    <td>None</td>
-                    <td>UtilResponse</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/utils/{util_id}</td>
-                    <td>PUT</td>
-                    <td>Update utility</td>
-                    <td>UpdateUtilRequest</td>
-                    <td>UtilResponse</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/utils/{util_id}</td>
-                    <td>DELETE</td>
-                    <td>Delete utility</td>
-                    <td>None</td>
-                    <td>DeleteResponse</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/utils/{util_id}/execute</td>
-                    <td>POST</td>
-                    <td>Execute utility</td>
-                    <td>ExecutionRequest</td>
-                    <td>ExecutionResponse</td>
-                </tr>
-            </tbody>
-        </table>
+<h3 id="controller-layer-implementation">Controller Layer Implementation<a class="headerlink" href="#controller-layer-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="customutilscontroller-structure">CustomUtilsController Structure<a class="headerlink" href="#customutilscontroller-structure" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type CustomUtilsController struct{}
 
-        <h2 id="class-design">Class Design</h2>
-        <h3>Core Service Classes</h3>
+func NewCustomUtilsController() *CustomUtilsController {
+    return &amp;CustomUtilsController{}
+}
 
-        <div class="mermaid">
-classDiagram
-    class UtilsService {
-        +create_util(util_data: CreateUtilRequest) UtilResponse
-        +get_util(util_id: str) UtilResponse
-        +update_util(util_id: str, util_data: UpdateUtilRequest) UtilResponse
-        +delete_util(util_id: str) DeleteResponse
-        +list_utils(filters: UtilFilters) PaginatedUtilResponse
-        +validate_util(util_id: str) ValidationResponse
-        -_validate_permissions(user_id: str, util_id: str) bool
+// Primary endpoints implementation
+func (cu *CustomUtilsController) UpsertCustomUtils(w http.ResponseWriter, r *http.Request, 
+    dbSession map[string]common.SessionStruct, configObject config.ConfigStruct) {
+
+    response := services.CreateOrUpdateUtils(r, dbSession, configObject)
+    utils.RespondWithJSON(w, http.StatusOK, response)
+}
+
+func (cu *CustomUtilsController) GetCustomUtils(w http.ResponseWriter, r *http.Request,
+    dbSession map[string]common.SessionStruct, configObject config.ConfigStruct) {
+
+    // Extract path parameters
+    vars := mux.Vars(r)
+    tenantCode := vars[&quot;tenant-code&quot;]
+    utilsName := vars[&quot;name&quot;]
+
+    // Process request and return response
+    // ... implementation details
+}
+</code></pre>
+
+<h4 id="request-routing-configuration">Request Routing Configuration<a class="headerlink" href="#request-routing-configuration" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func (a *App) initializeRoutes() {
+    a.Router.Use(a.loggingMiddleware)
+
+    cu := controllers.NewCustomUtilsController()
+    vc := controllers.NewValidateController()
+    tc := controllers.NewTasksController()
+    cc := controllers.NewContentController()
+
+    // Custom Utils Management
+    a.Router.HandleFunc(&quot;/utils/v1/custom-utils/{tenant-code}/{userid}/{name}&quot;, 
+        func(w http.ResponseWriter, r *http.Request) {
+            cu.GetCustomUtils(w, r, a.DBSession, a.ConfigObject)
+        }).Methods(&quot;GET&quot;)
+
+    a.Router.HandleFunc(&quot;/utils/v1/custom-utils/{tenant-code}/{task-id}&quot;,
+        func(w http.ResponseWriter, r *http.Request) {
+            cu.GetCustomUtilsOnId(w, r, a.DBSession, a.ConfigObject)
+        }).Methods(&quot;GET&quot;)
+
+    a.Router.HandleFunc(&quot;/utils/v1/custom-utils&quot;,
+        func(w http.ResponseWriter, r *http.Request) {
+            cu.UpsertCustomUtils(w, r, a.DBSession, a.ConfigObject)
+        }).Methods(&quot;POST&quot;)
+
+    // Additional routes...
+}
+</code></pre>
+
+<h3 id="service-layer-implementation">Service Layer Implementation<a class="headerlink" href="#service-layer-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="utilsservice-core-business-logic">UtilsService - Core Business Logic<a class="headerlink" href="#utilsservice-core-business-logic" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func CreateOrUpdateUtils(r *http.Request, dbSession map[string]common.SessionStruct, 
+    configObject config.ConfigStruct) models.ResponseModel {
+
+    var response models.ResponseModel
+
+    // Read configuration
+    config, err := config.ReadConfig(configObject)
+    if err != nil {
+        return handlers.HandleError(err, &quot;Unable to read configuration&quot;)
     }
-    
-    class ExecutionService {
-        +execute_util(util_id: str, execution_data: ExecutionRequest) ExecutionResponse
-        +get_execution_status(execution_id: str) ExecutionStatusResponse
-        +get_execution_logs(execution_id: str) LogsResponse
-        -_prepare_execution_environment(util: Util) Container
-        -_execute_in_container(container: Container, code: str, input_data: dict) ExecutionResult
-        -_cleanup_container(container: Container) None
+
+    // Extract form parameters
+    title := r.FormValue(&quot;title&quot;)
+    description := r.FormValue(&quot;description&quot;)
+    userid := r.FormValue(&quot;userid&quot;)
+    tenantcode := r.FormValue(&quot;tenantcode&quot;)
+    oldhash := r.FormValue(&quot;filehash&quot;)
+
+    // Validate input parameters
+    if strings.TrimSpace(title) == &quot;&quot; {
+        response.Success = false
+        response.DisplayMessage = &quot;Utility name is required&quot;
+        return response
     }
-    
-    class ValidationService {
-        +validate_code(code: str, language: str) ValidationResult
-        +security_scan(code: str) SecurityScanResult
-        +check_dependencies(dependencies: list) DependencyCheckResult
-        -_ast_analysis(code: str) ASTAnalysisResult
-        -_detect_security_issues(ast_tree: AST) list
+
+    // File hash verification for updates
+    if taskIdInt &gt; 0 {
+        filelocation := filepath.Join(pythonUtilDirectory, title+&quot;.py&quot;)
+        currentHash, err := localUtils.CalculateFileHash(filelocation)
+        if err != nil {
+            return handlers.HandleError(err, &quot;Unable to verify util.&quot;)
+        }
+
+        if oldhash != currentHash {
+            return handlers.HandleError(errors.New(&quot;Invalid util version&quot;), 
+                &quot;Util has been altered by other user.&quot;)
+        }
     }
-    
-    class ContainerService {
-        +create_container(image: str, config: ContainerConfig) Container
-        +execute_code(container: Container, code: str, input_data: dict) ExecutionResult
-        +destroy_container(container: Container) None
-        +list_containers() list
-        -_apply_security_policies(container: Container) None
+
+    // Process utility creation/update
+    // ... detailed implementation
+
+    return response
+}
+</code></pre>
+
+<h4 id="tasksservice-task-management">TasksService - Task Management<a class="headerlink" href="#tasksservice-task-management" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func CopyutilsToTenant(newtenantcode string, dbSession map[string]common.SessionStruct, 
+    configObject config.ConfigStruct) (models.ResponseModel, error) {
+
+    var response models.ResponseModel
+
+    // Get configuration
+    config, err := config.ReadConfig(configObject)
+    if err != nil {
+        return response, err
     }
-    
-    UtilsService --> ValidationService
-    ExecutionService --> ContainerService
-    ExecutionService --> ValidationService
-        </div>
 
-        <h2 id="security-implementation">Security Implementation</h2>
-        <h3>Authentication & Authorization</h3>
+    // Get tenant count to determine if this is first tenant
+    mongoDbClient := dbSession[&quot;localhost&quot;].Client
+    mongoDbClient.CollectionName = config[&quot;tenantsCollection&quot;]
+    tenantsCount, err := mongoDbClient.GetDocumentsCount(
+        bson.M{&quot;status&quot;: &quot;active&quot;}, nil)
 
-        <h4>JWT Authentication Middleware</h4>
-        <pre><code>
-class JWTAuthMiddleware:
-    def __init__(self, secret_key: str, algorithm: str = "HS256"):
-        self.secret_key = secret_key
-        self.algorithm = algorithm
-        self.jwt_decoder = JWTDecoder(secret_key, algorithm)
-    
-    async def __call__(self, request: Request, call_next):
-        # Skip authentication for health check endpoints
-        if request.url.path in SKIP_AUTH_PATHS:
-            return await call_next(request)
-        
-        # Extract JWT token from Authorization header
-        auth_header = request.headers.get("Authorization")
-        if not auth_header or not auth_header.startswith("Bearer "):
-            raise HTTPException(
-                status_code=401,
-                detail="Missing or invalid authorization header"
-            )
-        
-        token = auth_header.split(" ")[1]
-        
-        try:
-            # Decode and validate JWT token
-            payload = self.jwt_decoder.decode(token)
-            
-            # Extract user and tenant information
-            user_id = payload.get("user_id")
-            tenant_id = payload.get("tenant_id")
-            permissions = payload.get("permissions", [])
-            
-            # Add user context to request state
-            request.state.user_id = user_id
-            request.state.tenant_id = tenant_id
-            request.state.permissions = permissions
-            
-        except JWTError as e:
-            raise HTTPException(
-                status_code=401,
-                detail=f"Invalid token: {str(e)}"
-            )
-        
-        return await call_next(request)
-        </code></pre>
-
-        <h3>Container Security</h3>
-
-        <div class="mermaid">
-graph TB
-    subgraph "Container Security Layers"
-        subgraph "Image Security"
-            BASE_IMAGE[Minimal Base Image]
-            SECURITY_SCAN[Vulnerability Scanning]
-            SIGNED_IMAGES[Image Signing]
-        end
-        
-        subgraph "Runtime Security"
-            NO_ROOT[Non-root User]
-            READ_ONLY[Read-only Filesystem]
-            RESOURCE_LIMITS[Resource Limits]
-            NETWORK_ISOLATION[Network Isolation]
-        end
-        
-        subgraph "Execution Security"
-            SECCOMP[Seccomp Profiles]
-            APPARMOR[AppArmor/SELinux]
-            CAPABILITIES[Dropped Capabilities]
-            TIME_LIMITS[Execution Timeouts]
-        end
-    end
-    
-    BASE_IMAGE --> NO_ROOT
-    SECURITY_SCAN --> READ_ONLY
-    SIGNED_IMAGES --> RESOURCE_LIMITS
-    
-    NO_ROOT --> SECCOMP
-    READ_ONLY --> APPARMOR
-    RESOURCE_LIMITS --> CAPABILITIES
-    NETWORK_ISOLATION --> TIME_LIMITS
-        </div>
-
-        <h2 id="performance-optimization">Performance Optimization</h2>
-        <h3>Caching Strategy Implementation</h3>
-
-        <h4>Multi-Level Cache</h4>
-        <pre><code>
-class CacheManager:
-    def __init__(self, redis_client: Redis):
-        self.redis = redis_client
-        self.local_cache = {}
-        self.cache_stats = CacheStats()
-    
-    async def get(self, key: str, fetch_func: callable = None) -> any:
-        """Multi-level cache get with fallback"""
-        
-        # L1: Check local cache first
-        if key in self.local_cache:
-            self.cache_stats.l1_hits += 1
-            return self.local_cache[key]
-        
-        # L2: Check Redis cache
-        redis_value = await self.redis.get(key)
-        if redis_value:
-            self.cache_stats.l2_hits += 1
-            # Store in local cache for future requests
-            self.local_cache[key] = json.loads(redis_value)
-            return self.local_cache[key]
-        
-        # L3: Fetch from source if fetch function provided
-        if fetch_func:
-            self.cache_stats.cache_misses += 1
-            value = await fetch_func()
-            
-            # Store in both caches
-            await self.set(key, value, ttl=300)  # 5 minutes TTL
-            return value
-        
-        return None
-        </code></pre>
-
-        <h2 id="error-handling">Error Handling</h2>
-        <h3>Exception Hierarchy</h3>
-
-        <div class="mermaid">
-classDiagram
-    class CustomUtilsException {
-        +message: str
-        +error_code: str
-        +details: dict
-        +__init__(message: str, error_code: str, details: dict)
-        +to_dict() dict
+    if tenantsCount &lt;= 1 {
+        response.Success = true
+        response.DisplayMessage = &quot;Ignoring copy utils for first tenant&quot;
+        return response, nil
     }
-    
-    class ValidationException {
-        +validation_errors: list
-        +__init__(errors: list)
-    }
-    
-    class ExecutionException {
-        +execution_id: str
-        +container_id: str
-        +__init__(message: str, execution_id: str, container_id: str)
-    }
-    
-    class SecurityException {
-        +security_violations: list
-        +risk_level: str
-        +__init__(violations: list, risk_level: str)
-    }
-    
-    CustomUtilsException <|-- ValidationException
-    CustomUtilsException <|-- ExecutionException
-    CustomUtilsException <|-- SecurityException
-        </div>
 
-        <h2 id="deployment-configuration">Deployment Configuration</h2>
-        <h3>Docker Configuration</h3>
+    // Get source tenant utilities
+    // Copy utilities to new tenant
+    // ... implementation details
 
-        <h4>Application Dockerfile</h4>
-        <pre><code>
-FROM python:3.9-slim as builder
+    return response, nil
+}
+</code></pre>
+
+<h3 id="utils-layer-implementation">Utils Layer Implementation<a class="headerlink" href="#utils-layer-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="common-utilities">Common Utilities<a class="headerlink" href="#common-utilities" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">package utils
+
+import (
+    &quot;crypto/sha256&quot;
+    &quot;encoding/hex&quot;
+    &quot;io&quot;
+    &quot;os&quot;
+)
+
+func CalculateFileHash(filePath string) (string, error) {
+    file, err := os.Open(filePath)
+    if err != nil {
+        return &quot;&quot;, err
+    }
+    defer func() {
+        if err := file.Close(); err != nil {
+            logger.Error(&quot;Error in closing file &quot;, err.Error())
+        }
+    }()
+
+    hash := sha256.New()
+    if _, err := io.Copy(hash, file); err != nil {
+        return &quot;&quot;, err
+    }
+
+    return hex.EncodeToString(hash.Sum(nil)), nil
+}
+</code></pre>
+
+<h4 id="container-management">Container Management<a class="headerlink" href="#container-management" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func RemoveCustomUtils(servicetype string) error {
+    command := `docker service rm python-` + servicetype
+    _, err := exec.Command(&quot;sh&quot;, &quot;-c&quot;, command).CombinedOutput()
+    return err
+}
+
+func CheckIfTrailContainerIsUp(imgtype string) bool {
+    var command string
+    if imgtype == &quot;trial&quot; {
+        command = `docker ps -f name=python-utils-trial --format &quot;{{.ID}}&quot;`
+    } else {
+        command = `docker ps -f name=python-utils --format &quot;{{.ID}}&quot;`
+    }
+
+    opt, _ := exec.Command(&quot;sh&quot;, &quot;-c&quot;, command).CombinedOutput()
+    return strings.TrimSpace(string(opt)) != &quot;&quot;
+}
+
+func ClearProcess(userId string) error {
+    existingPids, _ := GetAllPIDofProcessInContainer(userId)
+
+    if len(existingPids) &gt; 0 {
+        pids := strings.Join(existingPids, &quot; &quot;)
+        if pids != &quot;&quot; {
+            commandString := &quot;kill -TERM &quot; + pids
+            output, err := ExecuteCommandInContainer(commandString)
+            if err != nil {
+                logger.Error(&quot;Error in stopping running service: &quot;+output, err.Error())
+                return err
+            }
+        }
+    }
+    return nil
+}
+</code></pre>
+
+<h3 id="builder-layer-implementation">Builder Layer Implementation<a class="headerlink" href="#builder-layer-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="taskobjectbuilder">TaskObjectBuilder<a class="headerlink" href="#taskobjectbuilder" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func BuildTaskObject(outputs string, title string, description string, userId int,
+    utilsdirectory string, tenantcode string, port string, alteredFunctionName bool,
+    inputLabel string, filterLabel string, filterRequired string, category string,
+    localIp string) models.CustomUtilsObject {
+
+    now := time.Now()
+    currentTimeNanos := now.UnixNano()
+    currentTimemillis := currentTimeNanos / 1000000
+    savingObject := models.CustomUtilsObject{}
+
+    if filterRequired != &quot;true&quot; {
+        filterRequired = &quot;false&quot;
+    }
+
+    if alteredFunctionName {
+        // Update existing utility
+        savingObject.Name = title
+        savingObject.Description = description
+        savingObject.Updateddate = currentTimemillis
+        savingObject.RestEnd = &quot;/&quot; + title + &quot;/&quot;
+        savingObject.RestURL = &quot;http://&quot; + constants.PYTHON_UTILS_SERVICE + &quot;:&quot; + port + &quot;/&quot; + title
+        savingObject.FunctionName = title + &quot;()&quot;
+        savingObject.FileName = title + &quot;.py&quot;
+        savingObject.Category = category
+    } else {
+        // Create new utility
+        inputParams := `{&quot;params&quot;:[{&quot;name&quot;:&quot;data&quot;, &quot;order&quot;:1,&quot;type&quot;:&quot;string&quot;},` +
+                     `{&quot;name&quot;:&quot;filter&quot;, &quot;order&quot;:2,&quot;type&quot;:&quot;string&quot;}]}`
+        inputFields := `{&quot;inputfields&quot;:[{&quot;name&quot;:&quot;data&quot;,&quot;label&quot;:&quot;` + inputLabel + 
+                     `&quot;,&quot;type&quot;:&quot;textarea&quot;,&quot;id&quot;:&quot;data&quot;,&quot;required&quot;:true,&quot;value&quot;:&quot;&quot;,` +
+                     `&quot;placeholder&quot;:&quot;Enter ` + inputLabel + `&quot;},` +
+                     `{&quot;name&quot;:&quot;filter&quot;,&quot;label&quot;:&quot;` + filterLabel + 
+                     `&quot;,&quot;type&quot;:&quot;textbox&quot;,&quot;id&quot;:&quot;filter&quot;,&quot;required&quot;:` + filterRequired +
+                     `,&quot;value&quot;:&quot;&quot;,&quot;placeholder&quot;:&quot;Enter data for ` + filterLabel + `&quot;}]}`
+
+        savingObject.Name = title
+        savingObject.Description = description
+        savingObject.Status = &quot;active&quot;
+        savingObject.TaskHandler = &quot;Utils&quot;
+        savingObject.TasksTag = &quot;custom_utils_&quot; + title
+        savingObject.Createddate = currentTimemillis
+        savingObject.Updateddate = currentTimemillis
+        savingObject.Method = &quot;POST&quot;
+        savingObject.CustomUtils = true
+        savingObject.Type = &quot;customutils&quot;
+        savingObject.TenantCode = tenantcode
+        savingObject.UserID = userId
+        savingObject.InputParams = inputParams
+        savingObject.Fields = inputFields
+        savingObject.FolderName = utilsdirectory
+        savingObject.IntegrationID = -1
+        savingObject.UtilsUsed = false
+        savingObject.RestEnd = &quot;/&quot; + title + &quot;/&quot;
+        savingObject.RestURL = &quot;http://&quot; + constants.PYTHON_UTILS_SERVICE + &quot;:&quot; + port + &quot;/&quot; + title
+        savingObject.FunctionName = title + &quot;()&quot;
+        savingObject.FileName = title + &quot;.py&quot;
+        savingObject.Category = category
+        savingObject.OutputFields = outputs
+    }
+
+    return savingObject
+}
+</code></pre>
+
+<h2 id="database-design">Database Design<a class="headerlink" href="#database-design" title="Permanent link">&para;</a></h2>
+<h3 id="mongodb-collections-schema">MongoDB Collections Schema<a class="headerlink" href="#mongodb-collections-schema" title="Permanent link">&para;</a></h3>
+<h4 id="tasks-collection-custom-utils">tasks Collection (Custom Utils)<a class="headerlink" href="#tasks-collection-custom-utils" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-javascript">{
+  &quot;_id&quot;: ObjectId(&quot;...&quot;),
+  &quot;name&quot;: &quot;data_transformer&quot;,           // String: Unique utility name
+  &quot;id&quot;: 1001,                          // Int32: Auto-generated ID
+  &quot;displayname&quot;: &quot;Data Transformer&quot;,   // String: Human-readable name
+  &quot;description&quot;: &quot;Transform data&quot;,      // String: Utility description
+  &quot;type&quot;: &quot;customutils&quot;,               // String: Always &quot;customutils&quot;
+  &quot;fields&quot;: &quot;{\&quot;inputfields\&quot;:[...]}&quot;,  // String: JSON-encoded input fields
+  &quot;createddate&quot;: NumberLong(&quot;1640995200000&quot;), // Int64: Creation timestamp
+  &quot;updateddate&quot;: NumberLong(&quot;1640995200000&quot;), // Int64: Update timestamp
+  &quot;status&quot;: &quot;active&quot;,                  // String: active/draft/inactive
+  &quot;tasks_tag&quot;: &quot;custom_utils_data_transformer&quot;, // String: Execution tag
+  &quot;task_handler&quot;: &quot;Utils&quot;,             // String: Handler type
+  &quot;rest_url&quot;: &quot;http://python-utils:8110/data_transformer&quot;, // String: Service URL
+  &quot;method&quot;: &quot;POST&quot;,                    // String: HTTP method
+  &quot;tenantcode&quot;: &quot;tenant001&quot;,           // String: Tenant identifier
+  &quot;filename&quot;: &quot;data_transformer.py&quot;,   // String: Python file name
+  &quot;packages&quot;: [&quot;pandas&quot;, &quot;numpy&quot;],     // Array: Required packages
+  &quot;port&quot;: &quot;8110&quot;,                      // String: Service port
+  &quot;foldername&quot;: &quot;/opt/zona/custom_utils/python/&quot;, // String: Storage path
+  &quot;userid&quot;: NumberLong(&quot;1001&quot;),        // Int64: Creator user ID
+  &quot;customutils&quot;: true,                 // Boolean: Custom utility flag
+  &quot;integration_id&quot;: -1,                // Int32: Integration reference
+  &quot;utils_used&quot;: false,                 // Boolean: Usage flag
+  &quot;rest_end&quot;: &quot;/data_transformer/&quot;,    // String: Endpoint suffix
+  &quot;input_params&quot;: &quot;{\&quot;params\&quot;:[...]}&quot;,// String: Input parameters JSON
+  &quot;parameters&quot;: &quot;&quot;,                    // String: Runtime parameters
+  &quot;functionname&quot;: &quot;data_transformer()&quot;,// String: Function name
+  &quot;outputfields&quot;: &quot;{\&quot;outputs\&quot;:[...]}&quot;,// String: Output definition JSON
+  &quot;playbook_name&quot;: [],                 // Array: Associated playbooks
+  &quot;category&quot;: &quot;Data Processing&quot;,       // String: Utility category
+  &quot;filecontents&quot;: BinData(0, &quot;...&quot;)    // Binary: Base64 encoded file content
+}
+</code></pre>
+
+<h4 id="task_execution-collection">task_execution Collection<a class="headerlink" href="#task_execution-collection" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-javascript">{
+  &quot;_id&quot;: ObjectId(&quot;...&quot;),
+  &quot;taskid&quot;: NumberLong(&quot;1001&quot;),        // Int64: Task reference
+  &quot;userid&quot;: NumberLong(&quot;1001&quot;),        // Int64: User ID
+  &quot;tenantcode&quot;: &quot;tenant001&quot;,           // String: Tenant code
+  &quot;createddate&quot;: NumberLong(&quot;1640995200000&quot;), // Int64: Execution timestamp
+  &quot;request&quot;: &quot;{\&quot;data\&quot;:\&quot;...\&quot;}&quot;,     // String: JSON request data
+  &quot;response&quot;: &quot;{\&quot;result\&quot;:\&quot;...\&quot;}&quot;,  // String: JSON response data
+  &quot;status&quot;: &quot;completed&quot;,               // String: Execution status
+  &quot;execution_time&quot;: 1.234,             // Double: Duration in seconds
+  &quot;error_message&quot;: &quot;&quot;,                 // String: Error details if any
+  &quot;logs&quot;: [&quot;INFO: Starting...&quot;, &quot;...&quot;], // Array: Execution logs
+  &quot;username&quot;: &quot;john_doe&quot;,              // String: Executor name
+  &quot;name&quot;: &quot;data_transformer&quot;,          // String: Utility name
+  &quot;task_handler&quot;: &quot;Utils&quot;              // String: Handler type
+}
+</code></pre>
+
+<h4 id="database-indexes">Database Indexes<a class="headerlink" href="#database-indexes" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-javascript">// Performance indexes for tasks collection
+db.tasks.createIndex({
+    &quot;name&quot;: 1, 
+    &quot;type&quot;: 1, 
+    &quot;status&quot;: 1
+}, {
+    &quot;name&quot;: &quot;idx_name_type_status&quot;
+})
+
+db.tasks.createIndex({
+    &quot;tenantcode&quot;: 1, 
+    &quot;userid&quot;: 1
+}, {
+    &quot;name&quot;: &quot;idx_tenant_user&quot;
+})
+
+db.tasks.createIndex({
+    &quot;type&quot;: 1, 
+    &quot;status&quot;: 1, 
+    &quot;updateddate&quot;: -1
+}, {
+    &quot;name&quot;: &quot;idx_type_status_updated&quot;
+})
+
+// Indexes for task_execution collection
+db.task_execution.createIndex({
+    &quot;taskid&quot;: 1, 
+    &quot;userid&quot;: 1, 
+    &quot;createddate&quot;: -1
+}, {
+    &quot;name&quot;: &quot;idx_task_user_created&quot;
+})
+
+db.task_execution.createIndex({
+    &quot;tenantcode&quot;: 1, 
+    &quot;createddate&quot;: -1
+}, {
+    &quot;name&quot;: &quot;idx_tenant_created&quot;
+})
+</code></pre>
+
+<h3 id="data-model-implementation">Data Model Implementation<a class="headerlink" href="#data-model-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="core-models">Core Models<a class="headerlink" href="#core-models" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type CustomUtilsObject struct {
+    Name                 string           `json:&quot;name&quot; bson:&quot;name&quot;`
+    ID                   int              `json:&quot;id&quot; bson:&quot;id&quot;`
+    Displayname          string           `json:&quot;displayname&quot; bson:&quot;displayname&quot;`
+    Description          string           `json:&quot;description&quot; bson:&quot;description&quot;`
+    Type                 string           `json:&quot;type&quot; bson:&quot;type&quot;`
+    Fields               string           `json:&quot;fields&quot; bson:&quot;fields&quot;`
+    Createddate          int64            `json:&quot;createddate&quot; bson:&quot;createddate&quot;`
+    Updateddate          int64            `json:&quot;updateddate&quot; bson:&quot;updateddate&quot;`
+    Status               string           `json:&quot;status&quot; bson:&quot;status&quot;`
+    TasksTag             string           `json:&quot;tasks_tag&quot; bson:&quot;tasks_tag&quot;`
+    TaskHandler          string           `json:&quot;task_handler&quot; bson:&quot;task_handler&quot;`
+    RestURL              string           `json:&quot;rest_url&quot; bson:&quot;rest_url&quot;`
+    Method               string           `json:&quot;method&quot; bson:&quot;method&quot;`
+    TenantCode           string           `json:&quot;tenantcode&quot; bson:&quot;tenantcode&quot;`
+    FileName             string           `json:&quot;filename&quot; bson:&quot;filename&quot;`
+    Packages             []string         `json:&quot;packages&quot; bson:&quot;packages&quot;`
+    Port                 string           `json:&quot;port&quot; bson:&quot;port&quot;`
+    FolderName           string           `json:&quot;foldername&quot; bson:&quot;foldername&quot;`
+    UserID               int              `json:&quot;userid&quot; bson:&quot;userid&quot;`
+    CustomUtils          bool             `json:&quot;customutils&quot; bson:&quot;customutils&quot;`
+    IntegrationID        int              `json:&quot;integration_id&quot; bson:&quot;integration_id&quot;`
+    UtilsUsed            bool             `json:&quot;utils_used&quot; bson:&quot;utils_used&quot;`
+    RestEnd              string           `json:&quot;rest_end&quot; bson:&quot;rest_end&quot;`
+    InputParams          string           `json:&quot;input_params&quot; bson:&quot;input_params&quot;`
+    Parameters           string           `json:&quot;parameters&quot; bson:&quot;parameters&quot;`
+    FunctionName         string           `json:&quot;functionname&quot; bson:&quot;functionname&quot;`
+    OutputFields         string           `json:&quot;outputfields&quot; bson:&quot;outputfields&quot;`
+    PlaybookNames        []string         `json:&quot;playbook_name&quot; bson:&quot;playbook_name&quot;`
+    Category             string           `json:&quot;category&quot; bson:&quot;category&quot;`
+    FileContent          primitive.Binary `json:&quot;filecontents&quot; bson:&quot;filecontents&quot;`
+    FileContent_InString string           `json:&quot;filecontents_instring&quot;`
+}
+
+type ResponseModel struct {
+    Success        bool        `json:&quot;success&quot;`
+    Data           interface{} `json:&quot;data&quot;`
+    Error          string      `json:&quot;error&quot;`
+    Time           int64       `json:&quot;time&quot;`
+    DisplayMessage string      `json:&quot;displaymessage&quot; bson:&quot;displaymessage&quot;`
+    Status         string      `json:&quot;status&quot;`
+    ErrorPath      string      `json:&quot;errorpath&quot;`
+    SessionExpired bool        `json:&quot;sessionexpired&quot;`
+    Field          []string    `json:&quot;field&quot;`
+    Count          int         `json:&quot;count&quot;`
+}
+</code></pre>
+
+<h2 id="api-implementation">API Implementation<a class="headerlink" href="#api-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="rest-endpoint-implementation">REST Endpoint Implementation<a class="headerlink" href="#rest-endpoint-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="createupdate-custom-utility">Create/Update Custom Utility<a class="headerlink" href="#createupdate-custom-utility" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-http">POST /utils/v1/custom-utils
+Content-Type: multipart/form-data
+
+Request Parameters:
+- title: string (required)
+- description: string (required)
+- userid: integer (required)
+- tenantcode: string (required)
+- input_label: string (required)
+- filter_label: string (required)
+- required_filter: boolean
+- category: string (required)
+- filehash: string (for updates)
+- username: string (for audit)
+- email: string (for audit)
+- output: string (output definitions)
+- taskid: integer (for updates)
+- oldtitle: string (for renames)
+- code: file (Python code file)
+</code></pre>
+
+<h4 id="implementation-example">Implementation Example<a class="headerlink" href="#implementation-example" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func (cu *CustomUtilsController) UpsertCustomUtils(w http.ResponseWriter, r *http.Request,
+    dbSession map[string]common.SessionStruct, configObject config.ConfigStruct) {
+
+    // Parse multipart form
+    err := r.ParseMultipartForm(32 &lt;&lt; 20) // 32MB limit
+    if err != nil {
+        utils.RespondWithJSON(w, http.StatusBadRequest, 
+            handlers.HandleError(err, &quot;Invalid form data&quot;))
+        return
+    }
+
+    // Validate required fields
+    title := r.FormValue(&quot;title&quot;)
+    if strings.TrimSpace(title) == &quot;&quot; {
+        utils.RespondWithJSON(w, http.StatusBadRequest,
+            handlers.HandleError(errors.New(&quot;missing title&quot;), &quot;Utility name is required&quot;))
+        return
+    }
+
+    // Process request
+    response := services.CreateOrUpdateUtils(r, dbSession, configObject)
+    utils.RespondWithJSON(w, http.StatusOK, response)
+}
+</code></pre>
+
+<h4 id="get-custom-utilities">Get Custom Utilities<a class="headerlink" href="#get-custom-utilities" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func (cu *CustomUtilsController) GetCustomUtils(w http.ResponseWriter, r *http.Request,
+    dbSession map[string]common.SessionStruct, configObject config.ConfigStruct) {
+
+    response := models.ResponseModel{}
+    vars := mux.Vars(r)
+
+    tenantCode := vars[&quot;tenant-code&quot;]
+    utilsName := vars[&quot;name&quot;]
+
+    // Get database client for tenant
+    mongoDbClient := dbSession[tenantCode].Client
+    if mongoDbClient.Client == nil {
+        // Create new connection if not exists
+        coreMongoDbClient := dbSession[&quot;localhost&quot;].Client
+        mongoDbClient, err = utils.GetTenantDBClient(tenantCode, coreMongoDbClient, configObject)
+        if err != nil {
+            utils.RespondWithJSON(w, http.StatusInternalServerError,
+                handlers.HandleError(err, &quot;Database connection failed&quot;))
+            return
+        }
+
+        sessionStruct := common.SessionStruct{}
+        sessionStruct.Client = mongoDbClient
+        dbSession[tenantCode] = sessionStruct
+    }
+
+    // Build query
+    var filter bson.M
+    if utilsName != &quot;-&quot; {
+        filter = bson.M{
+            &quot;status&quot;: bson.M{&quot;$in&quot;: []string{&quot;active&quot;, &quot;draft&quot;}},
+            &quot;name&quot;: utilsName,
+            &quot;type&quot;: &quot;customutils&quot;,
+        }
+    } else {
+        filter = bson.M{
+            &quot;status&quot;: bson.M{&quot;$in&quot;: []string{&quot;active&quot;, &quot;draft&quot;}},
+            &quot;type&quot;: &quot;customutils&quot;,
+        }
+    }
+
+    // Execute query
+    utilsData := []models.CustomUtilsResponse{}
+    projection := bson.M{
+        &quot;name&quot;: 1, &quot;id&quot;: 1, &quot;displayname&quot;: 1, &quot;description&quot;: 1, &quot;type&quot;: 1,
+        &quot;createddate&quot;: 1, &quot;updateddate&quot;: 1, &quot;status&quot;: 1, &quot;filename&quot;: 1,
+        // ... other fields
+    }
+
+    options := options.Find().SetProjection(projection).SetSort(bson.D{{&quot;updateddate&quot;, -1}})
+    mongoDbClient.CollectionName = config[&quot;taskCollection&quot;]
+    err = mongoDbClient.FindMultipleDocuments(filter, options, &amp;utilsData)
+
+    if err != nil {
+        utils.RespondWithJSON(w, http.StatusInternalServerError,
+            handlers.HandleError(err, &quot;Failed to retrieve utilities&quot;))
+        return
+    }
+
+    // Calculate file hashes
+    for i := 0; i &lt; len(utilsData); i++ {
+        hash, err := localUtils.CalculateFileHash(
+            config[&quot;customUtilsCodeDirectory&quot;] + &quot;python/&quot; + utilsData[i].FileName)
+        if err != nil {
+            logger.Error(&quot;Unable to calculate file hash: &quot;, err.Error())
+            continue
+        }
+        utilsData[i].FileHash = hash
+    }
+
+    if len(utilsData) &gt; 0 {
+        response.Success = true
+        response.Data = utilsData
+        response.Count = len(utilsData)
+    } else {
+        response.Success = false
+        response.DisplayMessage = &quot;No utilities found&quot;
+    }
+
+    utils.RespondWithJSON(w, http.StatusOK, response)
+}
+</code></pre>
+
+<h3 id="middleware-implementation">Middleware Implementation<a class="headerlink" href="#middleware-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="logging-middleware">Logging Middleware<a class="headerlink" href="#logging-middleware" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func (a *App) loggingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        middleWareData := common.MiddleWareData{}
+        middleWareData.LogRequestResponse = a.RequestResponseLog
+        middleWareData.DBSession = a.DBSession
+        middleWareData.ConfigObject = a.ConfigObject
+        middleWareData.AccessTokenHashMap = a.AccessTokenHashMap
+
+        err := common.MiddleWareForMongoDriver(next, w, r, 
+            constants.SkipRoutes, constants.SkipURI, middleWareData)
+
+        if err != nil {
+            logger.Error(&quot;Error in Middleware: &quot;, err.Error())
+            utils.RespondWithJSON(w, http.StatusOK, 
+                common.HandleError(err, &quot;Error in creating Tenant Session&quot;))
+            return
+        }
+    })
+}
+</code></pre>
+
+<h2 id="security-implementation">Security Implementation<a class="headerlink" href="#security-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="input-validation">Input Validation<a class="headerlink" href="#input-validation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func validateUtilityName(name string) error {
+    if len(name) == 0 {
+        return errors.New(&quot;utility name is required&quot;)
+    }
+    if len(name) &gt; 50 {
+        return errors.New(&quot;utility name too long (max 50 characters)&quot;)
+    }
+
+    // Check for valid characters (alphanumeric and underscore only)
+    validName := regexp.MustCompile(`^[a-zA-Z0-9_]+$`)
+    if !validName.MatchString(name) {
+        return errors.New(&quot;utility name contains invalid characters&quot;)
+    }
+
+    // Check for reserved names
+    reservedNames := []string{&quot;main&quot;, &quot;init&quot;, &quot;test&quot;, &quot;admin&quot;}
+    for _, reserved := range reservedNames {
+        if strings.ToLower(name) == reserved {
+            return errors.New(&quot;utility name is reserved&quot;)
+        }
+    }
+
+    return nil
+}
+</code></pre>
+
+<h3 id="code-validation-rules">Code Validation Rules<a class="headerlink" href="#code-validation-rules" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type ValidationRule struct {
+    Name     string
+    Pattern  string
+    Severity string
+    Message  string
+}
+
+var PythonValidationRules = []ValidationRule{
+    {
+        Name:     &quot;NoImportOS&quot;,
+        Pattern:  `import\s+os|from\s+os\s+import`,
+        Severity: &quot;HIGH&quot;,
+        Message:  &quot;OS module imports are not allowed for security reasons&quot;,
+    },
+    {
+        Name:     &quot;NoSubprocess&quot;, 
+        Pattern:  `import\s+subprocess|from\s+subprocess\s+import`,
+        Severity: &quot;HIGH&quot;,
+        Message:  &quot;Subprocess module is not allowed&quot;,
+    },
+    {
+        Name:     &quot;NoFileSystem&quot;,
+        Pattern:  `open\s*\(|file\s*\(`,
+        Severity: &quot;MEDIUM&quot;,
+        Message:  &quot;Direct file operations should be reviewed&quot;,
+    },
+    {
+        Name:     &quot;NoNetwork&quot;,
+        Pattern:  `socket\.|urllib\.|requests\.`,
+        Severity: &quot;MEDIUM&quot;, 
+        Message:  &quot;Network operations should be reviewed&quot;,
+    },
+    {
+        Name:     &quot;NoExec&quot;,
+        Pattern:  `exec\s*\(|eval\s*\(`,
+        Severity: &quot;HIGH&quot;,
+        Message:  &quot;Dynamic code execution is not allowed&quot;,
+    },
+}
+
+func ValidateCode(code string) []ValidationResult {
+    var results []ValidationResult
+
+    for _, rule := range PythonValidationRules {
+        matched, _ := regexp.MatchString(rule.Pattern, code)
+        if matched {
+            results = append(results, ValidationResult{
+                Rule:     rule.Name,
+                Severity: rule.Severity,
+                Message:  rule.Message,
+                Line:     findLineNumber(code, rule.Pattern),
+            })
+        }
+    }
+
+    return results
+}
+</code></pre>
+
+<h3 id="encryption-implementation">Encryption Implementation<a class="headerlink" href="#encryption-implementation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func EncryptFileContent(content string, key []byte) (string, error) {
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        return &quot;&quot;, err
+    }
+
+    gcm, err := cipher.NewGCM(block)
+    if err != nil {
+        return &quot;&quot;, err
+    }
+
+    nonce := make([]byte, gcm.NonceSize())
+    if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+        return &quot;&quot;, err
+    }
+
+    ciphertext := gcm.Seal(nonce, nonce, []byte(content), nil)
+    return base64.StdEncoding.EncodeToString(ciphertext), nil
+}
+
+func DecryptFileContent(encryptedContent string, key []byte) (string, error) {
+    data, err := base64.StdEncoding.DecodeString(encryptedContent)
+    if err != nil {
+        return &quot;&quot;, err
+    }
+
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        return &quot;&quot;, err
+    }
+
+    gcm, err := cipher.NewGCM(block)
+    if err != nil {
+        return &quot;&quot;, err
+    }
+
+    nonceSize := gcm.NonceSize()
+    if len(data) &lt; nonceSize {
+        return &quot;&quot;, errors.New(&quot;ciphertext too short&quot;)
+    }
+
+    nonce, ciphertext := data[:nonceSize], data[nonceSize:]
+    plaintext, err := gcm.Open(nil, nonce, ciphertext, nil)
+    if err != nil {
+        return &quot;&quot;, err
+    }
+
+    return string(plaintext), nil
+}
+</code></pre>
+
+<h2 id="performance-implementation">Performance Implementation<a class="headerlink" href="#performance-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="caching-strategy">Caching Strategy<a class="headerlink" href="#caching-strategy" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type CacheManager struct {
+    redisClient *redis.Client
+    localCache  map[string]interface{}
+    mutex       sync.RWMutex
+}
+
+func (cm *CacheManager) Get(key string) (interface{}, bool) {
+    // Try L1 cache first (local memory)
+    cm.mutex.RLock()
+    if value, exists := cm.localCache[key]; exists {
+        cm.mutex.RUnlock()
+        return value, true
+    }
+    cm.mutex.RUnlock()
+
+    // Try L2 cache (Redis)
+    value, err := cm.redisClient.Get(context.Background(), key).Result()
+    if err == nil {
+        // Store in L1 cache for faster access
+        cm.mutex.Lock()
+        cm.localCache[key] = value
+        cm.mutex.Unlock()
+        return value, true
+    }
+
+    return nil, false
+}
+
+func (cm *CacheManager) Set(key string, value interface{}, ttl time.Duration) error {
+    // Store in both L1 and L2 cache
+    cm.mutex.Lock()
+    cm.localCache[key] = value
+    cm.mutex.Unlock()
+
+    // Store in Redis with TTL
+    return cm.redisClient.Set(context.Background(), key, value, ttl).Err()
+}
+</code></pre>
+
+<h3 id="database-connection-pooling">Database Connection Pooling<a class="headerlink" href="#database-connection-pooling" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func InitMongoClient(configObject config.ConfigStruct) (*mongo.Client, error) {
+    clientOptions := options.Client().ApplyURI(mongoURI)
+
+    // Connection pool settings
+    clientOptions.SetMaxPoolSize(50)           // Maximum connections
+    clientOptions.SetMinPoolSize(5)            // Minimum connections
+    clientOptions.SetMaxConnIdleTime(30 * time.Minute) // Idle timeout
+    clientOptions.SetConnectTimeout(10 * time.Second)  // Connection timeout
+    clientOptions.SetSocketTimeout(30 * time.Second)   // Socket timeout
+
+    // Create client
+    client, err := mongo.Connect(context.Background(), clientOptions)
+    if err != nil {
+        return nil, err
+    }
+
+    // Verify connection
+    err = client.Ping(context.Background(), nil)
+    if err != nil {
+        return nil, err
+    }
+
+    return client, nil
+}
+</code></pre>
+
+<h3 id="query-optimization">Query Optimization<a class="headerlink" href="#query-optimization" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func GetUtilitiesOptimized(tenantCode string, userID int, limit int, offset int) ([]models.CustomUtilsResponse, error) {
+    // Use aggregation pipeline for complex queries
+    pipeline := []bson.M{
+        // Match stage - filter documents
+        {
+            &quot;$match&quot;: bson.M{
+                &quot;tenantcode&quot;: tenantCode,
+                &quot;userid&quot;:     userID,
+                &quot;type&quot;:       &quot;customutils&quot;,
+                &quot;status&quot;:     bson.M{&quot;$in&quot;: []string{&quot;active&quot;, &quot;draft&quot;}},
+            },
+        },
+        // Project stage - select only needed fields
+        {
+            &quot;$project&quot;: bson.M{
+                &quot;name&quot;:        1,
+                &quot;displayname&quot;: 1,
+                &quot;description&quot;: 1,
+                &quot;status&quot;:      1,
+                &quot;createddate&quot;: 1,
+                &quot;updateddate&quot;: 1,
+                &quot;category&quot;:    1,
+                &quot;_id&quot;:         0,
+            },
+        },
+        // Sort stage - order by update date
+        {
+            &quot;$sort&quot;: bson.M{
+                &quot;updateddate&quot;: -1,
+            },
+        },
+        // Skip stage - for pagination
+        {
+            &quot;$skip&quot;: offset,
+        },
+        // Limit stage - limit results
+        {
+            &quot;$limit&quot;: limit,
+        },
+    }
+
+    cursor, err := collection.Aggregate(context.Background(), pipeline)
+    if err != nil {
+        return nil, err
+    }
+    defer cursor.Close(context.Background())
+
+    var results []models.CustomUtilsResponse
+    if err = cursor.All(context.Background(), &amp;results); err != nil {
+        return nil, err
+    }
+
+    return results, nil
+}
+</code></pre>
+
+<h2 id="error-handling-implementation">Error Handling Implementation<a class="headerlink" href="#error-handling-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="error-types-and-handling">Error Types and Handling<a class="headerlink" href="#error-types-and-handling" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type ErrorType string
+
+const (
+    ValidationError ErrorType = &quot;VALIDATION_ERROR&quot;
+    DatabaseError   ErrorType = &quot;DATABASE_ERROR&quot;
+    FileSystemError ErrorType = &quot;FILESYSTEM_ERROR&quot;
+    SecurityError   ErrorType = &quot;SECURITY_ERROR&quot;
+    ContainerError  ErrorType = &quot;CONTAINER_ERROR&quot;
+    NetworkError    ErrorType = &quot;NETWORK_ERROR&quot;
+)
+
+type CustomError struct {
+    Type        ErrorType `json:&quot;type&quot;`
+    Code        string    `json:&quot;code&quot;`
+    Message     string    `json:&quot;message&quot;`
+    Details     string    `json:&quot;details&quot;`
+    Timestamp   time.Time `json:&quot;timestamp&quot;`
+    RequestID   string    `json:&quot;request_id&quot;`
+    UserMessage string    `json:&quot;user_message&quot;`
+}
+
+func (e *CustomError) Error() string {
+    return fmt.Sprintf(&quot;[%s] %s: %s&quot;, e.Code, e.Message, e.Details)
+}
+
+func NewValidationError(code, message, details string) *CustomError {
+    return &amp;CustomError{
+        Type:        ValidationError,
+        Code:        code,
+        Message:     message,
+        Details:     details,
+        Timestamp:   time.Now(),
+        UserMessage: &quot;Please check your input and try again&quot;,
+    }
+}
+</code></pre>
+
+<h3 id="error-handler-implementation">Error Handler Implementation<a class="headerlink" href="#error-handler-implementation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func HandleError(err error, userMessage string) models.ResponseModel {
+    response := models.ResponseModel{
+        Success:        false,
+        Time:           time.Now().UnixNano() / 1000000,
+        DisplayMessage: userMessage,
+    }
+
+    if err == nil {
+        return response
+    }
+
+    // Log the error
+    logger.Error(&quot;Error occurred: &quot;, err.Error())
+
+    // Determine error type and set appropriate response
+    switch e := err.(type) {
+    case *CustomError:
+        response.Error = e.Code
+        response.ErrorPath = e.Type
+        response.DisplayMessage = e.UserMessage
+
+    case *mongo.WriteError:
+        if e.Code == 11000 { // Duplicate key error
+            response.Error = &quot;DUPLICATE_ENTRY&quot;
+            response.DisplayMessage = &quot;A utility with this name already exists&quot;
+        } else {
+            response.Error = &quot;DATABASE_ERROR&quot;
+            response.DisplayMessage = &quot;Database operation failed&quot;
+        }
+
+    default:
+        response.Error = &quot;INTERNAL_ERROR&quot;
+        response.DisplayMessage = userMessage
+    }
+
+    return response
+}
+</code></pre>
+
+<h3 id="panic-recovery-middleware">Panic Recovery Middleware<a class="headerlink" href="#panic-recovery-middleware" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func RecoveryMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        defer func() {
+            if err := recover(); err != nil {
+                logger.Error(&quot;Panic recovered: &quot;, err)
+
+                // Log stack trace
+                debug.PrintStack()
+
+                // Return error response
+                response := models.ResponseModel{
+                    Success:        false,
+                    Error:          &quot;INTERNAL_ERROR&quot;,
+                    DisplayMessage: &quot;An unexpected error occurred&quot;,
+                    Time:           time.Now().UnixNano() / 1000000,
+                }
+
+                w.Header().Set(&quot;Content-Type&quot;, &quot;application/json&quot;)
+                w.WriteHeader(http.StatusInternalServerError)
+                json.NewEncoder(w).Encode(response)
+            }
+        }()
+
+        next.ServeHTTP(w, r)
+    })
+}
+</code></pre>
+
+<h2 id="monitoring-and-logging-implementation">Monitoring and Logging Implementation<a class="headerlink" href="#monitoring-and-logging-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="structured-logging">Structured Logging<a class="headerlink" href="#structured-logging" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type LogEntry struct {
+    Timestamp   time.Time              `json:&quot;timestamp&quot;`
+    Level       string                 `json:&quot;level&quot;`
+    Service     string                 `json:&quot;service&quot;`
+    Component   string                 `json:&quot;component&quot;`
+    Function    string                 `json:&quot;function&quot;`
+    Message     string                 `json:&quot;message&quot;`
+    TenantCode  string                 `json:&quot;tenant_code,omitempty&quot;`
+    UserID      string                 `json:&quot;user_id,omitempty&quot;`
+    RequestID   string                 `json:&quot;request_id,omitempty&quot;`
+    Duration    float64                `json:&quot;duration_ms,omitempty&quot;`
+    Metadata    map[string]interface{} `json:&quot;metadata,omitempty&quot;`
+}
+
+func LogRequest(r *http.Request, duration time.Duration, statusCode int) {
+    entry := LogEntry{
+        Timestamp: time.Now(),
+        Level:     &quot;INFO&quot;,
+        Service:   &quot;zona-custom-utils&quot;,
+        Component: &quot;HTTP&quot;,
+        Function:  &quot;RequestHandler&quot;,
+        Message:   &quot;HTTP request processed&quot;,
+        RequestID: getRequestID(r),
+        Duration:  float64(duration.Nanoseconds()) / 1000000,
+        Metadata: map[string]interface{}{
+            &quot;method&quot;:      r.Method,
+            &quot;path&quot;:        r.URL.Path,
+            &quot;status_code&quot;: statusCode,
+            &quot;user_agent&quot;:  r.UserAgent(),
+            &quot;remote_addr&quot;: r.RemoteAddr,
+        },
+    }
+
+    logJSON, _ := json.Marshal(entry)
+    logger.Info(string(logJSON))
+}
+</code></pre>
+
+<h3 id="metrics-collection">Metrics Collection<a class="headerlink" href="#metrics-collection" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">var (
+    requestDuration = prometheus.NewHistogramVec(
+        prometheus.HistogramOpts{
+            Name: &quot;http_request_duration_seconds&quot;,
+            Help: &quot;HTTP request duration in seconds&quot;,
+            Buckets: prometheus.DefBuckets,
+        },
+        []string{&quot;method&quot;, &quot;endpoint&quot;, &quot;status&quot;},
+    )
+
+    activeConnections = prometheus.NewGauge(
+        prometheus.GaugeOpts{
+            Name: &quot;active_database_connections&quot;,
+            Help: &quot;Number of active database connections&quot;,
+        },
+    )
+
+    utilityExecutions = prometheus.NewCounterVec(
+        prometheus.CounterOpts{
+            Name: &quot;utility_executions_total&quot;,
+            Help: &quot;Total number of utility executions&quot;,
+        },
+        []string{&quot;tenant&quot;, &quot;utility&quot;, &quot;status&quot;},
+    )
+)
+
+func init() {
+    prometheus.MustRegister(requestDuration)
+    prometheus.MustRegister(activeConnections)
+    prometheus.MustRegister(utilityExecutions)
+}
+
+func MetricsMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        start := time.Now()
+
+        wrapped := &amp;statusWriter{ResponseWriter: w, statusCode: http.StatusOK}
+        next.ServeHTTP(wrapped, r)
+
+        duration := time.Since(start)
+        requestDuration.WithLabelValues(
+            r.Method,
+            r.URL.Path,
+            strconv.Itoa(wrapped.statusCode),
+        ).Observe(duration.Seconds())
+    })
+}
+</code></pre>
+
+<h3 id="health-check-implementation">Health Check Implementation<a class="headerlink" href="#health-check-implementation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type HealthCheck struct {
+    Status    string                 `json:&quot;status&quot;`
+    Timestamp time.Time              `json:&quot;timestamp&quot;`
+    Version   string                 `json:&quot;version&quot;`
+    Uptime    string                 `json:&quot;uptime&quot;`
+    Checks    map[string]CheckResult `json:&quot;checks&quot;`
+}
+
+type CheckResult struct {
+    Status  string        `json:&quot;status&quot;`
+    Message string        `json:&quot;message,omitempty&quot;`
+    Latency time.Duration `json:&quot;latency_ms&quot;`
+}
+
+func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
+    health := HealthCheck{
+        Status:    &quot;healthy&quot;,
+        Timestamp: time.Now(),
+        Version:   version,
+        Uptime:    time.Since(startTime).String(),
+        Checks:    make(map[string]CheckResult),
+    }
+
+    // Database health check
+    dbStart := time.Now()
+    if err := checkDatabaseHealth(); err != nil {
+        health.Checks[&quot;database&quot;] = CheckResult{
+            Status:  &quot;unhealthy&quot;,
+            Message: err.Error(),
+            Latency: time.Since(dbStart),
+        }
+        health.Status = &quot;unhealthy&quot;
+    } else {
+        health.Checks[&quot;database&quot;] = CheckResult{
+            Status:  &quot;healthy&quot;,
+            Latency: time.Since(dbStart),
+        }
+    }
+
+    // Cache health check
+    cacheStart := time.Now()
+    if err := checkCacheHealth(); err != nil {
+        health.Checks[&quot;cache&quot;] = CheckResult{
+            Status:  &quot;unhealthy&quot;,
+            Message: err.Error(),
+            Latency: time.Since(cacheStart),
+        }
+        health.Status = &quot;degraded&quot;
+    } else {
+        health.Checks[&quot;cache&quot;] = CheckResult{
+            Status:  &quot;healthy&quot;,
+            Latency: time.Since(cacheStart),
+        }
+    }
+
+    // Docker health check
+    dockerStart := time.Now()
+    if err := checkDockerHealth(); err != nil {
+        health.Checks[&quot;docker&quot;] = CheckResult{
+            Status:  &quot;unhealthy&quot;,
+            Message: err.Error(),
+            Latency: time.Since(dockerStart),
+        }
+        health.Status = &quot;degraded&quot;
+    } else {
+        health.Checks[&quot;docker&quot;] = CheckResult{
+            Status:  &quot;healthy&quot;,
+            Latency: time.Since(dockerStart),
+        }
+    }
+
+    // Set response status
+    statusCode := http.StatusOK
+    if health.Status == &quot;unhealthy&quot; {
+        statusCode = http.StatusServiceUnavailable
+    }
+
+    w.Header().Set(&quot;Content-Type&quot;, &quot;application/json&quot;)
+    w.WriteHeader(statusCode)
+    json.NewEncoder(w).Encode(health)
+}
+</code></pre>
+
+<h2 id="configuration-management">Configuration Management<a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h2>
+<h3 id="configuration-structure">Configuration Structure<a class="headerlink" href="#configuration-structure" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">type Config struct {
+    Server   ServerConfig   `json:&quot;server&quot;`
+    Database DatabaseConfig `json:&quot;database&quot;`
+    Cache    CacheConfig    `json:&quot;cache&quot;`
+    Security SecurityConfig `json:&quot;security&quot;`
+    Storage  StorageConfig  `json:&quot;storage&quot;`
+    Docker   DockerConfig   `json:&quot;docker&quot;`
+    Logging  LoggingConfig  `json:&quot;logging&quot;`
+}
+
+type ServerConfig struct {
+    Port                int    `json:&quot;port&quot;`
+    ReadTimeout         int    `json:&quot;read_timeout&quot;`
+    WriteTimeout        int    `json:&quot;write_timeout&quot;`
+    IdleTimeout         int    `json:&quot;idle_timeout&quot;`
+    MaxHeaderBytes      int    `json:&quot;max_header_bytes&quot;`
+    LogRequestResponse  bool   `json:&quot;log_request_response&quot;`
+}
+
+type DatabaseConfig struct {
+    Host            string `json:&quot;host&quot;`
+    Port            int    `json:&quot;port&quot;`
+    Database        string `json:&quot;database&quot;`
+    Username        string `json:&quot;username&quot;`
+    Password        string `json:&quot;password&quot;`
+    MaxPoolSize     int    `json:&quot;max_pool_size&quot;`
+    MinPoolSize     int    `json:&quot;min_pool_size&quot;`
+    ConnectTimeout  int    `json:&quot;connect_timeout&quot;`
+    SocketTimeout   int    `json:&quot;socket_timeout&quot;`
+}
+</code></pre>
+
+<h3 id="environment-based-configuration">Environment-based Configuration<a class="headerlink" href="#environment-based-configuration" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func LoadConfig() (*Config, error) {
+    config := &amp;Config{}
+
+    // Set defaults
+    setDefaults(config)
+
+    // Load from file if exists
+    if configFile := os.Getenv(&quot;CONFIG_FILE&quot;); configFile != &quot;&quot; {
+        if err := loadFromFile(config, configFile); err != nil {
+            return nil, err
+        }
+    }
+
+    // Override with environment variables
+    overrideWithEnv(config)
+
+    // Validate configuration
+    if err := validateConfig(config); err != nil {
+        return nil, err
+    }
+
+    return config, nil
+}
+
+func overrideWithEnv(config *Config) {
+    if port := os.Getenv(&quot;SERVER_PORT&quot;); port != &quot;&quot; {
+        if p, err := strconv.Atoi(port); err == nil {
+            config.Server.Port = p
+        }
+    }
+
+    if host := os.Getenv(&quot;DB_HOST&quot;); host != &quot;&quot; {
+        config.Database.Host = host
+    }
+
+    if password := os.Getenv(&quot;DB_PASSWORD&quot;); password != &quot;&quot; {
+        config.Database.Password = password
+    }
+
+    // ... additional environment variable overrides
+}
+</code></pre>
+
+<h2 id="development-guidelines">Development Guidelines<a class="headerlink" href="#development-guidelines" title="Permanent link">&para;</a></h2>
+<h3 id="code-organization-standards">Code Organization Standards<a class="headerlink" href="#code-organization-standards" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">// Package structure guidelines
+package controllers  // HTTP request handlers
+package services     // Business logic implementation
+package models       // Data structures and types
+package utils        // Utility functions and helpers
+package builders     // Object construction patterns
+package handlers     // Error handling utilities
+package constants    // Application constants
+
+// Naming conventions
+// Constants: UPPER_SNAKE_CASE
+const MAX_FILE_SIZE = 10485760
+
+// Functions: PascalCase for exported, camelCase for private
+func CreateCustomUtils() {}
+func validateInput() {}
+
+// Structs: PascalCase
+type CustomUtilsController struct{}
+
+// Variables: camelCase
+var logger = securaalog.New(&quot;zona_custom_utils&quot;)
+</code></pre>
+
+<h3 id="error-handling-patterns">Error Handling Patterns<a class="headerlink" href="#error-handling-patterns" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">// Always handle errors explicitly
+result, err := someOperation()
+if err != nil {
+    logger.Error(&quot;Operation failed: &quot;, err.Error())
+    return handleError(err, &quot;User-friendly message&quot;)
+}
+
+// Use structured error responses
+func handleDatabaseError(err error) models.ResponseModel {
+    return models.ResponseModel{
+        Success:        false,
+        Error:          &quot;DATABASE_ERROR&quot;,
+        DisplayMessage: &quot;Database operation failed&quot;,
+        ErrorPath:      &quot;DatabaseLayer&quot;,
+        Time:           time.Now().UnixNano() / 1000000,
+    }
+}
+</code></pre>
+
+<h3 id="security-best-practices">Security Best Practices<a class="headerlink" href="#security-best-practices" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">// Input validation example
+func validateInput(input string) error {
+    // Check for SQL injection patterns
+    sqlPatterns := []string{&quot;'&quot;, &quot;--&quot;, &quot;/*&quot;, &quot;*/&quot;, &quot;xp_&quot;, &quot;sp_&quot;}
+    for _, pattern := range sqlPatterns {
+        if strings.Contains(strings.ToLower(input), pattern) {
+            return errors.New(&quot;potentially malicious input detected&quot;)
+        }
+    }
+
+    // Length validation
+    if len(input) &gt; 1000 {
+        return errors.New(&quot;input too long&quot;)
+    }
+
+    // Character validation
+    if !regexp.MustCompile(`^[a-zA-Z0-9\s\-_\.]+$`).MatchString(input) {
+        return errors.New(&quot;invalid characters in input&quot;)
+    }
+
+    return nil
+}
+
+// Secure file handling
+func secureFileOperation(filename string) error {
+    // Prevent path traversal
+    if strings.Contains(filename, &quot;..&quot;) {
+        return errors.New(&quot;path traversal attempt detected&quot;)
+    }
+
+    // Validate file extension
+    allowedExts := []string{&quot;.py&quot;, &quot;.txt&quot;, &quot;.json&quot;}
+    ext := filepath.Ext(filename)
+    isAllowed := false
+    for _, allowed := range allowedExts {
+        if ext == allowed {
+            isAllowed = true
+            break
+        }
+    }
+
+    if !isAllowed {
+        return errors.New(&quot;file type not allowed&quot;)
+    }
+
+    return nil
+}
+</code></pre>
+
+<h2 id="testing-strategy">Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="unit-test-implementation">Unit Test Implementation<a class="headerlink" href="#unit-test-implementation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func TestCreateCustomUtils(t *testing.T) {
+    // Setup test environment
+    mockDB := setupMockDatabase()
+    mockConfig := setupMockConfig()
+    service := services.NewUtilsService(mockDB, mockConfig)
+
+    tests := []struct {
+        name           string
+        input          CreateUtilRequest
+        expectedResult bool
+        expectedError  string
+    }{
+        {
+            name: &quot;Valid utility creation&quot;,
+            input: CreateUtilRequest{
+                Title:       &quot;test_utility&quot;,
+                Description: &quot;Test utility for unit testing&quot;,
+                UserID:      1001,
+                TenantCode:  &quot;test_tenant&quot;,
+                Code:        &quot;def test_function():\n    return 'Hello World'&quot;,
+            },
+            expectedResult: true,
+            expectedError:  &quot;&quot;,
+        },
+        {
+            name: &quot;Invalid utility name&quot;,
+            input: CreateUtilRequest{
+                Title:       &quot;&quot;,
+                Description: &quot;Test utility&quot;,
+                UserID:      1001,
+                TenantCode:  &quot;test_tenant&quot;,
+                Code:        &quot;def test_function():\n    return 'Hello World'&quot;,
+            },
+            expectedResult: false,
+            expectedError:  &quot;utility name is required&quot;,
+        },
+        {
+            name: &quot;Malicious code detection&quot;,
+            input: CreateUtilRequest{
+                Title:       &quot;malicious_utility&quot;,
+                Description: &quot;Malicious utility&quot;,
+                UserID:      1001,
+                TenantCode:  &quot;test_tenant&quot;,
+                Code:        &quot;import os\nos.system('rm -rf /')&quot;,
+            },
+            expectedResult: false,
+            expectedError:  &quot;prohibited code patterns detected&quot;,
+        },
+    }
+
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            result, err := service.CreateUtility(tt.input)
+
+            assert.Equal(t, tt.expectedResult, result.Success)
+            if tt.expectedError != &quot;&quot; {
+                assert.Contains(t, err.Error(), tt.expectedError)
+            }
+        })
+    }
+}
+</code></pre>
+
+<h3 id="integration-test-example">Integration Test Example<a class="headerlink" href="#integration-test-example" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func TestUtilityEndToEnd(t *testing.T) {
+    // Setup test server
+    testServer := httptest.NewServer(setupTestApp())
+    defer testServer.Close()
+
+    // Test utility creation
+    createPayload := map[string]interface{}{
+        &quot;title&quot;:       &quot;integration_test_utility&quot;,
+        &quot;description&quot;: &quot;Integration test utility&quot;,
+        &quot;userid&quot;:      &quot;1001&quot;,
+        &quot;tenantcode&quot;:  &quot;test_tenant&quot;,
+        &quot;category&quot;:    &quot;Testing&quot;,
+    }
+
+    createBody, _ := json.Marshal(createPayload)
+    resp, err := http.Post(testServer.URL+&quot;/utils/v1/custom-utils&quot;,
+        &quot;application/json&quot;, bytes.NewBuffer(createBody))
+
+    assert.NoError(t, err)
+    assert.Equal(t, http.StatusOK, resp.StatusCode)
+
+    // Test utility retrieval
+    getResp, err := http.Get(testServer.URL+&quot;/utils/v1/custom-utils/test_tenant/1001/integration_test_utility&quot;)
+    assert.NoError(t, err)
+    assert.Equal(t, http.StatusOK, getResp.StatusCode)
+
+    // Test utility deletion
+    deletePayload := map[string]interface{}{
+        &quot;functionname&quot;: &quot;integration_test_utility&quot;,
+        &quot;tenantcode&quot;:   &quot;test_tenant&quot;,
+        &quot;userid&quot;:       &quot;1001&quot;,
+    }
+
+    deleteBody, _ := json.Marshal(deletePayload)
+    req, _ := http.NewRequest(&quot;DELETE&quot;, testServer.URL+&quot;/utils/v1/custom-utils&quot;, bytes.NewBuffer(deleteBody))
+    client := &amp;http.Client{}
+    deleteResp, err := client.Do(req)
+
+    assert.NoError(t, err)
+    assert.Equal(t, http.StatusOK, deleteResp.StatusCode)
+}
+</code></pre>
+
+<h2 id="deployment-implementation">Deployment Implementation<a class="headerlink" href="#deployment-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="docker-configuration">Docker Configuration<a class="headerlink" href="#docker-configuration" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-dockerfile"># Multi-stage build for optimal image size
+FROM golang:1.17-alpine AS builder
 
 # Install build dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk --no-cache add make git bash ca-certificates curl
 
-# Copy requirements and install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy source code
+COPY ./ /project
+WORKDIR /project
+
+# Set Go module mode
+ENV GOFLAGS=&quot;-mod=vendor&quot;
+
+# Build stage
+FROM builder AS build
+ARG GIT_REF
+ARG GIT_BRANCH
+ARG BUILD_NUMBER
+ARG BUILD_VERSION
+ARG TARGET
 
 # Production stage
-FROM python:3.9-slim
+FROM ubuntu:20.04
 
-# Create non-root user
-RUN groupadd -r appuser && useradd -r -g appuser appuser
+# Set build labels
+LABEL gitBranch=$GIT_BRANCH \
+      build=$BUILD_NUMBER \
+      gitRef=$GIT_REF \
+      version=$BUILD_VERSION
+
+# Copy binary from build stage
+COPY --from=build /project/build/$TARGET /$TARGET
+
+# Create run script
+RUN echo '#!/usr/bin/env sh' &gt; run.sh \
+  &amp;&amp; echo 'exec' &quot;/$TARGET&quot; &gt;&gt; run.sh \
+  &amp;&amp; chmod +x run.sh
 
 # Install runtime dependencies
-RUN apt-get update && apt-get install -y \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update &amp;&amp; \
+    apt-get install -y apt-transport-https ca-certificates curl \
+    gnupg python3-pip software-properties-common
 
-# Copy Python packages from builder stage
-COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
-COPY --from=builder /usr/local/bin /usr/local/bin
+# Install Docker CLI
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - &amp;&amp; \
+    add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot; &amp;&amp; \
+    apt-get update &amp;&amp; \
+    apt-get install -y docker-ce-cli
 
-# Create app directory
-WORKDIR /app
+# Create necessary directories
+VOLUME [&quot;/opt/zona/&quot;]
+RUN mkdir -p /opt/zona/logs
 
-# Copy application code
-COPY app/ ./app/
-COPY deployment/scripts/ ./scripts/
+# Expose service port
+EXPOSE 8109
 
-# Set ownership and permissions
-RUN chown -R appuser:appuser /app
-USER appuser
+# Set startup command
+CMD [&quot;/run.sh&quot;]
+</code></pre>
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+<h3 id="cicd-pipeline-configuration">CI/CD Pipeline Configuration<a class="headerlink" href="#cicd-pipeline-configuration" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-yaml"># .github/workflows/deploy.yml
+name: Build and Deploy
 
-# Expose port
-EXPOSE 8000
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
 
-# Start application
-CMD ["python", "-m", "app.main"]
-        </code></pre>
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
 
-        <h2 id="monitoring-logging">Monitoring & Logging</h2>
-        <h3>Metrics Collection</h3>
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
 
-        <h4>Application Metrics</h4>
-        <pre><code>
-from prometheus_client import Counter, Histogram, Gauge
+    - name: Run tests
+      run: |
+        go test -v ./...
+        go test -race -coverprofile=coverage.out ./...
 
-# Define metrics
-utils_created_total = Counter(
-    'utils_created_total',
-    'Total number of utilities created',
-    ['tenant_id', 'user_id']
-)
+    - name: Upload coverage
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./coverage.out
 
-utils_executed_total = Counter(
-    'utils_executed_total',
-    'Total number of utility executions',
-    ['tenant_id', 'util_id', 'status']
-)
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
 
-execution_duration_seconds = Histogram(
-    'execution_duration_seconds',
-    'Time spent executing utilities',
-    ['tenant_id', 'util_id']
-)
+    - name: Build Docker image
+      run: |
+        docker build -t zona/custom-utils:${{ github.sha }} .
+        docker tag zona/custom-utils:${{ github.sha }} zona/custom-utils:latest
 
-active_containers = Gauge(
-    'active_containers',
-    'Number of active execution containers'
-)
-        </code></pre>
+    - name: Push to registry
+      run: |
+        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        docker push zona/custom-utils:${{ github.sha }}
+        docker push zona/custom-utils:latest
 
-        <h3>Structured Logging</h3>
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: Deploy to production
+      run: |
+        docker stack deploy -c docker-compose.yml zona-custom-utils
+</code></pre>
 
-        <h4>Log Format</h4>
-        <pre><code>
-{
-  "timestamp": "2025-09-30T10:30:00.123Z",
-  "level": "INFO",
-  "service": "securaa-custom-utils",
-  "version": "1.0.0",
-  "logger": "app.services.execution_service",
-  "message": "Utility execution completed successfully",
-  "context": {
-    "tenant_id": "tenant_123",
-    "user_id": "user_456",
-    "util_id": "util_789",
-    "execution_id": "exec_101112",
-    "execution_time_ms": 1250,
-    "memory_used_mb": 45,
-    "container_id": "container_abc123"
-  },
-  "request_id": "req_987654321",
-  "trace_id": "trace_555666777"
-}
-        </code></pre>
-
-        <h2>Conclusion</h2>
-        <p>This low-level design provides a comprehensive technical implementation guide for the Securaa Custom Utils Service. The design emphasizes security, performance, and maintainability through:</p>
-
-        <ul>
-            <li><strong>Secure Architecture</strong>: Multi-layered security with container isolation and code validation</li>
-            <li><strong>Scalable Design</strong>: Microservice architecture with horizontal scaling capabilities</li>
-            <li><strong>Performance Optimization</strong>: Multi-level caching and optimized database queries</li>
-            <li><strong>Comprehensive Monitoring</strong>: Detailed metrics collection and structured logging</li>
-            <li><strong>Maintainable Codebase</strong>: Clear separation of concerns and well-defined interfaces</li>
-        </ul>
-
-        <p>The implementation follows industry best practices for microservice development, security, and DevOps, ensuring a production-ready solution that can scale with business requirements.</p>
+<hr />
+<p><em>This Low-Level Design document provides comprehensive technical implementation details for the Zona Custom Utils Service, covering code structure, database implementation, API details, security measures, performance optimizations, error handling, monitoring, configuration management, development guidelines, testing strategies, and deployment procedures.</em></p>
     </main>
-    
-    <footer class="main-footer">
-        <p>&copy; 2025 Securaa Platform. All rights reserved. | <a href="#" onclick="printPage()" style="color: #ecf0f1;">Print</a> | <a href="#" onclick="exportToPDF()" style="color: #ecf0f1;">Export PDF</a></p>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
     </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <script>
-        mermaid.initialize({ 
+        mermaid.initialize({
             startOnLoad: true,
-            theme: 'default',
+            theme: 'base',
             themeVariables: {
-                primaryColor: '#1976d2',
-                primaryTextColor: '#000000',
-                primaryBorderColor: '#0d47a1',
-                lineColor: '#1976d2',
-                secondaryColor: '#f5f5f5',
-                tertiaryColor: '#ffffff'
-            }
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
         });
     </script>
-    <script src="assets/js/documentation.js"></script>
 </body>
 </html>

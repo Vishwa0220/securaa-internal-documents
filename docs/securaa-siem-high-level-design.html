@@ -1,75 +1,631 @@
 <!DOCTYPE html>
-<    <nav class="documentation-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-ris-high-level-design.html">RIS High Level Design</a></li>
-            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-            <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-high-level-design.html" class="active">Securaa SIEM High Level Design</a></li>ng="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Securaa SIEM Service - High Level Design - Securaa Platform Documentation</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
+    <meta name="description" content="Securaa Platform Documentation - Securaa SIEM Service - High Level Design">
+    <title>Securaa SIEM Service - High Level Design - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
-    <nav class="documentation-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-            <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-        </ul>
-    </nav>
-    <main class="main-content">
-        <h1>Securaa SIEM Service - High Level Design Document</h1>
-        <h2>Document Information</h2>
-        <ul>
-            <li><strong>Service Name</strong>: Securaa SIEM Service</li>
-            <li><strong>Version</strong>: 1.0</li>
-            <li><strong>Date</strong>: September 18, 2025</li>
-            <li><strong>Author</strong>: System Architecture Team</li>
-            <li><strong>Related Documents</strong>: ZONA_SIEM_HIGH_LEVEL_DESIGN.md</li>
-        </ul>
-        
-        <h2>Table of Contents</h2>
-        <ol>
-            <li><a href="#executive-summary">Executive Summary</a></li>
-            <li><a href="#system-architecture">System Architecture Overview</a></li>
-            <li><a href="#component-architecture">Detailed Component Architecture</a></li>
-            <li><a href="#core-features">Core Features & Capabilities</a></li>
-            <li><a href="#database-design">Database Design</a></li>
-            <li><a href="#api-design">API Design</a></li>
-            <li><a href="#technology-stack">Technology Stack</a></li>
-            <li><a href="#security-compliance">Security & Compliance</a></li>
-            <li><a href="#performance-scalability">Performance & Scalability</a></li>
-            <li><a href="#deployment-architecture">Deployment Architecture</a></li>
-            <li><a href="#business-logic">Business Logic Flow</a></li>
-            <li><a href="#integration-points">Integration Points</a></li>
-        </ol>
-        <hr>
-        
-        <h2 id="executive-summary">1. Executive Summary</h2>
-        <p>The <strong>Securaa SIEM (Security Information and Event Management)</strong> service is a comprehensive, multi-tenant security platform designed to collect, process, analyze, and manage security incidents and events. It provides APIs for incident management, case handling, dashboard analytics, playbook automation, and integrations with external SIEM tools.</p>
 
-        <h2 id="system-architecture">2. System Architecture Overview</h2>
-        <div class="mermaid">
+    <nav class="documentation-nav">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 id="securaa-siem-service-high-level-design-document">Securaa SIEM Service - High-Level Design Document<a class="headerlink" href="#securaa-siem-service-high-level-design-document" title="Permanent link">&para;</a></h1>
+<h2 id="1-executive-summary">1. Executive Summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
+<p>The <strong>Securaa SIEM (Security Information and Event Management)</strong> service is a comprehensive, multi-tenant security platform designed to collect, process, analyze, and manage security incidents and events. It provides APIs for incident management, case handling, dashboard analytics, playbook automation, and integrations with external SIEM tools.</p>
+<hr />
+<h2 id="2-system-architecture-overview">2. System Architecture Overview<a class="headerlink" href="#2-system-architecture-overview" title="Permanent link">&para;</a></h2>
+<div class="mermaid">
 graph TB
     subgraph "External Systems"
         EXT1[QRadar]
@@ -82,7 +638,7 @@ graph TB
     subgraph "Securaa SIEM Service (Port 8003)"
         subgraph "API Layer"
             API[REST API Endpoints]
-            MW[Middleware]
+            MW[Middleware<br/>Authentication/Authorization]
         end
         subgraph "Controller Layer"
             IC[Incidents Controller]
@@ -138,7 +694,7 @@ graph TB
     PC --> AS
     MC --> IS
     WC --> CS
-    
+
     IS --> MOD
     CS --> MOD
     DS --> MOD
@@ -149,11 +705,12 @@ graph TB
     HELP --> INFLUX
     HELP --> REDIS
     HELP --> FILE
-        </div>
+</div>
 
-        <h2 id="component-architecture">3. Detailed Component Architecture</h2>
-        <h3>3.1 Application Structure</h3>
-        <div class="mermaid">
+<hr />
+<h2 id="3-detailed-component-architecture">3. Detailed Component Architecture<a class="headerlink" href="#3-detailed-component-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="31-application-structure">3.1 Application Structure<a class="headerlink" href="#31-application-structure" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TD
     subgraph "Securaa SIEM Directory Structure"
         APP[app.go - Main Application]
@@ -165,7 +722,7 @@ graph TD
             CTRL4[playbookController.go]
             CTRL5[monitoringController.go]
             CTRL6[widgetController.go]
-            CTRL7[25+ more controllers]
+            CTRL7[+ 25 more controllers]
         end
         subgraph "Models"
             MOD1[Incidents.go]
@@ -173,7 +730,7 @@ graph TD
             MOD3[category.go]
             MOD4[investigation.go]
             MOD5[Response.go]
-            MOD6[15+ more models]
+            MOD6[+ 15 more models]
         end
         subgraph "Services"
             SRV1[service.go]
@@ -181,7 +738,7 @@ graph TD
             SRV3[monitoringDashboardServices.go]
             SRV4[uniqueservices.go]
         end
-        
+
         subgraph "Helpers & Utils"
             HELP1[caseMirroringHelpers.go]
             UTIL1[mitre.go]
@@ -201,10 +758,10 @@ graph TD
     MOD1 --> SRV1
     SRV1 --> HELP1
     HELP1 --> CONST
-        </div>
+</div>
 
-        <h3>3.2 Data Flow Architecture</h3>
-        <div class="mermaid">
+<h3 id="32-data-flow-architecture">3.2 Data Flow Architecture<a class="headerlink" href="#32-data-flow-architecture" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 sequenceDiagram
     participant Client
     participant API
@@ -229,73 +786,70 @@ sequenceDiagram
     Controller->>Controller: Format Response
     Controller-->>API: JSON Response
     API-->>Client: HTTP Response
-        </div>
+</div>
 
-        <h2 id="core-features">4. Core Features & Capabilities</h2>
-        <h3>4.1 Incident Management</h3>
-        <ul>
-            <li><strong>Incident CRUD Operations</strong>: Create, Read, Update, Delete incidents</li>
-            <li><strong>Incident Status Management</strong>: Open, In Progress, Closed, Escalated</li>
-            <li><strong>Incident Assignment</strong>: Assign to analysts/teams</li>
-            <li><strong>Incident Categorization</strong>: Security categories and severity levels</li>
-            <li><strong>Incident Timeline</strong>: Track all actions and changes</li>
-            <li><strong>Bulk Operations</strong>: Update/delete multiple incidents</li>
-        </ul>
-
-        <h3>4.2 Case Management</h3>
-        <ul>
-            <li><strong>Case Grouping</strong>: Group related incidents into cases</li>
-            <li><strong>Case Mirroring</strong>: Synchronize cases across tenants</li>
-            <li><strong>Case Workflow</strong>: Define case lifecycle and approval processes</li>
-            <li><strong>Case Analytics</strong>: Generate insights from case data</li>
-            <li><strong>Case Export</strong>: Download case data in various formats</li>
-        </ul>
-
-        <h3>4.3 Dashboard & Analytics</h3>
-        <ul>
-            <li><strong>Real-time Dashboards</strong>: Live security metrics and KPIs</li>
-            <li><strong>Custom Widgets</strong>: Configurable dashboard components</li>
-            <li><strong>Trend Analysis</strong>: Historical data analysis and forecasting</li>
-            <li><strong>Geographic Analysis</strong>: Location-based threat visualization</li>
-            <li><strong>MITRE ATT&CK Mapping</strong>: Threat technique classification</li>
-        </ul>
-
-        <h3>4.4 Integration & Data Sources</h3>
-        <ul>
-            <li><strong>SIEM Tool Integration</strong>: QRadar, Splunk, Azure Sentinel, etc.</li>
-            <li><strong>Ticketing System Integration</strong>: ServiceNow, Jira</li>
-            <li><strong>Threat Intelligence</strong>: External threat feed integration</li>
-            <li><strong>API Gateway</strong>: RESTful APIs for third-party integrations</li>
-        </ul>
-
-        <h3>4.5 Multi-Tenant Architecture</h3>
-        <ul>
-            <li><strong>Tenant Isolation</strong>: Complete data separation between tenants</li>
-            <li><strong>Tenant-specific Configuration</strong>: Custom settings per tenant</li>
-            <li><strong>Cross-tenant Analytics</strong>: Master tenant view capabilities</li>
-            <li><strong>Tenant Onboarding</strong>: Automated tenant setup and configuration</li>
-        </ul>
-
-        <h2 id="database-design">5. Database Design</h2>
-        <h3>5.1 Core Collections/Tables</h3>
-        <div class="mermaid">
+<hr />
+<h2 id="4-core-features-capabilities">4. Core Features &amp; Capabilities<a class="headerlink" href="#4-core-features-capabilities" title="Permanent link">&para;</a></h2>
+<h3 id="41-incident-management">4.1 Incident Management<a class="headerlink" href="#41-incident-management" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Incident CRUD Operations</strong>: Create, Read, Update, Delete incidents</li>
+<li><strong>Incident Status Management</strong>: Open, In Progress, Closed, Escalated</li>
+<li><strong>Incident Assignment</strong>: Assign to analysts/teams</li>
+<li><strong>Incident Categorization</strong>: Security categories and severity levels</li>
+<li><strong>Incident Timeline</strong>: Track all actions and changes</li>
+<li><strong>Bulk Operations</strong>: Update/delete multiple incidents</li>
+</ul>
+<h3 id="42-case-management">4.2 Case Management<a class="headerlink" href="#42-case-management" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Case Grouping</strong>: Group related incidents into cases</li>
+<li><strong>Case Mirroring</strong>: Synchronize cases across tenants</li>
+<li><strong>Case Workflow</strong>: Define case lifecycle and approval processes</li>
+<li><strong>Case Analytics</strong>: Generate insights from case data</li>
+<li><strong>Case Export</strong>: Download case data in various formats</li>
+</ul>
+<h3 id="43-dashboard-analytics">4.3 Dashboard &amp; Analytics<a class="headerlink" href="#43-dashboard-analytics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Real-time Dashboards</strong>: Live security metrics and KPIs</li>
+<li><strong>Custom Widgets</strong>: Configurable dashboard components</li>
+<li><strong>Trend Analysis</strong>: Historical data analysis and forecasting</li>
+<li><strong>Geographic Analysis</strong>: Location-based threat visualization</li>
+<li><strong>MITRE ATT&amp;CK Mapping</strong>: Threat technique classification</li>
+</ul>
+<h3 id="44-integration-data-sources">4.4 Integration &amp; Data Sources<a class="headerlink" href="#44-integration-data-sources" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SIEM Tool Integration</strong>: QRadar, Splunk, Azure Sentinel, etc.</li>
+<li><strong>Ticketing System Integration</strong>: ServiceNow, Jira</li>
+<li><strong>Threat Intelligence</strong>: External threat feed integration</li>
+<li><strong>API Gateway</strong>: RESTful APIs for third-party integrations</li>
+</ul>
+<h3 id="45-multi-tenant-architecture">4.5 Multi-Tenant Architecture<a class="headerlink" href="#45-multi-tenant-architecture" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Tenant Isolation</strong>: Complete data separation between tenants</li>
+<li><strong>Tenant-specific Configuration</strong>: Custom settings per tenant</li>
+<li><strong>Cross-tenant Analytics</strong>: Master tenant view capabilities</li>
+<li><strong>Tenant Onboarding</strong>: Automated tenant setup and configuration</li>
+</ul>
+<hr />
+<h2 id="5-database-design">5. Database Design<a class="headerlink" href="#5-database-design" title="Permanent link">&para;</a></h2>
+<h3 id="51-core-collectionstables">5.1 Core Collections/Tables<a class="headerlink" href="#51-core-collectionstables" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 erDiagram
     INCIDENTS ||--o{ INVESTIGATIONS : has
     INCIDENTS ||--o{ TIMELINE : contains
     INCIDENTS }o--|| CATEGORIES : belongs_to
     INCIDENTS }o--|| SEVERITY : has
     INCIDENTS }o--|| USERS : assigned_to
-    
+
     CASES ||--o{ INCIDENTS : groups
     CASES ||--o{ CASE_GROUPS : belongs_to
-    
+
     TENANTS ||--o{ INCIDENTS : owns
     TENANTS ||--o{ USERS : contains
     TENANTS ||--o{ CATEGORIES : defines
-    
+
     PLAYBOOKS ||--o{ TASKS : contains
     PLAYBOOKS }o--|| INCIDENTS : executed_on
-    
+
     INCIDENTS {
         string securaa_s_incident_id PK
         string description
@@ -311,7 +865,7 @@ erDiagram
         string securaa_s_source
         bool securaa_s_is_confirmed
     }
-    
+
     CASES {
         string case_id PK
         string case_name
@@ -323,7 +877,7 @@ erDiagram
         timestamp updated_date
         string tenant_code FK
     }
-    
+
     CATEGORIES {
         int category_id PK
         string category_name
@@ -332,7 +886,7 @@ erDiagram
         bool is_active
         timestamp created_date
     }
-    
+
     USERS {
         int user_id PK
         string username
@@ -342,7 +896,7 @@ erDiagram
         bool is_active
         timestamp last_login
     }
-    
+
     TENANTS {
         string tenant_code PK
         string tenant_name
@@ -351,11 +905,43 @@ erDiagram
         object configuration
         timestamp created_date
     }
-        </div>
+</div>
 
-        <h2 id="api-design">6. API Design</h2>
-        <h3>6.1 Core API Categories</h3>
-        <div class="mermaid">
+<h3 id="52-key-data-models">5.2 Key Data Models<a class="headerlink" href="#52-key-data-models" title="Permanent link">&para;</a></h3>
+<h4 id="securaaoffenses-main-incident-model">SecuraaOffenses (Main Incident Model)<a class="headerlink" href="#securaaoffenses-main-incident-model" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type SecuraaOffenses struct {
+    SecuraaSIncidentID           int                `json:&quot;securaa_s_incident_id&quot;`
+    SecuraaDescription           string             `json:&quot;description&quot;`
+    SecuraaSStatus              string             `json:&quot;securaa_s_status&quot;`
+    SecuraaSSeverity            string             `json:&quot;securaa_s_severity&quot;`
+    SecuraaSAssignedTo          int                `json:&quot;securaa_s_assigned_to&quot;`
+    SecuraaScategoryID          int                `json:&quot;securaa_s_category_id&quot;`
+    SecuraaSTimeline            []IncidentTimeLine `json:&quot;securaa_s_timeline&quot;`
+    SecuraaSSourceIPs           []string           `json:&quot;securaa_s_source_ips&quot;`
+    SecuraaSDestinationIPs      []string           `json:&quot;securaa_s_destination_ips&quot;`
+    SecuraaSCreatedts           int64              `json:&quot;securaa_s_createdts&quot;`
+    SecuraaSUpdatedts           int64              `json:&quot;securaa_s_updatedts&quot;`
+    // ... additional fields
+}
+</code></pre>
+
+<h4 id="casegrouping-model">CaseGrouping Model<a class="headerlink" href="#casegrouping-model" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type CaseGrouping struct {
+    CaseID          string    `json:&quot;case_id&quot;`
+    CaseName        string    `json:&quot;case_name&quot;`
+    CaseStatus      string    `json:&quot;case_status&quot;`
+    CasePriority    string    `json:&quot;case_priority&quot;`
+    IncidentIDs     []string  `json:&quot;incident_ids&quot;`
+    AssignedAnalyst int       `json:&quot;assigned_analyst&quot;`
+    TenantCode      string    `json:&quot;tenant_code&quot;`
+    CreatedDate     time.Time `json:&quot;created_date&quot;`
+}
+</code></pre>
+
+<hr />
+<h2 id="6-api-design">6. API Design<a class="headerlink" href="#6-api-design" title="Permanent link">&para;</a></h2>
+<h3 id="61-core-api-categories">6.1 Core API Categories<a class="headerlink" href="#61-core-api-categories" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph LR
     subgraph "Securaa SIEM APIs"
         subgraph "Incident APIs"
@@ -365,28 +951,28 @@ graph LR
             I4[PUT /securaaincident]
             I5[DELETE /deletemultipleincidents]
         end
-        
+
         subgraph "Case APIs"
             C1[GET /getalltenantscases]
             C2[POST /createcasegroup]
             C3[PUT /updatecasestatus]
             C4[GET /getcasescount]
         end
-        
+
         subgraph "Dashboard APIs"
             D1[GET /getmeantimetodetect]
             D2[GET /getmeantimetoacknowledge]
             D3[GET /geographicalalerts]
             D4[GET /incidentsbycategory]
         end
-        
+
         subgraph "Analytics APIs"
             A1[GET /cyberkillchain]
             A2[GET /analystworkload]
             A3[GET /incidenttrends]
             A4[GET /threatactors]
         end
-        
+
         subgraph "Configuration APIs"
             CF1[GET /categories]
             CF2[POST /categories]
@@ -394,17 +980,17 @@ graph LR
             CF4[GET /sla]
         end
     end
-        </div>
+</div>
 
-        <h3>6.2 Authentication & Authorization Flow</h3>
-        <div class="mermaid">
+<h3 id="62-authentication-authorization-flow">6.2 Authentication &amp; Authorization Flow<a class="headerlink" href="#62-authentication-authorization-flow" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 sequenceDiagram
     participant Client
     participant Middleware
     participant AuthService
     participant TenantDB
     participant CoreDB
-    
+
     Client->>Middleware: Request with Access Token
     Middleware->>Middleware: Extract Tenant from URL/Header
     Middleware->>AuthService: Validate Token
@@ -415,253 +1001,259 @@ sequenceDiagram
     AuthService-->>Middleware: Authorization Result
     Middleware->>Middleware: Route to Controller
     Note over Middleware: If auth fails, return 401/403
-        </div>
+</div>
 
-        <h2 id="technology-stack">7. Technology Stack</h2>
-        <h3>7.1 Core Technologies</h3>
-        <ul>
-            <li><strong>Programming Language</strong>: Go (Golang) 1.17+</li>
-            <li><strong>Web Framework</strong>: Gorilla Mux (HTTP routing)</li>
-            <li><strong>Database</strong>: MongoDB (Primary), InfluxDB (Metrics)</li>
-            <li><strong>Caching</strong>: Redis</li>
-            <li><strong>Containerization</strong>: Docker</li>
-            <li><strong>Build System</strong>: Makefile</li>
-        </ul>
+<hr />
+<h2 id="7-technology-stack">7. Technology Stack<a class="headerlink" href="#7-technology-stack" title="Permanent link">&para;</a></h2>
+<h3 id="71-core-technologies">7.1 Core Technologies<a class="headerlink" href="#71-core-technologies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Programming Language</strong>: Go (Golang) 1.17+</li>
+<li><strong>Web Framework</strong>: Gorilla Mux (HTTP routing)</li>
+<li><strong>Database</strong>: MongoDB (Primary), InfluxDB (Metrics)</li>
+<li><strong>Caching</strong>: Redis</li>
+<li><strong>Containerization</strong>: Docker</li>
+<li><strong>Build System</strong>: Makefile</li>
+</ul>
+<h3 id="72-external-dependencies">7.2 External Dependencies<a class="headerlink" href="#72-external-dependencies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SIEM Integrations</strong>: QRadar, Azure Sentinel, Securonix, BluSapphire</li>
+<li><strong>Ticketing Systems</strong>: ServiceNow integration</li>
+<li><strong>File Processing</strong>: Excel/CSV export capabilities</li>
+<li><strong>Monitoring</strong>: InfluxDB for system metrics</li>
+<li><strong>Security</strong>: JWT token-based authentication</li>
+</ul>
+<h3 id="73-libraries-frameworks">7.3 Libraries &amp; Frameworks<a class="headerlink" href="#73-libraries-frameworks" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">// Key Go modules
+go.mongodb.org/mongo-driver    // MongoDB driver
+github.com/gorilla/mux         // HTTP router
+github.com/influxdata/influxdb-client-go/v2  // InfluxDB client
+github.com/Luxurioust/excelize  // Excel processing
+</code></pre>
 
-        <h3>7.2 External Dependencies</h3>
-        <ul>
-            <li><strong>SIEM Integrations</strong>: QRadar, Azure Sentinel, Securonix, BluSapphire</li>
-            <li><strong>Ticketing Systems</strong>: ServiceNow integration</li>
-            <li><strong>File Processing</strong>: Excel/CSV export capabilities</li>
-            <li><strong>Monitoring</strong>: InfluxDB for system metrics</li>
-            <li><strong>Security</strong>: JWT token-based authentication</li>
-        </ul>
-
-        <h2 id="security-compliance">8. Security & Compliance</h2>
-        <h3>8.1 Security Features</h3>
-        <ul>
-            <li><strong>Multi-factor Authentication</strong>: Token-based auth with session management</li>
-            <li><strong>Role-based Access Control</strong>: Granular permissions per tenant</li>
-            <li><strong>Data Encryption</strong>: At-rest and in-transit encryption</li>
-            <li><strong>Audit Logging</strong>: Complete audit trail for all operations</li>
-            <li><strong>Input Validation</strong>: Comprehensive input sanitization</li>
-            <li><strong>Session Management</strong>: Secure session handling with timeouts</li>
-        </ul>
-
-        <h3>8.2 Compliance Standards</h3>
-        <ul>
-            <li><strong>SOC 2</strong>: Security controls and monitoring</li>
-            <li><strong>ISO 27001</strong>: Information security management</li>
-            <li><strong>GDPR</strong>: Data privacy and protection</li>
-            <li><strong>NIST Cybersecurity Framework</strong>: Security standards alignment</li>
-        </ul>
-
-        <h2 id="performance-scalability">9. Performance & Scalability</h2>
-        <h3>9.1 Performance Characteristics</h3>
-        <ul>
-            <li><strong>Horizontal Scaling</strong>: Multi-tenant architecture supports scaling</li>
-            <li><strong>Database Optimization</strong>: Indexed queries and aggregation pipelines</li>
-            <li><strong>Caching Strategy</strong>: Redis caching for frequently accessed data</li>
-            <li><strong>Connection Pooling</strong>: Efficient database connection management</li>
-            <li><strong>Background Processing</strong>: Asynchronous task processing</li>
-        </ul>
-
-        <h3>9.2 Monitoring & Metrics</h3>
-        <ul>
-            <li><strong>System Metrics</strong>: CPU, Memory, Disk usage via InfluxDB</li>
-            <li><strong>Application Metrics</strong>: API response times, error rates</li>
-            <li><strong>Business Metrics</strong>: Incident volumes, case resolution times</li>
-            <li><strong>Health Checks</strong>: Service availability monitoring</li>
-        </ul>
-
-        <h2 id="deployment-architecture">10. Deployment Architecture</h2>
-        <h3>10.1 Multi-Tenant Deployment Model</h3>
-        <div class="mermaid">
+<hr />
+<h2 id="8-security-compliance">8. Security &amp; Compliance<a class="headerlink" href="#8-security-compliance" title="Permanent link">&para;</a></h2>
+<h3 id="81-security-features">8.1 Security Features<a class="headerlink" href="#81-security-features" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Multi-factor Authentication</strong>: Token-based auth with session management</li>
+<li><strong>Role-based Access Control</strong>: Granular permissions per tenant</li>
+<li><strong>Data Encryption</strong>: At-rest and in-transit encryption</li>
+<li><strong>Audit Logging</strong>: Complete audit trail for all operations</li>
+<li><strong>Input Validation</strong>: Comprehensive input sanitization</li>
+<li><strong>Session Management</strong>: Secure session handling with timeouts</li>
+</ul>
+<h3 id="82-compliance-standards">8.2 Compliance Standards<a class="headerlink" href="#82-compliance-standards" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SOC 2</strong>: Security controls and monitoring</li>
+<li><strong>ISO 27001</strong>: Information security management</li>
+<li><strong>GDPR</strong>: Data privacy and protection</li>
+<li><strong>NIST Cybersecurity Framework</strong>: Security standards alignment</li>
+</ul>
+<hr />
+<h2 id="9-performance-scalability">9. Performance &amp; Scalability<a class="headerlink" href="#9-performance-scalability" title="Permanent link">&para;</a></h2>
+<h3 id="91-performance-characteristics">9.1 Performance Characteristics<a class="headerlink" href="#91-performance-characteristics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Horizontal Scaling</strong>: Multi-tenant architecture supports scaling</li>
+<li><strong>Database Optimization</strong>: Indexed queries and aggregation pipelines</li>
+<li><strong>Caching Strategy</strong>: Redis caching for frequently accessed data</li>
+<li><strong>Connection Pooling</strong>: Efficient database connection management</li>
+<li><strong>Background Processing</strong>: Asynchronous task processing</li>
+</ul>
+<h3 id="92-monitoring-metrics">9.2 Monitoring &amp; Metrics<a class="headerlink" href="#92-monitoring-metrics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>System Metrics</strong>: CPU, Memory, Disk usage via InfluxDB</li>
+<li><strong>Application Metrics</strong>: API response times, error rates</li>
+<li><strong>Business Metrics</strong>: Incident volumes, case resolution times</li>
+<li><strong>Health Checks</strong>: Service availability monitoring</li>
+</ul>
+<hr />
+<h2 id="10-deployment-architecture">10. Deployment Architecture<a class="headerlink" href="#10-deployment-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="101-multi-tenant-deployment-model">10.1 Multi-Tenant Deployment Model<a class="headerlink" href="#101-multi-tenant-deployment-model" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TB
     subgraph "Production Environment"
         subgraph "Load Balancer"
             LB[Application Load Balancer]
         end
-        
+
         subgraph "Securaa SIEM Cluster"
             APP1[Securaa SIEM Instance 1]
             APP2[Securaa SIEM Instance 2]
             APP3[Securaa SIEM Instance N]
         end
-        
+
         subgraph "Database Cluster"
             subgraph "Tenant Databases"
                 DB1[(Tenant A DB)]
                 DB2[(Tenant B DB)]
                 DB3[(Tenant N DB)]
             end
-            
+
             subgraph "Shared Infrastructure"
                 CORE_DB[(Core DB)]
                 INFLUX_DB[(InfluxDB)]
                 REDIS_CACHE[(Redis Cache)]
             end
         end
-        
+
         subgraph "External Integrations"
             SIEM_TOOLS[SIEM Tools]
             TICKETING[Ticketing Systems]
             THREAT_INTEL[Threat Intelligence]
         end
     end
-    
+
     LB --> APP1
     LB --> APP2
     LB --> APP3
-    
+
     APP1 --> DB1
     APP1 --> DB2
     APP1 --> DB3
     APP1 --> CORE_DB
     APP1 --> INFLUX_DB
     APP1 --> REDIS_CACHE
-    
+
     APP1 --> SIEM_TOOLS
     APP1 --> TICKETING
     APP1 --> THREAT_INTEL
-        </div>
+</div>
 
-        <h3>10.2 Configuration Management</h3>
-        <ul>
-            <li><strong>Environment-specific Configs</strong>: Development, staging, production</li>
-            <li><strong>Tenant-specific Settings</strong>: Per-tenant customization</li>
-            <li><strong>Feature Flags</strong>: Dynamic feature enablement</li>
-            <li><strong>Secret Management</strong>: Secure credential storage</li>
-        </ul>
-
-        <h2 id="business-logic">11. Business Logic Flow</h2>
-        <h3>11.1 Incident Processing Workflow</h3>
-        <div class="mermaid">
+<h3 id="102-configuration-management">10.2 Configuration Management<a class="headerlink" href="#102-configuration-management" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Environment-specific Configs</strong>: Development, staging, production</li>
+<li><strong>Tenant-specific Settings</strong>: Per-tenant customization</li>
+<li><strong>Feature Flags</strong>: Dynamic feature enablement</li>
+<li><strong>Secret Management</strong>: Secure credential storage</li>
+</ul>
+<hr />
+<h2 id="11-business-logic-flow">11. Business Logic Flow<a class="headerlink" href="#11-business-logic-flow" title="Permanent link">&para;</a></h2>
+<h3 id="111-incident-processing-workflow">11.1 Incident Processing Workflow<a class="headerlink" href="#111-incident-processing-workflow" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 flowchart TD
     START([Incident Created]) --> VALIDATE{Validate Input}
     VALIDATE -->|Valid| ENRICH[Enrich with Metadata]
     VALIDATE -->|Invalid| REJECT[Reject & Log Error]
-    
+
     ENRICH --> CATEGORIZE[Auto-categorize Incident]
     CATEGORIZE --> SEVERITY[Assign Severity Level]
     SEVERITY --> ASSIGN{Auto-assignment Rules?}
-    
+
     ASSIGN -->|Yes| AUTO_ASSIGN[Assign to Analyst]
     ASSIGN -->|No| QUEUE[Add to Queue]
-    
+
     AUTO_ASSIGN --> NOTIFY[Send Notifications]
     QUEUE --> NOTIFY
-    
+
     NOTIFY --> CASE_GROUP{Group into Case?}
     CASE_GROUP -->|Yes| CREATE_CASE[Create/Update Case]
     CASE_GROUP -->|No| STORE[Store Individual Incident]
-    
+
     CREATE_CASE --> PLAYBOOK{Trigger Playbook?}
     STORE --> PLAYBOOK
-    
+
     PLAYBOOK -->|Yes| EXECUTE_PB[Execute Playbook]
     PLAYBOOK -->|No| MONITOR[Monitor & Track]
-    
+
     EXECUTE_PB --> MONITOR
     MONITOR --> END([Incident in System])
     REJECT --> END
-        </div>
+</div>
 
-        <h3>11.2 Case Management Workflow</h3>
-        <div class="mermaid">
+<h3 id="112-case-management-workflow">11.2 Case Management Workflow<a class="headerlink" href="#112-case-management-workflow" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 stateDiagram-v2
     [*] --> New
     New --> Assigned : Analyst Assignment
     New --> InProgress : Start Investigation
-    
+
     Assigned --> InProgress : Begin Work
     Assigned --> Escalated : Escalate Issue
-    
+
     InProgress --> OnHold : Waiting for Info
     InProgress --> Resolved : Investigation Complete
     InProgress --> Escalated : Need Expertise
-    
+
     OnHold --> InProgress : Info Received
     OnHold --> Closed : Timeout/Cancel
-    
+
     Escalated --> InProgress : Expert Assigned
     Escalated --> Closed : Cannot Resolve
-    
+
     Resolved --> Closed : Confirm Resolution
     Resolved --> InProgress : Reopen
-    
+
     Closed --> [*]
     Closed --> InProgress : Reopen Case
-        </div>
+</div>
 
-        <h2 id="integration-points">12. Integration Points</h2>
-        <h3>12.1 SIEM Tool Integrations</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>SIEM Tool</th>
-                    <th>Integration Type</th>
-                    <th>Data Flow</th>
-                    <th>Authentication</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>QRadar</td>
-                    <td>REST API</td>
-                    <td>Bi-directional</td>
-                    <td>API Key/OAuth</td>
-                </tr>
-                <tr>
-                    <td>Azure Sentinel</td>
-                    <td>REST API</td>
-                    <td>Pull/Push</td>
-                    <td>Service Principal</td>
-                </tr>
-                <tr>
-                    <td>Securonix</td>
-                    <td>REST API</td>
-                    <td>Pull</td>
-                    <td>API Token</td>
-                </tr>
-                <tr>
-                    <td>BluSapphire</td>
-                    <td>REST API</td>
-                    <td>Pull</td>
-                    <td>API Key</td>
-                </tr>
-                <tr>
-                    <td>ElasticSearch</td>
-                    <td>REST API</td>
-                    <td>Pull/Push</td>
-                    <td>Basic Auth</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>12.2 External System APIs</h3>
-        <div class="mermaid">
+<hr />
+<h2 id="12-integration-points">12. Integration Points<a class="headerlink" href="#12-integration-points" title="Permanent link">&para;</a></h2>
+<h3 id="121-siem-tool-integrations">12.1 SIEM Tool Integrations<a class="headerlink" href="#121-siem-tool-integrations" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>SIEM Tool</th>
+<th>Integration Type</th>
+<th>Data Flow</th>
+<th>Authentication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QRadar</td>
+<td>REST API</td>
+<td>Bi-directional</td>
+<td>API Key/OAuth</td>
+</tr>
+<tr>
+<td>Azure Sentinel</td>
+<td>REST API</td>
+<td>Pull/Push</td>
+<td>Service Principal</td>
+</tr>
+<tr>
+<td>Securonix</td>
+<td>REST API</td>
+<td>Pull</td>
+<td>API Token</td>
+</tr>
+<tr>
+<td>BluSapphire</td>
+<td>REST API</td>
+<td>Pull</td>
+<td>API Key</td>
+</tr>
+<tr>
+<td>ElasticSearch</td>
+<td>REST API</td>
+<td>Pull/Push</td>
+<td>Basic Auth</td>
+</tr>
+</tbody>
+</table>
+<h3 id="122-external-system-apis">12.2 External System APIs<a class="headerlink" href="#122-external-system-apis" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph LR
     subgraph "Securaa SIEM"
         CORE[Core Service]
     end
-    
+
     subgraph "SIEM Tools"
         QRADAR[QRadar API]
         SENTINEL[Azure Sentinel API]
         SECURONIX[Securonix API]
     end
-    
+
     subgraph "Ticketing"
         SN[ServiceNow API]
         JIRA[Jira API]
     end
-    
+
     subgraph "Threat Intel"
         TI1[Threat Feed API]
         TI2[MITRE ATT&CK]
     end
-    
+
     CORE <--> QRADAR
     CORE <--> SENTINEL
     CORE <--> SECURONIX
@@ -669,14 +1261,134 @@ graph LR
     CORE <--> JIRA
     CORE --> TI1
     CORE --> TI2
-        </div>
+</div>
 
-        <h2>Summary</h2>
-        <p>The Securaa SIEM service represents a comprehensive, enterprise-grade security information and event management platform. Its multi-tenant architecture, extensive integration capabilities, and robust feature set make it suitable for organizations of all sizes looking to enhance their security operations.</p>
-        
-        <p>The modular design allows for easy maintenance and extension, while the Go-based implementation ensures high performance and scalability. The extensive API surface area provides flexibility for integration with existing security tools and workflows.</p>
-        
-        <p>This high-level design serves as a blueprint for understanding the system architecture, data flows, and key components that make up the Securaa SIEM service.</p>
+<hr />
+<h2 id="13-error-handling-resilience">13. Error Handling &amp; Resilience<a class="headerlink" href="#13-error-handling-resilience" title="Permanent link">&para;</a></h2>
+<h3 id="131-error-handling-strategy">13.1 Error Handling Strategy<a class="headerlink" href="#131-error-handling-strategy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Graceful Degradation</strong>: Service continues with reduced functionality</li>
+<li><strong>Circuit Breaker Pattern</strong>: Prevent cascade failures</li>
+<li><strong>Retry Mechanisms</strong>: Configurable retry policies</li>
+<li><strong>Dead Letter Queues</strong>: Handle failed message processing</li>
+<li><strong>Comprehensive Logging</strong>: Structured logging for debugging</li>
+</ul>
+<h3 id="132-disaster-recovery">13.2 Disaster Recovery<a class="headerlink" href="#132-disaster-recovery" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Database Backups</strong>: Regular automated backups</li>
+<li><strong>Multi-region Deployment</strong>: Geographic redundancy</li>
+<li><strong>Health Monitoring</strong>: Proactive health checks</li>
+<li><strong>Failover Procedures</strong>: Automated failover capabilities</li>
+</ul>
+<hr />
+<h2 id="14-future-roadmap">14. Future Roadmap<a class="headerlink" href="#14-future-roadmap" title="Permanent link">&para;</a></h2>
+<h3 id="141-planned-enhancements">14.1 Planned Enhancements<a class="headerlink" href="#141-planned-enhancements" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Machine Learning Integration</strong>: AI-powered threat detection</li>
+<li><strong>Advanced Analytics</strong>: Predictive analytics capabilities</li>
+<li><strong>API Gateway</strong>: Centralized API management</li>
+<li><strong>Microservices Migration</strong>: Break down into smaller services</li>
+</ul>
+<h3 id="142-technology-upgrades">14.2 Technology Upgrades<a class="headerlink" href="#142-technology-upgrades" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Go Version</strong>: Upgrade to latest Go versions</li>
+<li><strong>Database Optimization</strong>: Performance improvements</li>
+<li><strong>Cloud Native</strong>: Cloud-first architecture</li>
+<li><strong>Real-time Processing</strong>: Stream processing capabilities</li>
+</ul>
+<hr />
+<h2 id="15-conclusion">15. Conclusion<a class="headerlink" href="#15-conclusion" title="Permanent link">&para;</a></h2>
+<p>The Securaa SIEM service represents a comprehensive, enterprise-grade security information and event management platform. Its multi-tenant architecture, extensive integration capabilities, and robust feature set make it suitable for organizations of all sizes looking to enhance their security operations.</p>
+<p>The modular design allows for easy maintenance and extension, while the Go-based implementation ensures high performance and scalability. The extensive API surface area provides flexibility for integration with existing security tools and workflows.</p>
+<p>This high-level design serves as a blueprint for understanding the system architecture, data flows, and key components that make up the Securaa SIEM service.</p>
     </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>

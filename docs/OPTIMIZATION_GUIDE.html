@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Securaa Platform Documentation - Optimization Guide">
+    <title>Optimization Guide - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="documentation-nav">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 id="securaa-playbook-service-performance-optimization-guide">Securaa Playbook Service - Performance Optimization Guide<a class="headerlink" href="#securaa-playbook-service-performance-optimization-guide" title="Permanent link">&para;</a></h1>
+<h2 id="document-information">Document Information<a class="headerlink" href="#document-information" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Service</strong>: Securaa Playbook Service</li>
+<li><strong>Target Audience</strong>: Development Team</li>
+<li><strong>Priority</strong>: High Impact Performance Improvements</li>
+<li><strong>Date</strong>: September 11, 2025</li>
+<li><strong>Estimated Implementation Time</strong>: 4-6 weeks</li>
+</ul>
+<hr />
+<h2 id="executive-summary">🎯 <strong>Executive Summary</strong><a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
+<p>This document provides specific, actionable optimization strategies for the Securaa Playbook Service that can deliver:<br />
+- <strong>5-10x query performance improvement</strong><br />
+- <strong>3-4x concurrent request handling</strong><br />
+- <strong>50-70% reduction in memory usage</strong><br />
+- <strong>2-3x task execution throughput</strong></p>
+<hr />
+<h2 id="priority-1-database-optimizations-week-1-2">📋 <strong>Priority 1: Database Optimizations (Week 1-2)</strong><a class="headerlink" href="#priority-1-database-optimizations-week-1-2" title="Permanent link">&para;</a></h2>
+<h3 id="11-critical-index-creation"><strong>1.1 Critical Index Creation</strong><a class="headerlink" href="#11-critical-index-creation" title="Permanent link">&para;</a></h3>
+<p><strong>Impact</strong>: 5-10x query performance improvement<br />
+<strong>Effort</strong>: 1 day<br />
+<strong>Files to modify</strong>: Database migration scripts</p>
+<pre class="highlight"><code class="language-javascript">// Add these indexes immediately - HIGH IMPACT
+db.playbook_execution_collection.createIndex({
+    &quot;tenant_code&quot;: 1, 
+    &quot;execution_status&quot;: 1, 
+    &quot;createddate&quot;: -1
+});
+db.playbook_execution_collection.createIndex({
+    &quot;uid&quot;: 1, 
+    &quot;createddate&quot;: -1
+});
+db.task_execution_collection.createIndex({
+    &quot;peid&quot;: 1, 
+    &quot;task_seq&quot;: 1
+});
+
+db.task_execution_collection.createIndex({
+    &quot;tenant_code&quot;: 1, 
+    &quot;alert_id&quot;: 1, 
+    &quot;status&quot;: 1
+});
+db.playbook_collection.createIndex({
+    &quot;tenant_code&quot;: 1, 
+    &quot;status&quot;: 1, 
+    &quot;category_id&quot;: 1
+});
+// Compound index for top playbooks query
+db.playbook_execution_collection.createIndex({
+    &quot;execution_status&quot;: 1,
+    &quot;createddate&quot;: -1,
+    &quot;pid&quot;: 1,
+    &quot;playbook_runtime&quot;: 1
+});
+</code></pre>
+
+<h3 id="12-query-optimization-in-averageplaybookruntimego"><strong>1.2 Query Optimization in averagePlaybookRunTime.go</strong><a class="headerlink" href="#12-query-optimization-in-averageplaybookruntimego" title="Permanent link">&para;</a></h3>
+<p><strong>Current Issue</strong>: Inefficient aggregation pipeline<br />
+<strong>File</strong>: <code>services/averagePlaybookRunTime.go</code></p>
+<pre class="highlight"><code class="language-go">// BEFORE (Current implementation around line 93):
+topPlaybookAvrPipeline := bson.A{
+    bson.D{{&quot;$match&quot;, matchQuery}},
+    bson.D{{&quot;$sort&quot;, bson.D{{&quot;createddate&quot;, -1}}}},
+    bson.D{{&quot;$group&quot;, bson.M{&quot;_id&quot;: &quot;$pid&quot;,
+        &quot;name&quot;:    bson.M{&quot;$first&quot;: &quot;$playbook_name&quot;},
+        &quot;average&quot;: bson.M{&quot;$avg&quot;: &quot;$playbook_runtime&quot;}}}},
+    bson.D{{&quot;$sort&quot;, bson.D{{&quot;average&quot;, -1}}}},
+    bson.D{{&quot;$limit&quot;, 5}},
+}
+// AFTER (Optimized version):
+topPlaybookAvrPipeline := bson.A{
+    bson.D{{&quot;$match&quot;, matchQuery}},
+    // Use $group first to reduce data volume
+    bson.D{{&quot;$group&quot;, bson.M{
+        &quot;_id&quot;: &quot;$pid&quot;,
+        &quot;name&quot;: bson.M{&quot;$first&quot;: &quot;$playbook_name&quot;},
+        &quot;average&quot;: bson.M{&quot;$avg&quot;: &quot;$playbook_runtime&quot;},
+        &quot;count&quot;: bson.M{&quot;$sum&quot;: 1}}}},
+    // Sort after grouping (smaller dataset)
+    bson.D{{&quot;$sort&quot;, bson.D{{&quot;average&quot;, -1}}}},
+    bson.D{{&quot;$limit&quot;, 5}},
+    // Add projection to reduce network transfer
+    bson.D{{&quot;$project&quot;, bson.M{
+        &quot;name&quot;: 1,
+        &quot;average&quot;: 1,
+        &quot;count&quot;: 1}}},
+}
+</code></pre>
+
+<h3 id="13-batch-operations-implementation"><strong>1.3 Batch Operations Implementation</strong><a class="headerlink" href="#13-batch-operations-implementation" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: Create new <code>services/batchOperationService.go</code></p>
+<pre class="highlight"><code class="language-go">package services
+
+import (
+    &quot;context&quot;
+    &quot;go.mongodb.org/mongo-driver/bson&quot;
+    &quot;go.mongodb.org/mongo-driver/mongo&quot;
+    &quot;go.mongodb.org/mongo-driver/mongo/options&quot;
+    &quot;time&quot;
+)
+
+type BatchOperationService struct {
+    collection *mongo.Collection
+}
+
+type TaskStatusUpdate struct {
+    TaskRequestID string
+    Status        string
+    Response      string
+    UpdatedDate   int64
+}
+
+func NewBatchOperationService(collection *mongo.Collection) *BatchOperationService {
+    return &amp;BatchOperationService{collection: collection}
+}
+
+func (service *BatchOperationService) BatchUpdateTaskStatus(
+    updates []TaskStatusUpdate,
+) error {
+    const batchSize = 1000
+
+    for i := 0; i &lt; len(updates); i += batchSize {
+        end := i + batchSize
+        if end &gt; len(updates) {
+            end = len(updates)
+        }
+
+        batch := updates[i:end]
+        if err := service.processBatch(batch); err != nil {
+            return err
+        }
+    }
+
+    return nil
+}
+
+func (service *BatchOperationService) processBatch(batch []TaskStatusUpdate) error {
+    var operations []mongo.WriteModel
+
+    for _, update := range batch {
+        filter := bson.M{&quot;task_request_id&quot;: update.TaskRequestID}
+        updateDoc := bson.M{
+            &quot;$set&quot;: bson.M{
+                &quot;status&quot;:       update.Status,
+                &quot;response&quot;:     update.Response,
+                &quot;updated_date&quot;: update.UpdatedDate,
+            },
+        }
+
+        operation := mongo.NewUpdateOneModel().
+            SetFilter(filter).
+            SetUpdate(updateDoc)
+
+        operations = append(operations, operation)
+    }
+
+    // Execute bulk write with unordered operations for better performance
+    opts := options.BulkWrite().SetOrdered(false)
+    _, err := service.collection.BulkWrite(
+        context.Background(),
+        operations,
+        opts,
+    )
+
+    return err
+}
+
+// Usage in controllers:
+func (controller *TaskController) UpdateMultipleTaskStatus(updates []TaskStatusUpdate) error {
+    batchService := NewBatchOperationService(controller.taskCollection)
+    return batchService.BatchUpdateTaskStatus(updates)
+}
+</code></pre>
+
+<hr />
+<h2 id="priority-2-connection-pool-optimization-week-1">📋 <strong>Priority 2: Connection Pool Optimization (Week 1)</strong><a class="headerlink" href="#priority-2-connection-pool-optimization-week-1" title="Permanent link">&para;</a></h2>
+<h3 id="21-mongodb-connection-pool-configuration"><strong>2.1 MongoDB Connection Pool Configuration</strong><a class="headerlink" href="#21-mongodb-connection-pool-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>app.go</code> - Modify <code>InitMongoSession</code> function</p>
+<pre class="highlight"><code class="language-go">// BEFORE (Current implementation):
+func (a *App) InitMongoSession(configObject config.ConfigStruct) {
+    // Basic connection without optimization
+}
+
+// AFTER (Optimized version):
+func (a *App) InitMongoSession(configObject config.ConfigStruct) {
+    // Optimized MongoDB connection configuration
+    clientOptions := options.Client().
+        ApplyURI(configObject.DatabaseConfig.MongoURI).
+        SetMaxPoolSize(100).                    // Increase max connections
+        SetMinPoolSize(10).                     // Maintain minimum connections
+        SetMaxConnIdleTime(30 * time.Minute).  // Keep connections alive longer
+        SetConnectTimeout(10 * time.Second).   // Connection timeout
+        SetSocketTimeout(30 * time.Second).    // Socket timeout
+        SetServerSelectionTimeout(5 * time.Second). // Server selection timeout
+        SetHeartbeatInterval(10 * time.Second). // Health check interval
+        SetRetryWrites(true).                   // Enable retry writes
+        SetRetryReads(true)                     // Enable retry reads
+
+    client, err := mongo.Connect(context.Background(), clientOptions)
+    if err != nil {
+        logger.Fatal(&quot;Failed to connect to MongoDB&quot;, err)
+    }
+
+    // Test the connection
+    err = client.Ping(context.Background(), nil)
+    if err != nil {
+        logger.Fatal(&quot;Failed to ping MongoDB&quot;, err)
+    }
+
+    // Store optimized client
+    a.MongoClient = client
+    logger.Info(&quot;MongoDB connection pool initialized with optimized settings&quot;)
+}
+</code></pre>
+
+<h3 id="22-redis-connection-pool-optimization"><strong>2.2 Redis Connection Pool Optimization</strong><a class="headerlink" href="#22-redis-connection-pool-optimization" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: Create new <code>cache/optimizedRedisClient.go</code></p>
+<pre class="highlight"><code class="language-go">package cache
+
+import (
+    &quot;time&quot;
+    &quot;github.com/go-redis/redis/v8&quot;
+)
+
+type OptimizedRedisConfig struct {
+    Host         string
+    Port         int
+    Password     string
+    Database     int
+    PoolSize     int
+    MinIdleConns int
+    IdleTimeout  time.Duration
+    MaxRetries   int
+}
+
+func NewOptimizedRedisClient(config OptimizedRedisConfig) *redis.Client {
+    return redis.NewClient(&amp;redis.Options{
+        Addr:         fmt.Sprintf(&quot;%s:%d&quot;, config.Host, config.Port),
+        Password:     config.Password,
+        DB:           config.Database,
+        PoolSize:     config.PoolSize,      // Default: 30, Recommended: 50-100
+        MinIdleConns: config.MinIdleConns,  // Default: 0, Recommended: 10-20
+        IdleTimeout:  config.IdleTimeout,   // Default: 5min, Recommended: 10-30min
+        MaxRetries:   config.MaxRetries,    // Default: 3, Recommended: 5
+        DialTimeout:  5 * time.Second,
+        ReadTimeout:  10 * time.Second,
+        WriteTimeout: 10 * time.Second,
+        PoolTimeout:  15 * time.Second,
+    })
+}
+
+// Usage in cacheControllers/cacheController.go:
+func init() {
+    config := OptimizedRedisConfig{
+        Host:         os.Getenv(&quot;REDIS_HOST&quot;),
+        Port:         6379,
+        PoolSize:     80,
+        MinIdleConns: 15,
+        IdleTimeout:  20 * time.Minute,
+        MaxRetries:   5,
+    }
+
+    redisClient = NewOptimizedRedisClient(config)
+}
+</code></pre>
+
+<h3 id="23-http-client-pool-configuration"><strong>2.3 HTTP Client Pool Configuration</strong><a class="headerlink" href="#23-http-client-pool-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: Create new <code>utils/httpClientPool.go</code></p>
+<pre class="highlight"><code class="language-go">package utils
+
+import (
+    &quot;net/http&quot;
+    &quot;time&quot;
+)
+
+var (
+    optimizedHTTPClient *http.Client
+    once                sync.Once
+)
+
+func GetOptimizedHTTPClient() *http.Client {
+    once.Do(func() {
+        transport := &amp;http.Transport{
+            MaxIdleConns:        100,               // Total idle connections
+            MaxIdleConnsPerHost: 20,                // Idle connections per host
+            MaxConnsPerHost:     50,                // Max connections per host
+            IdleConnTimeout:     90 * time.Second,  // Keep connections alive
+            TLSHandshakeTimeout: 10 * time.Second,  // TLS handshake timeout
+            DisableKeepAlives:   false,             // Enable keep-alive
+            ForceAttemptHTTP2:   true,              // Use HTTP/2 when possible
+        }
+
+        optimizedHTTPClient = &amp;http.Client{
+            Transport: transport,
+            Timeout:   30 * time.Second, // Overall request timeout
+        }
+    })
+
+    return optimizedHTTPClient
+}
+
+// Usage in integration calls:
+func MakeAPICall(url string, data []byte) (*http.Response, error) {
+    client := GetOptimizedHTTPClient()
+    req, err := http.NewRequest(&quot;POST&quot;, url, bytes.NewBuffer(data))
+    if err != nil {
+        return nil, err
+    }
+
+    return client.Do(req)
+}
+</code></pre>
+
+<hr />
+<h2 id="priority-3-parallel-processing-implementation-week-2-3">📋 <strong>Priority 3: Parallel Processing Implementation (Week 2-3)</strong><a class="headerlink" href="#priority-3-parallel-processing-implementation-week-2-3" title="Permanent link">&para;</a></h2>
+<h3 id="31-worker-pool-for-task-execution"><strong>3.1 Worker Pool for Task Execution</strong><a class="headerlink" href="#31-worker-pool-for-task-execution" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: Create new <code>executionControllers/workerPool.go</code></p>
+<pre class="highlight"><code class="language-go">package executionControllers
+
+import (
+    &quot;context&quot;
+    &quot;sync&quot;
+    &quot;securaa_services/securaa_playbook/executionModels&quot;
+)
+
+type TaskWorkerPool struct {
+    taskQueue   chan executionModels.PlayBookTask
+    resultQueue chan TaskResult
+    errorQueue  chan error
+    stopSignal  chan struct{}
+    workers     int
+    wg          sync.WaitGroup
+    controller  *PlaybookExecutionController
+}
+
+type TaskResult struct {
+    TaskSeq  int
+    Success  bool
+    Response string
+    Error    error
+    Duration time.Duration
+}
+
+func NewTaskWorkerPool(workers int, bufferSize int, controller *PlaybookExecutionController) *TaskWorkerPool {
+    return &amp;TaskWorkerPool{
+        taskQueue:   make(chan executionModels.PlayBookTask, bufferSize),
+        resultQueue: make(chan TaskResult, bufferSize),
+        errorQueue:  make(chan error, bufferSize),
+        stopSignal:  make(chan struct{}),
+        workers:     workers,
+        controller:  controller,
+    }
+}
+
+func (pool *TaskWorkerPool) Start() {
+    for i := 0; i &lt; pool.workers; i++ {
+        pool.wg.Add(1)
+        go pool.worker(i)
+    }
+}
+
+func (pool *TaskWorkerPool) worker(workerID int) {
+    defer pool.wg.Done()
+
+    for {
+        select {
+        case task := &lt;-pool.taskQueue:
+            result := pool.processTask(task, workerID)
+            pool.resultQueue &lt;- result
+
+        case &lt;-pool.stopSignal:
+            logger.Info(&quot;Worker stopping&quot;, &quot;worker_id&quot;, workerID)
+            return
+        }
+    }
+}
+
+func (pool *TaskWorkerPool) processTask(task executionModels.PlayBookTask, workerID int) TaskResult {
+    startTime := time.Now()
+
+    defer func() {
+        if r := recover(); r != nil {
+            pool.errorQueue &lt;- fmt.Errorf(&quot;worker %d panicked: %v&quot;, workerID, r)
+        }
+    }()
+
+    // Process the task using existing controller logic
+    err := pool.controller.ProcessSingleTask(task)
+
+    return TaskResult{
+        TaskSeq:  task.TaskSeq,
+        Success:  err == nil,
+        Error:    err,
+        Duration: time.Since(startTime),
+    }
+}
+
+func (pool *TaskWorkerPool) SubmitTask(task executionModels.PlayBookTask) {
+    select {
+    case pool.taskQueue &lt;- task:
+        // Task submitted successfully
+    case &lt;-time.After(5 * time.Second):
+        logger.Error(&quot;Task submission timeout&quot;, &quot;task_seq&quot;, task.TaskSeq)
+    }
+}
+
+func (pool *TaskWorkerPool) Stop() {
+    close(pool.stopSignal)
+    pool.wg.Wait()
+    close(pool.taskQueue)
+    close(pool.resultQueue)
+    close(pool.errorQueue)
+}
+
+func (pool *TaskWorkerPool) GetResults() &lt;-chan TaskResult {
+    return pool.resultQueue
+}
+
+func (pool *TaskWorkerPool) GetErrors() &lt;-chan error {
+    return pool.errorQueue
+}
+</code></pre>
+
+<h3 id="32-parallel-execution-in-playbookexecutioncontroller"><strong>3.2 Parallel Execution in PlaybookExecutionController</strong><a class="headerlink" href="#32-parallel-execution-in-playbookexecutioncontroller" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: <code>executionControllers/playbookExecutionController.go</code></p>
+<p>Add this method to the PlaybookExecutionController struct:</p>
+<pre class="highlight"><code class="language-go">// Add this method to PlaybookExecutionController
+func (executionController *PlaybookExecutionController) ExecuteTasksInParallel(
+    tasks []executionModels.PlayBookTask,
+    maxWorkers int,
+) error {
+
+    if len(tasks) == 0 {
+        return nil
+    }
+
+    // Determine optimal number of workers
+    workerCount := maxWorkers
+    if len(tasks) &lt; maxWorkers {
+        workerCount = len(tasks)
+    }
+
+    // Create worker pool
+    pool := NewTaskWorkerPool(workerCount, len(tasks), executionController)
+    pool.Start()
+    defer pool.Stop()
+
+    // Submit all tasks
+    for _, task := range tasks {
+        pool.SubmitTask(task)
+    }
+
+    // Collect results
+    var errors []error
+    resultsCollected := 0
+
+    for resultsCollected &lt; len(tasks) {
+        select {
+        case result := &lt;-pool.GetResults():
+            resultsCollected++
+            if !result.Success {
+                errors = append(errors, result.Error)
+            }
+            logger.Info(&quot;Task completed&quot;, 
+                &quot;task_seq&quot;, result.TaskSeq,
+                &quot;success&quot;, result.Success,
+                &quot;duration&quot;, result.Duration,
+            )
+
+        case err := &lt;-pool.GetErrors():
+            errors = append(errors, err)
+            resultsCollected++
+
+        case &lt;-time.After(30 * time.Second):
+            return fmt.Errorf(&quot;timeout waiting for task results&quot;)
+        }
+    }
+
+    // Return first error if any
+    if len(errors) &gt; 0 {
+        return errors[0]
+    }
+
+    return nil
+}
+
+// Usage in existing execution flow:
+func (executionController *PlaybookExecutionController) ProcessAndExecuteTasksParallel() error {
+    // Get tasks that can be executed in parallel
+    parallelTasks := executionController.getParallelExecutableTasks()
+
+    if len(parallelTasks) &gt; 1 {
+        // Execute in parallel
+        return executionController.ExecuteTasksInParallel(parallelTasks, 10)
+    } else {
+        // Execute sequentially for single task or dependent tasks
+        return executionController.executeTasksSequentially(parallelTasks)
+    }
+}
+</code></pre>
+
+<hr />
+<h2 id="priority-4-caching-strategy-implementation-week-3-4">📋 <strong>Priority 4: Caching Strategy Implementation (Week 3-4)</strong><a class="headerlink" href="#priority-4-caching-strategy-implementation-week-3-4" title="Permanent link">&para;</a></h2>
+<h3 id="41-multi-level-cache-manager"><strong>4.1 Multi-Level Cache Manager</strong><a class="headerlink" href="#41-multi-level-cache-manager" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: Create new <code>cache/multiLevelCache.go</code></p>
+<pre class="highlight"><code class="language-go">package cache
+
+import (
+    &quot;encoding/json&quot;
+    &quot;sync&quot;
+    &quot;time&quot;
+    &quot;github.com/go-redis/redis/v8&quot;
+)
+
+type MultiLevelCacheManager struct {
+    l1Cache     *sync.Map                 // In-memory L1 cache
+    l2Cache     *redis.Client             // Redis L2 cache
+    ttlMap      *sync.Map                 // TTL tracking for L1
+    cleanupStop chan struct{}
+    mutex       sync.RWMutex
+}
+
+type CacheItem struct {
+    Value     interface{}
+    ExpiresAt int64
+}
+
+func NewMultiLevelCacheManager(redisClient *redis.Client) *MultiLevelCacheManager {
+    manager := &amp;MultiLevelCacheManager{
+        l1Cache:     &amp;sync.Map{},
+        l2Cache:     redisClient,
+        ttlMap:      &amp;sync.Map{},
+        cleanupStop: make(chan struct{}),
+    }
+
+    // Start cleanup goroutine
+    go manager.startCleanupRoutine()
+
+    return manager
+}
+
+func (cm *MultiLevelCacheManager) Get(key string) (interface{}, bool) {
+    cm.mutex.RLock()
+    defer cm.mutex.RUnlock()
+
+    // Check L1 cache first
+    if item, exists := cm.l1Cache.Load(key); exists {
+        cacheItem := item.(CacheItem)
+        if time.Now().Unix() &lt; cacheItem.ExpiresAt {
+            return cacheItem.Value, true
+        } else {
+            // Expired, remove from L1
+            cm.l1Cache.Delete(key)
+        }
+    }
+
+    // Fall back to L2 cache (Redis)
+    result, err := cm.l2Cache.Get(context.Background(), key).Result()
+    if err == nil {
+        var value interface{}
+        if err := json.Unmarshal([]byte(result), &amp;value); err == nil {
+            // Promote to L1 cache with shorter TTL
+            cm.setL1Cache(key, value, 5*time.Minute)
+            return value, true
+        }
+    }
+
+    return nil, false
+}
+
+func (cm *MultiLevelCacheManager) Set(key string, value interface{}, ttl time.Duration) error {
+    cm.mutex.Lock()
+    defer cm.mutex.Unlock()
+
+    // Store in L1 cache
+    cm.setL1Cache(key, value, ttl)
+
+    // Store in L2 cache (Redis)
+    data, err := json.Marshal(value)
+    if err != nil {
+        return err
+    }
+
+    return cm.l2Cache.Set(context.Background(), key, data, ttl).Err()
+}
+
+func (cm *MultiLevelCacheManager) setL1Cache(key string, value interface{}, ttl time.Duration) {
+    expiresAt := time.Now().Add(ttl).Unix()
+    cm.l1Cache.Store(key, CacheItem{
+        Value:     value,
+        ExpiresAt: expiresAt,
+    })
+}
+
+func (cm *MultiLevelCacheManager) Delete(key string) {
+    cm.l1Cache.Delete(key)
+    cm.l2Cache.Del(context.Background(), key)
+}
+
+func (cm *MultiLevelCacheManager) startCleanupRoutine() {
+    ticker := time.NewTicker(5 * time.Minute)
+    defer ticker.Stop()
+
+    for {
+        select {
+        case &lt;-ticker.C:
+            cm.cleanupExpiredL1Items()
+        case &lt;-cm.cleanupStop:
+            return
+        }
+    }
+}
+
+func (cm *MultiLevelCacheManager) cleanupExpiredL1Items() {
+    now := time.Now().Unix()
+    cm.l1Cache.Range(func(key, value interface{}) bool {
+        item := value.(CacheItem)
+        if now &gt;= item.ExpiresAt {
+            cm.l1Cache.Delete(key)
+        }
+        return true
+    })
+}
+
+func (cm *MultiLevelCacheManager) Stop() {
+    close(cm.cleanupStop)
+}
+</code></pre>
+
+<h3 id="42-cache-integration-in-controllers"><strong>4.2 Cache Integration in Controllers</strong><a class="headerlink" href="#42-cache-integration-in-controllers" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: Modify <code>controllers/playbookcontroller.go</code></p>
+<pre class="highlight"><code class="language-go">// Add caching to playbook operations
+var cacheManager *cache.MultiLevelCacheManager
+
+func init() {
+    redisClient := cache.GetOptimizedRedisClient()
+    cacheManager = cache.NewMultiLevelCacheManager(redisClient)
+}
+
+// Modify GetPlaybookByName function to use cache
+func (pc PlaybookController) GetPlaybookByName(tenantCode, playbookName string) (*models.PlaybookObject, error) {
+    cacheKey := fmt.Sprintf(&quot;playbook:%s:%s&quot;, tenantCode, playbookName)
+
+    // Try cache first
+    if cached, exists := cacheManager.Get(cacheKey); exists {
+        if playbook, ok := cached.(*models.PlaybookObject); ok {
+            logger.Debug(&quot;Playbook retrieved from cache&quot;, &quot;key&quot;, cacheKey)
+            return playbook, nil
+        }
+    }
+
+    // Cache miss - get from database
+    playbook, err := pc.getPlaybookFromDatabase(tenantCode, playbookName)
+    if err != nil {
+        return nil, err
+    }
+
+    // Store in cache for 1 hour
+    cacheManager.Set(cacheKey, playbook, 1*time.Hour)
+    logger.Debug(&quot;Playbook stored in cache&quot;, &quot;key&quot;, cacheKey)
+
+    return playbook, nil
+}
+
+// Cache invalidation when playbook is updated
+func (pc PlaybookController) UpdatePlaybook(playbook *models.PlaybookObject) error {
+    err := pc.updatePlaybookInDatabase(playbook)
+    if err != nil {
+        return err
+    }
+
+    // Invalidate cache
+    cacheKey := fmt.Sprintf(&quot;playbook:%s:%s&quot;, playbook.TenantCode, playbook.Name)
+    cacheManager.Delete(cacheKey)
+
+    return nil
+}
+</code></pre>
+
+<hr />
+<h2 id="priority-5-memory-management-optimizations-week-4">📋 <strong>Priority 5: Memory Management Optimizations (Week 4)</strong><a class="headerlink" href="#priority-5-memory-management-optimizations-week-4" title="Permanent link">&para;</a></h2>
+<h3 id="51-object-pooling-implementation"><strong>5.1 Object Pooling Implementation</strong><a class="headerlink" href="#51-object-pooling-implementation" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: Create new <code>utils/objectPool.go</code></p>
+<pre class="highlight"><code class="language-go">package utils
+
+import (
+    &quot;sync&quot;
+    &quot;securaa_services/securaa_playbook/models&quot;
+)
+
+// Object pools for frequently allocated objects
+var (
+    taskRequestPool = sync.Pool{
+        New: func() interface{} {
+            return &amp;models.TaskRequest{}
+        },
+    }
+
+    playbookObjectPool = sync.Pool{
+        New: func() interface{} {
+            return &amp;models.PlaybookObject{}
+        },
+    }
+
+    responsePool = sync.Pool{
+        New: func() interface{} {
+            return &amp;models.Response{}
+        },
+    }
+
+    stringBuilderPool = sync.Pool{
+        New: func() interface{} {
+            return &amp;strings.Builder{}
+        },
+    }
+)
+
+// TaskRequest pool functions
+func GetTaskRequest() *models.TaskRequest {
+    req := taskRequestPool.Get().(*models.TaskRequest)
+    // Reset the object
+    *req = models.TaskRequest{}
+    return req
+}
+
+func PutTaskRequest(req *models.TaskRequest) {
+    taskRequestPool.Put(req)
+}
+
+// PlaybookObject pool functions
+func GetPlaybookObject() *models.PlaybookObject {
+    pb := playbookObjectPool.Get().(*models.PlaybookObject)
+    // Reset the object
+    *pb = models.PlaybookObject{}
+    return pb
+}
+
+func PutPlaybookObject(pb *models.PlaybookObject) {
+    playbookObjectPool.Put(pb)
+}
+
+// Response pool functions
+func GetResponse() *models.Response {
+    resp := responsePool.Get().(*models.Response)
+    // Reset the object
+    *resp = models.Response{}
+    return resp
+}
+
+func PutResponse(resp *models.Response) {
+    responsePool.Put(resp)
+}
+
+// StringBuilder pool functions
+func GetStringBuilder() *strings.Builder {
+    sb := stringBuilderPool.Get().(*strings.Builder)
+    sb.Reset()
+    return sb
+}
+
+func PutStringBuilder(sb *strings.Builder) {
+    stringBuilderPool.Put(sb)
+}
+
+// Usage example in JSON response building
+func BuildJSONResponse(status string, message string, data interface{}) string {
+    sb := GetStringBuilder()
+    defer PutStringBuilder(sb)
+
+    sb.WriteString(`{&quot;status&quot;:&quot;`)
+    sb.WriteString(status)
+    sb.WriteString(`&quot;,&quot;message&quot;:&quot;`)
+    sb.WriteString(message)
+    sb.WriteString(`&quot;,&quot;data&quot;:`)
+
+    if dataBytes, err := json.Marshal(data); err == nil {
+        sb.Write(dataBytes)
+    } else {
+        sb.WriteString(&quot;null&quot;)
+    }
+
+    sb.WriteString(&quot;}&quot;)
+    return sb.String()
+}
+</code></pre>
+
+<h3 id="52-memory-optimized-json-processing"><strong>5.2 Memory-Optimized JSON Processing</strong><a class="headerlink" href="#52-memory-optimized-json-processing" title="Permanent link">&para;</a></h3>
+<p><strong>File</strong>: Create new <code>utils/jsonOptimizer.go</code></p>
+<pre class="highlight"><code class="language-go">package utils
+
+import (
+    &quot;encoding/json&quot;
+    &quot;io&quot;
+    &quot;bytes&quot;
+)
+
+// StreamingJSONProcessor for large JSON data
+type StreamingJSONProcessor struct {
+    decoder *json.Decoder
+    buffer  *bytes.Buffer
+}
+
+func NewStreamingJSONProcessor(reader io.Reader) *StreamingJSONProcessor {
+    return &amp;StreamingJSONProcessor{
+        decoder: json.NewDecoder(reader),
+        buffer:  &amp;bytes.Buffer{},
+    }
+}
+
+func (processor *StreamingJSONProcessor) ProcessLargeJSON(callback func(interface{}) error) error {
+    for processor.decoder.More() {
+        var item interface{}
+        if err := processor.decoder.Decode(&amp;item); err != nil {
+            return err
+        }
+
+        if err := callback(item); err != nil {
+            return err
+        }
+    }
+    return nil
+}
+
+// Optimized JSON marshaling with buffer reuse
+func MarshalJSONOptimized(v interface{}) ([]byte, error) {
+    buffer := GetStringBuilder()
+    defer PutStringBuilder(buffer)
+
+    encoder := json.NewEncoder(buffer)
+    encoder.SetEscapeHTML(false) // Faster encoding
+
+    if err := encoder.Encode(v); err != nil {
+        return nil, err
+    }
+
+    // Remove trailing newline added by Encode
+    result := buffer.String()
+    if len(result) &gt; 0 &amp;&amp; result[len(result)-1] == '\n' {
+        result = result[:len(result)-1]
+    }
+
+    return []byte(result), nil
+}
+
+// Schema validation with caching
+var schemaCache = sync.Map{}
+
+func ValidateJSONWithCachedSchema(data []byte, schemaName string) error {
+    if schema, exists := schemaCache.Load(schemaName); exists {
+        return validateWithSchema(data, schema)
+    }
+
+    schema, err := loadSchema(schemaName)
+    if err != nil {
+        return err
+    }
+
+    schemaCache.Store(schemaName, schema)
+    return validateWithSchema(data, schema)
+}
+</code></pre>
+
+<hr />
+<h2 id="implementation-timeline-testing-strategy">📋 <strong>Implementation Timeline &amp; Testing Strategy</strong><a class="headerlink" href="#implementation-timeline-testing-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="implementation-roadmap">Implementation Roadmap<a class="headerlink" href="#implementation-roadmap" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+gantt
+    title Performance Optimization Implementation Timeline
+    dateFormat X
+    axisFormat %d
+
+    section Week 1: Database & Connections
+    Database Indexes           :active, db-idx, 0, 2
+    Query Performance Testing  :db-test, after db-idx, 1
+    Connection Pool Setup      :conn-pool, 2, 3
+    Load Testing              :load-test1, after conn-pool, 1
+
+    section Week 2: Parallel Processing
+    Worker Pool Implementation :worker-pool, 7, 3
+    Sequential vs Parallel Testing :parallel-test, after worker-pool, 1
+    Controller Integration    :controller-int, 10, 2
+    Resource Monitoring      :resource-mon, after controller-int, 1
+
+    section Week 3: Caching & Memory
+    Multi-level Cache        :cache-impl, 14, 3
+    Cache Integration        :cache-int, after cache-impl, 1
+    Object Pooling          :obj-pool, 17, 2
+    Memory Profiling        :mem-prof, after obj-pool, 1
+
+    section Week 4: Testing & Monitoring
+    Load Test Scenarios     :load-scenarios, 21, 3
+    Performance Benchmarking :perf-bench, after load-scenarios, 1
+    Monitoring Setup        :monitoring, 24, 2
+    Documentation          :docs, after monitoring, 1
+</div>
+
+<h3 id="week-1-database-connection-optimizations"><strong>Week 1: Database &amp; Connection Optimizations</strong><a class="headerlink" href="#week-1-database-connection-optimizations" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash"># Day 1-2: Database indexes
+- Create index scripts
+- Test query performance before/after
+- Monitor slow query logs
+
+# Day 3-5: Connection pool optimization
+- Implement MongoDB connection pooling
+- Configure Redis connection optimization
+- Load test with concurrent requests
+</code></pre>
+
+<h3 id="week-2-parallel-processing-foundation"><strong>Week 2: Parallel Processing Foundation</strong><a class="headerlink" href="#week-2-parallel-processing-foundation" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash"># Day 1-3: Worker pool implementation
+- Create worker pool structure
+- Test with sample tasks
+- Benchmark sequential vs parallel
+
+# Day 4-5: Integration with execution controller
+- Modify existing execution flow
+- Test parallel task execution
+- Monitor resource usage
+</code></pre>
+
+<h3 id="week-3-caching-memory-management"><strong>Week 3: Caching &amp; Memory Management</strong><a class="headerlink" href="#week-3-caching-memory-management" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash"># Day 1-3: Multi-level cache implementation
+- Implement cache manager
+- Integrate with controllers
+- Test cache hit/miss ratios
+
+# Day 4-5: Object pooling
+- Implement object pools
+- Integrate with request processing
+- Memory profiling and optimization
+</code></pre>
+
+<h3 id="week-4-performance-testing-monitoring"><strong>Week 4: Performance Testing &amp; Monitoring</strong><a class="headerlink" href="#week-4-performance-testing-monitoring" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash"># Day 1-3: Load testing
+- Create load test scenarios
+- Test optimized vs original code
+- Measure performance improvements
+
+# Day 4-5: Monitoring implementation
+- Add performance metrics
+- Create dashboards
+- Set up alerting
+</code></pre>
+
+<hr />
+<h2 id="performance-optimization-workflow">📊 <strong>Performance Optimization Workflow</strong><a class="headerlink" href="#performance-optimization-workflow" title="Permanent link">&para;</a></h2>
+<div class="mermaid">
+flowchart TD
+    START([Start Optimization]) --> ANALYZE[Analyze Current Performance]
+    ANALYZE --> IDENTIFY{Identify Bottlenecks}
+
+    IDENTIFY --> DB_SLOW[Database Queries Slow]
+    IDENTIFY --> MEM_HIGH[High Memory Usage]
+    IDENTIFY --> CONC_LOW[Low Concurrency]
+    IDENTIFY --> CACHE_MISS[Cache Misses]
+
+    DB_SLOW --> DB_OPT[Database Optimization]
+    MEM_HIGH --> MEM_OPT[Memory Management]
+    CONC_LOW --> PARALLEL_OPT[Parallel Processing]
+    CACHE_MISS --> CACHE_OPT[Caching Strategy]
+
+    DB_OPT --> IMPL1[Implement Indexes & Query Optimization]
+    MEM_OPT --> IMPL2[Implement Object Pooling]
+    PARALLEL_OPT --> IMPL3[Implement Worker Pools]
+    CACHE_OPT --> IMPL4[Implement Multi-level Cache]
+
+    IMPL1 --> TEST1[Performance Testing]
+    IMPL2 --> TEST1
+    IMPL3 --> TEST1
+    IMPL4 --> TEST1
+
+    TEST1 --> MEASURE{Performance Improved?}
+    MEASURE -->|Yes| MONITOR[Setup Monitoring]
+    MEASURE -->|No| IDENTIFY
+
+    MONITOR --> DEPLOY[Deploy to Production]
+    DEPLOY --> END([Optimization Complete])
+
+    style START fill:#e1f5fe
+    style END fill:#e8f5e8
+    style MEASURE fill:#fff3e0
+    style DB_OPT fill:#f3e5f5
+    style MEM_OPT fill:#f3e5f5
+    style PARALLEL_OPT fill:#f3e5f5
+    style CACHE_OPT fill:#f3e5f5
+</div>
+
+<hr />
+<h2 id="performance-benchmarking-commands">📋 <strong>Performance Benchmarking Commands</strong><a class="headerlink" href="#performance-benchmarking-commands" title="Permanent link">&para;</a></h2>
+<h3 id="database-performance-testing"><strong>Database Performance Testing</strong><a class="headerlink" href="#database-performance-testing" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash"># Before optimization
+go test -bench=BenchmarkQueryPlaybooks -count=5 -benchmem
+
+# After optimization (should show 5-10x improvement)
+go test -bench=BenchmarkQueryPlaybooksOptimized -count=5 -benchmem
+</code></pre>
+
+<h3 id="concurrency-testing"><strong>Concurrency Testing</strong><a class="headerlink" href="#concurrency-testing" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash"># Test parallel execution
+go test -bench=BenchmarkParallelExecution -count=5 -benchmem
+
+# Load testing with hey tool
+hey -n 1000 -c 50 -m POST -d '{&quot;playbook_name&quot;:&quot;test&quot;}' \
+    http://localhost:8040/runplaybook/
+</code></pre>
+
+<h3 id="memory-profiling"><strong>Memory Profiling</strong><a class="headerlink" href="#memory-profiling" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash"># Enable pprof in main.go
+import _ &quot;net/http/pprof&quot;
+
+# Memory profiling
+go tool pprof http://localhost:6060/debug/pprof/heap
+
+# CPU profiling during load test
+go tool pprof http://localhost:6060/debug/pprof/profile?seconds=30
+</code></pre>
+
+<hr />
+<h2 id="monitoring-metrics">🔍 <strong>Monitoring &amp; Metrics</strong><a class="headerlink" href="#monitoring-metrics" title="Permanent link">&para;</a></h2>
+<h3 id="key-performance-indicators-to-track"><strong>Key Performance Indicators to Track</strong><a class="headerlink" href="#key-performance-indicators-to-track" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">// Add these metrics to your monitoring
+type PerformanceMetrics struct {
+    DatabaseQueryTime     time.Duration
+    CacheHitRatio        float64
+    ConcurrentExecutions int
+    MemoryUsage          int64
+    TaskThroughput       int
+    ErrorRate            float64
+}
+
+// Example metrics collection
+func collectMetrics() {
+    // Database query time
+    start := time.Now()
+    // ... database query
+    dbQueryTime := time.Since(start)
+
+    // Cache metrics
+    cacheHits := getCacheHits()
+    cacheMisses := getCacheMisses()
+    hitRatio := float64(cacheHits) / float64(cacheHits + cacheMisses)
+
+    // Memory usage
+    var m runtime.MemStats
+    runtime.ReadMemStats(&amp;m)
+    memoryUsage := int64(m.Alloc)
+
+    // Log metrics
+    logger.Info(&quot;Performance metrics&quot;,
+        &quot;db_query_time&quot;, dbQueryTime,
+        &quot;cache_hit_ratio&quot;, hitRatio,
+        &quot;memory_usage_mb&quot;, memoryUsage/1024/1024,
+    )
+}
+</code></pre>
+
+<hr />
+<h2 id="implementation-notes-warnings">⚠️ <strong>Implementation Notes &amp; Warnings</strong><a class="headerlink" href="#implementation-notes-warnings" title="Permanent link">&para;</a></h2>
+<h3 id="database-optimizations"><strong>Database Optimizations</strong><a class="headerlink" href="#database-optimizations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Index Creation</strong>: Run during maintenance window, can be resource intensive</li>
+<li><strong>Connection Pools</strong>: Monitor connection usage, adjust pool sizes based on load</li>
+<li><strong>Batch Operations</strong>: Test batch sizes, larger isn't always better</li>
+</ul>
+<h3 id="concurrency-optimizations"><strong>Concurrency Optimizations</strong><a class="headerlink" href="#concurrency-optimizations" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Worker Pool Size</strong>: Start with CPU count * 2, adjust based on I/O vs CPU bound tasks</li>
+<li><strong>Channel Buffer Sizes</strong>: Balance memory usage vs throughput</li>
+<li><strong>Context Cancellation</strong>: Always implement proper cancellation to prevent goroutine leaks</li>
+</ul>
+<h3 id="memory-management"><strong>Memory Management</strong><a class="headerlink" href="#memory-management" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Object Pools</strong>: Only beneficial for frequently allocated objects</li>
+<li><strong>Cache Sizes</strong>: Monitor memory usage, implement cache eviction policies</li>
+<li><strong>Garbage Collection</strong>: Profile GC pressure, adjust GOGC if needed</li>
+</ul>
+<h3 id="testing-requirements"><strong>Testing Requirements</strong><a class="headerlink" href="#testing-requirements" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Load Testing</strong>: Test with production-like data volumes</li>
+<li><strong>Race Condition Testing</strong>: Use <code>go test -race</code> for all concurrent code</li>
+<li><strong>Memory Leak Testing</strong>: Run long-duration tests with memory monitoring</li>
+</ul>
+<hr />
+<h2 id="expected-performance-improvements">📈 <strong>Expected Performance Improvements</strong><a class="headerlink" href="#expected-performance-improvements" title="Permanent link">&para;</a></h2>
+<h3 id="performance-metrics-comparison">Performance Metrics Comparison<a class="headerlink" href="#performance-metrics-comparison" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+xychart-beta
+    title "Performance Improvement Metrics"
+    x-axis ["Database Queries", "Concurrent Requests", "Memory Usage", "Task Execution", "Cache Performance"]
+    y-axis "Improvement Factor" 0 --> 10
+    bar [5, 3, 2, 7, 9]
+</div>
+
+<h3 id="detailed-performance-comparison">Detailed Performance Comparison<a class="headerlink" href="#detailed-performance-comparison" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th><strong>Optimization</strong></th>
+<th><strong>Metric</strong></th>
+<th><strong>Current</strong></th>
+<th><strong>Optimized</strong></th>
+<th><strong>Improvement</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Database Queries</td>
+<td>Response Time</td>
+<td>500-2000ms</td>
+<td>50-200ms</td>
+<td><strong>5-10x faster</strong></td>
+</tr>
+<tr>
+<td>Concurrent Requests</td>
+<td>Throughput</td>
+<td>100 req/sec</td>
+<td>300-400 req/sec</td>
+<td><strong>3-4x increase</strong></td>
+</tr>
+<tr>
+<td>Memory Usage</td>
+<td>Heap Allocation</td>
+<td>100MB</td>
+<td>30-50MB</td>
+<td><strong>50-70% reduction</strong></td>
+</tr>
+<tr>
+<td>Task Execution</td>
+<td>Parallel Tasks</td>
+<td>Sequential</td>
+<td>5-10 parallel</td>
+<td><strong>5-10x throughput</strong></td>
+</tr>
+<tr>
+<td>Cache Hit Ratio</td>
+<td>Cache Performance</td>
+<td>0%</td>
+<td>80-90%</td>
+<td><strong>80-90% cache hits</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="performance-impact-timeline">Performance Impact Timeline<a class="headerlink" href="#performance-impact-timeline" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+gantt
+    title Expected Performance Impact Over Time
+    dateFormat X
+    axisFormat Week %d
+
+    section Database Optimization
+    Query Performance        :db-perf, 0, 7
+    Index Creation Impact    :milestone, db-milestone, 7, 0
+
+    section Concurrency
+    Connection Pool Setup    :conn-setup, 7, 7
+    Parallel Processing      :parallel, 14, 7
+    Throughput Milestone     :milestone, throughput-milestone, 21, 0
+
+    section Memory & Caching
+    Object Pooling          :obj-pool, 14, 7
+    Cache Implementation    :cache, 21, 7
+    Memory Optimization     :milestone, mem-milestone, 28, 0
+</div>
+
+<hr />
+<h2 id="getting-started-checklist">🚀 <strong>Getting Started Checklist</strong><a class="headerlink" href="#getting-started-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[ ] <strong>Week 1</strong>: Create database indexes and test query performance</li>
+<li>[ ] <strong>Week 1</strong>: Implement connection pool optimizations</li>
+<li>[ ] <strong>Week 2</strong>: Create worker pool for parallel task execution</li>
+<li>[ ] <strong>Week 2</strong>: Integrate parallel processing with existing controllers</li>
+<li>[ ] <strong>Week 3</strong>: Implement multi-level caching strategy</li>
+<li>[ ] <strong>Week 3</strong>: Add object pooling for memory optimization</li>
+<li>[ ] <strong>Week 4</strong>: Comprehensive load testing and performance validation</li>
+<li>[ ] <strong>Week 4</strong>: Set up monitoring and alerting for optimized metrics</li>
+</ul>
+<hr />
+<p><strong>Questions or need clarification on any optimization? Contact the development team lead or create an issue in the project repository.</strong></p>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

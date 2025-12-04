@@ -3,39 +3,628 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Process Manager - Low Level Design - Securaa Platform Documentation</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
+    <meta name="description" content="Securaa Platform Documentation - Process Manager - Low Level Design">
+    <title>Process Manager - Low Level Design - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
+
     <nav class="documentation-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-ris-high-level-design.html">RIS High Level Design</a></li>
-            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-            <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-        </ul>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
     </nav>
+
     <main class="main-content">
-        <h1>Process Manager - Low Level Design Document</h1>
-        <h2 id="detailed-component-design">1. Detailed Component Design</h2>
-        <h3 id="class-diagrams">Class Diagrams</h3>
-        <div class="mermaid">
+        <h1 id="low-level-design-low-level-design-zona_process_manager">Low-Level Design (Low Level Design) – zona_process_manager<a class="headerlink" href="#low-level-design-low-level-design-zona_process_manager" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="1-detailed-component-design">1. Detailed Component Design<a class="headerlink" href="#1-detailed-component-design" title="Permanent link">&para;</a></h2>
+<h3 id="class-diagrams-mermaid">Class Diagrams (Mermaid)<a class="headerlink" href="#class-diagrams-mermaid" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 classDiagram
     class main {
         +main()
@@ -111,18 +700,20 @@ classDiagram
         +GetPort(integrationID, executable, configObject, dbSession)
         +GetAppParams(paramType, configObject, dbSession, buildName)
     }
-        </div>
-        <h3>Data Structures & Relationships</h3>
-        <ul>
-            <li><code>ServiceData</code>: Represents a service with name, context, port, replicas.</li>
-            <li><code>IntegrationsResponse</code>: Integration metadata for tenants.</li>
-            <li><code>Tenant</code>, <code>TenantDB</code>, <code>TenantBackup</code>: Tenant and database details.</li>
-            <li><code>SessionStruct</code>: MongoDB session wrapper.</li>
-            <li>Global maps: <code>SystemServices</code>, <code>CoreServices</code>, <code>BatchServices</code>, <code>SecuraaAppServices</code> (all map[string]ServiceData).</li>
-        </ul>
-        <h2>2. Database Design</h2>
-        <h3>Entity Relationship Diagram</h3>
-        <div class="mermaid">
+</div>
+
+<h3 id="data-structures-relationships">Data Structures &amp; Relationships<a class="headerlink" href="#data-structures-relationships" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>ServiceData</code>: Represents a service with name, context, port, replicas.</li>
+<li><code>IntegrationsResponse</code>: Integration metadata for tenants.</li>
+<li><code>Tenant</code>, <code>TenantDB</code>, <code>TenantBackup</code>: Tenant and database details.</li>
+<li><code>SessionStruct</code>: MongoDB session wrapper.</li>
+<li>Global maps: <code>SystemServices</code>, <code>CoreServices</code>, <code>BatchServices</code>, <code>SecuraaAppServices</code> (all map[string]ServiceData).</li>
+</ul>
+<hr />
+<h2 id="2-database-design">2. Database Design<a class="headerlink" href="#2-database-design" title="Permanent link">&para;</a></h2>
+<h3 id="entity-relationship-diagram-mermaid">Entity Relationship Diagram (Mermaid)<a class="headerlink" href="#entity-relationship-diagram-mermaid" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 erDiagram
     TENANT ||--o{ TENANTDB : has
     TENANT ||--o{ TENANTBACKUP : backup
@@ -172,34 +763,263 @@ erDiagram
         string connection_status
         string uuid
     }
-        </pre>
-        <h3>Table Schemas</h3>
-        <ul>
-            <li><strong>TENANT</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string)</li>
-            <li><strong>TENANTDB</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string), uuid (string)</li>
-            <li><strong>INTEGRATIONSRESPONSE</strong>: integration_id (int), title (string), action (string), serviceName (string), executionDir (string), status (string), executable (string), tenantcode (string)</li>
-            <li><strong>TENANTBACKUP</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string), uuid (string)</li>
-        </ul>
-        <h3>Relationships</h3>
-        <ul>
-            <li>One tenant can have multiple databases and backups.</li>
-            <li>Each database can have multiple integrations.</li>
-        </ul>
-        <h2>3. API Design Details</h2>
-        <p>The codebase does not expose HTTP endpoints directly; orchestration is via CLI and Docker APIs. If extended to REST, typical endpoints would be:</p>
-        <table>
-            <thead>
-                <tr><th>Endpoint</th><th>Method</th><th>Request Schema</th><th>Response Schema</th><th>Auth</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>/service/start</td><td>POST</td><td>{serviceName: string}</td><td>{status: string, details: object}</td><td>Token</td></tr>
-                <tr><td>/service/stop</td><td>POST</td><td>{serviceName: string}</td><td>{status: string}</td><td>Token</td></tr>
-                <tr><td>/integration/list</td><td>GET</td><td>-</td><td>[IntegrationsResponse]</td><td>Token</td></tr>
-                <tr><td>/tenant/list</td><td>GET</td><td>-</td><td>[Tenant]</td><td>Token</td></tr>
-                <tr><td>/status</td><td>GET</td><td>-</td><td>{services: [...], integrations: [...]}</td><td>Token</td></tr>
-            </tbody>
-        </table>
-        <p><strong>Authentication:</strong> Token-based (JWT or API key recommended)</p>
+</div>
+
+<h3 id="table-schemas">Table Schemas<a class="headerlink" href="#table-schemas" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>TENANT</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string)</li>
+<li><strong>TENANTDB</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string), uuid (string)</li>
+<li><strong>INTEGRATIONSRESPONSE</strong>: integration_id (int), title (string), action (string), serviceName (string), executionDir (string), status (string), executable (string), tenantcode (string)</li>
+<li><strong>TENANTBACKUP</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string), uuid (string)</li>
+</ul>
+<h3 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h3>
+<ul>
+<li>One tenant can have multiple databases and backups.</li>
+<li>Each database can have multiple integrations.</li>
+</ul>
+<hr />
+<h2 id="3-api-design-details">3. API Design Details<a class="headerlink" href="#3-api-design-details" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>The codebase does not expose HTTP endpoints directly; orchestration is via CLI and Docker APIs. If extended to REST, typical endpoints would be:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>Method</th>
+<th>Request Schema</th>
+<th>Response Schema</th>
+<th>Auth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/service/start</td>
+<td>POST</td>
+<td>{serviceName: string}</td>
+<td>{status: string, details: object}</td>
+<td>Token</td>
+</tr>
+<tr>
+<td>/service/stop</td>
+<td>POST</td>
+<td>{serviceName: string}</td>
+<td>{status: string}</td>
+<td>Token</td>
+</tr>
+<tr>
+<td>/integration/list</td>
+<td>GET</td>
+<td>-</td>
+<td>[IntegrationsResponse]</td>
+<td>Token</td>
+</tr>
+<tr>
+<td>/tenant/list</td>
+<td>GET</td>
+<td>-</td>
+<td>[Tenant]</td>
+<td>Token</td>
+</tr>
+<tr>
+<td>/status</td>
+<td>GET</td>
+<td>-</td>
+<td>{services: [...], integrations: [...]}</td>
+<td>Token</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Authentication:</strong> Token-based (JWT or API key recommended)</li>
+<li><strong>Request/Response Schemas:</strong> Use JSON, matching Go struct fields</li>
+</ul>
+<hr />
+<h2 id="4-sequence-diagrams-mermaid">4. Sequence Diagrams (Mermaid)<a class="headerlink" href="#4-sequence-diagrams-mermaid" title="Permanent link">&para;</a></h2>
+<h3 id="service-startup-workflow">Service Startup Workflow<a class="headerlink" href="#service-startup-workflow" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+sequenceDiagram
+    participant User
+    participant Main
+    participant Common
+    participant Docker
+    participant Models
+    participant MongoDB
+    User->>Main: start command
+    Main->>Common: Load config
+    Main->>Docker: Init service contexts
+    Docker->>Docker: Create volumes/services
+    Main->>Models: Fetch integrations
+    Models->>MongoDB: Query tenant/integration data
+    Models-->>Main: Integration data
+    Main->>Docker: Deploy integration services
+    Docker-->>Main: Status
+    Main->>User: Success/Failure
+</div>
+
+<h3 id="inter-service-communication">Inter-Service Communication<a class="headerlink" href="#inter-service-communication" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+sequenceDiagram
+    participant Main
+    participant Docker
+    participant Models
+    participant MongoDB
+    Main->>Docker: Create/Update service
+    Docker->>Models: Request integration config
+    Models->>MongoDB: Fetch integration details
+    MongoDB-->>Models: Integration data
+    Models-->>Docker: Config
+    Docker-->>Main: Status
+</div>
+
+<h3 id="error-handling-scenario">Error Handling Scenario<a class="headerlink" href="#error-handling-scenario" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+sequenceDiagram
+    participant Main
+    participant Docker
+    participant Models
+    participant MongoDB
+    Main->>Docker: Create service
+    Docker-->>Main: Error (e.g., volume missing)
+    Main->>Docker: Create volume
+    Docker-->>Main: Success
+    Main->>Docker: Retry service creation
+    Docker-->>Main: Success/Failure
+</div>
+
+<hr />
+<h2 id="5-implementation-details">5. Implementation Details<a class="headerlink" href="#5-implementation-details" title="Permanent link">&para;</a></h2>
+<h3 id="design-patterns">Design Patterns<a class="headerlink" href="#design-patterns" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Singleton:</strong> Global config/state objects in <code>common/</code></li>
+<li><strong>Factory:</strong> Service context creation in <code>docker/</code></li>
+<li><strong>Repository:</strong> Data access patterns in <code>models/</code></li>
+<li><strong>Observer:</strong> Patch-based restart monitoring</li>
+</ul>
+<h3 id="algorithms-data-structures">Algorithms &amp; Data Structures<a class="headerlink" href="#algorithms-data-structures" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Maps for service contexts and integration lists</li>
+<li>Iterative service deployment and health checks</li>
+<li>Dynamic port and parameter resolution for integrations</li>
+</ul>
+<h3 id="code-organization">Code Organization<a class="headerlink" href="#code-organization" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>/main.go</code>: Orchestration logic</li>
+<li><code>/common/</code>: Global state, utilities</li>
+<li><code>/docker/</code>: Docker orchestration</li>
+<li><code>/models/</code>: Data models, integration logic</li>
+</ul>
+<hr />
+<h2 id="6-technical-specifications">6. Technical Specifications<a class="headerlink" href="#6-technical-specifications" title="Permanent link">&para;</a></h2>
+<h3 id="configuration-management">Configuration Management<a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Centralized config object loaded at startup</li>
+<li>Shared across modules via <code>common/</code></li>
+<li>Supports dynamic updates and patch-based restarts</li>
+</ul>
+<h3 id="error-handling-strategies">Error Handling Strategies<a class="headerlink" href="#error-handling-strategies" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Centralized logging via <code>securaa_lib</code></li>
+<li>Error propagation and handling in all major methods</li>
+<li>Retry logic for critical operations (e.g., MongoDB reachability)</li>
+</ul>
+<h3 id="performance-considerations">Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Asynchronous service startup and monitoring</li>
+<li>Efficient use of maps for service/integration lookup</li>
+<li>Docker-based scaling and replica management</li>
+</ul>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>This LLD provides a detailed breakdown of the zona_process_manager codebase, including class diagrams, database design, (potential) API details, sequence diagrams, implementation patterns, and technical specifications. All diagrams use actual class and method names from the codebase for clarity and traceability.</p>
     </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>

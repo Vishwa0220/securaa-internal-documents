@@ -3,65 +3,627 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Securaa User Service - Low Level Design - Securaa Platform Documentation</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
+    <meta name="description" content="Securaa Platform Documentation - Securaa User Service - Low Level Design">
+    <title>Securaa User Service - Low Level Design - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
+
     <nav class="documentation-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-ris-high-level-design.html">RIS High Level Design</a></li>
-            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-            <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-        </ul>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
     </nav>
+
     <main class="main-content">
-        <h1>Securaa User Service - Low Level Design Document</h1>
-        <h2>Document Information</h2>
-        <ul>
-            <li><strong>Service Name</strong>: Securaa User Service</li>
-            <li><strong>Version</strong>: 1.0</li>
-            <li><strong>Date</strong>: September 18, 2025</li>
-            <li><strong>Author</strong>: Development Team</li>
-            <li><strong>Related Documents</strong>: ZONA_USER_LLD.md</li>
-        </ul>
-        
-        <h2>Table of Contents</h2>
-        <ol>
-            <li><a href="#technical-architecture">Technical Architecture Overview</a></li>
-            <li><a href="#database-design">Database Design & Data Models</a></li>
-            <li><a href="#api-design">API Design & Endpoint Specifications</a></li>
-            <li><a href="#security-implementation">Security Implementation Details</a></li>
-            <li><a href="#deployment-infrastructure">Deployment & Infrastructure Implementation</a></li>
-            <li><a href="#monitoring-observability">Monitoring & Observability Implementation</a></li>
-            <li><a href="#testing-strategy">Testing Strategy & Implementation</a></li>
-            <li><a href="#performance-optimization">Performance Optimization Strategies</a></li>
-            <li><a href="#error-handling">Error Handling & Recovery</a></li>
-            <li><a href="#integration-details">Integration Implementation Details</a></li>
-        </ol>
-        <hr>
-        
-        <h2 id="technical-architecture">🔧 Technical Architecture Overview</h2>
-        
-        <h3>Service Implementation Architecture</h3>
-        
-        <div class="mermaid">
+        <h1 id="securaa-user-service-low-level-design">Securaa User Service - Low Level Design<a class="headerlink" href="#securaa-user-service-low-level-design" title="Permanent link">&para;</a></h1>
+<h2 id="technical-architecture-overview">🔧 <strong>TECHNICAL ARCHITECTURE OVERVIEW</strong><a class="headerlink" href="#technical-architecture-overview" title="Permanent link">&para;</a></h2>
+<h3 id="service-implementation-architecture"><strong>Service Implementation Architecture</strong><a class="headerlink" href="#service-implementation-architecture" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TB
     subgraph "Go Application Layer"
         subgraph "HTTP Server"
@@ -70,7 +632,7 @@ graph TB
             TLS_CONFIG[TLS Configuration<br/>Certificate Management]
             GRACEFUL_SHUTDOWN[Graceful Shutdown<br/>Signal Handling]
         end
-        
+
         subgraph "Middleware Stack"
             CORS[CORS Handler<br/>Cross-Origin Requests]
             AUTH_MW[Authentication Middleware<br/>JWT Validation]
@@ -79,7 +641,7 @@ graph TB
             AUDIT_MW[Audit Middleware<br/>Request Logging]
             SECURITY_HEADERS[Security Headers<br/>OWASP Compliance]
         end
-        
+
         subgraph "Controller Layer"
             USER_CTRL[User Controller<br/>User Management]
             AUTH_CTRL[Auth Controller<br/>Authentication]
@@ -88,7 +650,7 @@ graph TB
             NOTIFICATION_CTRL[Notification Controller<br/>Real-time Events]
             ADMIN_CTRL[Admin Controller<br/>System Management]
         end
-        
+
         subgraph "Service Layer"
             USER_SVC[User Service<br/>Business Logic]
             AUTH_SVC[Auth Service<br/>Authentication Logic]
@@ -97,7 +659,7 @@ graph TB
             NOTIFICATION_SVC[Notification Service<br/>Event Processing]
             CACHE_SVC[Cache Service<br/>Redis Operations]
         end
-        
+
         subgraph "Repository Layer"
             USER_REPO[User Repository<br/>Data Access]
             ROLE_REPO[Role Repository<br/>RBAC Data]
@@ -105,169 +667,169 @@ graph TB
             AUDIT_REPO[Audit Repository<br/>Compliance Data]
             NOTIFICATION_REPO[Notification Repository<br/>Event Data]
         end
+
+        subgraph "External Integration Layer"
+            LDAP_CLIENT[LDAP Client<br/>Directory Integration]
+            SAML_CLIENT[SAML Client<br/>SSO Integration]
+            OAUTH_CLIENT[OAuth Client<br/>Third-party Auth]
+            SMTP_CLIENT[SMTP Client<br/>Email Delivery]
+            WEBHOOK_CLIENT[Webhook Client<br/>External Notifications]
+        end
     end
-    
-    subgraph "Data Storage"
-        MONGODB[(MongoDB<br/>Primary Data Store)]
-        REDIS[(Redis<br/>Cache & Sessions)]
-    end
-    
-    subgraph "External Services"
-        SMTP[SMTP Service<br/>Email Delivery]
-        SMS_GATEWAY[SMS Gateway<br/>2FA Messages]
-        LDAP[LDAP/AD<br/>Corporate Directory]
-    end
-    
+
+    %% Request Flow
     MAIN --> APP
-    APP --> TLS_CONFIG
-    APP --> GRACEFUL_SHUTDOWN
-    
     APP --> CORS
     CORS --> AUTH_MW
     AUTH_MW --> AUTHZ_MW
     AUTHZ_MW --> RATE_LIMIT
     RATE_LIMIT --> AUDIT_MW
     AUDIT_MW --> SECURITY_HEADERS
-    
+
+    %% Controller Routing
     SECURITY_HEADERS --> USER_CTRL
     SECURITY_HEADERS --> AUTH_CTRL
     SECURITY_HEADERS --> ROLE_CTRL
     SECURITY_HEADERS --> TENANT_CTRL
     SECURITY_HEADERS --> NOTIFICATION_CTRL
     SECURITY_HEADERS --> ADMIN_CTRL
-    
+
+    %% Service Layer Integration
     USER_CTRL --> USER_SVC
     AUTH_CTRL --> AUTH_SVC
     ROLE_CTRL --> ROLE_SVC
     TENANT_CTRL --> TENANT_SVC
     NOTIFICATION_CTRL --> NOTIFICATION_SVC
-    ADMIN_CTRL --> CACHE_SVC
-    
+
+    %% Cross-Service Dependencies
+    USER_SVC --> CACHE_SVC
+    AUTH_SVC --> CACHE_SVC
+    ROLE_SVC --> CACHE_SVC
+
+    %% Repository Access
     USER_SVC --> USER_REPO
     AUTH_SVC --> USER_REPO
     ROLE_SVC --> ROLE_REPO
     TENANT_SVC --> TENANT_REPO
-    NOTIFICATION_SVC --> AUDIT_REPO
-    CACHE_SVC --> NOTIFICATION_REPO
-    
-    USER_REPO --> MONGODB
-    ROLE_REPO --> MONGODB
-    TENANT_REPO --> MONGODB
-    AUDIT_REPO --> MONGODB
-    NOTIFICATION_REPO --> MONGODB
-    
-    CACHE_SVC --> REDIS
-    AUTH_SVC --> REDIS
-    
-    NOTIFICATION_SVC --> SMTP
-    NOTIFICATION_SVC --> SMS_GATEWAY
-    AUTH_SVC --> LDAP
-        </div>
+    NOTIFICATION_SVC --> NOTIFICATION_REPO
+    USER_SVC --> AUDIT_REPO
 
-        <h3>Code Structure & Package Organization</h3>
-        
-        <div class="mermaid">
-graph LR
-    subgraph "Project Root"
-        MAIN[main.go]
-        APP[app.go]
-        CONFIG[config/]
-        DOCS[docs/]
-    end
-    
-    subgraph "Controllers Package"
-        USER_CTRL[controllers/user.go]
-        AUTH_CTRL[controllers/auth.go]
-        ROLE_CTRL[controllers/role.go]
-        TENANT_CTRL[controllers/tenant.go]
-        NOTIFICATION_CTRL[controllers/notification.go]
-        ADMIN_CTRL[controllers/admin.go]
-    end
-    
-    subgraph "Services Package"
-        USER_SVC[services/user.go]
-        AUTH_SVC[services/auth.go]
-        ROLE_SVC[services/role.go]
-        TENANT_SVC[services/tenant.go]
-        NOTIFICATION_SVC[services/notification.go]
-        CACHE_SVC[services/cache.go]
-    end
-    
-    subgraph "Models Package"
-        USER_MODEL[models/user.go]
-        ROLE_MODEL[models/role.go]
-        TENANT_MODEL[models/tenant.go]
-        SESSION_MODEL[models/session.go]
-        NOTIFICATION_MODEL[models/notification.go]
-    end
-    
-    subgraph "Repository Package"
-        USER_REPO[repository/user.go]
-        ROLE_REPO[repository/role.go]
-        TENANT_REPO[repository/tenant.go]
-        AUDIT_REPO[repository/audit.go]
-        NOTIFICATION_REPO[repository/notification.go]
-    end
-    
-    subgraph "Middleware Package"
-        AUTH_MW[middleware/auth.go]
-        AUTHZ_MW[middleware/authz.go]
-        CORS_MW[middleware/cors.go]
-        RATE_MW[middleware/rate_limit.go]
-        AUDIT_MW[middleware/audit.go]
-    end
-    
-    subgraph "Utils Package"
-        JWT_UTIL[utils/jwt.go]
-        CRYPTO_UTIL[utils/crypto.go]
-        VALIDATION_UTIL[utils/validation.go]
-        EMAIL_UTIL[utils/email.go]
-        DB_UTIL[utils/database.go]
-    end
-    
-    MAIN --> CONFIG
-    APP --> USER_CTRL
-    USER_CTRL --> USER_SVC
-    USER_SVC --> USER_MODEL
-    USER_MODEL --> USER_REPO
-    AUTH_MW --> JWT_UTIL
-    CRYPTO_UTIL --> VALIDATION_UTIL
-        </div>
+    %% External Integrations
+    AUTH_SVC --> LDAP_CLIENT
+    AUTH_SVC --> SAML_CLIENT
+    AUTH_SVC --> OAUTH_CLIENT
+    NOTIFICATION_SVC --> SMTP_CLIENT
+    NOTIFICATION_SVC --> WEBHOOK_CLIENT
+</div>
 
-        <h4>Package Responsibilities:</h4>
-        <ul>
-            <li><strong>Controllers</strong>: HTTP request handling, input validation, response formatting</li>
-            <li><strong>Services</strong>: Business logic implementation, data processing, external integrations</li>
-            <li><strong>Models</strong>: Data structures, validation rules, serialization/deserialization</li>
-            <li><strong>Repository</strong>: Database operations, query optimization, data access patterns</li>
-            <li><strong>Middleware</strong>: Cross-cutting concerns, security, logging, rate limiting</li>
-            <li><strong>Utils</strong>: Shared utilities, helper functions, common operations</li>
-        </ul>
+<h3 id="code-structure-package-organization"><strong>Code Structure &amp; Package Organization</strong><a class="headerlink" href="#code-structure-package-organization" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph TB
+    subgraph "Project Root Structure"
+        subgraph "Application Entry"
+            MAIN_GO[main.go<br/>Bootstrap Application]
+            APP_GO[app.go<br/>HTTP Server & Routes]
+            BUILD_SCRIPT[build.sh<br/>Build Automation]
+            MAKEFILE[Makefile<br/>Build & Deploy]
+        end
 
-        <h2 id="database-design">🏗️ Database Design & Data Models</h2>
-        
-        <h3>MongoDB Collection Schema Architecture</h3>
-        
-        <div class="mermaid">
+        subgraph "Controllers Package"
+            direction TB
+            USER_CONTROLLER[userController.go<br/>User Management APIs]
+            AUTH_CONTROLLER[oauth2Controller.go<br/>Authentication APIs]
+            ROLE_CONTROLLER[rolecontroller.go<br/>Role Management]
+            TENANT_CONTROLLER[tenantController.go<br/>Tenant Operations]
+            NOTIFICATION_CONTROLLER[notificationController.go<br/>Real-time Events]
+            TASK_CONTROLLER[taskcontroller.go<br/>Background Tasks]
+            REPORT_CONTROLLER[reportController.go<br/>Analytics & Reports]
+        end
+
+        subgraph "Models Package"
+            direction TB
+            USER_MODEL[user.go<br/>User Entity & Schema]
+            ROLE_MODEL[role.go<br/>Role & Permission Model]
+            TENANT_MODEL[tenant.go<br/>Tenant Configuration]
+            NOTIFICATION_MODEL[notification.go<br/>Event Structure]
+            TASK_MODEL[task.go<br/>Background Job Model]
+            RESPONSE_MODEL[Response.go<br/>API Response Format]
+        end
+
+        subgraph "Services Package"
+            direction TB
+            NOTIFICATION_SERVICE[notificationsServices.go<br/>Event Processing]
+            AUTH_SERVICE[authService.go<br/>Authentication Logic]
+            CACHE_SERVICE[cacheService.go<br/>Redis Operations]
+            EMAIL_SERVICE[emailService.go<br/>Communication]
+        end
+
+        subgraph "Constants Package"
+            CONSTANTS_GO[constants.go<br/>Application Constants]
+            CONFIG_CONSTANTS[config.go<br/>Configuration Values]
+        end
+
+        subgraph "Templates Package"
+            EMAIL_TEMPLATES[activation.html<br/>Email Templates]
+            REPORT_TEMPLATES[layout.html<br/>Report Templates]
+        end
+
+        subgraph "Dependencies Package"
+            UI_DEPS[uidependencies/<br/>Frontend Assets]
+            D3_CHARTS[d3/<br/>Visualization Library]
+            FONTS[fonts/<br/>Typography Assets]
+        end
+    end
+
+    %% Package Dependencies
+    MAIN_GO --> APP_GO
+    APP_GO --> USER_CONTROLLER
+    APP_GO --> AUTH_CONTROLLER
+    APP_GO --> ROLE_CONTROLLER
+    APP_GO --> TENANT_CONTROLLER
+    APP_GO --> NOTIFICATION_CONTROLLER
+
+    USER_CONTROLLER --> USER_MODEL
+    AUTH_CONTROLLER --> USER_MODEL
+    ROLE_CONTROLLER --> ROLE_MODEL
+    TENANT_CONTROLLER --> TENANT_MODEL
+    NOTIFICATION_CONTROLLER --> NOTIFICATION_MODEL
+
+    USER_CONTROLLER --> NOTIFICATION_SERVICE
+    AUTH_CONTROLLER --> AUTH_SERVICE
+    NOTIFICATION_CONTROLLER --> CACHE_SERVICE
+
+    ALL_CONTROLLERS --> CONSTANTS_GO
+    NOTIFICATION_SERVICE --> EMAIL_TEMPLATES
+    REPORT_CONTROLLER --> REPORT_TEMPLATES
+</div>
+
+<h2 id="database-design-data-models">🏗️ <strong>DATABASE DESIGN &amp; DATA MODELS</strong><a class="headerlink" href="#database-design-data-models" title="Permanent link">&para;</a></h2>
+<h3 id="mongodb-collection-schema-architecture"><strong>MongoDB Collection Schema Architecture</strong><a class="headerlink" href="#mongodb-collection-schema-architecture" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 erDiagram
-    USERS ||--o{ USER_SESSIONS : "creates"
-    USERS }o--|| TENANTS : "belongs_to"
+    USERS ||--o{ USER_SESSIONS : "has"
     USERS ||--o{ USER_ROLES : "assigned"
-    USERS ||--o{ NOTIFICATIONS : "receives"
+    USERS }o--|| TENANTS : "belongs_to"
     USERS ||--o{ AUDIT_LOGS : "generates"
-    
-    ROLES ||--o{ USER_ROLES : "assigned_to"
+    USERS ||--o{ NOTIFICATIONS : "receives"
+
+    ROLES ||--o{ USER_ROLES : "granted"
     ROLES ||--o{ ROLE_PERMISSIONS : "contains"
     ROLES }o--|| TENANTS : "scoped_to"
-    
+
     TENANTS ||--o{ TENANT_CONFIGS : "configured_by"
     TENANTS ||--o{ TENANT_QUOTAS : "limited_by"
-    
+
     PERMISSIONS ||--o{ ROLE_PERMISSIONS : "assigned_to"
-    
+
     NOTIFICATIONS ||--o{ NOTIFICATION_CHANNELS : "delivered_via"
     NOTIFICATIONS }o--|| TENANTS : "scoped_to"
-    
+
+    TASKS ||--o{ TASK_EXECUTIONS : "executed_as"
+    TASKS }o--|| TENANTS : "belongs_to"
+
+    REPORTS ||--o{ REPORT_SCHEDULES : "generated_by"
+    REPORTS }o--|| TENANTS : "scoped_to"
+
     USERS {
         ObjectId _id PK
         string email UK
@@ -287,7 +849,7 @@ erDiagram
         object security_settings
         object preferences
     }
-    
+
     TENANTS {
         ObjectId _id PK
         string tenant_code UK
@@ -302,7 +864,7 @@ erDiagram
         string billing_plan
         object integrations
     }
-    
+
     ROLES {
         ObjectId _id PK
         string name UK
@@ -314,7 +876,7 @@ erDiagram
         datetime created_at
         datetime updated_at
     }
-    
+
     PERMISSIONS {
         ObjectId _id PK
         string name UK
@@ -324,7 +886,7 @@ erDiagram
         object constraints
         boolean is_system_permission
     }
-    
+
     USER_SESSIONS {
         ObjectId _id PK
         string session_id UK
@@ -339,7 +901,7 @@ erDiagram
         datetime last_accessed
         boolean is_active
     }
-    
+
     NOTIFICATIONS {
         ObjectId _id PK
         string tenant_code FK
@@ -355,534 +917,1523 @@ erDiagram
         datetime scheduled_at
         boolean is_read
     }
-        </div>
 
-        <h4>Collection Design Principles:</h4>
-        <ul>
-            <li><strong>Multi-Tenancy</strong>: All collections include tenant_code for data isolation</li>
-            <li><strong>Indexing Strategy</strong>: Compound indexes on tenant_code + other query fields</li>
-            <li><strong>Document Embedding</strong>: Nested objects for related data to reduce joins</li>
-            <li><strong>Schema Validation</strong>: MongoDB schema validation for data integrity</li>
-        </ul>
+    AUDIT_LOGS {
+        ObjectId _id PK
+        string tenant_code FK
+        ObjectId user_id FK
+        string event_type
+        string resource
+        string action
+        object before_data
+        object after_data
+        string ip_address
+        string user_agent
+        object context
+        datetime timestamp
+        string correlation_id
+    }
 
-        <h3>Redis Cache Schema Design</h3>
-        
-        <div class="mermaid">
+    TASKS {
+        ObjectId _id PK
+        string tenant_code FK
+        string name
+        string type
+        object parameters
+        string status
+        object result
+        datetime created_at
+        datetime scheduled_at
+        datetime started_at
+        datetime completed_at
+        int retry_count
+        string error_message
+    }
+</div>
+
+<h3 id="redis-cache-schema-design"><strong>Redis Cache Schema Design</strong><a class="headerlink" href="#redis-cache-schema-design" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TB
-    subgraph "Session Storage"
-        SESSION_KEY[session:{session_id}]
-        SESSION_DATA[User ID, Tenant, Permissions, Expires]
-    end
-    
-    subgraph "User Cache"
-        USER_KEY[user:{tenant}:{user_id}]
-        USER_DATA[Profile, Roles, Preferences]
-    end
-    
-    subgraph "Role Cache"
-        ROLE_KEY[role:{tenant}:{role_id}]
-        ROLE_DATA[Permissions, Metadata]
-    end
-    
-    subgraph "Rate Limiting"
-        RATE_KEY[rate:{ip}:{endpoint}]
-        RATE_DATA[Request Count, Window Start]
-    end
-    
-    subgraph "Tenant Cache"
-        TENANT_KEY[tenant:{tenant_code}]
-        TENANT_DATA[Configuration, Quotas, Policies]
-    end
-    
-    SESSION_KEY --> SESSION_DATA
-    USER_KEY --> USER_DATA
-    ROLE_KEY --> ROLE_DATA
-    RATE_KEY --> RATE_DATA
-    TENANT_KEY --> TENANT_DATA
-        </div>
+    subgraph "Redis Cache Architecture"
+        subgraph "Session Storage (Database 0)"
+            SESSION_KEYS["session:{session_id}<br/>Hash: User session data"]
+            USER_SESSIONS["user_sessions:{user_id}<br/>Set: Active session IDs"]
+            SESSION_BLACKLIST["session_blacklist<br/>Set: Revoked tokens"]
+        end
 
-        <h4>Cache Strategy:</h4>
-        <ul>
-            <li><strong>TTL Management</strong>: Different expiration times based on data sensitivity</li>
-            <li><strong>Cache Invalidation</strong>: Event-driven cache updates on data changes</li>
-            <li><strong>Memory Optimization</strong>: Compressed storage for large objects</li>
-            <li><strong>High Availability</strong>: Redis clustering for fault tolerance</li>
-        </ul>
+        subgraph "Application Cache (Database 1)"
+            USER_CACHE["user:{user_id}<br/>Hash: Cached user data"]
+            ROLE_CACHE["role:{role_id}<br/>Hash: Role permissions"]
+            TENANT_CACHE["tenant:{tenant_code}<br/>Hash: Tenant config"]
+            PERMISSION_CACHE["permissions:{user_id}<br/>Set: User permissions"]
+        end
 
-        <h2 id="api-design">🔗 API Design & Endpoint Specifications</h2>
-        
-        <h3>RESTful API Architecture</h3>
-        
-        <div class="mermaid">
+        subgraph "Real-time Events (Database 2)"
+            NOTIFICATION_QUEUE["notifications:{tenant_code}<br/>List: Pending notifications"]
+            WEBSOCKET_CONNECTIONS["ws_connections:{tenant_code}<br/>Hash: Active connections"]
+            EVENT_STREAM["events<br/>Stream: Real-time events"]
+        end
+
+        subgraph "Rate Limiting (Database 3)"
+            API_RATE_LIMIT["rate_limit:{ip_address}<br/>String: Request count"]
+            AUTH_ATTEMPTS["auth_attempts:{ip_address}<br/>String: Failed attempts"]
+            TENANT_QUOTAS["quota:{tenant_code}<br/>Hash: Resource usage"]
+        end
+
+        subgraph "Configuration Cache (Database 4)"
+            CONFIG_CACHE["config:{key}<br/>String: Configuration values"]
+            FEATURE_FLAGS["features:{tenant_code}<br/>Hash: Feature toggles"]
+            TENANT_SETTINGS["settings:{tenant_code}<br/>Hash: Tenant preferences"]
+        end
+    end
+
+    %% Cache Relationships
+    SESSION_KEYS -.-> USER_CACHE
+    USER_CACHE -.-> ROLE_CACHE
+    ROLE_CACHE -.-> PERMISSION_CACHE
+    USER_SESSIONS -.-> WEBSOCKET_CONNECTIONS
+    NOTIFICATION_QUEUE -.-> EVENT_STREAM
+</div>
+
+<h2 id="api-design-endpoint-specifications">🔗 <strong>API DESIGN &amp; ENDPOINT SPECIFICATIONS</strong><a class="headerlink" href="#api-design-endpoint-specifications" title="Permanent link">&para;</a></h2>
+<h3 id="restful-api-architecture"><strong>RESTful API Architecture</strong><a class="headerlink" href="#restful-api-architecture" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TB
-    subgraph "Authentication APIs"
-        AUTH_LOGIN[POST /auth/login]
-        AUTH_LOGOUT[POST /auth/logout]
-        AUTH_REFRESH[POST /auth/refresh]
-        AUTH_MFA[POST /auth/mfa/verify]
-        AUTH_RESET[POST /auth/reset-password]
-    end
-    
-    subgraph "User Management APIs"
-        USER_LIST[GET /users]
-        USER_GET[GET /users/{id}]
-        USER_CREATE[POST /users]
-        USER_UPDATE[PUT /users/{id}]
-        USER_DELETE[DELETE /users/{id}]
-        USER_PROFILE[GET /users/profile]
-    end
-    
-    subgraph "Role & Permission APIs"
-        ROLE_LIST[GET /roles]
-        ROLE_CREATE[POST /roles]
-        ROLE_UPDATE[PUT /roles/{id}]
-        ROLE_DELETE[DELETE /roles/{id}]
-        ROLE_ASSIGN[POST /users/{id}/roles]
-        PERM_LIST[GET /permissions]
-    end
-    
-    subgraph "Tenant Management APIs"
-        TENANT_LIST[GET /tenants]
-        TENANT_GET[GET /tenants/{code}]
-        TENANT_CREATE[POST /tenants]
-        TENANT_UPDATE[PUT /tenants/{code}]
-        TENANT_CONFIG[PUT /tenants/{code}/config]
-    end
-    
-    subgraph "Notification APIs"
-        NOTIF_LIST[GET /notifications]
-        NOTIF_SEND[POST /notifications]
-        NOTIF_READ[PUT /notifications/{id}/read]
-        NOTIF_PREF[GET /notifications/preferences]
-        NOTIF_SUB[POST /notifications/subscribe]
-    end
-    
-    subgraph "Admin APIs"
-        ADMIN_STATS[GET /admin/stats]
-        ADMIN_AUDIT[GET /admin/audit]
-        ADMIN_HEALTH[GET /admin/health]
-        ADMIN_CONFIG[PUT /admin/config]
-        ADMIN_BACKUP[POST /admin/backup]
-    end
-        </div>
+    subgraph "API Endpoint Categories"
+        subgraph "Authentication APIs"
+            LOGIN[POST /auth/login<br/>User Authentication]
+            LOGOUT[POST /auth/logout<br/>Session Termination]
+            REFRESH[POST /auth/refresh<br/>Token Renewal]
+            MFA[POST /auth/mfa/verify<br/>Multi-Factor Auth]
+            SAML[GET/POST /auth/saml/*<br/>SAML SSO Flow]
+            OAUTH[GET/POST /auth/oauth/*<br/>OAuth2 Flow]
+        end
 
-        <h4>API Design Principles:</h4>
-        <ul>
-            <li><strong>RESTful Design</strong>: Standard HTTP methods and status codes</li>
-            <li><strong>Consistent Response Format</strong>: Unified JSON response structure</li>
-            <li><strong>Pagination Support</strong>: Cursor-based pagination for large datasets</li>
-            <li><strong>Filtering & Sorting</strong>: Query parameters for data manipulation</li>
-            <li><strong>Versioning Strategy</strong>: URL versioning for backward compatibility</li>
-        </ul>
+        subgraph "User Management APIs"
+            GET_USERS[GET /users<br/>List Users]
+            CREATE_USER[POST /users<br/>Create User]
+            GET_USER[GET /users/{id}<br/>Get User Details]
+            UPDATE_USER[PUT /users/{id}<br/>Update User]
+            DELETE_USER[DELETE /users/{id}<br/>Delete User]
+            USER_PROFILE[GET/PUT /users/profile<br/>User Profile]
+        end
 
-        <h3>API Request/Response Flow Diagram</h3>
-        
-        <div class="mermaid">
+        subgraph "Role & Permission APIs"
+            GET_ROLES[GET /roles<br/>List Roles]
+            CREATE_ROLE[POST /roles<br/>Create Role]
+            UPDATE_ROLE[PUT /roles/{id}<br/>Update Role]
+            DELETE_ROLE[DELETE /roles/{id}<br/>Delete Role]
+            ASSIGN_ROLE[POST /users/{id}/roles<br/>Assign Role]
+            GET_PERMISSIONS[GET /permissions<br/>List Permissions]
+        end
+
+        subgraph "Tenant Management APIs"
+            GET_TENANTS[GET /tenants<br/>List Tenants]
+            CREATE_TENANT[POST /tenants<br/>Create Tenant]
+            UPDATE_TENANT[PUT /tenants/{code}<br/>Update Tenant]
+            TENANT_CONFIG[GET/PUT /tenants/{code}/config<br/>Tenant Configuration]
+            TENANT_USERS[GET /tenants/{code}/users<br/>Tenant Users]
+        end
+
+        subgraph "Notification APIs"
+            GET_NOTIFICATIONS[GET /notifications<br/>List Notifications]
+            MARK_READ[PUT /notifications/{id}/read<br/>Mark as Read]
+            WEBSOCKET[WS /ws<br/>Real-time Connection]
+            SEND_NOTIFICATION[POST /notifications<br/>Send Notification]
+        end
+
+        subgraph "Administrative APIs"
+            HEALTH_CHECK[GET /health<br/>Health Status]
+            METRICS[GET /metrics<br/>Application Metrics]
+            AUDIT_LOGS[GET /audit<br/>Audit Trail]
+            SYSTEM_CONFIG[GET/PUT /config<br/>System Configuration]
+            BULK_OPERATIONS[POST /bulk/*<br/>Batch Operations]
+        end
+    end
+
+    %% API Flow Dependencies
+    LOGIN --> GET_USERS
+    LOGIN --> GET_ROLES
+    LOGIN --> GET_NOTIFICATIONS
+    CREATE_USER --> ASSIGN_ROLE
+    UPDATE_TENANT --> TENANT_CONFIG
+    WEBSOCKET --> SEND_NOTIFICATION
+</div>
+
+<h3 id="api-requestresponse-flow-diagram"><strong>API Request/Response Flow Diagram</strong><a class="headerlink" href="#api-requestresponse-flow-diagram" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 sequenceDiagram
-    participant Client
-    participant LoadBalancer
-    participant UserService
-    participant AuthMiddleware
-    participant AuthzMiddleware
-    participant Controller
-    participant Service
-    participant Repository
-    participant MongoDB
-    participant Redis
-    
-    Client->>LoadBalancer: HTTP Request
-    LoadBalancer->>UserService: Route Request
-    UserService->>AuthMiddleware: Validate JWT
-    AuthMiddleware->>Redis: Check Session
-    Redis-->>AuthMiddleware: Session Data
-    AuthMiddleware->>AuthzMiddleware: Check Permissions
-    AuthzMiddleware->>Redis: Get User Roles
-    Redis-->>AuthzMiddleware: Role Data
-    AuthzMiddleware->>Controller: Process Request
-    Controller->>Service: Business Logic
-    Service->>Repository: Data Operation
-    Repository->>MongoDB: Database Query
-    MongoDB-->>Repository: Query Result
-    Repository-->>Service: Domain Objects
-    Service-->>Controller: Business Result
-    Controller-->>UserService: JSON Response
-    UserService-->>LoadBalancer: HTTP Response
-    LoadBalancer-->>Client: Final Response
-        </div>
+    participant C as Client
+    participant MW as Middleware Stack
+    participant CTRL as Controller
+    participant SVC as Service Layer
+    participant REPO as Repository
+    participant DB as MongoDB
+    participant CACHE as Redis
+    participant EXT as External Service
 
-        <h2 id="security-implementation">🔒 Security Implementation Details</h2>
-        
-        <h3>Authentication & Authorization Flow</h3>
-        
-        <div class="mermaid">
+    Note over C,EXT: Complete API Request Flow
+
+    C->>MW: HTTP Request
+    MW->>MW: CORS Validation
+    MW->>MW: Rate Limiting Check
+    MW->>MW: JWT Token Validation
+    MW->>MW: Permission Authorization
+    MW->>MW: Audit Logging Start
+
+    MW->>CTRL: Validated Request
+    CTRL->>CTRL: Input Validation
+    CTRL->>CTRL: Request Parsing
+
+    CTRL->>SVC: Business Logic Call
+    SVC->>CACHE: Check Cache
+
+    alt Cache Hit
+        CACHE-->>SVC: Cached Data
+    else Cache Miss
+        SVC->>REPO: Data Repository Call
+        REPO->>DB: Database Query
+        DB-->>REPO: Query Results
+        REPO-->>SVC: Processed Data
+        SVC->>CACHE: Update Cache
+    end
+
+    alt External Integration Required
+        SVC->>EXT: External API Call
+        EXT-->>SVC: External Response
+    end
+
+    SVC->>SVC: Business Logic Processing
+    SVC-->>CTRL: Service Response
+
+    CTRL->>CTRL: Response Formatting
+    CTRL-->>MW: Structured Response
+
+    MW->>MW: Audit Logging Complete
+    MW->>MW: Response Headers
+    MW-->>C: HTTP Response
+
+    Note over C,EXT: Request Completed Successfully
+</div>
+
+<h2 id="security-implementation-details">🔒 <strong>SECURITY IMPLEMENTATION DETAILS</strong><a class="headerlink" href="#security-implementation-details" title="Permanent link">&para;</a></h2>
+<h3 id="authentication-authorization-flow"><strong>Authentication &amp; Authorization Flow</strong><a class="headerlink" href="#authentication-authorization-flow" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TB
-    subgraph "Authentication Layer"
-        LOGIN[Login Request]
-        CREDENTIAL_CHECK[Credential Validation]
-        MFA_CHECK[MFA Verification]
-        JWT_GENERATE[JWT Token Generation]
-        SESSION_CREATE[Session Creation]
-    end
-    
-    subgraph "Authorization Layer"
-        JWT_VALIDATE[JWT Validation]
-        PERMISSION_CHECK[Permission Evaluation]
-        RESOURCE_ACCESS[Resource Access Control]
-        AUDIT_LOG[Audit Logging]
-    end
-    
-    subgraph "Security Controls"
-        RATE_LIMITING[Rate Limiting]
-        IP_FILTERING[IP Filtering]
-        DEVICE_TRUST[Device Trust]
-        ANOMALY_DETECTION[Anomaly Detection]
-    end
-    
-    LOGIN --> CREDENTIAL_CHECK
-    CREDENTIAL_CHECK --> MFA_CHECK
-    MFA_CHECK --> JWT_GENERATE
-    JWT_GENERATE --> SESSION_CREATE
-    
-    SESSION_CREATE --> JWT_VALIDATE
-    JWT_VALIDATE --> PERMISSION_CHECK
-    PERMISSION_CHECK --> RESOURCE_ACCESS
-    RESOURCE_ACCESS --> AUDIT_LOG
-    
-    JWT_VALIDATE --> RATE_LIMITING
-    PERMISSION_CHECK --> IP_FILTERING
-    RESOURCE_ACCESS --> DEVICE_TRUST
-    AUDIT_LOG --> ANOMALY_DETECTION
-        </div>
+    subgraph "Multi-Protocol Authentication Implementation"
+        subgraph "Local Authentication"
+            PWD_VALIDATE[Password Validation<br/>bcrypt Verification]
+            ACCOUNT_LOCKOUT[Account Lockout<br/>Failed Attempt Tracking]
+            PWD_POLICY[Password Policy<br/>Complexity Enforcement]
+            PWD_HISTORY[Password History<br/>Reuse Prevention]
+        end
 
-        <h3>JWT Token Management Implementation</h3>
-        
-        <div class="mermaid">
-graph LR
-    subgraph "Token Generation"
-        USER_DATA[User Claims]
-        PAYLOAD[JWT Payload]
-        SIGN[RS256 Signing]
-        TOKEN[Access Token]
-    end
-    
-    subgraph "Token Validation"
-        INCOMING_TOKEN[Incoming Token]
-        SIGNATURE_VERIFY[Signature Verification]
-        CLAIMS_EXTRACT[Claims Extraction]
-        EXPIRY_CHECK[Expiry Validation]
-    end
-    
-    subgraph "Token Refresh"
-        REFRESH_TOKEN[Refresh Token]
-        REFRESH_VALIDATE[Refresh Validation]
-        NEW_TOKEN[New Access Token]
-        SESSION_UPDATE[Session Update]
-    end
-    
-    USER_DATA --> PAYLOAD
-    PAYLOAD --> SIGN
-    SIGN --> TOKEN
-    
-    INCOMING_TOKEN --> SIGNATURE_VERIFY
-    SIGNATURE_VERIFY --> CLAIMS_EXTRACT
-    CLAIMS_EXTRACT --> EXPIRY_CHECK
-    
-    REFRESH_TOKEN --> REFRESH_VALIDATE
-    REFRESH_VALIDATE --> NEW_TOKEN
-    NEW_TOKEN --> SESSION_UPDATE
-        </div>
+        subgraph "LDAP/AD Authentication"
+            LDAP_BIND[LDAP Bind<br/>Directory Authentication]
+            USER_SYNC[User Synchronization<br/>Profile Updates]
+            GROUP_MAPPING[Group Mapping<br/>Role Assignment]
+            CONNECTION_POOL[Connection Pooling<br/>Performance Optimization]
+        end
 
-        <h4>JWT Implementation Details:</h4>
-        <ul>
-            <li><strong>Algorithm</strong>: RS256 with 2048-bit RSA keys</li>
-            <li><strong>Claims</strong>: User ID, tenant, roles, permissions, device fingerprint</li>
-            <li><strong>Expiration</strong>: Configurable TTL (default 1 hour for access, 7 days for refresh)</li>
-            <li><strong>Key Rotation</strong>: Automated key rotation every 90 days</li>
-        </ul>
+        subgraph "SAML 2.0 Authentication"
+            SAML_REQUEST[SAML Auth Request<br/>SP-Initiated SSO]
+            ASSERTION_VALIDATE[Assertion Validation<br/>Digital Signature Verify]
+            ATTRIBUTE_MAPPING[Attribute Mapping<br/>User Profile Extraction]
+            METADATA_EXCHANGE[Metadata Exchange<br/>IdP Configuration]
+        end
 
-        <h3>Role-Based Access Control (RBAC) Implementation</h3>
-        
-        <div class="mermaid">
+        subgraph "OAuth2/OIDC Authentication"
+            OAUTH_REDIRECT[OAuth Redirect<br/>Authorization Code Flow]
+            TOKEN_EXCHANGE[Token Exchange<br/>Access Token Retrieval]
+            USERINFO_ENDPOINT[UserInfo Endpoint<br/>Profile Data Fetch]
+            PKCE_VALIDATION[PKCE Validation<br/>Security Enhancement]
+        end
+
+        subgraph "Multi-Factor Authentication"
+            TOTP_VALIDATION[TOTP Validation<br/>Time-based Codes]
+            SMS_DELIVERY[SMS Delivery<br/>Phone Verification]
+            HARDWARE_TOKEN[Hardware Token<br/>FIDO2/WebAuthn]
+            BACKUP_CODES[Backup Codes<br/>Recovery Access]
+        end
+    end
+
+    %% Authentication Flow
+    PWD_VALIDATE --> ACCOUNT_LOCKOUT
+    LDAP_BIND --> USER_SYNC
+    SAML_REQUEST --> ASSERTION_VALIDATE
+    OAUTH_REDIRECT --> TOKEN_EXCHANGE
+    TOTP_VALIDATION --> SMS_DELIVERY
+
+    %% Cross-Protocol Integration
+    PWD_VALIDATE -.-> TOTP_VALIDATION
+    LDAP_BIND -.-> TOTP_VALIDATION
+    ASSERTION_VALIDATE -.-> TOTP_VALIDATION
+    TOKEN_EXCHANGE -.-> TOTP_VALIDATION
+</div>
+
+<h3 id="jwt-token-management-implementation"><strong>JWT Token Management Implementation</strong><a class="headerlink" href="#jwt-token-management-implementation" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TB
-    subgraph "RBAC Components"
-        USERS[Users]
-        ROLES[Roles]
-        PERMISSIONS[Permissions]
-        RESOURCES[Resources]
-    end
-    
-    subgraph "Assignment Relationships"
-        USER_ROLE[User-Role Assignment]
-        ROLE_PERMISSION[Role-Permission Assignment]
-        PERMISSION_RESOURCE[Permission-Resource Mapping]
-    end
-    
-    subgraph "Evaluation Engine"
-        CONTEXT[Request Context]
-        POLICY_ENGINE[Policy Evaluation]
-        DECISION[Access Decision]
-        ENFORCEMENT[Policy Enforcement]
-    end
-    
-    USERS --> USER_ROLE
-    ROLES --> USER_ROLE
-    ROLES --> ROLE_PERMISSION
-    PERMISSIONS --> ROLE_PERMISSION
-    PERMISSIONS --> PERMISSION_RESOURCE
-    RESOURCES --> PERMISSION_RESOURCE
-    
-    USER_ROLE --> CONTEXT
-    ROLE_PERMISSION --> CONTEXT
-    PERMISSION_RESOURCE --> CONTEXT
-    
-    CONTEXT --> POLICY_ENGINE
-    POLICY_ENGINE --> DECISION
-    DECISION --> ENFORCEMENT
-        </div>
+    subgraph "JWT Token Lifecycle"
+        subgraph "Token Generation"
+            USER_AUTH[User Authentication<br/>Successful Login]
+            CLAIMS_BUILD[Claims Building<br/>User Context + Permissions]
+            TOKEN_SIGN[Token Signing<br/>RS256 Algorithm]
+            TOKEN_ISSUE[Token Issuance<br/>Access + Refresh Tokens]
+        end
 
-        <h4>RBAC Features:</h4>
-        <ul>
-            <li><strong>Hierarchical Roles</strong>: Role inheritance and delegation</li>
-            <li><strong>Fine-grained Permissions</strong>: Resource and action-level controls</li>
-            <li><strong>Dynamic Evaluation</strong>: Runtime permission checking</li>
-            <li><strong>Tenant Isolation</strong>: Complete role separation per tenant</li>
-        </ul>
+        subgraph "Token Validation"
+            TOKEN_RECEIVE[Token Reception<br/>Request Header/Cookie]
+            SIGNATURE_VERIFY[Signature Verification<br/>Public Key Validation]
+            CLAIMS_VALIDATE[Claims Validation<br/>Expiry + Audience Check]
+            BLACKLIST_CHECK[Blacklist Check<br/>Revoked Token Detection]
+        end
 
-        <h2 id="deployment-infrastructure">🚀 Deployment & Infrastructure Implementation</h2>
-        
-        <h3>Traditional Server Deployment Architecture</h3>
-        
-        <div class="mermaid">
+        subgraph "Token Refresh"
+            REFRESH_REQUEST[Refresh Request<br/>Refresh Token Submission]
+            REFRESH_VALIDATE[Refresh Validation<br/>Token Integrity Check]
+            NEW_TOKEN_ISSUE[New Token Issue<br/>Rotated Access Token]
+            OLD_TOKEN_REVOKE[Old Token Revocation<br/>Security Cleanup]
+        end
+
+        subgraph "Token Revocation"
+            LOGOUT_REQUEST[Logout Request<br/>User-Initiated]
+            TOKEN_BLACKLIST[Token Blacklisting<br/>Redis Storage]
+            SESSION_CLEANUP[Session Cleanup<br/>Cache Invalidation]
+            AUDIT_LOG[Audit Logging<br/>Security Event]
+        end
+    end
+
+    %% Token Flow
+    USER_AUTH --> CLAIMS_BUILD
+    CLAIMS_BUILD --> TOKEN_SIGN
+    TOKEN_SIGN --> TOKEN_ISSUE
+
+    TOKEN_RECEIVE --> SIGNATURE_VERIFY
+    SIGNATURE_VERIFY --> CLAIMS_VALIDATE
+    CLAIMS_VALIDATE --> BLACKLIST_CHECK
+
+    REFRESH_REQUEST --> REFRESH_VALIDATE
+    REFRESH_VALIDATE --> NEW_TOKEN_ISSUE
+    NEW_TOKEN_ISSUE --> OLD_TOKEN_REVOKE
+
+    LOGOUT_REQUEST --> TOKEN_BLACKLIST
+    TOKEN_BLACKLIST --> SESSION_CLEANUP
+    SESSION_CLEANUP --> AUDIT_LOG
+</div>
+
+<h3 id="role-based-access-control-rbac-implementation"><strong>Role-Based Access Control (RBAC) Implementation</strong><a class="headerlink" href="#role-based-access-control-rbac-implementation" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+classDiagram
+    class User {
+        +ObjectId _id
+        +string email
+        +string tenant_code
+        +string[] roles
+        +validatePassword(password) bool
+        +hasPermission(permission) bool
+        +getRoles() Role[]
+        +assignRole(roleId) error
+        +removeRole(roleId) error
+    }
+
+    class Role {
+        +ObjectId _id
+        +string name
+        +string tenant_code
+        +string[] permissions
+        +boolean is_system_role
+        +addPermission(permission) error
+        +removePermission(permission) error
+        +getPermissions() Permission[]
+        +validateTenantScope(tenantCode) bool
+    }
+
+    class Permission {
+        +ObjectId _id
+        +string name
+        +string resource
+        +string action
+        +object constraints
+        +validateConstraints(context) bool
+        +getResourceActions() string[]
+    }
+
+    class Tenant {
+        +ObjectId _id
+        +string tenant_code
+        +string name
+        +object security_policy
+        +object resource_quotas
+        +validateUserAccess(userId) bool
+        +enforceQuotas() error
+        +getSecurityPolicy() SecurityPolicy
+    }
+
+    class SecurityPolicy {
+        +int password_min_length
+        +boolean require_mfa
+        +int session_timeout
+        +int max_concurrent_sessions
+        +string[] allowed_ip_ranges
+        +enforcePolicy(user) error
+        +validateCompliance() bool
+    }
+
+    class Session {
+        +ObjectId _id
+        +string session_id
+        +ObjectId user_id
+        +string tenant_code
+        +datetime expires_at
+        +boolean is_active
+        +validateSession() bool
+        +extendSession() error
+        +revokeSession() error
+    }
+
+    class AuditLog {
+        +ObjectId _id
+        +string tenant_code
+        +ObjectId user_id
+        +string event_type
+        +string resource
+        +string action
+        +object context
+        +datetime timestamp
+        +logEvent(event) error
+        +queryLogs(criteria) AuditLog[]
+    }
+
+    User ||--o{ Role : "has"
+    Role ||--o{ Permission : "contains"
+    User }o--|| Tenant : "belongs_to"
+    Tenant ||--|| SecurityPolicy : "enforces"
+    User ||--o{ Session : "maintains"
+    User ||--o{ AuditLog : "generates"
+    Role }o--|| Tenant : "scoped_to"
+</div>
+
+<h2 id="deployment-infrastructure-implementation">🚀 <strong>DEPLOYMENT &amp; INFRASTRUCTURE IMPLEMENTATION</strong><a class="headerlink" href="#deployment-infrastructure-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="traditional-server-deployment-architecture"><strong>Traditional Server Deployment Architecture</strong><a class="headerlink" href="#traditional-server-deployment-architecture" title="Permanent link">&para;</a></h3>
+<p>The Securaa User Service is deployed using traditional server architecture with load balancing and service clustering for high availability and scalability.</p>
+<p><strong>Server Deployment Strategy:</strong></p>
+<p><strong>Load Balancer Configuration:</strong><br />
+- <strong>Primary Load Balancer</strong>: HAProxy or Nginx for traffic distribution and SSL termination<br />
+- <strong>Health Check Integration</strong>: Application-level health endpoints for intelligent routing<br />
+- <strong>Session Management</strong>: Sticky sessions support for WebSocket connections<br />
+- <strong>SSL/TLS Termination</strong>: Certificate management and encryption handling at the edge</p>
+<p><strong>Service Instance Management:</strong><br />
+- <strong>Multiple Instances</strong>: 3+ service instances for high availability<br />
+- <strong>Process Management</strong>: Systemd service files for automatic restart and lifecycle management<br />
+- <strong>Configuration Management</strong>: Environment-specific configuration files and secrets<br />
+- <strong>Log Management</strong>: Structured logging with centralized log aggregation</p>
+<p><strong>Database Deployment:</strong><br />
+- <strong>MongoDB Replica Set</strong>: Primary and secondary instances for read scaling and failover<br />
+- <strong>Redis Cluster</strong>: Master-slave configuration for caching and session storage<br />
+- <strong>Connection Pooling</strong>: Optimized database connections with configurable pool sizes<br />
+- <strong>Backup Strategy</strong>: Automated backup schedules with point-in-time recovery</p>
+<div class="mermaid">
 graph TB
-    subgraph "Load Balancer Tier"
-        LB1[HAProxy Primary]
-        LB2[HAProxy Secondary]
-        VIP[Virtual IP]
+    subgraph "Server Infrastructure"
+        subgraph "Load Balancer Tier"
+            LB_PRIMARY[Primary Load Balancer<br/>HAProxy/Nginx<br/>SSL Termination]
+            LB_SECONDARY[Secondary Load Balancer<br/>Backup Instance<br/>Health Monitoring]
+        end
+
+        subgraph "Application Tier"
+            subgraph "Server 1 (Primary)"
+                APP1[Securaa User Service<br/>Instance 1<br/>Port 8080]
+                SYSTEMD1[Systemd Service<br/>Auto-restart<br/>Health Checks]
+            end
+
+            subgraph "Server 2 (Secondary)"
+                APP2[Securaa User Service<br/>Instance 2<br/>Port 8080]
+                SYSTEMD2[Systemd Service<br/>Auto-restart<br/>Health Checks]
+            end
+
+            subgraph "Server 3 (Tertiary)"
+                APP3[Securaa User Service<br/>Instance 3<br/>Port 8080]
+                SYSTEMD3[Systemd Service<br/>Auto-restart<br/>Health Checks]
+            end
+        end
+
+        subgraph "Database Tier"
+            subgraph "MongoDB Cluster"
+                MONGO_PRIMARY[MongoDB Primary<br/>Write Operations<br/>Port 27017]
+                MONGO_SECONDARY1[MongoDB Secondary 1<br/>Read Operations<br/>Port 27017]
+                MONGO_SECONDARY2[MongoDB Secondary 2<br/>Read Operations<br/>Port 27017]
+            end
+
+            subgraph "Redis Cluster"
+                REDIS_MASTER[Redis Master<br/>Session Storage<br/>Port 6379]
+                REDIS_SLAVE[Redis Slave<br/>Backup/Read<br/>Port 6379]
+            end
+        end
+
+        subgraph "Monitoring & Support"
+            PROMETHEUS[Prometheus<br/>Metrics Collection<br/>Port 9090]
+            GRAFANA[Grafana Dashboard<br/>Visualization<br/>Port 3000]
+            LOG_AGGREGATOR[Log Aggregator<br/>ELK Stack<br/>Centralized Logging]
+        end
     end
-    
-    subgraph "Application Tier"
-        APP1[User Service Instance 1<br/>Primary Server]
-        APP2[User Service Instance 2<br/>Secondary Server]
-        APP3[User Service Instance 3<br/>Worker Server]
-    end
-    
-    subgraph "Database Tier"
-        MONGO_PRIMARY[MongoDB Primary<br/>Write Operations]
-        MONGO_SEC1[MongoDB Secondary 1<br/>Read Replica]
-        MONGO_SEC2[MongoDB Secondary 2<br/>Read Replica]
-        MONGO_ARBITER[MongoDB Arbiter<br/>Election Participant]
-    end
-    
-    subgraph "Cache Tier"
-        REDIS_MASTER[Redis Master<br/>Session Store]
-        REDIS_SLAVE1[Redis Slave 1<br/>Read Replica]
-        REDIS_SLAVE2[Redis Slave 2<br/>Read Replica]
-    end
-    
-    subgraph "External Services"
-        SMTP_SERVER[SMTP Server<br/>Email Delivery]
-        SMS_GATEWAY[SMS Gateway<br/>2FA Messages]
-        LDAP_SERVER[LDAP Server<br/>Corporate Directory]
-    end
-    
-    VIP --> LB1
-    VIP --> LB2
-    LB1 --> APP1
-    LB1 --> APP2
-    LB1 --> APP3
-    LB2 --> APP1
-    LB2 --> APP2
-    LB2 --> APP3
-    
+
+    %% Load Balancer Connections
+    LB_PRIMARY --> APP1
+    LB_PRIMARY --> APP2
+    LB_PRIMARY --> APP3
+    LB_SECONDARY --> APP1
+    LB_SECONDARY --> APP2
+
+    %% Service Management
+    SYSTEMD1 --> APP1
+    SYSTEMD2 --> APP2
+    SYSTEMD3 --> APP3
+
+    %% Database Connections
     APP1 --> MONGO_PRIMARY
-    APP2 --> MONGO_SEC1
-    APP3 --> MONGO_SEC2
-    
-    MONGO_PRIMARY --> MONGO_SEC1
-    MONGO_PRIMARY --> MONGO_SEC2
-    MONGO_PRIMARY --> MONGO_ARBITER
-    
+    APP2 --> MONGO_SECONDARY1
+    APP3 --> MONGO_SECONDARY2
+
     APP1 --> REDIS_MASTER
-    APP2 --> REDIS_SLAVE1
-    APP3 --> REDIS_SLAVE2
-    
-    REDIS_MASTER --> REDIS_SLAVE1
-    REDIS_MASTER --> REDIS_SLAVE2
-    
-    APP1 --> SMTP_SERVER
-    APP2 --> SMS_GATEWAY
-    APP3 --> LDAP_SERVER
-        </div>
+    APP2 --> REDIS_MASTER
+    APP3 --> REDIS_MASTER
 
-        <h4>Deployment Specifications:</h4>
-        <ul>
-            <li><strong>High Availability</strong>: Redundant components with automatic failover</li>
-            <li><strong>Load Distribution</strong>: HAProxy with health checks and session affinity</li>
-            <li><strong>Database Replication</strong>: MongoDB replica set with automated elections</li>
-            <li><strong>Cache Replication</strong>: Redis master-slave setup with sentinel monitoring</li>
-        </ul>
+    %% Database Replication
+    MONGO_PRIMARY --> MONGO_SECONDARY1
+    MONGO_PRIMARY --> MONGO_SECONDARY2
+    REDIS_MASTER --> REDIS_SLAVE
 
-        <h3>Production Deployment Configuration</h3>
-        
-        <div class="mermaid">
+    %% Monitoring Connections
+    PROMETHEUS --> APP1
+    PROMETHEUS --> APP2
+    PROMETHEUS --> APP3
+    GRAFANA --> PROMETHEUS
+
+    LOG_AGGREGATOR --> APP1
+    LOG_AGGREGATOR --> APP2
+    LOG_AGGREGATOR --> APP3
+</div>
+
+<p><strong>Deployment Process:</strong></p>
+<p><strong>Service Installation:</strong><br />
+1. <strong>Binary Deployment</strong>: Go binary compilation and distribution to target servers<br />
+2. <strong>Configuration Setup</strong>: Environment-specific configuration files and secrets deployment<br />
+3. <strong>Service Registration</strong>: Systemd service file installation and enablement<br />
+4. <strong>Health Verification</strong>: Automated health checks during deployment process</p>
+<p><strong>Database Setup:</strong><br />
+1. <strong>MongoDB Replica Set</strong>: Primary and secondary node configuration with authentication<br />
+2. <strong>Redis Configuration</strong>: Master-slave setup with persistence and clustering<br />
+3. <strong>Index Creation</strong>: Database index optimization for query performance<br />
+4. <strong>Data Migration</strong>: Automated migration scripts for schema updates</p>
+<p><strong>Load Balancer Configuration:</strong><br />
+1. <strong>SSL Certificate Installation</strong>: TLS certificate deployment and renewal automation<br />
+2. <strong>Health Check Configuration</strong>: Application-level health endpoint configuration<br />
+3. <strong>Traffic Routing Rules</strong>: Request routing based on URL patterns and headers<br />
+4. <strong>Failover Configuration</strong>: Automatic failover to healthy instances</p>
+<p><strong>Monitoring Setup:</strong><br />
+1. <strong>Metrics Collection</strong>: Prometheus metrics endpoint configuration<br />
+2. <strong>Dashboard Deployment</strong>: Grafana dashboard installation and configuration<br />
+3. <strong>Alerting Rules</strong>: Alert configuration for critical system events<br />
+4. <strong>Log Aggregation</strong>: Centralized logging setup with retention policies</p>
+<h3 id="production-deployment-configuration"><strong>Production Deployment Configuration</strong><a class="headerlink" href="#production-deployment-configuration" title="Permanent link">&para;</a></h3>
+<p><strong>Systemd Service Configuration:</strong></p>
+<pre class="highlight"><code class="language-ini"># /etc/systemd/system/securaa-user-service.service
+[Unit]
+Description=Securaa User Service
+Documentation=https://docs.securaa.com/securaa-user
+After=network.target mongodb.service redis.service
+Wants=mongodb.service redis.service
+
+[Service]
+Type=exec
+User=securaa-user
+Group=securaa-user
+WorkingDirectory=/opt/securaa-user
+ExecStart=/opt/securaa-user/bin/securaa-user-service
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=securaa-user-service
+
+# Security Settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/securaa-user/logs /opt/securaa-user/data
+
+# Environment Variables
+Environment=ENVIRONMENT=production
+Environment=LOG_LEVEL=info
+Environment=HTTP_PORT=8080
+Environment=METRICS_PORT=9090
+Environment=HEALTH_CHECK_PORT=8081
+
+# Resource Limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<p><strong>Environment Configuration:</strong></p>
+<pre class="highlight"><code class="language-bash"># /opt/securaa-user/config/production.env
+# Database Configuration
+MONGO_URI=mongodb://securaa-user:${MONGO_PASSWORD}@mongo-primary:27017,mongo-secondary1:27017,mongo-secondary2:27017/zona_user?replicaSet=rs0&amp;authSource=admin
+REDIS_URI=redis://:${REDIS_PASSWORD}@redis-master:6379/0
+
+# Security Configuration
+JWT_SECRET_KEY=${JWT_SECRET_KEY}
+ENCRYPTION_KEY=${ENCRYPTION_KEY}
+SAML_CERT_PATH=/opt/securaa-user/certs/saml.crt
+SAML_KEY_PATH=/opt/securaa-user/certs/saml.key
+
+# Integration Configuration
+EMAIL_SMTP_HOST=smtp.securaa.com
+EMAIL_SMTP_PORT=587
+EMAIL_FROM=noreply@securaa.com
+
+# Performance Configuration
+MAX_CONNECTIONS=1000
+CONNECTION_TIMEOUT=30s
+IDLE_TIMEOUT=60s
+READ_TIMEOUT=30s
+WRITE_TIMEOUT=30s
+
+# Monitoring Configuration
+METRICS_ENABLED=true
+PROMETHEUS_ENDPOINT=/metrics
+HEALTH_CHECK_ENDPOINT=/health
+LOG_FORMAT=json
+LOG_OUTPUT=file
+LOG_FILE_PATH=/opt/securaa-user/logs/securaa-user.log
+</code></pre>
+
+<p><strong>Deployment Script:</strong></p>
+<pre class="highlight"><code class="language-bash">#!/bin/bash
+# /opt/securaa-user/scripts/deploy.sh
+
+set -euo pipefail
+
+DEPLOY_DIR=&quot;/opt/securaa-user&quot;
+SERVICE_NAME=&quot;securaa-user-service&quot;
+BACKUP_DIR=&quot;/opt/securaa-user/backups&quot;
+LOG_DIR=&quot;/opt/securaa-user/logs&quot;
+
+# Pre-deployment checks
+echo &quot;Starting deployment of Securaa User Service...&quot;
+echo &quot;Checking system requirements...&quot;
+
+# Verify dependencies
+systemctl is-active --quiet mongodb || { echo &quot;MongoDB not running&quot;; exit 1; }
+systemctl is-active --quiet redis || { echo &quot;Redis not running&quot;; exit 1; }
+
+# Create backup of current version
+if systemctl is-active --quiet $SERVICE_NAME; then
+    echo &quot;Creating backup of current deployment...&quot;
+    mkdir -p $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)
+    cp -r $DEPLOY_DIR/bin $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)/
+    cp -r $DEPLOY_DIR/config $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)/
+fi
+
+# Deploy new binary
+echo &quot;Deploying new binary...&quot;
+cp ./securaa-user-service $DEPLOY_DIR/bin/
+chmod +x $DEPLOY_DIR/bin/securaa-user-service
+chown securaa-user:securaa-user $DEPLOY_DIR/bin/securaa-user-service
+
+# Update configuration
+echo &quot;Updating configuration...&quot;
+cp ./config/* $DEPLOY_DIR/config/
+chown -R securaa-user:securaa-user $DEPLOY_DIR/config/
+
+# Restart service
+echo &quot;Restarting service...&quot;
+systemctl restart $SERVICE_NAME
+
+# Health check
+echo &quot;Performing health check...&quot;
+sleep 10
+
+for i in {1..30}; do
+    if curl -f http://localhost:8081/health &gt; /dev/null 2&gt;&amp;1; then
+        echo &quot;Health check passed!&quot;
+        break
+    fi
+    if [ $i -eq 30 ]; then
+        echo &quot;Health check failed! Rolling back...&quot;
+        systemctl stop $SERVICE_NAME
+        # Restore from backup
+        LATEST_BACKUP=$(ls -t $BACKUP_DIR | head -1)
+        cp -r $BACKUP_DIR/$LATEST_BACKUP/* $DEPLOY_DIR/
+        systemctl start $SERVICE_NAME
+        exit 1
+    fi
+    echo &quot;Waiting for service to start... ($i/30)&quot;
+    sleep 2
+done
+
+echo &quot;Deployment completed successfully!&quot;
+</code></pre>
+
+<pre class="highlight"><code>    - name: JWT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: auth-secrets
+          key: jwt-secret
+    resources:
+      requests:
+        memory: &quot;512Mi&quot;
+        cpu: &quot;500m&quot;
+      limits:
+        memory: &quot;2Gi&quot;
+        cpu: &quot;2000m&quot;
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop:
+        - ALL
+    livenessProbe:
+      httpGet:
+        path: /health/live
+        port: 8000
+        scheme: HTTPS
+      initialDelaySeconds: 60
+      periodSeconds: 30
+      timeoutSeconds: 10
+      failureThreshold: 3
+    readinessProbe:
+      httpGet:
+        path: /health/ready
+        port: 8000
+        scheme: HTTPS
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+    volumeMounts:
+    - name: tls-certificates
+      mountPath: /etc/ssl/certs
+      readOnly: true
+    - name: temp-storage
+      mountPath: /tmp
+    - name: config-volume
+      mountPath: /app/config
+      readOnly: true
+  volumes:
+  - name: tls-certificates
+    secret:
+      secretName: securaa-user-tls
+  - name: temp-storage
+    emptyDir: {}
+  - name: config-volume
+    configMap:
+      name: securaa-user-config
+</code></pre>
+
+<h2 id="monitoring-observability-implementation">📊 <strong>MONITORING &amp; OBSERVABILITY IMPLEMENTATION</strong><a class="headerlink" href="#monitoring-observability-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="comprehensive-monitoring-architecture"><strong>Comprehensive Monitoring Architecture</strong><a class="headerlink" href="#comprehensive-monitoring-architecture" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TB
-    subgraph "System Configuration"
-        OS_CONFIG[OS Hardening<br/>CIS Benchmarks]
-        FIREWALL_CONFIG[Firewall Rules<br/>iptables/ufw]
-        USER_CONFIG[Service Users<br/>Least Privilege]
-        CRON_CONFIG[Scheduled Tasks<br/>Backup/Cleanup]
-    end
-    
-    subgraph "Application Configuration"
-        APP_CONFIG[Application Config<br/>Environment Variables]
-        LOG_CONFIG[Logging Config<br/>Structured Logging]
-        MONITOR_CONFIG[Monitoring Config<br/>Metrics Collection]
-        SECURITY_CONFIG[Security Config<br/>TLS/Certificates]
-    end
-    
-    subgraph "Database Configuration"
-        MONGO_CONFIG[MongoDB Config<br/>Replica Set]
-        REDIS_CONFIG[Redis Config<br/>Memory Optimization]
-        BACKUP_CONFIG[Backup Config<br/>Automated Backups]
-        RESTORE_CONFIG[Restore Config<br/>Recovery Procedures]
-    end
-    
-    subgraph "Network Configuration"
-        DNS_CONFIG[DNS Configuration<br/>Service Discovery]
-        PROXY_CONFIG[Proxy Configuration<br/>Load Balancing]
-        SSL_CONFIG[SSL Configuration<br/>Certificate Management]
-        VPN_CONFIG[VPN Configuration<br/>Secure Access]
-    end
-    
-    OS_CONFIG --> APP_CONFIG
-    FIREWALL_CONFIG --> MONITOR_CONFIG
-    USER_CONFIG --> LOG_CONFIG
-    CRON_CONFIG --> SECURITY_CONFIG
-    
-    APP_CONFIG --> MONGO_CONFIG
-    LOG_CONFIG --> REDIS_CONFIG
-    MONITOR_CONFIG --> BACKUP_CONFIG
-    SECURITY_CONFIG --> RESTORE_CONFIG
-    
-    MONGO_CONFIG --> DNS_CONFIG
-    REDIS_CONFIG --> PROXY_CONFIG
-    BACKUP_CONFIG --> SSL_CONFIG
-    RESTORE_CONFIG --> VPN_CONFIG
-        </div>
+    subgraph "Application Metrics Layer"
+        subgraph "Business Metrics"
+            AUTH_METRICS[Authentication Metrics<br/>Success/Failure Rates]
+            USER_METRICS[User Activity Metrics<br/>Sessions & Actions]
+            TENANT_METRICS[Tenant Metrics<br/>Resource Usage]
+            SECURITY_METRICS[Security Metrics<br/>Threat Detection]
+        end
 
-        <h2 id="monitoring-observability">📊 Monitoring & Observability Implementation</h2>
-        
-        <h3>Comprehensive Monitoring Architecture</h3>
-        
-        <div class="mermaid">
-graph TB
-    subgraph "Application Metrics"
-        APP_METRICS[Application Metrics<br/>Custom Metrics]
-        HTTP_METRICS[HTTP Metrics<br/>Request/Response]
-        BUSINESS_METRICS[Business Metrics<br/>User Actions]
-        ERROR_METRICS[Error Metrics<br/>Exception Tracking]
+        subgraph "Technical Metrics"
+            HTTP_METRICS[HTTP Metrics<br/>Request/Response Times]
+            DB_METRICS[Database Metrics<br/>Connection Pool & Latency]
+            CACHE_METRICS[Cache Metrics<br/>Hit/Miss Ratios]
+            RESOURCE_METRICS[Resource Metrics<br/>CPU/Memory Usage]
+        end
+
+        subgraph "Custom Metrics"
+            JWT_METRICS[JWT Token Metrics<br/>Validation Times]
+            NOTIFICATION_METRICS[Notification Metrics<br/>Delivery Success]
+            INTEGRATION_METRICS[Integration Metrics<br/>External Service Health]
+            COMPLIANCE_METRICS[Compliance Metrics<br/>Audit Trail Quality]
+        end
     end
-    
-    subgraph "Infrastructure Metrics"
-        SYSTEM_METRICS[System Metrics<br/>CPU/Memory/Disk]
-        NETWORK_METRICS[Network Metrics<br/>Bandwidth/Latency]
-        DATABASE_METRICS[Database Metrics<br/>Query Performance]
-        CACHE_METRICS[Cache Metrics<br/>Hit/Miss Ratios]
+
+    subgraph "Data Collection Layer"
+        PROMETHEUS[Prometheus<br/>Metrics Collection & Storage]
+        JAEGER[Jaeger<br/>Distributed Tracing]
+        FLUENTD[Fluentd<br/>Log Aggregation]
+        ELASTICSEARCH[Elasticsearch<br/>Log Storage & Search]
     end
-    
-    subgraph "Log Aggregation"
-        APP_LOGS[Application Logs<br/>Structured JSON]
-        ACCESS_LOGS[Access Logs<br/>HTTP Requests]
-        AUDIT_LOGS[Audit Logs<br/>Security Events]
-        ERROR_LOGS[Error Logs<br/>Exception Details]
+
+    subgraph "Visualization Layer"
+        GRAFANA[Grafana<br/>Dashboards & Visualization]
+        KIBANA[Kibana<br/>Log Analysis & Search]
+        ALERTMANAGER[AlertManager<br/>Alert Routing & Management]
+        CUSTOM_DASHBOARDS[Custom Dashboards<br/>Business Intelligence]
     end
-    
-    subgraph "Monitoring Stack"
-        PROMETHEUS[Prometheus<br/>Metrics Storage]
-        GRAFANA[Grafana<br/>Visualization]
-        ALERTMANAGER[AlertManager<br/>Alert Routing]
-        ELK_STACK[ELK Stack<br/>Log Analysis]
+
+    subgraph "Alerting & Response"
+        ALERT_RULES[Alert Rules<br/>Threshold & Anomaly Detection]
+        NOTIFICATION_CHANNELS[Notification Channels<br/>Email/Slack/PagerDuty]
+        ESCALATION_POLICIES[Escalation Policies<br/>Incident Management]
+        RUNBOOK_AUTOMATION[Runbook Automation<br/>Automated Response]
     end
-    
-    APP_METRICS --> PROMETHEUS
+
+    %% Data Flow
+    AUTH_METRICS --> PROMETHEUS
+    USER_METRICS --> PROMETHEUS
     HTTP_METRICS --> PROMETHEUS
-    BUSINESS_METRICS --> PROMETHEUS
-    ERROR_METRICS --> PROMETHEUS
-    
-    SYSTEM_METRICS --> PROMETHEUS
-    NETWORK_METRICS --> PROMETHEUS
-    DATABASE_METRICS --> PROMETHEUS
-    CACHE_METRICS --> PROMETHEUS
-    
-    APP_LOGS --> ELK_STACK
-    ACCESS_LOGS --> ELK_STACK
-    AUDIT_LOGS --> ELK_STACK
-    ERROR_LOGS --> ELK_STACK
-    
+    DB_METRICS --> PROMETHEUS
+
+    JWT_METRICS --> JAEGER
+    NOTIFICATION_METRICS --> FLUENTD
+    INTEGRATION_METRICS --> FLUENTD
+
     PROMETHEUS --> GRAFANA
+    JAEGER --> GRAFANA
+    FLUENTD --> ELASTICSEARCH
+    ELASTICSEARCH --> KIBANA
+
     PROMETHEUS --> ALERTMANAGER
-    ELK_STACK --> GRAFANA
-        </div>
+    ALERTMANAGER --> NOTIFICATION_CHANNELS
+    NOTIFICATION_CHANNELS --> ESCALATION_POLICIES
+    ESCALATION_POLICIES --> RUNBOOK_AUTOMATION
+</div>
 
-        <h4>Monitoring Capabilities:</h4>
-        <ul>
-            <li><strong>Real-Time Metrics</strong>: Live dashboards with custom metrics</li>
-            <li><strong>Alerting System</strong>: Threshold-based and anomaly detection alerts</li>
-            <li><strong>Log Correlation</strong>: Centralized logging with request tracing</li>
-            <li><strong>Performance Analytics</strong>: Query optimization and bottleneck identification</li>
-        </ul>
-
-        <h2 id="testing-strategy">🧪 Testing Strategy & Implementation</h2>
-        
-        <h3>Comprehensive Testing Pyramid</h3>
-        
-        <div class="mermaid">
+<h3 id="performance-optimization-strategies"><strong>Performance Optimization Strategies</strong><a class="headerlink" href="#performance-optimization-strategies" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TB
-    subgraph "Manual Testing"
-        MANUAL[Manual Testing<br/>Exploratory Testing]
-        UAT[User Acceptance Testing<br/>Business Validation]
-    end
-    
-    subgraph "End-to-End Testing"
-        E2E[E2E Testing<br/>Full Workflow Testing]
-        API_E2E[API E2E Testing<br/>Integration Scenarios]
-    end
-    
-    subgraph "Integration Testing"
-        SERVICE_INT[Service Integration<br/>Component Testing]
-        DB_INT[Database Integration<br/>Data Layer Testing]
-        EXTERNAL_INT[External Integration<br/>Third-party APIs]
-    end
-    
-    subgraph "Unit Testing"
-        UNIT_TESTS[Unit Tests<br/>Function Level Testing]
-        MOCK_TESTS[Mock Testing<br/>Dependency Isolation]
-        TABLE_TESTS[Table-driven Tests<br/>Multiple Scenarios]
-    end
-    
-    MANUAL --> E2E
-    UAT --> API_E2E
-    E2E --> SERVICE_INT
-    API_E2E --> DB_INT
-    SERVICE_INT --> UNIT_TESTS
-    DB_INT --> MOCK_TESTS
-    EXTERNAL_INT --> TABLE_TESTS
-        </div>
+    subgraph "Database Optimization"
+        subgraph "MongoDB Performance"
+            INDEX_STRATEGY[Index Strategy<br/>Compound & Partial Indexes]
+            QUERY_OPTIMIZATION[Query Optimization<br/>Aggregation Pipelines]
+            CONNECTION_POOLING[Connection Pooling<br/>Optimized Pool Size]
+            SHARDING_STRATEGY[Sharding Strategy<br/>Horizontal Scaling]
+        end
 
-        <h4>Testing Implementation:</h4>
-        <ul>
-            <li><strong>Test Coverage</strong>: 80%+ code coverage with quality metrics</li>
-            <li><strong>Automated Testing</strong>: CI/CD pipeline integration with automated test execution</li>
-            <li><strong>Performance Testing</strong>: Load testing and stress testing scenarios</li>
-            <li><strong>Security Testing</strong>: Vulnerability scanning and penetration testing</li>
-        </ul>
+        subgraph "Redis Performance"
+            CACHE_PATTERNS[Cache Patterns<br/>Write-through & Write-behind]
+            MEMORY_OPTIMIZATION[Memory Optimization<br/>Data Structure Selection]
+            CLUSTER_CONFIG[Cluster Configuration<br/>Master-Slave Replication]
+            PIPELINE_BATCHING[Pipeline Batching<br/>Bulk Operations]
+        end
+    end
 
-        <h2>Summary</h2>
-        <p>The Securaa User Service Low Level Design provides comprehensive technical specifications for implementing a robust, scalable, and secure identity management platform. The detailed architecture, database schemas, API specifications, and deployment configurations ensure successful implementation and operation.</p>
-        
-        <p>Key implementation highlights include Go-based microservice architecture, MongoDB with Redis caching, comprehensive security controls, and extensive monitoring capabilities. The modular design and clear separation of concerns facilitate maintenance, testing, and future enhancements.</p>
-        
-        <p>This low-level design serves as a detailed blueprint for development teams to build, deploy, and maintain the Securaa User Service according to enterprise standards and best practices.</p>
+    subgraph "Application Optimization"
+        subgraph "Go Performance"
+            GOROUTINE_POOLS[Goroutine Pools<br/>Concurrent Processing]
+            MEMORY_MANAGEMENT[Memory Management<br/>GC Optimization]
+            CPU_PROFILING[CPU Profiling<br/>Bottleneck Identification]
+            BENCHMARK_TESTING[Benchmark Testing<br/>Performance Validation]
+        end
+
+        subgraph "HTTP Optimization"
+            KEEP_ALIVE[HTTP Keep-Alive<br/>Connection Reuse]
+            COMPRESSION[Response Compression<br/>Gzip Encoding]
+            CACHING_HEADERS[Caching Headers<br/>Browser Caching]
+            REQUEST_MULTIPLEXING[Request Multiplexing<br/>HTTP/2 Support]
+        end
+    end
+
+    subgraph "Infrastructure Optimization"
+        subgraph "Network Performance"
+            CDN_INTEGRATION[CDN Integration<br/>Static Asset Delivery]
+            LOAD_BALANCING[Load Balancing<br/>Traffic Distribution]
+            NETWORK_LATENCY[Network Latency<br/>Geographic Optimization]
+            BANDWIDTH_OPTIMIZATION[Bandwidth Optimization<br/>Data Compression]
+        end
+
+        subgraph "Resource Scaling"
+            HORIZONTAL_SCALING[Horizontal Scaling<br/>Auto-scaling Groups]
+            VERTICAL_SCALING[Vertical Scaling<br/>Resource Allocation]
+            RESOURCE_LIMITS[Resource Limits<br/>System Constraints]
+            CAPACITY_PLANNING[Capacity Planning<br/>Growth Projections]
+        end
+    end
+
+    %% Optimization Dependencies
+    INDEX_STRATEGY --> QUERY_OPTIMIZATION
+    CACHE_PATTERNS --> MEMORY_OPTIMIZATION
+    GOROUTINE_POOLS --> MEMORY_MANAGEMENT
+    KEEP_ALIVE --> COMPRESSION
+    CDN_INTEGRATION --> LOAD_BALANCING
+    HORIZONTAL_SCALING --> VERTICAL_SCALING
+</div>
+
+<h2 id="testing-strategy-implementation">🧪 <strong>TESTING STRATEGY &amp; IMPLEMENTATION</strong><a class="headerlink" href="#testing-strategy-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="comprehensive-testing-pyramid"><strong>Comprehensive Testing Pyramid</strong><a class="headerlink" href="#comprehensive-testing-pyramid" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph TB
+    subgraph "Testing Pyramid"
+        subgraph "Unit Tests (70%)"
+            CONTROLLER_TESTS[Controller Tests<br/>HTTP Handler Testing]
+            SERVICE_TESTS[Service Tests<br/>Business Logic Testing]
+            REPOSITORY_TESTS[Repository Tests<br/>Data Access Testing]
+            UTILITY_TESTS[Utility Tests<br/>Helper Function Testing]
+            VALIDATION_TESTS[Validation Tests<br/>Input Validation Testing]
+        end
+
+        subgraph "Integration Tests (20%)"
+            API_TESTS[API Integration Tests<br/>End-to-End API Testing]
+            DATABASE_TESTS[Database Integration Tests<br/>MongoDB Operations]
+            CACHE_TESTS[Cache Integration Tests<br/>Redis Operations]
+            EXTERNAL_TESTS[External Integration Tests<br/>LDAP/SAML/OAuth Testing]
+            WEBSOCKET_TESTS[WebSocket Tests<br/>Real-time Communication]
+        end
+
+        subgraph "End-to-End Tests (10%)"
+            USER_JOURNEY_TESTS[User Journey Tests<br/>Complete Workflows]
+            SECURITY_TESTS[Security Tests<br/>Authentication & Authorization]
+            PERFORMANCE_TESTS[Performance Tests<br/>Load & Stress Testing]
+            COMPLIANCE_TESTS[Compliance Tests<br/>Regulatory Requirements]
+            DISASTER_RECOVERY_TESTS[DR Tests<br/>Failover & Recovery]
+        end
+    end
+
+    subgraph "Test Automation Pipeline"
+        PRE_COMMIT[Pre-commit Hooks<br/>Code Quality Checks]
+        CI_PIPELINE[CI Pipeline<br/>Automated Test Execution]
+        STAGING_TESTS[Staging Tests<br/>Pre-production Validation]
+        PRODUCTION_TESTS[Production Tests<br/>Smoke Testing]
+        MONITORING_TESTS[Monitoring Tests<br/>Health Check Validation]
+    end
+
+    subgraph "Test Data Management"
+        TEST_FIXTURES[Test Fixtures<br/>Predefined Test Data]
+        MOCK_SERVICES[Mock Services<br/>External Dependencies]
+        DATA_FACTORIES[Data Factories<br/>Dynamic Test Data]
+        CLEANUP_PROCEDURES[Cleanup Procedures<br/>Test Environment Reset]
+    end
+
+    %% Test Flow
+    CONTROLLER_TESTS --> API_TESTS
+    SERVICE_TESTS --> API_TESTS
+    REPOSITORY_TESTS --> DATABASE_TESTS
+
+    API_TESTS --> USER_JOURNEY_TESTS
+    DATABASE_TESTS --> USER_JOURNEY_TESTS
+    EXTERNAL_TESTS --> SECURITY_TESTS
+
+    PRE_COMMIT --> CI_PIPELINE
+    CI_PIPELINE --> STAGING_TESTS
+    STAGING_TESTS --> PRODUCTION_TESTS
+
+    TEST_FIXTURES --> CONTROLLER_TESTS
+    MOCK_SERVICES --> EXTERNAL_TESTS
+    DATA_FACTORIES --> DATABASE_TESTS
+</div>
+
+<h3 id="security-testing-implementation"><strong>Security Testing Implementation</strong><a class="headerlink" href="#security-testing-implementation" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph TB
+    subgraph "Security Testing Categories"
+        subgraph "Static Application Security Testing (SAST)"
+            CODE_ANALYSIS[Static Code Analysis<br/>SonarQube/Checkmarx]
+            DEPENDENCY_SCAN[Dependency Scanning<br/>Vulnerability Detection]
+            SECRET_DETECTION[Secret Detection<br/>Credential Scanning]
+            COMPLIANCE_SCAN[Compliance Scanning<br/>Policy Validation]
+        end
+
+        subgraph "Dynamic Application Security Testing (DAST)"
+            PENETRATION_TESTING[Penetration Testing<br/>Automated Security Testing]
+            VULNERABILITY_SCAN[Vulnerability Scanning<br/>OWASP ZAP/Burp Suite]
+            API_SECURITY_TEST[API Security Testing<br/>Authentication & Authorization]
+            INPUT_VALIDATION_TEST[Input Validation Testing<br/>Injection Attacks]
+        end
+
+        subgraph "Interactive Application Security Testing (IAST)"
+            RUNTIME_ANALYSIS[Runtime Security Analysis<br/>Real-time Monitoring]
+            CODE_COVERAGE[Security Code Coverage<br/>Test Completeness]
+            BEHAVIORAL_ANALYSIS[Behavioral Analysis<br/>Anomaly Detection]
+            PERFORMANCE_IMPACT[Performance Impact Analysis<br/>Security Overhead]
+        end
+
+        subgraph "Infrastructure Security Testing"
+            BINARY_SCAN[Binary Security Scanning<br/>Static Analysis]
+            INFRASTRUCTURE_SCAN[Infrastructure Security Scanning<br/>Server Hardening]
+            NETWORK_SCAN[Network Security Scanning<br/>Port & Service Analysis]
+            CONFIGURATION_AUDIT[Configuration Auditing<br/>Security Hardening]
+        end
+    end
+
+    subgraph "Security Test Automation"
+        SECURITY_PIPELINE[Security CI/CD Pipeline<br/>Automated Security Gates]
+        THREAT_MODELING[Threat Modeling<br/>Risk Assessment]
+        SECURITY_REGRESSION[Security Regression Testing<br/>Continuous Validation]
+        COMPLIANCE_VALIDATION[Compliance Validation<br/>Regulatory Testing]
+    end
+
+    %% Security Testing Flow
+    CODE_ANALYSIS --> SECURITY_PIPELINE
+    PENETRATION_TESTING --> SECURITY_PIPELINE
+    RUNTIME_ANALYSIS --> SECURITY_PIPELINE
+    BINARY_SCAN --> SECURITY_PIPELINE
+
+    SECURITY_PIPELINE --> THREAT_MODELING
+    THREAT_MODELING --> SECURITY_REGRESSION
+    SECURITY_REGRESSION --> COMPLIANCE_VALIDATION
+</div>
+
+<h2 id="configuration-management">🔧 <strong>CONFIGURATION MANAGEMENT</strong><a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h2>
+<h3 id="environment-configuration-strategy"><strong>Environment Configuration Strategy</strong><a class="headerlink" href="#environment-configuration-strategy" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-yaml"># Production Configuration Template
+production:
+  server:
+    port: 8000
+    tls:
+      enabled: true
+      cert_file: &quot;/etc/ssl/certs/server.crt&quot;
+      key_file: &quot;/etc/ssl/private/server.key&quot;
+      min_version: &quot;1.2&quot;
+      max_version: &quot;1.3&quot;
+      cipher_suites:
+        - &quot;TLS_AES_256_GCM_SHA384&quot;
+        - &quot;TLS_CHACHA20_POLY1305_SHA256&quot;
+        - &quot;TLS_AES_128_GCM_SHA256&quot;
+
+  database:
+    mongodb:
+      uri: &quot;${MONGO_URI}&quot;
+      database: &quot;securaa_production&quot;
+      max_pool_size: 200
+      min_pool_size: 50
+      connect_timeout_ms: 30000
+      server_selection_timeout_ms: 30000
+      socket_timeout_ms: 60000
+      max_idle_time_ms: 300000
+
+  cache:
+    redis:
+      cluster_endpoints:
+        - &quot;${REDIS_CLUSTER_1}&quot;
+        - &quot;${REDIS_CLUSTER_2}&quot;
+        - &quot;${REDIS_CLUSTER_3}&quot;
+      password: &quot;${REDIS_PASSWORD}&quot;
+      max_retries: 3
+      retry_delay_ms: 1000
+      dial_timeout_ms: 5000
+      read_timeout_ms: 3000
+      write_timeout_ms: 3000
+      pool_size: 100
+      min_idle_connections: 20
+
+  security:
+    jwt:
+      secret: &quot;${JWT_SECRET}&quot;
+      issuer: &quot;securaa-user-service&quot;
+      audience: &quot;securaa-platform&quot;
+      access_token_ttl: &quot;15m&quot;
+      refresh_token_ttl: &quot;7d&quot;
+      signing_method: &quot;RS256&quot;
+
+    encryption:
+      key: &quot;${ENCRYPTION_KEY}&quot;
+      algorithm: &quot;AES-256-GCM&quot;
+
+    session:
+      timeout: &quot;4h&quot;
+      max_concurrent_sessions: 3
+      secure_cookies: true
+      same_site: &quot;strict&quot;
+
+    password_policy:
+      min_length: 12
+      require_uppercase: true
+      require_lowercase: true
+      require_numbers: true
+      require_special_chars: true
+      prevent_reuse_count: 12
+      max_age_days: 90
+
+  integrations:
+    ldap:
+      servers:
+        - &quot;${LDAP_SERVER_1}&quot;
+        - &quot;${LDAP_SERVER_2}&quot;
+      base_dn: &quot;${LDAP_BASE_DN}&quot;
+      bind_dn: &quot;${LDAP_BIND_DN}&quot;
+      bind_password: &quot;${LDAP_BIND_PASSWORD}&quot;
+      user_search_filter: &quot;(uid=%s)&quot;
+      group_search_filter: &quot;(memberUid=%s)&quot;
+      tls_enabled: true
+      skip_cert_verify: false
+
+    saml:
+      entity_id: &quot;securaa-user-service&quot;
+      assertion_consumer_service_url: &quot;https://api.securaa.com/auth/saml/acs&quot;
+      single_logout_service_url: &quot;https://api.securaa.com/auth/saml/sls&quot;
+      metadata_url: &quot;${SAML_METADATA_URL}&quot;
+      certificate_file: &quot;/etc/ssl/certs/saml.crt&quot;
+      private_key_file: &quot;/etc/ssl/private/saml.key&quot;
+
+    oauth2:
+      providers:
+        google:
+          client_id: &quot;${GOOGLE_CLIENT_ID}&quot;
+          client_secret: &quot;${GOOGLE_CLIENT_SECRET}&quot;
+          redirect_url: &quot;https://api.securaa.com/auth/oauth/google/callback&quot;
+          scopes: [&quot;openid&quot;, &quot;profile&quot;, &quot;email&quot;]
+        microsoft:
+          client_id: &quot;${MICROSOFT_CLIENT_ID}&quot;
+          client_secret: &quot;${MICROSOFT_CLIENT_SECRET}&quot;
+          redirect_url: &quot;https://api.securaa.com/auth/oauth/microsoft/callback&quot;
+          scopes: [&quot;openid&quot;, &quot;profile&quot;, &quot;email&quot;]
+
+    smtp:
+      host: &quot;${SMTP_HOST}&quot;
+      port: 587
+      username: &quot;${SMTP_USERNAME}&quot;
+      password: &quot;${SMTP_PASSWORD}&quot;
+      from_address: &quot;noreply@securaa.com&quot;
+      use_tls: true
+      connection_pool_size: 10
+
+    sms:
+      provider: &quot;twilio&quot;
+      account_sid: &quot;${TWILIO_ACCOUNT_SID}&quot;
+      auth_token: &quot;${TWILIO_AUTH_TOKEN}&quot;
+      from_number: &quot;${TWILIO_FROM_NUMBER}&quot;
+
+  monitoring:
+    metrics:
+      enabled: true
+      port: 9090
+      path: &quot;/metrics&quot;
+
+    logging:
+      level: &quot;info&quot;
+      format: &quot;json&quot;
+      output: &quot;stdout&quot;
+
+    tracing:
+      enabled: true
+      jaeger:
+        endpoint: &quot;${JAEGER_ENDPOINT}&quot;
+        sampler_type: &quot;probabilistic&quot;
+        sampler_param: 0.1
+
+    health_checks:
+      enabled: true
+      endpoints:
+        - path: &quot;/health&quot;
+          method: &quot;GET&quot;
+        - path: &quot;/health/ready&quot;
+          method: &quot;GET&quot;
+        - path: &quot;/health/live&quot;
+          method: &quot;GET&quot;
+
+  compliance:
+    audit_logging:
+      enabled: true
+      retention_days: 2555  # 7 years
+      encryption_enabled: true
+      remote_storage: true
+
+    data_protection:
+      gdpr_enabled: true
+      data_retention_days: 1825  # 5 years
+      anonymization_enabled: true
+      right_to_be_forgotten: true
+
+    regulatory:
+      soc2_mode: true
+      hipaa_mode: true
+      pci_dss_mode: true
+      iso27001_mode: true
+</code></pre>
+
+<h2 id="operational-procedures">📋 <strong>OPERATIONAL PROCEDURES</strong><a class="headerlink" href="#operational-procedures" title="Permanent link">&para;</a></h2>
+<h3 id="deployment-automation-pipeline"><strong>Deployment Automation Pipeline</strong><a class="headerlink" href="#deployment-automation-pipeline" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph LR
+    subgraph "CI/CD Pipeline"
+        subgraph "Source Control"
+            GIT[Git Repository<br/>Source Code]
+            PR[Pull Request<br/>Code Review]
+            MERGE[Merge to Main<br/>Integration]
+        end
+
+        subgraph "Build Stage"
+            BUILD[Build Binary<br/>Go Compilation]
+            TEST[Run Tests<br/>Unit & Integration]
+            LINT[Code Linting<br/>Quality Checks]
+            SECURITY_SCAN[Security Scanning<br/>SAST Analysis]
+        end
+
+        subgraph "Package Stage"
+            ARTIFACT_BUILD[Artifact Build<br/>Binary Packaging]
+            SECURITY_SCAN_PKG[Package Scanning<br/>Vulnerability Detection]
+            ARTIFACT_STORE[Artifact Storage<br/>Version Repository]
+            CONFIG_PACKAGE[Config Package<br/>Deployment Configs]
+        end
+
+        subgraph "Deploy Stage"
+            STAGING_DEPLOY[Staging Deployment<br/>Pre-production Testing]
+            SMOKE_TESTS[Smoke Tests<br/>Basic Functionality]
+            PROD_DEPLOY[Production Deployment<br/>Blue-Green Strategy]
+            POST_DEPLOY[Post-deployment<br/>Health Validation]
+        end
+
+        subgraph "Monitoring Stage"
+            METRICS_CHECK[Metrics Validation<br/>Performance Monitoring]
+            ALERT_CONFIG[Alert Configuration<br/>Monitoring Setup]
+            ROLLBACK[Automatic Rollback<br/>Failure Recovery]
+            SUCCESS[Deployment Success<br/>Notification]
+        end
+    end
+
+    %% Pipeline Flow
+    GIT --> PR
+    PR --> MERGE
+    MERGE --> BUILD
+
+    BUILD --> TEST
+    TEST --> LINT
+    LINT --> SECURITY_SCAN
+
+    SECURITY_SCAN --> ARTIFACT_BUILD
+    ARTIFACT_BUILD --> SECURITY_SCAN_PKG
+    SECURITY_SCAN_PKG --> ARTIFACT_STORE
+    ARTIFACT_STORE --> CONFIG_PACKAGE
+
+    CONFIG_PACKAGE --> STAGING_DEPLOY
+    STAGING_DEPLOY --> SMOKE_TESTS
+    SMOKE_TESTS --> PROD_DEPLOY
+    PROD_DEPLOY --> POST_DEPLOY
+
+    POST_DEPLOY --> METRICS_CHECK
+    METRICS_CHECK --> ALERT_CONFIG
+    ALERT_CONFIG --> SUCCESS
+
+    %% Failure Paths
+    SMOKE_TESTS -.-> ROLLBACK
+    METRICS_CHECK -.-> ROLLBACK
+</div>
+
+<h3 id="incident-response-procedures"><strong>Incident Response Procedures</strong><a class="headerlink" href="#incident-response-procedures" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph TB
+    subgraph "Incident Response Workflow"
+        subgraph "Detection & Alerting"
+            MONITORING[Monitoring Systems<br/>Automated Detection]
+            ALERT[Alert Generation<br/>Severity Classification]
+            ESCALATION[Alert Escalation<br/>On-call Engineer]
+            TRIAGE[Initial Triage<br/>Impact Assessment]
+        end
+
+        subgraph "Response & Investigation"
+            INCIDENT_COMMAND[Incident Command<br/>Response Coordination]
+            INVESTIGATION[Root Cause Analysis<br/>Diagnostic Procedures]
+            COMMUNICATION[Communication<br/>Stakeholder Updates]
+            MITIGATION[Mitigation Actions<br/>Immediate Response]
+        end
+
+        subgraph "Resolution & Recovery"
+            FIX_IMPLEMENTATION[Fix Implementation<br/>Code/Config Changes]
+            TESTING[Solution Testing<br/>Validation Procedures]
+            DEPLOYMENT[Emergency Deployment<br/>Hotfix Release]
+            VERIFICATION[Solution Verification<br/>Health Confirmation]
+        end
+
+        subgraph "Post-Incident"
+            POST_MORTEM[Post-mortem Analysis<br/>Lessons Learned]
+            ACTION_ITEMS[Action Items<br/>Improvement Plans]
+            DOCUMENTATION[Documentation Update<br/>Runbook Enhancement]
+            TRAINING[Team Training<br/>Knowledge Sharing]
+        end
+    end
+
+    %% Incident Flow
+    MONITORING --> ALERT
+    ALERT --> ESCALATION
+    ESCALATION --> TRIAGE
+
+    TRIAGE --> INCIDENT_COMMAND
+    INCIDENT_COMMAND --> INVESTIGATION
+    INVESTIGATION --> COMMUNICATION
+    COMMUNICATION --> MITIGATION
+
+    MITIGATION --> FIX_IMPLEMENTATION
+    FIX_IMPLEMENTATION --> TESTING
+    TESTING --> DEPLOYMENT
+    DEPLOYMENT --> VERIFICATION
+
+    VERIFICATION --> POST_MORTEM
+    POST_MORTEM --> ACTION_ITEMS
+    ACTION_ITEMS --> DOCUMENTATION
+    DOCUMENTATION --> TRAINING
+</div>
+
+<h2 id="performance-benchmarks-targets">🎯 <strong>PERFORMANCE BENCHMARKS &amp; TARGETS</strong><a class="headerlink" href="#performance-benchmarks-targets" title="Permanent link">&para;</a></h2>
+<h3 id="service-level-objectives-slos"><strong>Service Level Objectives (SLOs)</strong><a class="headerlink" href="#service-level-objectives-slos" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Metric Category</th>
+<th>Objective</th>
+<th>Target</th>
+<th>Measurement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Availability</strong></td>
+<td>Service Uptime</td>
+<td>99.99%</td>
+<td>Monthly rolling window</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>Authentication Response</td>
+<td>&lt; 100ms (p95)</td>
+<td>Request duration</td>
+</tr>
+<tr>
+<td><strong>Performance</strong></td>
+<td>API Response Time</td>
+<td>&lt; 200ms (p99)</td>
+<td>End-to-end latency</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>Concurrent Users</td>
+<td>10,000+</td>
+<td>Peak load capacity</td>
+</tr>
+<tr>
+<td><strong>Reliability</strong></td>
+<td>Error Rate</td>
+<td>&lt; 0.1%</td>
+<td>Request success ratio</td>
+</tr>
+<tr>
+<td><strong>Security</strong></td>
+<td>Auth Success Rate</td>
+<td>&gt; 99.5%</td>
+<td>Authentication attempts</td>
+</tr>
+<tr>
+<td><strong>Recovery</strong></td>
+<td>RTO (Recovery Time)</td>
+<td>&lt; 15 minutes</td>
+<td>Incident response</td>
+</tr>
+<tr>
+<td><strong>Recovery</strong></td>
+<td>RPO (Recovery Point)</td>
+<td>&lt; 5 minutes</td>
+<td>Data loss window</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resource-utilization-targets"><strong>Resource Utilization Targets</strong><a class="headerlink" href="#resource-utilization-targets" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+gantt
+    title Resource Utilization Timeline
+    dateFormat X
+    axisFormat %s
+
+    section CPU Usage
+    Baseline Load    :0, 30
+    Normal Load      :30, 60
+    Peak Load        :60, 80
+    Critical Threshold :crit, 80, 90
+
+    section Memory Usage
+    Baseline Memory  :0, 40
+    Normal Memory    :40, 70
+    Peak Memory      :70, 85
+    Memory Critical  :crit, 85, 95
+
+    section Network I/O
+    Baseline Network :0, 25
+    Normal Network   :25, 50
+    Peak Network     :50, 75
+    Network Critical :crit, 75, 90
+</div>
+
+<h2 id="security-implementation-checklist">🔒 <strong>SECURITY IMPLEMENTATION CHECKLIST</strong><a class="headerlink" href="#security-implementation-checklist" title="Permanent link">&para;</a></h2>
+<h3 id="security-controls-implementation-status"><strong>Security Controls Implementation Status</strong><a class="headerlink" href="#security-controls-implementation-status" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Security Control</th>
+<th>Implementation Status</th>
+<th>Validation Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Multi-Factor Authentication</strong></td>
+<td>✅ Implemented</td>
+<td>Automated testing + Manual verification</td>
+</tr>
+<tr>
+<td><strong>JWT Token Security</strong></td>
+<td>✅ Implemented</td>
+<td>Security scanning + Penetration testing</td>
+</tr>
+<tr>
+<td><strong>Role-Based Access Control</strong></td>
+<td>✅ Implemented</td>
+<td>Permission matrix testing</td>
+</tr>
+<tr>
+<td><strong>Tenant Data Isolation</strong></td>
+<td>✅ Implemented</td>
+<td>Cross-tenant access testing</td>
+</tr>
+<tr>
+<td><strong>Encryption at Rest</strong></td>
+<td>✅ Implemented</td>
+<td>Database encryption verification</td>
+</tr>
+<tr>
+<td><strong>Encryption in Transit</strong></td>
+<td>✅ Implemented</td>
+<td>TLS configuration validation</td>
+</tr>
+<tr>
+<td><strong>Input Validation</strong></td>
+<td>✅ Implemented</td>
+<td>Injection attack testing</td>
+</tr>
+<tr>
+<td><strong>Audit Logging</strong></td>
+<td>✅ Implemented</td>
+<td>Log completeness verification</td>
+</tr>
+<tr>
+<td><strong>Session Management</strong></td>
+<td>✅ Implemented</td>
+<td>Session security testing</td>
+</tr>
+<tr>
+<td><strong>Rate Limiting</strong></td>
+<td>✅ Implemented</td>
+<td>Load testing + DoS simulation</td>
+</tr>
+<tr>
+<td><strong>CORS Protection</strong></td>
+<td>✅ Implemented</td>
+<td>Cross-origin request testing</td>
+</tr>
+<tr>
+<td><strong>CSRF Protection</strong></td>
+<td>✅ Implemented</td>
+<td>CSRF attack simulation</td>
+</tr>
+<tr>
+<td><strong>SQL/NoSQL Injection Prevention</strong></td>
+<td>✅ Implemented</td>
+<td>Injection attack testing</td>
+</tr>
+<tr>
+<td><strong>XSS Protection</strong></td>
+<td>✅ Implemented</td>
+<td>Script injection testing</td>
+</tr>
+<tr>
+<td><strong>Security Headers</strong></td>
+<td>✅ Implemented</td>
+<td>Header configuration validation</td>
+</tr>
+</tbody>
+</table>
+<p>This comprehensive Low Level Design document provides detailed technical specifications, implementation details, code structure, database schemas, API designs, security implementations, deployment configurations, and operational procedures for the Securaa User Service. The document includes extensive diagrams, code examples, and configuration templates to guide development and operations teams in implementing and maintaining this critical security service.</p>
     </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>

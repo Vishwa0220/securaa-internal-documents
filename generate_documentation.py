@@ -1,15 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Securaa Platform Documentation - Securaa SIEM Service - Low Level Design">
-    <title>Securaa SIEM Service - Low Level Design - Securaa Documentation</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
+#!/usr/bin/env python3
+"""
+Securaa Documentation Generator
+Generates HTML and PDF documentation from Markdown files with properly rendered Mermaid diagrams.
+"""
 
+import asyncio
+import os
+import re
+import json
+from pathlib import Path
+from datetime import datetime
+from string import Template
+import markdown
+from markdown.extensions import codehilite, fenced_code, tables, toc
+
+# Configuration
+DOCS_DIR = Path('docs')
+PDF_DIR = DOCS_DIR / 'pdf'
+ROOT_DIR = Path('.')
+
+# Markdown files to process (order matters for index generation)
+MD_FILES = [
+    ('securaa-platform-high-level-design.md', 'Securaa Platform - High Level Design'),
+    ('process-manager-high-level-design.md', 'Process Manager - High Level Design'),
+    ('process-manager-low-level-design.md', 'Process Manager - Low Level Design'),
+    ('securaa-playbook-high-level-design.md', 'Securaa Playbook Service - High Level Design'),
+    ('securaa-playbook-low-level-design.md', 'Securaa Playbook Service - Low Level Design'),
+    ('securaa-siem-high-level-design.md', 'Securaa SIEM Service - High Level Design'),
+    ('securaa-siem-low-level-design.md', 'Securaa SIEM Service - Low Level Design'),
+    ('securaa-user-high-level-design.md', 'Securaa User Service - High Level Design'),
+    ('securaa-user-low-level-design.md', 'Securaa User Service - Low Level Design'),
+    ('securaa-custom-services-high-level-design.md', 'Securaa Custom Services - High Level Design'),
+    ('securaa-custom-services-low-level-design.md', 'Securaa Custom Services - Low Level Design'),
+    ('securaa-custom-utils-high-level-design.md', 'Securaa Custom Utils - High Level Design'),
+    ('securaa-custom-utils-low-level-design.md', 'Securaa Custom Utils - Low Level Design'),
+    ('securaa-ris-high-level-design.md', 'Securaa RIS - High Level Design'),
+    ('securaa-ris-low-level-design.md', 'Securaa RIS - Low Level Design'),
+    ('securaa-ris-client-documentation.md', 'Securaa RIS Client Documentation'),
+    ('securaa-ris-server-documentation.md', 'Securaa RIS Server Documentation'),
+    ('sia-service-high-level-design.md', 'SIA Service - High Level Design'),
+    ('sia-service-low-level-design.md', 'SIA Service - Low Level Design'),
+    ('securaa-make-system.md', 'Securaa Make System'),
+    ('OPTIMIZATION_GUIDE.md', 'Optimization Guide'),
+    ('secura-customer-security-documentation.md', 'Customer Security Documentation'),
+    ('securaa-information-security-risk-assesment-process.md', 'Information Security Risk Assessment'),
+]
+
+# Enhanced CSS with better Mermaid diagram styling
+CSS_STYLES = """
 :root {
     --primary-color: #4f46e5;
     --primary-dark: #3730a3;
@@ -593,7 +631,21 @@ hr {
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--border-color);
 }
+"""
 
+# HTML Template using $placeholders
+HTML_TEMPLATE = Template("""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Securaa Platform Documentation - $title">
+    <title>$title - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+$css
     </style>
 </head>
 <body>
@@ -601,7 +653,7 @@ hr {
         <div class="header-content">
             <div class="header-logo">Securaa<span>Docs</span></div>
             <div class="header-meta">
-                <span>Generated: December 04, 2025</span>
+                <span>Generated: $date</span>
             </div>
         </div>
     </header>
@@ -620,224 +672,12 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="zona_siem-service">zona_siem Service<a class="headerlink" href="#zona_siem-service" title="Permanent link">&para;</a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p><code>zona_siem</code> is a multi-tenant Security Information and Event Management (SIEM) service written in Go. It provides RESTful APIs for incident and case management, dashboard analytics, playbook automation, and integrations with external SIEM tools. The service is modular, scalable, and designed for extensibility.</p>
-<hr />
-<h2 id="directory-structure">Directory Structure<a class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h2>
-<pre class="highlight"><code>zona_siem/
-├── controllers/   # API endpoint handlers
-├── services/      # Business logic modules
-├── models/        # Data models and DB access
-├── helpers/       # Utility functions
-├── utils/         # Shared utilities
-├── constant/      # Application-wide constants
-├── main.go        # Service entry point
-├── app.go         # Application setup and router
-</code></pre>
-
-<hr />
-<h2 id="component-design">Component Design<a class="headerlink" href="#component-design" title="Permanent link">&para;</a></h2>
-<h3 id="main-components">Main Components<a class="headerlink" href="#main-components" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>controllers/</strong>: Handles HTTP requests, authentication, and input validation.</li>
-<li><strong>services/</strong>: Implements business logic (incident processing, case management, dashboard metrics).</li>
-<li><strong>models/</strong>: Defines data structures and manages database operations.</li>
-<li><strong>helpers/</strong>: Provides reusable functions (e.g., MITRE mapping, case mirroring).</li>
-<li><strong>utils/</strong>: Shared utility functions.</li>
-<li><strong>constant/</strong>: Centralized configuration and static values.</li>
-</ul>
-<hr />
-<h3 id="class-diagram-mermaid">Class Diagram (Mermaid)<a class="headerlink" href="#class-diagram-mermaid" title="Permanent link">&para;</a></h3>
-<div class="mermaid">
-classDiagram
-    class App {
-        +Router *mux.Router
-        +DBSession map[string]common.SessionStruct
-        +ConfigObject config.ConfigStruct
-        +Initialize()
-        +Run(addr string)
-    }
-    class IncidentsController {
-        +GetTotalCasesCountAujas(w, r, dbSession, configObject)
-        +...other incident methods
-    }
-    class CaseGroupController {
-        +GetSIEMIncidentLabels(w, r, dbSession, configObject)
-        +...other case group methods
-    }
-    class CategoryController {
-        +GetAllIncidentCategories(w, r, dbSession, configObject)
-        +...other category methods
-    }
-    class MonitoringDashboardController {
-        +GetDiskUsageHandler(w, r, client)
-        +...other dashboard methods
-    }
-    App --> IncidentsController
-    App --> CaseGroupController
-    App --> CategoryController
-    App --> MonitoringDashboardController
-</div>
-
-<hr />
-<h2 id="data-structures">Data Structures<a class="headerlink" href="#data-structures" title="Permanent link">&para;</a></h2>
-<h3 id="incident-zonaoffenses">Incident (ZonaOffenses)<a class="headerlink" href="#incident-zonaoffenses" title="Permanent link">&para;</a></h3>
-<pre class="highlight"><code class="language-go">type ZonaOffenses struct {
-    ZonaZIncidentID int `json:&quot;zona_z_incident_id&quot; bson:&quot;zona_z_incident_id&quot;`
-    ZonaCredibility int `json:&quot;zona_credibility&quot; bson:&quot;credibility&quot;`
-    ZonaSourceAddressIDs []int `json:&quot;zona_source_address_ids&quot; bson:&quot;source_address_ids&quot;`
-    ZonaRemoteDestinationCount int `json:&quot;zona_remote_destination_count&quot; bson:&quot;remote_destination_count&quot;`
-    ZonaLocalDestinationAddressIDs []int `json:&quot;zona_local_destination_address_ids&quot; bson:&quot;local_destination_address_ids&quot;`
-    ZonaAssignedTo interface{} `json:&quot;zona_assigned_to&quot; bson:&quot;zona_assigned_to&quot;`
-    ZonaLocalDestinationCount int `json:&quot;zona_local_destination_count&quot; bson:&quot;local_destination_count&quot;`
-    ZonaSourceCount int `json:&quot;zona_source_count&quot; bson:&quot;source_count&quot;`
-    ZonaStartTime int64 `json:&quot;zona_start_time&quot; bson:&quot;start_time&quot;`
-    // ... more fields
-}
-</code></pre>
-
-<h3 id="case-grouping">Case Grouping<a class="headerlink" href="#case-grouping" title="Permanent link">&para;</a></h3>
-<pre class="highlight"><code class="language-go">type CaseGrouping struct {
-    GroupName string `json:&quot;group_name&quot; bson:&quot;group_name&quot;`
-    CaseID int `json:&quot;caseid&quot; bson:&quot;caseid&quot;`
-    CaseSource string `json:&quot;case_source&quot; bson:&quot;case_source&quot;`
-    Category string `json:&quot;category&quot; bson:&quot;category&quot;`
-    // ... more fields
-}
-</code></pre>
-
-<h3 id="category">Category<a class="headerlink" href="#category" title="Permanent link">&para;</a></h3>
-<pre class="highlight"><code class="language-go">type Category struct {
-    ID int `json:&quot;id&quot; bson:&quot;id&quot;`
-    Name string `json:&quot;name&quot; bson:&quot;name&quot;`
-    Status string `json:&quot;status&quot; bson:&quot;status&quot;`
-    TenantCode string `json:&quot;tenantcode&quot; bson:&quot;tenantcode&quot;`
-    // ... more fields
-}
-</code></pre>
-
-<h3 id="monitoring-dashboard">Monitoring Dashboard<a class="headerlink" href="#monitoring-dashboard" title="Permanent link">&para;</a></h3>
-<pre class="highlight"><code class="language-go">type DiskUsage struct {
-    Total string `json:&quot;total&quot;`
-    Used string `json:&quot;used&quot;`
-    Remaining string `json:&quot;remaining&quot;`
-    UtilizationPercent string `json:&quot;utilization_percent&quot;`
-}
-</code></pre>
-
-<hr />
-<h2 id="database-design">Database Design<a class="headerlink" href="#database-design" title="Permanent link">&para;</a></h2>
-<h3 id="entity-relationship-diagram-mermaid">Entity Relationship Diagram (Mermaid)<a class="headerlink" href="#entity-relationship-diagram-mermaid" title="Permanent link">&para;</a></h3>
-<div class="mermaid">
-erDiagram
-    ZONAOFFENSES ||--o{ CASEGROUPING : grouped_in
-    ZONAOFFENSES {
-        int zona_z_incident_id PK
-        int zona_credibility
-        ...
-    }
-    CASEGROUPING {
-        int caseid PK
-        string group_name
-        string category
-        ...
-    }
-    CATEGORY {
-        int id PK
-        string name
-        string status
-        string tenantcode
-        ...
-    }
-</div>
-
-<hr />
-<h2 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h2>
-<h3 id="example-endpoints">Example Endpoints<a class="headerlink" href="#example-endpoints" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>/incidents/totalcasescountaujas</code> (GET): Get total cases count for a tenant in a time range</li>
-<li><code>/casegroup/siemincidentlabels</code> (GET): Get SIEM incident labels for a tenant</li>
-<li><code>/category/allincidentcategories</code> (GET): Get all incident categories for a tenant</li>
-<li><code>/dashboard/diskusage</code> (GET): Get disk usage metrics</li>
-</ul>
-<h3 id="requestresponse-example">Request/Response Example<a class="headerlink" href="#requestresponse-example" title="Permanent link">&para;</a></h3>
-<p><strong>Request:</strong></p>
-<pre class="highlight"><code class="language-json">GET /incidents/totalcasescountaujas?tenantcode=abc&amp;from_date=1690000000&amp;to_date=1699999999
-</code></pre>
-
-<p><strong>Response:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;success&quot;: true,
-  &quot;data&quot;: {
-    &quot;total_cases&quot;: 42
-  }
-}
-</code></pre>
-
-<hr />
-<h2 id="sequence-diagram-incident-count-retrieval">Sequence Diagram: Incident Count Retrieval<a class="headerlink" href="#sequence-diagram-incident-count-retrieval" title="Permanent link">&para;</a></h2>
-<div class="mermaid">
-sequenceDiagram
-    participant Client
-    participant App
-    participant IncidentsController
-    participant Models
-    participant Database
-
-    Client->>App: GET /incidents/totalcasescountaujas
-    App->>IncidentsController: Route request
-    IncidentsController->>Models: Query total cases
-    Models->>Database: Aggregate cases by time range
-    Database-->>Models: Return count
-    Models-->>IncidentsController: Return result
-    IncidentsController-->>App: Respond with JSON
-    App-->>Client: Response
-</div>
-
-<hr />
-<h2 id="configuration-constants">Configuration &amp; Constants<a class="headerlink" href="#configuration-constants" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Constants are defined in <code>constant/constants.go</code> (e.g., default columns, function names).</li>
-<li>Configuration is loaded via <code>ConfigObject</code> in <code>app.go</code>.</li>
-<li>Environment variables and config files are used for DB, SIEM endpoints, and secrets.</li>
-</ul>
-<hr />
-<h2 id="error-handling-logging">Error Handling &amp; Logging<a class="headerlink" href="#error-handling-logging" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Errors are handled in controllers and returned as JSON responses.</li>
-<li>Logging is performed using <code>securaalog</code>.</li>
-<li>Standardized error messages and paths for debugging.</li>
-</ul>
-<hr />
-<h2 id="performance-scalability">Performance &amp; Scalability<a class="headerlink" href="#performance-scalability" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Uses MongoDB for scalable data storage.</li>
-<li>Modular controller/service/model structure for maintainability.</li>
-<li>Can be containerized and deployed with Docker.</li>
-<li>Caching and aggregation for dashboard metrics.</li>
-</ul>
-<hr />
-<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Clone the repository.</li>
-<li>Configure environment variables and config files.</li>
-<li>Build and run the service:<br />
-<code>bash
-   go build -o zona_siem
-   ./zona_siem</code></li>
-<li>Access APIs on the configured port (default: 8003).</li>
-</ol>
-<hr />
-<h2 id="contact-contribution">Contact &amp; Contribution<a class="headerlink" href="#contact-contribution" title="Permanent link">&para;</a></h2>
-<p>For questions or contributions, please open an issue or pull request.</p>
-<hr />
-<p><strong>End of README</strong></p>
+        $content
     </main>
 
     <footer class="footer">
-        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
-        <p>Documentation generated on December 04, 2025</p>
+        <p>&copy; $year Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on $date</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -924,3 +764,302 @@ sequenceDiagram
     </script>
 </body>
 </html>
+""")
+
+# Index Page Template
+INDEX_TEMPLATE = Template("""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Securaa Platform Documentation Portal">
+    <title>Securaa Platform Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+$css
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Documentation Portal</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="hero">
+            <h1>Securaa Platform Documentation</h1>
+            <p>Comprehensive technical documentation for the Securaa Security Platform, including architecture designs, API references, and implementation guides.</p>
+        </div>
+
+        <h2 class="section-title">Core Services</h2>
+        <div class="doc-sections">
+            <div class="doc-card">
+                <h3>Platform Overview</h3>
+                <p>High-level architecture and deployment topologies for the Securaa Platform.</p>
+                <div class="links">
+                    <a href="securaa-platform-high-level-design.html">HLD</a>
+                    <a href="pdf/securaa-platform-high-level-design.pdf">PDF</a>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3>Playbook Service</h3>
+                <p>SOAR automation engine for security orchestration and response workflows.</p>
+                <div class="links">
+                    <a href="securaa-playbook-high-level-design.html">HLD</a>
+                    <a href="securaa-playbook-low-level-design.html">LLD</a>
+                    <a href="pdf/securaa-playbook-high-level-design.pdf">PDF</a>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3>SIEM Service</h3>
+                <p>Security Information and Event Management for incident handling and analytics.</p>
+                <div class="links">
+                    <a href="securaa-siem-high-level-design.html">HLD</a>
+                    <a href="securaa-siem-low-level-design.html">LLD</a>
+                    <a href="pdf/securaa-siem-high-level-design.pdf">PDF</a>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3>User Service</h3>
+                <p>Identity and access management with multi-tenant support.</p>
+                <div class="links">
+                    <a href="securaa-user-high-level-design.html">HLD</a>
+                    <a href="securaa-user-low-level-design.html">LLD</a>
+                    <a href="pdf/securaa-user-high-level-design.pdf">PDF</a>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3>Custom Services</h3>
+                <p>Custom application and integration management platform.</p>
+                <div class="links">
+                    <a href="securaa-custom-services-high-level-design.html">HLD</a>
+                    <a href="securaa-custom-services-low-level-design.html">LLD</a>
+                    <a href="pdf/securaa-custom-services-high-level-design.pdf">PDF</a>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3>SIA Service</h3>
+                <p>AI-powered SOC automation with LLM integration for intelligent analysis.</p>
+                <div class="links">
+                    <a href="sia-service-high-level-design.html">HLD</a>
+                    <a href="sia-service-low-level-design.html">LLD</a>
+                    <a href="pdf/sia-service-high-level-design.pdf">PDF</a>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Infrastructure & Operations</h2>
+        <div class="doc-sections">
+            <div class="doc-card">
+                <h3>Process Manager</h3>
+                <p>Microservices orchestration and lifecycle management.</p>
+                <div class="links">
+                    <a href="process-manager-high-level-design.html">HLD</a>
+                    <a href="process-manager-low-level-design.html">LLD</a>
+                    <a href="pdf/process-manager-high-level-design.pdf">PDF</a>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3>RIS (Remote Integration Service)</h3>
+                <p>Remote integration and connectivity service documentation.</p>
+                <div class="links">
+                    <a href="securaa-ris-high-level-design.html">HLD</a>
+                    <a href="securaa-ris-low-level-design.html">LLD</a>
+                    <a href="securaa-ris-client-documentation.html">Client</a>
+                    <a href="securaa-ris-server-documentation.html">Server</a>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3>Custom Utils</h3>
+                <p>Utility services and helper functions for the platform.</p>
+                <div class="links">
+                    <a href="securaa-custom-utils-high-level-design.html">HLD</a>
+                    <a href="securaa-custom-utils-low-level-design.html">LLD</a>
+                    <a href="pdf/securaa-custom-utils-high-level-design.pdf">PDF</a>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3>Make System</h3>
+                <p>Build and deployment automation system.</p>
+                <div class="links">
+                    <a href="securaa-make-system.html">Documentation</a>
+                    <a href="pdf/securaa-make-system.pdf">PDF</a>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Guides & References</h2>
+        <div class="doc-sections">
+            <div class="doc-card">
+                <h3>Optimization Guide</h3>
+                <p>Performance optimization and best practices for the platform.</p>
+                <div class="links">
+                    <a href="OPTIMIZATION_GUIDE.html">Guide</a>
+                    <a href="pdf/OPTIMIZATION_GUIDE.pdf">PDF</a>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3>Security Documentation</h3>
+                <p>Customer security documentation and compliance information.</p>
+                <div class="links">
+                    <a href="secura-customer-security-documentation.html">Security</a>
+                    <a href="securaa-information-security-risk-assesment-process.html">Risk Assessment</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; $year Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on $date</p>
+    </footer>
+</body>
+</html>
+""")
+
+
+def process_mermaid_blocks(content: str) -> str:
+    """
+    Convert markdown mermaid code blocks to HTML div elements.
+    """
+    # Pattern to match mermaid code blocks
+    mermaid_pattern = r'```mermaid\s*\n([\s\S]*?)```'
+
+    def replace_mermaid(match):
+        diagram_content = match.group(1).strip()
+        # Wrap in a div with mermaid class
+        return f'<div class="mermaid">\n{diagram_content}\n</div>'
+
+    return re.sub(mermaid_pattern, replace_mermaid, content)
+
+
+def convert_md_to_html(md_content: str, title: str) -> str:
+    """
+    Convert markdown content to HTML with proper formatting.
+    """
+    # Process mermaid blocks first (before markdown processing)
+    content = process_mermaid_blocks(md_content)
+
+    # Configure markdown extensions
+    md = markdown.Markdown(extensions=[
+        'tables',
+        'fenced_code',
+        'codehilite',
+        'toc',
+        'nl2br',
+        'sane_lists',
+    ], extension_configs={
+        'codehilite': {
+            'css_class': 'highlight',
+            'guess_lang': True,
+        },
+        'toc': {
+            'permalink': True,
+            'toc_depth': 4,
+        }
+    })
+
+    # Convert markdown to HTML
+    html_content = md.convert(content)
+
+    # Generate full HTML document
+    now = datetime.now()
+    full_html = HTML_TEMPLATE.substitute(
+        title=title,
+        css=CSS_STYLES,
+        content=html_content,
+        date=now.strftime('%B %d, %Y'),
+        year=now.year
+    )
+
+    return full_html
+
+
+def generate_index_page() -> str:
+    """
+    Generate the index HTML page.
+    """
+    now = datetime.now()
+    return INDEX_TEMPLATE.substitute(
+        css=CSS_STYLES,
+        date=now.strftime('%B %d, %Y'),
+        year=now.year
+    )
+
+
+def main():
+    """
+    Main function to generate all HTML documentation.
+    """
+    print("\n=== Securaa Documentation Generator ===\n")
+
+    # Ensure docs directory exists
+    DOCS_DIR.mkdir(exist_ok=True)
+    PDF_DIR.mkdir(exist_ok=True)
+
+    # Generate index page
+    print("Generating index.html...")
+    index_html = generate_index_page()
+    index_path = DOCS_DIR / 'index.html'
+    with open(index_path, 'w', encoding='utf-8') as f:
+        f.write(index_html)
+    print(f"  Created: {index_path}")
+
+    # Process each markdown file
+    success_count = 0
+    error_count = 0
+
+    for md_file, title in MD_FILES:
+        md_path = ROOT_DIR / md_file
+
+        if not md_path.exists():
+            print(f"  Skipped: {md_file} (not found)")
+            error_count += 1
+            continue
+
+        try:
+            # Read markdown content
+            with open(md_path, 'r', encoding='utf-8') as f:
+                md_content = f.read()
+
+            # Convert to HTML
+            html_content = convert_md_to_html(md_content, title)
+
+            # Generate output filename
+            html_filename = md_file.replace('.md', '.html')
+            html_path = DOCS_DIR / html_filename
+
+            # Write HTML file
+            with open(html_path, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+
+            print(f"  Created: {html_filename}")
+            success_count += 1
+
+        except Exception as e:
+            print(f"  Error processing {md_file}: {str(e)}")
+            error_count += 1
+
+    print(f"\n=== Generation Complete ===")
+    print(f"  Successful: {success_count}")
+    print(f"  Errors: {error_count}")
+    print(f"  Output directory: {DOCS_DIR.absolute()}")
+
+
+if __name__ == '__main__':
+    main()

@@ -3,55 +3,628 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Security Documentation - Securaa Platform Documentation</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
+    <meta name="description" content="Securaa Platform Documentation - Customer Security Documentation">
+    <title>Customer Security Documentation - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
-    
+
     <nav class="documentation-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-ris-high-level-design.html">RIS High Level Design</a></li>
-            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-            <li><a href="securaa-ris-client-documentation.html">RIS Client Documentation</a></li>
-            <li><a href="securaa-ris-server-documentation.html">RIS Server Documentation</a></li>
-            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-            <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-            <li><a href="securaa-siem-low-level-design.html">Securaa SIEM Low Level Design</a></li>
-            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-            <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
-            <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
-            <li><a href="securaa-custom-utils-high-level-design.html">Securaa Custom Utils High Level Design</a></li>
-            <li><a href="securaa-custom-utils-low-level-design.html">Securaa Custom Utils Low Level Design</a></li>
-            <li><a href="securaa-make-system-high-level-design.html">Securaa Make System High Level Design</a></li>
-            <li><a href="securaa-make-system-low-level-design.html">Securaa Make System Low Level Design</a></li>
-            <li><a href="sia-service-high-level-design.html">SIA Service High Level Design</a></li>
-            <li><a href="sia-service-low-level-design.html">SIA Service Low Level Design</a></li>
-            <li><a href="secura-customer-security-documentation.html">Customer Security Documentation</a></li>
-            <li><a href="securaa-information-security-risk-assesment-process.html">Information Security Risk Assessment</a></li>
-        </ul>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
     </nav>
-    
+
     <main class="main-content">
-<h1 id="securaa-platform-security-documentation">SECURAA Platform Security Documentation</h1>
-<h2 id="comprehensive-security-framework-and-compliance-readiness-guide">Comprehensive Security Framework and Compliance Readiness Guide</h2>
+        <h1 id="securaa-platform-security-documentation">SECURAA Platform Security Documentation<a class="headerlink" href="#securaa-platform-security-documentation" title="Permanent link">&para;</a></h1>
+<h2 id="comprehensive-security-framework-and-compliance-readiness-guide">Comprehensive Security Framework and Compliance Readiness Guide<a class="headerlink" href="#comprehensive-security-framework-and-compliance-readiness-guide" title="Permanent link">&para;</a></h2>
 <p><img alt="SECURAA Logo" src="https://via.placeholder.com/200x80/0066CC/FFFFFF?text=SECURAA" /></p>
 <hr />
-<h2 id="table-of-contents">Table of Contents</h2>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ol>
 <li><a href="#executive-summary">Executive Summary</a></li>
 <li><a href="#platform-security-overview">Platform Security Overview</a></li>
@@ -65,9 +638,9 @@
 <li><a href="#security-roadmap--support">Security Roadmap &amp; Support</a></li>
 </ol>
 <hr />
-<h2 id="executive-summary">Executive Summary</h2>
+<h2 id="executive-summary">Executive Summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
 <p><strong>SECURAA</strong> is an enterprise-grade cybersecurity platform built with security-first principles, providing comprehensive threat detection, incident response, and security management capabilities. Our platform implements robust security controls and is designed to meet the requirements of major security standards and regulatory frameworks.</p>
-<h3 id="key-security-highlights">Key Security Highlights</h3>
+<h3 id="key-security-highlights">Key Security Highlights<a class="headerlink" href="#key-security-highlights" title="Permanent link">&para;</a></h3>
 <p>✅ <strong>Zero Trust Architecture</strong> - Every component verified and authenticated<br />
 ✅ <strong>End-to-End Encryption</strong> - AES-256 encryption for all sensitive data<br />
 ✅ <strong>Multi-Factor Authentication</strong> - Robust identity verification systems<br />
@@ -75,8 +648,8 @@
 ✅ <strong>Advanced Security Monitoring</strong> - Comprehensive threat detection capabilities<br />
 ✅ <strong>Privacy by Design</strong> - Built-in data protection and privacy controls  </p>
 <hr />
-<h2 id="platform-security-overview">Platform Security Overview</h2>
-<h3 id="security-first-design-philosophy">Security-First Design Philosophy</h3>
+<h2 id="platform-security-overview">Platform Security Overview<a class="headerlink" href="#platform-security-overview" title="Permanent link">&para;</a></h2>
+<h3 id="security-first-design-philosophy">Security-First Design Philosophy<a class="headerlink" href="#security-first-design-philosophy" title="Permanent link">&para;</a></h3>
 <p>SECURAA has been architected from the ground up with security as the foundational principle. Every component, service, and data flow implements multiple layers of security controls based on industry best practices and regulatory requirements.</p>
 <div class="mermaid">
 graph TB
@@ -85,20 +658,20 @@ graph TB
         B[Data Breaches]
         C[Unauthorized Access]
     end
-    
+
     subgraph "SECURAA Security Controls"
         D[Multi-Factor Authentication]
         E[End-to-End Encryption]
         F[Real-time Monitoring]
         G[Access Controls]
     end
-    
+
     subgraph "Protected Assets"
         H[Customer Data]
         I[Business Intelligence]
         J[Security Analytics]
     end
-    
+
     A --> D
     B --> E
     C --> G
@@ -108,7 +681,7 @@ graph TB
     G --> H
 </div>
 
-<h3 id="core-security-principles">Core Security Principles</h3>
+<h3 id="core-security-principles">Core Security Principles<a class="headerlink" href="#core-security-principles" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -141,8 +714,8 @@ graph TB
 </tbody>
 </table>
 <hr />
-<h2 id="security-architecture">Security Architecture</h2>
-<h3 id="multi-layered-defense-strategy">Multi-Layered Defense Strategy</h3>
+<h2 id="security-architecture">Security Architecture<a class="headerlink" href="#security-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="multi-layered-defense-strategy">Multi-Layered Defense Strategy<a class="headerlink" href="#multi-layered-defense-strategy" title="Permanent link">&para;</a></h3>
 <p>SECURAA implements a comprehensive defense-in-depth strategy with multiple security layers protecting your data and operations.</p>
 <div class="mermaid">
 graph TB
@@ -151,25 +724,25 @@ graph TB
         B[DDoS Protection]
         C[Intrusion Detection]
     end
-    
+
     subgraph "Layer 2: Application Security"
         D[API Gateway Security]
         E[Input Validation]
         F[Session Management]
     end
-    
+
     subgraph "Layer 3: Data Security"
         G[Encryption at Rest]
         H[Encryption in Transit]
         I[Key Management]
     end
-    
+
     subgraph "Layer 4: Infrastructure Security"
         J[Container Security]
         K[Network Segmentation]
         L[Endpoint Protection]
     end
-    
+
     A --> D
     B --> E
     C --> F
@@ -181,63 +754,63 @@ graph TB
     I --> L
 </div>
 
-<h3 id="implemented-security-components">Implemented Security Components</h3>
-<h4 id="frontend-security-zonareact">Frontend Security (zonareact)</h4>
-<p><strong>Currently Implemented:</strong>
-- Client-side AES encryption for sensitive data
-- Token-based session management with automatic expiration
-- Input validation and sanitization
+<h3 id="implemented-security-components">Implemented Security Components<a class="headerlink" href="#implemented-security-components" title="Permanent link">&para;</a></h3>
+<h4 id="frontend-security-zonareact">Frontend Security (zonareact)<a class="headerlink" href="#frontend-security-zonareact" title="Permanent link">&para;</a></h4>
+<p><strong>Currently Implemented:</strong><br />
+- Client-side AES encryption for sensitive data<br />
+- Token-based session management with automatic expiration<br />
+- Input validation and sanitization<br />
 - Secure credential handling with encrypted storage</p>
 <p><strong>Technical Implementation:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// Client-side encryption implementation</span>
-<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">encrypt</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">processedData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">AES</span><span class="p">.</span><span class="nx">encrypt</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">encryptionKey</span><span class="p">);</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">processedData</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
-<span class="p">}</span>
+<pre class="highlight"><code class="language-javascript">// Client-side encryption implementation
+export function encrypt(data) {
+    let processedData = CryptoJS.AES.encrypt(data, encryptionKey);
+    return processedData.toString();
+}
 
-<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">decrypt</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">processedData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">AES</span><span class="p">.</span><span class="nx">decrypt</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">encryptionKey</span><span class="p">)</span>
-<span class="w">        </span><span class="nx">processedData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">processedData</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">Utf8</span><span class="p">);</span>
-<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// Secure session cleanup on decryption failure</span>
-<span class="w">        </span><span class="nx">clearSecureSession</span><span class="p">();</span>
-<span class="w">        </span><span class="nx">redirectToLogin</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">processedData</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+export function decrypt(data) {
+    try {
+        processedData = CryptoJS.AES.decrypt(data, encryptionKey)
+        processedData = processedData.toString(CryptoJS.enc.Utf8);
+    } catch (e) {
+        // Secure session cleanup on decryption failure
+        clearSecureSession();
+        redirectToLogin();
+    }
+    return processedData;
+}
+</code></pre>
 
-<h4 id="api-security-zona_services">API Security (zona_services)</h4>
-<p><strong>Currently Implemented:</strong>
-- JWT token authentication and validation
-- API gateway security with KrakenD
-- TLS encryption for all communications
+<h4 id="api-security-zona_services">API Security (zona_services)<a class="headerlink" href="#api-security-zona_services" title="Permanent link">&para;</a></h4>
+<p><strong>Currently Implemented:</strong><br />
+- JWT token authentication and validation<br />
+- API gateway security with KrakenD<br />
+- TLS encryption for all communications<br />
 - Input validation and rate limiting</p>
 <p><strong>Configuration Example:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;client_tls&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;allow_insecure_connections&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;input_headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Authorization&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;jwt_validation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;jwk_security&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;token_validation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;strict&quot;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-json">{
+  &quot;client_tls&quot;: {
+    &quot;allow_insecure_connections&quot;: false
+  },
+  &quot;input_headers&quot;: [&quot;Authorization&quot;],
+  &quot;jwt_validation&quot;: {
+    &quot;jwk_security&quot;: true,
+    &quot;token_validation&quot;: &quot;strict&quot;
+  }
+}
+</code></pre>
 
-<h4 id="database-security-securaa_db">Database Security (securaa_db)</h4>
-<p><strong>Currently Implemented:</strong>
-- MongoDB authentication and authorization
-- Encrypted credential storage and management
-- Database connection security
+<h4 id="database-security-securaa_db">Database Security (securaa_db)<a class="headerlink" href="#database-security-securaa_db" title="Permanent link">&para;</a></h4>
+<p><strong>Currently Implemented:</strong><br />
+- MongoDB authentication and authorization<br />
+- Encrypted credential storage and management<br />
+- Database connection security<br />
 - Access control and user management</p>
 <hr />
-<h2 id="data-protection-privacy">Data Protection &amp; Privacy</h2>
-<h3 id="comprehensive-data-protection-framework">Comprehensive Data Protection Framework</h3>
+<h2 id="data-protection-privacy">Data Protection &amp; Privacy<a class="headerlink" href="#data-protection-privacy" title="Permanent link">&para;</a></h2>
+<h3 id="comprehensive-data-protection-framework">Comprehensive Data Protection Framework<a class="headerlink" href="#comprehensive-data-protection-framework" title="Permanent link">&para;</a></h3>
 <p>SECURAA implements robust data protection measures designed to meet stringent privacy requirements and regulatory standards.</p>
-<h4 id="data-classification-handling">Data Classification &amp; Handling</h4>
+<h4 id="data-classification-handling">Data Classification &amp; Handling<a class="headerlink" href="#data-classification-handling" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -279,48 +852,48 @@ graph TB
 </tr>
 </tbody>
 </table>
-<h4 id="encryption-implementation">Encryption Implementation</h4>
-<p><strong>Current Encryption Standards:</strong>
-- <strong>Algorithm</strong>: AES-256 (Advanced Encryption Standard)
-- <strong>Implementation</strong>: Industry-standard libraries (CryptoJS, Go crypto)
-- <strong>Key Management</strong>: Secure key storage and rotation capabilities
+<h4 id="encryption-implementation">Encryption Implementation<a class="headerlink" href="#encryption-implementation" title="Permanent link">&para;</a></h4>
+<p><strong>Current Encryption Standards:</strong><br />
+- <strong>Algorithm</strong>: AES-256 (Advanced Encryption Standard)<br />
+- <strong>Implementation</strong>: Industry-standard libraries (CryptoJS, Go crypto)<br />
+- <strong>Key Management</strong>: Secure key storage and rotation capabilities<br />
 - <strong>Transport Security</strong>: TLS 1.2+ for all communications</p>
 <p><strong>Backend Encryption Service:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// Credential encryption service (securaa_lib)</span>
-<span class="kd">func</span><span class="w"> </span><span class="nx">CredentialsEncrypt</span><span class="p">(</span><span class="nx">stringToEncrypt</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">origData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">stringToEncrypt</span><span class="p">)</span>
-<span class="w">    </span><span class="nx">k</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
-<span class="w">    </span><span class="nx">block</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">aes</span><span class="p">.</span><span class="nx">NewCipher</span><span class="p">(</span><span class="nx">k</span><span class="p">)</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="nx">blockSize</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">block</span><span class="p">.</span><span class="nx">BlockSize</span><span class="p">()</span>
-<span class="w">    </span><span class="nx">origData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">PKCS7Padding</span><span class="p">(</span><span class="nx">origData</span><span class="p">,</span><span class="w"> </span><span class="nx">blockSize</span><span class="p">)</span>
-<span class="w">    </span><span class="nx">blockMode</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cipher</span><span class="p">.</span><span class="nx">NewCBCEncrypter</span><span class="p">(</span><span class="nx">block</span><span class="p">,</span><span class="w"> </span><span class="nx">k</span><span class="p">[:</span><span class="nx">blockSize</span><span class="p">])</span>
-<span class="w">    </span><span class="nx">crypted</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">origData</span><span class="p">))</span>
-<span class="w">    </span><span class="nx">blockMode</span><span class="p">.</span><span class="nx">CryptBlocks</span><span class="p">(</span><span class="nx">crypted</span><span class="p">,</span><span class="w"> </span><span class="nx">origData</span><span class="p">)</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">base64</span><span class="p">.</span><span class="nx">StdEncoding</span><span class="p">.</span><span class="nx">EncodeToString</span><span class="p">(</span><span class="nx">crypted</span><span class="p">),</span><span class="w"> </span><span class="kc">nil</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-go">// Credential encryption service (securaa_lib)
+func CredentialsEncrypt(stringToEncrypt string, key string) (string, error) {
+    origData := []byte(stringToEncrypt)
+    k := []byte(key)
+    block, err := aes.NewCipher(k)
+    if err != nil {
+        return &quot;&quot;, err
+    }
+    blockSize := block.BlockSize()
+    origData = PKCS7Padding(origData, blockSize)
+    blockMode := cipher.NewCBCEncrypter(block, k[:blockSize])
+    crypted := make([]byte, len(origData))
+    blockMode.CryptBlocks(crypted, origData)
+    return base64.StdEncoding.EncodeToString(crypted), nil
+}
+</code></pre>
 
-<h4 id="privacy-controls">Privacy Controls</h4>
+<h4 id="privacy-controls">Privacy Controls<a class="headerlink" href="#privacy-controls" title="Permanent link">&para;</a></h4>
 <p>🔒 <strong>Data Minimization</strong>: System designed to collect only necessary data<br />
 🔒 <strong>Purpose Limitation</strong>: Clear data usage policies and controls<br />
 🔒 <strong>Secure Storage</strong>: All sensitive data encrypted at rest<br />
 🔒 <strong>Access Controls</strong>: Role-based access with audit logging<br />
 🔒 <strong>Data Lifecycle Management</strong>: Retention and deletion policies  </p>
 <hr />
-<h2 id="access-control-authentication">Access Control &amp; Authentication</h2>
-<h3 id="authentication-framework">Authentication Framework</h3>
+<h2 id="access-control-authentication">Access Control &amp; Authentication<a class="headerlink" href="#access-control-authentication" title="Permanent link">&para;</a></h2>
+<h3 id="authentication-framework">Authentication Framework<a class="headerlink" href="#authentication-framework" title="Permanent link">&para;</a></h3>
 <p>SECURAA implements a robust authentication system with multiple security layers.</p>
-<h4 id="multi-factor-authentication-design">Multi-Factor Authentication Design</h4>
+<h4 id="multi-factor-authentication-design">Multi-Factor Authentication Design<a class="headerlink" href="#multi-factor-authentication-design" title="Permanent link">&para;</a></h4>
 <div class="mermaid">
 sequenceDiagram
     participant U as User
     participant UI as SECURAA UI
     participant Auth as Auth Service
     participant DB as Database
-    
+
     U->>UI: Login Request
     UI->>UI: Input Validation
     UI->>Auth: Encrypted Credentials
@@ -332,7 +905,7 @@ sequenceDiagram
     UI-->>U: Access Granted
 </div>
 
-<h4 id="access-control-implementation">Access Control Implementation</h4>
+<h4 id="access-control-implementation">Access Control Implementation<a class="headerlink" href="#access-control-implementation" title="Permanent link">&para;</a></h4>
 <p><strong>Role-Based Access Control (RBAC):</strong></p>
 <table>
 <thead>
@@ -370,7 +943,7 @@ sequenceDiagram
 </tr>
 </tbody>
 </table>
-<h4 id="session-security-features">Session Security Features</h4>
+<h4 id="session-security-features">Session Security Features<a class="headerlink" href="#session-security-features" title="Permanent link">&para;</a></h4>
 <ul>
 <li><strong>Automatic Timeout</strong>: Configurable session expiration</li>
 <li><strong>Secure Token Storage</strong>: Encrypted client-side storage</li>
@@ -378,10 +951,10 @@ sequenceDiagram
 <li><strong>Logout Procedures</strong>: Secure session cleanup</li>
 </ul>
 <hr />
-<h2 id="infrastructure-security">Infrastructure Security</h2>
-<h3 id="container-and-service-security">Container and Service Security</h3>
+<h2 id="infrastructure-security">Infrastructure Security<a class="headerlink" href="#infrastructure-security" title="Permanent link">&para;</a></h2>
+<h3 id="container-and-service-security">Container and Service Security<a class="headerlink" href="#container-and-service-security" title="Permanent link">&para;</a></h3>
 <p>SECURAA leverages containerized architecture with comprehensive security controls.</p>
-<h4 id="current-security-implementations">Current Security Implementations</h4>
+<h4 id="current-security-implementations">Current Security Implementations<a class="headerlink" href="#current-security-implementations" title="Permanent link">&para;</a></h4>
 <div class="mermaid">
 graph TB
     subgraph "Security Controls"
@@ -390,44 +963,44 @@ graph TB
         C[Resource Limits]
         D[Process Monitoring]
     end
-    
+
     subgraph "Monitoring Systems"
         E[Health Checks]
         F[Performance Monitoring]
         G[Security Logging]
         H[Audit Trails]
     end
-    
+
     A --> E
     B --> F
     C --> G
     D --> H
 </div>
 
-<p><strong>Implemented Features:</strong>
-- <strong>Container Security</strong>: Isolated service environments
-- <strong>Network Controls</strong>: Service-to-service communication security
-- <strong>Resource Management</strong>: CPU, memory, and storage controls
+<p><strong>Implemented Features:</strong><br />
+- <strong>Container Security</strong>: Isolated service environments<br />
+- <strong>Network Controls</strong>: Service-to-service communication security<br />
+- <strong>Resource Management</strong>: CPU, memory, and storage controls<br />
 - <strong>Monitoring Integration</strong>: Comprehensive system monitoring</p>
-<h4 id="database-infrastructure-security">Database Infrastructure Security</h4>
+<h4 id="database-infrastructure-security">Database Infrastructure Security<a class="headerlink" href="#database-infrastructure-security" title="Permanent link">&para;</a></h4>
 <p><strong>MongoDB Security Configuration:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Current database security setup</span>
-<span class="na">mongoDbHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">localhost</span>
-<span class="na">mongoUserName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[ENCRYPTED]</span>
-<span class="na">mongoPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[ENCRYPTED] </span>
-<span class="na">mongoAuthDb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">admin</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-properties"># Current database security setup
+mongoDbHost = localhost
+mongoUserName = [ENCRYPTED]
+mongoPassword = [ENCRYPTED] 
+mongoAuthDb = admin
+</code></pre>
 
-<p><strong>Security Features:</strong>
-- Authentication required for all database connections
-- Encrypted credential storage and transmission
-- Connection pooling with security controls
+<p><strong>Security Features:</strong><br />
+- Authentication required for all database connections<br />
+- Encrypted credential storage and transmission<br />
+- Connection pooling with security controls<br />
 - Backup encryption and secure storage</p>
 <hr />
-<h2 id="compliance-readiness">Compliance Readiness</h2>
-<h3 id="regulatory-framework-alignment">Regulatory Framework Alignment</h3>
+<h2 id="compliance-readiness">Compliance Readiness<a class="headerlink" href="#compliance-readiness" title="Permanent link">&para;</a></h2>
+<h3 id="regulatory-framework-alignment">Regulatory Framework Alignment<a class="headerlink" href="#regulatory-framework-alignment" title="Permanent link">&para;</a></h3>
 <p>SECURAA has been designed and implemented with compliance requirements in mind, preparing the platform for formal certification processes.</p>
-<h4 id="compliance-readiness-status">Compliance Readiness Status</h4>
+<h4 id="compliance-readiness-status">Compliance Readiness Status<a class="headerlink" href="#compliance-readiness-status" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -464,30 +1037,30 @@ graph TB
 </tr>
 </tbody>
 </table>
-<h4 id="implemented-security-controls">Implemented Security Controls</h4>
-<p><strong>SOC 2 Trust Principles Coverage:</strong>
-- ✅ <strong>Security</strong>: Multi-layered security architecture implemented
-- ✅ <strong>Availability</strong>: High availability design and monitoring
-- ✅ <strong>Processing Integrity</strong>: Data validation and error handling
-- ✅ <strong>Confidentiality</strong>: Encryption and access controls
+<h4 id="implemented-security-controls">Implemented Security Controls<a class="headerlink" href="#implemented-security-controls" title="Permanent link">&para;</a></h4>
+<p><strong>SOC 2 Trust Principles Coverage:</strong><br />
+- ✅ <strong>Security</strong>: Multi-layered security architecture implemented<br />
+- ✅ <strong>Availability</strong>: High availability design and monitoring<br />
+- ✅ <strong>Processing Integrity</strong>: Data validation and error handling<br />
+- ✅ <strong>Confidentiality</strong>: Encryption and access controls<br />
 - ✅ <strong>Privacy</strong>: Privacy controls and data protection measures</p>
-<p><strong>Current Compliance Capabilities:</strong>
-- Comprehensive audit logging and monitoring
-- Role-based access controls and authentication
-- Data encryption and protection measures
-- Incident response and monitoring procedures
+<p><strong>Current Compliance Capabilities:</strong><br />
+- Comprehensive audit logging and monitoring<br />
+- Role-based access controls and authentication<br />
+- Data encryption and protection measures<br />
+- Incident response and monitoring procedures<br />
 - Documentation and policy frameworks</p>
-<h4 id="audit-preparation">Audit Preparation</h4>
-<p><strong>Assessment Readiness:</strong>
-- Security architecture documentation complete
-- Control implementation evidence available
-- Monitoring and logging systems operational
+<h4 id="audit-preparation">Audit Preparation<a class="headerlink" href="#audit-preparation" title="Permanent link">&para;</a></h4>
+<p><strong>Assessment Readiness:</strong><br />
+- Security architecture documentation complete<br />
+- Control implementation evidence available<br />
+- Monitoring and logging systems operational<br />
 - Policy and procedure frameworks established</p>
 <hr />
-<h2 id="security-monitoring-incident-response">Security Monitoring &amp; Incident Response</h2>
-<h3 id="security-operations-capabilities">Security Operations Capabilities</h3>
+<h2 id="security-monitoring-incident-response">Security Monitoring &amp; Incident Response<a class="headerlink" href="#security-monitoring-incident-response" title="Permanent link">&para;</a></h2>
+<h3 id="security-operations-capabilities">Security Operations Capabilities<a class="headerlink" href="#security-operations-capabilities" title="Permanent link">&para;</a></h3>
 <p>SECURAA implements comprehensive security monitoring and incident response capabilities designed for enterprise security requirements.</p>
-<h4 id="real-time-security-monitoring">Real-Time Security Monitoring</h4>
+<h4 id="real-time-security-monitoring">Real-Time Security Monitoring<a class="headerlink" href="#real-time-security-monitoring" title="Permanent link">&para;</a></h4>
 <div class="mermaid">
 graph TB
     subgraph "Data Collection"
@@ -496,21 +1069,21 @@ graph TB
         C[User Activities]
         D[Network Traffic]
     end
-    
+
     subgraph "Analysis & Detection"
         E[Log Analysis]
         F[Anomaly Detection]
         G[Pattern Recognition]
         H[Threat Correlation]
     end
-    
+
     subgraph "Response Actions"
         I[Alert Generation]
         J[Automated Response]
         K[Incident Tracking]
         L[Escalation Procedures]
     end
-    
+
     A --> E
     B --> F
     C --> G
@@ -521,18 +1094,18 @@ graph TB
     H --> L
 </div>
 
-<h4 id="implemented-monitoring-features">Implemented Monitoring Features</h4>
-<p><strong>Current Capabilities:</strong>
-- <strong>System Health Monitoring</strong>: Continuous infrastructure monitoring
-- <strong>Security Event Logging</strong>: Comprehensive audit trail generation
-- <strong>User Activity Tracking</strong>: Authentication and access monitoring
+<h4 id="implemented-monitoring-features">Implemented Monitoring Features<a class="headerlink" href="#implemented-monitoring-features" title="Permanent link">&para;</a></h4>
+<p><strong>Current Capabilities:</strong><br />
+- <strong>System Health Monitoring</strong>: Continuous infrastructure monitoring<br />
+- <strong>Security Event Logging</strong>: Comprehensive audit trail generation<br />
+- <strong>User Activity Tracking</strong>: Authentication and access monitoring<br />
 - <strong>Error and Exception Handling</strong>: Automated error detection and logging</p>
-<p><strong>Monitoring Integration:</strong>
-- Centralized logging with secure log storage
-- Real-time system health and performance monitoring
-- Security event correlation and analysis
+<p><strong>Monitoring Integration:</strong><br />
+- Centralized logging with secure log storage<br />
+- Real-time system health and performance monitoring<br />
+- Security event correlation and analysis<br />
 - Automated alerting and notification systems</p>
-<h4 id="incident-response-framework">Incident Response Framework</h4>
+<h4 id="incident-response-framework">Incident Response Framework<a class="headerlink" href="#incident-response-framework" title="Permanent link">&para;</a></h4>
 <p><strong>Response Procedures:</strong></p>
 <table>
 <thead>
@@ -571,34 +1144,34 @@ graph TB
 </tbody>
 </table>
 <hr />
-<h2 id="customer-security-benefits">Customer Security Benefits</h2>
-<h3 id="security-value-proposition">Security Value Proposition</h3>
+<h2 id="customer-security-benefits">Customer Security Benefits<a class="headerlink" href="#customer-security-benefits" title="Permanent link">&para;</a></h2>
+<h3 id="security-value-proposition">Security Value Proposition<a class="headerlink" href="#security-value-proposition" title="Permanent link">&para;</a></h3>
 <p>SECURAA's security-first approach delivers measurable benefits that protect your organization while enabling business growth.</p>
-<h4 id="risk-mitigation">Risk Mitigation</h4>
+<h4 id="risk-mitigation">Risk Mitigation<a class="headerlink" href="#risk-mitigation" title="Permanent link">&para;</a></h4>
 <p>🛡️ <strong>Advanced Threat Prevention</strong>: Multi-layered security architecture<br />
 🛡️ <strong>Data Protection</strong>: End-to-end encryption and secure storage<br />
 🛡️ <strong>Access Control</strong>: Robust authentication and authorization<br />
 🛡️ <strong>Compliance Ready</strong>: Designed for regulatory requirements  </p>
-<h4 id="operational-benefits">Operational Benefits</h4>
+<h4 id="operational-benefits">Operational Benefits<a class="headerlink" href="#operational-benefits" title="Permanent link">&para;</a></h4>
 <p>⚡ <strong>Security Visibility</strong>: Comprehensive monitoring and reporting<br />
 ⚡ <strong>Automated Controls</strong>: Reduced manual security overhead<br />
 ⚡ <strong>Rapid Deployment</strong>: Security built-in from deployment<br />
 ⚡ <strong>Expert Design</strong>: Security best practices implementation  </p>
-<h4 id="cost-effectiveness">Cost Effectiveness</h4>
+<h4 id="cost-effectiveness">Cost Effectiveness<a class="headerlink" href="#cost-effectiveness" title="Permanent link">&para;</a></h4>
 <p>💰 <strong>Integrated Security</strong>: Comprehensive platform reduces tool sprawl<br />
 💰 <strong>Compliance Preparation</strong>: Ready for formal certification processes<br />
 💰 <strong>Proactive Protection</strong>: Prevention-focused security approach<br />
 💰 <strong>Operational Efficiency</strong>: Automated security controls and monitoring  </p>
-<h3 id="implementation-benefits">Implementation Benefits</h3>
+<h3 id="implementation-benefits">Implementation Benefits<a class="headerlink" href="#implementation-benefits" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p><em>"SECURAA's security-first architecture provided us with confidence in our cybersecurity posture. The comprehensive security controls and monitoring capabilities give us the visibility and protection we need."</em></p>
 <p><strong>— IT Security Professional, Enterprise Customer</strong></p>
 </blockquote>
 <hr />
-<h2 id="security-roadmap-support">Security Roadmap &amp; Support</h2>
-<h3 id="continuous-security-enhancement">Continuous Security Enhancement</h3>
+<h2 id="security-roadmap-support">Security Roadmap &amp; Support<a class="headerlink" href="#security-roadmap-support" title="Permanent link">&para;</a></h2>
+<h3 id="continuous-security-enhancement">Continuous Security Enhancement<a class="headerlink" href="#continuous-security-enhancement" title="Permanent link">&para;</a></h3>
 <p>SECURAA maintains an active security roadmap focused on advancing our security capabilities and achieving formal compliance certifications.</p>
-<h4 id="security-development-roadmap">Security Development Roadmap</h4>
+<h4 id="security-development-roadmap">Security Development Roadmap<a class="headerlink" href="#security-development-roadmap" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
 <tr>
@@ -635,7 +1208,7 @@ graph TB
 </tr>
 </tbody>
 </table>
-<h4 id="security-support-framework">Security Support Framework</h4>
+<h4 id="security-support-framework">Security Support Framework<a class="headerlink" href="#security-support-framework" title="Permanent link">&para;</a></h4>
 <p><strong>Customer Security Services:</strong></p>
 <table>
 <thead>
@@ -673,7 +1246,7 @@ graph TB
 </tr>
 </tbody>
 </table>
-<h4 id="ongoing-security-commitment">Ongoing Security Commitment</h4>
+<h4 id="ongoing-security-commitment">Ongoing Security Commitment<a class="headerlink" href="#ongoing-security-commitment" title="Permanent link">&para;</a></h4>
 <p><strong>Security Improvement Process:</strong></p>
 <div class="mermaid">
 graph LR
@@ -685,66 +1258,148 @@ graph LR
     F --> A
 </div>
 
-<p><strong>Security Resources:</strong>
-- Regular security updates and enhancements
-- Security best practice documentation
-- Compliance preparation assistance
+<p><strong>Security Resources:</strong><br />
+- Regular security updates and enhancements<br />
+- Security best practice documentation<br />
+- Compliance preparation assistance<br />
 - Customer security training and guidance</p>
 <hr />
-<h2 id="getting-started-with-securaa-security">Getting Started with SECURAA Security</h2>
-<h3 id="security-implementation-process">Security Implementation Process</h3>
+<h2 id="getting-started-with-securaa-security">Getting Started with SECURAA Security<a class="headerlink" href="#getting-started-with-securaa-security" title="Permanent link">&para;</a></h2>
+<h3 id="security-implementation-process">Security Implementation Process<a class="headerlink" href="#security-implementation-process" title="Permanent link">&para;</a></h3>
 <p>SECURAA provides comprehensive support to ensure your organization benefits from our security capabilities from day one.</p>
-<h4 id="implementation-phases">Implementation Phases</h4>
-<p><strong>Phase 1: Security Planning (Week 1)</strong>
-- Current security requirements assessment
-- Risk analysis and security objectives
-- Implementation planning and timeline
+<h4 id="implementation-phases">Implementation Phases<a class="headerlink" href="#implementation-phases" title="Permanent link">&para;</a></h4>
+<p><strong>Phase 1: Security Planning (Week 1)</strong><br />
+- Current security requirements assessment<br />
+- Risk analysis and security objectives<br />
+- Implementation planning and timeline<br />
 - Security configuration design</p>
-<p><strong>Phase 2: Secure Deployment (Week 2-3)</strong>
-- Platform deployment with security controls
-- Authentication and access control setup
-- Encryption and data protection activation
+<p><strong>Phase 2: Secure Deployment (Week 2-3)</strong><br />
+- Platform deployment with security controls<br />
+- Authentication and access control setup<br />
+- Encryption and data protection activation<br />
 - Security monitoring configuration</p>
-<p><strong>Phase 3: Validation &amp; Training (Week 4)</strong>
-- Security configuration validation
-- User access testing and verification
-- Security training and documentation
+<p><strong>Phase 3: Validation &amp; Training (Week 4)</strong><br />
+- Security configuration validation<br />
+- User access testing and verification<br />
+- Security training and documentation<br />
 - Go-live support and monitoring</p>
-<p><strong>Phase 4: Ongoing Security Support (Continuous)</strong>
-- Regular security monitoring and maintenance
-- Security updates and enhancements
-- Compliance preparation support
+<p><strong>Phase 4: Ongoing Security Support (Continuous)</strong><br />
+- Regular security monitoring and maintenance<br />
+- Security updates and enhancements<br />
+- Compliance preparation support<br />
 - Continuous security improvement</p>
-<h3 id="contact-information">Contact Information</h3>
+<h3 id="contact-information">Contact Information<a class="headerlink" href="#contact-information" title="Permanent link">&para;</a></h3>
 <p>For more information about SECURAA's security capabilities or to discuss your security requirements:</p>
 <p>📧 <strong>Email</strong>: security@securaa.com<br />
 📞 <strong>Phone</strong>: +1-XXX-XXX-XXXX<br />
 🌐 <strong>Website</strong>: www.securaa.com/security<br />
 💬 <strong>Support Portal</strong>: support.securaa.com  </p>
 <hr />
-<h2 id="conclusion">Conclusion</h2>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>SECURAA provides enterprise-grade security designed to protect your organization's critical assets while supporting business objectives. Our comprehensive security architecture, robust controls, and compliance readiness ensure that your organization can deploy SECURAA with confidence.</p>
-<p><strong>Key Security Advantages</strong>:
-- ✅ Security-first architecture with comprehensive controls
-- ✅ Compliance readiness for major regulatory frameworks
-- ✅ Advanced monitoring and incident response capabilities
-- ✅ Comprehensive data protection and privacy controls
+<p><strong>Key Security Advantages</strong>:<br />
+- ✅ Security-first architecture with comprehensive controls<br />
+- ✅ Compliance readiness for major regulatory frameworks<br />
+- ✅ Advanced monitoring and incident response capabilities<br />
+- ✅ Comprehensive data protection and privacy controls<br />
 - ✅ Expert security support and continuous improvement</p>
 <p>SECURAA delivers security you can trust with transparency about our current capabilities and future commitments.</p>
 <hr />
-<p><strong>Document Information</strong>:
-- <strong>Version</strong>: 1.0
-- <strong>Last Updated</strong>: October 2025
-- <strong>Classification</strong>: Customer Facing
+<p><strong>Document Information</strong>:<br />
+- <strong>Version</strong>: 1.0<br />
+- <strong>Last Updated</strong>: October 2025<br />
+- <strong>Classification</strong>: Customer Facing<br />
 - <strong>Next Review</strong>: January 2026</p>
 <hr />
 <p><em>This document contains proprietary and confidential information. Distribution is restricted to authorized personnel and customers under appropriate agreements.</em></p>
     </main>
-    
-    <footer class="main-footer">
-        <p>&copy; 2025 Securaa Platform. All rights reserved. | <a href="#" onclick="window.print()" style="color: #ecf0f1;">Print</a></p>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
     </footer>
-    
-    <script src="assets/js/documentation.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>

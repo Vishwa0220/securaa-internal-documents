@@ -3,57 +3,630 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIA Service - High Level Design - Securaa Platform Documentation</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
+    <meta name="description" content="Securaa Platform Documentation - SIA Service - High Level Design">
+    <title>SIA Service - High Level Design - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
-    
+
     <nav class="documentation-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-ris-high-level-design.html">RIS High Level Design</a></li>
-            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-            <li><a href="securaa-ris-client-documentation.html">RIS Client Documentation</a></li>
-            <li><a href="securaa-ris-server-documentation.html">RIS Server Documentation</a></li>
-            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-            <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-            <li><a href="securaa-siem-low-level-design.html">Securaa SIEM Low Level Design</a></li>
-            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-            <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
-            <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
-            <li><a href="securaa-custom-utils-high-level-design.html">Securaa Custom Utils High Level Design</a></li>
-            <li><a href="securaa-custom-utils-low-level-design.html">Securaa Custom Utils Low Level Design</a></li>
-            <li><a href="securaa-make-system-high-level-design.html">Securaa Make System High Level Design</a></li>
-            <li><a href="securaa-make-system-low-level-design.html">Securaa Make System Low Level Design</a></li>
-            <li><a href="sia-service-high-level-design.html">SIA Service High Level Design</a></li>
-            <li><a href="sia-service-low-level-design.html">SIA Service Low Level Design</a></li>
-            <li><a href="secura-customer-security-documentation.html">Customer Security Documentation</a></li>
-            <li><a href="securaa-information-security-risk-assesment-process.html">Information Security Risk Assessment</a></li>
-        </ul>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
     </nav>
-    
+
     <main class="main-content">
-<h1 id="high-level-design-hld-sia-service">High-Level Design (HLD) - SIA Service</h1>
-<h2 id="comprehensive-architecture-documentation">Comprehensive Architecture Documentation</h2>
+        <h1 id="high-level-design-hld-sia-service">High-Level Design (HLD) - SIA Service<a class="headerlink" href="#high-level-design-hld-sia-service" title="Permanent link">&para;</a></h1>
+<h2 id="comprehensive-architecture-documentation">Comprehensive Architecture Documentation<a class="headerlink" href="#comprehensive-architecture-documentation" title="Permanent link">&para;</a></h2>
 <p><strong>Document Version</strong>: 1.0<br />
 <strong>Last Updated</strong>: November 11, 2025<br />
 <strong>Status</strong>: Active Development</p>
 <hr />
-<h2 id="table-of-contents">Table of Contents</h2>
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
 <ol>
 <li><a href="#1-executive-summary">Executive Summary</a></li>
 <li><a href="#2-system-architecture-overview">System Architecture Overview</a></li>
@@ -72,9 +645,9 @@
 <li><a href="#15-future-roadmap">Future Roadmap</a></li>
 </ol>
 <hr />
-<h2 id="1-executive-summary">1. Executive Summary</h2>
+<h2 id="1-executive-summary">1. Executive Summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
 <p><strong>SIA (Securaa Intelligent Agent)</strong> is an AI-powered Security Operations Center (SOC) automation platform that leverages Large Language Models (LLMs) to automate case analysis, playbook generation, task execution, and threat intelligence operations. The system is designed to streamline security incident response workflows, reduce false positives, and provide intelligent recommendations to security analysts.</p>
-<h3 id="key-capabilities">Key Capabilities:</h3>
+<h3 id="key-capabilities">Key Capabilities:<a class="headerlink" href="#key-capabilities" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Automated Case Analysis</strong>: AI-driven analysis of security incidents with contextual intelligence</li>
 <li><strong>Playbook Management</strong>: Automated playbook suggestions and generation</li>
@@ -84,7 +657,7 @@
 <li><strong>Multi-Tenancy</strong>: Complete tenant isolation with dedicated databases</li>
 <li><strong>Real-time Processing</strong>: Event-driven architecture using Kafka</li>
 </ul>
-<h3 id="system-highlights">System Highlights:</h3>
+<h3 id="system-highlights">System Highlights:<a class="headerlink" href="#system-highlights" title="Permanent link">&para;</a></h3>
 <ul>
 <li>🚀 <strong>Performance</strong>: Sub-second vector search across millions of tasks</li>
 <li>🔒 <strong>Security</strong>: Multi-layered security with JWT, encryption, and prompt injection prevention</li>
@@ -94,15 +667,15 @@
 <li>🗄️ <strong>Multi-Tenant</strong>: Complete database isolation per tenant</li>
 </ul>
 <hr />
-<h2 id="2-system-architecture-overview">2. System Architecture Overview</h2>
-<h3 id="21-architecture-pattern">2.1 Architecture Pattern</h3>
-<p>SIA follows a <strong>microservices-based architecture</strong> with the following patterns:
-- <strong>Event-Driven Architecture (EDA)</strong>: Using Kafka for asynchronous processing
-- <strong>CQRS Pattern</strong>: Separation of command and query responsibilities
-- <strong>Repository Pattern</strong>: Data access abstraction
-- <strong>API Gateway Pattern</strong>: Tyk gateway for authentication and routing
+<h2 id="2-system-architecture-overview">2. System Architecture Overview<a class="headerlink" href="#2-system-architecture-overview" title="Permanent link">&para;</a></h2>
+<h3 id="21-architecture-pattern">2.1 Architecture Pattern<a class="headerlink" href="#21-architecture-pattern" title="Permanent link">&para;</a></h3>
+<p>SIA follows a <strong>microservices-based architecture</strong> with the following patterns:<br />
+- <strong>Event-Driven Architecture (EDA)</strong>: Using Kafka for asynchronous processing<br />
+- <strong>CQRS Pattern</strong>: Separation of command and query responsibilities<br />
+- <strong>Repository Pattern</strong>: Data access abstraction<br />
+- <strong>API Gateway Pattern</strong>: Tyk gateway for authentication and routing<br />
 - <strong>Multi-Tenancy</strong>: Database-per-tenant isolation strategy</p>
-<h3 id="22-core-components-summary">2.2 Core Components Summary</h3>
+<h3 id="22-core-components-summary">2.2 Core Components Summary<a class="headerlink" href="#22-core-components-summary" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -169,7 +742,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="23-high-level-architecture-diagram">2.3 High-Level Architecture Diagram</h3>
+<h3 id="23-high-level-architecture-diagram">2.3 High-Level Architecture Diagram<a class="headerlink" href="#23-high-level-architecture-diagram" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 flowchart TD
     Client["Client Layer<br/>(Web UI, CLI, External Systems)"]
@@ -185,7 +758,7 @@ flowchart TD
     Redis["Redis Cache<br/>(Celery + Cache)"]
     Chroma["ChromaDB<br/>(Optional Vector DB)"]
     ExtSvc["External Services<br/>- LLM Providers (OpenAI, Groq, Gemini, On-Prem)<br/>- Threat Intel (VirusTotal, TIP)<br/>- SOAR Platform Integration<br/>- DTX Prompt Guard (Security)<br/>- Novelty Detection Service"]
-    
+
     Client --> Gateway
     Gateway --> FastAPI
     Gateway --> Chat
@@ -201,14 +774,14 @@ flowchart TD
     DataLayer --> Redis
     DataLayer --> Chroma
     DataLayer --> ExtSvc
-    
+
     classDef clientStyle fill:#e1f5ff,stroke:#01579b,stroke-width:2px
     classDef gatewayStyle fill:#fff9c4,stroke:#f57f17,stroke-width:2px
     classDef serviceStyle fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     classDef queueStyle fill:#ffe0b2,stroke:#e65100,stroke-width:2px
     classDef dataStyle fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
     classDef externalStyle fill:#ffccbc,stroke:#bf360c,stroke-width:2px
-    
+
     class Client clientStyle
     class Gateway gatewayStyle
     class FastAPI,Chat serviceStyle
@@ -218,8 +791,8 @@ flowchart TD
 </div>
 
 <hr />
-<h2 id="3-architecture-diagrams">3. Architecture Diagrams</h2>
-<h3 id="31-system-architecture-overview">3.1 System Architecture Overview</h3>
+<h2 id="3-architecture-diagrams">3. Architecture Diagrams<a class="headerlink" href="#3-architecture-diagrams" title="Permanent link">&para;</a></h2>
+<h3 id="31-system-architecture-overview">3.1 System Architecture Overview<a class="headerlink" href="#31-system-architecture-overview" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 graph TB
     subgraph ClientLayer["Client Layer"]
@@ -227,33 +800,33 @@ graph TB
         CLI[CLI Tools]
         EXT[External Systems]
     end
-    
+
     subgraph GatewayLayer["API Gateway Layer"]
         TYK[Tyk API Gateway<br/>Authentication & Routing]
     end
-    
+
     subgraph ApplicationLayer["Application Layer"]
         WEB[FastAPI Web Service<br/>Port 8000]
         CHAT[Chat Service<br/>Streaming Support]
     end
-    
+
     subgraph MessageQueue["Message Queue"]
         KAFKA[Apache Kafka<br/>Event Streaming]
         REDIS[Redis<br/>Task Queue & Cache]
     end
-    
+
     subgraph WorkerLayer["Worker Layer"]
         WORKER[Celery Workers<br/>Background Tasks]
         INDEXER[Kafka Indexer<br/>Vector Indexing]
         FPR[FPR Processor<br/>Noise Reduction]
         NWORKER[Novelty Worker<br/>ML Processing]
     end
-    
+
     subgraph DataLayer["Data Layer"]
         PG[(PostgreSQL<br/>pgvector)]
         CHROMA[(ChromaDB<br/>Vector Store)]
     end
-    
+
     subgraph ExternalServices["External Services"]
         LLM[LLM Providers<br/>OpenAI/Groq/Gemini]
         TIP[Threat Intel<br/>VirusTotal/TIP]
@@ -261,54 +834,54 @@ graph TB
         NDS[Novelty Detection<br/>Service]
         DTX[DTX Prompt Guard]
     end
-    
+
     UI --> TYK
     CLI --> TYK
     EXT --> TYK
-    
+
     TYK --> WEB
     TYK --> CHAT
-    
+
     WEB --> REDIS
     WEB --> KAFKA
     WEB --> PG
-    
+
     CHAT --> PG
     CHAT --> LLM
-    
+
     KAFKA --> INDEXER
     KAFKA --> FPR
-    
+
     REDIS --> WORKER
     REDIS --> NWORKER
-    
+
     WORKER --> PG
     WORKER --> LLM
     WORKER --> REDIS
-    
+
     INDEXER --> PG
     INDEXER --> KAFKA
-    
+
     FPR --> PG
     FPR --> NDS
     FPR --> KAFKA
-    
+
     NWORKER --> PG
     NWORKER --> NDS
-    
+
     WEB -.-> CHROMA
     INDEXER -.-> CHROMA
-    
+
     WEB --> TIP
     WEB --> SOAR
     WEB --> DTX
-    
+
     classDef gateway fill:#ff9999,stroke:#333,stroke-width:2px
     classDef application fill:#99ccff,stroke:#333,stroke-width:2px
     classDef queue fill:#ffcc99,stroke:#333,stroke-width:2px
     classDef database fill:#99ff99,stroke:#333,stroke-width:2px
     classDef external fill:#ff99ff,stroke:#333,stroke-width:2px
-    
+
     class TYK gateway
     class WEB,CHAT application
     class KAFKA,REDIS queue
@@ -316,7 +889,7 @@ graph TB
     class LLM,TIP,SOAR,NDS,DTX external
 </div>
 
-<h3 id="32-case-analysis-flow-diagram">3.2 Case Analysis Flow Diagram</h3>
+<h3 id="32-case-analysis-flow-diagram">3.2 Case Analysis Flow Diagram<a class="headerlink" href="#32-case-analysis-flow-diagram" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 sequenceDiagram
     autonumber
@@ -329,7 +902,7 @@ sequenceDiagram
     participant P as PostgreSQL
     participant V as Vector Search
     participant L as LLM
-    
+
     C->>T: POST /case/analysis
     T->>T: Validate JWT Token
     T->>F: Forward Request
@@ -337,11 +910,11 @@ sequenceDiagram
     F->>CE: Queue Analysis Task
     CE-->>F: task_id
     F-->>C: 201 {task_id}
-    
+
     Note over W: Async Processing
     W->>CE: Dequeue Task
     W->>R: Check Cache (hash)
-    
+
     alt Cache Hit
         R-->>W: Cached Result
     else Cache Miss
@@ -357,52 +930,52 @@ sequenceDiagram
         W->>P: Store Case Summary
         W->>CE: Trigger Risk Scoring
     end
-    
+
     W-->>CE: Complete Task
-    
+
     C->>F: GET /case/analysis/{task_id}
     F->>CE: Get Task Result
     CE-->>F: Analysis Result
     F-->>C: 200 {result}
 </div>
 
-<h3 id="33-task-indexing-pipeline">3.3 Task Indexing Pipeline</h3>
+<h3 id="33-task-indexing-pipeline">3.3 Task Indexing Pipeline<a class="headerlink" href="#33-task-indexing-pipeline" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 flowchart TD
     START[Start: New Tasks] --> CLI{Source}
-    
+
     CLI -->|CLI Command| PROC1[JsonProcessor]
     CLI -->|API Call| PROC2[API Handler]
-    
+
     PROC1 --> KAFKA1[Kafka Producer]
     PROC2 --> KAFKA1
-    
+
     KAFKA1 --> TOPIC1[(indexing-topic)]
-    
+
     TOPIC1 --> INDEXER[Kafka Indexer Consumer]
-    
+
     INDEXER --> LOOP{For Each Task}
-    
+
     LOOP --> PARSE[Parse Task Details]
     PARSE --> SUMMARY[Generate Text Summary]
     SUMMARY --> EMBED[Generate Embedding]
-    
+
     EMBED --> CHECK{Tenant Session<br/>Exists?}
-    
+
     CHECK -->|No| CREATE[Create Tenant Session]
     CHECK -->|Yes| STORE
     CREATE --> STORE[Store in PostgreSQL]
-    
+
     STORE --> INDEX[Update Vector Index]
     INDEX --> FORWARD[Forward to FPR Topic]
-    
+
     FORWARD --> TOPIC2[(fpr-processing)]
-    
+
     LOOP -->|More Tasks| LOOP
     LOOP -->|Done| END[End]
-    
+
     TOPIC2 --> FPR[FPR Processor]
-    
+
     style START fill:#99ff99
     style END fill:#ff9999
     style TOPIC1 fill:#ffcc99
@@ -411,71 +984,71 @@ flowchart TD
     style FPR fill:#ff99ff
 </div>
 
-<h3 id="34-false-positive-reduction-pipeline">3.4 False Positive Reduction Pipeline</h3>
+<h3 id="34-false-positive-reduction-pipeline">3.4 False Positive Reduction Pipeline<a class="headerlink" href="#34-false-positive-reduction-pipeline" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 flowchart LR
     subgraph "Input"
         KAFKA[(fpr-processing<br/>Topic)]
     end
-    
+
     subgraph "Batching"
         BUFFER[Tenant Buffer]
         BATCH{Batch Size<br/>Reached?}
     end
-    
+
     subgraph "Feature Engineering"
         ENRICH[Enrich Case Data]
         EXTRACT[Extract Features]
         FEATURES[IOC Count<br/>Text Length<br/>Temporal<br/>Patterns]
     end
-    
+
     subgraph "Novelty Detection"
         EMBED[Generate Embedding]
         NDS[NDS API Call]
         NOVEL{Is Novel?}
         CLUSTER[Assign Cluster]
     end
-    
+
     subgraph "Scoring"
         SCORE[Calculate Score]
         RULES[Apply Rules]
         CLASSIFY{Classify}
     end
-    
+
     subgraph "Output"
         UPDATE[Update DB]
         MARK_FP[Mark as False Positive]
         MARK_LEGIT[Mark as Legitimate]
         PUBLISH[(fpr-results<br/>Topic)]
     end
-    
+
     KAFKA --> BUFFER
     BUFFER --> BATCH
     BATCH -->|No| BUFFER
     BATCH -->|Yes| ENRICH
-    
+
     ENRICH --> EXTRACT
     EXTRACT --> FEATURES
-    
+
     FEATURES --> EMBED
     EMBED --> NDS
     NDS --> NOVEL
     NOVEL -->|Yes| CLUSTER
     NOVEL -->|No| CLUSTER
-    
+
     CLUSTER --> SCORE
     FEATURES --> SCORE
     SCORE --> RULES
     RULES --> CLASSIFY
-    
+
     CLASSIFY -->|FP| MARK_FP
     CLASSIFY -->|Legit| MARK_LEGIT
-    
+
     MARK_FP --> UPDATE
     MARK_LEGIT --> UPDATE
-    
+
     UPDATE --> PUBLISH
-    
+
     style KAFKA fill:#ffcc99
     style NDS fill:#ff99ff
     style PUBLISH fill:#ffcc99
@@ -483,7 +1056,7 @@ flowchart LR
     style MARK_LEGIT fill:#99ff99
 </div>
 
-<h3 id="35-chat-with-rag-flow">3.5 Chat with RAG Flow</h3>
+<h3 id="35-chat-with-rag-flow">3.5 Chat with RAG Flow<a class="headerlink" href="#35-chat-with-rag-flow" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 sequenceDiagram
     autonumber
@@ -494,103 +1067,103 @@ sequenceDiagram
     participant VECT as Vector Search
     participant LLM as LLM Service
     participant DB as PostgreSQL
-    
+
     U->>API: POST /chat/completions<br/>(stream=true)
     API->>AGENT: Initialize Agent
-    
+
     AGENT->>HIST: Get Thread History
     HIST->>DB: Query Last N Messages
     DB-->>HIST: Messages
     HIST-->>AGENT: Conversation Context
-    
+
     AGENT->>VECT: Semantic Search Query
     VECT->>DB: Vector Similarity Search
     DB-->>VECT: Similar Tasks/Cases
     VECT-->>AGENT: Relevant Context
-    
+
     AGENT->>AGENT: Build RAG Prompt<br/>History + Context + Query
-    
+
     AGENT->>LLM: Stream Request
-    
+
     loop Streaming Chunks
         LLM-->>AGENT: Chunk
         AGENT->>AGENT: Accumulate Response
         AGENT-->>API: Stream Chunk
         API-->>U: SSE Event
     end
-    
+
     AGENT->>HIST: Store User Message
     AGENT->>HIST: Store Assistant Response
     HIST->>DB: INSERT Messages
-    
+
     AGENT-->>API: Stream Complete
     API-->>U: Connection Close
 </div>
 
-<h3 id="36-multi-tenant-database-architecture">3.6 Multi-Tenant Database Architecture</h3>
+<h3 id="36-multi-tenant-database-architecture">3.6 Multi-Tenant Database Architecture<a class="headerlink" href="#36-multi-tenant-database-architecture" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 graph TB
     subgraph "Application Layer"
         APP[FastAPI Application]
         INIT[init_tenant_sessions]
     end
-    
+
     subgraph "Session Management"
         MAP[SESSION_MAP<br/>Dictionary]
         FACTORY1[SessionFactory<br/>tenant_1]
         FACTORY2[SessionFactory<br/>tenant_2]
         FACTORY3[SessionFactory<br/>tenant_N]
     end
-    
+
     subgraph "PostgreSQL Server"
         PG_SERVER[(PostgreSQL)]
-        
+
         subgraph "System Databases"
             POSTGRES[(postgres)]
             TEMPLATE[(siadb_template)]
         end
-        
+
         subgraph "Tenant Databases"
             DB1[(siadb_tenant_1)]
             DB2[(siadb_tenant_2)]
             DBN[(siadb_tenant_N)]
         end
     end
-    
+
     APP --> INIT
     INIT --> PG_SERVER
     INIT --> MAP
-    
+
     MAP --> FACTORY1
     MAP --> FACTORY2
     MAP --> FACTORY3
-    
+
     FACTORY1 --> DB1
     FACTORY2 --> DB2
     FACTORY3 --> DBN
-    
+
     TEMPLATE -.->|Clone| DB1
     TEMPLATE -.->|Clone| DB2
     TEMPLATE -.->|Clone| DBN
-    
+
     style APP fill:#99ccff
     style MAP fill:#ffcc99
     style PG_SERVER fill:#99ff99
     style TEMPLATE fill:#ff99ff
 </div>
 
-<h3 id="37-deployment-architecture">3.7 Deployment Architecture</h3>
+<h3 id="37-deployment-architecture">3.7 Deployment Architecture<a class="headerlink" href="#37-deployment-architecture" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 graph TB
     subgraph Gateway["Load Balancer / Gateway"]
         TYK[Tyk Gateway<br/>Port 8080]
     end
-    
+
     subgraph AppServices["Application Services"]
         WEB1[Web Service<br/>Port 8000]
         WEB2[Web Service<br/>Replica]
     end
-    
+
     subgraph Workers["Background Workers"]
         WORKER1[Celery Worker 1]
         WORKER2[Celery Worker 2]
@@ -599,73 +1172,73 @@ graph TB
         NAPI[Novelty API<br/>Port 8001]
         NWORKER[Novelty Worker]
     end
-    
+
     subgraph MsgInfra["Message Infrastructure"]
         KAFKA[Kafka Broker<br/>Ports 9092, 19092]
         REDIS[Redis<br/>Port 6379]
     end
-    
+
     subgraph DataStores["Data Stores"]
         PG[PostgreSQL + pgvector<br/>Port 5432]
         CHROMA[ChromaDB<br/>Port 8002]
     end
-    
+
     subgraph Support["Support Services"]
         PGADMIN[pgAdmin<br/>Port 8081]
         FLUENTD[Fluentd<br/>Logging]
         DTX[DTX Guard<br/>Port 8003]
     end
-    
+
     TYK --> WEB1
     TYK --> WEB2
-    
+
     WEB1 --> REDIS
     WEB1 --> KAFKA
     WEB1 --> PG
     WEB1 --> DTX
-    
+
     WEB2 --> REDIS
     WEB2 --> KAFKA
     WEB2 --> PG
     WEB2 --> DTX
-    
+
     REDIS --> WORKER1
     REDIS --> WORKER2
     REDIS --> NWORKER
-    
+
     KAFKA --> INDEXER
     KAFKA --> FPR
-    
+
     WORKER1 --> PG
     WORKER2 --> PG
     INDEXER --> PG
     FPR --> PG
-    
+
     INDEXER -.-> CHROMA
-    
+
     FPR --> NAPI
     NWORKER --> NAPI
     NAPI --> PG
-    
+
     PGADMIN --> PG
-    
+
     classDef gateway fill:#ff9999,stroke:#333,stroke-width:2px
     classDef queue fill:#ffcc99,stroke:#333,stroke-width:2px
     classDef database fill:#99ff99,stroke:#333,stroke-width:2px
-    
+
     class TYK gateway
     class KAFKA,REDIS queue
     class PG,CHROMA database
 </div>
 
-<h3 id="38-database-schema-er-diagram">3.8 Database Schema (ER Diagram)</h3>
+<h3 id="38-database-schema-er-diagram">3.8 Database Schema (ER Diagram)<a class="headerlink" href="#38-database-schema-er-diagram" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 erDiagram
     CASES ||--o{ CASE_SUMMARY : has
     CASES ||--o{ CASE_SUSPICIOUS_ANALYSIS : has
     PLAYBOOK_TASKS ||--o{ TASK_CLASSIFICATION : has
     THREADS ||--o{ CHATHISTORY : contains
-    
+
     CASES {
         uuid id PK
         string case_id
@@ -679,7 +1252,7 @@ erDiagram
         json playbook_recommendation
         timestamp created_at
     }
-    
+
     CASE_SUMMARY {
         int id PK
         uuid case_id FK
@@ -690,7 +1263,7 @@ erDiagram
         vector embedding
         timestamp created_at
     }
-    
+
     PLAYBOOK_TASKS {
         uuid id PK
         string case_id
@@ -702,7 +1275,7 @@ erDiagram
         float risk_score
         timestamp created_at
     }
-    
+
     TASK_CLASSIFICATION {
         int id PK
         uuid playbook_task_id FK
@@ -715,7 +1288,7 @@ erDiagram
         vector embedding
         timestamp created_at
     }
-    
+
     THREADS {
         uuid thread_id PK
         string name
@@ -725,7 +1298,7 @@ erDiagram
         int user_id
         timestamp created_ts
     }
-    
+
     CHATHISTORY {
         uuid id PK
         uuid thread_id FK
@@ -737,7 +1310,7 @@ erDiagram
         string message_type
         timestamp created_ts
     }
-    
+
     CASE_SUSPICIOUS_ANALYSIS {
         int id PK
         uuid case_id FK
@@ -753,166 +1326,166 @@ erDiagram
 </div>
 
 <hr />
-<h2 id="4-component-details">4. Component Details</h2>
-<h3 id="31-web-service-fastapi">3.1 Web Service (FastAPI)</h3>
+<h2 id="4-component-details">4. Component Details<a class="headerlink" href="#4-component-details" title="Permanent link">&para;</a></h2>
+<h3 id="31-web-service-fastapi">3.1 Web Service (FastAPI)<a class="headerlink" href="#31-web-service-fastapi" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Primary API service handling HTTP requests</p>
-<p><strong>Key Responsibilities</strong>:
-- RESTful API endpoints for case management
-- Chat interface endpoints
-- User and tenant management
-- Indexing operations
+<p><strong>Key Responsibilities</strong>:<br />
+- RESTful API endpoints for case management<br />
+- Chat interface endpoints<br />
+- User and tenant management<br />
+- Indexing operations<br />
 - Application and playbook management</p>
-<p><strong>Technology Stack</strong>:
-- FastAPI framework
-- Uvicorn ASGI server
-- OpenTelemetry tracing (Traceloop)
+<p><strong>Technology Stack</strong>:<br />
+- FastAPI framework<br />
+- Uvicorn ASGI server<br />
+- OpenTelemetry tracing (Traceloop)<br />
 - JWT authentication via Tyk</p>
-<p><strong>Key Routers</strong>:
-- <code>/case</code> - Case analysis and management
-- <code>/chat</code> - Chat and conversational AI
-- <code>/indexing</code> - Task and playbook indexing
-- <code>/user</code> - User management
-- <code>/tenant</code> - Tenant operations
-- <code>/application</code> - Application definitions
+<p><strong>Key Routers</strong>:<br />
+- <code>/case</code> - Case analysis and management<br />
+- <code>/chat</code> - Chat and conversational AI<br />
+- <code>/indexing</code> - Task and playbook indexing<br />
+- <code>/user</code> - User management<br />
+- <code>/tenant</code> - Tenant operations<br />
+- <code>/application</code> - Application definitions<br />
 - <code>/code</code> - Code generation/analysis</p>
-<h3 id="32-celery-worker">3.2 Celery Worker</h3>
+<h3 id="32-celery-worker">3.2 Celery Worker<a class="headerlink" href="#32-celery-worker" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Asynchronous task execution for long-running operations</p>
-<p><strong>Key Tasks</strong>:
-- <code>create_case_analysis_task</code>: Main case analysis orchestration
+<p><strong>Key Tasks</strong>:<br />
+- <code>create_case_analysis_task</code>: Main case analysis orchestration<br />
 - <code>set_risk</code>: Risk scoring and recommendation generation</p>
-<p><strong>Features</strong>:
-- Distributed task queue
-- Result backend (Redis)
-- Retry mechanisms
+<p><strong>Features</strong>:<br />
+- Distributed task queue<br />
+- Result backend (Redis)<br />
+- Retry mechanisms<br />
 - LLM tracing integration</p>
-<p><strong>Configuration</strong>:
-- Broker: Redis
-- Result Backend: Redis
+<p><strong>Configuration</strong>:<br />
+- Broker: Redis<br />
+- Result Backend: Redis<br />
 - Concurrency: Configurable per environment</p>
-<h3 id="33-kafka-indexer">3.3 Kafka Indexer</h3>
+<h3 id="33-kafka-indexer">3.3 Kafka Indexer<a class="headerlink" href="#33-kafka-indexer" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Stream processing for task indexing into vector databases</p>
-<p><strong>Workflow</strong>:
-1. Consumes messages from <code>indexing-topic</code>
-2. Generates embeddings using AI models
-3. Stores in PostgreSQL with pgvector
+<p><strong>Workflow</strong>:<br />
+1. Consumes messages from <code>indexing-topic</code><br />
+2. Generates embeddings using AI models<br />
+3. Stores in PostgreSQL with pgvector<br />
 4. Forwards enriched data to FPR processing</p>
-<p><strong>Components</strong>:
-- <code>KafkaConsumer_PgvIndexer</code>: Main consumer
+<p><strong>Components</strong>:<br />
+- <code>KafkaConsumer_PgvIndexer</code>: Main consumer<br />
 - <code>FpProcessingProducer</code>: Forwards to FPR pipeline</p>
-<h3 id="34-false-positive-reduction-fpr-processor">3.4 False Positive Reduction (FPR) Processor</h3>
+<h3 id="34-false-positive-reduction-fpr-processor">3.4 False Positive Reduction (FPR) Processor<a class="headerlink" href="#34-false-positive-reduction-fpr-processor" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: ML-based noise reduction and novelty detection</p>
-<p><strong>Pipeline</strong>:
-1. <strong>Enrichment</strong>: Add contextual information to cases
-2. <strong>Feature Building</strong>: Extract ML features from case data
-3. <strong>Novelty Detection</strong>: Identify novel vs. recurring patterns
-4. <strong>Scoring</strong>: Calculate suspicious scores
+<p><strong>Pipeline</strong>:<br />
+1. <strong>Enrichment</strong>: Add contextual information to cases<br />
+2. <strong>Feature Building</strong>: Extract ML features from case data<br />
+3. <strong>Novelty Detection</strong>: Identify novel vs. recurring patterns<br />
+4. <strong>Scoring</strong>: Calculate suspicious scores<br />
 5. <strong>Classification</strong>: Mark as FP or legitimate threat</p>
-<p><strong>Key Modules</strong>:
-- <code>FeatureBuilderModuleV2</code>: Feature engineering
-- <code>SuspiciousScoringModule</code>: ML-based scoring
+<p><strong>Key Modules</strong>:<br />
+- <code>FeatureBuilderModuleV2</code>: Feature engineering<br />
+- <code>SuspiciousScoringModule</code>: ML-based scoring<br />
 - <code>NDSClient</code>: Novelty Detection Service client</p>
-<h3 id="35-database-layer">3.5 Database Layer</h3>
-<h4 id="postgresql-primary-data-store">PostgreSQL (Primary Data Store)</h4>
-<p><strong>Schema Design</strong>:
-- <strong>Multi-tenant isolation</strong>: Separate database per tenant (<code>siadb_&lt;tenant_id&gt;</code>)
-- <strong>pgvector extension</strong>: Vector similarity search
+<h3 id="35-database-layer">3.5 Database Layer<a class="headerlink" href="#35-database-layer" title="Permanent link">&para;</a></h3>
+<h4 id="postgresql-primary-data-store">PostgreSQL (Primary Data Store)<a class="headerlink" href="#postgresql-primary-data-store" title="Permanent link">&para;</a></h4>
+<p><strong>Schema Design</strong>:<br />
+- <strong>Multi-tenant isolation</strong>: Separate database per tenant (<code>siadb_&lt;tenant_id&gt;</code>)<br />
+- <strong>pgvector extension</strong>: Vector similarity search<br />
 - <strong>HNSW indexes</strong>: Fast nearest neighbor search</p>
-<p><strong>Key Tables</strong>:
-- <code>cases</code>: Security incidents/cases
-- <code>case_summary</code>: AI-generated summaries
-- <code>playbook_tasks</code>: Executed tasks with embeddings
-- <code>task_classification</code>: ML-based task classifications
-- <code>chathistory</code> &amp; <code>threads</code>: Chat conversations
-- <code>playbook_definitions</code>: Available playbooks
-- <code>task_definitions</code>: Task templates
-- <code>application_definitions</code>: Integrated applications
-- <code>users</code>: User profiles
-- <code>ioc_reputation</code>: IOC lookup cache
-- <code>event_streams</code>: Novelty detection events
+<p><strong>Key Tables</strong>:<br />
+- <code>cases</code>: Security incidents/cases<br />
+- <code>case_summary</code>: AI-generated summaries<br />
+- <code>playbook_tasks</code>: Executed tasks with embeddings<br />
+- <code>task_classification</code>: ML-based task classifications<br />
+- <code>chathistory</code> &amp; <code>threads</code>: Chat conversations<br />
+- <code>playbook_definitions</code>: Available playbooks<br />
+- <code>task_definitions</code>: Task templates<br />
+- <code>application_definitions</code>: Integrated applications<br />
+- <code>users</code>: User profiles<br />
+- <code>ioc_reputation</code>: IOC lookup cache<br />
+- <code>event_streams</code>: Novelty detection events<br />
 - <code>case_suspicious_analysis</code>: FPR results</p>
-<h4 id="redis">Redis</h4>
-<p><strong>Use Cases</strong>:
-- Celery broker and result backend
-- Response caching (deduplication)
-- Session management
+<h4 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h4>
+<p><strong>Use Cases</strong>:<br />
+- Celery broker and result backend<br />
+- Response caching (deduplication)<br />
+- Session management<br />
 - Rate limiting data</p>
-<h4 id="chromadb-optional">ChromaDB (Optional)</h4>
-<p><strong>Use Cases</strong>:
-- Alternative vector store
-- Document embeddings
+<h4 id="chromadb-optional">ChromaDB (Optional)<a class="headerlink" href="#chromadb-optional" title="Permanent link">&para;</a></h4>
+<p><strong>Use Cases</strong>:<br />
+- Alternative vector store<br />
+- Document embeddings<br />
 - Semantic search</p>
-<h3 id="36-llm-integration-layer">3.6 LLM Integration Layer</h3>
-<p><strong>Supported Backends</strong>:
-- <strong>OpenAI</strong>: GPT-4, GPT-3.5-turbo
-- <strong>Groq</strong>: Fast inference (llama3)
-- <strong>Google Gemini</strong>: Gemini Pro
+<h3 id="36-llm-integration-layer">3.6 LLM Integration Layer<a class="headerlink" href="#36-llm-integration-layer" title="Permanent link">&para;</a></h3>
+<p><strong>Supported Backends</strong>:<br />
+- <strong>OpenAI</strong>: GPT-4, GPT-3.5-turbo<br />
+- <strong>Groq</strong>: Fast inference (llama3)<br />
+- <strong>Google Gemini</strong>: Gemini Pro<br />
 - <strong>On-Premise</strong>: Ollama, custom deployments</p>
-<p><strong>LLMWrapper Features</strong>:
-- Unified interface across providers
-- Streaming support (sync/async)
-- Structured output parsing
-- Temperature control
+<p><strong>LLMWrapper Features</strong>:<br />
+- Unified interface across providers<br />
+- Streaming support (sync/async)<br />
+- Structured output parsing<br />
+- Temperature control<br />
 - Retry logic</p>
-<p><strong>Embedding Models</strong>:
-- OpenAI embeddings (text-embedding-ada-002)
-- On-premise embedding endpoints
+<p><strong>Embedding Models</strong>:<br />
+- OpenAI embeddings (text-embedding-ada-002)<br />
+- On-premise embedding endpoints<br />
 - Configurable via environment</p>
-<h3 id="37-api-gateway-tyk">3.7 API Gateway (Tyk)</h3>
+<h3 id="37-api-gateway-tyk">3.7 API Gateway (Tyk)<a class="headerlink" href="#37-api-gateway-tyk" title="Permanent link">&para;</a></h3>
 <p><strong>Purpose</strong>: Security, authentication, and routing</p>
-<p><strong>Features</strong>:
-- JWT-based authentication
-- API key management
-- Rate limiting
-- SSL/TLS termination
-- Request/response transformation
+<p><strong>Features</strong>:<br />
+- JWT-based authentication<br />
+- API key management<br />
+- Rate limiting<br />
+- SSL/TLS termination<br />
+- Request/response transformation<br />
 - API versioning</p>
 <hr />
-<h2 id="5-data-flow-workflows">5. Data Flow &amp; Workflows</h2>
-<h3 id="51-complete-case-analysis-workflow">5.1 Complete Case Analysis Workflow</h3>
+<h2 id="5-data-flow-workflows">5. Data Flow &amp; Workflows<a class="headerlink" href="#5-data-flow-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="51-complete-case-analysis-workflow">5.1 Complete Case Analysis Workflow<a class="headerlink" href="#51-complete-case-analysis-workflow" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 flowchart TD
     START[Security Event] --> SOAR[SOAR Platform]
-    
+
     SOAR --> API1[POST /case/analysis]
-    
+
     API1 --> VAL{Validate<br/>Payload}
     VAL -->|Invalid| ERR1[400 Error]
     VAL -->|Valid| QUEUE[Queue Celery Task]
-    
+
     QUEUE --> WORKER[Celery Worker]
-    
+
     WORKER --> CACHE{Check<br/>Cache}
     CACHE -->|Hit| RESULT1[Return Cached]
     CACHE -->|Miss| SEARCH[Vector Search]
-    
+
     SEARCH --> CONTEXT[Retrieve Context]
     CONTEXT --> PROMPT[Build RAG Prompt]
     PROMPT --> LLM[LLM Generation]
-    
+
     LLM --> PARSE{Parse<br/>JSON}
     PARSE -->|Failed| REPAIR[Self-Repair]
     PARSE -->|Success| STORE
     REPAIR --> STORE
-    
+
     STORE[Store Summary] --> RISK[Calculate Risk Score]
-    
+
     RISK --> KAFKA[Publish to Kafka]
     KAFKA --> FPR[FPR Processing]
-    
+
     FPR --> NOVELTY[Novelty Detection]
     NOVELTY --> SCORE[Suspicious Scoring]
     SCORE --> CLASS{Classify}
-    
+
     CLASS -->|False Positive| MARK_FP[Mark as Noise]
     CLASS -->|Legitimate| MARK_LEGIT[Keep Active]
-    
+
     MARK_FP --> UPDATE_DB[Update Database]
     MARK_LEGIT --> UPDATE_DB
-    
+
     UPDATE_DB --> NOTIFY[Notify SOAR]
-    
+
     NOTIFY --> END[End]
-    
+
     style START fill:#99ff99
     style END fill:#ff9999
     style LLM fill:#ff99ff
@@ -921,99 +1494,99 @@ flowchart TD
     style MARK_LEGIT fill:#66ff66
 </div>
 
-<h3 id="52-case-analysis-flow-details">5.2 Case Analysis Flow Details</h3>
-<div class="codehilite"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Tyk</span><span class="w"> </span><span class="n">Gateway</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">FastAPI</span>
-<span class="mf">2.</span><span class="w"> </span><span class="n">FastAPI</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Celery</span><span class="w"> </span><span class="p">(</span><span class="n">async</span><span class="p">)</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="n">Queue</span>
-<span class="mf">3.</span><span class="w"> </span><span class="n">Worker</span><span class="w"> </span><span class="n">retrieves</span><span class="w"> </span><span class="n">case</span><span class="w"> </span><span class="n">details</span>
-<span class="mf">4.</span><span class="w"> </span><span class="n">Worker</span><span class="w"> </span><span class="n">searches</span><span class="w"> </span><span class="n">relevant</span><span class="w"> </span><span class="n">playbook</span><span class="w"> </span><span class="n">tasks</span><span class="w"> </span><span class="p">(</span><span class="n">vector</span><span class="w"> </span><span class="n">similarity</span><span class="p">)</span>
-<span class="mf">5.</span><span class="w"> </span><span class="n">Worker</span><span class="w"> </span><span class="n">constructs</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="n">prompt</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="kr">cont</span><span class="n">ext</span>
-<span class="mf">6.</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="n">generates</span><span class="w"> </span><span class="n">analysis</span><span class="w"> </span><span class="p">(</span><span class="n">findings</span><span class="p">,</span><span class="w"> </span><span class="n">recommendations</span><span class="p">,</span><span class="w"> </span><span class="n">conclusion</span><span class="p">)</span>
-<span class="mf">7.</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="n">stored</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nb">Pos</span><span class="n">tgreSQL</span>
-<span class="mf">8.</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">scoring</span><span class="w"> </span><span class="n">triggered</span><span class="w"> </span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
-<span class="mf">9.</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="n">polls</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">results</span>
-</code></pre></div>
+<h3 id="52-case-analysis-flow-details">5.2 Case Analysis Flow Details<a class="headerlink" href="#52-case-analysis-flow-details" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code>1. Client → Tyk Gateway → FastAPI
+2. FastAPI → Celery (async) → Task Queue
+3. Worker retrieves case details
+4. Worker searches relevant playbook tasks (vector similarity)
+5. Worker constructs LLM prompt with context
+6. LLM generates analysis (findings, recommendations, conclusion)
+7. Result stored in PostgreSQL
+8. Risk scoring triggered (background)
+9. Client polls for results
+</code></pre>
 
-<h3 id="42-task-indexing-flow">4.2 Task Indexing Flow</h3>
-<div class="codehilite"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">CLI</span><span class="o">/</span><span class="n">API</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Kafka</span><span class="w"> </span><span class="p">(</span><span class="n">indexing</span><span class="o">-</span><span class="kr">to</span><span class="n">pic</span><span class="p">)</span>
-<span class="mf">2.</span><span class="w"> </span><span class="n">Kafka</span><span class="w"> </span><span class="n">Indexer</span><span class="w"> </span><span class="n">consumes</span><span class="w"> </span><span class="n">message</span>
-<span class="mf">3.</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">embeddings</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">task</span>
-<span class="mf">4.</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nb">Pos</span><span class="n">tgreSQL</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">vector</span>
-<span class="mf">5.</span><span class="w"> </span><span class="kr">For</span><span class="n">ward</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">FPR</span><span class="w"> </span><span class="n">processing</span><span class="w"> </span><span class="kr">to</span><span class="n">pic</span>
-<span class="mf">6.</span><span class="w"> </span><span class="n">FPR</span><span class="w"> </span><span class="n">processor</span><span class="w"> </span><span class="n">analyzes</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">novelty</span>
-<span class="mf">7.</span><span class="w"> </span><span class="n">Results</span><span class="w"> </span><span class="n">published</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="kr">to</span><span class="n">pic</span>
-</code></pre></div>
+<h3 id="42-task-indexing-flow">4.2 Task Indexing Flow<a class="headerlink" href="#42-task-indexing-flow" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code>1. CLI/API → Kafka (indexing-topic)
+2. Kafka Indexer consumes message
+3. Generate embeddings for task
+4. Store in PostgreSQL with vector
+5. Forward to FPR processing topic
+6. FPR processor analyzes for novelty
+7. Results published to output topic
+</code></pre>
 
-<h3 id="43-chat-flow">4.3 Chat Flow</h3>
-<div class="codehilite"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Chat</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="p">(</span><span class="n">streaming</span><span class="p">)</span>
-<span class="mf">2.</span><span class="w"> </span><span class="n">Retrieve</span><span class="w"> </span><span class="n">thread</span><span class="w"> </span><span class="kr">cont</span><span class="n">ext</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">DB</span>
-<span class="mf">3.</span><span class="w"> </span><span class="n">Search</span><span class="w"> </span><span class="n">relevant</span><span class="w"> </span><span class="n">playbook</span><span class="w"> </span><span class="n">tasks</span><span class="o">/</span><span class="n">cases</span>
-<span class="mf">4.</span><span class="w"> </span><span class="n">Construct</span><span class="w"> </span><span class="n">RAG</span><span class="w"> </span><span class="n">prompt</span>
-<span class="mf">5.</span><span class="w"> </span><span class="n">Stream</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">client</span>
-<span class="mf">6.</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">chat</span><span class="w"> </span><span class="n">history</span>
-</code></pre></div>
+<h3 id="43-chat-flow">4.3 Chat Flow<a class="headerlink" href="#43-chat-flow" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code>1. Client → Chat API (streaming)
+2. Retrieve thread context from DB
+3. Search relevant playbook tasks/cases
+4. Construct RAG prompt
+5. Stream LLM response to client
+6. Store message in chat history
+</code></pre>
 
-<h3 id="44-false-positive-reduction-flow">4.4 False Positive Reduction Flow</h3>
-<div class="codehilite"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">Enriched</span><span class="w"> </span><span class="n">cases</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">fpr</span><span class="o">-</span><span class="n">processing</span><span class="w"> </span><span class="kr">to</span><span class="n">pic</span>
-<span class="mf">2.</span><span class="w"> </span><span class="n">Batch</span><span class="w"> </span><span class="n">cases</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">tenant</span>
-<span class="mf">3.</span><span class="w"> </span><span class="n">Extract</span><span class="w"> </span><span class="n">features</span><span class="w"> </span><span class="p">(</span><span class="n">IOCs</span><span class="p">,</span><span class="w"> </span><span class="n">patterns</span><span class="p">)</span>
-<span class="mf">4.</span><span class="w"> </span><span class="n">Query</span><span class="w"> </span><span class="n">Novelty</span><span class="w"> </span><span class="n">Detection</span><span class="w"> </span><span class="n">Service</span>
-<span class="mf">5.</span><span class="w"> </span><span class="n">Calculate</span><span class="w"> </span><span class="n">suspicious</span><span class="w"> </span><span class="n">scores</span>
-<span class="mf">6.</span><span class="w"> </span><span class="n">Classify</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">FP</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">legitimate</span>
-<span class="mf">7.</span><span class="w"> </span><span class="n">Update</span><span class="w"> </span><span class="n">case</span><span class="w"> </span><span class="n">status</span>
-<span class="mf">8.</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">results</span>
-</code></pre></div>
+<h3 id="44-false-positive-reduction-flow">4.4 False Positive Reduction Flow<a class="headerlink" href="#44-false-positive-reduction-flow" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code>1. Enriched cases → fpr-processing topic
+2. Batch cases by tenant
+3. Extract features (IOCs, patterns)
+4. Query Novelty Detection Service
+5. Calculate suspicious scores
+6. Classify as FP or legitimate
+7. Update case status
+8. Publish results
+</code></pre>
 
 <hr />
-<h2 id="5-security-architecture">5. Security Architecture</h2>
-<h3 id="51-authentication-authorization">5.1 Authentication &amp; Authorization</h3>
+<h2 id="5-security-architecture">5. Security Architecture<a class="headerlink" href="#5-security-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="51-authentication-authorization">5.1 Authentication &amp; Authorization<a class="headerlink" href="#51-authentication-authorization" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>API Gateway</strong>: Tyk handles all authentication</li>
 <li><strong>JWT Tokens</strong>: Bearer token authentication</li>
 <li><strong>API Keys</strong>: Per-tenant/application keys</li>
 <li><strong>Multi-Tenancy</strong>: Complete data isolation per tenant</li>
 </ul>
-<h3 id="52-data-security">5.2 Data Security</h3>
+<h3 id="52-data-security">5.2 Data Security<a class="headerlink" href="#52-data-security" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Encryption at Rest</strong>: Database encryption</li>
 <li><strong>Encryption in Transit</strong>: TLS/SSL for all communications</li>
 <li><strong>Secrets Management</strong>: Environment variables, secure vaults</li>
 <li><strong>PII Protection</strong>: DTX Prompt Guard for sensitive data</li>
 </ul>
-<h3 id="53-network-security">5.3 Network Security</h3>
+<h3 id="53-network-security">5.3 Network Security<a class="headerlink" href="#53-network-security" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Container Isolation</strong>: Docker networks (sia, vectordb, tyk)</li>
 <li><strong>Firewall Rules</strong>: Port restrictions</li>
 <li><strong>Internal Services</strong>: No external exposure</li>
 </ul>
-<h3 id="54-prompt-security">5.4 Prompt Security</h3>
+<h3 id="54-prompt-security">5.4 Prompt Security<a class="headerlink" href="#54-prompt-security" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>DTX Prompt Guard</strong>: Pre-processing to prevent prompt injection</li>
 <li><strong>Input Validation</strong>: Pydantic models for all inputs</li>
 <li><strong>Output Sanitization</strong>: Parsing and validation</li>
 </ul>
 <hr />
-<h2 id="6-scalability-performance">6. Scalability &amp; Performance</h2>
-<h3 id="61-horizontal-scaling">6.1 Horizontal Scaling</h3>
+<h2 id="6-scalability-performance">6. Scalability &amp; Performance<a class="headerlink" href="#6-scalability-performance" title="Permanent link">&para;</a></h2>
+<h3 id="61-horizontal-scaling">6.1 Horizontal Scaling<a class="headerlink" href="#61-horizontal-scaling" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Web Service</strong>: Multiple FastAPI instances behind load balancer</li>
 <li><strong>Workers</strong>: Scale Celery workers independently</li>
 <li><strong>Kafka</strong>: Partitioned topics for parallel processing</li>
 <li><strong>Database</strong>: Read replicas for query scaling</li>
 </ul>
-<h3 id="62-caching-strategy">6.2 Caching Strategy</h3>
+<h3 id="62-caching-strategy">6.2 Caching Strategy<a class="headerlink" href="#62-caching-strategy" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Redis Caching</strong>: Deduplication of LLM responses</li>
 <li><strong>Vector Search</strong>: HNSW indexes for fast similarity search</li>
 <li><strong>IOC Caching</strong>: Reputation lookups cached in DB</li>
 </ul>
-<h3 id="63-performance-optimizations">6.3 Performance Optimizations</h3>
+<h3 id="63-performance-optimizations">6.3 Performance Optimizations<a class="headerlink" href="#63-performance-optimizations" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Batch Processing</strong>: Group operations for efficiency</li>
 <li><strong>Async Operations</strong>: Non-blocking I/O</li>
 <li><strong>Connection Pooling</strong>: Database connection reuse</li>
 <li><strong>Streaming Responses</strong>: Immediate feedback to users</li>
 </ul>
-<h3 id="64-resource-management">6.4 Resource Management</h3>
+<h3 id="64-resource-management">6.4 Resource Management<a class="headerlink" href="#64-resource-management" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Memory Limits</strong>: Container memory constraints</li>
 <li><strong>CPU Quotas</strong>: Controlled resource allocation</li>
@@ -1021,35 +1594,35 @@ flowchart TD
 <li><strong>Queue Priorities</strong>: Critical tasks prioritized</li>
 </ul>
 <hr />
-<h2 id="7-deployment-architecture">7. Deployment Architecture</h2>
-<h3 id="71-container-orchestration">7.1 Container Orchestration</h3>
-<p><strong>Docker Compose Services</strong>:
-- <code>web</code>: Main FastAPI application
-- <code>worker</code>: Celery workers
-- <code>kafka-indexer</code>: Vector indexing service
-- <code>fpr-processor</code>: False positive reduction
-- <code>novelty_api</code>: Novelty detection API
-- <code>novelty_worker</code>: Novelty detection workers
-- <code>tyk-gateway</code>: API gateway
-- <code>postgres</code>: Primary database
-- <code>kafka</code>: Message broker
-- <code>redis</code>: Cache and queue
-- <code>chromadb</code>: Optional vector store
-- <code>dtxguard</code>: Prompt security
-- <code>fluentd</code>: Log aggregation
+<h2 id="7-deployment-architecture">7. Deployment Architecture<a class="headerlink" href="#7-deployment-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="71-container-orchestration">7.1 Container Orchestration<a class="headerlink" href="#71-container-orchestration" title="Permanent link">&para;</a></h3>
+<p><strong>Docker Compose Services</strong>:<br />
+- <code>web</code>: Main FastAPI application<br />
+- <code>worker</code>: Celery workers<br />
+- <code>kafka-indexer</code>: Vector indexing service<br />
+- <code>fpr-processor</code>: False positive reduction<br />
+- <code>novelty_api</code>: Novelty detection API<br />
+- <code>novelty_worker</code>: Novelty detection workers<br />
+- <code>tyk-gateway</code>: API gateway<br />
+- <code>postgres</code>: Primary database<br />
+- <code>kafka</code>: Message broker<br />
+- <code>redis</code>: Cache and queue<br />
+- <code>chromadb</code>: Optional vector store<br />
+- <code>dtxguard</code>: Prompt security<br />
+- <code>fluentd</code>: Log aggregation<br />
 - <code>pgadmin</code>: Database management</p>
-<h3 id="72-network-topology">7.2 Network Topology</h3>
-<p><strong>Networks</strong>:
-- <code>sia</code>: Internal service communication
-- <code>vectordb</code>: Database access
+<h3 id="72-network-topology">7.2 Network Topology<a class="headerlink" href="#72-network-topology" title="Permanent link">&para;</a></h3>
+<p><strong>Networks</strong>:<br />
+- <code>sia</code>: Internal service communication<br />
+- <code>vectordb</code>: Database access<br />
 - <code>tyk</code>: API gateway network</p>
-<h3 id="73-volume-management">7.3 Volume Management</h3>
+<h3 id="73-volume-management">7.3 Volume Management<a class="headerlink" href="#73-volume-management" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>pgdata</code>: PostgreSQL persistent storage</li>
 <li><code>chromadata</code>: ChromaDB persistent storage</li>
 <li><code>/opt/sia/manuals</code>: Document storage</li>
 </ul>
-<h3 id="74-health-checks">7.4 Health Checks</h3>
+<h3 id="74-health-checks">7.4 Health Checks<a class="headerlink" href="#74-health-checks" title="Permanent link">&para;</a></h3>
 <ul>
 <li>PostgreSQL: <code>pg_isready</code> checks</li>
 <li>ChromaDB: Heartbeat endpoint</li>
@@ -1057,8 +1630,8 @@ flowchart TD
 <li>Service Dependencies: Managed via <code>depends_on</code></li>
 </ul>
 <hr />
-<h2 id="8-integration-points">8. Integration Points</h2>
-<h3 id="81-external-systems">8.1 External Systems</h3>
+<h2 id="8-integration-points">8. Integration Points<a class="headerlink" href="#8-integration-points" title="Permanent link">&para;</a></h2>
+<h3 id="81-external-systems">8.1 External Systems<a class="headerlink" href="#81-external-systems" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>SOAR Platform</strong>: Case updates, field updates, playbook execution</li>
 <li><strong>Threat Intelligence Platforms (TIP)</strong>: IOC reputation checks</li>
@@ -1066,7 +1639,7 @@ flowchart TD
 <li><strong>Events API</strong>: Event data retrieval</li>
 <li><strong>Novelty Detection Service</strong>: ML-based novelty scoring</li>
 </ul>
-<h3 id="82-llm-providers">8.2 LLM Providers</h3>
+<h3 id="82-llm-providers">8.2 LLM Providers<a class="headerlink" href="#82-llm-providers" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>OpenAI API</strong>: GPT models</li>
 <li><strong>Groq API</strong>: Fast inference</li>
@@ -1074,7 +1647,7 @@ flowchart TD
 <li><strong>On-Premise LLMs</strong>: Custom deployments (Ollama)</li>
 <li><strong>LiteLLM Proxy</strong>: Unified LLM interface</li>
 </ul>
-<h3 id="83-monitoring-observability">8.3 Monitoring &amp; Observability</h3>
+<h3 id="83-monitoring-observability">8.3 Monitoring &amp; Observability<a class="headerlink" href="#83-monitoring-observability" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Traceloop SDK</strong>: LLM operation tracing</li>
 <li><strong>OpenTelemetry</strong>: Distributed tracing</li>
@@ -1082,16 +1655,16 @@ flowchart TD
 <li><strong>Prometheus</strong>: Metrics (configurable)</li>
 </ul>
 <hr />
-<h2 id="9-configuration-management">9. Configuration Management</h2>
-<h3 id="91-environment-variables">9.1 Environment Variables</h3>
-<p><strong>Categories</strong>:
-- <strong>Database</strong>: Connection strings, credentials
-- <strong>LLM</strong>: API keys, model names, backends
-- <strong>Kafka</strong>: Brokers, topics, partitions
-- <strong>Security</strong>: JWT keys, access tokens, API keys
-- <strong>Integration</strong>: External service URLs
+<h2 id="9-configuration-management">9. Configuration Management<a class="headerlink" href="#9-configuration-management" title="Permanent link">&para;</a></h2>
+<h3 id="91-environment-variables">9.1 Environment Variables<a class="headerlink" href="#91-environment-variables" title="Permanent link">&para;</a></h3>
+<p><strong>Categories</strong>:<br />
+- <strong>Database</strong>: Connection strings, credentials<br />
+- <strong>LLM</strong>: API keys, model names, backends<br />
+- <strong>Kafka</strong>: Brokers, topics, partitions<br />
+- <strong>Security</strong>: JWT keys, access tokens, API keys<br />
+- <strong>Integration</strong>: External service URLs<br />
 - <strong>Feature Flags</strong>: Enable/disable features</p>
-<h3 id="92-configuration-files">9.2 Configuration Files</h3>
+<h3 id="92-configuration-files">9.2 Configuration Files<a class="headerlink" href="#92-configuration-files" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>.env</code>: Environment-specific settings</li>
 <li><code>prompts.yaml</code>: LLM prompt templates</li>
@@ -1100,30 +1673,30 @@ flowchart TD
 <li><code>docker-compose.yml</code>: Service orchestration</li>
 </ul>
 <hr />
-<h2 id="10-high-availability-disaster-recovery">10. High Availability &amp; Disaster Recovery</h2>
-<h3 id="101-high-availability">10.1 High Availability</h3>
+<h2 id="10-high-availability-disaster-recovery">10. High Availability &amp; Disaster Recovery<a class="headerlink" href="#10-high-availability-disaster-recovery" title="Permanent link">&para;</a></h2>
+<h3 id="101-high-availability">10.1 High Availability<a class="headerlink" href="#101-high-availability" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Service Redundancy</strong>: Multiple instances of critical services</li>
 <li><strong>Database Replication</strong>: PostgreSQL streaming replication (configurable)</li>
 <li><strong>Message Queue</strong>: Kafka replication factor</li>
 <li><strong>Load Balancing</strong>: Tyk gateway distribution</li>
 </ul>
-<h3 id="102-fault-tolerance">10.2 Fault Tolerance</h3>
+<h3 id="102-fault-tolerance">10.2 Fault Tolerance<a class="headerlink" href="#102-fault-tolerance" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Retry Mechanisms</strong>: Celery task retries</li>
 <li><strong>Circuit Breakers</strong>: Fail-fast for external services</li>
 <li><strong>Graceful Degradation</strong>: Fallback to cached results</li>
 <li><strong>Health Checks</strong>: Automatic container restart</li>
 </ul>
-<h3 id="103-backup-strategy">10.3 Backup Strategy</h3>
+<h3 id="103-backup-strategy">10.3 Backup Strategy<a class="headerlink" href="#103-backup-strategy" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Database Backups</strong>: Regular PostgreSQL dumps</li>
 <li><strong>Volume Snapshots</strong>: Docker volume backups</li>
 <li><strong>Configuration Backups</strong>: Version-controlled configs</li>
 </ul>
 <hr />
-<h2 id="11-technology-stack-summary">11. Technology Stack Summary</h2>
-<h3 id="backend">Backend</h3>
+<h2 id="11-technology-stack-summary">11. Technology Stack Summary<a class="headerlink" href="#11-technology-stack-summary" title="Permanent link">&para;</a></h2>
+<h3 id="backend">Backend<a class="headerlink" href="#backend" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Language</strong>: Python 3.11+</li>
 <li><strong>Framework</strong>: FastAPI</li>
@@ -1131,27 +1704,27 @@ flowchart TD
 <li><strong>Message Broker</strong>: Apache Kafka</li>
 <li><strong>ASGI Server</strong>: Uvicorn</li>
 </ul>
-<h3 id="databases">Databases</h3>
+<h3 id="databases">Databases<a class="headerlink" href="#databases" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Primary</strong>: PostgreSQL 16 with pgvector</li>
 <li><strong>Cache</strong>: Redis 7</li>
 <li><strong>Vector Store</strong>: ChromaDB, pgvector</li>
 </ul>
-<h3 id="aiml">AI/ML</h3>
+<h3 id="aiml">AI/ML<a class="headerlink" href="#aiml" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>LLM Frameworks</strong>: LangChain, LangGraph</li>
 <li><strong>LLM Providers</strong>: OpenAI, Groq, Gemini, On-Prem</li>
 <li><strong>Embeddings</strong>: OpenAI, custom endpoints</li>
 <li><strong>Prompt Security</strong>: DTX Prompt Guard</li>
 </ul>
-<h3 id="infrastructure">Infrastructure</h3>
+<h3 id="infrastructure">Infrastructure<a class="headerlink" href="#infrastructure" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Containerization</strong>: Docker</li>
 <li><strong>Orchestration</strong>: Docker Compose</li>
 <li><strong>API Gateway</strong>: Tyk</li>
 <li><strong>Logging</strong>: Fluentd</li>
 </ul>
-<h3 id="development">Development</h3>
+<h3 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Package Manager</strong>: Poetry</li>
 <li><strong>Migration</strong>: Alembic</li>
@@ -1159,12 +1732,12 @@ flowchart TD
 <li><strong>Linting</strong>: Flake8, Black</li>
 </ul>
 <hr />
-<h2 id="12-future-enhancements">12. Future Enhancements</h2>
+<h2 id="12-future-enhancements">12. Future Enhancements<a class="headerlink" href="#12-future-enhancements" title="Permanent link">&para;</a></h2>
 <hr />
-<h2 id="13-development-guidelines">13. Development Guidelines</h2>
-<h3 id="131-code-organization-best-practices">13.1 Code Organization Best Practices</h3>
+<h2 id="13-development-guidelines">13. Development Guidelines<a class="headerlink" href="#13-development-guidelines" title="Permanent link">&para;</a></h2>
+<h3 id="131-code-organization-best-practices">13.1 Code Organization Best Practices<a class="headerlink" href="#131-code-organization-best-practices" title="Permanent link">&para;</a></h3>
 <p><strong>Module Structure</strong>:</p>
-<div class="codehilite"><pre><span></span><code>siaservice/
+<pre class="highlight"><code>siaservice/
 ├── routers/          # API endpoint definitions (thin layer)
 ├── apis/services/    # Business logic (core functionality)
 ├── domain/           # Domain models (data structures)
@@ -1173,261 +1746,257 @@ flowchart TD
 ├── llm/             # LLM integration
 ├── parsers/         # Output parsing
 └── common.py        # Shared utilities
-</code></pre></div>
+</code></pre>
 
-<p><strong>Coding Standards</strong>:
-- Follow PEP 8 style guide
-- Use type hints for all functions
-- Document complex logic with docstrings
-- Write unit tests for business logic
+<p><strong>Coding Standards</strong>:<br />
+- Follow PEP 8 style guide<br />
+- Use type hints for all functions<br />
+- Document complex logic with docstrings<br />
+- Write unit tests for business logic<br />
 - Use Pydantic models for validation</p>
 <p><strong>Example Function</strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">siaservice.domain.soar.cases</span><span class="w"> </span><span class="kn">import</span> <span class="n">Case</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">siaservice.common</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+<pre class="highlight"><code class="language-python">from typing import Optional, List
+from siaservice.domain.soar.cases import Case
+from siaservice.common import get_logger
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+logger = get_logger(__name__)
 
-<span class="k">def</span><span class="w"> </span><span class="nf">process_case</span><span class="p">(</span>
-    <span class="n">case</span><span class="p">:</span> <span class="n">Case</span><span class="p">,</span>
-    <span class="n">tenant_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Process a security case with given options.</span>
+def process_case(
+    case: Case,
+    tenant_id: str,
+    options: Optional[dict] = None
+) -&gt; List[dict]:
+    &quot;&quot;&quot;
+    Process a security case with given options.
 
-<span class="sd">    Args:</span>
-<span class="sd">        case: Case object to process</span>
-<span class="sd">        tenant_id: Tenant identifier</span>
-<span class="sd">        options: Optional processing parameters</span>
+    Args:
+        case: Case object to process
+        tenant_id: Tenant identifier
+        options: Optional processing parameters
 
-<span class="sd">    Returns:</span>
-<span class="sd">        List of processing results</span>
+    Returns:
+        List of processing results
 
-<span class="sd">    Raises:</span>
-<span class="sd">        ValueError: If case is invalid</span>
-<span class="sd">        ProcessingError: If processing fails</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing case </span><span class="si">{</span><span class="n">case</span><span class="o">.</span><span class="n">case_id</span><span class="si">}</span><span class="s2"> for tenant </span><span class="si">{</span><span class="n">tenant_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    Raises:
+        ValueError: If case is invalid
+        ProcessingError: If processing fails
+    &quot;&quot;&quot;
+    logger.info(f&quot;Processing case {case.case_id} for tenant {tenant_id}&quot;)
 
-    <span class="c1"># Implementation</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">return</span> <span class="n">results</span>
-</code></pre></div>
+    # Implementation
+    results = []
+    return results
+</code></pre>
 
-<h3 id="132-git-workflow">13.2 Git Workflow</h3>
-<p><strong>Branch Strategy</strong>:
-- <code>main</code> - Production-ready code
-- <code>develop</code> - Integration branch
-- <code>feature/*</code> - New features
-- <code>bugfix/*</code> - Bug fixes
+<h3 id="132-git-workflow">13.2 Git Workflow<a class="headerlink" href="#132-git-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Branch Strategy</strong>:<br />
+- <code>main</code> - Production-ready code<br />
+- <code>develop</code> - Integration branch<br />
+- <code>feature/*</code> - New features<br />
+- <code>bugfix/*</code> - Bug fixes<br />
 - <code>hotfix/*</code> - Critical production fixes</p>
 <p><strong>Commit Messages</strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">feat</span><span class="o">:</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">priority</span><span class="w"> </span><span class="n">scoring</span>
-<span class="n">fix</span><span class="o">:</span><span class="w"> </span><span class="n">resolve</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">search</span><span class="w"> </span><span class="n">timeout</span><span class="w"> </span><span class="n">issue</span>
-<span class="n">docs</span><span class="o">:</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">documentation</span>
-<span class="n">refactor</span><span class="o">:</span><span class="w"> </span><span class="n">optimize</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="n">queries</span>
-<span class="n">test</span><span class="o">:</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">unit</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">chat</span><span class="w"> </span><span class="n">service</span>
-</code></pre></div>
+<pre class="highlight"><code>feat: add case priority scoring
+fix: resolve vector search timeout issue
+docs: update API documentation
+refactor: optimize database queries
+test: add unit tests for chat service
+</code></pre>
 
-<h3 id="133-development-workflow">13.3 Development Workflow</h3>
+<h3 id="133-development-workflow">13.3 Development Workflow<a class="headerlink" href="#133-development-workflow" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
-<p><strong>Create Feature Branch</strong>:
-   <code>bash
+<p><strong>Create Feature Branch</strong>:<br />
+<code>bash
    git checkout -b feature/add-risk-scoring</code></p>
 </li>
 <li>
-<p><strong>Implement Changes</strong>:</p>
-</li>
-<li>Write code with tests</li>
-<li>Follow coding standards</li>
-<li>
-<p>Update documentation</p>
+<p><strong>Implement Changes</strong>:<br />
+   - Write code with tests<br />
+   - Follow coding standards<br />
+   - Update documentation</p>
 </li>
 <li>
-<p><strong>Run Quality Checks</strong>:
-   <code>bash
+<p><strong>Run Quality Checks</strong>:<br />
+<code>bash
    poetry run flake8
    poetry run black .
    poetry run pytest</code></p>
 </li>
 <li>
-<p><strong>Submit Pull Request</strong>:</p>
-</li>
-<li>Clear description</li>
-<li>Link to issue/ticket</li>
-<li>
-<p>Request reviews</p>
+<p><strong>Submit Pull Request</strong>:<br />
+   - Clear description<br />
+   - Link to issue/ticket<br />
+   - Request reviews</p>
 </li>
 <li>
-<p><strong>Merge After Approval</strong>:</p>
+<p><strong>Merge After Approval</strong>:<br />
+   - Squash commits<br />
+   - Update changelog</p>
 </li>
-<li>Squash commits</li>
-<li>Update changelog</li>
 </ol>
 <hr />
-<h2 id="14-monitoring-observability">14. Monitoring &amp; Observability</h2>
-<h3 id="141-observability-stack">14.1 Observability Stack</h3>
+<h2 id="14-monitoring-observability">14. Monitoring &amp; Observability<a class="headerlink" href="#14-monitoring-observability" title="Permanent link">&para;</a></h2>
+<h3 id="141-observability-stack">14.1 Observability Stack<a class="headerlink" href="#141-observability-stack" title="Permanent link">&para;</a></h3>
 <div class="mermaid">
 graph TB
     subgraph Application
         APP[SIA Services]
     end
-    
+
     subgraph Instrumentation
         TRACE[Traceloop SDK<br/>LLM Tracing]
         OTEL[OpenTelemetry<br/>Distributed Tracing]
         LOGS[Application Logs]
         METRICS[System Metrics]
     end
-    
+
     subgraph Collection
         FLUENTD[Fluentd<br/>Log Aggregation]
         AGENT[OTEL Collector]
     end
-    
+
     subgraph Storage
         LOGSTOR[(Log Storage)]
         TRACESTOR[(Trace Backend)]
         METRICSTOR[(Metrics DB)]
     end
-    
+
     subgraph Visualization
         DASH[Dashboards]
         ALERT[Alerting]
         ANALYZE[Analysis Tools]
     end
-    
+
     APP --> TRACE
     APP --> OTEL
     APP --> LOGS
     APP --> METRICS
-    
+
     TRACE --> AGENT
     OTEL --> AGENT
     LOGS --> FLUENTD
     METRICS --> AGENT
-    
+
     FLUENTD --> LOGSTOR
     AGENT --> TRACESTOR
     AGENT --> METRICSTOR
-    
+
     LOGSTOR --> DASH
     TRACESTOR --> DASH
     METRICSTOR --> DASH
-    
+
     DASH --> ALERT
     DASH --> ANALYZE
-    
+
     classDef application fill:#99ccff,stroke:#333,stroke-width:2px
     classDef collector fill:#ffcc99,stroke:#333,stroke-width:2px
     classDef dashboard fill:#99ff99,stroke:#333,stroke-width:2px
-    
+
     class APP application
     class FLUENTD,AGENT collector
     class DASH,ALERT,ANALYZE dashboard
 </div>
 
-<h3 id="142-key-metrics-to-monitor">14.2 Key Metrics to Monitor</h3>
-<p><strong>Application Metrics</strong>:
-- Request rate (requests/sec)
-- Response time (p50, p95, p99)
-- Error rate (4xx, 5xx)
-- Task queue length
+<h3 id="142-key-metrics-to-monitor">14.2 Key Metrics to Monitor<a class="headerlink" href="#142-key-metrics-to-monitor" title="Permanent link">&para;</a></h3>
+<p><strong>Application Metrics</strong>:<br />
+- Request rate (requests/sec)<br />
+- Response time (p50, p95, p99)<br />
+- Error rate (4xx, 5xx)<br />
+- Task queue length<br />
 - Active connections</p>
-<p><strong>LLM Metrics</strong>:
-- LLM latency (generation time)
-- Token usage (input/output)
-- Cache hit rate
-- Cost per request
+<p><strong>LLM Metrics</strong>:<br />
+- LLM latency (generation time)<br />
+- Token usage (input/output)<br />
+- Cache hit rate<br />
+- Cost per request<br />
 - Error rate by provider</p>
-<p><strong>Database Metrics</strong>:
-- Query execution time
-- Connection pool usage
-- Vector search latency
-- Index performance
+<p><strong>Database Metrics</strong>:<br />
+- Query execution time<br />
+- Connection pool usage<br />
+- Vector search latency<br />
+- Index performance<br />
 - Replication lag</p>
-<p><strong>Infrastructure Metrics</strong>:
-- CPU utilization
-- Memory usage
-- Disk I/O
-- Network throughput
+<p><strong>Infrastructure Metrics</strong>:<br />
+- CPU utilization<br />
+- Memory usage<br />
+- Disk I/O<br />
+- Network throughput<br />
 - Container health</p>
-<h3 id="143-logging-strategy">14.3 Logging Strategy</h3>
+<h3 id="143-logging-strategy">14.3 Logging Strategy<a class="headerlink" href="#143-logging-strategy" title="Permanent link">&para;</a></h3>
 <p><strong>Log Levels</strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># DEBUG: Detailed diagnostic information</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vector search params: </span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<pre class="highlight"><code class="language-python"># DEBUG: Detailed diagnostic information
+logger.debug(f&quot;Vector search params: {params}&quot;)
 
-<span class="c1"># INFO: General informational messages</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Case analysis started: </span><span class="si">{</span><span class="n">case_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+# INFO: General informational messages
+logger.info(f&quot;Case analysis started: {case_id}&quot;)
 
-<span class="c1"># WARNING: Warning messages</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;High memory usage: </span><span class="si">{</span><span class="n">usage</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+# WARNING: Warning messages
+logger.warning(f&quot;High memory usage: {usage}%&quot;)
 
-<span class="c1"># ERROR: Error messages</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to generate analysis: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+# ERROR: Error messages
+logger.error(f&quot;Failed to generate analysis: {error}&quot;)
 
-<span class="c1"># CRITICAL: Critical errors</span>
-<span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Database connection lost&quot;</span><span class="p">)</span>
-</code></pre></div>
+# CRITICAL: Critical errors
+logger.critical(f&quot;Database connection lost&quot;)
+</code></pre>
 
 <p><strong>Structured Logging</strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-    <span class="s2">&quot;case_analysis_completed&quot;</span><span class="p">,</span>
-    <span class="n">extra</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;case_id&quot;</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">case_id</span><span class="p">,</span>
-        <span class="s2">&quot;tenant_id&quot;</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">tenant_id</span><span class="p">,</span>
-        <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span>
-        <span class="s2">&quot;llm_provider&quot;</span><span class="p">:</span> <span class="s2">&quot;openai&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;cache_hit&quot;</span><span class="p">:</span> <span class="kc">False</span>
-    <span class="p">}</span>
-<span class="p">)</span>
-</code></pre></div>
+<pre class="highlight"><code class="language-python">logger.info(
+    &quot;case_analysis_completed&quot;,
+    extra={
+        &quot;case_id&quot;: case.case_id,
+        &quot;tenant_id&quot;: case.tenant_id,
+        &quot;duration_ms&quot;: duration,
+        &quot;llm_provider&quot;: &quot;openai&quot;,
+        &quot;cache_hit&quot;: False
+    }
+)
+</code></pre>
 
-<h3 id="144-alerting-rules">14.4 Alerting Rules</h3>
-<p><strong>Critical Alerts</strong>:
-- Service down (health check fails)
-- Database connection lost
-- Kafka broker unavailable
-- Error rate &gt; 5%
+<h3 id="144-alerting-rules">14.4 Alerting Rules<a class="headerlink" href="#144-alerting-rules" title="Permanent link">&para;</a></h3>
+<p><strong>Critical Alerts</strong>:<br />
+- Service down (health check fails)<br />
+- Database connection lost<br />
+- Kafka broker unavailable<br />
+- Error rate &gt; 5%<br />
 - Response time &gt; 10s</p>
-<p><strong>Warning Alerts</strong>:
-- High memory usage (&gt;80%)
-- Queue length &gt; 1000
-- Cache miss rate &gt; 50%
+<p><strong>Warning Alerts</strong>:<br />
+- High memory usage (&gt;80%)<br />
+- Queue length &gt; 1000<br />
+- Cache miss rate &gt; 50%<br />
 - Slow queries (&gt;5s)</p>
-<p><strong>Informational</strong>:
-- Deployment completed
-- Tenant onboarded
+<p><strong>Informational</strong>:<br />
+- Deployment completed<br />
+- Tenant onboarded<br />
 - Configuration updated</p>
-<h3 id="145-tracing-example">14.5 Tracing Example</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Automatic tracing with Traceloop</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">traceloop.sdk</span><span class="w"> </span><span class="kn">import</span> <span class="n">Traceloop</span>
+<h3 id="145-tracing-example">14.5 Tracing Example<a class="headerlink" href="#145-tracing-example" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-python"># Automatic tracing with Traceloop
+from traceloop.sdk import Traceloop
 
-<span class="n">Traceloop</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">app_name</span><span class="o">=</span><span class="s2">&quot;siaservice&quot;</span><span class="p">,</span> <span class="n">disable_batch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+Traceloop.init(app_name=&quot;siaservice&quot;, disable_batch=True)
 
-<span class="c1"># LLM calls are automatically traced</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>  <span class="c1"># Traced automatically</span>
+# LLM calls are automatically traced
+result = llm.invoke(prompt)  # Traced automatically
 
-<span class="c1"># Manual span creation</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">trace</span>
+# Manual span creation
+from opentelemetry import trace
 
-<span class="n">tracer</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">get_tracer</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+tracer = trace.get_tracer(__name__)
 
-<span class="k">with</span> <span class="n">tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span><span class="s2">&quot;process_case&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">span</span><span class="p">:</span>
-    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;case_id&quot;</span><span class="p">,</span> <span class="n">case_id</span><span class="p">)</span>
-    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;tenant_id&quot;</span><span class="p">,</span> <span class="n">tenant_id</span><span class="p">)</span>
+with tracer.start_as_current_span(&quot;process_case&quot;) as span:
+    span.set_attribute(&quot;case_id&quot;, case_id)
+    span.set_attribute(&quot;tenant_id&quot;, tenant_id)
 
-    <span class="c1"># Your code here</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">process</span><span class="p">()</span>
+    # Your code here
+    result = process()
 
-    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;result_status&quot;</span><span class="p">,</span> <span class="s2">&quot;success&quot;</span><span class="p">)</span>
-</code></pre></div>
+    span.set_attribute(&quot;result_status&quot;, &quot;success&quot;)
+</code></pre>
 
 <hr />
-<h2 id="15-future-roadmap">15. Future Roadmap</h2>
-<h3 id="151-short-term-q1-2026">15.1 Short-term (Q1 2026)</h3>
+<h2 id="15-future-roadmap">15. Future Roadmap<a class="headerlink" href="#15-future-roadmap" title="Permanent link">&para;</a></h2>
+<h3 id="151-short-term-q1-2026">15.1 Short-term (Q1 2026)<a class="headerlink" href="#151-short-term-q1-2026" title="Permanent link">&para;</a></h3>
 <ul>
 <li>✅ <strong>Advanced Analytics Dashboard</strong>: Real-time metrics and insights</li>
 <li>✅ <strong>Enhanced Chat Experience</strong>: Multi-modal support (images, PDFs)</li>
@@ -1435,7 +2004,7 @@ graph TB
 <li>✅ <strong>Performance Optimization</strong>: Sub-100ms vector search</li>
 <li>✅ <strong>API Versioning</strong>: Support for v2 APIs</li>
 </ul>
-<h3 id="152-medium-term-q2-q3-2026">15.2 Medium-term (Q2-Q3 2026)</h3>
+<h3 id="152-medium-term-q2-q3-2026">15.2 Medium-term (Q2-Q3 2026)<a class="headerlink" href="#152-medium-term-q2-q3-2026" title="Permanent link">&para;</a></h3>
 <ul>
 <li>🔄 <strong>Multi-Model Ensemble</strong>: Combine multiple LLM outputs</li>
 <li>🔄 <strong>Automated Playbook Generation</strong>: AI-generated remediation workflows</li>
@@ -1444,7 +2013,7 @@ graph TB
 <li>🔄 <strong>GraphQL API</strong>: Alternative API interface</li>
 <li>🔄 <strong>Advanced RBAC</strong>: Fine-grained access control</li>
 </ul>
-<h3 id="153-long-term-q4-2026">15.3 Long-term (Q4 2026+)</h3>
+<h3 id="153-long-term-q4-2026">15.3 Long-term (Q4 2026+)<a class="headerlink" href="#153-long-term-q4-2026" title="Permanent link">&para;</a></h3>
 <ul>
 <li>📅 <strong>Kubernetes Support</strong>: Cloud-native deployment</li>
 <li>📅 <strong>Multi-Region Deployment</strong>: Geographic distribution</li>
@@ -1453,7 +2022,7 @@ graph TB
 <li>📅 <strong>Database Sharding</strong>: Horizontal partitioning</li>
 <li>📅 <strong>Edge Deployment</strong>: On-premise + cloud hybrid</li>
 </ul>
-<h3 id="154-research-areas">15.4 Research Areas</h3>
+<h3 id="154-research-areas">15.4 Research Areas<a class="headerlink" href="#154-research-areas" title="Permanent link">&para;</a></h3>
 <ul>
 <li>🔬 <strong>Advanced NLP</strong>: Domain-specific language models</li>
 <li>🔬 <strong>Reinforcement Learning</strong>: Automated response optimization</li>
@@ -1461,104 +2030,186 @@ graph TB
 <li>🔬 <strong>Quantum-Resistant Crypto</strong>: Future-proof security</li>
 </ul>
 <hr />
-<h2 id="17-troubleshooting-operations">17. Troubleshooting &amp; Operations</h2>
-<h3 id="171-common-issues-solutions">17.1 Common Issues &amp; Solutions</h3>
-<h4 id="service-wont-start">Service Won't Start</h4>
+<h2 id="17-troubleshooting-operations">17. Troubleshooting &amp; Operations<a class="headerlink" href="#17-troubleshooting-operations" title="Permanent link">&para;</a></h2>
+<h3 id="171-common-issues-solutions">17.1 Common Issues &amp; Solutions<a class="headerlink" href="#171-common-issues-solutions" title="Permanent link">&para;</a></h3>
+<h4 id="service-wont-start">Service Won't Start<a class="headerlink" href="#service-wont-start" title="Permanent link">&para;</a></h4>
 <p><strong>Symptoms</strong>: Container exits, port conflicts, database connection failures</p>
 <p><strong>Solutions</strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Check port availability</span>
-netstat<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>:8000
+<pre class="highlight"><code class="language-bash"># Check port availability
+netstat -tlnp | grep :8000
 
-<span class="c1"># Verify database connectivity</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>sia-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>admin<span class="w"> </span>-d<span class="w"> </span>postgres
+# Verify database connectivity
+docker exec -it sia-postgres psql -U admin -d postgres
 
-<span class="c1"># Restart services in order</span>
-docker-compose<span class="w"> </span>down
-docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>postgres<span class="w"> </span>redis<span class="w"> </span>kafka
-sleep<span class="w"> </span><span class="m">10</span>
-docker-compose<span class="w"> </span>up<span class="w"> </span>-d
-</code></pre></div>
+# Restart services in order
+docker-compose down
+docker-compose up -d postgres redis kafka
+sleep 10
+docker-compose up -d
+</code></pre>
 
-<h4 id="llm-integration-failures">LLM Integration Failures</h4>
+<h4 id="llm-integration-failures">LLM Integration Failures<a class="headerlink" href="#llm-integration-failures" title="Permanent link">&para;</a></h4>
 <p><strong>Symptoms</strong>: Timeout, authentication errors, rate limits</p>
-<p><strong>Solutions</strong>:
-- Verify API keys in environment variables
-- Test provider connectivity manually
-- Switch to alternative provider (Groq, Gemini)
+<p><strong>Solutions</strong>:<br />
+- Verify API keys in environment variables<br />
+- Test provider connectivity manually<br />
+- Switch to alternative provider (Groq, Gemini)<br />
 - Implement rate limiting and backoff</p>
-<h4 id="vector-search-issues">Vector Search Issues</h4>
+<h4 id="vector-search-issues">Vector Search Issues<a class="headerlink" href="#vector-search-issues" title="Permanent link">&para;</a></h4>
 <p><strong>Symptoms</strong>: No context retrieved, slow queries</p>
 <p><strong>Solutions</strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">-- Verify pgvector extension</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_extension</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">extname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;vector&#39;</span><span class="p">;</span>
+<pre class="highlight"><code class="language-sql">-- Verify pgvector extension
+SELECT * FROM pg_extension WHERE extname = 'vector';
 
-<span class="c1">-- Rebuild index</span>
-<span class="k">REINDEX</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">playbook_tasks_embedding_idx</span><span class="p">;</span>
-<span class="k">ANALYZE</span><span class="w"> </span><span class="n">playbook_tasks_with_embeddings</span><span class="p">;</span>
-</code></pre></div>
+-- Rebuild index
+REINDEX INDEX playbook_tasks_embedding_idx;
+ANALYZE playbook_tasks_with_embeddings;
+</code></pre>
 
-<h4 id="celery-workers-not-processing">Celery Workers Not Processing</h4>
+<h4 id="celery-workers-not-processing">Celery Workers Not Processing<a class="headerlink" href="#celery-workers-not-processing" title="Permanent link">&para;</a></h4>
 <p><strong>Solutions</strong>:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Check worker status</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sia-worker<span class="w"> </span>celery<span class="w"> </span>-A<span class="w"> </span>worker<span class="w"> </span>inspect<span class="w"> </span>active
+<pre class="highlight"><code class="language-bash"># Check worker status
+docker exec sia-worker celery -A worker inspect active
 
-<span class="c1"># Restart and scale workers</span>
-docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--scale<span class="w"> </span>sia-worker<span class="o">=</span><span class="m">3</span>
-</code></pre></div>
+# Restart and scale workers
+docker-compose up -d --scale sia-worker=3
+</code></pre>
 
-<h3 id="172-health-check-endpoints">17.2 Health Check Endpoints</h3>
-<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>http://localhost:8000/health<span class="w">          </span><span class="c1"># Overall health</span>
-curl<span class="w"> </span>http://localhost:8000/health/db<span class="w">       </span><span class="c1"># Database</span>
-curl<span class="w"> </span>http://localhost:8000/health/redis<span class="w">    </span><span class="c1"># Cache</span>
-curl<span class="w"> </span>http://localhost:8000/health/kafka<span class="w">    </span><span class="c1"># Message broker</span>
-curl<span class="w"> </span>http://localhost:8000/health/llm<span class="w">      </span><span class="c1"># LLM providers</span>
-</code></pre></div>
+<h3 id="172-health-check-endpoints">17.2 Health Check Endpoints<a class="headerlink" href="#172-health-check-endpoints" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash">curl http://localhost:8000/health          # Overall health
+curl http://localhost:8000/health/db       # Database
+curl http://localhost:8000/health/redis    # Cache
+curl http://localhost:8000/health/kafka    # Message broker
+curl http://localhost:8000/health/llm      # LLM providers
+</code></pre>
 
-<h3 id="173-performance-optimization">17.3 Performance Optimization</h3>
-<p><strong>Database</strong>:
-- Add indexes for frequently queried columns
-- Run VACUUM ANALYZE regularly
+<h3 id="173-performance-optimization">17.3 Performance Optimization<a class="headerlink" href="#173-performance-optimization" title="Permanent link">&para;</a></h3>
+<p><strong>Database</strong>:<br />
+- Add indexes for frequently queried columns<br />
+- Run VACUUM ANALYZE regularly<br />
 - Monitor slow queries with pg_stat_statements</p>
-<p><strong>Cache</strong>:
-- Tune Redis eviction policy (allkeys-lru)
-- Monitor cache hit rates
+<p><strong>Cache</strong>:<br />
+- Tune Redis eviction policy (allkeys-lru)<br />
+- Monitor cache hit rates<br />
 - Implement cache warming for common queries</p>
-<p><strong>Application</strong>:
-- Adjust worker concurrency based on CPU cores
-- Increase timeouts for long-running operations
+<p><strong>Application</strong>:<br />
+- Adjust worker concurrency based on CPU cores<br />
+- Increase timeouts for long-running operations<br />
 - Use connection pooling effectively</p>
-<h3 id="174-backup-recovery">17.4 Backup &amp; Recovery</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Backup tenant databases</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sia-postgres<span class="w"> </span>pg_dump<span class="w"> </span>-U<span class="w"> </span>admin<span class="w"> </span>siadb_tenant123<span class="w"> </span>&gt;<span class="w"> </span>backup.sql
+<h3 id="174-backup-recovery">17.4 Backup &amp; Recovery<a class="headerlink" href="#174-backup-recovery" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-bash"># Backup tenant databases
+docker exec sia-postgres pg_dump -U admin siadb_tenant123 &gt; backup.sql
 
-<span class="c1"># Backup Redis data</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sia-redis<span class="w"> </span>redis-cli<span class="w"> </span>BGSAVE
+# Backup Redis data
+docker exec sia-redis redis-cli BGSAVE
 
-<span class="c1"># Restore database</span>
-docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>sia-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>admin<span class="w"> </span>siadb_tenant123<span class="w"> </span>&lt;<span class="w"> </span>backup.sql
-</code></pre></div>
+# Restore database
+docker exec -i sia-postgres psql -U admin siadb_tenant123 &lt; backup.sql
+</code></pre>
 
 <hr />
-<h2 id="18-conclusion">18. Conclusion</h2>
+<h2 id="18-conclusion">18. Conclusion<a class="headerlink" href="#18-conclusion" title="Permanent link">&para;</a></h2>
 <p>SIA Service represents a comprehensive AI-powered SOC automation platform that combines modern microservices architecture, advanced ML/LLM capabilities, and enterprise-grade security. The system is designed for scalability, maintainability, and extensibility, providing security teams with intelligent automation to enhance their incident response capabilities.</p>
-<p>The architecture supports:
-- ✅ <strong>Multi-tenancy</strong> with complete data isolation
-- ✅ <strong>Event-driven processing</strong> for real-time operations
-- ✅ <strong>AI/LLM integration</strong> with multiple providers
-- ✅ <strong>Vector-based semantic search</strong> for intelligent context retrieval
-- ✅ <strong>False positive reduction</strong> through ML-based scoring
-- ✅ <strong>Extensible plugin architecture</strong> for integrations
+<p>The architecture supports:<br />
+- ✅ <strong>Multi-tenancy</strong> with complete data isolation<br />
+- ✅ <strong>Event-driven processing</strong> for real-time operations<br />
+- ✅ <strong>AI/LLM integration</strong> with multiple providers<br />
+- ✅ <strong>Vector-based semantic search</strong> for intelligent context retrieval<br />
+- ✅ <strong>False positive reduction</strong> through ML-based scoring<br />
+- ✅ <strong>Extensible plugin architecture</strong> for integrations<br />
 - ✅ <strong>Enterprise security</strong> with authentication and encryption</p>
 <hr />
 <p><strong>Document Version</strong>: 1.0<br />
 <strong>Last Updated</strong>: November 11, 2025<br />
 <strong>Status</strong>: Active Development</p>
     </main>
-    
-    <footer class="main-footer">
-        <p>&copy; 2025 Securaa Platform. All rights reserved. | <a href="#" onclick="window.print()" style="color: #ecf0f1;">Print</a></p>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
     </footer>
-    
-    <script src="assets/js/documentation.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>

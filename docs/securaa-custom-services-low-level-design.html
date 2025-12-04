@@ -3,78 +3,638 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Securaa Custom Services - Low Level Design - Securaa Platform Documentation</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
+    <meta name="description" content="Securaa Platform Documentation - Securaa Custom Services - Low Level Design">
+    <title>Securaa Custom Services - Low Level Design - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
+
     <nav class="documentation-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-ris-high-level-design.html">RIS High Level Design</a></li>
-            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-            <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-            <li><a href="securaa-custom-services-high-level-design.html">Securaa Custom Services High Level Design</a></li>
-            <li><a href="securaa-custom-services-low-level-design.html">Securaa Custom Services Low Level Design</a></li>
-        </ul>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
     </nav>
+
     <main class="main-content">
-        <h1>Low-Level Design (Low Level Design) - Securaa Custom Services</h1>
-
-        <h2>Document Information</h2>
-        <ul>
-            <li><strong>Service Name</strong>: Securaa Custom Services</li>
-            <li><strong>Version</strong>: 1.0</li>
-            <li><strong>Date</strong>: September 2025</li>
-            <li><strong>Author</strong>: Development Team</li>
-            <li><strong>Related Documents</strong>: <a href="securaa-custom-services-high-level-design.html">High Level Design</a></li>
-        </ul>
-        
-        <h2>Table of Contents</h2>
-        <ol>
-            <li><a href="#implementation-overview">Implementation Overview</a></li>
-            <li><a href="#detailed-component-design">Detailed Component Design</a></li>
-            <li><a href="#database-design">Database Design & Data Models</a></li>
-            <li><a href="#api-specifications">API Specifications</a></li>
-            <li><a href="#security-implementation">Security Implementation Details</a></li>
-            <li><a href="#concurrency-threading">Concurrency & Threading</a></li>
-            <li><a href="#error-handling">Error Handling Implementation</a></li>
-            <li><a href="#testing-strategy">Testing Strategy</a></li>
-            <li><a href="#deployment-implementation">Deployment & Infrastructure</a></li>
-            <li><a href="#monitoring-implementation">Monitoring Implementation</a></li>
-        </ol>
-
-        <h2 id="implementation-overview">1. Implementation Overview</h2>
-        
-        <h3>1.1 Technology Stack</h3>
-        <ul>
-            <li><strong>Language</strong>: Go 1.17</li>
-            <li><strong>Web Framework</strong>: Gorilla Mux</li>
-            <li><strong>Database</strong>: MongoDB with official Go driver</li>
-            <li><strong>Cache</strong>: Redis</li>
-            <li><strong>Authentication</strong>: JWT tokens with SAML integration</li>
-            <li><strong>Encryption</strong>: AES encryption for sensitive data</li>
-            <li><strong>Containerization</strong>: Docker</li>
-            <li><strong>Build System</strong>: Make with custom Makefile</li>
-        </ul>
-
-        <h3>1.2 Project Structure Analysis</h3>
-        <pre><code>zona_custom/
+        <h1 id="low-level-design-low-level-design-securaa-custom-services">Low-Level Design (Low Level Design) - Securaa Custom Services<a class="headerlink" href="#low-level-design-low-level-design-securaa-custom-services" title="Permanent link">&para;</a></h1>
+<h2 id="1-implementation-overview">1. Implementation Overview<a class="headerlink" href="#1-implementation-overview" title="Permanent link">&para;</a></h2>
+<h3 id="11-technology-stack">1.1 Technology Stack<a class="headerlink" href="#11-technology-stack" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Language</strong>: Go 1.17</li>
+<li><strong>Web Framework</strong>: Gorilla Mux</li>
+<li><strong>Database</strong>: MongoDB with official Go driver</li>
+<li><strong>Cache</strong>: Redis</li>
+<li><strong>Authentication</strong>: JWT tokens with SAML integration</li>
+<li><strong>Encryption</strong>: AES encryption for sensitive data</li>
+<li><strong>Containerization</strong>: Docker</li>
+<li><strong>Build System</strong>: Make with custom Makefile</li>
+</ul>
+<h3 id="12-project-structure-analysis">1.2 Project Structure Analysis<a class="headerlink" href="#12-project-structure-analysis" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code>zona_custom/
 ├── main.go                 # Application entry point
 ├── app.go                  # Application initialization and routing
 ├── go.mod                  # Go module dependencies
@@ -99,32 +659,33 @@
     ├── exportservice.go
     ├── importservice.go
     ├── integrationservice.go
-    └── eventsService.go</code></pre>
+    └── eventsService.go
+</code></pre>
 
-        <h2 id="detailed-component-design">2. Detailed Component Design</h2>
-
-        <h3>2.1 Application Bootstrap (main.go & app.go)</h3>
-        
-        <h4>2.1.1 Main Function Flow</h4>
-        <pre><code>func main() {
-    securaalog.Init("CORE_SERVICE_LOGS")  // Initialize logging
+<h2 id="2-detailed-component-design">2. Detailed Component Design<a class="headerlink" href="#2-detailed-component-design" title="Permanent link">&para;</a></h2>
+<h3 id="21-application-bootstrap-maingo-appgo">2.1 Application Bootstrap (<code>main.go</code> &amp; <code>app.go</code>)<a class="headerlink" href="#21-application-bootstrap-maingo-appgo" title="Permanent link">&para;</a></h3>
+<h4 id="211-main-function-flow">2.1.1 Main Function Flow<a class="headerlink" href="#211-main-function-flow" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func main() {
+    securaalog.Init(&quot;CORE_SERVICE_LOGS&quot;)  // Initialize logging
     app := App{}                          // Create app instance
     app.Initialize()                      // Setup dependencies
-    app.Run(":8063")                     // Start HTTP server
-}</code></pre>
+    app.Run(&quot;:8063&quot;)                     // Start HTTP server
+}
+</code></pre>
 
-        <h4>2.1.2 App Structure Design</h4>
-        <pre><code>type App struct {
+<h4 id="212-app-structure-design">2.1.2 App Structure Design<a class="headerlink" href="#212-app-structure-design" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type App struct {
     Router             *mux.Router                    // HTTP router
     AccessTokenHashMap map[string]int64               // Token cache
     DBSession          map[string]common.SessionStruct // DB connections
     ConfigObject       config.ConfigStruct           // Configuration
     BuildType          string                        // Deployment type
     RequestResponseLog bool                          // Logging flag
-}</code></pre>
+}
+</code></pre>
 
-        <h4>2.1.3 Initialization Sequence</h4>
-        <div class="mermaid">
+<h4 id="213-initialization-sequence">2.1.3 Initialization Sequence<a class="headerlink" href="#213-initialization-sequence" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
 sequenceDiagram
     participant Main
     participant App
@@ -132,7 +693,7 @@ sequenceDiagram
     participant MongoDB
     participant Router
     participant Cache
-    
+
     Main->>App: Initialize()
     App->>Config: InitConfig()
     Config-->>App: Configuration loaded
@@ -145,785 +706,946 @@ sequenceDiagram
     App-->>Main: Initialization complete
     Main->>App: Run(":8063")
     App->>Router: http.ListenAndServe()
-        </div>
+</div>
 
-        <h3>2.2 Database Connection Management</h3>
-        
-        <h4>2.2.1 Connection Pool Configuration</h4>
-        <pre><code>type SessionStruct struct {
-    MongoDatabase string
-    MongoClient   *mongo.Client
-    RedisClient   *redis.Client
-}
+<h3 id="22-database-connection-management">2.2 Database Connection Management<a class="headerlink" href="#22-database-connection-management" title="Permanent link">&para;</a></h3>
+<h4 id="221-multi-tenant-connection-strategy">2.2.1 Multi-Tenant Connection Strategy<a class="headerlink" href="#221-multi-tenant-connection-strategy" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func (a *App) InitMongoClient(configObject config.ConfigStruct) {
+    a.DBSession = make(map[string]common.SessionStruct)
 
-func InitMongoClient(app *App) {
-    for _, tenant := range app.ConfigObject.TenantDatabase {
-        client, err := mongo.Connect(ctx, options.Client().
-            ApplyURI(tenant.ConnectionString).
-            SetMaxPoolSize(100).
-            SetMinPoolSize(10))
-        
-        app.DBSession[tenant.TenantId] = SessionStruct{
-            MongoDatabase: tenant.Database,
-            MongoClient:   client,
-            RedisClient:   redis.NewClient(&redis.Options{
-                Addr: tenant.RedisAddr,
-            }),
-        }
+    // Initialize core database connection
+    mongoDbClient, err := mongo_driver.NewMongoClientWrapper(configObject, nil)
+    clientStruct := common.SessionStruct{
+        DBName: config[&quot;mongoDB&quot;],
+        Client: mongoDbClient,
     }
-}</code></pre>
+    a.DBSession[&quot;localhost&quot;] = clientStruct
 
-        <h3>2.3 Controller Layer Implementation</h3>
-        
-        <h4>2.3.1 Custom Application Controller</h4>
-        <pre><code>type CustomAppController struct {
-    DBSession map[string]common.SessionStruct
-    Config    config.ConfigStruct
-}
-
-func (c *CustomAppController) CreateCustomApp(w http.ResponseWriter, r *http.Request) {
-    tenantId := r.Header.Get("X-Tenant-ID")
-    
-    // Parse multipart form for file uploads
-    err := r.ParseMultipartForm(32 << 20) // 32MB limit
-    if err != nil {
-        http.Error(w, "Unable to parse form", http.StatusBadRequest)
-        return
-    }
-    
-    // Extract application data
-    appData := extractCustomAppData(r)
-    
-    // Handle file uploads (logos, configurations)
-    files := handleFileUploads(r, tenantId)
-    appData.Files = files
-    
-    // Validate application data
-    if err := validateCustomApp(appData); err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
-    
-    // Save to database
-    result, err := c.saveCustomApp(appData, tenantId)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    
-    // Return success response
-    response := models.Response{
-        Status:  "success",
-        Message: "Custom application created successfully",
-        Data:    result,
-    }
-    
-    json.NewEncoder(w).Encode(response)
-}</code></pre>
-
-        <h4>2.3.2 Generic Task Controller</h4>
-        <pre><code>func (c *GenericAppController) CreateGenericTask(w http.ResponseWriter, r *http.Request) {
-    tenantId := r.Header.Get("X-Tenant-ID")
-    
-    var taskData models.GenericTask
-    if err := json.NewDecoder(r.Body).Decode(&taskData); err != nil {
-        http.Error(w, "Invalid JSON data", http.StatusBadRequest)
-        return
-    }
-    
-    // Validate task parameters
-    if err := c.validateTaskParameters(taskData); err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
-    
-    // Check dependencies
-    if err := c.validateTaskDependencies(taskData, tenantId); err != nil {
-        http.Error(w, err.Error(), http.StatusBadRequest)
-        return
-    }
-    
-    // Save task definition
-    taskId, err := c.saveGenericTask(taskData, tenantId)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-    
-    response := models.Response{
-        Status:  "success",
-        Message: "Generic task created successfully",
-        Data:    map[string]interface{}{"taskId": taskId},
-    }
-    
-    json.NewEncoder(w).Encode(response)
-}</code></pre>
-
-        <h3>2.4 Service Layer Implementation</h3>
-        
-        <h4>2.4.1 Export Service</h4>
-        <pre><code>type ExportService struct {
-    DBSession map[string]common.SessionStruct
-    Config    config.ConfigStruct
-}
-
-func (es *ExportService) ExportApplicationData(tenantId string, appIds []string) (*models.ExportData, error) {
-    session := es.DBSession[tenantId]
-    collection := session.MongoClient.Database(session.MongoDatabase).Collection("custom_apps")
-    
-    ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-    defer cancel()
-    
-    // Build export filter
-    filter := bson.M{}
-    if len(appIds) > 0 {
-        objectIds := make([]primitive.ObjectID, len(appIds))
-        for i, id := range appIds {
-            objectId, _ := primitive.ObjectIDFromHex(id)
-            objectIds[i] = objectId
-        }
-        filter["_id"] = bson.M{"$in": objectIds}
-    }
-    
-    // Query applications
-    cursor, err := collection.Find(ctx, filter)
-    if err != nil {
-        return nil, err
-    }
-    defer cursor.Close(ctx)
-    
-    var applications []models.CustomApplication
-    if err := cursor.All(ctx, &applications); err != nil {
-        return nil, err
-    }
-    
-    // Build export data structure
-    exportData := &models.ExportData{
-        Version:     "1.0",
-        ExportDate:  time.Now(),
-        TenantId:    tenantId,
-        Applications: applications,
-        Dependencies: es.extractDependencies(applications, tenantId),
-        Metadata:    es.buildExportMetadata(applications),
-    }
-    
-    return exportData, nil
-}</code></pre>
-
-        <h4>2.4.2 Integration Service</h4>
-        <pre><code>type IntegrationService struct {
-    DBSession     map[string]common.SessionStruct
-    Config        config.ConfigStruct
-    httpClient    *http.Client
-    rateLimiters  map[string]*rate.Limiter
-}
-
-func (is *IntegrationService) TestIntegrationConnection(tenantId string, integrationId string) (*models.TestResult, error) {
-    // Get integration configuration
-    integration, err := is.getIntegration(tenantId, integrationId)
-    if err != nil {
-        return nil, err
-    }
-    
-    // Apply rate limiting
-    limiter := is.getRateLimiter(integrationId)
-    if !limiter.Allow() {
-        return &models.TestResult{
-            Success: false,
-            Message: "Rate limit exceeded",
-        }, nil
-    }
-    
-    // Decrypt credentials
-    credentials, err := is.decryptCredentials(integration.EncryptedCredentials)
-    if err != nil {
-        return nil, err
-    }
-    
-    // Build test request
-    req, err := http.NewRequest("GET", integration.HealthCheckEndpoint, nil)
-    if err != nil {
-        return nil, err
-    }
-    
-    // Add authentication headers
-    is.addAuthHeaders(req, credentials, integration.AuthType)
-    
-    // Execute test request
-    ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-    defer cancel()
-    req = req.WithContext(ctx)
-    
-    resp, err := is.httpClient.Do(req)
-    if err != nil {
-        return &models.TestResult{
-            Success: false,
-            Message: fmt.Sprintf("Connection failed: %v", err),
-        }, nil
-    }
-    defer resp.Body.Close()
-    
-    // Evaluate response
-    success := resp.StatusCode >= 200 && resp.StatusCode < 300
-    message := fmt.Sprintf("HTTP %d", resp.StatusCode)
-    
-    if !success {
-        body, _ := ioutil.ReadAll(resp.Body)
-        message = fmt.Sprintf("HTTP %d: %s", resp.StatusCode, string(body))
-    }
-    
-    return &models.TestResult{
-        Success:      success,
-        Message:      message,
-        ResponseTime: time.Since(time.Now()).Milliseconds(),
-    }, nil
-}</code></pre>
-
-        <h2 id="database-design">3. Database Design & Data Models</h2>
-        
-        <h3>3.1 Custom Applications Collection</h3>
-        <pre><code>type CustomApplication struct {
-    ID              primitive.ObjectID `bson:"_id,omitempty" json:"id"`
-    TenantId        string             `bson:"tenant_id" json:"tenantId"`
-    Name            string             `bson:"name" json:"name"`
-    Description     string             `bson:"description" json:"description"`
-    Version         string             `bson:"version" json:"version"`
-    Logo            string             `bson:"logo" json:"logo"`
-    Parameters      []Parameter        `bson:"parameters" json:"parameters"`
-    Tags            []string           `bson:"tags" json:"tags"`
-    Category        string             `bson:"category" json:"category"`
-    IsPublic        bool               `bson:"is_public" json:"isPublic"`
-    CreatedBy       string             `bson:"created_by" json:"createdBy"`
-    CreatedAt       time.Time          `bson:"created_at" json:"createdAt"`
-    UpdatedAt       time.Time          `bson:"updated_at" json:"updatedAt"`
-    Configurations  []Configuration    `bson:"configurations" json:"configurations"`
-    Files           []FileAttachment   `bson:"files" json:"files"`
-    Dependencies    []string           `bson:"dependencies" json:"dependencies"`
-    Status          string             `bson:"status" json:"status"`
-}
-
-type Parameter struct {
-    Name         string      `bson:"name" json:"name"`
-    DisplayName  string      `bson:"display_name" json:"displayName"`
-    Type         string      `bson:"type" json:"type"`
-    Required     bool        `bson:"required" json:"required"`
-    DefaultValue interface{} `bson:"default_value" json:"defaultValue"`
-    Validation   Validation  `bson:"validation" json:"validation"`
-    Encrypted    bool        `bson:"encrypted" json:"encrypted"`
-    Sensitive    bool        `bson:"sensitive" json:"sensitive"`
-}
-
-type Validation struct {
-    MinLength int    `bson:"min_length" json:"minLength"`
-    MaxLength int    `bson:"max_length" json:"maxLength"`
-    Pattern   string `bson:"pattern" json:"pattern"`
-    Options   []string `bson:"options" json:"options"`
-}</code></pre>
-
-        <h3>3.2 Generic Tasks Collection</h3>
-        <pre><code>type GenericTask struct {
-    ID           primitive.ObjectID `bson:"_id,omitempty" json:"id"`
-    TenantId     string             `bson:"tenant_id" json:"tenantId"`
-    Name         string             `bson:"name" json:"name"`
-    Description  string             `bson:"description" json:"description"`
-    TaskType     string             `bson:"task_type" json:"taskType"`
-    InputFields  []TaskField        `bson:"input_fields" json:"inputFields"`
-    OutputFields []TaskField        `bson:"output_fields" json:"outputFields"`
-    Dependencies []TaskDependency   `bson:"dependencies" json:"dependencies"`
-    Configuration TaskConfiguration `bson:"configuration" json:"configuration"`
-    CreatedBy    string             `bson:"created_by" json:"createdBy"`
-    CreatedAt    time.Time          `bson:"created_at" json:"createdAt"`
-    UpdatedAt    time.Time          `bson:"updated_at" json:"updatedAt"`
-    IsActive     bool               `bson:"is_active" json:"isActive"`
-}
-
-type TaskField struct {
-    Name         string      `bson:"name" json:"name"`
-    DisplayName  string      `bson:"display_name" json:"displayName"`
-    Type         string      `bson:"type" json:"type"`
-    Required     bool        `bson:"required" json:"required"`
-    DefaultValue interface{} `bson:"default_value" json:"defaultValue"`
-    Mapping      string      `bson:"mapping" json:"mapping"`
-}
-
-type TaskDependency struct {
-    TaskId       string            `bson:"task_id" json:"taskId"`
-    OutputField  string            `bson:"output_field" json:"outputField"`
-    InputField   string            `bson:"input_field" json:"inputField"`
-    Transformation string          `bson:"transformation" json:"transformation"`
-}</code></pre>
-
-        <h3>3.3 Database Indexes</h3>
-        <pre><code>// Custom Applications Indexes
-db.custom_apps.createIndex({"tenant_id": 1})
-db.custom_apps.createIndex({"tenant_id": 1, "name": 1}, {"unique": true})
-db.custom_apps.createIndex({"tenant_id": 1, "category": 1})
-db.custom_apps.createIndex({"tenant_id": 1, "tags": 1})
-db.custom_apps.createIndex({"tenant_id": 1, "created_at": -1})
-db.custom_apps.createIndex({"tenant_id": 1, "status": 1})
-
-// Generic Tasks Indexes
-db.generic_tasks.createIndex({"tenant_id": 1})
-db.generic_tasks.createIndex({"tenant_id": 1, "name": 1}, {"unique": true})
-db.generic_tasks.createIndex({"tenant_id": 1, "task_type": 1})
-db.generic_tasks.createIndex({"tenant_id": 1, "is_active": 1})
-db.generic_tasks.createIndex({"tenant_id": 1, "created_at": -1})
-
-// Integrations Indexes
-db.integrations.createIndex({"tenant_id": 1})
-db.integrations.createIndex({"tenant_id": 1, "name": 1}, {"unique": true})
-db.integrations.createIndex({"tenant_id": 1, "status": 1})</code></pre>
-
-        <h2 id="api-specifications">4. API Specifications</h2>
-        
-        <h3>4.1 Custom Application APIs</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Endpoint</th>
-                    <th>Method</th>
-                    <th>Description</th>
-                    <th>Auth Required</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>/api/v1/custom-apps</td>
-                    <td>GET</td>
-                    <td>List custom applications</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/custom-apps</td>
-                    <td>POST</td>
-                    <td>Create custom application</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/custom-apps/{id}</td>
-                    <td>GET</td>
-                    <td>Get application details</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/custom-apps/{id}</td>
-                    <td>PUT</td>
-                    <td>Update application</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/custom-apps/{id}</td>
-                    <td>DELETE</td>
-                    <td>Delete application</td>
-                    <td>Yes</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>4.2 Generic Task APIs</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Endpoint</th>
-                    <th>Method</th>
-                    <th>Description</th>
-                    <th>Auth Required</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>/api/v1/generic-tasks</td>
-                    <td>GET</td>
-                    <td>List generic tasks</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/generic-tasks</td>
-                    <td>POST</td>
-                    <td>Create generic task</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/generic-tasks/{id}/execute</td>
-                    <td>POST</td>
-                    <td>Execute task</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>/api/v1/generic-tasks/{id}/status</td>
-                    <td>GET</td>
-                    <td>Get execution status</td>
-                    <td>Yes</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2 id="security-implementation">5. Security Implementation Details</h2>
-        
-        <h3>5.1 Authentication Implementation</h3>
-        <pre><code>type AuthMiddleware struct {
-    TokenCache map[string]int64
-    Config     config.ConfigStruct
-}
-
-func (am *AuthMiddleware) ValidateToken(next http.Handler) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        token := r.Header.Get("Authorization")
-        if token == "" {
-            http.Error(w, "Missing authorization header", http.StatusUnauthorized)
-            return
-        }
-        
-        // Remove "Bearer " prefix
-        token = strings.TrimPrefix(token, "Bearer ")
-        
-        // Check token cache first
-        if expiry, exists := am.TokenCache[token]; exists {
-            if time.Now().Unix() < expiry {
-                next.ServeHTTP(w, r)
-                return
+    // Initialize tenant-specific connections
+    tenantsList, _ := utils.GetAllTenants2(mongoDbClient, configObject)
+    for _, tenantData := range tenantsList {
+        if a.BuildType == &quot;mssp&quot; &amp;&amp; tenantData.Status == &quot;active&quot; {
+            // MSSP: Each tenant has separate database
+            tenantDBClient, _ := mongo_driver.NewMongoClientWrapper(configObject, tenantData)
+            clientStruct := common.SessionStruct{
+                DBName: tenantDBClient.DBName,
+                Client: tenantDBClient,
             }
-            delete(am.TokenCache, token)
-        }
-        
-        // Validate JWT token
-        claims, err := am.validateJWT(token)
-        if err != nil {
-            http.Error(w, "Invalid token", http.StatusUnauthorized)
-            return
-        }
-        
-        // Cache valid token
-        am.TokenCache[token] = claims.ExpiresAt
-        
-        // Add user context
-        ctx := context.WithValue(r.Context(), "user", claims.Subject)
-        ctx = context.WithValue(ctx, "tenant", claims.TenantId)
-        
-        next.ServeHTTP(w, r.WithContext(ctx))
-    })
-}</code></pre>
-
-        <h3>5.2 Data Encryption Implementation</h3>
-        <pre><code>type EncryptionService struct {
-    Key []byte
-}
-
-func (es *EncryptionService) EncryptField(data string) (string, error) {
-    block, err := aes.NewCipher(es.Key)
-    if err != nil {
-        return "", err
-    }
-    
-    gcm, err := cipher.NewGCM(block)
-    if err != nil {
-        return "", err
-    }
-    
-    nonce := make([]byte, gcm.NonceSize())
-    if _, err = io.ReadFull(rand.Reader, nonce); err != nil {
-        return "", err
-    }
-    
-    ciphertext := gcm.Seal(nonce, nonce, []byte(data), nil)
-    return base64.URLEncoding.EncodeToString(ciphertext), nil
-}
-
-func (es *EncryptionService) DecryptField(encrypted string) (string, error) {
-    ciphertext, err := base64.URLEncoding.DecodeString(encrypted)
-    if err != nil {
-        return "", err
-    }
-    
-    block, err := aes.NewCipher(es.Key)
-    if err != nil {
-        return "", err
-    }
-    
-    gcm, err := cipher.NewGCM(block)
-    if err != nil {
-        return "", err
-    }
-    
-    nonceSize := gcm.NonceSize()
-    if len(ciphertext) < nonceSize {
-        return "", errors.New("ciphertext too short")
-    }
-    
-    nonce, ciphertext := ciphertext[:nonceSize], ciphertext[nonceSize:]
-    plaintext, err := gcm.Open(nil, nonce, ciphertext, nil)
-    if err != nil {
-        return "", err
-    }
-    
-    return string(plaintext), nil
-}</code></pre>
-
-        <h2 id="concurrency-threading">6. Concurrency & Threading</h2>
-        
-        <h3>6.1 Request Processing Concurrency</h3>
-        <pre><code>type TaskExecutor struct {
-    WorkerPool chan chan models.TaskExecution
-    Workers    []Worker
-    Quit       chan bool
-}
-
-type Worker struct {
-    ID         int
-    WorkerPool chan chan models.TaskExecution
-    JobChannel chan models.TaskExecution
-    Quit       chan bool
-}
-
-func NewTaskExecutor(maxWorkers int) *TaskExecutor {
-    workerPool := make(chan chan models.TaskExecution, maxWorkers)
-    workers := make([]Worker, maxWorkers)
-    
-    for i := 0; i < maxWorkers; i++ {
-        worker := Worker{
-            ID:         i,
-            WorkerPool: workerPool,
-            JobChannel: make(chan models.TaskExecution),
-            Quit:       make(chan bool),
-        }
-        workers[i] = worker
-    }
-    
-    return &TaskExecutor{
-        WorkerPool: workerPool,
-        Workers:    workers,
-        Quit:       make(chan bool),
-    }
-}</code></pre>
-
-        <h2 id="error-handling">7. Error Handling Implementation</h2>
-        
-        <h3>7.1 Centralized Error Handler</h3>
-        <pre><code>type ErrorHandler struct {
-    Logger *log.Logger
-}
-
-type APIError struct {
-    Code      int    `json:"code"`
-    Message   string `json:"message"`
-    Details   string `json:"details,omitempty"`
-    RequestId string `json:"requestId"`
-}
-
-func (eh *ErrorHandler) HandleError(w http.ResponseWriter, r *http.Request, err error, statusCode int) {
-    requestId := r.Header.Get("X-Request-ID")
-    if requestId == "" {
-        requestId = generateRequestID()
-    }
-    
-    apiError := APIError{
-        Code:      statusCode,
-        Message:   err.Error(),
-        RequestId: requestId,
-    }
-    
-    // Log error with context
-    eh.Logger.Printf("Error [%s]: %v - Request: %s %s", 
-        requestId, err, r.Method, r.URL.Path)
-    
-    w.Header().Set("Content-Type", "application/json")
-    w.WriteHeader(statusCode)
-    json.NewEncoder(w).Encode(apiError)
-}</code></pre>
-
-        <h2 id="testing-strategy">8. Testing Strategy</h2>
-        
-        <h3>8.1 Unit Testing</h3>
-        <pre><code>func TestCustomAppController_CreateCustomApp(t *testing.T) {
-    // Setup test database
-    testDB := setupTestDatabase()
-    defer teardownTestDatabase(testDB)
-    
-    controller := &CustomAppController{
-        DBSession: map[string]common.SessionStruct{
-            "test-tenant": {
-                MongoClient:   testDB.Client,
-                MongoDatabase: testDB.Name,
-            },
-        },
-    }
-    
-    // Create test request
-    appData := models.CustomApplication{
-        Name:        "Test App",
-        Description: "Test Description",
-        TenantId:    "test-tenant",
-    }
-    
-    jsonData, _ := json.Marshal(appData)
-    req, _ := http.NewRequest("POST", "/api/v1/custom-apps", 
-        bytes.NewBuffer(jsonData))
-    req.Header.Set("Content-Type", "application/json")
-    req.Header.Set("X-Tenant-ID", "test-tenant")
-    
-    // Execute request
-    recorder := httptest.NewRecorder()
-    controller.CreateCustomApp(recorder, req)
-    
-    // Assert response
-    assert.Equal(t, http.StatusOK, recorder.Code)
-    
-    var response models.Response
-    err := json.Unmarshal(recorder.Body.Bytes(), &response)
-    assert.NoError(t, err)
-    assert.Equal(t, "success", response.Status)
-}</code></pre>
-
-        <h3>8.2 Integration Testing</h3>
-        <pre><code>func TestApplicationWorkflow(t *testing.T) {
-    // Setup test environment
-    testEnv := setupIntegrationTestEnvironment()
-    defer teardownIntegrationTestEnvironment(testEnv)
-    
-    // Test complete workflow
-    t.Run("Create Application", func(t *testing.T) {
-        // Test application creation
-    })
-    
-    t.Run("Create Generic Task", func(t *testing.T) {
-        // Test task creation
-    })
-    
-    t.Run("Execute Task", func(t *testing.T) {
-        // Test task execution
-    })
-    
-    t.Run("Export Data", func(t *testing.T) {
-        // Test data export
-    })
-}</code></pre>
-
-        <h2 id="deployment-implementation">9. Deployment & Infrastructure</h2>
-        
-        <h3>9.1 Docker Configuration</h3>
-        <pre><code>FROM golang:1.17-alpine AS builder
-
-WORKDIR /app
-COPY go.mod go.sum ./
-RUN go mod download
-
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o securaa-custom-services ./main.go
-
-FROM alpine:latest
-RUN apk --no-cache add ca-certificates
-WORKDIR /root/
-
-COPY --from=builder /app/securaa-custom-services .
-COPY --from=builder /app/config.yaml .
-
-EXPOSE 8063
-
-CMD ["./securaa-custom-services"]</code></pre>
-
-        <h2 id="monitoring-implementation">10. Monitoring Implementation</h2>
-        
-        <h3>10.1 Health Check Implementation</h3>
-        <pre><code>type HealthChecker struct {
-    DBSessions map[string]common.SessionStruct
-    RedisClient *redis.Client
-}
-
-func (hc *HealthChecker) HealthCheck(w http.ResponseWriter, r *http.Request) {
-    status := models.HealthStatus{
-        Service:   "securaa-custom-services",
-        Status:    "healthy",
-        Timestamp: time.Now(),
-        Checks:    make(map[string]models.CheckResult),
-    }
-    
-    // Check database connections
-    for tenantId, session := range hc.DBSessions {
-        ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-        err := session.MongoClient.Ping(ctx, nil)
-        cancel()
-        
-        checkName := fmt.Sprintf("mongodb-%s", tenantId)
-        if err != nil {
-            status.Checks[checkName] = models.CheckResult{
-                Status:  "unhealthy",
-                Message: err.Error(),
-            }
-            status.Status = "unhealthy"
+            a.DBSession[tenantCode] = clientStruct
         } else {
-            status.Checks[checkName] = models.CheckResult{
-                Status:  "healthy",
-                Message: "Connection OK",
-            }
+            // Single tenant: Shared database with tenant isolation
+            // Implementation for single-tenant architecture
         }
     }
-    
-    // Check Redis connection
-    _, err := hc.RedisClient.Ping().Result()
-    if err != nil {
-        status.Checks["redis"] = models.CheckResult{
-            Status:  "unhealthy",
-            Message: err.Error(),
-        }
-        status.Status = "unhealthy"
-    } else {
-        status.Checks["redis"] = models.CheckResult{
-            Status:  "healthy",
-            Message: "Connection OK",
-        }
-    }
-    
-    w.Header().Set("Content-Type", "application/json")
-    if status.Status != "healthy" {
-        w.WriteHeader(http.StatusServiceUnavailable)
-    }
-    
-    json.NewEncoder(w).Encode(status)
-}</code></pre>
+}
+</code></pre>
 
-        <h3>10.2 Metrics Collection</h3>
-        <pre><code>type MetricsCollector struct {
-    RequestCount    *prometheus.CounterVec
-    RequestDuration *prometheus.HistogramVec
-    DatabaseOps     *prometheus.CounterVec
-    ErrorCount      *prometheus.CounterVec
+<h4 id="222-connection-pool-management">2.2.2 Connection Pool Management<a class="headerlink" href="#222-connection-pool-management" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+graph TB
+    subgraph "Connection Pool Strategy"
+        MAIN_POOL[Main Connection Pool<br/>localhost]
+        TENANT1_POOL[Tenant 1 Pool<br/>tenant-1-db]
+        TENANT2_POOL[Tenant 2 Pool<br/>tenant-2-db]
+        TENANT_N_POOL[Tenant N Pool<br/>tenant-n-db]
+    end
+
+    subgraph "Pool Configuration"
+        MIN_CONN[Min Connections: 5]
+        MAX_CONN[Max Connections: 100]
+        IDLE_TIMEOUT[Idle Timeout: 10m]
+        CONN_TIMEOUT[Connection Timeout: 30s]
+    end
+
+    MAIN_POOL --> MIN_CONN
+    TENANT1_POOL --> MAX_CONN
+    TENANT2_POOL --> IDLE_TIMEOUT
+    TENANT_N_POOL --> CONN_TIMEOUT
+</div>
+
+<h3 id="23-middleware-implementation">2.3 Middleware Implementation<a class="headerlink" href="#23-middleware-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="231-logging-middleware">2.3.1 Logging Middleware<a class="headerlink" href="#231-logging-middleware" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func (a *App) loggingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        middleWareData := common.MiddleWareData{
+            LogRequestResponse:   a.RequestResponseLog,
+            DBSession:          a.DBSession,
+            ConfigObject:       a.ConfigObject,
+            AccessTokenHashMap: a.AccessTokenHashMap,
+        }
+
+        err := common.MiddleWareForMongoDriver(next, w, r, 
+            constants.SkipRoutes, constants.SkipURI, middleWareData)
+
+        if err != nil {
+            logger.Error(&quot;Error in Middleware : &quot;, err.Error())
+            utils.RespondWithJSON(w, http.StatusOK, 
+                common.HandleError(err, &quot;Error in creating Tenant Session&quot;))
+            return
+        }
+    })
+}
+</code></pre>
+
+<h4 id="232-middleware-processing-flow">2.3.2 Middleware Processing Flow<a class="headerlink" href="#232-middleware-processing-flow" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+flowchart TD
+    A[HTTP Request] --> B[Logging Middleware]
+    B --> C{Skip Routes Check}
+    C -->|Skip| D[Direct Route]
+    C -->|Process| E[Token Validation]
+    E --> F{Valid Token?}
+    F -->|No| G[Return 401]
+    F -->|Yes| H[Tenant Resolution]
+    H --> I{Tenant Valid?}
+    I -->|No| J[Return 403]
+    I -->|Yes| K[Session Creation]
+    K --> L[Request Logging]
+    L --> M[Forward to Controller]
+    M --> N[Response Logging]
+    N --> O[HTTP Response]
+
+    G --> O
+    J --> O
+    D --> O
+</div>
+
+<h3 id="24-controller-layer-implementation">2.4 Controller Layer Implementation<a class="headerlink" href="#24-controller-layer-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="241-custom-app-controller">2.4.1 Custom App Controller<a class="headerlink" href="#241-custom-app-controller" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type CustomAppController struct{}
+
+func (gc CustomAppController) DeleteApp(w http.ResponseWriter, r *http.Request, 
+    dbSession map[string]common.SessionStruct, configObject config.ConfigStruct) {
+
+    response := models.Response{}
+    deleteAppRequest := models.DeleteApp{}
+
+    // Step 1: Decode request
+    decoder := json.NewDecoder(r.Body)
+    if err := decoder.Decode(&amp;deleteAppRequest); err != nil {
+        utils.RespondWithJSON(w, http.StatusOK, 
+            handlers.HandleError(err, &quot;Error in Reading Request&quot;))
+        return
+    }
+    defer r.Body.Close()
+
+    // Step 2: Get database client
+    mongoDBClient := dbSession[deleteAppRequest.TenantCode].Client
+
+    // Step 3: Business logic execution
+    err := deleteAppRequest.UpdateTasksStatus(mongoDBClient, configObject)
+    if err != nil {
+        utils.RespondWithJSON(w, http.StatusOK, 
+            handlers.HandleError(err, &quot;Error in updating task status&quot;))
+        return
+    }
+
+    // Step 4: Update database
+    colQuerier := bson.M{&quot;integration_id&quot;: deleteAppRequest.IntegrationID}
+    change := bson.M{&quot;$set&quot;: bson.M{&quot;status&quot;: &quot;deleted&quot;}}
+    mongoDBClient.CollectionName = config[&quot;mongoIntegartionCollection&quot;]
+    err = mongoDBClient.UpdateSingleDocument(colQuerier, change, nil, false)
+
+    // Step 5: Cache invalidation
+    RemoveAppListingCache(deleteAppRequest.TenantCode)
+    RemoveActiveInstanceCache(deleteAppRequest.TenantCode)
+
+    // Step 6: Response
+    response.Success = true
+    response.DisplayMessage = &quot;App Deleted&quot;
+    utils.RespondWithJSON(w, http.StatusOK, response)
+}
+</code></pre>
+
+<h4 id="242-generic-app-controller-upsertgenericapp">2.4.2 Generic App Controller - UpsertGenericApp<a class="headerlink" href="#242-generic-app-controller-upsertgenericapp" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+flowchart TD
+    A[UpsertGenericApp Request] --> B[Parse Multipart Form]
+    B --> C{Logo File Present?}
+    C -->|Yes| D[Process Logo Upload]
+    C -->|No| E[Use Default Logo]
+    D --> F[Parse Form Fields]
+    E --> F
+    F --> G[Decrypt Credentials]
+    G --> H{Integration ID = 0?}
+    H -->|Yes| I[Create New Integration]
+    H -->|No| J[Update Existing Integration]
+
+    I --> K[Check Name Availability]
+    K --> L{Name Available?}
+    L -->|No| M[Return Error]
+    L -->|Yes| N[Generate Integration ID]
+    N --> O[Insert Database]
+
+    J --> P[Update Active Instances]
+    P --> Q[Update Integration Data]
+    Q --> R{Logo Updated?}
+    R -->|Yes| S[Update Task Logos]
+    R -->|No| T[Skip Logo Update]
+    S --> T
+
+    O --> U{Add Instance?}
+    T --> U
+    U -->|No| V[Cache Invalidation]
+    U -->|Yes| W[Check Trial Limits]
+    W --> X{Limit Exceeded?}
+    X -->|Yes| Y[Return Limit Error]
+    X -->|No| Z[Create Active Instance]
+    Z --> AA[Update Trial Count]
+    AA --> V
+    V --> BB[Return Success]
+
+    M --> BB
+    Y --> BB
+</div>
+
+<h3 id="25-service-layer-implementation">2.5 Service Layer Implementation<a class="headerlink" href="#25-service-layer-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="251-export-service-architecture">2.5.1 Export Service Architecture<a class="headerlink" href="#251-export-service-architecture" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func ExportIntegration(dbSession map[string]common.SessionStruct, 
+    config config.Config, req models.ExportAppInputStruct) models.Response {
+
+    var response models.Response
+    var integrations models.ExportObject
+    var apps []models.AppData
+
+    tenantCode := req.Tenantcode
+    mongoDBClient := dbSession[tenantCode].Client
+
+    for _, eachIntegrationID := range req.IntegrationIds {
+        var integrationObj models.AppData
+
+        // Step 1: Fetch integration data
+        var appObj models.GenericIntegrationObject
+        mongoDBClient.CollectionName = config[&quot;mongoIntegartionCollection&quot;]
+        err := mongoDBClient.FindSingleDocument(
+            bson.M{&quot;integration_id&quot;: eachIntegrationID, &quot;status&quot;: &quot;active&quot;}, 
+            nil, &amp;appObj)
+
+        // Step 2: Sanitize sensitive data
+        var updatedFields []models.Field
+        for _, eachfield := range appObj.Fields {
+            eachfield.Value = &quot;&quot; // Remove sensitive values
+            updatedFields = append(updatedFields, eachfield)
+        }
+
+        // Step 3: Fetch related tasks
+        var tasksResponse []models.TaskData
+        mongoDBClient.CollectionName = config[&quot;taskCollection&quot;]
+        err = mongoDBClient.FindMultipleDocuments(
+            bson.M{&quot;integration_id&quot;: integrationID, &quot;status&quot;: bson.M{&quot;$in&quot;: status}}, 
+            nil, &amp;tasksResponse)
+
+        // Step 4: Process tasks and dependencies
+        altTasksResponse := processTasks(tasksResponse)
+
+        integrationObj.App = appObj
+        integrationObj.Tasks = altTasksResponse
+        apps = append(apps, integrationObj)
+    }
+
+    integrations.Apps = apps
+    response.Success = true
+    response.Data = integrations
+    return response
+}
+</code></pre>
+
+<h4 id="252-task-dependency-mapping">2.5.2 Task Dependency Mapping<a class="headerlink" href="#252-task-dependency-mapping" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+graph TB
+    subgraph "Task Processing Pipeline"
+        A[Fetch Tasks] --> B[Build Task Name Map]
+        B --> C[Process Non-Ingestion Tasks]
+        B --> D[Process Case Ingestion Tasks]
+
+        C --> E[Sanitize Task Data]
+        D --> F[Map Dependent Tasks]
+        D --> G[Map Events API Tasks]
+
+        E --> H[Replace Task IDs with Names]
+        F --> H
+        G --> H
+
+        H --> I[Generate Export Object]
+    end
+
+    subgraph "Dependency Resolution"
+        J[Task ID] --> K[Task Name Lookup]
+        K --> L[Replace in Config JSON]
+        L --> M[Update Dependencies]
+    end
+
+    subgraph "Data Sanitization"
+        N[Remove Sensitive Data]
+        O[Reset IDs to 0]
+        P[Clear Tenant Info]
+        Q[Clear Task Handlers]
+    end
+
+    E --> N
+    E --> O
+    E --> P
+    E --> Q
+</div>
+
+<h3 id="26-data-models-implementation">2.6 Data Models Implementation<a class="headerlink" href="#26-data-models-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="261-core-data-structures">2.6.1 Core Data Structures<a class="headerlink" href="#261-core-data-structures" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">// Response model - Standard API response
+type Response struct {
+    Success        bool        `json:&quot;success&quot;`
+    Data           interface{} `json:&quot;data,omitempty&quot;`
+    Error          string      `json:&quot;error,omitempty&quot;`
+    Time           int64       `json:&quot;time,omitempty&quot;`
+    DisplayMessage string      `json:&quot;displaymessage,omitempty&quot;`
+    Status         string      `json:&quot;status,omitempty&quot;`
+    ErrorPath      string      `json:&quot;errorpath,omitempty&quot;`
+    SessionExpired bool        `json:&quot;sessionexpired,omitempty&quot;`
+    FileName       string      `json:&quot;filename,omitempty&quot;`
+    Field          []string    `json:&quot;field,omitempty&quot;`
+    Count          int         `json:&quot;count,omitempty&quot;`
 }
 
-func NewMetricsCollector() *MetricsCollector {
-    return &MetricsCollector{
-        RequestCount: prometheus.NewCounterVec(
-            prometheus.CounterOpts{
-                Name: "zona_custom_services_requests_total",
-                Help: "Total number of HTTP requests",
-            },
-            []string{"method", "endpoint", "status"},
-        ),
-        RequestDuration: prometheus.NewHistogramVec(
-            prometheus.HistogramOpts{
-                Name:    "zona_custom_services_request_duration_seconds",
-                Help:    "HTTP request duration in seconds",
-                Buckets: prometheus.DefBuckets,
-            },
-            []string{"method", "endpoint"},
-        ),
-        DatabaseOps: prometheus.NewCounterVec(
-            prometheus.CounterOpts{
-                Name: "zona_custom_services_database_operations_total",
-                Help: "Total number of database operations",
-            },
-            []string{"operation", "collection", "status"},
-        ),
-        ErrorCount: prometheus.NewCounterVec(
-            prometheus.CounterOpts{
-                Name: "zona_custom_services_errors_total",
-                Help: "Total number of errors",
-            },
-            []string{"type", "code"},
-        ),
-    }
-}</code></pre>
+// GenericIntegrationObject - Integration data structure
+type GenericIntegrationObject struct {
+    IntegrationID int           `json:&quot;integration_id&quot; bson:&quot;integration_id&quot;`
+    Title         string        `json:&quot;title&quot; bson:&quot;title&quot;`
+    Description   string        `json:&quot;description&quot; bson:&quot;description&quot;`
+    Version       string        `json:&quot;version&quot; bson:&quot;version&quot;`
+    Category      string        `json:&quot;category&quot; bson:&quot;category&quot;`
+    TenantCode    string        `json:&quot;tenant_code&quot; bson:&quot;tenant_code&quot;`
+    Fields        []Field       `json:&quot;fields&quot; bson:&quot;fields&quot;`
+    Status        string        `json:&quot;status&quot; bson:&quot;status&quot;`
+    Logo          string        `json:&quot;logo&quot; bson:&quot;logo&quot;`
+    GenericApp    bool          `json:&quot;generic_app&quot; bson:&quot;generic_app&quot;`
+    UserID        int           `json:&quot;user_id&quot; bson:&quot;user_id&quot;`
+    AddInstance   bool          `json:&quot;add_instance&quot; bson:&quot;add_instance&quot;`
+}
 
+// TaskData - Task information structure
+type TaskData struct {
+    ID                  int    `json:&quot;id&quot; bson:&quot;id&quot;`
+    Name                string `json:&quot;name&quot; bson:&quot;name&quot;`
+    TasksTag            string `json:&quot;tasks_tag&quot; bson:&quot;tasks_tag&quot;`
+    TaskHandler         string `json:&quot;task_handler&quot; bson:&quot;task_handler&quot;`
+    IntegrationID       int    `json:&quot;integration_id&quot; bson:&quot;integration_id&quot;`
+    Fields              string `json:&quot;fields&quot; bson:&quot;fields&quot;`
+    Status              string `json:&quot;status&quot; bson:&quot;status&quot;`
+    Tenantcode          string `json:&quot;tenantcode&quot; bson:&quot;tenantcode&quot;`
+    IngestCases         bool   `json:&quot;ingest_cases&quot; bson:&quot;ingest_cases&quot;`
+    CaseIngestionConfig string `json:&quot;case_ingestion_config&quot; bson:&quot;case_ingestion_config&quot;`
+    EventsAPIConfig     string `json:&quot;events_api_config&quot; bson:&quot;events_api_config&quot;`
+    LogoPath            string `json:&quot;logo_path&quot; bson:&quot;logo_path&quot;`
+}
+</code></pre>
+
+<h4 id="262-data-validation-transformation">2.6.2 Data Validation &amp; Transformation<a class="headerlink" href="#262-data-validation-transformation" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+flowchart LR
+    subgraph "Input Validation"
+        A[Raw Input] --> B[JSON Decode]
+        B --> C[Structure Validation]
+        C --> D[Business Rules Check]
+        D --> E[Sanitization]
+    end
+
+    subgraph "Data Transformation"
+        F[Database Model] --> G[Field Encryption]
+        G --> H[Tenant Mapping]
+        H --> I[Timestamp Addition]
+        I --> J[ID Generation]
+    end
+
+    subgraph "Output Serialization"
+        K[Internal Model] --> L[Response Model]
+        L --> M[JSON Encode]
+        M --> N[HTTP Response]
+    end
+
+    E --> F
+    J --> K
+</div>
+
+<h3 id="27-error-handling-strategy">2.7 Error Handling Strategy<a class="headerlink" href="#27-error-handling-strategy" title="Permanent link">&para;</a></h3>
+<h4 id="271-error-handler-implementation">2.7.1 Error Handler Implementation<a class="headerlink" href="#271-error-handler-implementation" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func HandleError(err error, message string) models.Response {
+    response := models.Response{
+        Success:        false,
+        Error:          err.Error(),
+        DisplayMessage: message,
+        Time:           time.Now().UnixNano() / 1000000,
+    }
+
+    // Log error details
+    logger.Error(&quot;Error: %s, Message: %s&quot;, err.Error(), message)
+
+    return response
+}
+</code></pre>
+
+<h4 id="272-error-flow-hierarchy">2.7.2 Error Flow Hierarchy<a class="headerlink" href="#272-error-flow-hierarchy" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+graph TB
+    A[Request Processing] --> B{Validation Error?}
+    B -->|Yes| C[Return 400 Bad Request]
+    B -->|No| D[Business Logic]
+
+    D --> E{Database Error?}
+    E -->|Yes| F[Log Error]
+    F --> G[Return 500 Internal Server Error]
+    E -->|No| H[Processing Success]
+
+    D --> I{Business Logic Error?}
+    I -->|Yes| J[Log Warning]
+    J --> K[Return 200 with Error Flag]
+    I -->|No| H
+
+    H --> L[Return 200 Success]
+
+    subgraph "Error Types"
+        M[Validation Errors]
+        N[Database Errors]
+        O[Business Logic Errors]
+        P[System Errors]
+    end
+
+    C --> M
+    G --> N
+    K --> O
+    G --> P
+</div>
+
+<h3 id="28-authentication-authorization">2.8 Authentication &amp; Authorization<a class="headerlink" href="#28-authentication-authorization" title="Permanent link">&para;</a></h3>
+<h4 id="281-token-management">2.8.1 Token Management<a class="headerlink" href="#281-token-management" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type App struct {
+    AccessTokenHashMap map[string]int64  // Token -&gt; Expiry mapping
+    // ... other fields
+}
+
+func (a *App) UpdateUserSessionExpiryTime(accessToken string, expiryTime int64) {
+    a.AccessTokenHashMap[accessToken] = expiryTime
+}
+
+func (a *App) ValidateToken(token string) bool {
+    expiryTime, exists := a.AccessTokenHashMap[token]
+    if !exists {
+        return false
+    }
+
+    currentTime := time.Now().UnixNano() / 1000000
+    return currentTime &lt; expiryTime
+}
+</code></pre>
+
+<h4 id="282-security-flow">2.8.2 Security Flow<a class="headerlink" href="#282-security-flow" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+sequenceDiagram
+    participant Client
+    participant Middleware
+    participant TokenStore
+    participant Database
+    participant Controller
+
+    Client->>Middleware: Request with Token
+    Middleware->>TokenStore: Validate Token
+    TokenStore-->>Middleware: Token Valid/Invalid
+
+    alt Token Invalid
+        Middleware-->>Client: 401 Unauthorized
+    else Token Valid
+        Middleware->>Database: Get Tenant Info
+        Database-->>Middleware: Tenant Details
+        Middleware->>Controller: Forward Request
+        Controller-->>Middleware: Process Response
+        Middleware-->>Client: Success Response
+    end
+</div>
+
+<h3 id="29-caching-strategy">2.9 Caching Strategy<a class="headerlink" href="#29-caching-strategy" title="Permanent link">&para;</a></h3>
+<h4 id="291-cache-implementation">2.9.1 Cache Implementation<a class="headerlink" href="#291-cache-implementation" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">func RemoveAppListingCache(tenantCode string) {
+    cacheKey := fmt.Sprintf(&quot;app_listing_%s&quot;, tenantCode)
+    cache.Delete(cacheKey)
+}
+
+func RemoveActiveInstanceCache(tenantCode string) {
+    cacheKey := fmt.Sprintf(&quot;active_instances_%s&quot;, tenantCode)
+    cache.Delete(cacheKey)
+}
+
+func GetAppListingFromCache(tenantCode string) ([]models.AppData, bool) {
+    cacheKey := fmt.Sprintf(&quot;app_listing_%s&quot;, tenantCode)
+    data, exists := cache.Get(cacheKey)
+    if exists {
+        var apps []models.AppData
+        json.Unmarshal(data, &amp;apps)
+        return apps, true
+    }
+    return nil, false
+}
+</code></pre>
+
+<h4 id="292-cache-invalidation-strategy">2.9.2 Cache Invalidation Strategy<a class="headerlink" href="#292-cache-invalidation-strategy" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+graph TB
+    subgraph "Cache Operations"
+        A[Create/Update Operation] --> B[Invalidate Related Cache]
+        C[Delete Operation] --> D[Invalidate Related Cache]
+        E[Read Operation] --> F{Cache Hit?}
+        F -->|Yes| G[Return Cached Data]
+        F -->|No| H[Fetch from DB]
+        H --> I[Store in Cache]
+        I --> J[Return Data]
+    end
+
+    subgraph "Cache Keys"
+        K[app_listing_{tenant}]
+        L[active_instances_{tenant}]
+        M[integration_list_{tenant}]
+    end
+
+    B --> K
+    B --> L
+    D --> K
+    D --> L
+</div>
+
+<h3 id="210-configuration-management">2.10 Configuration Management<a class="headerlink" href="#210-configuration-management" title="Permanent link">&para;</a></h3>
+<h4 id="2101-configuration-structure">2.10.1 Configuration Structure<a class="headerlink" href="#2101-configuration-structure" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">type ConfigStruct struct {
+    ConfigFilePath string
+    ConfigData     map[string]string
+}
+
+func InitConfig() ConfigStruct {
+    config := ConfigStruct{
+        ConfigFilePath: &quot;/opt/securaa/conf/securaa.conf&quot;,
+        ConfigData:     make(map[string]string),
+    }
+
+    // Load configuration from file
+    configData, err := config.ReadConfig()
+    if err != nil {
+        logger.Error(&quot;Failed to load configuration: %v&quot;, err)
+    }
+
+    config.ConfigData = configData
+    return config
+}
+</code></pre>
+
+<h4 id="2102-configuration-flow">2.10.2 Configuration Flow<a class="headerlink" href="#2102-configuration-flow" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+flowchart TD
+    A[Application Start] --> B[Load Config File]
+    B --> C[Parse Configuration]
+    C --> D[Validate Required Keys]
+    D --> E{Validation OK?}
+    E -->|No| F[Exit with Error]
+    E -->|Yes| G[Store in ConfigObject]
+    G --> H[Pass to Components]
+
+    subgraph "Config Categories"
+        I[Database Settings]
+        J[Cache Settings]
+        K[Security Settings]
+        L[Logging Settings]
+        M[Business Logic Settings]
+    end
+
+    H --> I
+    H --> J
+    H --> K
+    H --> L
+    H --> M
+</div>
+
+<h3 id="211-database-operations">2.11 Database Operations<a class="headerlink" href="#211-database-operations" title="Permanent link">&para;</a></h3>
+<h4 id="2111-crud-operations-pattern">2.11.1 CRUD Operations Pattern<a class="headerlink" href="#2111-crud-operations-pattern" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">// Generic database operation wrapper
+type DatabaseOperations struct {
+    Client         mongo_driver.MongoClientWrapper
+    CollectionName string
+}
+
+func (db *DatabaseOperations) Create(document interface{}) error {
+    db.Client.CollectionName = db.CollectionName
+    return db.Client.InsertSingleDocument(document, nil)
+}
+
+func (db *DatabaseOperations) Read(filter bson.M, result interface{}) error {
+    db.Client.CollectionName = db.CollectionName
+    return db.Client.FindSingleDocument(filter, nil, result)
+}
+
+func (db *DatabaseOperations) Update(filter bson.M, update bson.M) error {
+    db.Client.CollectionName = db.CollectionName
+    return db.Client.UpdateSingleDocument(filter, update, nil, false)
+}
+
+func (db *DatabaseOperations) Delete(filter bson.M) error {
+    db.Client.CollectionName = db.CollectionName
+    return db.Client.DeleteSingleDocument(filter, nil)
+}
+</code></pre>
+
+<h4 id="2112-transaction-management">2.11.2 Transaction Management<a class="headerlink" href="#2112-transaction-management" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+sequenceDiagram
+    participant Service
+    participant DBClient
+    participant MongoDB
+
+    Service->>DBClient: Start Transaction
+    DBClient->>MongoDB: Begin Transaction
+
+    loop Database Operations
+        Service->>DBClient: Execute Operation
+        DBClient->>MongoDB: Execute Query
+        MongoDB-->>DBClient: Operation Result
+        DBClient-->>Service: Result
+    end
+
+    alt All Operations Successful
+        Service->>DBClient: Commit Transaction
+        DBClient->>MongoDB: Commit
+        MongoDB-->>DBClient: Success
+        DBClient-->>Service: Transaction Complete
+    else Any Operation Failed
+        Service->>DBClient: Rollback Transaction
+        DBClient->>MongoDB: Rollback
+        MongoDB-->>DBClient: Rollback Complete
+        DBClient-->>Service: Transaction Rolled Back
+    end
+</div>
+
+<h3 id="212-logging-implementation">2.12 Logging Implementation<a class="headerlink" href="#212-logging-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="2121-structured-logging">2.12.1 Structured Logging<a class="headerlink" href="#2121-structured-logging" title="Permanent link">&para;</a></h4>
+<pre class="highlight"><code class="language-go">var logger = securaalog.New(&quot;zona_custom&quot;)
+
+func LogRequest(r *http.Request) {
+    logger.Info(&quot;Request received&quot;,
+        &quot;method&quot;, r.Method,
+        &quot;url&quot;, r.URL.String(),
+        &quot;remote_addr&quot;, r.RemoteAddr,
+        &quot;user_agent&quot;, r.UserAgent(),
+    )
+}
+
+func LogError(operation string, err error, context map[string]interface{}) {
+    logger.Error(&quot;Operation failed&quot;,
+        &quot;operation&quot;, operation,
+        &quot;error&quot;, err.Error(),
+        &quot;context&quot;, context,
+    )
+}
+
+func LogPerformance(operation string, duration time.Duration) {
+    logger.Info(&quot;Operation completed&quot;,
+        &quot;operation&quot;, operation,
+        &quot;duration_ms&quot;, duration.Milliseconds(),
+    )
+}
+</code></pre>
+
+<h4 id="2122-log-levels-categories">2.12.2 Log Levels &amp; Categories<a class="headerlink" href="#2122-log-levels-categories" title="Permanent link">&para;</a></h4>
+<div class="mermaid">
+graph TB
+    subgraph "Log Levels"
+        A[DEBUG - Development Info]
+        B[INFO - General Information]
+        C[WARN - Warning Conditions]
+        D[ERROR - Error Conditions]
+        E[FATAL - Critical Errors]
+    end
+
+    subgraph "Log Categories"
+        F[REQUEST_RESPONSE - HTTP Traffic]
+        G[DATABASE - DB Operations]
+        H[BUSINESS_LOGIC - Application Logic]
+        I[SECURITY - Auth/Authorization]
+        J[PERFORMANCE - Performance Metrics]
+    end
+
+    subgraph "Log Destinations"
+        K[Console Output]
+        L[File System]
+        M[Centralized Logging]
+        N[Monitoring Systems]
+    end
+
+    A --> F
+    B --> G
+    C --> H
+    D --> I
+    E --> J
+
+    F --> K
+    G --> L
+    H --> M
+    I --> N
+</div>
+
+<h2 id="3-performance-considerations">3. Performance Considerations<a class="headerlink" href="#3-performance-considerations" title="Permanent link">&para;</a></h2>
+<h3 id="31-optimization-strategies">3.1 Optimization Strategies<a class="headerlink" href="#31-optimization-strategies" title="Permanent link">&para;</a></h3>
+<h4 id="311-database-query-optimization">3.1.1 Database Query Optimization<a class="headerlink" href="#311-database-query-optimization" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Use appropriate indexes on frequently queried fields</li>
+<li>Implement query result caching for read-heavy operations</li>
+<li>Use batch operations for bulk data manipulation</li>
+<li>Implement connection pooling for database efficiency</li>
+</ul>
+<h4 id="312-memory-management">3.1.2 Memory Management<a class="headerlink" href="#312-memory-management" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Implement proper cleanup of temporary objects</li>
+<li>Use connection pooling to avoid resource leaks</li>
+<li>Monitor goroutine lifecycle for concurrent operations</li>
+<li>Implement request timeout mechanisms</li>
+</ul>
+<h4 id="313-network-optimization">3.1.3 Network Optimization<a class="headerlink" href="#313-network-optimization" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Compress HTTP responses for large payloads</li>
+<li>Implement request/response caching</li>
+<li>Use HTTP/2 where supported</li>
+<li>Minimize JSON payload sizes</li>
+</ul>
+<h3 id="32-scalability-considerations">3.2 Scalability Considerations<a class="headerlink" href="#32-scalability-considerations" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph LR
+    subgraph "Horizontal Scaling"
+        A[Load Balancer] --> B[Instance 1]
+        A --> C[Instance 2]
+        A --> D[Instance N]
+    end
+
+    subgraph "Vertical Scaling"
+        E[CPU Scaling]
+        F[Memory Scaling]
+        G[Storage Scaling]
+    end
+
+    subgraph "Database Scaling"
+        H[Read Replicas]
+        I[Sharding]
+        J[Connection Pooling]
+    end
+
+    B --> H
+    C --> I
+    D --> J
+</div>
+
+<h2 id="4-testing-strategy">4. Testing Strategy<a class="headerlink" href="#4-testing-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="41-unit-testing-structure">4.1 Unit Testing Structure<a class="headerlink" href="#41-unit-testing-structure" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func TestDeleteApp(t *testing.T) {
+    // Arrange
+    controller := NewCustomAppController()
+    mockDBSession := createMockDBSession()
+    mockConfig := createMockConfig()
+
+    // Act
+    response := controller.DeleteApp(nil, createMockRequest(), mockDBSession, mockConfig)
+
+    // Assert
+    assert.True(t, response.Success)
+    assert.Equal(t, &quot;App Deleted&quot;, response.DisplayMessage)
+}
+</code></pre>
+
+<h3 id="42-integration-testing">4.2 Integration Testing<a class="headerlink" href="#42-integration-testing" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+flowchart TD
+    A[Integration Test Suite] --> B[Database Tests]
+    A --> C[API Endpoint Tests]
+    A --> D[Cache Integration Tests]
+    A --> E[External Service Tests]
+
+    B --> F[CRUD Operations]
+    B --> G[Transaction Tests]
+
+    C --> H[Authentication Tests]
+    C --> I[Authorization Tests]
+    C --> J[Input Validation Tests]
+
+    D --> K[Cache Hit/Miss Tests]
+    D --> L[Cache Invalidation Tests]
+
+    E --> M[MongoDB Integration]
+    E --> N[Redis Integration]
+    E --> O[External API Integration]
+</div>
+
+<h2 id="5-security-implementation">5. Security Implementation<a class="headerlink" href="#5-security-implementation" title="Permanent link">&para;</a></h2>
+<h3 id="51-data-encryption">5.1 Data Encryption<a class="headerlink" href="#51-data-encryption" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func EncryptSensitiveFields(fields map[string]string, config config.ConfigStruct) (map[string]string, error) {
+    encryptedFields := make(map[string]string)
+    encryptionKey := config[&quot;zonaCredentialsEncryptDecryptKey&quot;]
+
+    for key, value := range fields {
+        if isSensitiveField(key) {
+            encryptedValue, err := utils.CredentialsEncrypt(value, encryptionKey)
+            if err != nil {
+                return nil, err
+            }
+            encryptedFields[key] = encryptedValue
+        } else {
+            encryptedFields[key] = value
+        }
+    }
+
+    return encryptedFields, nil
+}
+
+func isSensitiveField(fieldName string) bool {
+    sensitiveFields := []string{&quot;password&quot;, &quot;api_key&quot;, &quot;secret&quot;, &quot;token&quot;}
+    for _, sensitive := range sensitiveFields {
+        if strings.Contains(strings.ToLower(fieldName), sensitive) {
+            return true
+        }
+    }
+    return false
+}
+</code></pre>
+
+<h3 id="52-input-sanitization">5.2 Input Sanitization<a class="headerlink" href="#52-input-sanitization" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+flowchart TD
+    A[User Input] --> B[Input Validation]
+    B --> C{Valid Format?}
+    C -->|No| D[Return Validation Error]
+    C -->|Yes| E[SQL Injection Check]
+    E --> F{Safe?}
+    F -->|No| G[Return Security Error]
+    F -->|Yes| H[XSS Prevention]
+    H --> I[Sanitized Input]
+    I --> J[Business Logic Processing]
+</div>
+
+<h2 id="6-deployment-operations">6. Deployment &amp; Operations<a class="headerlink" href="#6-deployment-operations" title="Permanent link">&para;</a></h2>
+<h3 id="61-build-process">6.1 Build Process<a class="headerlink" href="#61-build-process" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-makefile"># Build configuration from Makefile
+build: builddir
+    $(BUILD_ENV) go build -mod vendor $(BUILD_FLAGS) -o build/$(TARGET)
+
+image_ecr: builddir
+    DOCKER_BUILDKIT=1 docker build --pull \
+    -t $(RUNTIME_DOCKER_IMAGE_ECR):latest \
+    --build-arg TARGET=$(TARGET) \
+    --build-arg GIT_REF=$(GIT_REF) \
+    --build-arg BUILD_VERSION=$(BUILD_VERSION) .
+</code></pre>
+
+<h3 id="62-health-monitoring">6.2 Health Monitoring<a class="headerlink" href="#62-health-monitoring" title="Permanent link">&para;</a></h3>
+<pre class="highlight"><code class="language-go">func HealthCheck() http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        health := struct {
+            Status    string `json:&quot;status&quot;`
+            Database  string `json:&quot;database&quot;`
+            Cache     string `json:&quot;cache&quot;`
+            Version   string `json:&quot;version&quot;`
+            Timestamp int64  `json:&quot;timestamp&quot;`
+        }{
+            Status:    &quot;healthy&quot;,
+            Database:  checkDatabaseHealth(),
+            Cache:     checkCacheHealth(),
+            Version:   BuildVersion,
+            Timestamp: time.Now().Unix(),
+        }
+
+        w.Header().Set(&quot;Content-Type&quot;, &quot;application/json&quot;)
+        json.NewEncoder(w).Encode(health)
+    }
+}
+</code></pre>
+
+<p>This comprehensive Low-Level Design document provides detailed implementation specifications for the Securaa Custom Services application, covering all major components, data flows, and architectural decisions at the code level.</p>
     </main>
-    <script src="assets/js/documentation.js"></script>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>

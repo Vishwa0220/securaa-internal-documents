@@ -1,101 +1,106 @@
 # Securaa Platform Documentation
 
-This folder contains the comprehensive HTML documentation for the Securaa Platform, automatically generated from the markdown files in the repository.
+This folder contains comprehensive HTML and PDF documentation for the Securaa Platform, automatically generated from the markdown files in the repository.
 
 ## Contents
 
+### HTML Documentation
 - `index.html` - Main documentation portal and entry point
-- `securaa-playbook-high-level-design.html` - Securaa Playbook Service High Level Design
-- `securaa-playbook-low-level-design.html` - Securaa Playbook Service Low Level Design
-- `process-manager-high-level-design.html` - Process Manager High Level Design
-- `process-manager-low-level-design.html` - Process Manager Low Level Design
-- `optimization-guide.html` - Performance Optimization Guide
-- `securaa-siem-high-level-design.html` - Securaa SIEM Service High Level Design
-- `securaa-siem-low-level-design.html` - Securaa SIEM Service Low Level Design
-- `securaa-platform-high-level-design.html` - Securaa Platform High Level Design
-- `securaa-user-high-level-design.html` - Securaa User Service High Level Design
-- `securaa-user-low-level-design.html` - Securaa User Service Low Level Design
-- `securaa-custom-services-high-level-design.html` - Securaa Custom Services High Level Design
-- `securaa-custom-services-low-level-design.html` - Securaa Custom Services Low Level Design
-- `assets/` - CSS, JavaScript, and other supporting files
+- Individual service documentation files (HLD and LLD for each service)
 
-## How to Use
+### PDF Documentation
+The `pdf/` folder contains print-optimized PDF versions of all documentation with properly rendered diagrams.
 
-### Local Viewing
-1. Open `index.html` in any modern web browser
-2. Navigate through the documentation using the top navigation menu
-3. Use the search functionality to find specific information
-4. Print or export any page as PDF using the browser's print function
+## Generated Files
 
-### Web Server Deployment
-To serve this documentation on a web server:
+| Service | High Level Design | Low Level Design |
+|---------|------------------|------------------|
+| Securaa Platform | `securaa-platform-high-level-design.html` | - |
+| Process Manager | `process-manager-high-level-design.html` | `process-manager-low-level-design.html` |
+| Playbook Service | `securaa-playbook-high-level-design.html` | `securaa-playbook-low-level-design.html` |
+| SIEM Service | `securaa-siem-high-level-design.html` | `securaa-siem-low-level-design.html` |
+| User Service | `securaa-user-high-level-design.html` | `securaa-user-low-level-design.html` |
+| Custom Services | `securaa-custom-services-high-level-design.html` | `securaa-custom-services-low-level-design.html` |
+| Custom Utils | `securaa-custom-utils-high-level-design.html` | `securaa-custom-utils-low-level-design.html` |
+| RIS Service | `securaa-ris-high-level-design.html` | `securaa-ris-low-level-design.html` |
+| SIA Service | `sia-service-high-level-design.html` | `sia-service-low-level-design.html` |
+
+### Additional Documentation
+- `OPTIMIZATION_GUIDE.html` - Performance optimization best practices
+- `securaa-make-system.html` - Build and deployment system
+- `securaa-ris-client-documentation.html` - RIS client documentation
+- `securaa-ris-server-documentation.html` - RIS server documentation
+- `secura-customer-security-documentation.html` - Customer security documentation
+- `securaa-information-security-risk-assesment-process.html` - Risk assessment process
+
+## How to Regenerate Documentation
+
+### Prerequisites
+Create a Python virtual environment and install dependencies:
 
 ```bash
-# Using Python's built-in server (for testing)
-cd docs
-python3 -m http.server 8080
-
-# Using Node.js http-server
-npx http-server docs -p 8080
-
-# Using nginx or Apache
-# Copy the docs folder to your web server's document root
+python3 -m venv venv
+source venv/bin/activate
+pip install markdown playwright
+playwright install chromium
 ```
 
-### Features
+### Generate HTML Files
+```bash
+source venv/bin/activate
+python3 generate_documentation.py
+```
 
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
-- **Search Functionality**: Real-time search across all documentation
-- **Table of Contents**: Auto-generated TOC for easy navigation
-- **Code Copy Buttons**: One-click copying of code blocks
-- **Smooth Scrolling**: Enhanced navigation experience
-- **Print Optimization**: Clean formatting for printing/PDF export
+### Generate PDF Files
+```bash
+source venv/bin/activate
+python3 generate_pdfs_enhanced.py
+```
 
-### Navigation
+## Features
 
-The documentation is organized into logical sections:
+### HTML Documentation
+- **Modern Design**: Clean, professional styling with responsive layout
+- **Mermaid Diagrams**: Fully rendered architecture diagrams, flowcharts, sequence diagrams, and ER diagrams
+- **Navigation**: Sticky header with quick navigation to all main sections
+- **Typography**: Clear hierarchy with readable fonts and proper spacing
+- **Code Highlighting**: Syntax-highlighted code blocks with proper formatting
+- **Tables**: Styled tables with alternating row colors
+- **Print Support**: Optimized CSS for browser printing
 
-1. **Securaa Playbook Service** - Core SOAR functionality
-   - High Level Design (Architecture, APIs, Security)
-   - Low Level Design (Implementation details, Database schema)
+### PDF Documentation
+- **Proper Diagram Sizing**: Diagrams automatically scaled to fit page width
+- **Page Breaks**: Intelligent page breaks to keep content together
+- **Headers/Footers**: Page numbers and document title
+- **Text Visibility**: All text rendered in black for maximum readability
+- **Professional Layout**: A4 format with proper margins
 
-2. **Process Manager** - Microservices orchestration and lifecycle management
-   - High Level Design (System architecture, orchestration, integrations)
-   - Low Level Design (Component/class diagrams, database, API design)
+## Technology Stack
 
-3. **Securaa SIEM Service** - Security information and event management
-   - High Level Design (System architecture, Integrations)
-   - Low Level Design (Implementation details, Component design)
+- **Markdown Processing**: Python `markdown` library with extensions
+- **Mermaid Diagrams**: Mermaid.js v10 for diagram rendering
+- **PDF Generation**: Playwright with Chromium for headless rendering
+- **Styling**: Custom CSS with CSS variables for theming
 
-4. **Securaa Platform** - Infrastructure and deployment
-   - High Level Design (Deployment topologies, Build system)
+## Browser Support
 
-5. **Securaa User Service** - Identity and access management
-   - High Level Design (Authentication, Authorization, Multi-tenancy)
-   - Low Level Design (Implementation details, Database design)
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
 
-6. **Securaa Custom Services** - Custom security applications and workflows
-   - High Level Design (Architecture, Integration patterns)
-   - Low Level Design (Implementation details, API specifications)
+## Viewing Documentation
 
-### Cross-References
+### Local Viewing
+Open `index.html` directly in a web browser.
 
-The documentation includes intelligent cross-referencing between related sections. Links are preserved from the original markdown files and updated to work within the HTML structure.
+### Web Server
+```bash
+# Python built-in server
+python3 -m http.server 8080
 
-## Technical Details
+# Or use any static file server
+npx serve .
+```
 
-- **Generated From**: Markdown files in the repository root
-- **Converter**: Custom Python script with markdown-to-HTML conversion
-- **Styling**: Professional CSS with Securaa brand colors
-- **JavaScript**: Enhanced functionality for search, navigation, and UX
-- **Browser Support**: Modern browsers (Chrome, Firefox, Safari, Edge)
-
-## Maintenance
-
-To update the documentation:
-
-1. Modify the source markdown files in the repository root
-2. Re-run the conversion script to regenerate HTML files
-3. The documentation structure and styling will be preserved
-
-The documentation is designed to be self-contained and can be easily shared, hosted, or distributed as needed.
+Then navigate to `http://localhost:8080/docs_new/`

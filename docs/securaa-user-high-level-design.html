@@ -3,648 +3,1633 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Securaa User Service - High Level Design - Securaa Platform Documentation</title>
-    <link rel="stylesheet" href="assets/css/documentation.css">
-    <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.9.4/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true });
-    </script>
+    <meta name="description" content="Securaa Platform Documentation - Securaa User Service - High Level Design">
+    <title>Securaa User Service - High Level Design - Securaa Documentation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-dark: #3730a3;
+    --primary-light: #818cf8;
+    --secondary-color: #06b6d4;
+    --accent-color: #f59e0b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-tertiary: #f3f4f6;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Header */
+.main-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+}
+
+.header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+.header-logo span {
+    color: var(--secondary-color);
+}
+
+/* Navigation */
+.documentation-nav {
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 2rem;
+    position: sticky;
+    top: 60px;
+    z-index: 999;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-links {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+    background: var(--bg-tertiary);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--primary-color);
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.875rem;
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+/* Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+li > ul, li > ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+/* Code Blocks */
+pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    box-shadow: var(--shadow-md);
+}
+
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875em;
+}
+
+:not(pre) > code {
+    background: var(--bg-tertiary);
+    color: var(--primary-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+}
+
+th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+    background: var(--bg-secondary);
+}
+
+tr:hover {
+    background: var(--bg-tertiary);
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--bg-secondary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Mermaid Diagrams - Enhanced Styling */
+.mermaid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    min-height: 200px;
+}
+
+.mermaid svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Ensure diagrams scale properly */
+.mermaid[data-processed="true"] {
+    min-height: auto;
+}
+
+/* Diagram container for better control */
+.diagram-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* HR Styling */
+hr {
+    border: none;
+    border-top: 2px solid var(--border-color);
+    margin: 2.5rem 0;
+}
+
+/* Table of Contents */
+.toc {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.toc-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc li {
+    margin-bottom: 0.5rem;
+}
+
+.toc a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.toc a:hover {
+    color: var(--primary-color);
+}
+
+/* Document Info Box */
+.doc-info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+}
+
+.doc-info strong {
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print Styles */
+@media print {
+    .main-header, .documentation-nav, .footer {
+        display: none !important;
+    }
+
+    .main-content {
+        max-width: none;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    body {
+        background: white;
+        font-size: 11pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        -webkit-text-fill-color: var(--primary-dark);
+        page-break-after: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    pre {
+        background: #f5f5f5 !important;
+        color: #333 !important;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+        font-size: 9pt;
+    }
+
+    table {
+        page-break-inside: avoid;
+    }
+
+    .mermaid {
+        page-break-inside: avoid;
+        background: white !important;
+        border: 1px solid #ddd;
+        max-width: 100% !important;
+    }
+
+    .mermaid svg {
+        max-width: 100% !important;
+        max-height: 700px !important;
+    }
+
+    a {
+        color: var(--primary-dark) !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin: 1rem;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.5rem;
+    }
+
+    pre {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    table {
+        font-size: 0.8rem;
+    }
+
+    th, td {
+        padding: 0.5rem;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.main-content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Index-specific styles */
+.hero {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    border: none;
+    padding: 0;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.doc-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.doc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.doc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.doc-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+
+.doc-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doc-card .links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.doc-card .links a {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease;
+}
+
+.doc-card .links a:hover {
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    color: var(--primary-dark);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+    </style>
 </head>
 <body>
     <header class="main-header">
-        <h1>Securaa Platform Documentation</h1>
-        <p>Comprehensive documentation for Securaa security platform services</p>
+        <div class="header-content">
+            <div class="header-logo">Securaa<span>Docs</span></div>
+            <div class="header-meta">
+                <span>Generated: December 04, 2025</span>
+            </div>
+        </div>
     </header>
+
     <nav class="documentation-nav">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="securaa-ris-high-level-design.html">RIS High Level Design</a></li>
-            <li><a href="securaa-ris-low-level-design.html">RIS Low Level Design</a></li>
-            <li><a href="securaa-playbook-high-level-design.html">Securaa Playbook High Level Design</a></li>
-            <li><a href="securaa-playbook-low-level-design.html">Securaa Playbook Low Level Design</a></li>
-            <li><a href="optimization-guide.html">Optimization Guide</a></li>
-            <li><a href="securaa-siem-high-level-design.html">Securaa SIEM High Level Design</a></li>
-            <li><a href="securaa-platform-high-level-design.html">Securaa Platform</a></li>
-            <li><a href="process-manager-high-level-design.html">Process Manager High Level Design</a></li>
-            <li><a href="process-manager-low-level-design.html">Process Manager Low Level Design</a></li>
-            <li><a href="securaa-user-high-level-design.html">Securaa User High Level Design</a></li>
-            <li><a href="securaa-user-low-level-design.html">Securaa User Low Level Design</a></li>
-        </ul>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="securaa-platform-high-level-design.html">Platform</a>
+            <a href="securaa-playbook-high-level-design.html">Playbook</a>
+            <a href="securaa-siem-high-level-design.html">SIEM</a>
+            <a href="securaa-user-high-level-design.html">User Service</a>
+            <a href="securaa-custom-services-high-level-design.html">Custom Services</a>
+            <a href="sia-service-high-level-design.html">SIA Service</a>
+            <a href="securaa-ris-high-level-design.html">RIS</a>
+        </div>
     </nav>
+
     <main class="main-content">
-        <h1>Securaa User Service - High Level Design Document</h1>
-        <h2>Document Information</h2>
-        <ul>
-            <li><strong>Service Name</strong>: Securaa User Service</li>
-            <li><strong>Version</strong>: 1.0</li>
-            <li><strong>Date</strong>: September 18, 2025</li>
-            <li><strong>Author</strong>: System Architecture Team</li>
-            <li><strong>Related Documents</strong>: ZONA_USER_HLD.md</li>
-        </ul>
-        
-        <h2>Table of Contents</h2>
-        <ol>
-            <li><a href="#executive-overview">Executive Overview</a></li>
-            <li><a href="#system-architecture">System Architecture Overview</a></li>
-            <li><a href="#core-capabilities">Core Business Capabilities</a></li>
-            <li><a href="#business-processes">Critical Business Processes</a></li>
-            <li><a href="#security-strategy">Enterprise Security Strategy</a></li>
-            <li><a href="#business-intelligence">Business Intelligence & Analytics</a></li>
-            <li><a href="#scalability-performance">Scalability & Performance Strategy</a></li>
-            <li><a href="#compliance-governance">Compliance & Governance</a></li>
-            <li><a href="#integration-ecosystem">Integration Ecosystem</a></li>
-            <li><a href="#operational-excellence">Operational Excellence</a></li>
-        </ol>
-        <hr>
-        
-        <h2 id="executive-overview">🎯 Executive Overview</h2>
-        
-        <h3>⚠️ Critical Service Classification</h3>
-        <p>The Securaa User Service is a <strong>mission-critical component</strong> that serves as the foundation of the entire Securaa security platform ecosystem. This service is the central nervous system for security operations, handling all aspects of user identity, access control, and tenant management across the platform.</p>
-
-        <h4>Critical Impact Areas:</h4>
-        <ul>
-            <li><strong>Security Posture</strong>: Controls access to all security operations and sensitive data</li>
-            <li><strong>Compliance Requirements</strong>: Manages audit trails and regulatory compliance</li>
-            <li><strong>Business Continuity</strong>: Essential for all platform operations and user workflows</li>
-            <li><strong>Data Protection</strong>: Enforces data access policies and tenant isolation</li>
-            <li><strong>Operational Excellence</strong>: Enables monitoring, alerting, and incident response</li>
-        </ul>
-
-        <h3>🎯 Business Context & Objectives</h3>
-        
-        <h4>Primary Business Functions</h4>
-        <ul>
-            <li><strong>Identity & Access Management (IAM)</strong>: Centralized authentication and authorization</li>
-            <li><strong>Multi-Tenant Security</strong>: Secure isolation and resource management across tenants</li>
-            <li><strong>Compliance Management</strong>: Audit trails, access controls, and regulatory compliance</li>
-            <li><strong>Security Operations</strong>: Real-time monitoring, threat detection, and incident response</li>
-            <li><strong>Enterprise Integration</strong>: Seamless integration with corporate identity systems</li>
-        </ul>
-
-        <h4>Key Business Stakeholders</h4>
-        <ul>
-            <li><strong>Security Teams</strong>: Threat analysts, SOC operators, security engineers</li>
-            <li><strong>Compliance Officers</strong>: Audit managers, risk assessors, compliance specialists</li>
-            <li><strong>IT Operations</strong>: Infrastructure teams, platform engineers, DevOps specialists</li>
-            <li><strong>Business Users</strong>: End users, administrators, tenant managers</li>
-            <li><strong>Executive Leadership</strong>: CISOs, CTOs, risk management executives</li>
-        </ul>
-
-        <h2 id="system-architecture">🏗️ System Architecture Overview</h2>
-        
-        <h3>High-Level System Architecture</h3>
-        <p>The Securaa User Service follows a <strong>microservice architecture</strong> deployed on traditional servers or cloud infrastructure without container orchestration. The system is designed for high availability through load balancing and database replication.</p>
-
-        <div class="mermaid">
+        <h1 id="securaa-user-service-high-level-design">Securaa User Service - High Level Design<a class="headerlink" href="#securaa-user-service-high-level-design" title="Permanent link">&para;</a></h1>
+<h2 id="executive-overview">🎯 <strong>EXECUTIVE OVERVIEW</strong><a class="headerlink" href="#executive-overview" title="Permanent link">&para;</a></h2>
+<h3 id="critical-service-classification">⚠️ <strong>CRITICAL SERVICE CLASSIFICATION</strong><a class="headerlink" href="#critical-service-classification" title="Permanent link">&para;</a></h3>
+<p>The Securaa User Service is a <strong>mission-critical component</strong> that serves as the foundation of the entire Securaa security platform ecosystem. This service is the central nervous system for security operations, handling all aspects of user identity, access control, and tenant management across the platform.</p>
+<p><strong>Critical Impact Areas:</strong><br />
+- <strong>Security Posture</strong>: Controls access to all security operations and sensitive data<br />
+- <strong>Compliance Requirements</strong>: Manages audit trails and regulatory compliance<br />
+- <strong>Business Continuity</strong>: Essential for all platform operations and user workflows<br />
+- <strong>Data Protection</strong>: Enforces data access policies and tenant isolation<br />
+- <strong>Operational Excellence</strong>: Enables monitoring, alerting, and incident response</p>
+<h3 id="business-context-objectives">🎯 <strong>BUSINESS CONTEXT &amp; OBJECTIVES</strong><a class="headerlink" href="#business-context-objectives" title="Permanent link">&para;</a></h3>
+<h4 id="primary-business-functions">Primary Business Functions<a class="headerlink" href="#primary-business-functions" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Identity &amp; Access Management (IAM)</strong>: Centralized authentication and authorization</li>
+<li><strong>Multi-Tenant Security</strong>: Secure isolation and resource management across tenants  </li>
+<li><strong>Compliance Management</strong>: Audit trails, access controls, and regulatory compliance</li>
+<li><strong>Security Operations</strong>: Real-time monitoring, threat detection, and incident response</li>
+<li><strong>Enterprise Integration</strong>: Seamless integration with corporate identity systems</li>
+</ul>
+<h4 id="key-business-stakeholders">Key Business Stakeholders<a class="headerlink" href="#key-business-stakeholders" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Security Teams</strong>: Threat analysts, SOC operators, security engineers</li>
+<li><strong>Compliance Officers</strong>: Audit managers, risk assessors, compliance specialists</li>
+<li><strong>IT Operations</strong>: Infrastructure teams, platform engineers, DevOps specialists</li>
+<li><strong>Business Users</strong>: End users, administrators, tenant managers</li>
+<li><strong>Executive Leadership</strong>: CISOs, CTOs, risk management executives</li>
+</ul>
+<h2 id="system-architecture-overview">🏗️ <strong>SYSTEM ARCHITECTURE OVERVIEW</strong><a class="headerlink" href="#system-architecture-overview" title="Permanent link">&para;</a></h2>
+<h3 id="high-level-system-architecture"><strong>High-Level System Architecture</strong><a class="headerlink" href="#high-level-system-architecture" title="Permanent link">&para;</a></h3>
+<p>The Securaa User Service follows a <strong>microservice architecture</strong> deployed on traditional servers or cloud infrastructure without container orchestration. The system is designed for high availability through load balancing and database replication.</p>
+<div class="mermaid">
 graph TB
     subgraph "Client Layer"
         WEB[Web Applications<br/>Security Dashboards]
         API_CLIENT[API Clients<br/>Third-party Systems]
         CLI[CLI Tools<br/>Administrative Tools]
     end
-    
+
     subgraph "Load Balancer"
         LB[HAProxy/Nginx<br/>Load Balancer]
         WAF[Web Application Firewall<br/>Security Gateway]
     end
-    
+
     subgraph "Securaa User Service Cluster"
         SVC1[Service Instance 1<br/>Primary Node]
         SVC2[Service Instance 2<br/>Secondary Node]  
         SVC3[Service Instance 3<br/>Worker Node]
     end
-    
+
     subgraph "Authentication Layer"
         LOCAL_AUTH[Local Authentication<br/>bcrypt + JWT]
         LDAP_AD[LDAP/Active Directory<br/>Corporate Directory]
         SAML_IDP[SAML 2.0 Provider<br/>Enterprise SSO]
         OAUTH2[OAuth2/OIDC<br/>Third-party Auth]
     end
-    
+
     subgraph "Data Layer"
         MONGO_PRIMARY[MongoDB Primary<br/>Write Operations]
         MONGO_SECONDARY[MongoDB Secondary<br/>Read Replica]
         REDIS_CACHE[Redis Cache<br/>Session Store]
     end
-    
+
     subgraph "External Services"
         EMAIL_SERVICE[SMTP Service<br/>Email Delivery]
         SMS_GATEWAY[SMS Gateway<br/>2FA Notifications]
         AUDIT_SERVICE[Audit Service<br/>Compliance Logging]
     end
-    
+
+    %% Client Connections
     WEB --> LB
     API_CLIENT --> LB
     CLI --> LB
-    
+
+    %% Load Balancer
     LB --> WAF
     WAF --> SVC1
     WAF --> SVC2
     WAF --> SVC3
-    
+
+    %% Authentication
     SVC1 --> LOCAL_AUTH
     SVC1 --> LDAP_AD
     SVC1 --> SAML_IDP
     SVC1 --> OAUTH2
-    
+
+    %% Data Access
     SVC1 --> MONGO_PRIMARY
     SVC2 --> MONGO_SECONDARY
     SVC3 --> REDIS_CACHE
-    
+
+    %% Database Replication
     MONGO_PRIMARY --> MONGO_SECONDARY
-    
+
+    %% External Services
     SVC1 --> EMAIL_SERVICE
     SVC2 --> SMS_GATEWAY
     SVC3 --> AUDIT_SERVICE
-        </div>
+</div>
 
-        <h4>Architecture Overview:</h4>
-        <p>This architecture represents a traditional three-tier application deployed across multiple servers for high availability. The system uses:</p>
-        <ul>
-            <li><strong>Load Balancing</strong>: HAProxy or Nginx for traffic distribution</li>
-            <li><strong>Service Clustering</strong>: Multiple service instances for redundancy</li>
-            <li><strong>Database Replication</strong>: MongoDB primary-secondary setup</li>
-            <li><strong>Caching Layer</strong>: Redis for session management and performance</li>
-            <li><strong>External Integrations</strong>: SMTP, SMS, and audit services</li>
-        </ul>
-
-        <h3>Enterprise Security Architecture</h3>
-        <p>The security architecture implements a <strong>defense-in-depth approach</strong> with multiple security layers protecting the Securaa User Service. Each layer provides specific security controls and works together to create a comprehensive security posture.</p>
-
-        <div class="mermaid">
+<p><strong>Architecture Overview:</strong><br />
+This architecture represents a traditional three-tier application deployed across multiple servers for high availability. The system uses:<br />
+- <strong>Load Balancing</strong>: HAProxy or Nginx for traffic distribution<br />
+- <strong>Service Clustering</strong>: Multiple service instances for redundancy<br />
+- <strong>Database Replication</strong>: MongoDB primary-secondary setup<br />
+- <strong>Caching Layer</strong>: Redis for session management and performance<br />
+- <strong>External Integrations</strong>: SMTP, SMS, and audit services</p>
+<h3 id="enterprise-security-architecture"><strong>Enterprise Security Architecture</strong><a class="headerlink" href="#enterprise-security-architecture" title="Permanent link">&para;</a></h3>
+<p>The security architecture implements a <strong>defense-in-depth approach</strong> with multiple security layers protecting the Securaa User Service. Each layer provides specific security controls and works together to create a comprehensive security posture.</p>
+<div class="mermaid">
 graph TB
     subgraph "Application Security Layer"
         APP_AUTH[Multi-Factor Authentication<br/>TOTP + SMS + Hardware Keys]
         APP_AUTHZ[Role-Based Authorization<br/>RBAC + Tenant Isolation]
         APP_VALIDATE[Input Validation<br/>XSS & Injection Prevention]
     end
-    
+
     subgraph "Data Security Layer"
         DATA_ENCRYPT[Data Encryption<br/>AES-256 at Rest]
         DATA_TRANSIT[Transport Security<br/>TLS 1.3 in Transit]
         DATA_MASK[Data Protection<br/>PII Masking & DLP]
     end
-    
+
     subgraph "Session Security Layer"
         SESSION_JWT[JWT Tokens<br/>RS256 Signed]
         SESSION_REDIS[Session Store<br/>Redis with Expiration]
         SESSION_BIND[Device Binding<br/>Fingerprint Validation]
     end
-    
+
     subgraph "Network Security Layer"
         FIREWALL[Application Firewall<br/>ModSecurity Rules]
         RATE_LIMIT[Rate Limiting<br/>Request Throttling]
         IP_FILTERING[IP Filtering<br/>Geolocation Controls]
     end
-    
+
     subgraph "Infrastructure Security Layer"
         HOST_HARDENING[Server Hardening<br/>CIS Benchmarks]
         ACCESS_CONTROL[Access Control<br/>SSH Key Management]
         MONITORING[Security Monitoring<br/>Real-time Alerts]
     end
-    
+
+    %% Security Layer Dependencies
     APP_AUTH --> SESSION_JWT
     APP_AUTHZ --> DATA_ENCRYPT
     APP_VALIDATE --> FIREWALL
-    
+
     DATA_ENCRYPT --> SESSION_REDIS
     DATA_TRANSIT --> RATE_LIMIT
     DATA_MASK --> IP_FILTERING
-    
+
     SESSION_JWT --> HOST_HARDENING
     SESSION_REDIS --> ACCESS_CONTROL
     SESSION_BIND --> MONITORING
-        </div>
+</div>
 
-        <h4>Security Implementation Details:</h4>
-        
-        <h5>Layer 1 - Application Security:</h5>
-        <ul>
-            <li><strong>Authentication</strong>: Supports local credentials, LDAP/AD, SAML 2.0, and OAuth2 with mandatory MFA for privileged accounts</li>
-            <li><strong>Authorization</strong>: Implements RBAC with fine-grained permissions and complete tenant data isolation</li>
-            <li><strong>Input Validation</strong>: Comprehensive sanitization preventing SQL/NoSQL injection, XSS, and CSRF attacks</li>
-        </ul>
-
-        <h5>Layer 2 - Data Security:</h5>
-        <ul>
-            <li><strong>Encryption at Rest</strong>: All sensitive data encrypted using AES-256 with rotating keys</li>
-            <li><strong>Encryption in Transit</strong>: TLS 1.3 for all communications with perfect forward secrecy</li>
-            <li><strong>Data Protection</strong>: PII masking in logs and exports with DLP controls</li>
-        </ul>
-
-        <h5>Layer 3 - Session Security:</h5>
-        <ul>
-            <li><strong>JWT Implementation</strong>: Stateless tokens signed with RS256 algorithm</li>
-            <li><strong>Session Management</strong>: Redis-backed sessions with configurable timeouts</li>
-            <li><strong>Device Security</strong>: Browser fingerprinting and device binding for anomaly detection</li>
-        </ul>
-
-        <h5>Layer 4 - Network Security:</h5>
-        <ul>
-            <li><strong>Web Application Firewall</strong>: ModSecurity with OWASP Core Rule Set</li>
-            <li><strong>Rate Limiting</strong>: Configurable request throttling per IP and user</li>
-            <li><strong>Access Controls</strong>: IP whitelisting and geolocation-based restrictions</li>
-        </ul>
-
-        <h5>Layer 5 - Infrastructure Security:</h5>
-        <ul>
-            <li><strong>Server Hardening</strong>: CIS benchmark compliance with automated configuration management</li>
-            <li><strong>Access Management</strong>: SSH key-based authentication with audit logging</li>
-            <li><strong>Monitoring</strong>: Real-time security event monitoring with automated alerting</li>
-        </ul>
-
-        <h2 id="core-capabilities">🎯 Core Business Capabilities</h2>
-        
-        <h3>Enterprise Identity & Access Management</h3>
-        
-        <div class="mermaid">
+<p><strong>Security Implementation Details:</strong></p>
+<p><strong>Layer 1 - Application Security:</strong><br />
+- <strong>Authentication</strong>: Supports local credentials, LDAP/AD, SAML 2.0, and OAuth2 with mandatory MFA for privileged accounts<br />
+- <strong>Authorization</strong>: Implements RBAC with fine-grained permissions and complete tenant data isolation<br />
+- <strong>Input Validation</strong>: Comprehensive sanitization preventing SQL/NoSQL injection, XSS, and CSRF attacks</p>
+<p><strong>Layer 2 - Data Security:</strong><br />
+- <strong>Encryption at Rest</strong>: All sensitive data encrypted using AES-256 with rotating keys<br />
+- <strong>Encryption in Transit</strong>: TLS 1.3 for all communications with perfect forward secrecy<br />
+- <strong>Data Protection</strong>: PII masking in logs and exports with DLP controls</p>
+<p><strong>Layer 3 - Session Security:</strong><br />
+- <strong>JWT Implementation</strong>: Stateless tokens signed with RS256 algorithm<br />
+- <strong>Session Management</strong>: Redis-backed sessions with configurable timeouts<br />
+- <strong>Device Security</strong>: Browser fingerprinting and device binding for anomaly detection</p>
+<p><strong>Layer 4 - Network Security:</strong><br />
+- <strong>Web Application Firewall</strong>: ModSecurity with OWASP Core Rule Set<br />
+- <strong>Rate Limiting</strong>: Configurable request throttling per IP and user<br />
+- <strong>Access Controls</strong>: IP whitelisting and geolocation-based restrictions</p>
+<p><strong>Layer 5 - Infrastructure Security:</strong><br />
+- <strong>Server Hardening</strong>: CIS benchmark compliance with automated configuration management<br />
+- <strong>Access Management</strong>: SSH key-based authentication with audit logging<br />
+- <strong>Monitoring</strong>: Real-time security event monitoring with automated alerting</p>
+<h2 id="core-business-capabilities">🎯 <strong>CORE BUSINESS CAPABILITIES</strong><a class="headerlink" href="#core-business-capabilities" title="Permanent link">&para;</a></h2>
+<h3 id="enterprise-identity-access-management"><strong>Enterprise Identity &amp; Access Management</strong><a class="headerlink" href="#enterprise-identity-access-management" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 mindmap
   root((Securaa User Service<br/>IAM Platform))
     Authentication
       Multi-Factor Auth
-        TOTP Tokens
+        TOTP Authentication
         SMS Verification
         Hardware Keys
         Biometric Auth
-      External Integration
-        LDAP/Active Directory
+      Federated Identity
         SAML 2.0 SSO
         OAuth2/OIDC
+        LDAP/Active Directory
         Social Login
+      Local Authentication
+        Password Policies
+        Account Lockout
+        Password History
+        Security Questions
     Authorization
-      Role-Based Access
-        System Roles
-        Custom Roles
-        Permission Sets
-        Resource Access
+      Role-Based Access Control
+        Hierarchical Roles
+        Permission Inheritance
+        Dynamic Roles
+        Temporary Elevation
+      Attribute-Based Access Control
+        Context-Aware Decisions
+        Environmental Factors
+        Risk-Based Auth
+        Adaptive Security
       Tenant Isolation
+        Multi-Tenant Architecture
         Data Segregation
         Resource Quotas
-        Access Boundaries
-        Cross-tenant Controls
+        Cross-Tenant Prevention
     User Management
-      Profile Management
-        User Registration
-        Profile Updates
-        Account Settings
-        Preference Management
       Lifecycle Management
         User Provisioning
-        Account Suspension
-        Password Management
-        Session Control
-    Security Operations
-      Audit & Compliance
-        Access Logs
-        Change Tracking
-        Compliance Reports
-        Risk Assessment
-      Threat Detection
-        Anomaly Detection
-        Failed Login Monitoring
-        Suspicious Activity
-        Real-time Alerts
-        </div>
+        Profile Synchronization
+        Access Recertification
+        Secure Deprovisioning
+      Self-Service Portal
+        Password Reset
+        Profile Updates
+        Access Requests
+        Delegation Management
+      Bulk Operations
+        Mass User Import
+        Batch Updates
+        Group Operations
+        Automated Workflows
+    Compliance & Governance
+      Audit & Logging
+        Complete Audit Trail
+        Real-time Monitoring
+        Compliance Reporting
+        Forensic Analysis
+      Data Protection
+        GDPR Compliance
+        Data Minimization
+        Right to be Forgotten
+        Data Portability
+      Regulatory Framework
+        SOC 2 Type II
+        ISO 27001
+        HIPAA
+        PCI DSS
+</div>
 
-        <h4>Authentication Capabilities:</h4>
-        <ul>
-            <li><strong>Multi-Factor Authentication</strong>: TOTP, SMS, hardware keys, and biometric authentication</li>
-            <li><strong>External Integration</strong>: LDAP/AD, SAML 2.0, OAuth2/OIDC, and social login providers</li>
-            <li><strong>Password Security</strong>: bcrypt hashing, complexity requirements, rotation policies</li>
-            <li><strong>Session Management</strong>: JWT tokens, session timeouts, concurrent session controls</li>
-        </ul>
-
-        <h4>Authorization Framework:</h4>
-        <ul>
-            <li><strong>Role-Based Access Control</strong>: Hierarchical roles with fine-grained permissions</li>
-            <li><strong>Tenant Isolation</strong>: Complete data segregation and resource boundaries</li>
-            <li><strong>Resource Access</strong>: API endpoint protection and data access controls</li>
-            <li><strong>Dynamic Permissions</strong>: Runtime permission evaluation and inheritance</li>
-        </ul>
-
-        <h3>Multi-Tenant Architecture Capabilities</h3>
-        
-        <div class="mermaid">
-graph LR
-    subgraph "Tenant Management"
-        TENANT_A[Tenant A<br/>Organization 1]
-        TENANT_B[Tenant B<br/>Organization 2]
-        TENANT_C[Tenant C<br/>Organization 3]
-    end
-    
-    subgraph "Shared Infrastructure"
-        USER_SERVICE[User Service<br/>Shared Instance]
-        AUTH_SERVICE[Auth Service<br/>Shared Instance]
-        ADMIN_SERVICE[Admin Service<br/>Shared Instance]
-    end
-    
-    subgraph "Isolated Data"
-        DB_A[(Database A<br/>Tenant A Data)]
-        DB_B[(Database B<br/>Tenant B Data)]
-        DB_C[(Database C<br/>Tenant C Data)]
-    end
-    
-    subgraph "Shared Resources"
-        REDIS_SHARED[(Redis Cache<br/>Shared Sessions)]
-        MONITORING[Monitoring<br/>Cross-tenant Metrics]
-        AUDIT[Audit Service<br/>Compliance Logging]
-    end
-    
-    TENANT_A --> USER_SERVICE
-    TENANT_B --> USER_SERVICE
-    TENANT_C --> USER_SERVICE
-    
-    USER_SERVICE --> AUTH_SERVICE
-    AUTH_SERVICE --> ADMIN_SERVICE
-    
-    USER_SERVICE --> DB_A
-    USER_SERVICE --> DB_B
-    USER_SERVICE --> DB_C
-    
-    USER_SERVICE --> REDIS_SHARED
-    AUTH_SERVICE --> MONITORING
-    ADMIN_SERVICE --> AUDIT
-        </div>
-
-        <h4>Multi-Tenancy Features:</h4>
-        <ul>
-            <li><strong>Tenant Isolation</strong>: Complete data separation with database-level isolation</li>
-            <li><strong>Resource Management</strong>: Per-tenant quotas and usage monitoring</li>
-            <li><strong>Configuration Management</strong>: Tenant-specific settings and customizations</li>
-            <li><strong>Cross-Tenant Administration</strong>: Master tenant capabilities for platform management</li>
-        </ul>
-
-        <h2 id="business-processes">🔄 Critical Business Processes</h2>
-        
-        <h3>User Authentication Flow</h3>
-        
-        <div class="mermaid">
-sequenceDiagram
-    participant User
-    participant WebApp as Web Application
-    participant LB as Load Balancer
-    participant UserSvc as User Service
-    participant AuthSvc as Auth Service
-    participant DB as MongoDB
-    participant Redis as Redis Cache
-    participant MFA as MFA Provider
-    
-    User->>WebApp: Login Request
-    WebApp->>LB: POST /auth/login
-    LB->>UserSvc: Route Request
-    
-    UserSvc->>DB: Validate Credentials
-    DB-->>UserSvc: User Record
-    
-    alt MFA Required
-        UserSvc->>MFA: Send MFA Challenge
-        MFA-->>User: SMS/TOTP/Push
-        User->>WebApp: MFA Code
-        WebApp->>UserSvc: Verify MFA
-        UserSvc->>MFA: Validate Code
-        MFA-->>UserSvc: Validation Result
-    end
-    
-    UserSvc->>AuthSvc: Generate JWT
-    AuthSvc-->>UserSvc: Signed Token
-    
-    UserSvc->>Redis: Store Session
-    UserSvc->>DB: Log Login Event
-    
-    UserSvc-->>WebApp: Login Response + Token
-    WebApp-->>User: Authentication Success
-        </div>
-
-        <h4>Authentication Process Details:</h4>
-        <ol>
-            <li><strong>Credential Validation</strong>: Username/password verification against database</li>
-            <li><strong>MFA Challenge</strong>: Multi-factor authentication when required</li>
-            <li><strong>Token Generation</strong>: JWT token creation with user claims and permissions</li>
-            <li><strong>Session Storage</strong>: Redis-based session management for scalability</li>
-            <li><strong>Audit Logging</strong>: Security event logging for compliance and monitoring</li>
-        </ol>
-
-        <h3>Real-Time Notification System</h3>
-        
-        <div class="mermaid">
+<h3 id="multi-tenant-architecture-capabilities"><strong>Multi-Tenant Architecture Capabilities</strong><a class="headerlink" href="#multi-tenant-architecture-capabilities" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TB
+    subgraph "Tenant Management Ecosystem"
+        subgraph "Tenant Onboarding"
+            TENANT_CREATE[Tenant Creation<br/>Automated Provisioning]
+            TENANT_CONFIG[Configuration<br/>Custom Settings]
+            TENANT_BRANDING[White-Label<br/>Custom Branding]
+            TENANT_INTEGRATION[Integration Setup<br/>External Systems]
+        end
+
+        subgraph "Resource Management"
+            QUOTA_MGT[Resource Quotas<br/>CPU/Memory/Storage]
+            RATE_LIMITING[API Rate Limiting<br/>Per-tenant Throttling]
+            PERFORMANCE_SLA[Performance SLAs<br/>Guaranteed Response Times]
+            COST_ALLOCATION[Cost Allocation<br/>Usage-based Billing]
+        end
+
+        subgraph "Data Isolation"
+            LOGICAL_SEPARATION[Logical Separation<br/>Database Schemas]
+            PHYSICAL_ISOLATION[Physical Isolation<br/>Dedicated Resources]
+            ENCRYPTION_KEYS[Tenant-Specific Keys<br/>Crypto Boundaries]
+            DATA_RESIDENCY[Data Residency<br/>Geographic Controls]
+        end
+
+        subgraph "Security Controls"
+            TENANT_RBAC[Tenant-specific RBAC<br/>Role Hierarchies]
+            CROSS_TENANT_PREVENTION[Cross-tenant Prevention<br/>Access Controls]
+            SECURITY_POLICIES[Security Policies<br/>Custom Rules]
+            COMPLIANCE_BOUNDARIES[Compliance Boundaries<br/>Regulatory Controls]
+        end
+
+        subgraph "Operational Excellence"
+            MONITORING[Tenant Monitoring<br/>Usage Analytics]
+            BACKUP_RECOVERY[Backup & Recovery<br/>Per-tenant Policies]
+            DISASTER_RECOVERY[Disaster Recovery<br/>Business Continuity]
+            SUPPORT_ESCALATION[Support Escalation<br/>Tenant-specific SLAs]
+        end
+    end
+
+    %% Flow Connections
+    TENANT_CREATE --> TENANT_CONFIG
+    TENANT_CONFIG --> TENANT_BRANDING
+    TENANT_BRANDING --> TENANT_INTEGRATION
+
+    QUOTA_MGT --> RATE_LIMITING
+    RATE_LIMITING --> PERFORMANCE_SLA
+    PERFORMANCE_SLA --> COST_ALLOCATION
+
+    LOGICAL_SEPARATION --> PHYSICAL_ISOLATION
+    PHYSICAL_ISOLATION --> ENCRYPTION_KEYS
+    ENCRYPTION_KEYS --> DATA_RESIDENCY
+
+    TENANT_RBAC --> CROSS_TENANT_PREVENTION
+    CROSS_TENANT_PREVENTION --> SECURITY_POLICIES
+    SECURITY_POLICIES --> COMPLIANCE_BOUNDARIES
+
+    MONITORING --> BACKUP_RECOVERY
+    BACKUP_RECOVERY --> DISASTER_RECOVERY
+    DISASTER_RECOVERY --> SUPPORT_ESCALATION
+</div>
+
+<h2 id="critical-business-processes">🔄 <strong>CRITICAL BUSINESS PROCESSES</strong><a class="headerlink" href="#critical-business-processes" title="Permanent link">&para;</a></h2>
+<h3 id="user-authentication-flow"><strong>User Authentication Flow</strong><a class="headerlink" href="#user-authentication-flow" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+sequenceDiagram
+    participant U as User/Client
+    participant LB as Load Balancer
+    participant ZUS as Securaa User Service
+    participant AUTH as Auth Provider
+    participant MFA as MFA Service
+    participant DB as MongoDB
+    participant CACHE as Redis Cache
+    participant AUDIT as Audit Service
+    participant NOTIFY as Notification Service
+
+    Note over U,NOTIFY: Critical Authentication Process
+
+    U->>LB: Authentication Request
+    LB->>ZUS: Route to Available Instance
+
+    alt Local Authentication
+        ZUS->>DB: Validate User Credentials
+        DB-->>ZUS: User Data + Hash
+        ZUS->>ZUS: Verify bcrypt Hash
+    else SAML Authentication
+        ZUS->>AUTH: SAML Auth Request
+        AUTH->>U: Redirect to IdP
+        U->>AUTH: Provide Credentials
+        AUTH->>ZUS: SAML Assertion
+        ZUS->>ZUS: Validate SAML Response
+    else OAuth2 Authentication
+        ZUS->>AUTH: OAuth2 Auth Request
+        AUTH->>U: Authorization Challenge
+        U->>AUTH: Grant Permission
+        AUTH->>ZUS: Authorization Code
+        ZUS->>AUTH: Exchange for Access Token
+        AUTH-->>ZUS: Access Token + User Info
+    end
+
+    alt MFA Required
+        ZUS->>MFA: Generate MFA Challenge
+        MFA->>U: Send MFA Token (SMS/Email/App)
+        U->>ZUS: Submit MFA Token
+        ZUS->>MFA: Validate MFA Token
+        MFA-->>ZUS: MFA Validation Result
+    end
+
+    ZUS->>DB: Create/Update Session
+    ZUS->>CACHE: Store Session Data
+    ZUS->>ZUS: Generate JWT Token
+    ZUS->>AUDIT: Log Authentication Event
+    ZUS->>NOTIFY: Send Login Notification
+
+    ZUS-->>U: Authentication Success + JWT
+
+    Note over U,NOTIFY: Session Established Successfully
+</div>
+
+<h3 id="real-time-notification-system"><strong>Real-Time Notification System</strong><a class="headerlink" href="#real-time-notification-system" title="Permanent link">&para;</a></h3>
+<p>The notification system processes security events and user activities in real-time, delivering alerts through multiple channels. The system is designed for high throughput and reliable delivery with comprehensive audit trails.</p>
+<p><strong>System Components:</strong></p>
+<p><strong>Event Processing Pipeline:</strong><br />
+The notification system begins with event ingestion from multiple sources including security monitors, user actions, and system events. Each event undergoes validation, enrichment with contextual data, and priority assignment based on severity and business impact.</p>
+<p><strong>Notification Engine:</strong><br />
+The core engine processes validated events through template formatting, intelligent routing based on user preferences and policies, and channel selection for optimal delivery. Built-in rate limiting prevents notification flooding while retry mechanisms ensure reliable delivery.</p>
+<p><strong>Delivery Channels:</strong><br />
+Multiple delivery channels support diverse user preferences and urgency levels:<br />
+- <strong>WebSocket</strong>: Real-time browser notifications for immediate awareness<br />
+- <strong>Email</strong>: Detailed notifications with rich formatting and attachments<br />
+- <strong>SMS</strong>: Critical alerts for urgent security events<br />
+- <strong>Webhooks</strong>: Integration with external systems and ITSM tools</p>
+<div class="mermaid">
+graph LR
     subgraph "Event Sources"
-        LOGIN[Login Events]
-        SECURITY[Security Events]
-        ADMIN[Admin Actions]
+        SEC[Security Events]
+        USER[User Actions]
         SYSTEM[System Events]
     end
-    
-    subgraph "Event Processing"
-        EVENT_BUS[Event Bus<br/>Message Queue]
-        EVENT_PROCESSOR[Event Processor<br/>Business Logic]
-        RULE_ENGINE[Rule Engine<br/>Notification Rules]
-    end
-    
-    subgraph "Notification Channels"
-        EMAIL[Email<br/>SMTP Gateway]
-        SMS[SMS<br/>Twilio/AWS SNS]
-        PUSH[Push Notifications<br/>Mobile Apps]
-        WEBHOOK[Webhooks<br/>External Systems]
-        DASHBOARD[Dashboard<br/>Real-time UI]
-    end
-    
-    subgraph "User Preferences"
-        PREF_DB[(Preferences DB<br/>User Settings)]
-        CHANNEL_PREF[Channel Preferences]
-        FREQUENCY[Frequency Settings]
-        CONTENT[Content Filtering]
-    end
-    
-    LOGIN --> EVENT_BUS
-    SECURITY --> EVENT_BUS
-    ADMIN --> EVENT_BUS
-    SYSTEM --> EVENT_BUS
-    
-    EVENT_BUS --> EVENT_PROCESSOR
-    EVENT_PROCESSOR --> RULE_ENGINE
-    
-    RULE_ENGINE --> PREF_DB
-    PREF_DB --> CHANNEL_PREF
-    PREF_DB --> FREQUENCY
-    PREF_DB --> CONTENT
-    
-    RULE_ENGINE --> EMAIL
-    RULE_ENGINE --> SMS
-    RULE_ENGINE --> PUSH
-    RULE_ENGINE --> WEBHOOK
-    RULE_ENGINE --> DASHBOARD
-        </div>
 
-        <h4>Notification Features:</h4>
-        <ul>
-            <li><strong>Multi-Channel Delivery</strong>: Email, SMS, push notifications, webhooks</li>
-            <li><strong>User Preferences</strong>: Customizable notification settings per user</li>
-            <li><strong>Rule Engine</strong>: Configurable notification rules and triggers</li>
-            <li><strong>Real-Time Processing</strong>: Immediate notification delivery for critical events</li>
-        </ul>
+    subgraph "Processing"
+        VALIDATE[Event Validation]
+        ENRICH[Context Enrichment]
+        ROUTE[Smart Routing]
+    end
 
-        <h2 id="security-strategy">🛡️ Enterprise Security Strategy</h2>
-        
-        <h3>Zero-Trust Security Model</h3>
-        
-        <div class="mermaid">
+    subgraph "Delivery"
+        WS[WebSocket]
+        EMAIL[Email]
+        SMS[SMS]
+        WEBHOOK[Webhooks]
+    end
+
+    subgraph "Storage"
+        MONGO[MongoDB Store]
+        AUDIT[Audit Logs]
+    end
+
+    SEC --> VALIDATE
+    USER --> VALIDATE
+    SYSTEM --> VALIDATE
+
+    VALIDATE --> ENRICH
+    ENRICH --> ROUTE
+
+    ROUTE --> WS
+    ROUTE --> EMAIL
+    ROUTE --> SMS
+    ROUTE --> WEBHOOK
+
+    ROUTE --> MONGO
+    WS --> AUDIT
+    EMAIL --> AUDIT
+</div>
+
+<p><strong>Delivery Guarantees:</strong><br />
+- <strong>At-least-once delivery</strong> for critical security notifications<br />
+- <strong>Duplicate detection</strong> to prevent notification spam<br />
+- <strong>Retry policies</strong> with exponential backoff for failed deliveries<br />
+- <strong>Dead letter queues</strong> for undeliverable notifications<br />
+- <strong>Delivery confirmation</strong> tracking and analytics</p>
+<p><strong>Performance Characteristics:</strong><br />
+- <strong>Event Processing</strong>: 10,000+ events per second capacity<br />
+- <strong>Delivery Latency</strong>: &lt; 100ms for WebSocket notifications<br />
+- <strong>Email Delivery</strong>: &lt; 30 seconds for non-critical notifications<br />
+- <strong>SMS Delivery</strong>: &lt; 5 seconds for urgent security alerts<br />
+- <strong>System Reliability</strong>: 99.9% delivery success rate with monitoring</p>
+<p><strong>Configuration Management:</strong><br />
+Users and administrators can configure notification preferences including:<br />
+- <strong>Channel Preferences</strong>: Primary and fallback delivery channels<br />
+- <strong>Frequency Controls</strong>: Rate limiting and quiet hours<br />
+- <strong>Content Filtering</strong>: Event type and severity preferences<br />
+- <strong>Escalation Policies</strong>: Automatic escalation for unacknowledged critical alerts</p>
+<h2 id="enterprise-security-strategy">🛡️ <strong>ENTERPRISE SECURITY STRATEGY</strong><a class="headerlink" href="#enterprise-security-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="zero-trust-security-model"><strong>Zero-Trust Security Model</strong><a class="headerlink" href="#zero-trust-security-model" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
 graph TB
-    subgraph "Identity Verification"
-        ID_VERIFY[Identity Verification<br/>Multi-factor Auth]
-        DEVICE_TRUST[Device Trust<br/>Certificate-based]
-        CONTEXT_AWARE[Context-aware<br/>Risk Assessment]
-    end
-    
-    subgraph "Access Control"
-        RBAC[Role-based Access<br/>Fine-grained Permissions]
-        ABAC[Attribute-based<br/>Dynamic Policies]
-        JIT[Just-in-time<br/>Privilege Escalation]
-    end
-    
-    subgraph "Continuous Monitoring"
-        BEHAVIOR[Behavior Analytics<br/>Anomaly Detection]
-        COMPLIANCE[Compliance Check<br/>Policy Enforcement]
-        AUDIT[Audit Logging<br/>Forensic Analysis]
-    end
-    
-    subgraph "Data Protection"
-        ENCRYPTION[End-to-end<br/>Encryption]
-        DLP[Data Loss<br/>Prevention]
-        CLASSIFICATION[Data<br/>Classification]
-    end
-    
-    ID_VERIFY --> RBAC
-    DEVICE_TRUST --> ABAC
-    CONTEXT_AWARE --> JIT
-    
-    RBAC --> BEHAVIOR
-    ABAC --> COMPLIANCE
-    JIT --> AUDIT
-    
-    BEHAVIOR --> ENCRYPTION
-    COMPLIANCE --> DLP
-    AUDIT --> CLASSIFICATION
-        </div>
+    subgraph "Zero-Trust Architecture"
+        subgraph "Identity Verification"
+            CONTINUOUS_AUTH[Continuous Authentication<br/>Session Validation]
+            RISK_ASSESSMENT[Risk-Based Authentication<br/>Adaptive Security]
+            DEVICE_TRUST[Device Trust<br/>Certificate Binding]
+            LOCATION_VERIFICATION[Location Verification<br/>Geographic Analysis]
+        end
 
-        <h4>Zero-Trust Principles:</h4>
-        <ul>
-            <li><strong>Never Trust, Always Verify</strong>: Continuous authentication and authorization</li>
-            <li><strong>Least Privilege Access</strong>: Minimal required permissions with time-bound access</li>
-            <li><strong>Assume Breach</strong>: Continuous monitoring and anomaly detection</li>
-            <li><strong>Verify Explicitly</strong>: Multiple factors and context-aware decisions</li>
-        </ul>
+        subgraph "Access Control"
+            LEAST_PRIVILEGE[Principle of Least Privilege<br/>Minimal Access Rights]
+            JUST_IN_TIME[Just-in-Time Access<br/>Temporary Elevation]
+            CONTEXT_AWARE[Context-Aware Access<br/>Environmental Factors]
+            MICRO_SEGMENTATION[Micro-segmentation<br/>Resource Isolation]
+        end
 
-        <h2 id="business-intelligence">📊 Business Intelligence & Analytics</h2>
-        
-        <h3>Security Operations Dashboard</h3>
-        
-        <div class="mermaid">
-graph LR
-    subgraph "Data Sources"
-        USER_EVENTS[User Events<br/>Login/Logout]
-        SECURITY_EVENTS[Security Events<br/>Failed Attempts]
-        ADMIN_EVENTS[Admin Events<br/>Configuration Changes]
-        SYSTEM_METRICS[System Metrics<br/>Performance Data]
-    end
-    
-    subgraph "Analytics Engine"
-        DATA_PIPELINE[Data Pipeline<br/>ETL Processing]
-        ML_ENGINE[ML Engine<br/>Anomaly Detection]
-        AGGREGATION[Data Aggregation<br/>Real-time Summary]
-    end
-    
-    subgraph "Dashboards"
-        SECURITY_DASH[Security Dashboard<br/>Threat Overview]
-        USER_DASH[User Dashboard<br/>Activity Summary]
-        ADMIN_DASH[Admin Dashboard<br/>System Health]
-        COMPLIANCE_DASH[Compliance Dashboard<br/>Audit Reports]
-    end
-    
-    USER_EVENTS --> DATA_PIPELINE
-    SECURITY_EVENTS --> DATA_PIPELINE
-    ADMIN_EVENTS --> DATA_PIPELINE
-    SYSTEM_METRICS --> DATA_PIPELINE
-    
-    DATA_PIPELINE --> ML_ENGINE
-    DATA_PIPELINE --> AGGREGATION
-    
-    ML_ENGINE --> SECURITY_DASH
-    AGGREGATION --> USER_DASH
-    ML_ENGINE --> ADMIN_DASH
-    AGGREGATION --> COMPLIANCE_DASH
-        </div>
+        subgraph "Data Protection"
+            DATA_CLASSIFICATION[Data Classification<br/>Sensitivity Levels]
+            ENCRYPTION_EVERYWHERE[Encryption Everywhere<br/>End-to-End Protection]
+            DATA_MINIMIZATION[Data Minimization<br/>Need-to-Know Basis]
+            PRIVACY_CONTROLS[Privacy Controls<br/>GDPR Compliance]
+        end
 
-        <h4>Analytics Capabilities:</h4>
-        <ul>
-            <li><strong>Real-Time Monitoring</strong>: Live dashboards with security metrics</li>
-            <li><strong>Anomaly Detection</strong>: ML-powered threat detection and alerting</li>
-            <li><strong>Compliance Reporting</strong>: Automated audit reports and compliance dashboards</li>
-            <li><strong>User Behavior Analytics</strong>: Pattern analysis and risk scoring</li>
-        </ul>
+        subgraph "Monitoring & Response"
+            CONTINUOUS_MONITORING[Continuous Monitoring<br/>Real-time Analysis]
+            BEHAVIORAL_ANALYTICS[Behavioral Analytics<br/>Anomaly Detection]
+            THREAT_INTELLIGENCE[Threat Intelligence<br/>External Feeds]
+            AUTOMATED_RESPONSE[Automated Response<br/>Incident Handling]
+        end
+    end
 
-        <h2 id="scalability-performance">🚀 Scalability & Performance Strategy</h2>
-        
-        <h3>Horizontal Scaling Architecture</h3>
-        
-        <div class="mermaid">
+    %% Trust Flow
+    CONTINUOUS_AUTH --> LEAST_PRIVILEGE
+    RISK_ASSESSMENT --> JUST_IN_TIME
+    DEVICE_TRUST --> CONTEXT_AWARE
+    LOCATION_VERIFICATION --> MICRO_SEGMENTATION
+
+    LEAST_PRIVILEGE --> DATA_CLASSIFICATION
+    JUST_IN_TIME --> ENCRYPTION_EVERYWHERE
+    CONTEXT_AWARE --> DATA_MINIMIZATION
+    MICRO_SEGMENTATION --> PRIVACY_CONTROLS
+
+    DATA_CLASSIFICATION --> CONTINUOUS_MONITORING
+    ENCRYPTION_EVERYWHERE --> BEHAVIORAL_ANALYTICS
+    DATA_MINIMIZATION --> THREAT_INTELLIGENCE
+    PRIVACY_CONTROLS --> AUTOMATED_RESPONSE
+</div>
+
+<h2 id="business-intelligence-analytics">📊 <strong>BUSINESS INTELLIGENCE &amp; ANALYTICS</strong><a class="headerlink" href="#business-intelligence-analytics" title="Permanent link">&para;</a></h2>
+<h3 id="security-operations-dashboard"><strong>Security Operations Dashboard</strong><a class="headerlink" href="#security-operations-dashboard" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+pie title Authentication Methods Distribution
+    "Local Authentication" : 35
+    "SAML SSO" : 45
+    "OAuth2/OIDC" : 15
+    "Multi-Factor Auth" : 5
+</div>
+
+<div class="mermaid">
+xychart-beta
+    title "User Activity Trends (Last 30 Days)"
+    x-axis [Day1, Day5, Day10, Day15, Day20, Day25, Day30]
+    y-axis "Active Users" 0 --> 10000
+    line [1500, 2800, 4200, 5100, 6300, 7800, 9200]
+</div>
+
+<div class="mermaid">
+gitgraph
+    commit id: "System Baseline"
+    branch security-updates
+    commit id: "MFA Implementation"
+    commit id: "SAML Integration"
+    checkout main
+    merge security-updates
+    commit id: "Production Release"
+    branch compliance
+    commit id: "GDPR Features"
+    commit id: "SOC2 Controls"
+    checkout main
+    merge compliance
+    commit id: "Compliance Ready"
+    branch performance
+    commit id: "Redis Clustering"
+    commit id: "Auto-scaling"
+    checkout main
+    merge performance
+    commit id: "Enterprise Scale"
+</div>
+
+<h2 id="scalability-performance-strategy">🚀 <strong>SCALABILITY &amp; PERFORMANCE STRATEGY</strong><a class="headerlink" href="#scalability-performance-strategy" title="Permanent link">&para;</a></h2>
+<h3 id="horizontal-scaling-approach"><strong>Horizontal Scaling Approach</strong><a class="headerlink" href="#horizontal-scaling-approach" title="Permanent link">&para;</a></h3>
+<p>The Securaa User Service is designed for horizontal scaling using traditional load balancing and database replication techniques. This approach provides high availability and performance without requiring complex orchestration platforms.</p>
+<p><strong>Scaling Architecture:</strong></p>
+<p><strong>Load Distribution Strategy:</strong><br />
+- <strong>Primary Load Balancer</strong>: HAProxy or Nginx distributing traffic across service instances<br />
+- <strong>Health Check Integration</strong>: Automatic removal of unhealthy instances from rotation<br />
+- <strong>Session Affinity</strong>: Optional sticky sessions for WebSocket connections<br />
+- <strong>Geographic Distribution</strong>: Regional deployment for reduced latency</p>
+<p><strong>Service Instance Scaling:</strong><br />
+- <strong>Stateless Design</strong>: Service instances maintain no local state for easy scaling<br />
+- <strong>Auto-scaling</strong>: Scripted scaling based on CPU, memory, and request metrics<br />
+- <strong>Manual Scaling</strong>: Administrative tools for planned capacity adjustments<br />
+- <strong>Blue-Green Deployment</strong>: Zero-downtime deployments during scaling operations</p>
+<div class="mermaid">
 graph TB
-    subgraph "Load Distribution"
-        LB[Load Balancer<br/>HAProxy/Nginx]
-        LB_HEALTH[Health Checks<br/>Service Discovery]
+    subgraph "Load Balancing Tier"
+        LB1[Primary Load Balancer]
+        LB2[Secondary Load Balancer]
     end
-    
-    subgraph "Service Instances"
-        SVC1[Service Instance 1<br/>Active]
-        SVC2[Service Instance 2<br/>Active]
-        SVC3[Service Instance 3<br/>Standby]
-        SVCN[Service Instance N<br/>Auto-scaled]
-    end
-    
-    subgraph "Database Cluster"
-        MONGO_PRIMARY[MongoDB Primary<br/>Write Operations]
-        MONGO_SEC1[MongoDB Secondary 1<br/>Read Replica]
-        MONGO_SEC2[MongoDB Secondary 2<br/>Read Replica]
-    end
-    
-    subgraph "Caching Layer"
-        REDIS_MASTER[Redis Master<br/>Session Store]
-        REDIS_SLAVE[Redis Slave<br/>Read Replica]
-    end
-    
-    LB --> LB_HEALTH
-    LB_HEALTH --> SVC1
-    LB_HEALTH --> SVC2
-    LB_HEALTH --> SVC3
-    LB_HEALTH --> SVCN
-    
-    SVC1 --> MONGO_PRIMARY
-    SVC2 --> MONGO_SEC1
-    SVC3 --> MONGO_SEC2
-    
-    SVC1 --> REDIS_MASTER
-    SVC2 --> REDIS_SLAVE
-    
-    MONGO_PRIMARY --> MONGO_SEC1
-    MONGO_PRIMARY --> MONGO_SEC2
-    REDIS_MASTER --> REDIS_SLAVE
-        </div>
 
-        <h4>Performance Optimizations:</h4>
-        <ul>
-            <li><strong>Connection Pooling</strong>: Efficient database connection management</li>
-            <li><strong>Query Optimization</strong>: Indexed queries and aggregation pipelines</li>
-            <li><strong>Caching Strategy</strong>: Multi-level caching with Redis and in-memory caches</li>
-            <li><strong>Auto-Scaling</strong>: Dynamic scaling based on CPU, memory, and request metrics</li>
-        </ul>
+    subgraph "Application Tier"
+        APP1[Service Instance 1<br/>4 CPU, 8GB RAM]
+        APP2[Service Instance 2<br/>4 CPU, 8GB RAM]
+        APP3[Service Instance 3<br/>4 CPU, 8GB RAM]
+        APP4[Service Instance N<br/>Auto-scaled]
+    end
 
-        <h2>Summary</h2>
-        <p>The Securaa User Service represents a comprehensive, enterprise-grade identity and access management platform. Its robust architecture, extensive security features, and scalable design make it suitable for organizations of all sizes looking to enhance their security operations and compliance posture.</p>
-        
-        <p>The service's multi-tenant architecture, comprehensive authentication options, and real-time monitoring capabilities provide a solid foundation for building secure, scalable security platforms. The extensive API surface area and integration capabilities ensure flexibility for various use cases and integration requirements.</p>
-        
-        <p>This high-level design serves as a blueprint for understanding the system architecture, business capabilities, and key components that make up the Securaa User Service.</p>
+    subgraph "Database Tier"
+        DB_PRIMARY[MongoDB Primary<br/>Write Operations]
+        DB_SECONDARY1[MongoDB Secondary 1<br/>Read Operations]
+        DB_SECONDARY2[MongoDB Secondary 2<br/>Read Operations]
+    end
+
+    subgraph "Cache Tier"
+        REDIS1[Redis Master<br/>Session Data]
+        REDIS2[Redis Slave<br/>Replication]
+    end
+
+    %% Load Distribution
+    LB1 --> APP1
+    LB1 --> APP2
+    LB1 --> APP3
+    LB1 --> APP4
+
+    LB2 --> APP1
+    LB2 --> APP2
+
+    %% Database Access
+    APP1 --> DB_PRIMARY
+    APP2 --> DB_SECONDARY1
+    APP3 --> DB_SECONDARY2
+    APP4 --> DB_SECONDARY1
+
+    %% Cache Access
+    APP1 --> REDIS1
+    APP2 --> REDIS1
+    APP3 --> REDIS1
+
+    %% Replication
+    DB_PRIMARY --> DB_SECONDARY1
+    DB_PRIMARY --> DB_SECONDARY2
+    REDIS1 --> REDIS2
+</div>
+
+<p><strong>Performance Optimization Techniques:</strong></p>
+<p><strong>Database Performance:</strong><br />
+- <strong>Connection Pooling</strong>: Optimized connection management with configurable pool sizes<br />
+- <strong>Read Replicas</strong>: Distributed read operations across secondary database instances<br />
+- <strong>Query Optimization</strong>: Proper indexing and efficient aggregation pipelines<br />
+- <strong>Sharding Strategy</strong>: Horizontal database partitioning for large datasets</p>
+<p><strong>Caching Strategy:</strong><br />
+- <strong>Multi-Level Caching</strong>: In-memory application cache + Redis distributed cache<br />
+- <strong>Cache Patterns</strong>: Write-through, write-behind, and cache-aside patterns<br />
+- <strong>TTL Management</strong>: Intelligent expiration policies for different data types<br />
+- <strong>Cache Warming</strong>: Preloading frequently accessed data during startup</p>
+<p><strong>Application Performance:</strong><br />
+- <strong>Goroutine Optimization</strong>: Efficient concurrent processing with worker pools<br />
+- <strong>Memory Management</strong>: Optimized garbage collection and memory allocation<br />
+- <strong>HTTP Keep-Alive</strong>: Connection reuse for reduced overhead<br />
+- <strong>Compression</strong>: Response compression for reduced bandwidth usage</p>
+<p><strong>Capacity Planning:</strong></p>
+<p><strong>Performance Targets:</strong><br />
+- <strong>Concurrent Users</strong>: 10,000+ simultaneous active sessions<br />
+- <strong>Request Throughput</strong>: 5,000+ requests per second per instance<br />
+- <strong>Response Time</strong>: &lt; 100ms for authentication requests (95th percentile)<br />
+- <strong>Database Operations</strong>: &lt; 50ms for typical CRUD operations<br />
+- <strong>Cache Operations</strong>: &lt; 1ms for Redis operations</p>
+<p><strong>Resource Requirements:</strong><br />
+- <strong>CPU</strong>: 4 cores minimum per service instance for production workloads<br />
+- <strong>Memory</strong>: 8GB RAM minimum with JVM heap optimization<br />
+- <strong>Storage</strong>: SSD storage for database and logs with IOPS optimization<br />
+- <strong>Network</strong>: Gigabit network connectivity with low latency requirements</p>
+<p><strong>Monitoring and Alerting:</strong><br />
+- <strong>Performance Metrics</strong>: Real-time monitoring of response times and throughput<br />
+- <strong>Resource Utilization</strong>: CPU, memory, and disk usage tracking<br />
+- <strong>Auto-scaling Triggers</strong>: Automated scaling based on performance thresholds<br />
+- <strong>Capacity Alerts</strong>: Proactive alerting for capacity planning needs</p>
+<h2 id="integration-architecture">🔍 <strong>INTEGRATION ARCHITECTURE</strong><a class="headerlink" href="#integration-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="external-system-integration-strategy"><strong>External System Integration Strategy</strong><a class="headerlink" href="#external-system-integration-strategy" title="Permanent link">&para;</a></h3>
+<p>The Securaa User Service integrates with various external systems to provide comprehensive identity management and security operations. These integrations are designed for reliability, security, and maintainability.</p>
+<p><strong>Integration Categories:</strong></p>
+<p><strong>Identity Provider Integrations:</strong><br />
+The service supports multiple authentication protocols to accommodate diverse enterprise environments:<br />
+- <strong>SAML 2.0</strong>: Enterprise SSO with digital signature validation and metadata exchange<br />
+- <strong>OAuth2/OIDC</strong>: Modern authentication with authorization code flow and PKCE<br />
+- <strong>LDAP/Active Directory</strong>: Corporate directory integration with connection pooling<br />
+- <strong>Local Authentication</strong>: Native credential management with bcrypt hashing</p>
+<p><strong>Communication Service Integrations:</strong><br />
+Multi-channel communication capabilities ensure reliable notification delivery:<br />
+- <strong>SMTP Services</strong>: Email delivery with template support and delivery tracking<br />
+- <strong>SMS Gateways</strong>: Text message delivery for two-factor authentication and alerts<br />
+- <strong>WebSocket</strong>: Real-time browser notifications for immediate user feedback<br />
+- <strong>Webhook Endpoints</strong>: Custom integrations with external systems and ITSM tools</p>
+<p><strong>Security Tool Integrations:</strong><br />
+Integration with security infrastructure enhances the overall security posture:<br />
+- <strong>SIEM Platforms</strong>: Security event forwarding and correlation<br />
+- <strong>Audit Systems</strong>: Compliance logging and long-term storage<br />
+- <strong>Key Management</strong>: External key storage and rotation services<br />
+- <strong>Threat Intelligence</strong>: Security feed integration for risk assessment</p>
+<div class="mermaid">
+graph TB
+    subgraph "Securaa User Service"
+        CORE[Authentication & Authorization Core]
+    end
+
+    subgraph "Identity Providers"
+        SAML[SAML 2.0 IdP]
+        OAUTH[OAuth2 Providers]
+        LDAP[LDAP/Active Directory]
+    end
+
+    subgraph "Communication Services"
+        SMTP[SMTP Server]
+        SMS[SMS Gateway]
+        WEBHOOK[Webhook Endpoints]
+    end
+
+    subgraph "Security Services"
+        SIEM[SIEM Platform]
+        AUDIT[Audit Vault]
+        KMS[Key Management]
+    end
+
+    subgraph "Monitoring Services"
+        METRICS[Metrics Collection]
+        LOGGING[Log Aggregation]
+        ALERTING[Alert Management]
+    end
+
+    %% Integration Connections
+    CORE <--> SAML
+    CORE <--> OAUTH
+    CORE <--> LDAP
+
+    CORE --> SMTP
+    CORE --> SMS
+    CORE --> WEBHOOK
+
+    CORE --> SIEM
+    CORE --> AUDIT
+    CORE <--> KMS
+
+    CORE --> METRICS
+    CORE --> LOGGING
+    CORE --> ALERTING
+</div>
+
+<p><strong>Integration Patterns:</strong></p>
+<p><strong>Synchronous Integrations:</strong><br />
+- <strong>Authentication Flows</strong>: Real-time validation with external identity providers<br />
+- <strong>Authorization Checks</strong>: Immediate permission validation with directory services<br />
+- <strong>Configuration Retrieval</strong>: On-demand configuration from external systems</p>
+<p><strong>Asynchronous Integrations:</strong><br />
+- <strong>Audit Logging</strong>: Batch or streaming audit data to compliance systems<br />
+- <strong>Notification Delivery</strong>: Queued message delivery through various channels<br />
+- <strong>Metrics Reporting</strong>: Periodic performance and security metrics transmission</p>
+<p><strong>Error Handling and Resilience:</strong><br />
+- <strong>Circuit Breakers</strong>: Automatic fallback when external services are unavailable<br />
+- <strong>Retry Policies</strong>: Exponential backoff for transient failures<br />
+- <strong>Timeout Management</strong>: Configurable timeouts to prevent hanging requests<br />
+- <strong>Fallback Mechanisms</strong>: Local caching and degraded functionality options</p>
+<p><strong>Security Considerations:</strong><br />
+- <strong>API Authentication</strong>: Mutual TLS or API keys for all external communications<br />
+- <strong>Data Encryption</strong>: All sensitive data encrypted in transit and at rest<br />
+- <strong>Network Security</strong>: VPN or private network connections where possible<br />
+- <strong>Access Control</strong>: Principle of least privilege for service-to-service communication</p>
+<h2 id="compliance-governance-framework">📋 <strong>COMPLIANCE &amp; GOVERNANCE FRAMEWORK</strong><a class="headerlink" href="#compliance-governance-framework" title="Permanent link">&para;</a></h2>
+<h3 id="regulatory-compliance-matrix"><strong>Regulatory Compliance Matrix</strong><a class="headerlink" href="#regulatory-compliance-matrix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>SOC 2</th>
+<th>ISO 27001</th>
+<th>GDPR</th>
+<th>HIPAA</th>
+<th>PCI DSS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Access Controls</strong></td>
+<td>✅ CC6.1-6.8</td>
+<td>✅ A.9.1-9.4</td>
+<td>✅ Art.32</td>
+<td>✅ 164.312</td>
+<td>✅ Req.7-8</td>
+</tr>
+<tr>
+<td><strong>Encryption</strong></td>
+<td>✅ CC6.7</td>
+<td>✅ A.10.1</td>
+<td>✅ Art.32</td>
+<td>✅ 164.312</td>
+<td>✅ Req.3-4</td>
+</tr>
+<tr>
+<td><strong>Audit Logging</strong></td>
+<td>✅ CC3.3</td>
+<td>✅ A.12.4</td>
+<td>✅ Art.30</td>
+<td>✅ 164.312</td>
+<td>✅ Req.10</td>
+</tr>
+<tr>
+<td><strong>Data Protection</strong></td>
+<td>✅ CC6.1</td>
+<td>✅ A.13.1</td>
+<td>✅ Art.25</td>
+<td>✅ 164.306</td>
+<td>✅ Req.3</td>
+</tr>
+<tr>
+<td><strong>Incident Response</strong></td>
+<td>✅ CC7.4</td>
+<td>✅ A.16.1</td>
+<td>✅ Art.33</td>
+<td>✅ 164.308</td>
+<td>✅ Req.12</td>
+</tr>
+<tr>
+<td><strong>Risk Management</strong></td>
+<td>✅ CC3.1</td>
+<td>✅ A.12.6</td>
+<td>✅ Art.35</td>
+<td>✅ 164.308</td>
+<td>✅ Req.12</td>
+</tr>
+</tbody>
+</table>
+<h3 id="data-governance-architecture"><strong>Data Governance Architecture</strong><a class="headerlink" href="#data-governance-architecture" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph TB
+    subgraph "Data Classification"
+        PUBLIC[Public Data<br/>Marketing Materials]
+        INTERNAL[Internal Data<br/>Business Operations]
+        CONFIDENTIAL[Confidential Data<br/>Customer Information]
+        RESTRICTED[Restricted Data<br/>PII/PHI/Financial]
+    end
+
+    subgraph "Data Lifecycle Management"
+        CREATION[Data Creation<br/>Input Validation]
+        PROCESSING[Data Processing<br/>Business Logic]
+        STORAGE[Data Storage<br/>Encrypted Repository]
+        TRANSMISSION[Data Transmission<br/>Secure Channels]
+        ARCHIVAL[Data Archival<br/>Long-term Storage]
+        DISPOSAL[Data Disposal<br/>Secure Deletion]
+    end
+
+    subgraph "Privacy Controls"
+        CONSENT[Consent Management<br/>Granular Permissions]
+        MINIMIZATION[Data Minimization<br/>Need-to-Know Basis]
+        ANONYMIZATION[Data Anonymization<br/>Privacy Protection]
+        RIGHT_TO_DELETE[Right to be Forgotten<br/>Data Erasure]
+        PORTABILITY[Data Portability<br/>Export Capabilities]
+    end
+
+    subgraph "Access Controls"
+        AUTHENTICATION[Strong Authentication<br/>Multi-Factor]
+        AUTHORIZATION[Granular Authorization<br/>RBAC + ABAC]
+        SEGREGATION[Duty Segregation<br/>Maker-Checker]
+        MONITORING[Access Monitoring<br/>Real-time Alerts]
+    end
+
+    %% Data Flow
+    PUBLIC --> CREATION
+    INTERNAL --> CREATION
+    CONFIDENTIAL --> CREATION
+    RESTRICTED --> CREATION
+
+    CREATION --> PROCESSING
+    PROCESSING --> STORAGE
+    STORAGE --> TRANSMISSION
+    TRANSMISSION --> ARCHIVAL
+    ARCHIVAL --> DISPOSAL
+
+    %% Privacy Flow
+    CREATION -.-> CONSENT
+    PROCESSING -.-> MINIMIZATION
+    STORAGE -.-> ANONYMIZATION
+    TRANSMISSION -.-> RIGHT_TO_DELETE
+    ARCHIVAL -.-> PORTABILITY
+
+    %% Access Control Flow
+    CREATION -.-> AUTHENTICATION
+    PROCESSING -.-> AUTHORIZATION
+    STORAGE -.-> SEGREGATION
+    TRANSMISSION -.-> MONITORING
+</div>
+
+<h2 id="business-continuity-disaster-recovery">🎯 <strong>BUSINESS CONTINUITY &amp; DISASTER RECOVERY</strong><a class="headerlink" href="#business-continuity-disaster-recovery" title="Permanent link">&para;</a></h2>
+<h3 id="business-continuity-strategy"><strong>Business Continuity Strategy</strong><a class="headerlink" href="#business-continuity-strategy" title="Permanent link">&para;</a></h3>
+<div class="mermaid">
+graph TB
+    subgraph "Business Impact Analysis"
+        CRITICAL_FUNCTIONS[Critical Business Functions<br/>RTO: 15 minutes]
+        IMPORTANT_FUNCTIONS[Important Functions<br/>RTO: 1 hour]
+        STANDARD_FUNCTIONS[Standard Functions<br/>RTO: 4 hours]
+        NON_ESSENTIAL[Non-Essential Functions<br/>RTO: 24 hours]
+    end
+
+    subgraph "Disaster Recovery Tiers"
+        subgraph "Tier 1: Hot Site"
+            HOT_SITE[Hot Site<br/>Real-time Replication]
+            HOT_RTO[RTO: 15 minutes<br/>RPO: 1 minute]
+        end
+
+        subgraph "Tier 2: Warm Site"
+            WARM_SITE[Warm Site<br/>Near Real-time Sync]
+            WARM_RTO[RTO: 1 hour<br/>RPO: 15 minutes]
+        end
+
+        subgraph "Tier 3: Cold Site"
+            COLD_SITE[Cold Site<br/>Backup Restoration]
+            COLD_RTO[RTO: 24 hours<br/>RPO: 4 hours]
+        end
+    end
+
+    subgraph "Recovery Procedures"
+        FAILOVER[Automated Failover<br/>Health Check Triggered]
+        FAILBACK[Planned Failback<br/>Service Restoration]
+        TESTING[DR Testing<br/>Monthly Validation]
+        COMMUNICATION[Crisis Communication<br/>Stakeholder Updates]
+    end
+
+    %% Business Function Mapping
+    CRITICAL_FUNCTIONS --> HOT_SITE
+    IMPORTANT_FUNCTIONS --> WARM_SITE
+    STANDARD_FUNCTIONS --> COLD_SITE
+    NON_ESSENTIAL --> COLD_SITE
+
+    %% Recovery Process
+    HOT_SITE --> FAILOVER
+    WARM_SITE --> FAILOVER
+    COLD_SITE --> FAILOVER
+
+    FAILOVER --> FAILBACK
+    FAILBACK --> TESTING
+    TESTING --> COMMUNICATION
+</div>
+
+<h2 id="key-performance-indicators">📈 <strong>KEY PERFORMANCE INDICATORS</strong><a class="headerlink" href="#key-performance-indicators" title="Permanent link">&para;</a></h2>
+<h3 id="service-level-objectives-slos"><strong>Service Level Objectives (SLOs)</strong><a class="headerlink" href="#service-level-objectives-slos" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Availability</strong>: 99.99% uptime (52.6 minutes downtime/year)</li>
+<li><strong>Authentication Response Time</strong>: &lt; 100ms for 95th percentile</li>
+<li><strong>API Response Time</strong>: &lt; 200ms for 99th percentile</li>
+<li><strong>Throughput</strong>: 10,000+ concurrent user sessions</li>
+<li><strong>Data Durability</strong>: 99.999999999% (11 9's)</li>
+<li><strong>Recovery Time Objective (RTO)</strong>: &lt; 15 minutes</li>
+<li><strong>Recovery Point Objective (RPO)</strong>: &lt; 5 minutes</li>
+</ul>
+<h3 id="security-metrics"><strong>Security Metrics</strong><a class="headerlink" href="#security-metrics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Authentication Success Rate</strong>: &gt; 99.5%</li>
+<li><strong>Failed Login Threshold</strong>: &lt; 2% of total attempts</li>
+<li><strong>MFA Adoption Rate</strong>: &gt; 95% for admin users</li>
+<li><strong>Session Timeout Compliance</strong>: 100% enforcement</li>
+<li><strong>Encryption Coverage</strong>: 100% data at rest and in transit</li>
+<li><strong>Vulnerability Detection</strong>: &lt; 24 hours for critical issues</li>
+</ul>
+<h3 id="business-metrics"><strong>Business Metrics</strong><a class="headerlink" href="#business-metrics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>User Onboarding Time</strong>: &lt; 5 minutes for new users</li>
+<li><strong>Password Reset Resolution</strong>: &lt; 2 minutes average</li>
+<li><strong>Tenant Provisioning</strong>: &lt; 30 minutes for new tenants</li>
+<li><strong>Compliance Audit Ready</strong>: &lt; 1 hour for data collection</li>
+<li><strong>Support Ticket Resolution</strong>: &lt; 4 hours for P1 issues</li>
+<li><strong>Cost per User</strong>: Optimized for enterprise scale</li>
+</ul>
     </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
+        <p>Documentation generated on December 04, 2025</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#4f46e5',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#818cf8',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb',
+                background: '#ffffff',
+                mainBkg: '#f9fafb',
+                secondBkg: '#f3f4f6',
+                border1: '#e5e7eb',
+                border2: '#d1d5db',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                nodeBorder: '#4f46e5',
+                clusterBkg: '#f0f4f8',
+                clusterBorder: '#818cf8',
+                edgeLabelBackground: '#ffffff'
+            },
+            flowchart: {
+                htmlLabels: true,
+                useMaxWidth: true,
+                curve: 'basis',
+                padding: 15,
+                nodeSpacing: 50,
+                rankSpacing: 50
+            },
+            sequence: {
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                mirrorActors: true,
+                useMaxWidth: true
+            },
+            er: {
+                useMaxWidth: true,
+                entityPadding: 15,
+                fontSize: 12
+            },
+            class: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            gantt: {
+                useMaxWidth: true,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75
+            },
+            pie: {
+                useMaxWidth: true,
+                textPosition: 0.5
+            },
+            mindmap: {
+                useMaxWidth: true,
+                padding: 10
+            },
+            securityLevel: 'loose',
+            logLevel: 'error'
+        });
+
+        // Re-render mermaid diagrams after page load for better sizing
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.mermaid').forEach(function(el) {
+                    if (el.getAttribute('data-processed') !== 'true') {
+                        mermaid.init(undefined, el);
+                    }
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>

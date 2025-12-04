@@ -620,8 +620,8 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="ris-server-documentation">RIS Server Documentation<a class="headerlink" href="#ris-server-documentation" title="Permanent link">&para;</a></h1>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+        <h1 id="ris-server-documentation">RIS Server Documentation</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#architecture">Architecture</a></li>
@@ -639,9 +639,9 @@ hr {
 <li><a href="#troubleshooting">Troubleshooting</a></li>
 <li><a href="#administration-guide">Administration Guide</a></li>
 </ol>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h2 id="overview">Overview</h2>
 <p>The RIS (Remote Integrated Services) Server is the central command and control hub for the distributed RIS ecosystem. It provides unified management, orchestration, and monitoring capabilities for multiple remote RIS clients across different environments. The server implements a sophisticated hub-and-spoke architecture with enterprise-grade security, scalability, and reliability features.</p>
-<h3 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h3>
+<h3 id="key-features">Key Features</h3>
 <ul>
 <li><strong>Centralized Management</strong>: Unified control plane for all remote RIS clients</li>
 <li><strong>Real-time Communication</strong>: WebSocket-based persistent connections with clients</li>
@@ -652,8 +652,8 @@ hr {
 <li><strong>Scalability</strong>: Horizontal scaling supporting 1000+ concurrent client connections</li>
 <li><strong>Monitoring</strong>: Real-time monitoring, metrics collection, and alerting</li>
 </ul>
-<h3 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">&para;</a></h3>
-<h4 id="minimum-requirements">Minimum Requirements<a class="headerlink" href="#minimum-requirements" title="Permanent link">&para;</a></h4>
+<h3 id="system-requirements">System Requirements</h3>
+<h4 id="minimum-requirements">Minimum Requirements</h4>
 <ul>
 <li><strong>Operating System</strong>: Linux (Ubuntu 20.04+, CentOS 8+, RHEL 8+)</li>
 <li><strong>CPU</strong>: 2 vCores</li>
@@ -661,7 +661,7 @@ hr {
 <li><strong>Storage</strong>: 20 GB SSD</li>
 <li><strong>Network</strong>: High-speed internet with static IP</li>
 </ul>
-<h4 id="recommended-requirements">Recommended Requirements<a class="headerlink" href="#recommended-requirements" title="Permanent link">&para;</a></h4>
+<h4 id="recommended-requirements">Recommended Requirements</h4>
 <ul>
 <li><strong>Operating System</strong>: Linux (Ubuntu 22.04+, CentOS 9+, RHEL 9+)</li>
 <li><strong>CPU</strong>: 8 vCores</li>
@@ -669,7 +669,7 @@ hr {
 <li><strong>Storage</strong>: 100 GB SSD NVMe</li>
 <li><strong>Network</strong>: Dedicated network with load balancer</li>
 </ul>
-<h4 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h4>
+<h4 id="dependencies">Dependencies</h4>
 <ul>
 <li><strong>MongoDB</strong>: Version 6.0+ (Primary database)</li>
 <li><strong>Redis</strong>: Version 7.0+ (Caching and session management)</li>
@@ -677,8 +677,8 @@ hr {
 <li><strong>Go Runtime</strong>: Version 1.19+ (for development)</li>
 <li><strong>TLS Certificates</strong>: Valid certificates for HTTPS/WSS</li>
 </ul>
-<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
-<h3 id="high-level-architecture">High-Level Architecture<a class="headerlink" href="#high-level-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="architecture">Architecture</h2>
+<h3 id="high-level-architecture">High-Level Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph "Load Balancer Tier"
@@ -767,7 +767,7 @@ graph TB
     style RC1 fill:#e3f2fd
 </div>
 
-<h3 id="component-architecture">Component Architecture<a class="headerlink" href="#component-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="component-architecture">Component Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph "RIS Server Core"
@@ -820,31 +820,31 @@ graph TB
     style AUTH fill:#ffcdd2
 </div>
 
-<h3 id="detailed-component-design">Detailed Component Design<a class="headerlink" href="#detailed-component-design" title="Permanent link">&para;</a></h3>
-<h4 id="1-api-gateway-layer">1. API Gateway Layer<a class="headerlink" href="#1-api-gateway-layer" title="Permanent link">&para;</a></h4>
+<h3 id="detailed-component-design">Detailed Component Design</h3>
+<h4 id="1-api-gateway-layer">1. API Gateway Layer</h4>
 <ul>
 <li><strong>REST API Gateway</strong>: HTTP/HTTPS endpoint management</li>
 <li><strong>WebSocket Gateway</strong>: Real-time client communication</li>
 <li><strong>Middleware Stack</strong>: Authentication, authorization, logging, rate limiting</li>
 <li><strong>Request Router</strong>: Intelligent request routing and load balancing</li>
 </ul>
-<h4 id="2-business-logic-layer">2. Business Logic Layer<a class="headerlink" href="#2-business-logic-layer" title="Permanent link">&para;</a></h4>
+<h4 id="2-business-logic-layer">2. Business Logic Layer</h4>
 <ul>
 <li><strong>RIS Controller</strong>: Client lifecycle and status management</li>
 <li><strong>Tenant Controller</strong>: Multi-tenant data and operation isolation</li>
 <li><strong>Task Orchestrator</strong>: Task routing, execution, and monitoring</li>
 <li><strong>Client Manager</strong>: Connection management and health monitoring</li>
 </ul>
-<h4 id="3-data-management-layer">3. Data Management Layer<a class="headerlink" href="#3-data-management-layer" title="Permanent link">&para;</a></h4>
+<h4 id="3-data-management-layer">3. Data Management Layer</h4>
 <ul>
 <li><strong>MongoDB Integration</strong>: Primary data persistence</li>
 <li><strong>Redis Integration</strong>: Caching and session management</li>
 <li><strong>Cache Manager</strong>: Intelligent caching strategies</li>
 <li><strong>Data Access Objects</strong>: Abstracted data access patterns</li>
 </ul>
-<h2 id="installation-setup">Installation &amp; Setup<a class="headerlink" href="#installation-setup" title="Permanent link">&para;</a></h2>
-<h3 id="docker-deployment-recommended">Docker Deployment (Recommended)<a class="headerlink" href="#docker-deployment-recommended" title="Permanent link">&para;</a></h3>
-<h4 id="docker-compose-configuration">Docker Compose Configuration<a class="headerlink" href="#docker-compose-configuration" title="Permanent link">&para;</a></h4>
+<h2 id="installation-setup">Installation &amp; Setup</h2>
+<h3 id="docker-deployment-recommended">Docker Deployment (Recommended)</h3>
+<h4 id="docker-compose-configuration">Docker Compose Configuration</h4>
 <pre class="highlight"><code class="language-yaml">version: '3.8'
 
 services:
@@ -933,7 +933,7 @@ volumes:
   redis_data:
 </code></pre>
 
-<h4 id="production-environment-setup">Production Environment Setup<a class="headerlink" href="#production-environment-setup" title="Permanent link">&para;</a></h4>
+<h4 id="production-environment-setup">Production Environment Setup</h4>
 <pre class="highlight"><code class="language-bash"># Create directory structure
 mkdir -p ris-server/{config,certs,logs,data}
 cd ris-server
@@ -955,8 +955,8 @@ docker-compose up -d
 curl -k https://localhost:8057/health
 </code></pre>
 
-<h3 id="kubernetes-deployment">Kubernetes Deployment<a class="headerlink" href="#kubernetes-deployment" title="Permanent link">&para;</a></h3>
-<h4 id="namespace-and-configmap">Namespace and ConfigMap<a class="headerlink" href="#namespace-and-configmap" title="Permanent link">&para;</a></h4>
+<h3 id="kubernetes-deployment">Kubernetes Deployment</h3>
+<h4 id="namespace-and-configmap">Namespace and ConfigMap</h4>
 <pre class="highlight"><code class="language-yaml"># namespace.yaml
 apiVersion: v1
 kind: Namespace
@@ -993,7 +993,7 @@ data:
     }
 </code></pre>
 
-<h4 id="deployment-and-service">Deployment and Service<a class="headerlink" href="#deployment-and-service" title="Permanent link">&para;</a></h4>
+<h4 id="deployment-and-service">Deployment and Service</h4>
 <pre class="highlight"><code class="language-yaml"># deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -1106,8 +1106,8 @@ spec:
               number: 8057
 </code></pre>
 
-<h3 id="binary-installation">Binary Installation<a class="headerlink" href="#binary-installation" title="Permanent link">&para;</a></h3>
-<h4 id="system-setup">System Setup<a class="headerlink" href="#system-setup" title="Permanent link">&para;</a></h4>
+<h3 id="binary-installation">Binary Installation</h3>
+<h4 id="system-setup">System Setup</h4>
 <pre class="highlight"><code class="language-bash"># Create system user
 sudo useradd -r -s /bin/false ris-server
 sudo mkdir -p /opt/ris-server/{bin,config,logs,data}
@@ -1121,7 +1121,7 @@ sudo mv ris-server /opt/ris-server/bin/
 sudo chmod +x /opt/ris-server/bin/ris-server
 </code></pre>
 
-<h4 id="systemd-service">Systemd Service<a class="headerlink" href="#systemd-service" title="Permanent link">&para;</a></h4>
+<h4 id="systemd-service">Systemd Service</h4>
 <pre class="highlight"><code class="language-bash">sudo tee /etc/systemd/system/ris-server.service &lt;&lt; EOF
 [Unit]
 Description=RIS Server
@@ -1159,8 +1159,8 @@ sudo systemctl start ris-server
 sudo systemctl status ris-server
 </code></pre>
 
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<h3 id="master-configuration-file">Master Configuration File<a class="headerlink" href="#master-configuration-file" title="Permanent link">&para;</a></h3>
+<h2 id="configuration">Configuration</h2>
+<h3 id="master-configuration-file">Master Configuration File</h3>
 <pre class="highlight"><code class="language-json">{
   &quot;server&quot;: {
     &quot;host&quot;: &quot;0.0.0.0&quot;,
@@ -1373,8 +1373,8 @@ sudo systemctl status ris-server
 }
 </code></pre>
 
-<h3 id="environment-specific-configurations">Environment-Specific Configurations<a class="headerlink" href="#environment-specific-configurations" title="Permanent link">&para;</a></h3>
-<h4 id="development-configuration">Development Configuration<a class="headerlink" href="#development-configuration" title="Permanent link">&para;</a></h4>
+<h3 id="environment-specific-configurations">Environment-Specific Configurations</h3>
+<h4 id="development-configuration">Development Configuration</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;server&quot;: {
     &quot;host&quot;: &quot;localhost&quot;,
@@ -1403,7 +1403,7 @@ sudo systemctl status ris-server
 }
 </code></pre>
 
-<h4 id="production-configuration">Production Configuration<a class="headerlink" href="#production-configuration" title="Permanent link">&para;</a></h4>
+<h4 id="production-configuration">Production Configuration</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;server&quot;: {
     &quot;host&quot;: &quot;0.0.0.0&quot;,
@@ -1448,7 +1448,7 @@ sudo systemctl status ris-server
 }
 </code></pre>
 
-<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<h3 id="environment-variables">Environment Variables</h3>
 <table>
 <thead>
 <tr>
@@ -1505,9 +1505,9 @@ sudo systemctl status ris-server
 </tr>
 </tbody>
 </table>
-<h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
-<h3 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h3>
-<h4 id="jwt-token-authentication">JWT Token Authentication<a class="headerlink" href="#jwt-token-authentication" title="Permanent link">&para;</a></h4>
+<h2 id="api-reference">API Reference</h2>
+<h3 id="authentication">Authentication</h3>
+<h4 id="jwt-token-authentication">JWT Token Authentication</h4>
 <pre class="highlight"><code class="language-http">POST /auth/login
 Content-Type: application/json
 
@@ -1536,7 +1536,7 @@ Content-Type: application/json
 }
 </code></pre>
 
-<h4 id="token-refresh">Token Refresh<a class="headerlink" href="#token-refresh" title="Permanent link">&para;</a></h4>
+<h4 id="token-refresh">Token Refresh</h4>
 <pre class="highlight"><code class="language-http">POST /auth/refresh
 Content-Type: application/json
 Authorization: Bearer &lt;refresh_token&gt;
@@ -1546,8 +1546,8 @@ Authorization: Bearer &lt;refresh_token&gt;
 }
 </code></pre>
 
-<h3 id="ris-client-management">RIS Client Management<a class="headerlink" href="#ris-client-management" title="Permanent link">&para;</a></h3>
-<h4 id="get-all-ris-clients">Get All RIS Clients<a class="headerlink" href="#get-all-ris-clients" title="Permanent link">&para;</a></h4>
+<h3 id="ris-client-management">RIS Client Management</h3>
+<h4 id="get-all-ris-clients">Get All RIS Clients</h4>
 <pre class="highlight"><code class="language-http">GET /platform/v1/ris
 Authorization: Bearer &lt;access_token&gt;
 </code></pre>
@@ -1578,7 +1578,7 @@ Authorization: Bearer &lt;access_token&gt;
 }
 </code></pre>
 
-<h4 id="add-new-ris-client">Add New RIS Client<a class="headerlink" href="#add-new-ris-client" title="Permanent link">&para;</a></h4>
+<h4 id="add-new-ris-client">Add New RIS Client</h4>
 <pre class="highlight"><code class="language-http">POST /platform/v1/ris
 Content-Type: application/json
 Authorization: Bearer &lt;access_token&gt;
@@ -1591,7 +1591,7 @@ Authorization: Bearer &lt;access_token&gt;
 }
 </code></pre>
 
-<h4 id="update-ris-client">Update RIS Client<a class="headerlink" href="#update-ris-client" title="Permanent link">&para;</a></h4>
+<h4 id="update-ris-client">Update RIS Client</h4>
 <pre class="highlight"><code class="language-http">PUT /platform/v1/ris
 Content-Type: application/json
 Authorization: Bearer &lt;access_token&gt;
@@ -1604,7 +1604,7 @@ Authorization: Bearer &lt;access_token&gt;
 }
 </code></pre>
 
-<h4 id="delete-ris-client">Delete RIS Client<a class="headerlink" href="#delete-ris-client" title="Permanent link">&para;</a></h4>
+<h4 id="delete-ris-client">Delete RIS Client</h4>
 <pre class="highlight"><code class="language-http">DELETE /platform/v1/ris
 Content-Type: application/json
 Authorization: Bearer &lt;access_token&gt;
@@ -1614,7 +1614,7 @@ Authorization: Bearer &lt;access_token&gt;
 }
 </code></pre>
 
-<h4 id="get-client-configuration">Get Client Configuration<a class="headerlink" href="#get-client-configuration" title="Permanent link">&para;</a></h4>
+<h4 id="get-client-configuration">Get Client Configuration</h4>
 <pre class="highlight"><code class="language-http">GET /platform/v1/risclient/{client-id}/{hostname}
 Authorization: Bearer &lt;access_token&gt;
 </code></pre>
@@ -1649,8 +1649,8 @@ Authorization: Bearer &lt;access_token&gt;
 }
 </code></pre>
 
-<h3 id="task-management">Task Management<a class="headerlink" href="#task-management" title="Permanent link">&para;</a></h3>
-<h4 id="execute-task-on-client">Execute Task on Client<a class="headerlink" href="#execute-task-on-client" title="Permanent link">&para;</a></h4>
+<h3 id="task-management">Task Management</h3>
+<h4 id="execute-task-on-client">Execute Task on Client</h4>
 <pre class="highlight"><code class="language-http">POST /platform/v1/task/execute
 Content-Type: application/json
 Authorization: Bearer &lt;access_token&gt;
@@ -1689,18 +1689,18 @@ Authorization: Bearer &lt;access_token&gt;
 }
 </code></pre>
 
-<h4 id="get-task-status">Get Task Status<a class="headerlink" href="#get-task-status" title="Permanent link">&para;</a></h4>
+<h4 id="get-task-status">Get Task Status</h4>
 <pre class="highlight"><code class="language-http">GET /platform/v1/task/{task-id}
 Authorization: Bearer &lt;access_token&gt;
 </code></pre>
 
-<h4 id="list-tasks">List Tasks<a class="headerlink" href="#list-tasks" title="Permanent link">&para;</a></h4>
+<h4 id="list-tasks">List Tasks</h4>
 <pre class="highlight"><code class="language-http">GET /platform/v1/tasks?status=running&amp;client_id=uuid-string&amp;limit=50
 Authorization: Bearer &lt;access_token&gt;
 </code></pre>
 
-<h3 id="service-management">Service Management<a class="headerlink" href="#service-management" title="Permanent link">&para;</a></h3>
-<h4 id="deploy-service-to-client">Deploy Service to Client<a class="headerlink" href="#deploy-service-to-client" title="Permanent link">&para;</a></h4>
+<h3 id="service-management">Service Management</h3>
+<h4 id="deploy-service-to-client">Deploy Service to Client</h4>
 <pre class="highlight"><code class="language-http">POST /platform/v1/service/deploy
 Content-Type: application/json
 Authorization: Bearer &lt;access_token&gt;
@@ -1730,7 +1730,7 @@ Authorization: Bearer &lt;access_token&gt;
 }
 </code></pre>
 
-<h4 id="scale-service">Scale Service<a class="headerlink" href="#scale-service" title="Permanent link">&para;</a></h4>
+<h4 id="scale-service">Scale Service</h4>
 <pre class="highlight"><code class="language-http">POST /platform/v1/service/scale
 Content-Type: application/json
 Authorization: Bearer &lt;access_token&gt;
@@ -1742,24 +1742,24 @@ Authorization: Bearer &lt;access_token&gt;
 }
 </code></pre>
 
-<h4 id="get-service-status">Get Service Status<a class="headerlink" href="#get-service-status" title="Permanent link">&para;</a></h4>
+<h4 id="get-service-status">Get Service Status</h4>
 <pre class="highlight"><code class="language-http">GET /platform/v1/service/{client-id}/{service-name}
 Authorization: Bearer &lt;access_token&gt;
 </code></pre>
 
-<h3 id="tenant-management">Tenant Management<a class="headerlink" href="#tenant-management" title="Permanent link">&para;</a></h3>
-<h4 id="get-tenant-information">Get Tenant Information<a class="headerlink" href="#get-tenant-information" title="Permanent link">&para;</a></h4>
+<h3 id="tenant-management">Tenant Management</h3>
+<h4 id="get-tenant-information">Get Tenant Information</h4>
 <pre class="highlight"><code class="language-http">GET /internal/v1/remotetenantclient/{tenant-uuid}
 Authorization: Bearer &lt;access_token&gt;
 </code></pre>
 
-<h4 id="get-tenant-configuration">Get Tenant Configuration<a class="headerlink" href="#get-tenant-configuration" title="Permanent link">&para;</a></h4>
+<h4 id="get-tenant-configuration">Get Tenant Configuration</h4>
 <pre class="highlight"><code class="language-http">GET /platform/v1/remotetenantconfigdata/{tenant-id}/{hostname}
 Authorization: Bearer &lt;access_token&gt;
 </code></pre>
 
-<h3 id="monitoring-and-health">Monitoring and Health<a class="headerlink" href="#monitoring-and-health" title="Permanent link">&para;</a></h3>
-<h4 id="server-health-check">Server Health Check<a class="headerlink" href="#server-health-check" title="Permanent link">&para;</a></h4>
+<h3 id="monitoring-and-health">Monitoring and Health</h3>
+<h4 id="server-health-check">Server Health Check</h4>
 <pre class="highlight"><code class="language-http">GET /health
 </code></pre>
 
@@ -1810,16 +1810,16 @@ Authorization: Bearer &lt;access_token&gt;
 }
 </code></pre>
 
-<h4 id="readiness-check">Readiness Check<a class="headerlink" href="#readiness-check" title="Permanent link">&para;</a></h4>
+<h4 id="readiness-check">Readiness Check</h4>
 <pre class="highlight"><code class="language-http">GET /ready
 </code></pre>
 
-<h4 id="metrics-endpoint">Metrics Endpoint<a class="headerlink" href="#metrics-endpoint" title="Permanent link">&para;</a></h4>
+<h4 id="metrics-endpoint">Metrics Endpoint</h4>
 <pre class="highlight"><code class="language-http">GET /metrics
 </code></pre>
 
-<h2 id="client-management">Client Management<a class="headerlink" href="#client-management" title="Permanent link">&para;</a></h2>
-<h3 id="client-registration-process">Client Registration Process<a class="headerlink" href="#client-registration-process" title="Permanent link">&para;</a></h3>
+<h2 id="client-management">Client Management</h2>
+<h3 id="client-registration-process">Client Registration Process</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Client as RIS Client
@@ -1852,8 +1852,8 @@ sequenceDiagram
     end
 </div>
 
-<h3 id="client-lifecycle-management">Client Lifecycle Management<a class="headerlink" href="#client-lifecycle-management" title="Permanent link">&para;</a></h3>
-<h4 id="registration">Registration<a class="headerlink" href="#registration" title="Permanent link">&para;</a></h4>
+<h3 id="client-lifecycle-management">Client Lifecycle Management</h3>
+<h4 id="registration">Registration</h4>
 <pre class="highlight"><code class="language-go">type ClientRegistration struct {
     ClientHost       string   `json:&quot;clienthost&quot;`
     UniqueClientID   string   `json:&quot;unique_client_id&quot;`
@@ -1867,7 +1867,7 @@ sequenceDiagram
 }
 </code></pre>
 
-<h4 id="status-monitoring">Status Monitoring<a class="headerlink" href="#status-monitoring" title="Permanent link">&para;</a></h4>
+<h4 id="status-monitoring">Status Monitoring</h4>
 <pre class="highlight"><code class="language-go">type ClientStatus struct {
     ID               int       `json:&quot;id&quot;`
     UniqueClientID   string    `json:&quot;unique_client_id&quot;`
@@ -1885,7 +1885,7 @@ sequenceDiagram
 }
 </code></pre>
 
-<h4 id="connection-management">Connection Management<a class="headerlink" href="#connection-management" title="Permanent link">&para;</a></h4>
+<h4 id="connection-management">Connection Management</h4>
 <pre class="highlight"><code class="language-go">type ConnectionManager struct {
     clients           map[string]*ClientConnection
     disconnectedCount map[string]int
@@ -1901,8 +1901,8 @@ func (cm *ConnectionManager) BroadcastToClients(message []byte) error
 func (cm *ConnectionManager) GetConnectedClients() []string
 </code></pre>
 
-<h3 id="client-authentication-and-authorization">Client Authentication and Authorization<a class="headerlink" href="#client-authentication-and-authorization" title="Permanent link">&para;</a></h3>
-<h4 id="certificate-based-authentication">Certificate-Based Authentication<a class="headerlink" href="#certificate-based-authentication" title="Permanent link">&para;</a></h4>
+<h3 id="client-authentication-and-authorization">Client Authentication and Authorization</h3>
+<h4 id="certificate-based-authentication">Certificate-Based Authentication</h4>
 <pre class="highlight"><code class="language-go">type ClientAuth struct {
     CertificateAuth bool   `json:&quot;certificate_auth&quot;`
     ClientCert      string `json:&quot;client_cert&quot;`
@@ -1921,7 +1921,7 @@ func ValidateClientCertificate(cert *x509.Certificate, caCert *x509.Certificate)
 }
 </code></pre>
 
-<h4 id="token-based-authentication">Token-Based Authentication<a class="headerlink" href="#token-based-authentication" title="Permanent link">&para;</a></h4>
+<h4 id="token-based-authentication">Token-Based Authentication</h4>
 <pre class="highlight"><code class="language-go">type ClientTokenAuth struct {
     TokenType    string    `json:&quot;token_type&quot;`
     AccessToken  string    `json:&quot;access_token&quot;`
@@ -1939,8 +1939,8 @@ func ValidateClientToken(token string) (*ClientClaims, error) {
 }
 </code></pre>
 
-<h2 id="task-orchestration">Task Orchestration<a class="headerlink" href="#task-orchestration" title="Permanent link">&para;</a></h2>
-<h3 id="task-routing-engine">Task Routing Engine<a class="headerlink" href="#task-routing-engine" title="Permanent link">&para;</a></h3>
+<h2 id="task-orchestration">Task Orchestration</h2>
+<h3 id="task-routing-engine">Task Routing Engine</h3>
 <div class="mermaid">
 graph TB
     subgraph "Task Submission"
@@ -1992,8 +1992,8 @@ graph TB
     style TRACKER fill:#e3f2fd
 </div>
 
-<h3 id="task-types-and-schemas">Task Types and Schemas<a class="headerlink" href="#task-types-and-schemas" title="Permanent link">&para;</a></h3>
-<h4 id="http-request-task">HTTP Request Task<a class="headerlink" href="#http-request-task" title="Permanent link">&para;</a></h4>
+<h3 id="task-types-and-schemas">Task Types and Schemas</h3>
+<h4 id="http-request-task">HTTP Request Task</h4>
 <pre class="highlight"><code class="language-go">type HTTPTask struct {
     TaskID      string            `json:&quot;task_id&quot;`
     Type        string            `json:&quot;type&quot;`
@@ -2017,7 +2017,7 @@ type AuthConfig struct {
 }
 </code></pre>
 
-<h4 id="docker-service-task">Docker Service Task<a class="headerlink" href="#docker-service-task" title="Permanent link">&para;</a></h4>
+<h4 id="docker-service-task">Docker Service Task</h4>
 <pre class="highlight"><code class="language-go">type DockerTask struct {
     TaskID       string                 `json:&quot;task_id&quot;`
     Type         string                 `json:&quot;type&quot;`
@@ -2040,7 +2040,7 @@ type PortMapping struct {
 }
 </code></pre>
 
-<h4 id="system-command-task">System Command Task<a class="headerlink" href="#system-command-task" title="Permanent link">&para;</a></h4>
+<h4 id="system-command-task">System Command Task</h4>
 <pre class="highlight"><code class="language-go">type CommandTask struct {
     TaskID      string            `json:&quot;task_id&quot;`
     Type        string            `json:&quot;type&quot;`
@@ -2054,8 +2054,8 @@ type PortMapping struct {
 }
 </code></pre>
 
-<h3 id="task-execution-flow">Task Execution Flow<a class="headerlink" href="#task-execution-flow" title="Permanent link">&para;</a></h3>
-<h4 id="task-lifecycle">Task Lifecycle<a class="headerlink" href="#task-lifecycle" title="Permanent link">&para;</a></h4>
+<h3 id="task-execution-flow">Task Execution Flow</h3>
+<h4 id="task-lifecycle">Task Lifecycle</h4>
 <pre class="highlight"><code class="language-go">type TaskStatus string
 
 const (
@@ -2088,7 +2088,7 @@ type Task struct {
 }
 </code></pre>
 
-<h4 id="task-orchestrator-implementation">Task Orchestrator Implementation<a class="headerlink" href="#task-orchestrator-implementation" title="Permanent link">&para;</a></h4>
+<h4 id="task-orchestrator-implementation">Task Orchestrator Implementation</h4>
 <pre class="highlight"><code class="language-go">type TaskOrchestrator struct {
     queue          TaskQueue
     router         TaskRouter
@@ -2130,8 +2130,8 @@ func (to *TaskOrchestrator) processTask(task *Task) error {
 }
 </code></pre>
 
-<h3 id="priority-and-queue-management">Priority and Queue Management<a class="headerlink" href="#priority-and-queue-management" title="Permanent link">&para;</a></h3>
-<h4 id="priority-queue-implementation">Priority Queue Implementation<a class="headerlink" href="#priority-queue-implementation" title="Permanent link">&para;</a></h4>
+<h3 id="priority-and-queue-management">Priority and Queue Management</h3>
+<h4 id="priority-queue-implementation">Priority Queue Implementation</h4>
 <pre class="highlight"><code class="language-go">type PriorityQueue struct {
     queues   map[int]*Queue  // Priority level -&gt; Queue
     mutex    sync.RWMutex
@@ -2174,8 +2174,8 @@ func (pq *PriorityQueue) Dequeue() (*Task, error) {
 }
 </code></pre>
 
-<h2 id="multi-tenant-architecture">Multi-Tenant Architecture<a class="headerlink" href="#multi-tenant-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="tenant-isolation-strategies">Tenant Isolation Strategies<a class="headerlink" href="#tenant-isolation-strategies" title="Permanent link">&para;</a></h3>
+<h2 id="multi-tenant-architecture">Multi-Tenant Architecture</h2>
+<h3 id="tenant-isolation-strategies">Tenant Isolation Strategies</h3>
 <div class="mermaid">
 graph TB
     subgraph "Request Layer"
@@ -2227,8 +2227,8 @@ graph TB
     style ENCRYPT fill:#ffcdd2
 </div>
 
-<h3 id="tenant-management_1">Tenant Management<a class="headerlink" href="#tenant-management_1" title="Permanent link">&para;</a></h3>
-<h4 id="tenant-model">Tenant Model<a class="headerlink" href="#tenant-model" title="Permanent link">&para;</a></h4>
+<h3 id="tenant-management_1">Tenant Management</h3>
+<h4 id="tenant-model">Tenant Model</h4>
 <pre class="highlight"><code class="language-go">type Tenant struct {
     ID           string            `json:&quot;id&quot; bson:&quot;_id&quot;`
     Code         string            `json:&quot;code&quot; bson:&quot;code&quot;`
@@ -2270,7 +2270,7 @@ type ResourceLimits struct {
 }
 </code></pre>
 
-<h4 id="tenant-context-management">Tenant Context Management<a class="headerlink" href="#tenant-context-management" title="Permanent link">&para;</a></h4>
+<h4 id="tenant-context-management">Tenant Context Management</h4>
 <pre class="highlight"><code class="language-go">type TenantContext struct {
     TenantID     string                 `json:&quot;tenant_id&quot;`
     TenantCode   string                 `json:&quot;tenant_code&quot;`
@@ -2332,8 +2332,8 @@ func (tm *TenantManager) GetTenantContext(tenantCode string) (*TenantContext, er
 }
 </code></pre>
 
-<h3 id="database-isolation">Database Isolation<a class="headerlink" href="#database-isolation" title="Permanent link">&para;</a></h3>
-<h4 id="tenant-specific-database-connections">Tenant-Specific Database Connections<a class="headerlink" href="#tenant-specific-database-connections" title="Permanent link">&para;</a></h4>
+<h3 id="database-isolation">Database Isolation</h3>
+<h4 id="tenant-specific-database-connections">Tenant-Specific Database Connections</h4>
 <pre class="highlight"><code class="language-go">type DatabaseManager struct {
     defaultDB     database.Database
     tenantDBs     map[string]database.Database
@@ -2391,7 +2391,7 @@ func (dm *DatabaseManager) createTenantConnection(dbInfo DatabaseInfo) (database
 }
 </code></pre>
 
-<h3 id="data-encryption-per-tenant">Data Encryption per Tenant<a class="headerlink" href="#data-encryption-per-tenant" title="Permanent link">&para;</a></h3>
+<h3 id="data-encryption-per-tenant">Data Encryption per Tenant</h3>
 <pre class="highlight"><code class="language-go">type TenantEncryption struct {
     keyManager    KeyManager
     encryptionSvc EncryptionService

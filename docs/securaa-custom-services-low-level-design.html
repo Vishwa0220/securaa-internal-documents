@@ -620,9 +620,9 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="low-level-design-low-level-design-securaa-custom-services">Low-Level Design (Low Level Design) - Securaa Custom Services<a class="headerlink" href="#low-level-design-low-level-design-securaa-custom-services" title="Permanent link">&para;</a></h1>
-<h2 id="1-implementation-overview">1. Implementation Overview<a class="headerlink" href="#1-implementation-overview" title="Permanent link">&para;</a></h2>
-<h3 id="11-technology-stack">1.1 Technology Stack<a class="headerlink" href="#11-technology-stack" title="Permanent link">&para;</a></h3>
+        <h1 id="low-level-design-low-level-design-securaa-custom-services">Low-Level Design (Low Level Design) - Securaa Custom Services</h1>
+<h2 id="1-implementation-overview">1. Implementation Overview</h2>
+<h3 id="11-technology-stack">1.1 Technology Stack</h3>
 <ul>
 <li><strong>Language</strong>: Go 1.17</li>
 <li><strong>Web Framework</strong>: Gorilla Mux</li>
@@ -633,7 +633,7 @@ hr {
 <li><strong>Containerization</strong>: Docker</li>
 <li><strong>Build System</strong>: Make with custom Makefile</li>
 </ul>
-<h3 id="12-project-structure-analysis">1.2 Project Structure Analysis<a class="headerlink" href="#12-project-structure-analysis" title="Permanent link">&para;</a></h3>
+<h3 id="12-project-structure-analysis">1.2 Project Structure Analysis</h3>
 <pre class="highlight"><code>zona_custom/
 ├── main.go                 # Application entry point
 ├── app.go                  # Application initialization and routing
@@ -662,9 +662,9 @@ hr {
     └── eventsService.go
 </code></pre>
 
-<h2 id="2-detailed-component-design">2. Detailed Component Design<a class="headerlink" href="#2-detailed-component-design" title="Permanent link">&para;</a></h2>
-<h3 id="21-application-bootstrap-maingo-appgo">2.1 Application Bootstrap (<code>main.go</code> &amp; <code>app.go</code>)<a class="headerlink" href="#21-application-bootstrap-maingo-appgo" title="Permanent link">&para;</a></h3>
-<h4 id="211-main-function-flow">2.1.1 Main Function Flow<a class="headerlink" href="#211-main-function-flow" title="Permanent link">&para;</a></h4>
+<h2 id="2-detailed-component-design">2. Detailed Component Design</h2>
+<h3 id="21-application-bootstrap-maingo-appgo">2.1 Application Bootstrap (<code>main.go</code> &amp; <code>app.go</code>)</h3>
+<h4 id="211-main-function-flow">2.1.1 Main Function Flow</h4>
 <pre class="highlight"><code class="language-go">func main() {
     securaalog.Init(&quot;CORE_SERVICE_LOGS&quot;)  // Initialize logging
     app := App{}                          // Create app instance
@@ -673,7 +673,7 @@ hr {
 }
 </code></pre>
 
-<h4 id="212-app-structure-design">2.1.2 App Structure Design<a class="headerlink" href="#212-app-structure-design" title="Permanent link">&para;</a></h4>
+<h4 id="212-app-structure-design">2.1.2 App Structure Design</h4>
 <pre class="highlight"><code class="language-go">type App struct {
     Router             *mux.Router                    // HTTP router
     AccessTokenHashMap map[string]int64               // Token cache
@@ -684,7 +684,7 @@ hr {
 }
 </code></pre>
 
-<h4 id="213-initialization-sequence">2.1.3 Initialization Sequence<a class="headerlink" href="#213-initialization-sequence" title="Permanent link">&para;</a></h4>
+<h4 id="213-initialization-sequence">2.1.3 Initialization Sequence</h4>
 <div class="mermaid">
 sequenceDiagram
     participant Main
@@ -708,8 +708,8 @@ sequenceDiagram
     App->>Router: http.ListenAndServe()
 </div>
 
-<h3 id="22-database-connection-management">2.2 Database Connection Management<a class="headerlink" href="#22-database-connection-management" title="Permanent link">&para;</a></h3>
-<h4 id="221-multi-tenant-connection-strategy">2.2.1 Multi-Tenant Connection Strategy<a class="headerlink" href="#221-multi-tenant-connection-strategy" title="Permanent link">&para;</a></h4>
+<h3 id="22-database-connection-management">2.2 Database Connection Management</h3>
+<h4 id="221-multi-tenant-connection-strategy">2.2.1 Multi-Tenant Connection Strategy</h4>
 <pre class="highlight"><code class="language-go">func (a *App) InitMongoClient(configObject config.ConfigStruct) {
     a.DBSession = make(map[string]common.SessionStruct)
 
@@ -740,7 +740,7 @@ sequenceDiagram
 }
 </code></pre>
 
-<h4 id="222-connection-pool-management">2.2.2 Connection Pool Management<a class="headerlink" href="#222-connection-pool-management" title="Permanent link">&para;</a></h4>
+<h4 id="222-connection-pool-management">2.2.2 Connection Pool Management</h4>
 <div class="mermaid">
 graph TB
     subgraph "Connection Pool Strategy"
@@ -763,8 +763,8 @@ graph TB
     TENANT_N_POOL --> CONN_TIMEOUT
 </div>
 
-<h3 id="23-middleware-implementation">2.3 Middleware Implementation<a class="headerlink" href="#23-middleware-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="231-logging-middleware">2.3.1 Logging Middleware<a class="headerlink" href="#231-logging-middleware" title="Permanent link">&para;</a></h4>
+<h3 id="23-middleware-implementation">2.3 Middleware Implementation</h3>
+<h4 id="231-logging-middleware">2.3.1 Logging Middleware</h4>
 <pre class="highlight"><code class="language-go">func (a *App) loggingMiddleware(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         middleWareData := common.MiddleWareData{
@@ -787,7 +787,7 @@ graph TB
 }
 </code></pre>
 
-<h4 id="232-middleware-processing-flow">2.3.2 Middleware Processing Flow<a class="headerlink" href="#232-middleware-processing-flow" title="Permanent link">&para;</a></h4>
+<h4 id="232-middleware-processing-flow">2.3.2 Middleware Processing Flow</h4>
 <div class="mermaid">
 flowchart TD
     A[HTTP Request] --> B[Logging Middleware]
@@ -810,8 +810,8 @@ flowchart TD
     D --> O
 </div>
 
-<h3 id="24-controller-layer-implementation">2.4 Controller Layer Implementation<a class="headerlink" href="#24-controller-layer-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="241-custom-app-controller">2.4.1 Custom App Controller<a class="headerlink" href="#241-custom-app-controller" title="Permanent link">&para;</a></h4>
+<h3 id="24-controller-layer-implementation">2.4 Controller Layer Implementation</h3>
+<h4 id="241-custom-app-controller">2.4.1 Custom App Controller</h4>
 <pre class="highlight"><code class="language-go">type CustomAppController struct{}
 
 func (gc CustomAppController) DeleteApp(w http.ResponseWriter, r *http.Request, 
@@ -857,7 +857,7 @@ func (gc CustomAppController) DeleteApp(w http.ResponseWriter, r *http.Request,
 }
 </code></pre>
 
-<h4 id="242-generic-app-controller-upsertgenericapp">2.4.2 Generic App Controller - UpsertGenericApp<a class="headerlink" href="#242-generic-app-controller-upsertgenericapp" title="Permanent link">&para;</a></h4>
+<h4 id="242-generic-app-controller-upsertgenericapp">2.4.2 Generic App Controller - UpsertGenericApp</h4>
 <div class="mermaid">
 flowchart TD
     A[UpsertGenericApp Request] --> B[Parse Multipart Form]
@@ -899,8 +899,8 @@ flowchart TD
     Y --> BB
 </div>
 
-<h3 id="25-service-layer-implementation">2.5 Service Layer Implementation<a class="headerlink" href="#25-service-layer-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="251-export-service-architecture">2.5.1 Export Service Architecture<a class="headerlink" href="#251-export-service-architecture" title="Permanent link">&para;</a></h4>
+<h3 id="25-service-layer-implementation">2.5 Service Layer Implementation</h3>
+<h4 id="251-export-service-architecture">2.5.1 Export Service Architecture</h4>
 <pre class="highlight"><code class="language-go">func ExportIntegration(dbSession map[string]common.SessionStruct, 
     config config.Config, req models.ExportAppInputStruct) models.Response {
 
@@ -950,7 +950,7 @@ flowchart TD
 }
 </code></pre>
 
-<h4 id="252-task-dependency-mapping">2.5.2 Task Dependency Mapping<a class="headerlink" href="#252-task-dependency-mapping" title="Permanent link">&para;</a></h4>
+<h4 id="252-task-dependency-mapping">2.5.2 Task Dependency Mapping</h4>
 <div class="mermaid">
 graph TB
     subgraph "Task Processing Pipeline"
@@ -988,8 +988,8 @@ graph TB
     E --> Q
 </div>
 
-<h3 id="26-data-models-implementation">2.6 Data Models Implementation<a class="headerlink" href="#26-data-models-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="261-core-data-structures">2.6.1 Core Data Structures<a class="headerlink" href="#261-core-data-structures" title="Permanent link">&para;</a></h4>
+<h3 id="26-data-models-implementation">2.6 Data Models Implementation</h3>
+<h4 id="261-core-data-structures">2.6.1 Core Data Structures</h4>
 <pre class="highlight"><code class="language-go">// Response model - Standard API response
 type Response struct {
     Success        bool        `json:&quot;success&quot;`
@@ -1038,7 +1038,7 @@ type TaskData struct {
 }
 </code></pre>
 
-<h4 id="262-data-validation-transformation">2.6.2 Data Validation &amp; Transformation<a class="headerlink" href="#262-data-validation-transformation" title="Permanent link">&para;</a></h4>
+<h4 id="262-data-validation-transformation">2.6.2 Data Validation &amp; Transformation</h4>
 <div class="mermaid">
 flowchart LR
     subgraph "Input Validation"
@@ -1065,8 +1065,8 @@ flowchart LR
     J --> K
 </div>
 
-<h3 id="27-error-handling-strategy">2.7 Error Handling Strategy<a class="headerlink" href="#27-error-handling-strategy" title="Permanent link">&para;</a></h3>
-<h4 id="271-error-handler-implementation">2.7.1 Error Handler Implementation<a class="headerlink" href="#271-error-handler-implementation" title="Permanent link">&para;</a></h4>
+<h3 id="27-error-handling-strategy">2.7 Error Handling Strategy</h3>
+<h4 id="271-error-handler-implementation">2.7.1 Error Handler Implementation</h4>
 <pre class="highlight"><code class="language-go">func HandleError(err error, message string) models.Response {
     response := models.Response{
         Success:        false,
@@ -1082,7 +1082,7 @@ flowchart LR
 }
 </code></pre>
 
-<h4 id="272-error-flow-hierarchy">2.7.2 Error Flow Hierarchy<a class="headerlink" href="#272-error-flow-hierarchy" title="Permanent link">&para;</a></h4>
+<h4 id="272-error-flow-hierarchy">2.7.2 Error Flow Hierarchy</h4>
 <div class="mermaid">
 graph TB
     A[Request Processing] --> B{Validation Error?}
@@ -1114,8 +1114,8 @@ graph TB
     G --> P
 </div>
 
-<h3 id="28-authentication-authorization">2.8 Authentication &amp; Authorization<a class="headerlink" href="#28-authentication-authorization" title="Permanent link">&para;</a></h3>
-<h4 id="281-token-management">2.8.1 Token Management<a class="headerlink" href="#281-token-management" title="Permanent link">&para;</a></h4>
+<h3 id="28-authentication-authorization">2.8 Authentication &amp; Authorization</h3>
+<h4 id="281-token-management">2.8.1 Token Management</h4>
 <pre class="highlight"><code class="language-go">type App struct {
     AccessTokenHashMap map[string]int64  // Token -&gt; Expiry mapping
     // ... other fields
@@ -1136,7 +1136,7 @@ func (a *App) ValidateToken(token string) bool {
 }
 </code></pre>
 
-<h4 id="282-security-flow">2.8.2 Security Flow<a class="headerlink" href="#282-security-flow" title="Permanent link">&para;</a></h4>
+<h4 id="282-security-flow">2.8.2 Security Flow</h4>
 <div class="mermaid">
 sequenceDiagram
     participant Client
@@ -1160,8 +1160,8 @@ sequenceDiagram
     end
 </div>
 
-<h3 id="29-caching-strategy">2.9 Caching Strategy<a class="headerlink" href="#29-caching-strategy" title="Permanent link">&para;</a></h3>
-<h4 id="291-cache-implementation">2.9.1 Cache Implementation<a class="headerlink" href="#291-cache-implementation" title="Permanent link">&para;</a></h4>
+<h3 id="29-caching-strategy">2.9 Caching Strategy</h3>
+<h4 id="291-cache-implementation">2.9.1 Cache Implementation</h4>
 <pre class="highlight"><code class="language-go">func RemoveAppListingCache(tenantCode string) {
     cacheKey := fmt.Sprintf(&quot;app_listing_%s&quot;, tenantCode)
     cache.Delete(cacheKey)
@@ -1184,7 +1184,7 @@ func GetAppListingFromCache(tenantCode string) ([]models.AppData, bool) {
 }
 </code></pre>
 
-<h4 id="292-cache-invalidation-strategy">2.9.2 Cache Invalidation Strategy<a class="headerlink" href="#292-cache-invalidation-strategy" title="Permanent link">&para;</a></h4>
+<h4 id="292-cache-invalidation-strategy">2.9.2 Cache Invalidation Strategy</h4>
 <div class="mermaid">
 graph TB
     subgraph "Cache Operations"
@@ -1209,8 +1209,8 @@ graph TB
     D --> L
 </div>
 
-<h3 id="210-configuration-management">2.10 Configuration Management<a class="headerlink" href="#210-configuration-management" title="Permanent link">&para;</a></h3>
-<h4 id="2101-configuration-structure">2.10.1 Configuration Structure<a class="headerlink" href="#2101-configuration-structure" title="Permanent link">&para;</a></h4>
+<h3 id="210-configuration-management">2.10 Configuration Management</h3>
+<h4 id="2101-configuration-structure">2.10.1 Configuration Structure</h4>
 <pre class="highlight"><code class="language-go">type ConfigStruct struct {
     ConfigFilePath string
     ConfigData     map[string]string
@@ -1233,7 +1233,7 @@ func InitConfig() ConfigStruct {
 }
 </code></pre>
 
-<h4 id="2102-configuration-flow">2.10.2 Configuration Flow<a class="headerlink" href="#2102-configuration-flow" title="Permanent link">&para;</a></h4>
+<h4 id="2102-configuration-flow">2.10.2 Configuration Flow</h4>
 <div class="mermaid">
 flowchart TD
     A[Application Start] --> B[Load Config File]
@@ -1259,8 +1259,8 @@ flowchart TD
     H --> M
 </div>
 
-<h3 id="211-database-operations">2.11 Database Operations<a class="headerlink" href="#211-database-operations" title="Permanent link">&para;</a></h3>
-<h4 id="2111-crud-operations-pattern">2.11.1 CRUD Operations Pattern<a class="headerlink" href="#2111-crud-operations-pattern" title="Permanent link">&para;</a></h4>
+<h3 id="211-database-operations">2.11 Database Operations</h3>
+<h4 id="2111-crud-operations-pattern">2.11.1 CRUD Operations Pattern</h4>
 <pre class="highlight"><code class="language-go">// Generic database operation wrapper
 type DatabaseOperations struct {
     Client         mongo_driver.MongoClientWrapper
@@ -1288,7 +1288,7 @@ func (db *DatabaseOperations) Delete(filter bson.M) error {
 }
 </code></pre>
 
-<h4 id="2112-transaction-management">2.11.2 Transaction Management<a class="headerlink" href="#2112-transaction-management" title="Permanent link">&para;</a></h4>
+<h4 id="2112-transaction-management">2.11.2 Transaction Management</h4>
 <div class="mermaid">
 sequenceDiagram
     participant Service
@@ -1318,8 +1318,8 @@ sequenceDiagram
     end
 </div>
 
-<h3 id="212-logging-implementation">2.12 Logging Implementation<a class="headerlink" href="#212-logging-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="2121-structured-logging">2.12.1 Structured Logging<a class="headerlink" href="#2121-structured-logging" title="Permanent link">&para;</a></h4>
+<h3 id="212-logging-implementation">2.12 Logging Implementation</h3>
+<h4 id="2121-structured-logging">2.12.1 Structured Logging</h4>
 <pre class="highlight"><code class="language-go">var logger = securaalog.New(&quot;zona_custom&quot;)
 
 func LogRequest(r *http.Request) {
@@ -1347,7 +1347,7 @@ func LogPerformance(operation string, duration time.Duration) {
 }
 </code></pre>
 
-<h4 id="2122-log-levels-categories">2.12.2 Log Levels &amp; Categories<a class="headerlink" href="#2122-log-levels-categories" title="Permanent link">&para;</a></h4>
+<h4 id="2122-log-levels-categories">2.12.2 Log Levels &amp; Categories</h4>
 <div class="mermaid">
 graph TB
     subgraph "Log Levels"
@@ -1385,30 +1385,30 @@ graph TB
     I --> N
 </div>
 
-<h2 id="3-performance-considerations">3. Performance Considerations<a class="headerlink" href="#3-performance-considerations" title="Permanent link">&para;</a></h2>
-<h3 id="31-optimization-strategies">3.1 Optimization Strategies<a class="headerlink" href="#31-optimization-strategies" title="Permanent link">&para;</a></h3>
-<h4 id="311-database-query-optimization">3.1.1 Database Query Optimization<a class="headerlink" href="#311-database-query-optimization" title="Permanent link">&para;</a></h4>
+<h2 id="3-performance-considerations">3. Performance Considerations</h2>
+<h3 id="31-optimization-strategies">3.1 Optimization Strategies</h3>
+<h4 id="311-database-query-optimization">3.1.1 Database Query Optimization</h4>
 <ul>
 <li>Use appropriate indexes on frequently queried fields</li>
 <li>Implement query result caching for read-heavy operations</li>
 <li>Use batch operations for bulk data manipulation</li>
 <li>Implement connection pooling for database efficiency</li>
 </ul>
-<h4 id="312-memory-management">3.1.2 Memory Management<a class="headerlink" href="#312-memory-management" title="Permanent link">&para;</a></h4>
+<h4 id="312-memory-management">3.1.2 Memory Management</h4>
 <ul>
 <li>Implement proper cleanup of temporary objects</li>
 <li>Use connection pooling to avoid resource leaks</li>
 <li>Monitor goroutine lifecycle for concurrent operations</li>
 <li>Implement request timeout mechanisms</li>
 </ul>
-<h4 id="313-network-optimization">3.1.3 Network Optimization<a class="headerlink" href="#313-network-optimization" title="Permanent link">&para;</a></h4>
+<h4 id="313-network-optimization">3.1.3 Network Optimization</h4>
 <ul>
 <li>Compress HTTP responses for large payloads</li>
 <li>Implement request/response caching</li>
 <li>Use HTTP/2 where supported</li>
 <li>Minimize JSON payload sizes</li>
 </ul>
-<h3 id="32-scalability-considerations">3.2 Scalability Considerations<a class="headerlink" href="#32-scalability-considerations" title="Permanent link">&para;</a></h3>
+<h3 id="32-scalability-considerations">3.2 Scalability Considerations</h3>
 <div class="mermaid">
 graph LR
     subgraph "Horizontal Scaling"
@@ -1434,8 +1434,8 @@ graph LR
     D --> J
 </div>
 
-<h2 id="4-testing-strategy">4. Testing Strategy<a class="headerlink" href="#4-testing-strategy" title="Permanent link">&para;</a></h2>
-<h3 id="41-unit-testing-structure">4.1 Unit Testing Structure<a class="headerlink" href="#41-unit-testing-structure" title="Permanent link">&para;</a></h3>
+<h2 id="4-testing-strategy">4. Testing Strategy</h2>
+<h3 id="41-unit-testing-structure">4.1 Unit Testing Structure</h3>
 <pre class="highlight"><code class="language-go">func TestDeleteApp(t *testing.T) {
     // Arrange
     controller := NewCustomAppController()
@@ -1451,7 +1451,7 @@ graph LR
 }
 </code></pre>
 
-<h3 id="42-integration-testing">4.2 Integration Testing<a class="headerlink" href="#42-integration-testing" title="Permanent link">&para;</a></h3>
+<h3 id="42-integration-testing">4.2 Integration Testing</h3>
 <div class="mermaid">
 flowchart TD
     A[Integration Test Suite] --> B[Database Tests]
@@ -1474,8 +1474,8 @@ flowchart TD
     E --> O[External API Integration]
 </div>
 
-<h2 id="5-security-implementation">5. Security Implementation<a class="headerlink" href="#5-security-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="51-data-encryption">5.1 Data Encryption<a class="headerlink" href="#51-data-encryption" title="Permanent link">&para;</a></h3>
+<h2 id="5-security-implementation">5. Security Implementation</h2>
+<h3 id="51-data-encryption">5.1 Data Encryption</h3>
 <pre class="highlight"><code class="language-go">func EncryptSensitiveFields(fields map[string]string, config config.ConfigStruct) (map[string]string, error) {
     encryptedFields := make(map[string]string)
     encryptionKey := config[&quot;zonaCredentialsEncryptDecryptKey&quot;]
@@ -1506,7 +1506,7 @@ func isSensitiveField(fieldName string) bool {
 }
 </code></pre>
 
-<h3 id="52-input-sanitization">5.2 Input Sanitization<a class="headerlink" href="#52-input-sanitization" title="Permanent link">&para;</a></h3>
+<h3 id="52-input-sanitization">5.2 Input Sanitization</h3>
 <div class="mermaid">
 flowchart TD
     A[User Input] --> B[Input Validation]
@@ -1520,8 +1520,8 @@ flowchart TD
     I --> J[Business Logic Processing]
 </div>
 
-<h2 id="6-deployment-operations">6. Deployment &amp; Operations<a class="headerlink" href="#6-deployment-operations" title="Permanent link">&para;</a></h2>
-<h3 id="61-build-process">6.1 Build Process<a class="headerlink" href="#61-build-process" title="Permanent link">&para;</a></h3>
+<h2 id="6-deployment-operations">6. Deployment &amp; Operations</h2>
+<h3 id="61-build-process">6.1 Build Process</h3>
 <pre class="highlight"><code class="language-makefile"># Build configuration from Makefile
 build: builddir
     $(BUILD_ENV) go build -mod vendor $(BUILD_FLAGS) -o build/$(TARGET)
@@ -1534,7 +1534,7 @@ image_ecr: builddir
     --build-arg BUILD_VERSION=$(BUILD_VERSION) .
 </code></pre>
 
-<h3 id="62-health-monitoring">6.2 Health Monitoring<a class="headerlink" href="#62-health-monitoring" title="Permanent link">&para;</a></h3>
+<h3 id="62-health-monitoring">6.2 Health Monitoring</h3>
 <pre class="highlight"><code class="language-go">func HealthCheck() http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
         health := struct {

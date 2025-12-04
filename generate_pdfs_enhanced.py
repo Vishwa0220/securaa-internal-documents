@@ -41,13 +41,12 @@ HTML_FILES = [
     'securaa-information-security-risk-assesment-process.html',
 ]
 
-# Enhanced CSS for PDF rendering
+# Enhanced CSS for PDF rendering - with LARGER diagrams
 PDF_CSS = """
-<style>
 /* PDF-specific styles for better diagram rendering */
 @page {
     size: A4;
-    margin: 15mm 15mm 20mm 15mm;
+    margin: 12mm 10mm 15mm 10mm;
 }
 
 /* General text styling for better PDF readability */
@@ -66,7 +65,7 @@ body {
     display: none !important;
 }
 
-/* Main content area */
+/* Main content area - use full width */
 .main-content {
     max-width: 100% !important;
     margin: 0 !important;
@@ -77,40 +76,40 @@ body {
 
 /* Typography for PDF */
 h1 {
-    font-size: 22pt !important;
+    font-size: 20pt !important;
     color: #1a365d !important;
     -webkit-text-fill-color: #1a365d !important;
     background: none !important;
     border-bottom: 2px solid #3182ce !important;
-    padding-bottom: 8pt !important;
-    margin-top: 0 !important;
-    margin-bottom: 16pt !important;
-    page-break-after: avoid !important;
-}
-
-h2 {
-    font-size: 16pt !important;
-    color: #2c5282 !important;
-    border-bottom: 1px solid #cbd5e0 !important;
     padding-bottom: 6pt !important;
-    margin-top: 24pt !important;
+    margin-top: 0 !important;
     margin-bottom: 12pt !important;
     page-break-after: avoid !important;
 }
 
-h3 {
-    font-size: 13pt !important;
-    color: #2d3748 !important;
-    margin-top: 18pt !important;
+h2 {
+    font-size: 14pt !important;
+    color: #2c5282 !important;
+    border-bottom: 1px solid #cbd5e0 !important;
+    padding-bottom: 4pt !important;
+    margin-top: 16pt !important;
     margin-bottom: 8pt !important;
+    page-break-after: avoid !important;
+}
+
+h3 {
+    font-size: 12pt !important;
+    color: #2d3748 !important;
+    margin-top: 12pt !important;
+    margin-bottom: 6pt !important;
     page-break-after: avoid !important;
 }
 
 h4 {
     font-size: 11pt !important;
     color: #4a5568 !important;
-    margin-top: 14pt !important;
-    margin-bottom: 6pt !important;
+    margin-top: 10pt !important;
+    margin-bottom: 4pt !important;
     page-break-after: avoid !important;
 }
 
@@ -121,7 +120,7 @@ h5, h6 {
 }
 
 p {
-    margin-bottom: 8pt !important;
+    margin-bottom: 6pt !important;
     text-align: justify !important;
     orphans: 3 !important;
     widows: 3 !important;
@@ -129,12 +128,12 @@ p {
 
 /* Lists */
 ul, ol {
-    margin-bottom: 8pt !important;
-    padding-left: 20pt !important;
+    margin-bottom: 6pt !important;
+    padding-left: 18pt !important;
 }
 
 li {
-    margin-bottom: 4pt !important;
+    margin-bottom: 3pt !important;
 }
 
 /* Code blocks */
@@ -143,25 +142,25 @@ pre {
     color: #2d3748 !important;
     border: 1px solid #e2e8f0 !important;
     border-radius: 4pt !important;
-    padding: 10pt !important;
-    font-size: 8pt !important;
-    line-height: 1.4 !important;
+    padding: 8pt !important;
+    font-size: 7pt !important;
+    line-height: 1.3 !important;
     overflow-x: visible !important;
     white-space: pre-wrap !important;
     word-wrap: break-word !important;
     page-break-inside: avoid !important;
-    margin: 10pt 0 !important;
+    margin: 8pt 0 !important;
 }
 
 code {
     font-family: 'Consolas', 'Monaco', monospace !important;
-    font-size: 8pt !important;
+    font-size: 7pt !important;
 }
 
 :not(pre) > code {
     background: #edf2f7 !important;
     color: #2d3748 !important;
-    padding: 1pt 4pt !important;
+    padding: 1pt 3pt !important;
     border-radius: 2pt !important;
 }
 
@@ -169,8 +168,8 @@ code {
 table {
     width: 100% !important;
     border-collapse: collapse !important;
-    margin: 12pt 0 !important;
-    font-size: 9pt !important;
+    margin: 8pt 0 !important;
+    font-size: 8pt !important;
     page-break-inside: avoid !important;
 }
 
@@ -180,14 +179,14 @@ thead {
 
 th {
     color: white !important;
-    padding: 8pt !important;
+    padding: 6pt !important;
     text-align: left !important;
     font-weight: 600 !important;
-    font-size: 8pt !important;
+    font-size: 7pt !important;
 }
 
 td {
-    padding: 6pt 8pt !important;
+    padding: 5pt 6pt !important;
     border: 1px solid #e2e8f0 !important;
 }
 
@@ -198,10 +197,10 @@ tr:nth-child(even) {
 /* Blockquotes */
 blockquote {
     border-left: 3pt solid #3182ce !important;
-    padding-left: 12pt !important;
-    margin: 12pt 0 !important;
+    padding-left: 10pt !important;
+    margin: 8pt 0 !important;
     background: #ebf8ff !important;
-    padding: 10pt !important;
+    padding: 8pt !important;
     border-radius: 0 4pt 4pt 0 !important;
     page-break-inside: avoid !important;
 }
@@ -216,33 +215,34 @@ a {
 hr {
     border: none !important;
     border-top: 1px solid #e2e8f0 !important;
-    margin: 16pt 0 !important;
+    margin: 12pt 0 !important;
 }
 
-/* MERMAID DIAGRAMS - Critical PDF styling */
+/* MERMAID DIAGRAMS - LARGE and readable */
 .mermaid {
     display: block !important;
     width: 100% !important;
-    margin: 16pt auto !important;
-    padding: 12pt !important;
-    background: #fafbfc !important;
+    margin: 12pt 0 !important;
+    padding: 8pt !important;
+    background: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
-    border-radius: 6pt !important;
+    border-radius: 4pt !important;
     page-break-inside: avoid !important;
-    page-break-before: auto !important;
     overflow: visible !important;
     text-align: center !important;
 }
 
-/* SVG container within mermaid */
+/* SVG should take full width */
 .mermaid svg {
     display: block !important;
     margin: 0 auto !important;
-    max-width: 100% !important;
+    width: 100% !important;
+    max-width: none !important;
     height: auto !important;
+    min-height: 100px !important;
 }
 
-/* Ensure diagram labels are readable */
+/* Ensure diagram labels are readable - LARGER font */
 .mermaid text,
 .mermaid .nodeLabel,
 .mermaid .label,
@@ -250,8 +250,8 @@ hr {
 .mermaid .cluster-label,
 .mermaid tspan {
     font-family: 'Helvetica Neue', Arial, sans-serif !important;
-    font-size: 9pt !important;
-    fill: #2d3748 !important;
+    font-size: 10pt !important;
+    fill: #1a202c !important;
 }
 
 /* Node styling for better visibility */
@@ -259,101 +259,86 @@ hr {
 .mermaid .node circle,
 .mermaid .node polygon,
 .mermaid .node ellipse {
-    stroke: #4a5568 !important;
-    stroke-width: 1px !important;
+    stroke: #2d3748 !important;
+    stroke-width: 1.5px !important;
 }
 
-/* Edge/line styling */
+/* Edge/line styling - thicker lines */
 .mermaid .edgePath path,
 .mermaid .flowchart-link {
-    stroke: #4a5568 !important;
-    stroke-width: 1.5px !important;
+    stroke: #2d3748 !important;
+    stroke-width: 2px !important;
 }
 
 /* Arrow styling */
 .mermaid marker path {
-    fill: #4a5568 !important;
+    fill: #2d3748 !important;
 }
 
 /* Cluster/subgraph styling */
 .mermaid .cluster rect {
-    fill: #f7fafc !important;
-    stroke: #a0aec0 !important;
-    stroke-width: 1px !important;
+    fill: #f0f4f8 !important;
+    stroke: #718096 !important;
+    stroke-width: 1.5px !important;
 }
 
 /* Sequence diagram specific */
 .mermaid .actor {
-    stroke: #4a5568 !important;
-    fill: #ebf8ff !important;
+    stroke: #2d3748 !important;
+    fill: #e2e8f0 !important;
 }
 
 .mermaid .actor-line {
-    stroke: #a0aec0 !important;
+    stroke: #718096 !important;
+    stroke-width: 1px !important;
 }
 
 .mermaid .messageLine0,
 .mermaid .messageLine1 {
-    stroke: #4a5568 !important;
+    stroke: #2d3748 !important;
+    stroke-width: 1.5px !important;
 }
 
 /* ER diagram specific */
 .mermaid .er.entityBox {
-    fill: #ebf8ff !important;
-    stroke: #4a5568 !important;
+    fill: #e2e8f0 !important;
+    stroke: #2d3748 !important;
 }
 
 /* Class diagram specific */
 .mermaid .classGroup rect {
-    fill: #ebf8ff !important;
-    stroke: #4a5568 !important;
+    fill: #e2e8f0 !important;
+    stroke: #2d3748 !important;
 }
 
 /* Flowchart specific - node colors */
 .mermaid .node.default > rect,
 .mermaid .node.default > polygon {
-    fill: #ebf8ff !important;
+    fill: #e2e8f0 !important;
 }
 
-/* Gantt chart specific */
-.mermaid .task {
-    stroke: #4a5568 !important;
-}
-
-.mermaid .taskText {
-    fill: #2d3748 !important;
-}
-
-/* Force page breaks before large sections */
+/* Page break handling */
 h2 {
     page-break-before: auto !important;
 }
 
-/* Keep headers with following content */
 h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid !important;
 }
 
-/* Prevent orphaned content */
-p, li, pre, blockquote, table {
-    page-break-inside: avoid !important;
-}
-
-/* Force diagrams to fit on single page when possible */
-.mermaid[data-diagram-type="large"] {
+/* Large diagrams get their own page */
+.mermaid.large-diagram {
     page-break-before: always !important;
-    max-height: 700pt !important;
 }
-</style>
 """
 
 
 async def inject_pdf_styles(page):
     """Inject PDF-specific styles for better rendering."""
-    await page.add_style_tag(content=PDF_CSS.replace('<style>', '').replace('</style>', ''))
+    await page.add_style_tag(content=PDF_CSS)
 
 
-async def wait_for_mermaid_diagrams(page, timeout=30000):
+async def wait_for_mermaid_diagrams(page, timeout=45000):
     """Wait for all Mermaid diagrams to render completely."""
     try:
         # Wait for mermaid to be loaded
@@ -363,7 +348,7 @@ async def wait_for_mermaid_diagrams(page, timeout=30000):
         )
 
         # Wait for initial rendering
-        await page.wait_for_timeout(2000)
+        await page.wait_for_timeout(3000)
 
         # Check if there are mermaid divs and wait for them to be processed
         await page.wait_for_function(
@@ -390,7 +375,7 @@ async def wait_for_mermaid_diagrams(page, timeout=30000):
 
 
 async def optimize_diagrams_for_pdf(page):
-    """Optimize diagram sizes for PDF rendering."""
+    """Optimize diagram sizes for PDF rendering - make them LARGER."""
     await page.evaluate("""
         () => {
             const diagrams = document.querySelectorAll('.mermaid');
@@ -399,49 +384,48 @@ async def optimize_diagrams_for_pdf(page):
                 const svg = diagram.querySelector('svg');
                 if (!svg) return;
 
-                // Get SVG dimensions
-                let width = svg.getAttribute('width') || svg.viewBox?.baseVal?.width || 800;
-                let height = svg.getAttribute('height') || svg.viewBox?.baseVal?.height || 400;
-
-                // Parse dimensions if they're strings with 'px'
-                if (typeof width === 'string') width = parseInt(width.replace('px', '')) || 800;
-                if (typeof height === 'string') height = parseInt(height.replace('px', '')) || 400;
-
-                // Calculate optimal scale based on page width (approximately 520pt for A4 with margins)
-                const maxWidth = 520;
-                const maxHeight = 680; // Leave room for margins and page elements
-
-                let scale = 1;
-
-                if (width > maxWidth) {
-                    scale = maxWidth / width;
-                }
-
-                // Check if scaled height exceeds page
-                if (height * scale > maxHeight) {
-                    scale = Math.min(scale, maxHeight / height);
-                }
-
-                // Apply scale with minimum readable size
-                scale = Math.max(scale, 0.5);
-
-                // Set SVG dimensions
-                svg.style.maxWidth = '100%';
+                // Remove any max-width constraints
+                svg.style.maxWidth = 'none';
+                svg.style.width = '100%';
                 svg.style.height = 'auto';
                 svg.style.display = 'block';
                 svg.style.margin = '0 auto';
 
-                // For very tall diagrams, mark for page break
-                if (height > 500) {
-                    diagram.setAttribute('data-diagram-type', 'large');
+                // Remove width/height attributes to let CSS control sizing
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+
+                // Get the viewBox for proper scaling
+                const viewBox = svg.getAttribute('viewBox');
+                if (viewBox) {
+                    const parts = viewBox.split(' ');
+                    if (parts.length === 4) {
+                        const vbWidth = parseFloat(parts[2]);
+                        const vbHeight = parseFloat(parts[3]);
+
+                        // Set a reasonable aspect ratio preserving size
+                        if (vbHeight > vbWidth * 1.5) {
+                            // Very tall diagram - mark as large
+                            diagram.classList.add('large-diagram');
+                        }
+                    }
                 }
 
-                // Ensure text is readable
-                const texts = svg.querySelectorAll('text, .nodeLabel, .label, tspan');
+                // Increase text sizes in the SVG
+                const texts = svg.querySelectorAll('text, tspan, .nodeLabel, .label, .edgeLabel');
                 texts.forEach(text => {
                     const currentSize = parseFloat(window.getComputedStyle(text).fontSize) || 12;
-                    if (currentSize < 8) {
-                        text.style.fontSize = '8pt';
+                    if (currentSize < 10) {
+                        text.style.fontSize = '10px';
+                    }
+                });
+
+                // Make lines thicker
+                const paths = svg.querySelectorAll('path, line');
+                paths.forEach(path => {
+                    const currentWidth = parseFloat(window.getComputedStyle(path).strokeWidth) || 1;
+                    if (currentWidth < 1.5) {
+                        path.style.strokeWidth = '1.5px';
                     }
                 });
             });
@@ -456,6 +440,9 @@ async def generate_pdf(html_path: Path, pdf_path: Path):
         page = await browser.new_page()
 
         try:
+            # Set a larger viewport for better diagram rendering
+            await page.set_viewport_size({"width": 1400, "height": 900})
+
             # Navigate to the HTML file
             file_url = f'file://{html_path.absolute()}'
             await page.goto(file_url, wait_until='networkidle')
@@ -470,7 +457,7 @@ async def generate_pdf(html_path: Path, pdf_path: Path):
             await optimize_diagrams_for_pdf(page)
 
             # Additional wait for styles to apply
-            await page.wait_for_timeout(1000)
+            await page.wait_for_timeout(1500)
 
             # Generate PDF with optimized settings
             await page.pdf(
@@ -478,25 +465,25 @@ async def generate_pdf(html_path: Path, pdf_path: Path):
                 format='A4',
                 print_background=True,
                 margin={
-                    'top': '15mm',
-                    'right': '15mm',
-                    'bottom': '20mm',
-                    'left': '15mm'
+                    'top': '12mm',
+                    'right': '10mm',
+                    'bottom': '15mm',
+                    'left': '10mm'
                 },
                 display_header_footer=True,
                 header_template='''
-                    <div style="font-size: 8pt; color: #718096; width: 100%; text-align: center; padding: 5px 15mm;">
+                    <div style="font-size: 8pt; color: #718096; width: 100%; text-align: center; padding: 5px 10mm;">
                         Securaa Platform Documentation
                     </div>
                 ''',
                 footer_template='''
-                    <div style="font-size: 8pt; color: #718096; width: 100%; padding: 5px 15mm; display: flex; justify-content: space-between;">
+                    <div style="font-size: 8pt; color: #718096; width: 100%; padding: 5px 10mm; display: flex; justify-content: space-between;">
                         <span>Confidential</span>
                         <span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span>
                     </div>
                 ''',
                 prefer_css_page_size=False,
-                scale=0.95  # Slightly reduce scale to ensure content fits
+                scale=1.0  # Full scale for maximum readability
             )
 
             print(f"  Generated: {pdf_path.name}")

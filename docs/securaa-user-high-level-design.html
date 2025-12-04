@@ -620,18 +620,18 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="securaa-user-service-high-level-design">Securaa User Service - High Level Design<a class="headerlink" href="#securaa-user-service-high-level-design" title="Permanent link">&para;</a></h1>
-<h2 id="executive-overview">🎯 <strong>EXECUTIVE OVERVIEW</strong><a class="headerlink" href="#executive-overview" title="Permanent link">&para;</a></h2>
-<h3 id="critical-service-classification">⚠️ <strong>CRITICAL SERVICE CLASSIFICATION</strong><a class="headerlink" href="#critical-service-classification" title="Permanent link">&para;</a></h3>
+        <h1 id="securaa-user-service-high-level-design">Securaa User Service - High Level Design</h1>
+<h2 id="executive-overview">🎯 <strong>EXECUTIVE OVERVIEW</strong></h2>
+<h3 id="critical-service-classification">⚠️ <strong>CRITICAL SERVICE CLASSIFICATION</strong></h3>
 <p>The Securaa User Service is a <strong>mission-critical component</strong> that serves as the foundation of the entire Securaa security platform ecosystem. This service is the central nervous system for security operations, handling all aspects of user identity, access control, and tenant management across the platform.</p>
-<p><strong>Critical Impact Areas:</strong><br />
-- <strong>Security Posture</strong>: Controls access to all security operations and sensitive data<br />
-- <strong>Compliance Requirements</strong>: Manages audit trails and regulatory compliance<br />
-- <strong>Business Continuity</strong>: Essential for all platform operations and user workflows<br />
-- <strong>Data Protection</strong>: Enforces data access policies and tenant isolation<br />
+<p><strong>Critical Impact Areas:</strong>
+- <strong>Security Posture</strong>: Controls access to all security operations and sensitive data
+- <strong>Compliance Requirements</strong>: Manages audit trails and regulatory compliance
+- <strong>Business Continuity</strong>: Essential for all platform operations and user workflows
+- <strong>Data Protection</strong>: Enforces data access policies and tenant isolation
 - <strong>Operational Excellence</strong>: Enables monitoring, alerting, and incident response</p>
-<h3 id="business-context-objectives">🎯 <strong>BUSINESS CONTEXT &amp; OBJECTIVES</strong><a class="headerlink" href="#business-context-objectives" title="Permanent link">&para;</a></h3>
-<h4 id="primary-business-functions">Primary Business Functions<a class="headerlink" href="#primary-business-functions" title="Permanent link">&para;</a></h4>
+<h3 id="business-context-objectives">🎯 <strong>BUSINESS CONTEXT &amp; OBJECTIVES</strong></h3>
+<h4 id="primary-business-functions">Primary Business Functions</h4>
 <ul>
 <li><strong>Identity &amp; Access Management (IAM)</strong>: Centralized authentication and authorization</li>
 <li><strong>Multi-Tenant Security</strong>: Secure isolation and resource management across tenants  </li>
@@ -639,7 +639,7 @@ hr {
 <li><strong>Security Operations</strong>: Real-time monitoring, threat detection, and incident response</li>
 <li><strong>Enterprise Integration</strong>: Seamless integration with corporate identity systems</li>
 </ul>
-<h4 id="key-business-stakeholders">Key Business Stakeholders<a class="headerlink" href="#key-business-stakeholders" title="Permanent link">&para;</a></h4>
+<h4 id="key-business-stakeholders">Key Business Stakeholders</h4>
 <ul>
 <li><strong>Security Teams</strong>: Threat analysts, SOC operators, security engineers</li>
 <li><strong>Compliance Officers</strong>: Audit managers, risk assessors, compliance specialists</li>
@@ -647,8 +647,8 @@ hr {
 <li><strong>Business Users</strong>: End users, administrators, tenant managers</li>
 <li><strong>Executive Leadership</strong>: CISOs, CTOs, risk management executives</li>
 </ul>
-<h2 id="system-architecture-overview">🏗️ <strong>SYSTEM ARCHITECTURE OVERVIEW</strong><a class="headerlink" href="#system-architecture-overview" title="Permanent link">&para;</a></h2>
-<h3 id="high-level-system-architecture"><strong>High-Level System Architecture</strong><a class="headerlink" href="#high-level-system-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="system-architecture-overview">🏗️ <strong>SYSTEM ARCHITECTURE OVERVIEW</strong></h2>
+<h3 id="high-level-system-architecture"><strong>High-Level System Architecture</strong></h3>
 <p>The Securaa User Service follows a <strong>microservice architecture</strong> deployed on traditional servers or cloud infrastructure without container orchestration. The system is designed for high availability through load balancing and database replication.</p>
 <div class="mermaid">
 graph TB
@@ -719,14 +719,14 @@ graph TB
     SVC3 --> AUDIT_SERVICE
 </div>
 
-<p><strong>Architecture Overview:</strong><br />
-This architecture represents a traditional three-tier application deployed across multiple servers for high availability. The system uses:<br />
-- <strong>Load Balancing</strong>: HAProxy or Nginx for traffic distribution<br />
-- <strong>Service Clustering</strong>: Multiple service instances for redundancy<br />
-- <strong>Database Replication</strong>: MongoDB primary-secondary setup<br />
-- <strong>Caching Layer</strong>: Redis for session management and performance<br />
+<p><strong>Architecture Overview:</strong>
+This architecture represents a traditional three-tier application deployed across multiple servers for high availability. The system uses:
+- <strong>Load Balancing</strong>: HAProxy or Nginx for traffic distribution
+- <strong>Service Clustering</strong>: Multiple service instances for redundancy
+- <strong>Database Replication</strong>: MongoDB primary-secondary setup
+- <strong>Caching Layer</strong>: Redis for session management and performance
 - <strong>External Integrations</strong>: SMTP, SMS, and audit services</p>
-<h3 id="enterprise-security-architecture"><strong>Enterprise Security Architecture</strong><a class="headerlink" href="#enterprise-security-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="enterprise-security-architecture"><strong>Enterprise Security Architecture</strong></h3>
 <p>The security architecture implements a <strong>defense-in-depth approach</strong> with multiple security layers protecting the Securaa User Service. Each layer provides specific security controls and works together to create a comprehensive security posture.</p>
 <div class="mermaid">
 graph TB
@@ -775,28 +775,28 @@ graph TB
 </div>
 
 <p><strong>Security Implementation Details:</strong></p>
-<p><strong>Layer 1 - Application Security:</strong><br />
-- <strong>Authentication</strong>: Supports local credentials, LDAP/AD, SAML 2.0, and OAuth2 with mandatory MFA for privileged accounts<br />
-- <strong>Authorization</strong>: Implements RBAC with fine-grained permissions and complete tenant data isolation<br />
+<p><strong>Layer 1 - Application Security:</strong>
+- <strong>Authentication</strong>: Supports local credentials, LDAP/AD, SAML 2.0, and OAuth2 with mandatory MFA for privileged accounts
+- <strong>Authorization</strong>: Implements RBAC with fine-grained permissions and complete tenant data isolation
 - <strong>Input Validation</strong>: Comprehensive sanitization preventing SQL/NoSQL injection, XSS, and CSRF attacks</p>
-<p><strong>Layer 2 - Data Security:</strong><br />
-- <strong>Encryption at Rest</strong>: All sensitive data encrypted using AES-256 with rotating keys<br />
-- <strong>Encryption in Transit</strong>: TLS 1.3 for all communications with perfect forward secrecy<br />
+<p><strong>Layer 2 - Data Security:</strong>
+- <strong>Encryption at Rest</strong>: All sensitive data encrypted using AES-256 with rotating keys
+- <strong>Encryption in Transit</strong>: TLS 1.3 for all communications with perfect forward secrecy
 - <strong>Data Protection</strong>: PII masking in logs and exports with DLP controls</p>
-<p><strong>Layer 3 - Session Security:</strong><br />
-- <strong>JWT Implementation</strong>: Stateless tokens signed with RS256 algorithm<br />
-- <strong>Session Management</strong>: Redis-backed sessions with configurable timeouts<br />
+<p><strong>Layer 3 - Session Security:</strong>
+- <strong>JWT Implementation</strong>: Stateless tokens signed with RS256 algorithm
+- <strong>Session Management</strong>: Redis-backed sessions with configurable timeouts
 - <strong>Device Security</strong>: Browser fingerprinting and device binding for anomaly detection</p>
-<p><strong>Layer 4 - Network Security:</strong><br />
-- <strong>Web Application Firewall</strong>: ModSecurity with OWASP Core Rule Set<br />
-- <strong>Rate Limiting</strong>: Configurable request throttling per IP and user<br />
+<p><strong>Layer 4 - Network Security:</strong>
+- <strong>Web Application Firewall</strong>: ModSecurity with OWASP Core Rule Set
+- <strong>Rate Limiting</strong>: Configurable request throttling per IP and user
 - <strong>Access Controls</strong>: IP whitelisting and geolocation-based restrictions</p>
-<p><strong>Layer 5 - Infrastructure Security:</strong><br />
-- <strong>Server Hardening</strong>: CIS benchmark compliance with automated configuration management<br />
-- <strong>Access Management</strong>: SSH key-based authentication with audit logging<br />
+<p><strong>Layer 5 - Infrastructure Security:</strong>
+- <strong>Server Hardening</strong>: CIS benchmark compliance with automated configuration management
+- <strong>Access Management</strong>: SSH key-based authentication with audit logging
 - <strong>Monitoring</strong>: Real-time security event monitoring with automated alerting</p>
-<h2 id="core-business-capabilities">🎯 <strong>CORE BUSINESS CAPABILITIES</strong><a class="headerlink" href="#core-business-capabilities" title="Permanent link">&para;</a></h2>
-<h3 id="enterprise-identity-access-management"><strong>Enterprise Identity &amp; Access Management</strong><a class="headerlink" href="#enterprise-identity-access-management" title="Permanent link">&para;</a></h3>
+<h2 id="core-business-capabilities">🎯 <strong>CORE BUSINESS CAPABILITIES</strong></h2>
+<h3 id="enterprise-identity-access-management"><strong>Enterprise Identity &amp; Access Management</strong></h3>
 <div class="mermaid">
 mindmap
   root((Securaa User Service<br/>IAM Platform))
@@ -866,7 +866,7 @@ mindmap
         PCI DSS
 </div>
 
-<h3 id="multi-tenant-architecture-capabilities"><strong>Multi-Tenant Architecture Capabilities</strong><a class="headerlink" href="#multi-tenant-architecture-capabilities" title="Permanent link">&para;</a></h3>
+<h3 id="multi-tenant-architecture-capabilities"><strong>Multi-Tenant Architecture Capabilities</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Tenant Management Ecosystem"
@@ -928,8 +928,8 @@ graph TB
     DISASTER_RECOVERY --> SUPPORT_ESCALATION
 </div>
 
-<h2 id="critical-business-processes">🔄 <strong>CRITICAL BUSINESS PROCESSES</strong><a class="headerlink" href="#critical-business-processes" title="Permanent link">&para;</a></h2>
-<h3 id="user-authentication-flow"><strong>User Authentication Flow</strong><a class="headerlink" href="#user-authentication-flow" title="Permanent link">&para;</a></h3>
+<h2 id="critical-business-processes">🔄 <strong>CRITICAL BUSINESS PROCESSES</strong></h2>
+<h3 id="user-authentication-flow"><strong>User Authentication Flow</strong></h3>
 <div class="mermaid">
 sequenceDiagram
     participant U as User/Client
@@ -985,18 +985,18 @@ sequenceDiagram
     Note over U,NOTIFY: Session Established Successfully
 </div>
 
-<h3 id="real-time-notification-system"><strong>Real-Time Notification System</strong><a class="headerlink" href="#real-time-notification-system" title="Permanent link">&para;</a></h3>
+<h3 id="real-time-notification-system"><strong>Real-Time Notification System</strong></h3>
 <p>The notification system processes security events and user activities in real-time, delivering alerts through multiple channels. The system is designed for high throughput and reliable delivery with comprehensive audit trails.</p>
 <p><strong>System Components:</strong></p>
-<p><strong>Event Processing Pipeline:</strong><br />
+<p><strong>Event Processing Pipeline:</strong>
 The notification system begins with event ingestion from multiple sources including security monitors, user actions, and system events. Each event undergoes validation, enrichment with contextual data, and priority assignment based on severity and business impact.</p>
-<p><strong>Notification Engine:</strong><br />
+<p><strong>Notification Engine:</strong>
 The core engine processes validated events through template formatting, intelligent routing based on user preferences and policies, and channel selection for optimal delivery. Built-in rate limiting prevents notification flooding while retry mechanisms ensure reliable delivery.</p>
-<p><strong>Delivery Channels:</strong><br />
-Multiple delivery channels support diverse user preferences and urgency levels:<br />
-- <strong>WebSocket</strong>: Real-time browser notifications for immediate awareness<br />
-- <strong>Email</strong>: Detailed notifications with rich formatting and attachments<br />
-- <strong>SMS</strong>: Critical alerts for urgent security events<br />
+<p><strong>Delivery Channels:</strong>
+Multiple delivery channels support diverse user preferences and urgency levels:
+- <strong>WebSocket</strong>: Real-time browser notifications for immediate awareness
+- <strong>Email</strong>: Detailed notifications with rich formatting and attachments
+- <strong>SMS</strong>: Critical alerts for urgent security events
 - <strong>Webhooks</strong>: Integration with external systems and ITSM tools</p>
 <div class="mermaid">
 graph LR
@@ -1041,26 +1041,26 @@ graph LR
     EMAIL --> AUDIT
 </div>
 
-<p><strong>Delivery Guarantees:</strong><br />
-- <strong>At-least-once delivery</strong> for critical security notifications<br />
-- <strong>Duplicate detection</strong> to prevent notification spam<br />
-- <strong>Retry policies</strong> with exponential backoff for failed deliveries<br />
-- <strong>Dead letter queues</strong> for undeliverable notifications<br />
+<p><strong>Delivery Guarantees:</strong>
+- <strong>At-least-once delivery</strong> for critical security notifications
+- <strong>Duplicate detection</strong> to prevent notification spam
+- <strong>Retry policies</strong> with exponential backoff for failed deliveries
+- <strong>Dead letter queues</strong> for undeliverable notifications
 - <strong>Delivery confirmation</strong> tracking and analytics</p>
-<p><strong>Performance Characteristics:</strong><br />
-- <strong>Event Processing</strong>: 10,000+ events per second capacity<br />
-- <strong>Delivery Latency</strong>: &lt; 100ms for WebSocket notifications<br />
-- <strong>Email Delivery</strong>: &lt; 30 seconds for non-critical notifications<br />
-- <strong>SMS Delivery</strong>: &lt; 5 seconds for urgent security alerts<br />
+<p><strong>Performance Characteristics:</strong>
+- <strong>Event Processing</strong>: 10,000+ events per second capacity
+- <strong>Delivery Latency</strong>: &lt; 100ms for WebSocket notifications
+- <strong>Email Delivery</strong>: &lt; 30 seconds for non-critical notifications
+- <strong>SMS Delivery</strong>: &lt; 5 seconds for urgent security alerts
 - <strong>System Reliability</strong>: 99.9% delivery success rate with monitoring</p>
-<p><strong>Configuration Management:</strong><br />
-Users and administrators can configure notification preferences including:<br />
-- <strong>Channel Preferences</strong>: Primary and fallback delivery channels<br />
-- <strong>Frequency Controls</strong>: Rate limiting and quiet hours<br />
-- <strong>Content Filtering</strong>: Event type and severity preferences<br />
+<p><strong>Configuration Management:</strong>
+Users and administrators can configure notification preferences including:
+- <strong>Channel Preferences</strong>: Primary and fallback delivery channels
+- <strong>Frequency Controls</strong>: Rate limiting and quiet hours
+- <strong>Content Filtering</strong>: Event type and severity preferences
 - <strong>Escalation Policies</strong>: Automatic escalation for unacknowledged critical alerts</p>
-<h2 id="enterprise-security-strategy">🛡️ <strong>ENTERPRISE SECURITY STRATEGY</strong><a class="headerlink" href="#enterprise-security-strategy" title="Permanent link">&para;</a></h2>
-<h3 id="zero-trust-security-model"><strong>Zero-Trust Security Model</strong><a class="headerlink" href="#zero-trust-security-model" title="Permanent link">&para;</a></h3>
+<h2 id="enterprise-security-strategy">🛡️ <strong>ENTERPRISE SECURITY STRATEGY</strong></h2>
+<h3 id="zero-trust-security-model"><strong>Zero-Trust Security Model</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Zero-Trust Architecture"
@@ -1110,8 +1110,8 @@ graph TB
     PRIVACY_CONTROLS --> AUTOMATED_RESPONSE
 </div>
 
-<h2 id="business-intelligence-analytics">📊 <strong>BUSINESS INTELLIGENCE &amp; ANALYTICS</strong><a class="headerlink" href="#business-intelligence-analytics" title="Permanent link">&para;</a></h2>
-<h3 id="security-operations-dashboard"><strong>Security Operations Dashboard</strong><a class="headerlink" href="#security-operations-dashboard" title="Permanent link">&para;</a></h3>
+<h2 id="business-intelligence-analytics">📊 <strong>BUSINESS INTELLIGENCE &amp; ANALYTICS</strong></h2>
+<h3 id="security-operations-dashboard"><strong>Security Operations Dashboard</strong></h3>
 <div class="mermaid">
 pie title Authentication Methods Distribution
     "Local Authentication" : 35
@@ -1151,19 +1151,19 @@ gitgraph
     commit id: "Enterprise Scale"
 </div>
 
-<h2 id="scalability-performance-strategy">🚀 <strong>SCALABILITY &amp; PERFORMANCE STRATEGY</strong><a class="headerlink" href="#scalability-performance-strategy" title="Permanent link">&para;</a></h2>
-<h3 id="horizontal-scaling-approach"><strong>Horizontal Scaling Approach</strong><a class="headerlink" href="#horizontal-scaling-approach" title="Permanent link">&para;</a></h3>
+<h2 id="scalability-performance-strategy">🚀 <strong>SCALABILITY &amp; PERFORMANCE STRATEGY</strong></h2>
+<h3 id="horizontal-scaling-approach"><strong>Horizontal Scaling Approach</strong></h3>
 <p>The Securaa User Service is designed for horizontal scaling using traditional load balancing and database replication techniques. This approach provides high availability and performance without requiring complex orchestration platforms.</p>
 <p><strong>Scaling Architecture:</strong></p>
-<p><strong>Load Distribution Strategy:</strong><br />
-- <strong>Primary Load Balancer</strong>: HAProxy or Nginx distributing traffic across service instances<br />
-- <strong>Health Check Integration</strong>: Automatic removal of unhealthy instances from rotation<br />
-- <strong>Session Affinity</strong>: Optional sticky sessions for WebSocket connections<br />
+<p><strong>Load Distribution Strategy:</strong>
+- <strong>Primary Load Balancer</strong>: HAProxy or Nginx distributing traffic across service instances
+- <strong>Health Check Integration</strong>: Automatic removal of unhealthy instances from rotation
+- <strong>Session Affinity</strong>: Optional sticky sessions for WebSocket connections
 - <strong>Geographic Distribution</strong>: Regional deployment for reduced latency</p>
-<p><strong>Service Instance Scaling:</strong><br />
-- <strong>Stateless Design</strong>: Service instances maintain no local state for easy scaling<br />
-- <strong>Auto-scaling</strong>: Scripted scaling based on CPU, memory, and request metrics<br />
-- <strong>Manual Scaling</strong>: Administrative tools for planned capacity adjustments<br />
+<p><strong>Service Instance Scaling:</strong>
+- <strong>Stateless Design</strong>: Service instances maintain no local state for easy scaling
+- <strong>Auto-scaling</strong>: Scripted scaling based on CPU, memory, and request metrics
+- <strong>Manual Scaling</strong>: Administrative tools for planned capacity adjustments
 - <strong>Blue-Green Deployment</strong>: Zero-downtime deployments during scaling operations</p>
 <div class="mermaid">
 graph TB
@@ -1217,59 +1217,59 @@ graph TB
 </div>
 
 <p><strong>Performance Optimization Techniques:</strong></p>
-<p><strong>Database Performance:</strong><br />
-- <strong>Connection Pooling</strong>: Optimized connection management with configurable pool sizes<br />
-- <strong>Read Replicas</strong>: Distributed read operations across secondary database instances<br />
-- <strong>Query Optimization</strong>: Proper indexing and efficient aggregation pipelines<br />
+<p><strong>Database Performance:</strong>
+- <strong>Connection Pooling</strong>: Optimized connection management with configurable pool sizes
+- <strong>Read Replicas</strong>: Distributed read operations across secondary database instances
+- <strong>Query Optimization</strong>: Proper indexing and efficient aggregation pipelines
 - <strong>Sharding Strategy</strong>: Horizontal database partitioning for large datasets</p>
-<p><strong>Caching Strategy:</strong><br />
-- <strong>Multi-Level Caching</strong>: In-memory application cache + Redis distributed cache<br />
-- <strong>Cache Patterns</strong>: Write-through, write-behind, and cache-aside patterns<br />
-- <strong>TTL Management</strong>: Intelligent expiration policies for different data types<br />
+<p><strong>Caching Strategy:</strong>
+- <strong>Multi-Level Caching</strong>: In-memory application cache + Redis distributed cache
+- <strong>Cache Patterns</strong>: Write-through, write-behind, and cache-aside patterns
+- <strong>TTL Management</strong>: Intelligent expiration policies for different data types
 - <strong>Cache Warming</strong>: Preloading frequently accessed data during startup</p>
-<p><strong>Application Performance:</strong><br />
-- <strong>Goroutine Optimization</strong>: Efficient concurrent processing with worker pools<br />
-- <strong>Memory Management</strong>: Optimized garbage collection and memory allocation<br />
-- <strong>HTTP Keep-Alive</strong>: Connection reuse for reduced overhead<br />
+<p><strong>Application Performance:</strong>
+- <strong>Goroutine Optimization</strong>: Efficient concurrent processing with worker pools
+- <strong>Memory Management</strong>: Optimized garbage collection and memory allocation
+- <strong>HTTP Keep-Alive</strong>: Connection reuse for reduced overhead
 - <strong>Compression</strong>: Response compression for reduced bandwidth usage</p>
 <p><strong>Capacity Planning:</strong></p>
-<p><strong>Performance Targets:</strong><br />
-- <strong>Concurrent Users</strong>: 10,000+ simultaneous active sessions<br />
-- <strong>Request Throughput</strong>: 5,000+ requests per second per instance<br />
-- <strong>Response Time</strong>: &lt; 100ms for authentication requests (95th percentile)<br />
-- <strong>Database Operations</strong>: &lt; 50ms for typical CRUD operations<br />
+<p><strong>Performance Targets:</strong>
+- <strong>Concurrent Users</strong>: 10,000+ simultaneous active sessions
+- <strong>Request Throughput</strong>: 5,000+ requests per second per instance
+- <strong>Response Time</strong>: &lt; 100ms for authentication requests (95th percentile)
+- <strong>Database Operations</strong>: &lt; 50ms for typical CRUD operations
 - <strong>Cache Operations</strong>: &lt; 1ms for Redis operations</p>
-<p><strong>Resource Requirements:</strong><br />
-- <strong>CPU</strong>: 4 cores minimum per service instance for production workloads<br />
-- <strong>Memory</strong>: 8GB RAM minimum with JVM heap optimization<br />
-- <strong>Storage</strong>: SSD storage for database and logs with IOPS optimization<br />
+<p><strong>Resource Requirements:</strong>
+- <strong>CPU</strong>: 4 cores minimum per service instance for production workloads
+- <strong>Memory</strong>: 8GB RAM minimum with JVM heap optimization
+- <strong>Storage</strong>: SSD storage for database and logs with IOPS optimization
 - <strong>Network</strong>: Gigabit network connectivity with low latency requirements</p>
-<p><strong>Monitoring and Alerting:</strong><br />
-- <strong>Performance Metrics</strong>: Real-time monitoring of response times and throughput<br />
-- <strong>Resource Utilization</strong>: CPU, memory, and disk usage tracking<br />
-- <strong>Auto-scaling Triggers</strong>: Automated scaling based on performance thresholds<br />
+<p><strong>Monitoring and Alerting:</strong>
+- <strong>Performance Metrics</strong>: Real-time monitoring of response times and throughput
+- <strong>Resource Utilization</strong>: CPU, memory, and disk usage tracking
+- <strong>Auto-scaling Triggers</strong>: Automated scaling based on performance thresholds
 - <strong>Capacity Alerts</strong>: Proactive alerting for capacity planning needs</p>
-<h2 id="integration-architecture">🔍 <strong>INTEGRATION ARCHITECTURE</strong><a class="headerlink" href="#integration-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="external-system-integration-strategy"><strong>External System Integration Strategy</strong><a class="headerlink" href="#external-system-integration-strategy" title="Permanent link">&para;</a></h3>
+<h2 id="integration-architecture">🔍 <strong>INTEGRATION ARCHITECTURE</strong></h2>
+<h3 id="external-system-integration-strategy"><strong>External System Integration Strategy</strong></h3>
 <p>The Securaa User Service integrates with various external systems to provide comprehensive identity management and security operations. These integrations are designed for reliability, security, and maintainability.</p>
 <p><strong>Integration Categories:</strong></p>
-<p><strong>Identity Provider Integrations:</strong><br />
-The service supports multiple authentication protocols to accommodate diverse enterprise environments:<br />
-- <strong>SAML 2.0</strong>: Enterprise SSO with digital signature validation and metadata exchange<br />
-- <strong>OAuth2/OIDC</strong>: Modern authentication with authorization code flow and PKCE<br />
-- <strong>LDAP/Active Directory</strong>: Corporate directory integration with connection pooling<br />
+<p><strong>Identity Provider Integrations:</strong>
+The service supports multiple authentication protocols to accommodate diverse enterprise environments:
+- <strong>SAML 2.0</strong>: Enterprise SSO with digital signature validation and metadata exchange
+- <strong>OAuth2/OIDC</strong>: Modern authentication with authorization code flow and PKCE
+- <strong>LDAP/Active Directory</strong>: Corporate directory integration with connection pooling
 - <strong>Local Authentication</strong>: Native credential management with bcrypt hashing</p>
-<p><strong>Communication Service Integrations:</strong><br />
-Multi-channel communication capabilities ensure reliable notification delivery:<br />
-- <strong>SMTP Services</strong>: Email delivery with template support and delivery tracking<br />
-- <strong>SMS Gateways</strong>: Text message delivery for two-factor authentication and alerts<br />
-- <strong>WebSocket</strong>: Real-time browser notifications for immediate user feedback<br />
+<p><strong>Communication Service Integrations:</strong>
+Multi-channel communication capabilities ensure reliable notification delivery:
+- <strong>SMTP Services</strong>: Email delivery with template support and delivery tracking
+- <strong>SMS Gateways</strong>: Text message delivery for two-factor authentication and alerts
+- <strong>WebSocket</strong>: Real-time browser notifications for immediate user feedback
 - <strong>Webhook Endpoints</strong>: Custom integrations with external systems and ITSM tools</p>
-<p><strong>Security Tool Integrations:</strong><br />
-Integration with security infrastructure enhances the overall security posture:<br />
-- <strong>SIEM Platforms</strong>: Security event forwarding and correlation<br />
-- <strong>Audit Systems</strong>: Compliance logging and long-term storage<br />
-- <strong>Key Management</strong>: External key storage and rotation services<br />
+<p><strong>Security Tool Integrations:</strong>
+Integration with security infrastructure enhances the overall security posture:
+- <strong>SIEM Platforms</strong>: Security event forwarding and correlation
+- <strong>Audit Systems</strong>: Compliance logging and long-term storage
+- <strong>Key Management</strong>: External key storage and rotation services
 - <strong>Threat Intelligence</strong>: Security feed integration for risk assessment</p>
 <div class="mermaid">
 graph TB
@@ -1320,26 +1320,26 @@ graph TB
 </div>
 
 <p><strong>Integration Patterns:</strong></p>
-<p><strong>Synchronous Integrations:</strong><br />
-- <strong>Authentication Flows</strong>: Real-time validation with external identity providers<br />
-- <strong>Authorization Checks</strong>: Immediate permission validation with directory services<br />
+<p><strong>Synchronous Integrations:</strong>
+- <strong>Authentication Flows</strong>: Real-time validation with external identity providers
+- <strong>Authorization Checks</strong>: Immediate permission validation with directory services
 - <strong>Configuration Retrieval</strong>: On-demand configuration from external systems</p>
-<p><strong>Asynchronous Integrations:</strong><br />
-- <strong>Audit Logging</strong>: Batch or streaming audit data to compliance systems<br />
-- <strong>Notification Delivery</strong>: Queued message delivery through various channels<br />
+<p><strong>Asynchronous Integrations:</strong>
+- <strong>Audit Logging</strong>: Batch or streaming audit data to compliance systems
+- <strong>Notification Delivery</strong>: Queued message delivery through various channels
 - <strong>Metrics Reporting</strong>: Periodic performance and security metrics transmission</p>
-<p><strong>Error Handling and Resilience:</strong><br />
-- <strong>Circuit Breakers</strong>: Automatic fallback when external services are unavailable<br />
-- <strong>Retry Policies</strong>: Exponential backoff for transient failures<br />
-- <strong>Timeout Management</strong>: Configurable timeouts to prevent hanging requests<br />
+<p><strong>Error Handling and Resilience:</strong>
+- <strong>Circuit Breakers</strong>: Automatic fallback when external services are unavailable
+- <strong>Retry Policies</strong>: Exponential backoff for transient failures
+- <strong>Timeout Management</strong>: Configurable timeouts to prevent hanging requests
 - <strong>Fallback Mechanisms</strong>: Local caching and degraded functionality options</p>
-<p><strong>Security Considerations:</strong><br />
-- <strong>API Authentication</strong>: Mutual TLS or API keys for all external communications<br />
-- <strong>Data Encryption</strong>: All sensitive data encrypted in transit and at rest<br />
-- <strong>Network Security</strong>: VPN or private network connections where possible<br />
+<p><strong>Security Considerations:</strong>
+- <strong>API Authentication</strong>: Mutual TLS or API keys for all external communications
+- <strong>Data Encryption</strong>: All sensitive data encrypted in transit and at rest
+- <strong>Network Security</strong>: VPN or private network connections where possible
 - <strong>Access Control</strong>: Principle of least privilege for service-to-service communication</p>
-<h2 id="compliance-governance-framework">📋 <strong>COMPLIANCE &amp; GOVERNANCE FRAMEWORK</strong><a class="headerlink" href="#compliance-governance-framework" title="Permanent link">&para;</a></h2>
-<h3 id="regulatory-compliance-matrix"><strong>Regulatory Compliance Matrix</strong><a class="headerlink" href="#regulatory-compliance-matrix" title="Permanent link">&para;</a></h3>
+<h2 id="compliance-governance-framework">📋 <strong>COMPLIANCE &amp; GOVERNANCE FRAMEWORK</strong></h2>
+<h3 id="regulatory-compliance-matrix"><strong>Regulatory Compliance Matrix</strong></h3>
 <table>
 <thead>
 <tr>
@@ -1402,7 +1402,7 @@ graph TB
 </tr>
 </tbody>
 </table>
-<h3 id="data-governance-architecture"><strong>Data Governance Architecture</strong><a class="headerlink" href="#data-governance-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="data-governance-architecture"><strong>Data Governance Architecture</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Data Classification"
@@ -1462,8 +1462,8 @@ graph TB
     TRANSMISSION -.-> MONITORING
 </div>
 
-<h2 id="business-continuity-disaster-recovery">🎯 <strong>BUSINESS CONTINUITY &amp; DISASTER RECOVERY</strong><a class="headerlink" href="#business-continuity-disaster-recovery" title="Permanent link">&para;</a></h2>
-<h3 id="business-continuity-strategy"><strong>Business Continuity Strategy</strong><a class="headerlink" href="#business-continuity-strategy" title="Permanent link">&para;</a></h3>
+<h2 id="business-continuity-disaster-recovery">🎯 <strong>BUSINESS CONTINUITY &amp; DISASTER RECOVERY</strong></h2>
+<h3 id="business-continuity-strategy"><strong>Business Continuity Strategy</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Business Impact Analysis"
@@ -1513,8 +1513,8 @@ graph TB
     TESTING --> COMMUNICATION
 </div>
 
-<h2 id="key-performance-indicators">📈 <strong>KEY PERFORMANCE INDICATORS</strong><a class="headerlink" href="#key-performance-indicators" title="Permanent link">&para;</a></h2>
-<h3 id="service-level-objectives-slos"><strong>Service Level Objectives (SLOs)</strong><a class="headerlink" href="#service-level-objectives-slos" title="Permanent link">&para;</a></h3>
+<h2 id="key-performance-indicators">📈 <strong>KEY PERFORMANCE INDICATORS</strong></h2>
+<h3 id="service-level-objectives-slos"><strong>Service Level Objectives (SLOs)</strong></h3>
 <ul>
 <li><strong>Availability</strong>: 99.99% uptime (52.6 minutes downtime/year)</li>
 <li><strong>Authentication Response Time</strong>: &lt; 100ms for 95th percentile</li>
@@ -1524,7 +1524,7 @@ graph TB
 <li><strong>Recovery Time Objective (RTO)</strong>: &lt; 15 minutes</li>
 <li><strong>Recovery Point Objective (RPO)</strong>: &lt; 5 minutes</li>
 </ul>
-<h3 id="security-metrics"><strong>Security Metrics</strong><a class="headerlink" href="#security-metrics" title="Permanent link">&para;</a></h3>
+<h3 id="security-metrics"><strong>Security Metrics</strong></h3>
 <ul>
 <li><strong>Authentication Success Rate</strong>: &gt; 99.5%</li>
 <li><strong>Failed Login Threshold</strong>: &lt; 2% of total attempts</li>
@@ -1533,7 +1533,7 @@ graph TB
 <li><strong>Encryption Coverage</strong>: 100% data at rest and in transit</li>
 <li><strong>Vulnerability Detection</strong>: &lt; 24 hours for critical issues</li>
 </ul>
-<h3 id="business-metrics"><strong>Business Metrics</strong><a class="headerlink" href="#business-metrics" title="Permanent link">&para;</a></h3>
+<h3 id="business-metrics"><strong>Business Metrics</strong></h3>
 <ul>
 <li><strong>User Onboarding Time</strong>: &lt; 5 minutes for new users</li>
 <li><strong>Password Reset Resolution</strong>: &lt; 2 minutes average</li>

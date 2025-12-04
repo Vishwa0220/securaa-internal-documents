@@ -620,8 +620,8 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="zona-custom-utils-service-high-level-design-hld">Zona Custom Utils Service - High-Level Design (HLD)<a class="headerlink" href="#zona-custom-utils-service-high-level-design-hld" title="Permanent link">&para;</a></h1>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+        <h1 id="zona-custom-utils-service-high-level-design-hld">Zona Custom Utils Service - High-Level Design (HLD)</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#executive-summary">Executive Summary</a></li>
 <li><a href="#system-overview">System Overview</a></li>
@@ -636,9 +636,9 @@ hr {
 <li><a href="#business-process-flows">Business Process Flows</a></li>
 <li><a href="#non-functional-requirements">Non-Functional Requirements</a></li>
 </ol>
-<h2 id="executive-summary">Executive Summary<a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
+<h2 id="executive-summary">Executive Summary</h2>
 <p>The Zona Custom Utils Service is a microservice designed to enable users to create, manage, and execute custom utility functions in a secure, multi-tenant environment. The service supports Python-based transformers and scripts, providing isolated execution environments through containerization while maintaining comprehensive audit trails and performance optimization.</p>
-<h3 id="key-business-value">Key Business Value<a class="headerlink" href="#key-business-value" title="Permanent link">&para;</a></h3>
+<h3 id="key-business-value">Key Business Value</h3>
 <ul>
 <li><strong>Extensibility</strong>: Allows users to create custom data processing utilities</li>
 <li><strong>Security</strong>: Provides secure code validation and isolated execution</li>
@@ -646,7 +646,7 @@ hr {
 <li><strong>Scalability</strong>: Designed for high-volume, concurrent operations</li>
 <li><strong>Compliance</strong>: Comprehensive audit logging for regulatory requirements</li>
 </ul>
-<h3 id="solution-approach">Solution Approach<a class="headerlink" href="#solution-approach" title="Permanent link">&para;</a></h3>
+<h3 id="solution-approach">Solution Approach</h3>
 <ul>
 <li><strong>Microservice Architecture</strong>: Self-contained service with clear boundaries</li>
 <li><strong>Container-based Execution</strong>: Docker containers for secure Python code execution</li>
@@ -654,7 +654,7 @@ hr {
 <li><strong>Multi-tenant Data Model</strong>: Isolated data storage per tenant</li>
 <li><strong>Event-driven Processing</strong>: Asynchronous operations for non-critical tasks</li>
 </ul>
-<h2 id="system-overview">System Overview<a class="headerlink" href="#system-overview" title="Permanent link">&para;</a></h2>
+<h2 id="system-overview">System Overview</h2>
 <div class="mermaid">
 graph TB
     subgraph "External Interfaces"
@@ -707,7 +707,7 @@ graph TB
     APP --> MONITORING
 </div>
 
-<h3 id="system-context">System Context<a class="headerlink" href="#system-context" title="Permanent link">&para;</a></h3>
+<h3 id="system-context">System Context</h3>
 <p>The Zona Custom Utils Service operates within a larger ecosystem of microservices, providing custom utility management capabilities. It integrates with:</p>
 <ul>
 <li><strong>Authentication Services</strong>: For user authentication and authorization</li>
@@ -716,9 +716,9 @@ graph TB
 <li><strong>Monitoring Infrastructure</strong>: For observability and alerting</li>
 <li><strong>Storage Services</strong>: For persistent data and file management</li>
 </ul>
-<h2 id="business-requirements">Business Requirements<a class="headerlink" href="#business-requirements" title="Permanent link">&para;</a></h2>
-<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
-<h4 id="fr-001-custom-utility-management">FR-001: Custom Utility Management<a class="headerlink" href="#fr-001-custom-utility-management" title="Permanent link">&para;</a></h4>
+<h2 id="business-requirements">Business Requirements</h2>
+<h3 id="functional-requirements">Functional Requirements</h3>
+<h4 id="fr-001-custom-utility-management">FR-001: Custom Utility Management</h4>
 <ul>
 <li>Users must be able to create custom Python utilities</li>
 <li>System must validate Python syntax and security</li>
@@ -726,79 +726,79 @@ graph TB
 <li>Users must be able to delete utilities they own</li>
 <li>System must maintain version history</li>
 </ul>
-<h4 id="fr-002-code-validation-and-security">FR-002: Code Validation and Security<a class="headerlink" href="#fr-002-code-validation-and-security" title="Permanent link">&para;</a></h4>
+<h4 id="fr-002-code-validation-and-security">FR-002: Code Validation and Security</h4>
 <ul>
 <li>System must validate Python syntax before saving</li>
 <li>System must scan for prohibited code patterns</li>
 <li>System must prevent execution of malicious code</li>
 <li>System must provide detailed validation feedback</li>
 </ul>
-<h4 id="fr-003-utility-execution">FR-003: Utility Execution<a class="headerlink" href="#fr-003-utility-execution" title="Permanent link">&para;</a></h4>
+<h4 id="fr-003-utility-execution">FR-003: Utility Execution</h4>
 <ul>
 <li>Users must be able to execute their custom utilities</li>
 <li>System must provide real-time execution output</li>
 <li>System must support parameterized execution</li>
 <li>System must handle execution timeouts gracefully</li>
 </ul>
-<h4 id="fr-004-multi-tenant-support">FR-004: Multi-tenant Support<a class="headerlink" href="#fr-004-multi-tenant-support" title="Permanent link">&para;</a></h4>
+<h4 id="fr-004-multi-tenant-support">FR-004: Multi-tenant Support</h4>
 <ul>
 <li>System must isolate data between tenants</li>
 <li>System must support tenant-specific configurations</li>
 <li>System must enable cross-tenant utility copying</li>
 <li>System must maintain tenant-level audit trails</li>
 </ul>
-<h4 id="fr-005-exportimport-functionality">FR-005: Export/Import Functionality<a class="headerlink" href="#fr-005-exportimport-functionality" title="Permanent link">&para;</a></h4>
+<h4 id="fr-005-exportimport-functionality">FR-005: Export/Import Functionality</h4>
 <ul>
 <li>Users must be able to export utilities</li>
 <li>Users must be able to import utilities</li>
 <li>System must support bulk operations</li>
 <li>System must validate imported utilities</li>
 </ul>
-<h4 id="fr-006-audit-and-compliance">FR-006: Audit and Compliance<a class="headerlink" href="#fr-006-audit-and-compliance" title="Permanent link">&para;</a></h4>
+<h4 id="fr-006-audit-and-compliance">FR-006: Audit and Compliance</h4>
 <ul>
 <li>System must log all user actions</li>
 <li>System must maintain execution history</li>
 <li>System must provide compliance reporting</li>
 <li>System must support data retention policies</li>
 </ul>
-<h3 id="non-functional-requirements">Non-Functional Requirements<a class="headerlink" href="#non-functional-requirements" title="Permanent link">&para;</a></h3>
-<h4 id="nfr-001-performance">NFR-001: Performance<a class="headerlink" href="#nfr-001-performance" title="Permanent link">&para;</a></h4>
+<h3 id="non-functional-requirements">Non-Functional Requirements</h3>
+<h4 id="nfr-001-performance">NFR-001: Performance</h4>
 <ul>
 <li>API response time &lt; 500ms for read operations</li>
 <li>API response time &lt; 2s for write operations</li>
 <li>System must support 1000+ concurrent users</li>
 <li>Utility execution timeout &lt; 300 seconds</li>
 </ul>
-<h4 id="nfr-002-scalability">NFR-002: Scalability<a class="headerlink" href="#nfr-002-scalability" title="Permanent link">&para;</a></h4>
+<h4 id="nfr-002-scalability">NFR-002: Scalability</h4>
 <ul>
 <li>System must scale horizontally</li>
 <li>Must support 100+ tenants</li>
 <li>Must handle 10,000+ utilities per tenant</li>
 <li>Database must support sharding</li>
 </ul>
-<h4 id="nfr-003-availability">NFR-003: Availability<a class="headerlink" href="#nfr-003-availability" title="Permanent link">&para;</a></h4>
+<h4 id="nfr-003-availability">NFR-003: Availability</h4>
 <ul>
 <li>System uptime &gt; 99.9%</li>
 <li>Recovery time &lt; 5 minutes</li>
 <li>Data backup every 24 hours</li>
 <li>Multi-region disaster recovery</li>
 </ul>
-<h4 id="nfr-004-security">NFR-004: Security<a class="headerlink" href="#nfr-004-security" title="Permanent link">&para;</a></h4>
+<h4 id="nfr-004-security">NFR-004: Security</h4>
 <ul>
 <li>All data encrypted at rest and in transit</li>
 <li>Role-based access control</li>
 <li>Code execution in isolated environments</li>
 <li>Regular security audits</li>
 </ul>
-<h4 id="nfr-005-usability">NFR-005: Usability<a class="headerlink" href="#nfr-005-usability" title="Permanent link">&para;</a></h4>
+<h4 id="nfr-005-usability">NFR-005: Usability</h4>
 <ul>
 <li>Intuitive web interface</li>
 <li>Comprehensive API documentation</li>
 <li>Real-time feedback and validation</li>
 <li>Multi-language support</li>
 </ul>
-<h2 id="solution-architecture">Solution Architecture<a class="headerlink" href="#solution-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="architectural-principles">Architectural Principles<a class="headerlink" href="#architectural-principles" title="Permanent link">&para;</a></h3>
+<h2 id="solution-architecture">Solution Architecture</h2>
+<h3 id="architectural-principles">Architectural Principles</h3>
 <ol>
 <li><strong>Single Responsibility</strong>: Each component has a well-defined purpose</li>
 <li><strong>Loose Coupling</strong>: Components interact through well-defined interfaces</li>
@@ -806,7 +806,7 @@ graph TB
 <li><strong>Separation of Concerns</strong>: Clear boundaries between different aspects</li>
 <li><strong>Fail-Safe Design</strong>: Graceful degradation under failure conditions</li>
 </ol>
-<h3 id="architecture-patterns">Architecture Patterns<a class="headerlink" href="#architecture-patterns" title="Permanent link">&para;</a></h3>
+<h3 id="architecture-patterns">Architecture Patterns</h3>
 <ul>
 <li><strong>Layered Architecture</strong>: Clear separation between presentation, business, and data layers</li>
 <li><strong>Repository Pattern</strong>: Abstracted data access layer</li>
@@ -814,32 +814,32 @@ graph TB
 <li><strong>Middleware Pattern</strong>: Cross-cutting concerns handling</li>
 <li><strong>Circuit Breaker</strong>: Fault tolerance for external service calls</li>
 </ul>
-<h3 id="technology-decisions">Technology Decisions<a class="headerlink" href="#technology-decisions" title="Permanent link">&para;</a></h3>
-<h4 id="programming-language-go">Programming Language: Go<a class="headerlink" href="#programming-language-go" title="Permanent link">&para;</a></h4>
-<p><strong>Rationale</strong>: <br />
-- High performance and low latency<br />
-- Excellent concurrency support<br />
-- Strong ecosystem for microservices<br />
+<h3 id="technology-decisions">Technology Decisions</h3>
+<h4 id="programming-language-go">Programming Language: Go</h4>
+<p><strong>Rationale</strong>: 
+- High performance and low latency
+- Excellent concurrency support
+- Strong ecosystem for microservices
 - Easy deployment and maintenance</p>
-<h4 id="database-mongodb">Database: MongoDB<a class="headerlink" href="#database-mongodb" title="Permanent link">&para;</a></h4>
-<p><strong>Rationale</strong>:<br />
-- Document-based model fits utility metadata<br />
-- Horizontal scaling capabilities<br />
-- Rich querying capabilities<br />
+<h4 id="database-mongodb">Database: MongoDB</h4>
+<p><strong>Rationale</strong>:
+- Document-based model fits utility metadata
+- Horizontal scaling capabilities
+- Rich querying capabilities
 - Multi-tenant support</p>
-<h4 id="cache-redis">Cache: Redis<a class="headerlink" href="#cache-redis" title="Permanent link">&para;</a></h4>
-<p><strong>Rationale</strong>:<br />
-- High-performance in-memory storage<br />
-- Advanced data structures<br />
-- Pub/Sub capabilities<br />
+<h4 id="cache-redis">Cache: Redis</h4>
+<p><strong>Rationale</strong>:
+- High-performance in-memory storage
+- Advanced data structures
+- Pub/Sub capabilities
 - Clustering support</p>
-<h4 id="container-runtime-docker">Container Runtime: Docker<a class="headerlink" href="#container-runtime-docker" title="Permanent link">&para;</a></h4>
-<p><strong>Rationale</strong>:<br />
-- Isolated execution environment<br />
-- Resource management<br />
-- Portability across environments<br />
+<h4 id="container-runtime-docker">Container Runtime: Docker</h4>
+<p><strong>Rationale</strong>:
+- Isolated execution environment
+- Resource management
+- Portability across environments
 - Extensive ecosystem</p>
-<h2 id="component-architecture">Component Architecture<a class="headerlink" href="#component-architecture" title="Permanent link">&para;</a></h2>
+<h2 id="component-architecture">Component Architecture</h2>
 <div class="mermaid">
 graph TB
     subgraph "Presentation Layer"
@@ -881,34 +881,34 @@ graph TB
     SERVICES --> METRICS
 </div>
 
-<h3 id="component-responsibilities">Component Responsibilities<a class="headerlink" href="#component-responsibilities" title="Permanent link">&para;</a></h3>
-<h4 id="presentation-layer">Presentation Layer<a class="headerlink" href="#presentation-layer" title="Permanent link">&para;</a></h4>
+<h3 id="component-responsibilities">Component Responsibilities</h3>
+<h4 id="presentation-layer">Presentation Layer</h4>
 <ul>
 <li><strong>HTTP Router</strong>: Route incoming requests to appropriate controllers</li>
 <li><strong>Middleware Stack</strong>: Handle authentication, logging, and cross-cutting concerns</li>
 <li><strong>Controllers</strong>: Process HTTP requests and generate responses</li>
 </ul>
-<h4 id="business-logic-layer">Business Logic Layer<a class="headerlink" href="#business-logic-layer" title="Permanent link">&para;</a></h4>
+<h4 id="business-logic-layer">Business Logic Layer</h4>
 <ul>
 <li><strong>Services</strong>: Implement core business logic and orchestrate operations</li>
 <li><strong>Builders</strong>: Construct complex objects and configurations</li>
 <li><strong>Validators</strong>: Validate input data and business rules</li>
 </ul>
-<h4 id="data-access-layer">Data Access Layer<a class="headerlink" href="#data-access-layer" title="Permanent link">&para;</a></h4>
+<h4 id="data-access-layer">Data Access Layer</h4>
 <ul>
 <li><strong>Repositories</strong>: Abstract data access operations</li>
 <li><strong>Data Models</strong>: Define data structures and relationships</li>
 <li><strong>Cache Layer</strong>: Provide high-performance data access</li>
 </ul>
-<h4 id="infrastructure-layer">Infrastructure Layer<a class="headerlink" href="#infrastructure-layer" title="Permanent link">&para;</a></h4>
+<h4 id="infrastructure-layer">Infrastructure Layer</h4>
 <ul>
 <li><strong>Container Manager</strong>: Manage Docker container lifecycle</li>
 <li><strong>File Manager</strong>: Handle file system operations</li>
 <li><strong>Audit Logger</strong>: Record audit trails and compliance data</li>
 <li><strong>Metrics Collector</strong>: Gather performance and operational metrics</li>
 </ul>
-<h2 id="data-architecture">Data Architecture<a class="headerlink" href="#data-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="logical-data-model">Logical Data Model<a class="headerlink" href="#logical-data-model" title="Permanent link">&para;</a></h3>
+<h2 id="data-architecture">Data Architecture</h2>
+<h3 id="logical-data-model">Logical Data Model</h3>
 <div class="mermaid">
 erDiagram
     TENANT {
@@ -963,36 +963,36 @@ erDiagram
     TENANT ||--o{ AUDIT_LOG : generates
 </div>
 
-<h3 id="data-storage-strategy">Data Storage Strategy<a class="headerlink" href="#data-storage-strategy" title="Permanent link">&para;</a></h3>
-<h4 id="primary-data-storage-mongodb">Primary Data Storage (MongoDB)<a class="headerlink" href="#primary-data-storage-mongodb" title="Permanent link">&para;</a></h4>
+<h3 id="data-storage-strategy">Data Storage Strategy</h3>
+<h4 id="primary-data-storage-mongodb">Primary Data Storage (MongoDB)</h4>
 <ul>
 <li><strong>Collections</strong>: Utilities, executions, audit logs, tenants</li>
 <li><strong>Sharding Strategy</strong>: Shard by tenant code for horizontal scaling</li>
 <li><strong>Replica Sets</strong>: 3-node replica sets for high availability</li>
 <li><strong>Backup Strategy</strong>: Daily backups with point-in-time recovery</li>
 </ul>
-<h4 id="cache-strategy-redis">Cache Strategy (Redis)<a class="headerlink" href="#cache-strategy-redis" title="Permanent link">&para;</a></h4>
+<h4 id="cache-strategy-redis">Cache Strategy (Redis)</h4>
 <ul>
 <li><strong>L1 Cache</strong>: Application-level caching (5 minutes TTL)</li>
 <li><strong>L2 Cache</strong>: Redis caching (1 hour TTL)</li>
 <li><strong>Cache Keys</strong>: Hierarchical naming convention</li>
 <li><strong>Eviction Policy</strong>: LRU with memory limit enforcement</li>
 </ul>
-<h4 id="file-storage">File Storage<a class="headerlink" href="#file-storage" title="Permanent link">&para;</a></h4>
+<h4 id="file-storage">File Storage</h4>
 <ul>
 <li><strong>Code Files</strong>: Encrypted Python files on network storage</li>
 <li><strong>Logs</strong>: Execution logs on distributed file system</li>
 <li><strong>Backups</strong>: Compressed archives on object storage</li>
 </ul>
-<h3 id="data-security">Data Security<a class="headerlink" href="#data-security" title="Permanent link">&para;</a></h3>
+<h3 id="data-security">Data Security</h3>
 <ul>
 <li><strong>Encryption at Rest</strong>: AES-256 encryption for all stored data</li>
 <li><strong>Encryption in Transit</strong>: TLS 1.3 for all network communication</li>
 <li><strong>Data Masking</strong>: Sensitive data masked in logs and non-production environments</li>
 <li><strong>Access Control</strong>: Role-based access with principle of least privilege</li>
 </ul>
-<h2 id="security-architecture">Security Architecture<a class="headerlink" href="#security-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="security-layers">Security Layers<a class="headerlink" href="#security-layers" title="Permanent link">&para;</a></h3>
+<h2 id="security-architecture">Security Architecture</h2>
+<h3 id="security-layers">Security Layers</h3>
 <div class="mermaid">
 graph TB
     subgraph "Perimeter Security"
@@ -1034,8 +1034,8 @@ graph TB
     ISOLATION --> MONITORING
 </div>
 
-<h3 id="authentication-and-authorization">Authentication and Authorization<a class="headerlink" href="#authentication-and-authorization" title="Permanent link">&para;</a></h3>
-<h4 id="authentication-flow">Authentication Flow<a class="headerlink" href="#authentication-flow" title="Permanent link">&para;</a></h4>
+<h3 id="authentication-and-authorization">Authentication and Authorization</h3>
+<h4 id="authentication-flow">Authentication Flow</h4>
 <ol>
 <li>User provides credentials to authentication service</li>
 <li>Authentication service validates credentials</li>
@@ -1043,14 +1043,14 @@ graph TB
 <li>Token included in subsequent API requests</li>
 <li>Service validates token and extracts user context</li>
 </ol>
-<h4 id="authorization-model">Authorization Model<a class="headerlink" href="#authorization-model" title="Permanent link">&para;</a></h4>
+<h4 id="authorization-model">Authorization Model</h4>
 <ul>
 <li><strong>Role-Based Access Control (RBAC)</strong></li>
 <li><strong>Tenant-based isolation</strong></li>
 <li><strong>Resource-level permissions</strong></li>
 <li><strong>Operation-level granularity</strong></li>
 </ul>
-<h4 id="permission-matrix">Permission Matrix<a class="headerlink" href="#permission-matrix" title="Permanent link">&para;</a></h4>
+<h4 id="permission-matrix">Permission Matrix</h4>
 <table>
 <thead>
 <tr>
@@ -1097,23 +1097,23 @@ graph TB
 </tr>
 </tbody>
 </table>
-<h3 id="code-security">Code Security<a class="headerlink" href="#code-security" title="Permanent link">&para;</a></h3>
-<h4 id="validation-rules">Validation Rules<a class="headerlink" href="#validation-rules" title="Permanent link">&para;</a></h4>
+<h3 id="code-security">Code Security</h3>
+<h4 id="validation-rules">Validation Rules</h4>
 <ul>
 <li><strong>Syntax Validation</strong>: Python AST parsing</li>
 <li><strong>Security Scanning</strong>: Pattern-based security checks</li>
 <li><strong>Dependency Analysis</strong>: Package security assessment</li>
 <li><strong>Resource Limits</strong>: Memory and CPU constraints</li>
 </ul>
-<h4 id="prohibited-patterns">Prohibited Patterns<a class="headerlink" href="#prohibited-patterns" title="Permanent link">&para;</a></h4>
+<h4 id="prohibited-patterns">Prohibited Patterns</h4>
 <ul>
 <li>File system access (<code>open()</code>, <code>file()</code>)</li>
 <li>Network operations (<code>socket</code>, <code>urllib</code>, <code>requests</code>)</li>
 <li>Process execution (<code>subprocess</code>, <code>os.system</code>)</li>
 <li>System imports (<code>os</code>, <code>sys</code>, <code>subprocess</code>)</li>
 </ul>
-<h2 id="performance-architecture">Performance Architecture<a class="headerlink" href="#performance-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="performance-strategy">Performance Strategy<a class="headerlink" href="#performance-strategy" title="Permanent link">&para;</a></h3>
+<h2 id="performance-architecture">Performance Architecture</h2>
+<h3 id="performance-strategy">Performance Strategy</h3>
 <div class="mermaid">
 graph TD
     REQUEST[Incoming Request] --> CACHE_L1{L1 Cache}
@@ -1130,8 +1130,8 @@ graph TD
     CACHE_UPDATE --> RETURN_RESULT[Return Result]
 </div>
 
-<h3 id="performance-targets">Performance Targets<a class="headerlink" href="#performance-targets" title="Permanent link">&para;</a></h3>
-<h4 id="response-time-requirements">Response Time Requirements<a class="headerlink" href="#response-time-requirements" title="Permanent link">&para;</a></h4>
+<h3 id="performance-targets">Performance Targets</h3>
+<h4 id="response-time-requirements">Response Time Requirements</h4>
 <table>
 <thead>
 <tr>
@@ -1168,7 +1168,7 @@ graph TD
 </tr>
 </tbody>
 </table>
-<h4 id="throughput-requirements">Throughput Requirements<a class="headerlink" href="#throughput-requirements" title="Permanent link">&para;</a></h4>
+<h4 id="throughput-requirements">Throughput Requirements</h4>
 <table>
 <thead>
 <tr>
@@ -1195,30 +1195,30 @@ graph TD
 </tr>
 </tbody>
 </table>
-<h3 id="optimization-strategies">Optimization Strategies<a class="headerlink" href="#optimization-strategies" title="Permanent link">&para;</a></h3>
-<h4 id="database-optimization">Database Optimization<a class="headerlink" href="#database-optimization" title="Permanent link">&para;</a></h4>
+<h3 id="optimization-strategies">Optimization Strategies</h3>
+<h4 id="database-optimization">Database Optimization</h4>
 <ul>
 <li><strong>Indexing Strategy</strong>: Compound indexes for common query patterns</li>
 <li><strong>Query Optimization</strong>: Aggregation pipelines for complex queries</li>
 <li><strong>Connection Pooling</strong>: Reuse database connections</li>
 <li><strong>Read Replicas</strong>: Distribute read load across replicas</li>
 </ul>
-<h4 id="caching-strategy">Caching Strategy<a class="headerlink" href="#caching-strategy" title="Permanent link">&para;</a></h4>
+<h4 id="caching-strategy">Caching Strategy</h4>
 <ul>
 <li><strong>Multi-level Caching</strong>: Application, Redis, and database caching</li>
 <li><strong>Cache Warming</strong>: Pre-populate frequently accessed data</li>
 <li><strong>Cache Invalidation</strong>: Event-driven cache updates</li>
 <li><strong>Cache Partitioning</strong>: Distribute cache load</li>
 </ul>
-<h4 id="application-optimization">Application Optimization<a class="headerlink" href="#application-optimization" title="Permanent link">&para;</a></h4>
+<h4 id="application-optimization">Application Optimization</h4>
 <ul>
 <li><strong>Goroutine Pooling</strong>: Reuse goroutines for concurrent operations</li>
 <li><strong>Memory Management</strong>: Efficient memory allocation and garbage collection</li>
 <li><strong>Compression</strong>: Compress large responses</li>
 <li><strong>Connection Reuse</strong>: HTTP connection pooling</li>
 </ul>
-<h2 id="deployment-architecture">Deployment Architecture<a class="headerlink" href="#deployment-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="production-environment">Production Environment<a class="headerlink" href="#production-environment" title="Permanent link">&para;</a></h3>
+<h2 id="deployment-architecture">Deployment Architecture</h2>
+<h3 id="production-environment">Production Environment</h3>
 <div class="mermaid">
 graph TB
     subgraph "Load Balancer Tier"
@@ -1266,22 +1266,22 @@ graph TB
     APP3 --> DOCKER3
 </div>
 
-<h3 id="deployment-strategy">Deployment Strategy<a class="headerlink" href="#deployment-strategy" title="Permanent link">&para;</a></h3>
+<h3 id="deployment-strategy">Deployment Strategy</h3>
 <ul>
 <li><strong>Blue-Green Deployment</strong>: Zero-downtime deployments</li>
 <li><strong>Rolling Updates</strong>: Gradual rollout of new versions</li>
 <li><strong>Canary Releases</strong>: Limited exposure testing</li>
 <li><strong>Automated Rollback</strong>: Quick recovery from failed deployments</li>
 </ul>
-<h3 id="environment-management">Environment Management<a class="headerlink" href="#environment-management" title="Permanent link">&para;</a></h3>
+<h3 id="environment-management">Environment Management</h3>
 <ul>
 <li><strong>Development</strong>: Single instance for development and testing</li>
 <li><strong>Staging</strong>: Production-like environment for validation</li>
 <li><strong>Production</strong>: High-availability multi-instance deployment</li>
 <li><strong>Disaster Recovery</strong>: Secondary region for business continuity</li>
 </ul>
-<h2 id="integration-architecture">Integration Architecture<a class="headerlink" href="#integration-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="external-service-integration">External Service Integration<a class="headerlink" href="#external-service-integration" title="Permanent link">&para;</a></h3>
+<h2 id="integration-architecture">Integration Architecture</h2>
+<h3 id="external-service-integration">External Service Integration</h3>
 <div class="mermaid">
 graph LR
     subgraph "Zona Custom Utils"
@@ -1312,21 +1312,21 @@ graph LR
     CORE --> LOGGING
 </div>
 
-<h3 id="integration-patterns">Integration Patterns<a class="headerlink" href="#integration-patterns" title="Permanent link">&para;</a></h3>
-<h4 id="synchronous-integration">Synchronous Integration<a class="headerlink" href="#synchronous-integration" title="Permanent link">&para;</a></h4>
+<h3 id="integration-patterns">Integration Patterns</h3>
+<h4 id="synchronous-integration">Synchronous Integration</h4>
 <ul>
 <li><strong>REST API</strong>: For real-time operations requiring immediate response</li>
 <li><strong>Direct Database Access</strong>: For high-performance data operations</li>
 <li><strong>File System Access</strong>: For code storage and retrieval</li>
 </ul>
-<h4 id="asynchronous-integration">Asynchronous Integration<a class="headerlink" href="#asynchronous-integration" title="Permanent link">&para;</a></h4>
+<h4 id="asynchronous-integration">Asynchronous Integration</h4>
 <ul>
 <li><strong>Event Publishing</strong>: For audit logging and notifications</li>
 <li><strong>Message Queues</strong>: For long-running operations</li>
 <li><strong>Batch Processing</strong>: For bulk operations and maintenance tasks</li>
 </ul>
-<h2 id="business-process-flows">Business Process Flows<a class="headerlink" href="#business-process-flows" title="Permanent link">&para;</a></h2>
-<h3 id="custom-utility-creation-flow">Custom Utility Creation Flow<a class="headerlink" href="#custom-utility-creation-flow" title="Permanent link">&para;</a></h3>
+<h2 id="business-process-flows">Business Process Flows</h2>
+<h3 id="custom-utility-creation-flow">Custom Utility Creation Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant User
@@ -1356,7 +1356,7 @@ sequenceDiagram
     end
 </div>
 
-<h3 id="utility-execution-flow">Utility Execution Flow<a class="headerlink" href="#utility-execution-flow" title="Permanent link">&para;</a></h3>
+<h3 id="utility-execution-flow">Utility Execution Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant User
@@ -1381,7 +1381,7 @@ sequenceDiagram
     API->>UI: Execution Complete
 </div>
 
-<h3 id="multi-tenant-deployment-flow">Multi-Tenant Deployment Flow<a class="headerlink" href="#multi-tenant-deployment-flow" title="Permanent link">&para;</a></h3>
+<h3 id="multi-tenant-deployment-flow">Multi-Tenant Deployment Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Admin
@@ -1403,36 +1403,36 @@ sequenceDiagram
     Service->>Admin: Deployment Complete
 </div>
 
-<h2 id="non-functional-requirements_1">Non-Functional Requirements<a class="headerlink" href="#non-functional-requirements_1" title="Permanent link">&para;</a></h2>
-<h3 id="availability-requirements">Availability Requirements<a class="headerlink" href="#availability-requirements" title="Permanent link">&para;</a></h3>
+<h2 id="non-functional-requirements_1">Non-Functional Requirements</h2>
+<h3 id="availability-requirements">Availability Requirements</h3>
 <ul>
 <li><strong>Uptime Target</strong>: 99.9% (8.76 hours downtime per year)</li>
 <li><strong>Planned Maintenance</strong>: Maximum 4 hours per month</li>
 <li><strong>Recovery Time Objective (RTO)</strong>: 15 minutes</li>
 <li><strong>Recovery Point Objective (RPO)</strong>: 1 hour</li>
 </ul>
-<h3 id="scalability-requirements">Scalability Requirements<a class="headerlink" href="#scalability-requirements" title="Permanent link">&para;</a></h3>
+<h3 id="scalability-requirements">Scalability Requirements</h3>
 <ul>
 <li><strong>Horizontal Scaling</strong>: Auto-scaling based on load</li>
 <li><strong>Vertical Scaling</strong>: Resource scaling for individual instances</li>
 <li><strong>Database Scaling</strong>: Sharding and read replicas</li>
 <li><strong>Cache Scaling</strong>: Redis clustering for distributed caching</li>
 </ul>
-<h3 id="reliability-requirements">Reliability Requirements<a class="headerlink" href="#reliability-requirements" title="Permanent link">&para;</a></h3>
+<h3 id="reliability-requirements">Reliability Requirements</h3>
 <ul>
 <li><strong>Mean Time Between Failures (MTBF)</strong>: &gt; 720 hours</li>
 <li><strong>Mean Time To Recovery (MTTR)</strong>: &lt; 15 minutes</li>
 <li><strong>Error Rate</strong>: &lt; 0.1% for API requests</li>
 <li><strong>Data Consistency</strong>: Eventual consistency for non-critical data</li>
 </ul>
-<h3 id="maintainability-requirements">Maintainability Requirements<a class="headerlink" href="#maintainability-requirements" title="Permanent link">&para;</a></h3>
+<h3 id="maintainability-requirements">Maintainability Requirements</h3>
 <ul>
 <li><strong>Code Coverage</strong>: &gt; 80% for unit tests</li>
 <li><strong>Documentation</strong>: Comprehensive API and architecture documentation</li>
 <li><strong>Monitoring</strong>: Full observability with metrics, logs, and traces</li>
 <li><strong>Deployment</strong>: Automated CI/CD pipeline with rollback capability</li>
 </ul>
-<h3 id="compliance-requirements">Compliance Requirements<a class="headerlink" href="#compliance-requirements" title="Permanent link">&para;</a></h3>
+<h3 id="compliance-requirements">Compliance Requirements</h3>
 <ul>
 <li><strong>Data Privacy</strong>: GDPR and CCPA compliance</li>
 <li><strong>Security Standards</strong>: SOC 2 Type II certification</li>

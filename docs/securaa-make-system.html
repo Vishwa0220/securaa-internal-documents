@@ -620,8 +620,8 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="securaa-make-system-comprehensive-documentation">SECURAA Make System Comprehensive Documentation<a class="headerlink" href="#securaa-make-system-comprehensive-documentation" title="Permanent link">&para;</a></h1>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+        <h1 id="securaa-make-system-comprehensive-documentation">SECURAA Make System Comprehensive Documentation</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#architecture">Architecture</a></li>
@@ -642,9 +642,9 @@ hr {
 <li><a href="#troubleshooting">Troubleshooting</a></li>
 <li><a href="#advanced-configuration">Advanced Configuration</a></li>
 </ol>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h2 id="overview">Overview</h2>
 <p>The SECURAA project employs a sophisticated multi-level Make system designed to manage the build, packaging, and deployment of a complex cybersecurity platform. This system orchestrates the compilation, testing, packaging, and deployment of over 200 microservices across multiple deployment environments.</p>
-<h3 id="key-statistics">Key Statistics<a class="headerlink" href="#key-statistics" title="Permanent link">&para;</a></h3>
+<h3 id="key-statistics">Key Statistics</h3>
 <ul>
 <li><strong>Total Services</strong>: 200+ microservices</li>
 <li><strong>Integration Connectors</strong>: 150+ external system integrations</li>
@@ -656,7 +656,7 @@ hr {
 <li><strong>Container Registries</strong>: Local, ECR, Custom registries</li>
 <li><strong>Build Complexity</strong>: Multi-stage builds with dependency management</li>
 </ul>
-<h3 id="system-scope">System Scope<a class="headerlink" href="#system-scope" title="Permanent link">&para;</a></h3>
+<h3 id="system-scope">System Scope</h3>
 <p>The make system is organized into several distinct layers:</p>
 <ul>
 <li><strong>Library Layer</strong>: <code>securaa</code>, <code>securaa_lib</code>, <code>securaa_pylib</code>, and <code>securaa_ris_client</code> (Go libraries, Python libraries, and shared components)</li>
@@ -666,7 +666,7 @@ hr {
 <li><strong>Build/Packaging Layer</strong>: <code>build_securaa</code>, <code>build_tip_securaa</code> (RPM packaging and deployment)</li>
 <li><strong>Configuration Layer</strong>: Environment-specific configurations and deployment scripts</li>
 </ul>
-<h3 id="business-value">Business Value<a class="headerlink" href="#business-value" title="Permanent link">&para;</a></h3>
+<h3 id="business-value">Business Value</h3>
 <ul>
 <li><strong>Scalability</strong>: Supports massive horizontal scaling with microservices architecture</li>
 <li><strong>Maintainability</strong>: Standardized build patterns across all components</li>
@@ -674,8 +674,8 @@ hr {
 <li><strong>Security</strong>: Multi-layered security with containerization and access controls</li>
 <li><strong>Efficiency</strong>: Parallel builds and optimized dependency management</li>
 </ul>
-<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
-<h3 id="high-level-system-architecture">High-Level System Architecture<a class="headerlink" href="#high-level-system-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="architecture">Architecture</h2>
+<h3 id="high-level-system-architecture">High-Level System Architecture</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                           SECURAA PLATFORM ARCHITECTURE                      │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -772,7 +772,7 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="build-system-architecture">Build System Architecture<a class="headerlink" href="#build-system-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="build-system-architecture">Build System Architecture</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                         BUILD &amp; DEPLOYMENT ARCHITECTURE                      │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -835,7 +835,7 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="dependency-flow">Dependency Flow<a class="headerlink" href="#dependency-flow" title="Permanent link">&para;</a></h3>
+<h3 id="dependency-flow">Dependency Flow</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                            DEPENDENCY FLOW DIAGRAM                           │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -899,7 +899,7 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="data-flow-architecture">Data Flow Architecture<a class="headerlink" href="#data-flow-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="data-flow-architecture">Data Flow Architecture</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                              DATA FLOW DIAGRAM                               │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -970,8 +970,8 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h2 id="system-flow-diagrams">System Flow Diagrams<a class="headerlink" href="#system-flow-diagrams" title="Permanent link">&para;</a></h2>
-<h3 id="build-process-flow">Build Process Flow<a class="headerlink" href="#build-process-flow" title="Permanent link">&para;</a></h3>
+<h2 id="system-flow-diagrams">System Flow Diagrams</h2>
+<h3 id="build-process-flow">Build Process Flow</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                              BUILD PROCESS FLOW                              │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1034,7 +1034,7 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="docker-build-flow">Docker Build Flow<a class="headerlink" href="#docker-build-flow" title="Permanent link">&para;</a></h3>
+<h3 id="docker-build-flow">Docker Build Flow</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                            DOCKER BUILD FLOW                                 │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1110,7 +1110,7 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="package-creation-flow">Package Creation Flow<a class="headerlink" href="#package-creation-flow" title="Permanent link">&para;</a></h3>
+<h3 id="package-creation-flow">Package Creation Flow</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                          RPM PACKAGE CREATION FLOW                           │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1223,8 +1223,8 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h2 id="core-repositories">Core Repositories<a class="headerlink" href="#core-repositories" title="Permanent link">&para;</a></h2>
-<h3 id="component-distribution-overview">Component Distribution Overview<a class="headerlink" href="#component-distribution-overview" title="Permanent link">&para;</a></h3>
+<h2 id="core-repositories">Core Repositories</h2>
+<h3 id="component-distribution-overview">Component Distribution Overview</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                         COMPONENT DISTRIBUTION MATRIX                        │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1247,7 +1247,7 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="service-interaction-map">Service Interaction Map<a class="headerlink" href="#service-interaction-map" title="Permanent link">&para;</a></h3>
+<h3 id="service-interaction-map">Service Interaction Map</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                           SERVICE INTERACTION MAP                            │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1293,7 +1293,7 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="repository-structure-and-recursive-makefiles">Repository Structure and Recursive Makefiles<a class="headerlink" href="#repository-structure-and-recursive-makefiles" title="Permanent link">&para;</a></h3>
+<h3 id="repository-structure-and-recursive-makefiles">Repository Structure and Recursive Makefiles</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                        RECURSIVE MAKEFILE STRUCTURE                          │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1377,68 +1377,68 @@ hr {
 
 <p><strong>Purpose</strong>: Core platform services including SIEM, user management, playbooks, and APIs.</p>
 <p><strong>Main Makefile</strong>: <code>zona_services/Makefile</code></p>
-<p><strong>Services</strong> (18 total):<br />
-- <code>zona_siem</code> - Security Information and Event Management<br />
-- <code>zona_playbook</code> - Automated response playbooks<br />
-- <code>zona_querybuilder</code> - Query construction service<br />
-- <code>zona_ris_server</code> - Risk Intelligence Service<br />
-- <code>zona_manager</code> - Service orchestration<br />
-- <code>zona_custom</code> - Custom logic handlers<br />
-- <code>zona_release</code> - Release management<br />
-- <code>zona_user</code> - User management<br />
-- <code>zona_integrations</code> - Integration management<br />
-- <code>securaa_backup</code> - Backup services<br />
-- <code>securaa_restore</code> - Restore services<br />
-- <code>zona_custom_utils</code> - Utility services<br />
-- <code>zona_process_manager</code> - Process management<br />
-- <code>zona_apis_manager</code> - API management<br />
-- <code>zona_sshclient</code> - SSH client service<br />
-- <code>zona_primary_server_health_check</code> - Health monitoring<br />
+<p><strong>Services</strong> (18 total):
+- <code>zona_siem</code> - Security Information and Event Management
+- <code>zona_playbook</code> - Automated response playbooks
+- <code>zona_querybuilder</code> - Query construction service
+- <code>zona_ris_server</code> - Risk Intelligence Service
+- <code>zona_manager</code> - Service orchestration
+- <code>zona_custom</code> - Custom logic handlers
+- <code>zona_release</code> - Release management
+- <code>zona_user</code> - User management
+- <code>zona_integrations</code> - Integration management
+- <code>securaa_backup</code> - Backup services
+- <code>securaa_restore</code> - Restore services
+- <code>zona_custom_utils</code> - Utility services
+- <code>zona_process_manager</code> - Process management
+- <code>zona_apis_manager</code> - API management
+- <code>zona_sshclient</code> - SSH client service
+- <code>zona_primary_server_health_check</code> - Health monitoring
 - <code>zona_shard_handler</code> - Database sharding</p>
-<h3 id="2-zona_batch">2. zona_batch<a class="headerlink" href="#2-zona_batch" title="Permanent link">&para;</a></h3>
+<h3 id="2-zona_batch">2. zona_batch</h3>
 <p><strong>Purpose</strong>: Batch processing services for data ingestion and processing.</p>
 <p><strong>Main Makefile</strong>: <code>zona_batch/Makefile</code></p>
-<p><strong>Services</strong> (4 main):<br />
-- <code>zona_primary_server_health_check</code> - Health monitoring batch<br />
-- <code>csam_connector</code> - CSAM (Content Safety and Moderation) connector<br />
-- <code>zona_case_consumer</code> - Case processing consumer<br />
+<p><strong>Services</strong> (4 main):
+- <code>zona_primary_server_health_check</code> - Health monitoring batch
+- <code>csam_connector</code> - CSAM (Content Safety and Moderation) connector
+- <code>zona_case_consumer</code> - Case processing consumer
 - <code>zona_batch_manager</code> - Batch operation orchestration</p>
-<h3 id="3-zona_tip_batch">3. zona_tip_batch<a class="headerlink" href="#3-zona_tip_batch" title="Permanent link">&para;</a></h3>
+<h3 id="3-zona_tip_batch">3. zona_tip_batch</h3>
 <p><strong>Purpose</strong>: Threat Intelligence Platform batch processing services.</p>
 <p><strong>Main Makefile</strong>: <code>zona_tip_batch/Makefile</code></p>
-<p><strong>Services</strong> (19 total):<br />
-- <code>tip_batch_botscout</code> - BotScout threat feed<br />
-- <code>tip_deletion_batch</code> - Data cleanup<br />
-- <code>tip_services</code> - Core TIP services<br />
-- <code>zona_taxii_server</code> - TAXII protocol server<br />
-- <code>tip_enhancer</code> - Data enrichment<br />
-- <code>taxii_client_tc</code> - ThreatConnect TAXII client<br />
-- <code>tip_batch_abuse.ch</code> - Abuse.ch feed processing<br />
-- <code>tip_batch_bambenek</code> - Bambenek feed processing<br />
-- <code>tip_batch_blocklist.de</code> - Blocklist.de feed processing<br />
-- <code>tip_batch_bogons</code> - Bogon IP processing<br />
-- <code>tip_batch_danger.rulez</code> - Danger.rulez feed processing<br />
-- <code>tipbatch_data</code> - Data management<br />
-- <code>tip_batch_firebog</code> - Firebog feed processing<br />
-- <code>tip_batch_local</code> - Local feed processing<br />
-- <code>tip_batch_rf</code> - Recorded Future integration<br />
-- <code>tip_community_services</code> - Community threat feeds<br />
-- <code>tip_enhancer_rf</code> - Recorded Future enhancer<br />
-- <code>tip_nsrl</code> - NSRL hash database<br />
+<p><strong>Services</strong> (19 total):
+- <code>tip_batch_botscout</code> - BotScout threat feed
+- <code>tip_deletion_batch</code> - Data cleanup
+- <code>tip_services</code> - Core TIP services
+- <code>zona_taxii_server</code> - TAXII protocol server
+- <code>tip_enhancer</code> - Data enrichment
+- <code>taxii_client_tc</code> - ThreatConnect TAXII client
+- <code>tip_batch_abuse.ch</code> - Abuse.ch feed processing
+- <code>tip_batch_bambenek</code> - Bambenek feed processing
+- <code>tip_batch_blocklist.de</code> - Blocklist.de feed processing
+- <code>tip_batch_bogons</code> - Bogon IP processing
+- <code>tip_batch_danger.rulez</code> - Danger.rulez feed processing
+- <code>tipbatch_data</code> - Data management
+- <code>tip_batch_firebog</code> - Firebog feed processing
+- <code>tip_batch_local</code> - Local feed processing
+- <code>tip_batch_rf</code> - Recorded Future integration
+- <code>tip_community_services</code> - Community threat feeds
+- <code>tip_enhancer_rf</code> - Recorded Future enhancer
+- <code>tip_nsrl</code> - NSRL hash database
 - <code>tip_nvd</code> - National Vulnerability Database</p>
-<h3 id="4-integrations">4. integrations<a class="headerlink" href="#4-integrations" title="Permanent link">&para;</a></h3>
+<h3 id="4-integrations">4. integrations</h3>
 <p><strong>Purpose</strong>: External system integrations and connectors.</p>
 <p><strong>Main Makefile</strong>: <code>integrations/Makefile</code> (if exists)</p>
-<p><strong>Integrations</strong> (150+ total including):<br />
-- <strong>SIEM Platforms</strong>: Splunk, QRadar, ArcSight, Elastic, etc.<br />
-- <strong>Cloud Providers</strong>: AWS services, Azure, GCP<br />
-- <strong>Security Tools</strong>: CrowdStrike, SentinelOne, Palo Alto, etc.<br />
-- <strong>Threat Intelligence</strong>: VirusTotal, Recorded Future, ThreatConnect<br />
-- <strong>Communication</strong>: Slack, Microsoft Teams, Email<br />
-- <strong>Identity</strong>: Active Directory, LDAP, Okta<br />
+<p><strong>Integrations</strong> (150+ total including):
+- <strong>SIEM Platforms</strong>: Splunk, QRadar, ArcSight, Elastic, etc.
+- <strong>Cloud Providers</strong>: AWS services, Azure, GCP
+- <strong>Security Tools</strong>: CrowdStrike, SentinelOne, Palo Alto, etc.
+- <strong>Threat Intelligence</strong>: VirusTotal, Recorded Future, ThreatConnect
+- <strong>Communication</strong>: Slack, Microsoft Teams, Email
+- <strong>Identity</strong>: Active Directory, LDAP, Okta
 - <strong>Ticketing</strong>: Jira, ServiceNow, Confluence</p>
-<h2 id="detailed-component-analysis">Detailed Component Analysis<a class="headerlink" href="#detailed-component-analysis" title="Permanent link">&para;</a></h2>
-<h3 id="zona_services-deep-dive">zona_services Deep Dive<a class="headerlink" href="#zona_services-deep-dive" title="Permanent link">&para;</a></h3>
+<h2 id="detailed-component-analysis">Detailed Component Analysis</h2>
+<h3 id="zona_services-deep-dive">zona_services Deep Dive</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                          ZONA_SERVICES ARCHITECTURE                          │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1503,7 +1503,7 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="integration-services-matrix">Integration Services Matrix<a class="headerlink" href="#integration-services-matrix" title="Permanent link">&para;</a></h3>
+<h3 id="integration-services-matrix">Integration Services Matrix</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                        INTEGRATION SERVICES MATRIX                           │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1525,7 +1525,7 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="batch-processing-architecture">Batch Processing Architecture<a class="headerlink" href="#batch-processing-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="batch-processing-architecture">Batch Processing Architecture</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                         BATCH PROCESSING ARCHITECTURE                        │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1607,25 +1607,25 @@ hr {
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="1-build_securaa">1. build_securaa<a class="headerlink" href="#1-build_securaa" title="Permanent link">&para;</a></h3>
+<h3 id="1-build_securaa">1. build_securaa</h3>
 <p><strong>Purpose</strong>: Main platform packaging and deployment artifacts.</p>
-<p><strong>Key Components</strong>:<br />
-- <strong>Package Building</strong> (<code>pkg/Makefile</code>): RPM package creation<br />
-- <strong>Core Services</strong> (<code>securaa/Makefile</code>): Core service building<br />
-- <strong>Upgrade System</strong> (<code>upgrade/Makefile</code>): Version upgrade packages<br />
+<p><strong>Key Components</strong>:
+- <strong>Package Building</strong> (<code>pkg/Makefile</code>): RPM package creation
+- <strong>Core Services</strong> (<code>securaa/Makefile</code>): Core service building
+- <strong>Upgrade System</strong> (<code>upgrade/Makefile</code>): Version upgrade packages
 - <strong>Database Setup</strong> (<code>executedb/Makefile</code>): Database initialization</p>
-<p><strong>Package Types</strong>:<br />
-- <code>securaa_mssp_complete</code> - Complete MSSP installation<br />
-- <code>securaa_mssp_core_services_ui</code> - Core services and UI<br />
-- <code>securaa_mssp_core_db</code> - Database components<br />
-- <code>securaa_mssp_ml</code> - Machine learning components<br />
-- <code>securaa_arbiter</code> - MongoDB arbiter<br />
+<p><strong>Package Types</strong>:
+- <code>securaa_mssp_complete</code> - Complete MSSP installation
+- <code>securaa_mssp_core_services_ui</code> - Core services and UI
+- <code>securaa_mssp_core_db</code> - Database components
+- <code>securaa_mssp_ml</code> - Machine learning components
+- <code>securaa_arbiter</code> - MongoDB arbiter
 - <code>securaa_worker_node</code> - Worker node components</p>
-<h3 id="2-build_tip_securaa">2. build_tip_securaa<a class="headerlink" href="#2-build_tip_securaa" title="Permanent link">&para;</a></h3>
+<h3 id="2-build_tip_securaa">2. build_tip_securaa</h3>
 <p><strong>Purpose</strong>: Threat Intelligence Platform specific packaging.</p>
 <p>Similar structure to <code>build_securaa</code> but focused on TIP components.</p>
-<h2 id="common-makefile-patterns">Common Makefile Patterns<a class="headerlink" href="#common-makefile-patterns" title="Permanent link">&para;</a></h2>
-<h3 id="standard-go-service-makefile-pattern">Standard Go Service Makefile Pattern<a class="headerlink" href="#standard-go-service-makefile-pattern" title="Permanent link">&para;</a></h3>
+<h2 id="common-makefile-patterns">Common Makefile Patterns</h2>
+<h3 id="standard-go-service-makefile-pattern">Standard Go Service Makefile Pattern</h3>
 <p>All individual service Makefiles follow this pattern:</p>
 <pre class="highlight"><code class="language-makefile"># Environment Variables from .env
 TARGET ?= $(shell . ./.env &amp;&amp; echo $$TARGET)
@@ -1656,7 +1656,7 @@ image_ecr: builddir
     DOCKER_BUILDKIT=1 docker build --pull -t $(RUNTIME_DOCKER_IMAGE_ECR):latest ...
 </code></pre>
 
-<h3 id="aggregation-makefile-pattern">Aggregation Makefile Pattern<a class="headerlink" href="#aggregation-makefile-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="aggregation-makefile-pattern">Aggregation Makefile Pattern</h3>
 <p>Top-level Makefiles follow this pattern:</p>
 <pre class="highlight"><code class="language-makefile">TARGETS:= service1 service2 service3 ...
 BUILD_LOG:= build.log
@@ -1679,8 +1679,8 @@ export: builddir
     done
 </code></pre>
 
-<h2 id="environment-configuration">Environment Configuration<a class="headerlink" href="#environment-configuration" title="Permanent link">&para;</a></h2>
-<h3 id="env-file-structure">.env File Structure<a class="headerlink" href="#env-file-structure" title="Permanent link">&para;</a></h3>
+<h2 id="environment-configuration">Environment Configuration</h2>
+<h3 id="env-file-structure">.env File Structure</h3>
 <p>Each service directory contains a <code>.env</code> file with:</p>
 <pre class="highlight"><code class="language-bash">TARGET=service_name
 GIT_REF=git_commit_hash
@@ -1693,15 +1693,15 @@ RUNTIME_DOCKER_IMAGE_ECR=ecr_registry/image_name
 RUNTIME_DOCKER_IMAGE_LOCAL=local_registry/image_name
 </code></pre>
 
-<h3 id="aws-environment">AWS Environment<a class="headerlink" href="#aws-environment" title="Permanent link">&para;</a></h3>
+<h3 id="aws-environment">AWS Environment</h3>
 <p>Some services support AWS-specific configuration via <code>aws.env</code>:</p>
 <pre class="highlight"><code class="language-bash"># AWS-specific build configuration
 TARGET=aws_service_name
 # ... AWS-specific variables
 </code></pre>
 
-<h2 id="build-targets-reference">Build Targets Reference<a class="headerlink" href="#build-targets-reference" title="Permanent link">&para;</a></h2>
-<h3 id="common-targets-all-services">Common Targets (All Services)<a class="headerlink" href="#common-targets-all-services" title="Permanent link">&para;</a></h3>
+<h2 id="build-targets-reference">Build Targets Reference</h2>
+<h3 id="common-targets-all-services">Common Targets (All Services)</h3>
 <table>
 <thead>
 <tr>
@@ -1753,7 +1753,7 @@ TARGET=aws_service_name
 </tr>
 </tbody>
 </table>
-<h3 id="docker-targets">Docker Targets<a class="headerlink" href="#docker-targets" title="Permanent link">&para;</a></h3>
+<h3 id="docker-targets">Docker Targets</h3>
 <table>
 <thead>
 <tr>
@@ -1795,7 +1795,7 @@ TARGET=aws_service_name
 </tr>
 </tbody>
 </table>
-<h3 id="aggregation-targets">Aggregation Targets<a class="headerlink" href="#aggregation-targets" title="Permanent link">&para;</a></h3>
+<h3 id="aggregation-targets">Aggregation Targets</h3>
 <table>
 <thead>
 <tr>
@@ -1822,7 +1822,7 @@ TARGET=aws_service_name
 </tr>
 </tbody>
 </table>
-<h3 id="package-management-targets-build_securaapkg">Package Management Targets (build_securaa/pkg)<a class="headerlink" href="#package-management-targets-build_securaapkg" title="Permanent link">&para;</a></h3>
+<h3 id="package-management-targets-build_securaapkg">Package Management Targets (build_securaa/pkg)</h3>
 <table>
 <thead>
 <tr>
@@ -1869,8 +1869,8 @@ TARGET=aws_service_name
 </tr>
 </tbody>
 </table>
-<h2 id="cicd-integration">CI/CD Integration<a class="headerlink" href="#cicd-integration" title="Permanent link">&para;</a></h2>
-<h3 id="continuous-integration-pipeline">Continuous Integration Pipeline<a class="headerlink" href="#continuous-integration-pipeline" title="Permanent link">&para;</a></h3>
+<h2 id="cicd-integration">CI/CD Integration</h2>
+<h3 id="continuous-integration-pipeline">Continuous Integration Pipeline</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                           CI/CD PIPELINE ARCHITECTURE                        │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1901,7 +1901,7 @@ TARGET=aws_service_name
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="jenkins-pipeline-configuration">Jenkins Pipeline Configuration<a class="headerlink" href="#jenkins-pipeline-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="jenkins-pipeline-configuration">Jenkins Pipeline Configuration</h3>
 <pre class="highlight"><code class="language-groovy">pipeline {
     agent any
     environment {
@@ -2110,8 +2110,8 @@ TARGET=aws_service_name
 }
 </code></pre>
 
-<h2 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">&para;</a></h2>
-<h3 id="build-performance-metrics">Build Performance Metrics<a class="headerlink" href="#build-performance-metrics" title="Permanent link">&para;</a></h3>
+<h2 id="performance-optimization">Performance Optimization</h2>
+<h3 id="build-performance-metrics">Build Performance Metrics</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                         BUILD PERFORMANCE ANALYSIS                           │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -2138,7 +2138,7 @@ TARGET=aws_service_name
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="advanced-optimization-techniques">Advanced Optimization Techniques<a class="headerlink" href="#advanced-optimization-techniques" title="Permanent link">&para;</a></h3>
+<h3 id="advanced-optimization-techniques">Advanced Optimization Techniques</h3>
 <pre class="highlight"><code class="language-makefile"># High-performance Makefile configuration
 
 # Parallel processing configuration
@@ -2199,8 +2199,8 @@ build-memory-optimized: build-optimized
 .PHONY: build-optimized all-parallel image-cache-optimized package-optimized
 </code></pre>
 
-<h2 id="security-considerations">Security Considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
-<h3 id="security-framework-implementation">Security Framework Implementation<a class="headerlink" href="#security-framework-implementation" title="Permanent link">&para;</a></h3>
+<h2 id="security-considerations">Security Considerations</h2>
+<h3 id="security-framework-implementation">Security Framework Implementation</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                           SECURITY IMPLEMENTATION                            │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -2295,7 +2295,7 @@ build-memory-optimized: build-optimized
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="security-makefile-targets">Security Makefile Targets<a class="headerlink" href="#security-makefile-targets" title="Permanent link">&para;</a></h3>
+<h3 id="security-makefile-targets">Security Makefile Targets</h3>
 <pre class="highlight"><code class="language-makefile"># Security-focused build targets
 
 # Comprehensive security check
@@ -2369,8 +2369,8 @@ build-secure: security-deps security-code
 .PHONY: security-all security-deps security-code security-secrets security-container security-package security-sbom security-license security-provenance build-secure
 </code></pre>
 
-<h2 id="docker-integration">Docker Integration<a class="headerlink" href="#docker-integration" title="Permanent link">&para;</a></h2>
-<h3 id="multi-stage-builds">Multi-Stage Builds<a class="headerlink" href="#multi-stage-builds" title="Permanent link">&para;</a></h3>
+<h2 id="docker-integration">Docker Integration</h2>
+<h3 id="multi-stage-builds">Multi-Stage Builds</h3>
 <p>Services use multi-stage Docker builds:</p>
 <pre class="highlight"><code class="language-dockerfile"># Builder stage
 FROM golang:alpine AS builder
@@ -2381,20 +2381,20 @@ FROM alpine:latest
 COPY --from=builder /app/binary /app/
 </code></pre>
 
-<h3 id="build-arguments">Build Arguments<a class="headerlink" href="#build-arguments" title="Permanent link">&para;</a></h3>
-<p>Docker builds accept these arguments:<br />
-- <code>TARGET</code> - Service name<br />
-- <code>GIT_REF</code> - Git commit reference<br />
-- <code>GIT_BRANCH</code> - Git branch name<br />
-- <code>BUILD_VERSION</code> - Version number<br />
+<h3 id="build-arguments">Build Arguments</h3>
+<p>Docker builds accept these arguments:
+- <code>TARGET</code> - Service name
+- <code>GIT_REF</code> - Git commit reference
+- <code>GIT_BRANCH</code> - Git branch name
+- <code>BUILD_VERSION</code> - Version number
 - <code>BUILD_NUMBER</code> - Build number</p>
-<h3 id="registry-support">Registry Support<a class="headerlink" href="#registry-support" title="Permanent link">&para;</a></h3>
-<p>Three registry types supported:<br />
-- <strong>Local</strong>: For development<br />
-- <strong>ECR</strong>: AWS Elastic Container Registry<br />
+<h3 id="registry-support">Registry Support</h3>
+<p>Three registry types supported:
+- <strong>Local</strong>: For development
+- <strong>ECR</strong>: AWS Elastic Container Registry
 - <strong>Custom</strong>: Configurable registry</p>
-<h2 id="package-management">Package Management<a class="headerlink" href="#package-management" title="Permanent link">&para;</a></h2>
-<h3 id="rpm-packaging">RPM Packaging<a class="headerlink" href="#rpm-packaging" title="Permanent link">&para;</a></h3>
+<h2 id="package-management">Package Management</h2>
+<h3 id="rpm-packaging">RPM Packaging</h3>
 <p>The system generates RPM packages for different deployment scenarios:</p>
 <ol>
 <li><strong>Complete MSSP</strong>: Full platform installation</li>
@@ -2404,7 +2404,7 @@ COPY --from=builder /app/binary /app/
 <li><strong>Worker Nodes</strong>: Distributed processing nodes</li>
 <li><strong>Arbiter</strong>: MongoDB cluster arbiters</li>
 </ol>
-<h3 id="package-structure">Package Structure<a class="headerlink" href="#package-structure" title="Permanent link">&para;</a></h3>
+<h3 id="package-structure">Package Structure</h3>
 <pre class="highlight"><code>/opt/zona/build/
 ├── zona_services/     # Core service binaries
 ├── zona_batch/        # Batch service binaries
@@ -2412,45 +2412,45 @@ COPY --from=builder /app/binary /app/
 └── integrations/      # Integration binaries
 </code></pre>
 
-<h3 id="version-management">Version Management<a class="headerlink" href="#version-management" title="Permanent link">&para;</a></h3>
+<h3 id="version-management">Version Management</h3>
 <ul>
 <li><strong>Version</strong>: 6.1.0 (current)</li>
 <li><strong>Upgrade Path</strong>: Sequential version upgrades supported</li>
 <li><strong>Rollback</strong>: Previous version rollback capability</li>
 </ul>
-<h2 id="development-workflows">Development Workflows<a class="headerlink" href="#development-workflows" title="Permanent link">&para;</a></h2>
-<h3 id="building-a-single-service">Building a Single Service<a class="headerlink" href="#building-a-single-service" title="Permanent link">&para;</a></h3>
+<h2 id="development-workflows">Development Workflows</h2>
+<h3 id="building-a-single-service">Building a Single Service</h3>
 <pre class="highlight"><code class="language-bash">cd /path/to/service
 make vendor    # Download dependencies
 make build     # Build binary
 make clean     # Clean artifacts
 </code></pre>
 
-<h3 id="building-component-group">Building Component Group<a class="headerlink" href="#building-component-group" title="Permanent link">&para;</a></h3>
+<h3 id="building-component-group">Building Component Group</h3>
 <pre class="highlight"><code class="language-bash">cd zona_services
 make all       # Build all services
 make export    # Copy to export directory
 make clean     # Clean all services
 </code></pre>
 
-<h3 id="building-specific-service">Building Specific Service<a class="headerlink" href="#building-specific-service" title="Permanent link">&para;</a></h3>
+<h3 id="building-specific-service">Building Specific Service</h3>
 <pre class="highlight"><code class="language-bash">cd zona_services
 make zona_siem        # Build specific service
 make clean_zona_siem  # Clean specific service
 </code></pre>
 
-<h3 id="docker-workflow">Docker Workflow<a class="headerlink" href="#docker-workflow" title="Permanent link">&para;</a></h3>
+<h3 id="docker-workflow">Docker Workflow</h3>
 <pre class="highlight"><code class="language-bash">make image_ecr    # Build ECR image
 make push_ecr     # Push to ECR
 </code></pre>
 
-<h3 id="package-building">Package Building<a class="headerlink" href="#package-building" title="Permanent link">&para;</a></h3>
+<h3 id="package-building">Package Building</h3>
 <pre class="highlight"><code class="language-bash">cd build_securaa/pkg
 make rpm_mssp_complete     # Build complete package
 make rpm_mssp_core_db      # Build database package
 </code></pre>
 
-<h3 id="development-cycle">Development Cycle<a class="headerlink" href="#development-cycle" title="Permanent link">&para;</a></h3>
+<h3 id="development-cycle">Development Cycle</h3>
 <ol>
 <li><strong>Code Changes</strong>: Modify source code</li>
 <li><strong>Vendor</strong>: <code>make vendor</code> (if dependencies changed)</li>
@@ -2459,47 +2459,47 @@ make rpm_mssp_core_db      # Build database package
 <li><strong>Docker</strong>: <code>make image_local</code> (for containerized testing)</li>
 <li><strong>Package</strong>: Build RPM for deployment testing</li>
 </ol>
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="1-dependency-management">1. Dependency Management<a class="headerlink" href="#1-dependency-management" title="Permanent link">&para;</a></h3>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="1-dependency-management">1. Dependency Management</h3>
 <ul>
 <li>Always run <code>make vendor</code> after dependency changes</li>
 <li>Use Go modules (<code>go.mod</code>) for dependency specification</li>
 <li>Vendor dependencies for reproducible builds</li>
 </ul>
-<h3 id="2-environment-configuration">2. Environment Configuration<a class="headerlink" href="#2-environment-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="2-environment-configuration">2. Environment Configuration</h3>
 <ul>
 <li>Maintain <code>.env</code> files for each service</li>
 <li>Use consistent naming conventions</li>
 <li>Version build information in binaries</li>
 </ul>
-<h3 id="3-build-optimization">3. Build Optimization<a class="headerlink" href="#3-build-optimization" title="Permanent link">&para;</a></h3>
+<h3 id="3-build-optimization">3. Build Optimization</h3>
 <ul>
 <li>Use <code>CGO_ENABLED=0</code> for static binaries</li>
 <li>Leverage build caching where possible</li>
 <li>Use multi-stage Docker builds</li>
 </ul>
-<h3 id="4-clean-builds">4. Clean Builds<a class="headerlink" href="#4-clean-builds" title="Permanent link">&para;</a></h3>
+<h3 id="4-clean-builds">4. Clean Builds</h3>
 <ul>
 <li>Run <code>make clean</code> before important builds</li>
 <li>Clean export directories between builds</li>
 <li>Maintain separate build environments</li>
 </ul>
-<h3 id="5-version-control">5. Version Control<a class="headerlink" href="#5-version-control" title="Permanent link">&para;</a></h3>
+<h3 id="5-version-control">5. Version Control</h3>
 <ul>
 <li>Tag releases appropriately</li>
 <li>Include git information in builds</li>
 <li>Maintain build traceability</li>
 </ul>
-<h3 id="6-docker-best-practices">6. Docker Best Practices<a class="headerlink" href="#6-docker-best-practices" title="Permanent link">&para;</a></h3>
+<h3 id="6-docker-best-practices">6. Docker Best Practices</h3>
 <ul>
 <li>Use specific base image tags</li>
 <li>Minimize layer count</li>
 <li>Cache expensive operations</li>
 <li>Use .dockerignore files</li>
 </ul>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
-<h4 id="1-dependency-issues">1. Dependency Issues<a class="headerlink" href="#1-dependency-issues" title="Permanent link">&para;</a></h4>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<h4 id="1-dependency-issues">1. Dependency Issues</h4>
 <p><strong>Problem</strong>: <code>vendor</code> directory missing or outdated</p>
 <pre class="highlight"><code class="language-bash"># Solution
 make vendor
@@ -2511,7 +2511,7 @@ go mod tidy
 make vendor
 </code></pre>
 
-<h4 id="2-build-failures">2. Build Failures<a class="headerlink" href="#2-build-failures" title="Permanent link">&para;</a></h4>
+<h4 id="2-build-failures">2. Build Failures</h4>
 <p><strong>Problem</strong>: CGO linking errors</p>
 <pre class="highlight"><code class="language-bash"># Solution - Ensure CGO is disabled
 export CGO_ENABLED=0
@@ -2525,7 +2525,7 @@ source .env
 make build
 </code></pre>
 
-<h4 id="3-docker-issues">3. Docker Issues<a class="headerlink" href="#3-docker-issues" title="Permanent link">&para;</a></h4>
+<h4 id="3-docker-issues">3. Docker Issues</h4>
 <p><strong>Problem</strong>: Docker build context too large</p>
 <pre class="highlight"><code class="language-bash"># Solution - Use .dockerignore
 echo &quot;vendor/&quot; &gt;&gt; .dockerignore
@@ -2537,7 +2537,7 @@ echo &quot;build/&quot; &gt;&gt; .dockerignore
 aws ecr get-login-password | docker login --username AWS --password-stdin &lt;registry&gt;
 </code></pre>
 
-<h4 id="4-package-building-issues">4. Package Building Issues<a class="headerlink" href="#4-package-building-issues" title="Permanent link">&para;</a></h4>
+<h4 id="4-package-building-issues">4. Package Building Issues</h4>
 <p><strong>Problem</strong>: RPM build directory permissions</p>
 <pre class="highlight"><code class="language-bash"># Solution - Set up rpmbuild directories
 mkdir -p ~/rpmbuild/{SOURCES,SPECS,BUILD,SRPMS,RPMS}
@@ -2548,7 +2548,7 @@ mkdir -p ~/rpmbuild/{SOURCES,SPECS,BUILD,SRPMS,RPMS}
 yum install rpm-build rpmdevtools
 </code></pre>
 
-<h3 id="debugging-steps">Debugging Steps<a class="headerlink" href="#debugging-steps" title="Permanent link">&para;</a></h3>
+<h3 id="debugging-steps">Debugging Steps</h3>
 <ol>
 <li><strong>Check Environment</strong>: Verify <code>.env</code> file contents</li>
 <li><strong>Verify Dependencies</strong>: Ensure <code>vendor/</code> directory exists</li>
@@ -2557,7 +2557,7 @@ yum install rpm-build rpmdevtools
 <li><strong>Check Logs</strong>: Review <code>build.log</code> for detailed errors</li>
 <li><strong>Clean and Retry</strong>: Use <code>make clean</code> and rebuild</li>
 </ol>
-<h3 id="log-analysis">Log Analysis<a class="headerlink" href="#log-analysis" title="Permanent link">&para;</a></h3>
+<h3 id="log-analysis">Log Analysis</h3>
 <p>Build logs are written to <code>build.log</code> in component directories:</p>
 <pre class="highlight"><code class="language-bash"># Check recent build output
 tail -f build.log
@@ -2567,7 +2567,7 @@ grep -i error build.log
 grep -i fail build.log
 </code></pre>
 
-<h3 id="performance-optimization_1">Performance Optimization<a class="headerlink" href="#performance-optimization_1" title="Permanent link">&para;</a></h3>
+<h3 id="performance-optimization_1">Performance Optimization</h3>
 <ul>
 <li><strong>Parallel Builds</strong>: Use <code>make -j&lt;n&gt;</code> for parallel builds</li>
 <li><strong>Build Caching</strong>: Leverage Docker build cache</li>
@@ -2575,7 +2575,7 @@ grep -i fail build.log
 <li><strong>Resource Allocation</strong>: Ensure adequate CPU/memory for builds</li>
 </ul>
 <hr />
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<h2 id="summary">Summary</h2>
 <p>The SECURAA Make system provides a comprehensive, scalable build infrastructure supporting:</p>
 <ul>
 <li><strong>150+ Integration Services</strong>: External system connectors</li>
@@ -2587,8 +2587,8 @@ grep -i fail build.log
 <li><strong>Multi-Environment Support</strong>: Development, staging, production</li>
 </ul>
 <p>The system's hierarchical structure enables efficient development, testing, and deployment of the complex SECURAA cybersecurity platform while maintaining consistency and reliability across all components.</p>
-<h2 id="advanced-configuration">Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permanent link">&para;</a></h2>
-<h3 id="environment-specific-configuration">Environment-Specific Configuration<a class="headerlink" href="#environment-specific-configuration" title="Permanent link">&para;</a></h3>
+<h2 id="advanced-configuration">Advanced Configuration</h2>
+<h3 id="environment-specific-configuration">Environment-Specific Configuration</h3>
 <pre class="highlight"><code>┌─────────────────────────────────────────────────────────────────────────────┐
 │                        ENVIRONMENT CONFIGURATION MATRIX                      │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -2604,7 +2604,7 @@ grep -i fail build.log
 └─────────────────────────────────────────────────────────────────────────────┘
 </code></pre>
 
-<h3 id="configuration-management">Configuration Management<a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h3>
+<h3 id="configuration-management">Configuration Management</h3>
 <pre class="highlight"><code class="language-bash"># config/environments/development.env
 export BUILD_TYPE=debug
 export CGO_ENABLED=1
@@ -2642,7 +2642,7 @@ export ENABLE_PROVENANCE=true
 export ENABLE_SBOM=true
 </code></pre>
 
-<h3 id="advanced-makefile-patterns">Advanced Makefile Patterns<a class="headerlink" href="#advanced-makefile-patterns" title="Permanent link">&para;</a></h3>
+<h3 id="advanced-makefile-patterns">Advanced Makefile Patterns</h3>
 <pre class="highlight"><code class="language-makefile"># Advanced configuration-driven Makefile
 
 # Load environment-specific configuration
@@ -2719,7 +2719,7 @@ validate-config:
 .PHONY: build-env build-multiarch package-multiplatform deploy-env validate-config
 </code></pre>
 
-<h3 id="monitoring-and-observability">Monitoring and Observability<a class="headerlink" href="#monitoring-and-observability" title="Permanent link">&para;</a></h3>
+<h3 id="monitoring-and-observability">Monitoring and Observability</h3>
 <pre class="highlight"><code class="language-makefile"># Observability targets
 
 # Build metrics collection
@@ -2781,7 +2781,7 @@ docs-generate:
 .PHONY: metrics-build profile-build health-check analyze-deps analyze-artifacts docs-generate
 </code></pre>
 
-<h3 id="integration-with-external-tools">Integration with External Tools<a class="headerlink" href="#integration-with-external-tools" title="Permanent link">&para;</a></h3>
+<h3 id="integration-with-external-tools">Integration with External Tools</h3>
 <pre class="highlight"><code class="language-makefile"># External tool integrations
 
 # SonarQube integration
@@ -2834,9 +2834,9 @@ release-complete: validate-config security-all build-env package-multiplatform
 </code></pre>
 
 <hr />
-<h2 id="final-summary">Final Summary<a class="headerlink" href="#final-summary" title="Permanent link">&para;</a></h2>
+<h2 id="final-summary">Final Summary</h2>
 <p>This comprehensive documentation now covers the entire SECURAA Make system with enhanced detail including:</p>
-<h3 id="enhanced-features">Enhanced Features:<a class="headerlink" href="#enhanced-features" title="Permanent link">&para;</a></h3>
+<h3 id="enhanced-features">Enhanced Features:</h3>
 <ol>
 <li><strong>Detailed System Architecture</strong> with ASCII diagrams showing component interactions</li>
 <li><strong>Complete Build Flow Diagrams</strong> including Docker multi-stage builds and package creation</li>
@@ -2847,7 +2847,7 @@ release-complete: validate-config security-all build-env package-multiplatform
 <li><strong>Monitoring and Observability</strong> tools for build analytics and health checks</li>
 <li><strong>External Tool Integrations</strong> for SonarQube, Artifactory, Slack, and JIRA</li>
 </ol>
-<h3 id="visual-documentation-includes">Visual Documentation Includes:<a class="headerlink" href="#visual-documentation-includes" title="Permanent link">&para;</a></h3>
+<h3 id="visual-documentation-includes">Visual Documentation Includes:</h3>
 <ul>
 <li><strong>System Architecture Diagrams</strong>: Complete platform overview with service interactions</li>
 <li><strong>Build Process Flows</strong>: Detailed step-by-step visualization with parallel processing</li>

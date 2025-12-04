@@ -620,8 +620,8 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="zona-custom-utils-service-low-level-design-lld">Zona Custom Utils Service - Low-Level Design (LLD)<a class="headerlink" href="#zona-custom-utils-service-low-level-design-lld" title="Permanent link">&para;</a></h1>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+        <h1 id="zona-custom-utils-service-low-level-design-lld">Zona Custom Utils Service - Low-Level Design (LLD)</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#technical-implementation-overview">Technical Implementation Overview</a></li>
 <li><a href="#detailed-component-design">Detailed Component Design</a></li>
@@ -636,9 +636,9 @@ hr {
 <li><a href="#testing-strategy">Testing Strategy</a></li>
 <li><a href="#deployment-implementation">Deployment Implementation</a></li>
 </ol>
-<h2 id="technical-implementation-overview">Technical Implementation Overview<a class="headerlink" href="#technical-implementation-overview" title="Permanent link">&para;</a></h2>
-<h3 id="technology-stack-details">Technology Stack Details<a class="headerlink" href="#technology-stack-details" title="Permanent link">&para;</a></h3>
-<h4 id="core-technologies">Core Technologies<a class="headerlink" href="#core-technologies" title="Permanent link">&para;</a></h4>
+<h2 id="technical-implementation-overview">Technical Implementation Overview</h2>
+<h3 id="technology-stack-details">Technology Stack Details</h3>
+<h4 id="core-technologies">Core Technologies</h4>
 <pre class="highlight"><code class="language-go">// Go 1.17+ with essential libraries
 module zona_services/zona_custom_utils
 
@@ -652,14 +652,14 @@ require (
 )
 </code></pre>
 
-<h4 id="service-architecture">Service Architecture<a class="headerlink" href="#service-architecture" title="Permanent link">&para;</a></h4>
+<h4 id="service-architecture">Service Architecture</h4>
 <ul>
 <li><strong>Port</strong>: 8109 (HTTP REST API)</li>
 <li><strong>Runtime</strong>: Go 1.17+ on Ubuntu 20.04</li>
 <li><strong>Container</strong>: Docker with multi-stage build</li>
 <li><strong>Dependencies</strong>: MongoDB, Redis, Docker Engine</li>
 </ul>
-<h3 id="application-structure">Application Structure<a class="headerlink" href="#application-structure" title="Permanent link">&para;</a></h3>
+<h3 id="application-structure">Application Structure</h3>
 <pre class="highlight"><code>zona_custom_utils/
 ├── main.go                 # Entry point
 ├── app.go                  # Application setup
@@ -675,9 +675,9 @@ require (
 └── constants/             # Application constants
 </code></pre>
 
-<h2 id="detailed-component-design">Detailed Component Design<a class="headerlink" href="#detailed-component-design" title="Permanent link">&para;</a></h2>
-<h3 id="application-layer-implementation">Application Layer Implementation<a class="headerlink" href="#application-layer-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="maingo-service-entry-point">main.go - Service Entry Point<a class="headerlink" href="#maingo-service-entry-point" title="Permanent link">&para;</a></h4>
+<h2 id="detailed-component-design">Detailed Component Design</h2>
+<h3 id="application-layer-implementation">Application Layer Implementation</h3>
+<h4 id="maingo-service-entry-point">main.go - Service Entry Point</h4>
 <pre class="highlight"><code class="language-go">package main
 
 import &quot;securaa_lib/securaalog&quot;
@@ -697,7 +697,7 @@ func main() {
 }
 </code></pre>
 
-<h4 id="appgo-application-configuration">app.go - Application Configuration<a class="headerlink" href="#appgo-application-configuration" title="Permanent link">&para;</a></h4>
+<h4 id="appgo-application-configuration">app.go - Application Configuration</h4>
 <pre class="highlight"><code class="language-go">type App struct {
     Router             *mux.Router                    // HTTP router
     AccessTokenHashMap map[string]int64              // Token cache
@@ -718,8 +718,8 @@ func (a *App) Initialize() {
 }
 </code></pre>
 
-<h3 id="controller-layer-implementation">Controller Layer Implementation<a class="headerlink" href="#controller-layer-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="customutilscontroller-structure">CustomUtilsController Structure<a class="headerlink" href="#customutilscontroller-structure" title="Permanent link">&para;</a></h4>
+<h3 id="controller-layer-implementation">Controller Layer Implementation</h3>
+<h4 id="customutilscontroller-structure">CustomUtilsController Structure</h4>
 <pre class="highlight"><code class="language-go">type CustomUtilsController struct{}
 
 func NewCustomUtilsController() *CustomUtilsController {
@@ -747,7 +747,7 @@ func (cu *CustomUtilsController) GetCustomUtils(w http.ResponseWriter, r *http.R
 }
 </code></pre>
 
-<h4 id="request-routing-configuration">Request Routing Configuration<a class="headerlink" href="#request-routing-configuration" title="Permanent link">&para;</a></h4>
+<h4 id="request-routing-configuration">Request Routing Configuration</h4>
 <pre class="highlight"><code class="language-go">func (a *App) initializeRoutes() {
     a.Router.Use(a.loggingMiddleware)
 
@@ -776,8 +776,8 @@ func (cu *CustomUtilsController) GetCustomUtils(w http.ResponseWriter, r *http.R
 }
 </code></pre>
 
-<h3 id="service-layer-implementation">Service Layer Implementation<a class="headerlink" href="#service-layer-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="utilsservice-core-business-logic">UtilsService - Core Business Logic<a class="headerlink" href="#utilsservice-core-business-logic" title="Permanent link">&para;</a></h4>
+<h3 id="service-layer-implementation">Service Layer Implementation</h3>
+<h4 id="utilsservice-core-business-logic">UtilsService - Core Business Logic</h4>
 <pre class="highlight"><code class="language-go">func CreateOrUpdateUtils(r *http.Request, dbSession map[string]common.SessionStruct, 
     configObject config.ConfigStruct) models.ResponseModel {
 
@@ -824,7 +824,7 @@ func (cu *CustomUtilsController) GetCustomUtils(w http.ResponseWriter, r *http.R
 }
 </code></pre>
 
-<h4 id="tasksservice-task-management">TasksService - Task Management<a class="headerlink" href="#tasksservice-task-management" title="Permanent link">&para;</a></h4>
+<h4 id="tasksservice-task-management">TasksService - Task Management</h4>
 <pre class="highlight"><code class="language-go">func CopyutilsToTenant(newtenantcode string, dbSession map[string]common.SessionStruct, 
     configObject config.ConfigStruct) (models.ResponseModel, error) {
 
@@ -856,8 +856,8 @@ func (cu *CustomUtilsController) GetCustomUtils(w http.ResponseWriter, r *http.R
 }
 </code></pre>
 
-<h3 id="utils-layer-implementation">Utils Layer Implementation<a class="headerlink" href="#utils-layer-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="common-utilities">Common Utilities<a class="headerlink" href="#common-utilities" title="Permanent link">&para;</a></h4>
+<h3 id="utils-layer-implementation">Utils Layer Implementation</h3>
+<h4 id="common-utilities">Common Utilities</h4>
 <pre class="highlight"><code class="language-go">package utils
 
 import (
@@ -887,7 +887,7 @@ func CalculateFileHash(filePath string) (string, error) {
 }
 </code></pre>
 
-<h4 id="container-management">Container Management<a class="headerlink" href="#container-management" title="Permanent link">&para;</a></h4>
+<h4 id="container-management">Container Management</h4>
 <pre class="highlight"><code class="language-go">func RemoveCustomUtils(servicetype string) error {
     command := `docker service rm python-` + servicetype
     _, err := exec.Command(&quot;sh&quot;, &quot;-c&quot;, command).CombinedOutput()
@@ -924,8 +924,8 @@ func ClearProcess(userId string) error {
 }
 </code></pre>
 
-<h3 id="builder-layer-implementation">Builder Layer Implementation<a class="headerlink" href="#builder-layer-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="taskobjectbuilder">TaskObjectBuilder<a class="headerlink" href="#taskobjectbuilder" title="Permanent link">&para;</a></h4>
+<h3 id="builder-layer-implementation">Builder Layer Implementation</h3>
+<h4 id="taskobjectbuilder">TaskObjectBuilder</h4>
 <pre class="highlight"><code class="language-go">func BuildTaskObject(outputs string, title string, description string, userId int,
     utilsdirectory string, tenantcode string, port string, alteredFunctionName bool,
     inputLabel string, filterLabel string, filterRequired string, category string,
@@ -990,9 +990,9 @@ func ClearProcess(userId string) error {
 }
 </code></pre>
 
-<h2 id="database-design">Database Design<a class="headerlink" href="#database-design" title="Permanent link">&para;</a></h2>
-<h3 id="mongodb-collections-schema">MongoDB Collections Schema<a class="headerlink" href="#mongodb-collections-schema" title="Permanent link">&para;</a></h3>
-<h4 id="tasks-collection-custom-utils">tasks Collection (Custom Utils)<a class="headerlink" href="#tasks-collection-custom-utils" title="Permanent link">&para;</a></h4>
+<h2 id="database-design">Database Design</h2>
+<h3 id="mongodb-collections-schema">MongoDB Collections Schema</h3>
+<h4 id="tasks-collection-custom-utils">tasks Collection (Custom Utils)</h4>
 <pre class="highlight"><code class="language-javascript">{
   &quot;_id&quot;: ObjectId(&quot;...&quot;),
   &quot;name&quot;: &quot;data_transformer&quot;,           // String: Unique utility name
@@ -1028,7 +1028,7 @@ func ClearProcess(userId string) error {
 }
 </code></pre>
 
-<h4 id="task_execution-collection">task_execution Collection<a class="headerlink" href="#task_execution-collection" title="Permanent link">&para;</a></h4>
+<h4 id="task_execution-collection">task_execution Collection</h4>
 <pre class="highlight"><code class="language-javascript">{
   &quot;_id&quot;: ObjectId(&quot;...&quot;),
   &quot;taskid&quot;: NumberLong(&quot;1001&quot;),        // Int64: Task reference
@@ -1047,7 +1047,7 @@ func ClearProcess(userId string) error {
 }
 </code></pre>
 
-<h4 id="database-indexes">Database Indexes<a class="headerlink" href="#database-indexes" title="Permanent link">&para;</a></h4>
+<h4 id="database-indexes">Database Indexes</h4>
 <pre class="highlight"><code class="language-javascript">// Performance indexes for tasks collection
 db.tasks.createIndex({
     &quot;name&quot;: 1, 
@@ -1089,8 +1089,8 @@ db.task_execution.createIndex({
 })
 </code></pre>
 
-<h3 id="data-model-implementation">Data Model Implementation<a class="headerlink" href="#data-model-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="core-models">Core Models<a class="headerlink" href="#core-models" title="Permanent link">&para;</a></h4>
+<h3 id="data-model-implementation">Data Model Implementation</h3>
+<h4 id="core-models">Core Models</h4>
 <pre class="highlight"><code class="language-go">type CustomUtilsObject struct {
     Name                 string           `json:&quot;name&quot; bson:&quot;name&quot;`
     ID                   int              `json:&quot;id&quot; bson:&quot;id&quot;`
@@ -1139,9 +1139,9 @@ type ResponseModel struct {
 }
 </code></pre>
 
-<h2 id="api-implementation">API Implementation<a class="headerlink" href="#api-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="rest-endpoint-implementation">REST Endpoint Implementation<a class="headerlink" href="#rest-endpoint-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="createupdate-custom-utility">Create/Update Custom Utility<a class="headerlink" href="#createupdate-custom-utility" title="Permanent link">&para;</a></h4>
+<h2 id="api-implementation">API Implementation</h2>
+<h3 id="rest-endpoint-implementation">REST Endpoint Implementation</h3>
+<h4 id="createupdate-custom-utility">Create/Update Custom Utility</h4>
 <pre class="highlight"><code class="language-http">POST /utils/v1/custom-utils
 Content-Type: multipart/form-data
 
@@ -1163,7 +1163,7 @@ Request Parameters:
 - code: file (Python code file)
 </code></pre>
 
-<h4 id="implementation-example">Implementation Example<a class="headerlink" href="#implementation-example" title="Permanent link">&para;</a></h4>
+<h4 id="implementation-example">Implementation Example</h4>
 <pre class="highlight"><code class="language-go">func (cu *CustomUtilsController) UpsertCustomUtils(w http.ResponseWriter, r *http.Request,
     dbSession map[string]common.SessionStruct, configObject config.ConfigStruct) {
 
@@ -1189,7 +1189,7 @@ Request Parameters:
 }
 </code></pre>
 
-<h4 id="get-custom-utilities">Get Custom Utilities<a class="headerlink" href="#get-custom-utilities" title="Permanent link">&para;</a></h4>
+<h4 id="get-custom-utilities">Get Custom Utilities</h4>
 <pre class="highlight"><code class="language-go">func (cu *CustomUtilsController) GetCustomUtils(w http.ResponseWriter, r *http.Request,
     dbSession map[string]common.SessionStruct, configObject config.ConfigStruct) {
 
@@ -1273,8 +1273,8 @@ Request Parameters:
 }
 </code></pre>
 
-<h3 id="middleware-implementation">Middleware Implementation<a class="headerlink" href="#middleware-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="logging-middleware">Logging Middleware<a class="headerlink" href="#logging-middleware" title="Permanent link">&para;</a></h4>
+<h3 id="middleware-implementation">Middleware Implementation</h3>
+<h4 id="logging-middleware">Logging Middleware</h4>
 <pre class="highlight"><code class="language-go">func (a *App) loggingMiddleware(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         middleWareData := common.MiddleWareData{}
@@ -1296,8 +1296,8 @@ Request Parameters:
 }
 </code></pre>
 
-<h2 id="security-implementation">Security Implementation<a class="headerlink" href="#security-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="input-validation">Input Validation<a class="headerlink" href="#input-validation" title="Permanent link">&para;</a></h3>
+<h2 id="security-implementation">Security Implementation</h2>
+<h3 id="input-validation">Input Validation</h3>
 <pre class="highlight"><code class="language-go">func validateUtilityName(name string) error {
     if len(name) == 0 {
         return errors.New(&quot;utility name is required&quot;)
@@ -1324,7 +1324,7 @@ Request Parameters:
 }
 </code></pre>
 
-<h3 id="code-validation-rules">Code Validation Rules<a class="headerlink" href="#code-validation-rules" title="Permanent link">&para;</a></h3>
+<h3 id="code-validation-rules">Code Validation Rules</h3>
 <pre class="highlight"><code class="language-go">type ValidationRule struct {
     Name     string
     Pattern  string
@@ -1384,7 +1384,7 @@ func ValidateCode(code string) []ValidationResult {
 }
 </code></pre>
 
-<h3 id="encryption-implementation">Encryption Implementation<a class="headerlink" href="#encryption-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="encryption-implementation">Encryption Implementation</h3>
 <pre class="highlight"><code class="language-go">func EncryptFileContent(content string, key []byte) (string, error) {
     block, err := aes.NewCipher(key)
     if err != nil {
@@ -1436,8 +1436,8 @@ func DecryptFileContent(encryptedContent string, key []byte) (string, error) {
 }
 </code></pre>
 
-<h2 id="performance-implementation">Performance Implementation<a class="headerlink" href="#performance-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="caching-strategy">Caching Strategy<a class="headerlink" href="#caching-strategy" title="Permanent link">&para;</a></h3>
+<h2 id="performance-implementation">Performance Implementation</h2>
+<h3 id="caching-strategy">Caching Strategy</h3>
 <pre class="highlight"><code class="language-go">type CacheManager struct {
     redisClient *redis.Client
     localCache  map[string]interface{}
@@ -1477,7 +1477,7 @@ func (cm *CacheManager) Set(key string, value interface{}, ttl time.Duration) er
 }
 </code></pre>
 
-<h3 id="database-connection-pooling">Database Connection Pooling<a class="headerlink" href="#database-connection-pooling" title="Permanent link">&para;</a></h3>
+<h3 id="database-connection-pooling">Database Connection Pooling</h3>
 <pre class="highlight"><code class="language-go">func InitMongoClient(configObject config.ConfigStruct) (*mongo.Client, error) {
     clientOptions := options.Client().ApplyURI(mongoURI)
 
@@ -1504,7 +1504,7 @@ func (cm *CacheManager) Set(key string, value interface{}, ttl time.Duration) er
 }
 </code></pre>
 
-<h3 id="query-optimization">Query Optimization<a class="headerlink" href="#query-optimization" title="Permanent link">&para;</a></h3>
+<h3 id="query-optimization">Query Optimization</h3>
 <pre class="highlight"><code class="language-go">func GetUtilitiesOptimized(tenantCode string, userID int, limit int, offset int) ([]models.CustomUtilsResponse, error) {
     // Use aggregation pipeline for complex queries
     pipeline := []bson.M{
@@ -1561,8 +1561,8 @@ func (cm *CacheManager) Set(key string, value interface{}, ttl time.Duration) er
 }
 </code></pre>
 
-<h2 id="error-handling-implementation">Error Handling Implementation<a class="headerlink" href="#error-handling-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="error-types-and-handling">Error Types and Handling<a class="headerlink" href="#error-types-and-handling" title="Permanent link">&para;</a></h3>
+<h2 id="error-handling-implementation">Error Handling Implementation</h2>
+<h3 id="error-types-and-handling">Error Types and Handling</h3>
 <pre class="highlight"><code class="language-go">type ErrorType string
 
 const (
@@ -1600,7 +1600,7 @@ func NewValidationError(code, message, details string) *CustomError {
 }
 </code></pre>
 
-<h3 id="error-handler-implementation">Error Handler Implementation<a class="headerlink" href="#error-handler-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="error-handler-implementation">Error Handler Implementation</h3>
 <pre class="highlight"><code class="language-go">func HandleError(err error, userMessage string) models.ResponseModel {
     response := models.ResponseModel{
         Success:        false,
@@ -1640,7 +1640,7 @@ func NewValidationError(code, message, details string) *CustomError {
 }
 </code></pre>
 
-<h3 id="panic-recovery-middleware">Panic Recovery Middleware<a class="headerlink" href="#panic-recovery-middleware" title="Permanent link">&para;</a></h3>
+<h3 id="panic-recovery-middleware">Panic Recovery Middleware</h3>
 <pre class="highlight"><code class="language-go">func RecoveryMiddleware(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         defer func() {
@@ -1669,8 +1669,8 @@ func NewValidationError(code, message, details string) *CustomError {
 }
 </code></pre>
 
-<h2 id="monitoring-and-logging-implementation">Monitoring and Logging Implementation<a class="headerlink" href="#monitoring-and-logging-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="structured-logging">Structured Logging<a class="headerlink" href="#structured-logging" title="Permanent link">&para;</a></h3>
+<h2 id="monitoring-and-logging-implementation">Monitoring and Logging Implementation</h2>
+<h3 id="structured-logging">Structured Logging</h3>
 <pre class="highlight"><code class="language-go">type LogEntry struct {
     Timestamp   time.Time              `json:&quot;timestamp&quot;`
     Level       string                 `json:&quot;level&quot;`
@@ -1709,7 +1709,7 @@ func LogRequest(r *http.Request, duration time.Duration, statusCode int) {
 }
 </code></pre>
 
-<h3 id="metrics-collection">Metrics Collection<a class="headerlink" href="#metrics-collection" title="Permanent link">&para;</a></h3>
+<h3 id="metrics-collection">Metrics Collection</h3>
 <pre class="highlight"><code class="language-go">var (
     requestDuration = prometheus.NewHistogramVec(
         prometheus.HistogramOpts{
@@ -1759,7 +1759,7 @@ func MetricsMiddleware(next http.Handler) http.Handler {
 }
 </code></pre>
 
-<h3 id="health-check-implementation">Health Check Implementation<a class="headerlink" href="#health-check-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="health-check-implementation">Health Check Implementation</h3>
 <pre class="highlight"><code class="language-go">type HealthCheck struct {
     Status    string                 `json:&quot;status&quot;`
     Timestamp time.Time              `json:&quot;timestamp&quot;`
@@ -1843,8 +1843,8 @@ func HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
 }
 </code></pre>
 
-<h2 id="configuration-management">Configuration Management<a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h2>
-<h3 id="configuration-structure">Configuration Structure<a class="headerlink" href="#configuration-structure" title="Permanent link">&para;</a></h3>
+<h2 id="configuration-management">Configuration Management</h2>
+<h3 id="configuration-structure">Configuration Structure</h3>
 <pre class="highlight"><code class="language-go">type Config struct {
     Server   ServerConfig   `json:&quot;server&quot;`
     Database DatabaseConfig `json:&quot;database&quot;`
@@ -1877,7 +1877,7 @@ type DatabaseConfig struct {
 }
 </code></pre>
 
-<h3 id="environment-based-configuration">Environment-based Configuration<a class="headerlink" href="#environment-based-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="environment-based-configuration">Environment-based Configuration</h3>
 <pre class="highlight"><code class="language-go">func LoadConfig() (*Config, error) {
     config := &amp;Config{}
 
@@ -1921,8 +1921,8 @@ func overrideWithEnv(config *Config) {
 }
 </code></pre>
 
-<h2 id="development-guidelines">Development Guidelines<a class="headerlink" href="#development-guidelines" title="Permanent link">&para;</a></h2>
-<h3 id="code-organization-standards">Code Organization Standards<a class="headerlink" href="#code-organization-standards" title="Permanent link">&para;</a></h3>
+<h2 id="development-guidelines">Development Guidelines</h2>
+<h3 id="code-organization-standards">Code Organization Standards</h3>
 <pre class="highlight"><code class="language-go">// Package structure guidelines
 package controllers  // HTTP request handlers
 package services     // Business logic implementation
@@ -1947,7 +1947,7 @@ type CustomUtilsController struct{}
 var logger = securaalog.New(&quot;zona_custom_utils&quot;)
 </code></pre>
 
-<h3 id="error-handling-patterns">Error Handling Patterns<a class="headerlink" href="#error-handling-patterns" title="Permanent link">&para;</a></h3>
+<h3 id="error-handling-patterns">Error Handling Patterns</h3>
 <pre class="highlight"><code class="language-go">// Always handle errors explicitly
 result, err := someOperation()
 if err != nil {
@@ -1967,7 +1967,7 @@ func handleDatabaseError(err error) models.ResponseModel {
 }
 </code></pre>
 
-<h3 id="security-best-practices">Security Best Practices<a class="headerlink" href="#security-best-practices" title="Permanent link">&para;</a></h3>
+<h3 id="security-best-practices">Security Best Practices</h3>
 <pre class="highlight"><code class="language-go">// Input validation example
 func validateInput(input string) error {
     // Check for SQL injection patterns
@@ -2017,8 +2017,8 @@ func secureFileOperation(filename string) error {
 }
 </code></pre>
 
-<h2 id="testing-strategy">Testing Strategy<a class="headerlink" href="#testing-strategy" title="Permanent link">&para;</a></h2>
-<h3 id="unit-test-implementation">Unit Test Implementation<a class="headerlink" href="#unit-test-implementation" title="Permanent link">&para;</a></h3>
+<h2 id="testing-strategy">Testing Strategy</h2>
+<h3 id="unit-test-implementation">Unit Test Implementation</h3>
 <pre class="highlight"><code class="language-go">func TestCreateCustomUtils(t *testing.T) {
     // Setup test environment
     mockDB := setupMockDatabase()
@@ -2082,7 +2082,7 @@ func secureFileOperation(filename string) error {
 }
 </code></pre>
 
-<h3 id="integration-test-example">Integration Test Example<a class="headerlink" href="#integration-test-example" title="Permanent link">&para;</a></h3>
+<h3 id="integration-test-example">Integration Test Example</h3>
 <pre class="highlight"><code class="language-go">func TestUtilityEndToEnd(t *testing.T) {
     // Setup test server
     testServer := httptest.NewServer(setupTestApp())
@@ -2126,8 +2126,8 @@ func secureFileOperation(filename string) error {
 }
 </code></pre>
 
-<h2 id="deployment-implementation">Deployment Implementation<a class="headerlink" href="#deployment-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="docker-configuration">Docker Configuration<a class="headerlink" href="#docker-configuration" title="Permanent link">&para;</a></h3>
+<h2 id="deployment-implementation">Deployment Implementation</h2>
+<h3 id="docker-configuration">Docker Configuration</h3>
 <pre class="highlight"><code class="language-dockerfile"># Multi-stage build for optimal image size
 FROM golang:1.17-alpine AS builder
 
@@ -2188,7 +2188,7 @@ EXPOSE 8109
 CMD [&quot;/run.sh&quot;]
 </code></pre>
 
-<h3 id="cicd-pipeline-configuration">CI/CD Pipeline Configuration<a class="headerlink" href="#cicd-pipeline-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="cicd-pipeline-configuration">CI/CD Pipeline Configuration</h3>
 <pre class="highlight"><code class="language-yaml"># .github/workflows/deploy.yml
 name: Build and Deploy
 

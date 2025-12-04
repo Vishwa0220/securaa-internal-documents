@@ -620,94 +620,94 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="high-level-design-high-level-design-securaa-custom-services">High-Level Design (High Level Design) - Securaa Custom Services<a class="headerlink" href="#high-level-design-high-level-design-securaa-custom-services" title="Permanent link">&para;</a></h1>
-<h2 id="1-executive-summary">1. Executive Summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
-<h3 id="11-system-purpose-and-overview">1.1 System Purpose and Overview<a class="headerlink" href="#11-system-purpose-and-overview" title="Permanent link">&para;</a></h3>
+        <h1 id="high-level-design-high-level-design-securaa-custom-services">High-Level Design (High Level Design) - Securaa Custom Services</h1>
+<h2 id="1-executive-summary">1. Executive Summary</h2>
+<h3 id="11-system-purpose-and-overview">1.1 System Purpose and Overview</h3>
 <p>Securaa Custom Services represents a sophisticated Go-based microservice architecture designed specifically for security automation platforms. This system serves as the backbone for integration and task management capabilities, enabling organizations to create, manage, and execute custom security applications and workflows. The service is architected to handle complex multi-tenant environments while maintaining high performance, security, and scalability standards.</p>
-<p>The primary mission of Securaa Custom Services is to provide a unified platform where security teams can:<br />
-- Design and deploy custom security applications tailored to their specific needs<br />
-- Create and manage complex task workflows with interdependencies<br />
-- Import and export complete application configurations for portability and backup<br />
-- Process security events in real-time with automated response capabilities<br />
-- Maintain complete data isolation between different organizational tenants<br />
+<p>The primary mission of Securaa Custom Services is to provide a unified platform where security teams can:
+- Design and deploy custom security applications tailored to their specific needs
+- Create and manage complex task workflows with interdependencies
+- Import and export complete application configurations for portability and backup
+- Process security events in real-time with automated response capabilities
+- Maintain complete data isolation between different organizational tenants
 - Scale seamlessly from small deployments to enterprise-level installations</p>
-<h3 id="12-architecture-philosophy-and-design-principles">1.2 Architecture Philosophy and Design Principles<a class="headerlink" href="#12-architecture-philosophy-and-design-principles" title="Permanent link">&para;</a></h3>
+<h3 id="12-architecture-philosophy-and-design-principles">1.2 Architecture Philosophy and Design Principles</h3>
 <p>The system is built on several key architectural principles that guide its design and implementation:</p>
 <p><strong>Microservices Architecture</strong>: Securaa Custom Services follows a microservices architectural pattern, operating as a standalone, independently deployable service. This approach provides several benefits including independent scaling, technology flexibility, and fault isolation. The service communicates with other components through well-defined REST APIs, ensuring loose coupling and high cohesion.</p>
-<p><strong>Layered Architecture Pattern</strong>: The internal structure follows a strict layered architecture with clear separation of concerns:<br />
-- <strong>Presentation Layer</strong> (Controllers): Handles HTTP requests, input validation, and response formatting<br />
+<p><strong>Layered Architecture Pattern</strong>: The internal structure follows a strict layered architecture with clear separation of concerns:
+- <strong>Presentation Layer</strong> (Controllers): Handles HTTP requests, input validation, and response formatting
 - <strong>Business Logic Layer</strong> (Services): Contains core business rules, workflows, and processing logic<br />
-- <strong>Data Access Layer</strong> (Models): Manages data structures, database interactions, and data validation<br />
+- <strong>Data Access Layer</strong> (Models): Manages data structures, database interactions, and data validation
 - <strong>Infrastructure Layer</strong>: Provides cross-cutting concerns like logging, security, and configuration management</p>
 <p><strong>Multi-Tenant by Design</strong>: The architecture is inherently designed for multi-tenancy, supporting both shared database models for smaller deployments and completely isolated database instances for enterprise MSSP (Managed Security Service Provider) environments. This flexibility allows the system to adapt to different organizational requirements and compliance needs.</p>
 <p><strong>Security-First Approach</strong>: Security is not an afterthought but a core design principle. Every component includes built-in security measures including field-level encryption, tenant isolation, comprehensive authentication and authorization mechanisms, and audit logging capabilities.</p>
-<h3 id="13-technology-foundation">1.3 Technology Foundation<a class="headerlink" href="#13-technology-foundation" title="Permanent link">&para;</a></h3>
+<h3 id="13-technology-foundation">1.3 Technology Foundation</h3>
 <p><strong>Programming Language and Runtime</strong>: Built with Go 1.17, leveraging Go's excellent concurrency model, memory efficiency, and strong standard library. Go's garbage collection and built-in HTTP server capabilities make it ideal for building high-performance web services.</p>
 <p><strong>Web Framework</strong>: Utilizes Gorilla Mux for HTTP routing, providing powerful URL routing capabilities, middleware support, and flexible request handling. Gorilla Mux offers better performance and flexibility compared to Go's standard HTTP router while maintaining simplicity.</p>
-<p><strong>Database Technology</strong>: MongoDB serves as the primary data store, chosen for its:<br />
-- Document-oriented structure that naturally fits complex security data models<br />
-- Built-in sharding capabilities for horizontal scaling<br />
-- Flexible schema design supporting evolving security requirements<br />
-- Excellent performance for read-heavy workloads common in security applications<br />
+<p><strong>Database Technology</strong>: MongoDB serves as the primary data store, chosen for its:
+- Document-oriented structure that naturally fits complex security data models
+- Built-in sharding capabilities for horizontal scaling
+- Flexible schema design supporting evolving security requirements
+- Excellent performance for read-heavy workloads common in security applications
 - Native support for multi-tenant architectures</p>
-<p><strong>Caching Strategy</strong>: Redis provides high-performance caching capabilities for:<br />
-- Application configuration caching to reduce database load<br />
-- Session management and token storage<br />
-- Frequently accessed integration listings<br />
+<p><strong>Caching Strategy</strong>: Redis provides high-performance caching capabilities for:
+- Application configuration caching to reduce database load
+- Session management and token storage
+- Frequently accessed integration listings
 - Real-time data that requires sub-second access times</p>
-<h3 id="14-core-capabilities-and-features">1.4 Core Capabilities and Features<a class="headerlink" href="#14-core-capabilities-and-features" title="Permanent link">&para;</a></h3>
+<h3 id="14-core-capabilities-and-features">1.4 Core Capabilities and Features</h3>
 <p><strong>Custom Application Management</strong>: The system provides comprehensive capabilities for managing custom security applications. Users can create, configure, and deploy applications with complex parameter sets, file uploads (including logos), and integration-specific configurations. The system supports both generic applications that can be reused across tenants and highly customized applications tailored for specific use cases.</p>
-<p><strong>Generic Task Creation and Execution</strong>: One of the most powerful features is the ability to create and manage generic tasks that can be composed into complex workflows. These tasks support:<br />
-- Complex input parameter definitions with validation rules<br />
-- Dependency management between tasks<br />
-- Real-time execution monitoring and status tracking<br />
-- Output field mapping for downstream task consumption<br />
+<p><strong>Generic Task Creation and Execution</strong>: One of the most powerful features is the ability to create and manage generic tasks that can be composed into complex workflows. These tasks support:
+- Complex input parameter definitions with validation rules
+- Dependency management between tasks
+- Real-time execution monitoring and status tracking
+- Output field mapping for downstream task consumption
 - Error handling and retry mechanisms</p>
-<p><strong>Data Export/Import Functionality</strong>: The system includes sophisticated export/import capabilities that enable:<br />
-- Complete application configuration portability between environments<br />
-- Backup and disaster recovery scenarios<br />
-- Template-based application deployment across multiple tenants<br />
+<p><strong>Data Export/Import Functionality</strong>: The system includes sophisticated export/import capabilities that enable:
+- Complete application configuration portability between environments
+- Backup and disaster recovery scenarios
+- Template-based application deployment across multiple tenants
 - Version control and change management for application configurations</p>
-<p><strong>Integration Management</strong>: Comprehensive integration management features allow for:<br />
-- Connection management with external systems<br />
-- Credential storage with encryption and secure access<br />
-- API endpoint configuration and testing<br />
-- Health monitoring and status reporting<br />
+<p><strong>Integration Management</strong>: Comprehensive integration management features allow for:
+- Connection management with external systems
+- Credential storage with encryption and secure access
+- API endpoint configuration and testing
+- Health monitoring and status reporting
 - Rate limiting and throttling capabilities</p>
-<p><strong>Event Processing and Case Ingestion</strong>: Real-time event processing capabilities include:<br />
-- High-volume security event ingestion from multiple sources<br />
-- Event correlation and analysis workflows<br />
-- Automated case creation and management<br />
-- Custom event processing rules and filters<br />
+<p><strong>Event Processing and Case Ingestion</strong>: Real-time event processing capabilities include:
+- High-volume security event ingestion from multiple sources
+- Event correlation and analysis workflows
+- Automated case creation and management
+- Custom event processing rules and filters
 - Integration with SIEM and other security platforms</p>
-<p><strong>Multi-Tenant Support</strong>: Enterprise-grade multi-tenancy includes:<br />
-- Complete data isolation between tenants<br />
-- Tenant-specific database instances (MSSP mode)<br />
-- Shared infrastructure with logical separation (single-tenant mode)<br />
-- Per-tenant configuration and customization<br />
+<p><strong>Multi-Tenant Support</strong>: Enterprise-grade multi-tenancy includes:
+- Complete data isolation between tenants
+- Tenant-specific database instances (MSSP mode)
+- Shared infrastructure with logical separation (single-tenant mode)
+- Per-tenant configuration and customization
 - Independent scaling and resource allocation</p>
-<p><strong>License Management</strong>: Sophisticated licensing capabilities support:<br />
-- Trial license limitations and usage tracking<br />
-- Enterprise license validation and feature enabling<br />
-- Usage monitoring and compliance reporting<br />
+<p><strong>License Management</strong>: Sophisticated licensing capabilities support:
+- Trial license limitations and usage tracking
+- Enterprise license validation and feature enabling
+- Usage monitoring and compliance reporting
 - Automated license renewal and notification systems</p>
-<h2 id="2-system-architecture">2. System Architecture<a class="headerlink" href="#2-system-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="21-overall-system-architecture">2.1 Overall System Architecture<a class="headerlink" href="#21-overall-system-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="2-system-architecture">2. System Architecture</h2>
+<h3 id="21-overall-system-architecture">2.1 Overall System Architecture</h3>
 <p>The Securaa Custom Services architecture is designed as a modern, cloud-native microservice that operates within a larger security automation ecosystem. The system is structured in multiple layers, each with specific responsibilities and clear interfaces between them. This architectural approach ensures maintainability, scalability, and testability while providing the flexibility needed for complex security workflows.</p>
-<h4 id="211-architectural-layers-explanation">2.1.1 Architectural Layers Explanation<a class="headerlink" href="#211-architectural-layers-explanation" title="Permanent link">&para;</a></h4>
+<h4 id="211-architectural-layers-explanation">2.1.1 Architectural Layers Explanation</h4>
 <p><strong>Client Layer</strong>: The topmost layer represents various client applications that interact with the Securaa Custom Services. This includes web-based dashboards for security analysts and programmatic API clients for automated integrations. Each client type may have different authentication and authorization requirements, but all interact through the same standardized REST API interface.</p>
 <p><strong>Load Balancing and Gateway Layer</strong>: This layer provides the entry point for all external traffic. The Application Load Balancer distributes incoming requests across multiple service instances, ensuring high availability and optimal resource utilization. The API Gateway, when present, provides additional services such as rate limiting, API versioning, request/response transformation, and centralized authentication policies.</p>
-<p><strong>Application Core</strong>: The heart of the system consists of the Securaa Custom Service itself, which is structured in sublayers:<br />
-- <strong>HTTP Layer</strong>: Manages all HTTP-related concerns including routing, middleware processing, and protocol handling<br />
-- <strong>Controller Layer</strong>: Contains the business logic controllers that handle specific functional areas<br />
-- <strong>Service Layer</strong>: Implements core business logic and orchestrates complex operations<br />
+<p><strong>Application Core</strong>: The heart of the system consists of the Securaa Custom Service itself, which is structured in sublayers:
+- <strong>HTTP Layer</strong>: Manages all HTTP-related concerns including routing, middleware processing, and protocol handling
+- <strong>Controller Layer</strong>: Contains the business logic controllers that handle specific functional areas
+- <strong>Service Layer</strong>: Implements core business logic and orchestrates complex operations
 - <strong>Model Layer</strong>: Defines data structures and handles data validation and transformation</p>
-<p><strong>External Dependencies</strong>: The system integrates with several external services and libraries:<br />
-- <strong>Securaa Libraries</strong>: A collection of specialized libraries providing security, configuration, and utility functions<br />
-- <strong>Database Layer</strong>: MongoDB instances configured for multi-tenant operations<br />
-- <strong>Caching Layer</strong>: Redis for high-performance data caching and session management<br />
+<p><strong>External Dependencies</strong>: The system integrates with several external services and libraries:
+- <strong>Securaa Libraries</strong>: A collection of specialized libraries providing security, configuration, and utility functions
+- <strong>Database Layer</strong>: MongoDB instances configured for multi-tenant operations
+- <strong>Caching Layer</strong>: Redis for high-performance data caching and session management
 - <strong>External APIs</strong>: Integration with cloud services, identity providers, and third-party security tools</p>
-<h3 id="212-high-level-architecture-diagram">2.1.2 High-Level Architecture Diagram<a class="headerlink" href="#212-high-level-architecture-diagram" title="Permanent link">&para;</a></h3>
+<h3 id="212-high-level-architecture-diagram">2.1.2 High-Level Architecture Diagram</h3>
 <div class="mermaid">
 graph TB
     subgraph "External Clients"
@@ -886,14 +886,14 @@ graph TB
     class DOCKER,SWARM,ECR,CLOUDWATCH,ELK infrastructure
 </div>
 
-<h3 id="22-component-interaction-architecture">2.2 Component Interaction Architecture<a class="headerlink" href="#22-component-interaction-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="22-component-interaction-architecture">2.2 Component Interaction Architecture</h3>
 <p>The component interaction architecture demonstrates how different parts of the system communicate and collaborate to fulfill business requirements. This architecture emphasizes loose coupling between components while maintaining high cohesion within each component's responsibilities.</p>
-<h4 id="221-inter-component-communication-patterns">2.2.1 Inter-Component Communication Patterns<a class="headerlink" href="#221-inter-component-communication-patterns" title="Permanent link">&para;</a></h4>
+<h4 id="221-inter-component-communication-patterns">2.2.1 Inter-Component Communication Patterns</h4>
 <p><strong>Request-Response Pattern</strong>: The primary communication pattern between the presentation layer (controllers) and business logic layer (services) follows a synchronous request-response model. Controllers receive HTTP requests, validate input parameters, and delegate business logic to appropriate service classes. Services process the business logic and return structured responses that controllers format into HTTP responses.</p>
 <p><strong>Service Orchestration</strong>: Complex business operations often require coordination between multiple services. For example, the application export process involves the ExportService coordinating with integration data retrieval, task dependency mapping, and data sanitization operations. This orchestration is handled through direct service-to-service calls within the same application instance.</p>
 <p><strong>Event-Driven Patterns</strong>: For certain operations, especially those involving cache invalidation and background processing, the system uses event-driven communication patterns. When an application is created or modified, events are triggered to update caches, notify dependent systems, and trigger background processing tasks.</p>
 <p><strong>Database Access Patterns</strong>: All database access is abstracted through the model layer, which provides a consistent interface for data operations. The system uses the repository pattern implementation through the Securaa MongoDB driver library, ensuring consistent error handling, connection management, and query optimization across all database operations.</p>
-<h3 id="222-component-architecture-diagram">2.2.2 Component Architecture Diagram<a class="headerlink" href="#222-component-architecture-diagram" title="Permanent link">&para;</a></h3>
+<h3 id="222-component-architecture-diagram">2.2.2 Component Architecture Diagram</h3>
 <div class="mermaid">
 graph LR
     subgraph "Securaa Custom Service Components"
@@ -992,14 +992,14 @@ graph LR
 </div>
 
 <p>This component architecture demonstrates the clear separation of concerns and the flow of data and control through the system. Each component has well-defined responsibilities and interfaces, making the system maintainable and extensible.</p>
-<h2 id="3-data-architecture-and-database-design">3. Data Architecture and Database Design<a class="headerlink" href="#3-data-architecture-and-database-design" title="Permanent link">&para;</a></h2>
-<h3 id="31-database-architecture-philosophy">3.1 Database Architecture Philosophy<a class="headerlink" href="#31-database-architecture-philosophy" title="Permanent link">&para;</a></h3>
+<h2 id="3-data-architecture-and-database-design">3. Data Architecture and Database Design</h2>
+<h3 id="31-database-architecture-philosophy">3.1 Database Architecture Philosophy</h3>
 <p>The data architecture of Securaa Custom Services is designed around the principles of multi-tenancy, data isolation, and scalability. The system employs MongoDB as its primary database technology due to its document-oriented nature, which naturally accommodates the complex and varied data structures required by security applications. The architecture supports two distinct operational modes: single-tenant deployment for smaller organizations and multi-tenant MSSP (Managed Security Service Provider) deployment for enterprise environments.</p>
-<h4 id="311-multi-tenant-data-strategy">3.1.1 Multi-Tenant Data Strategy<a class="headerlink" href="#311-multi-tenant-data-strategy" title="Permanent link">&para;</a></h4>
+<h4 id="311-multi-tenant-data-strategy">3.1.1 Multi-Tenant Data Strategy</h4>
 <p><strong>Complete Data Isolation (MSSP Mode)</strong>: In MSSP mode, each tenant receives a completely separate database instance. This approach provides the highest level of data isolation and security, ensuring that tenant data never coexists in the same database. Each tenant database maintains its own collections, indexes, and backup schedules. This model is ideal for organizations with strict compliance requirements or those handling highly sensitive data where data bleeding between tenants cannot be tolerated.</p>
 <p><strong>Logical Separation (Single-Tenant Mode)</strong>: For smaller deployments or development environments, the system supports a shared database model with logical tenant separation. In this mode, all tenant data resides in the same database but is strictly separated through tenant_code fields in every document. Database queries automatically include tenant filters to ensure complete data isolation at the application level.</p>
 <p><strong>Core Database Functions</strong>: Regardless of the tenant mode, a core database (localhost) maintains system-wide information including tenant registry, license management, system configuration, and sequence counters. This central repository ensures consistency across all tenant instances while maintaining operational efficiency.</p>
-<h3 id="312-database-design-and-entity-relationships">3.1.2 Database Design and Entity Relationships<a class="headerlink" href="#312-database-design-and-entity-relationships" title="Permanent link">&para;</a></h3>
+<h3 id="312-database-design-and-entity-relationships">3.1.2 Database Design and Entity Relationships</h3>
 <div class="mermaid">
 erDiagram
     TENANTS ||--o{ INTEGRATIONS : owns
@@ -1142,13 +1142,13 @@ erDiagram
     }
 </div>
 
-<h3 id="313-data-model-explanations">3.1.3 Data Model Explanations<a class="headerlink" href="#313-data-model-explanations" title="Permanent link">&para;</a></h3>
+<h3 id="313-data-model-explanations">3.1.3 Data Model Explanations</h3>
 <p><strong>Tenants Collection</strong>: The foundation of the multi-tenant architecture, this collection maintains comprehensive information about each organizational tenant. It includes not only basic identification information but also database connection details for MSSP deployments, status tracking, and tenant-specific configuration settings. The collection supports both active tenant management and historical tracking for compliance purposes.</p>
 <p><strong>Integrations Collection</strong>: This collection stores the core application definitions that users create within the system. Each integration represents a complete security application with its configuration, field definitions, and metadata. The flexible JSON fields structure accommodates varying integration requirements while maintaining data consistency through validation rules.</p>
 <p><strong>Tasks Collection</strong>: Tasks represent the building blocks of security workflows. This collection stores task definitions, their input/output specifications, and execution configurations. The relationship between tasks and integrations allows for complex workflow composition, while the case ingestion and events API configurations enable real-time security operations.</p>
 <p><strong>Active Instances Collection</strong>: When integrations are deployed for actual use, they create active instances that contain runtime configuration, credentials, and operational status. This separation between integration definitions (templates) and active instances (runtime) provides flexibility for testing, staging, and production deployments.</p>
 <p><strong>Execution History Collection</strong>: This collection maintains a comprehensive audit trail of all task executions, including performance metrics, results, and error information. This data is crucial for debugging, performance optimization, and compliance reporting.</p>
-<h3 id="32-multi-tenant-database-architecture">3.2 Multi-Tenant Database Architecture<a class="headerlink" href="#32-multi-tenant-database-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="32-multi-tenant-database-architecture">3.2 Multi-Tenant Database Architecture</h3>
 <p>The multi-tenant architecture is designed to provide complete flexibility in deployment models while maintaining consistent application behavior regardless of the chosen approach.</p>
 <div class="mermaid">
 graph TB
@@ -1258,26 +1258,26 @@ graph TB
     style APP fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
 </div>
 
-<h3 id="321-database-connection-management-strategy">3.2.1 Database Connection Management Strategy<a class="headerlink" href="#321-database-connection-management-strategy" title="Permanent link">&para;</a></h3>
+<h3 id="321-database-connection-management-strategy">3.2.1 Database Connection Management Strategy</h3>
 <p><strong>Connection Pooling</strong>: The system maintains sophisticated connection pools for each database connection, optimized for the specific workload patterns of security applications. Connection pools are configured with appropriate minimum and maximum connection limits, idle timeout values, and health check intervals to ensure optimal performance and resource utilization.</p>
 <p><strong>Health Monitoring</strong>: Each database connection includes comprehensive health monitoring capabilities that continuously verify connectivity, response times, and query performance. Failed connections trigger automatic reconnection attempts with exponential backoff, ensuring system resilience in the face of network issues or database maintenance.</p>
 <p><strong>Tenant-Aware Routing</strong>: The session map acts as an intelligent router that directs database operations to the appropriate database instance based on tenant context. This routing is transparent to the application logic, allowing the same code to work seamlessly across different deployment models.</p>
-<h3 id="33-data-security-and-compliance">3.3 Data Security and Compliance<a class="headerlink" href="#33-data-security-and-compliance" title="Permanent link">&para;</a></h3>
+<h3 id="33-data-security-and-compliance">3.3 Data Security and Compliance</h3>
 <p><strong>Field-Level Encryption</strong>: Sensitive data fields are encrypted at the application level before storage using AES encryption with tenant-specific keys. This ensures that even database administrators cannot access sensitive information without proper application-level credentials.</p>
 <p><strong>Audit Trail Maintenance</strong>: All data modifications are automatically logged with comprehensive audit information including user identity, timestamp, before/after values, and business context. This audit trail supports compliance requirements and forensic analysis capabilities.</p>
 <p><strong>Backup and Recovery</strong>: The system supports automated backup strategies tailored to each deployment model. MSSP deployments can implement tenant-specific backup schedules and retention policies, while single-tenant deployments utilize shared backup infrastructure with logical separation.</p>
 <p><strong>Data Retention Policies</strong>: Configurable data retention policies automatically archive or purge old data based on tenant-specific requirements and compliance obligations. The system maintains referential integrity during data lifecycle operations and provides reporting on data retention compliance.</p>
-<h2 id="4-api-design-and-request-processing-architecture">4. API Design and Request Processing Architecture<a class="headerlink" href="#4-api-design-and-request-processing-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="41-restful-api-design-philosophy">4.1 RESTful API Design Philosophy<a class="headerlink" href="#41-restful-api-design-philosophy" title="Permanent link">&para;</a></h3>
+<h2 id="4-api-design-and-request-processing-architecture">4. API Design and Request Processing Architecture</h2>
+<h3 id="41-restful-api-design-philosophy">4.1 RESTful API Design Philosophy</h3>
 <p>The Securaa Custom Services API follows RESTful design principles with a focus on security, consistency, and developer experience. The API is designed to be intuitive for security professionals while providing the flexibility needed for complex automation scenarios. Every endpoint is carefully designed to follow REST conventions while accommodating the unique requirements of security application management.</p>
-<h4 id="411-api-endpoint-structure-and-organization">4.1.1 API Endpoint Structure and Organization<a class="headerlink" href="#411-api-endpoint-structure-and-organization" title="Permanent link">&para;</a></h4>
+<h4 id="411-api-endpoint-structure-and-organization">4.1.1 API Endpoint Structure and Organization</h4>
 <p>The API is organized into logical functional groups, each served by dedicated controllers. This organization provides clear separation of concerns and makes the API easier to understand and maintain. Each endpoint follows consistent naming conventions and HTTP method usage patterns.</p>
 <p><strong>Application Management Endpoints</strong>: These endpoints handle the lifecycle of custom applications, from creation and configuration to deletion and status management. The endpoints support both simple applications and complex multi-component integrations with sophisticated configuration requirements.</p>
 <p><strong>Generic Task Endpoints</strong>: Task management endpoints provide comprehensive CRUD operations for task definitions, validation, and execution management. These endpoints support complex task relationships, dependency management, and workflow composition.</p>
 <p><strong>Export/Import Endpoints</strong>: Data portability endpoints enable complete application and configuration export/import operations. These endpoints handle complex dependency resolution, version compatibility, and data transformation requirements.</p>
 <p><strong>Integration Management Endpoints</strong>: These endpoints manage the operational aspects of integrations, including input parameter management, execution timing, and health monitoring.</p>
 <p><strong>Event Processing Endpoints</strong>: Real-time event processing endpoints handle security event ingestion, case management, and real-time monitoring capabilities.</p>
-<h3 id="412-comprehensive-api-endpoints-overview">4.1.2 Comprehensive API Endpoints Overview<a class="headerlink" href="#412-comprehensive-api-endpoints-overview" title="Permanent link">&para;</a></h3>
+<h3 id="412-comprehensive-api-endpoints-overview">4.1.2 Comprehensive API Endpoints Overview</h3>
 <table>
 <thead>
 <tr>
@@ -1396,7 +1396,7 @@ graph TB
 </tr>
 </tbody>
 </table>
-<h3 id="42-requestresponse-processing-flow">4.2 Request/Response Processing Flow<a class="headerlink" href="#42-requestresponse-processing-flow" title="Permanent link">&para;</a></h3>
+<h3 id="42-requestresponse-processing-flow">4.2 Request/Response Processing Flow</h3>
 <p>The request processing architecture is designed to handle complex security workflows while maintaining performance and reliability. Each request passes through multiple layers of processing, validation, and transformation before generating a response.</p>
 <div class="mermaid">
 sequenceDiagram
@@ -1490,18 +1490,18 @@ sequenceDiagram
     SecuraaLib->>SecuraaLib: Generate Monitoring Events
 </div>
 
-<h3 id="421-request-processing-layer-details">4.2.1 Request Processing Layer Details<a class="headerlink" href="#421-request-processing-layer-details" title="Permanent link">&para;</a></h3>
+<h3 id="421-request-processing-layer-details">4.2.1 Request Processing Layer Details</h3>
 <p><strong>Load Balancer Layer</strong>: The load balancer performs intelligent traffic distribution based on instance health, current load, and response times. It continuously monitors backend instances and automatically removes unhealthy instances from the rotation. The load balancer also implements connection pooling and keep-alive mechanisms to optimize network performance.</p>
 <p><strong>Router Layer</strong>: The Gorilla Mux router provides sophisticated URL pattern matching capabilities, supporting complex route parameters, regular expressions, and conditional routing. The router maintains route performance metrics and supports dynamic route registration for plugin-based extensibility.</p>
-<p><strong>Middleware Layer</strong>: The middleware stack implements cross-cutting concerns in a layered approach:<br />
-- <strong>Security Middleware</strong>: Handles authentication, authorization, and security header injection<br />
-- <strong>Logging Middleware</strong>: Provides comprehensive request/response logging with correlation IDs<br />
-- <strong>Tenant Middleware</strong>: Resolves tenant context and database session management<br />
-- <strong>Validation Middleware</strong>: Implements input sanitization and basic validation rules<br />
+<p><strong>Middleware Layer</strong>: The middleware stack implements cross-cutting concerns in a layered approach:
+- <strong>Security Middleware</strong>: Handles authentication, authorization, and security header injection
+- <strong>Logging Middleware</strong>: Provides comprehensive request/response logging with correlation IDs
+- <strong>Tenant Middleware</strong>: Resolves tenant context and database session management
+- <strong>Validation Middleware</strong>: Implements input sanitization and basic validation rules
 - <strong>Monitoring Middleware</strong>: Collects performance metrics and health indicators</p>
 <p><strong>Controller Layer</strong>: Controllers act as orchestrators, coordinating between the HTTP protocol and business logic. They handle input validation, format conversion, and response generation while delegating actual business processing to service classes.</p>
 <p><strong>Service Layer</strong>: The service layer contains the core business logic and domain-specific processing. Services are stateless and designed for easy testing and reuse. They coordinate complex operations, handle business rule validation, and manage transactional boundaries.</p>
-<h3 id="43-authentication-and-authorization-architecture">4.3 Authentication and Authorization Architecture<a class="headerlink" href="#43-authentication-and-authorization-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="43-authentication-and-authorization-architecture">4.3 Authentication and Authorization Architecture</h3>
 <p>The system implements a multi-layered security model that provides comprehensive authentication and authorization capabilities while maintaining performance and usability.</p>
 <div class="mermaid">
 graph TB
@@ -1622,25 +1622,25 @@ graph TB
     style DB_ENCRYPTION fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
 </div>
 
-<h3 id="431-multi-factor-authentication-flow">4.3.1 Multi-Factor Authentication Flow<a class="headerlink" href="#431-multi-factor-authentication-flow" title="Permanent link">&para;</a></h3>
+<h3 id="431-multi-factor-authentication-flow">4.3.1 Multi-Factor Authentication Flow</h3>
 <p>The authentication system supports multiple authentication methods that can be used independently or in combination for enhanced security:</p>
 <p><strong>JWT Token Authentication</strong>: Stateless authentication using JSON Web Tokens with digital signatures. Tokens include user identity, tenant context, role information, and expiration data. The system supports both access tokens for API calls and refresh tokens for session management.</p>
 <p><strong>SAML Integration</strong>: Enterprise-grade Single Sign-On integration supporting multiple identity providers. The SAML implementation includes attribute mapping, role synchronization, and session federation capabilities.</p>
 <p><strong>Session Management</strong>: Comprehensive session lifecycle management including creation, validation, renewal, and termination. The system maintains session state in Redis for performance while providing fallback mechanisms for high availability.</p>
 <p><strong>API Key Authentication</strong>: Service-to-service authentication using API keys with scope-based access control. API keys support rate limiting, usage analytics, and automatic rotation capabilities.</p>
-<h2 id="5-scalability-and-performance-architecture">5. Scalability and Performance Architecture<a class="headerlink" href="#5-scalability-and-performance-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="51-horizontal-scalability-strategy">5.1 Horizontal Scalability Strategy<a class="headerlink" href="#51-horizontal-scalability-strategy" title="Permanent link">&para;</a></h3>
+<h2 id="5-scalability-and-performance-architecture">5. Scalability and Performance Architecture</h2>
+<h3 id="51-horizontal-scalability-strategy">5.1 Horizontal Scalability Strategy</h3>
 <p>The Securaa Custom Services architecture is designed for horizontal scalability from the ground up, supporting growth from small single-tenant deployments to large-scale multi-tenant enterprise environments. The scalability strategy encompasses multiple dimensions including application instances, database capacity, caching performance, and infrastructure resources.</p>
-<h4 id="511-application-layer-scaling">5.1.1 Application Layer Scaling<a class="headerlink" href="#511-application-layer-scaling" title="Permanent link">&para;</a></h4>
+<h4 id="511-application-layer-scaling">5.1.1 Application Layer Scaling</h4>
 <p><strong>Stateless Application Design</strong>: The core application is designed to be completely stateless, with all session and state information stored in external systems (Redis for sessions, MongoDB for persistent data). This stateless design enables seamless horizontal scaling by allowing any application instance to handle any request without dependency on local state.</p>
 <p><strong>Load Balancer Distribution</strong>: Multiple application instances operate behind sophisticated load balancers that distribute traffic based on various algorithms including round-robin, least connections, and weighted routing. The load balancers continuously monitor instance health and automatically remove unhealthy instances from rotation.</p>
 <p><strong>Auto-scaling Capabilities</strong>: The system supports automatic scaling based on various metrics including CPU utilization, memory usage, request queue depth, and custom business metrics. Auto-scaling policies can be configured to handle predictable load patterns (time-based scaling) and unpredictable traffic spikes (metric-based scaling).</p>
-<p><strong>Container Orchestration</strong>: Deployment using container orchestration platforms (Docker Swarm) provides advanced scaling capabilities including:<br />
-- Service auto-scaling based on resource metrics<br />
-- Horizontal service scaling with replicas<br />
-- Resource optimization<br />
+<p><strong>Container Orchestration</strong>: Deployment using container orchestration platforms (Docker Swarm) provides advanced scaling capabilities including:
+- Service auto-scaling based on resource metrics
+- Horizontal service scaling with replicas
+- Resource optimization
 - Cluster management for infrastructure expansion</p>
-<h3 id="512-scalability-architecture-diagram">5.1.2 Scalability Architecture Diagram<a class="headerlink" href="#512-scalability-architecture-diagram" title="Permanent link">&para;</a></h3>
+<h3 id="512-scalability-architecture-diagram">5.1.2 Scalability Architecture Diagram</h3>
 <div class="mermaid">
 graph TB
     subgraph "Traffic Distribution Layer"
@@ -1805,77 +1805,77 @@ graph TB
     style AUTO_SCALING fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
 </div>
 
-<h3 id="52-database-performance-and-scaling">5.2 Database Performance and Scaling<a class="headerlink" href="#52-database-performance-and-scaling" title="Permanent link">&para;</a></h3>
-<h4 id="521-mongodb-scaling-strategies">5.2.1 MongoDB Scaling Strategies<a class="headerlink" href="#521-mongodb-scaling-strategies" title="Permanent link">&para;</a></h4>
+<h3 id="52-database-performance-and-scaling">5.2 Database Performance and Scaling</h3>
+<h4 id="521-mongodb-scaling-strategies">5.2.1 MongoDB Scaling Strategies</h4>
 <p><strong>Replica Set Configuration</strong>: The primary database scaling approach uses MongoDB replica sets with optimized read preferences. The replica set configuration includes a primary node for write operations and multiple secondary nodes for read operations, with automatic failover capabilities.</p>
 <p><strong>Sharding Implementation</strong>: For large-scale deployments, the system supports MongoDB sharding based on tenant identifiers. This approach provides horizontal database scaling while maintaining tenant data isolation. Each shard contains a complete replica set for high availability.</p>
-<p><strong>Index Optimization</strong>: Comprehensive indexing strategies are implemented based on query patterns:<br />
-- Compound indexes for complex queries<br />
+<p><strong>Index Optimization</strong>: Comprehensive indexing strategies are implemented based on query patterns:
+- Compound indexes for complex queries
 - Text indexes for search functionality<br />
-- TTL indexes for automatic data expiration<br />
-- Sparse indexes for optional fields<br />
+- TTL indexes for automatic data expiration
+- Sparse indexes for optional fields
 - Partial indexes for conditional data</p>
-<p><strong>Connection Pool Optimization</strong>: Database connection pools are tuned for optimal performance with configurations adjusted for:<br />
-- Maximum connection limits based on instance capacity<br />
-- Minimum connection pools for consistent performance<br />
-- Connection timeout settings for reliability<br />
+<p><strong>Connection Pool Optimization</strong>: Database connection pools are tuned for optimal performance with configurations adjusted for:
+- Maximum connection limits based on instance capacity
+- Minimum connection pools for consistent performance
+- Connection timeout settings for reliability
 - Health check intervals for connection validity</p>
-<h4 id="522-caching-performance-strategy">5.2.2 Caching Performance Strategy<a class="headerlink" href="#522-caching-performance-strategy" title="Permanent link">&para;</a></h4>
+<h4 id="522-caching-performance-strategy">5.2.2 Caching Performance Strategy</h4>
 <p><strong>Multi-Level Caching</strong>: The system implements a sophisticated multi-level caching strategy:</p>
 <p><strong>L1 Cache (Application Level)</strong>: In-memory caching within each application instance for frequently accessed configuration data, reducing database queries for common operations.</p>
 <p><strong>L2 Cache (Distributed Redis)</strong>: Shared caching across all application instances using Redis cluster for session data, integration listings, and computed results.</p>
 <p><strong>L3 Cache (CDN/Edge)</strong>: Content delivery network caching for static assets, API responses, and geographically distributed content.</p>
-<p><strong>Cache Invalidation Strategy</strong>: Intelligent cache invalidation ensures data consistency while maximizing cache hit rates:<br />
-- Event-driven invalidation for data changes<br />
-- Time-based expiration for ephemeral data<br />
-- Tag-based invalidation for related data groups<br />
+<p><strong>Cache Invalidation Strategy</strong>: Intelligent cache invalidation ensures data consistency while maximizing cache hit rates:
+- Event-driven invalidation for data changes
+- Time-based expiration for ephemeral data
+- Tag-based invalidation for related data groups
 - Conditional invalidation based on business rules</p>
-<h3 id="53-performance-optimization-techniques">5.3 Performance Optimization Techniques<a class="headerlink" href="#53-performance-optimization-techniques" title="Permanent link">&para;</a></h3>
-<h4 id="531-application-performance-optimization">5.3.1 Application Performance Optimization<a class="headerlink" href="#531-application-performance-optimization" title="Permanent link">&para;</a></h4>
+<h3 id="53-performance-optimization-techniques">5.3 Performance Optimization Techniques</h3>
+<h4 id="531-application-performance-optimization">5.3.1 Application Performance Optimization</h4>
 <p><strong>Goroutine Management</strong>: Optimal use of Go's concurrency model with goroutine pools for handling concurrent requests while avoiding goroutine leaks and excessive memory usage.</p>
-<p><strong>Memory Management</strong>: Efficient memory usage through:<br />
-- Object pooling for frequently created objects<br />
-- Memory-mapped files for large data sets<br />
-- Garbage collection tuning for low latency<br />
+<p><strong>Memory Management</strong>: Efficient memory usage through:
+- Object pooling for frequently created objects
+- Memory-mapped files for large data sets
+- Garbage collection tuning for low latency
 - Memory profiling and optimization</p>
-<p><strong>Database Query Optimization</strong>: <br />
-- Prepared statement usage for repeated queries<br />
-- Batch operations for bulk data processing<br />
-- Query result caching for expensive operations<br />
+<p><strong>Database Query Optimization</strong>: 
+- Prepared statement usage for repeated queries
+- Batch operations for bulk data processing
+- Query result caching for expensive operations
 - Connection pooling for database efficiency</p>
-<p><strong>Network Optimization</strong>:<br />
-- HTTP/2 support for multiplexed connections<br />
-- Compression for large responses<br />
-- Keep-alive connections for persistent clients<br />
+<p><strong>Network Optimization</strong>:
+- HTTP/2 support for multiplexed connections
+- Compression for large responses
+- Keep-alive connections for persistent clients
 - Request/response optimization</p>
-<h4 id="532-performance-monitoring-and-tuning">5.3.2 Performance Monitoring and Tuning<a class="headerlink" href="#532-performance-monitoring-and-tuning" title="Permanent link">&para;</a></h4>
-<p><strong>Real-time Performance Metrics</strong>: Comprehensive performance monitoring including:<br />
-- Response time percentiles (P50, P95, P99)<br />
-- Throughput measurements (requests per second)<br />
-- Error rate tracking and alerting<br />
+<h4 id="532-performance-monitoring-and-tuning">5.3.2 Performance Monitoring and Tuning</h4>
+<p><strong>Real-time Performance Metrics</strong>: Comprehensive performance monitoring including:
+- Response time percentiles (P50, P95, P99)
+- Throughput measurements (requests per second)
+- Error rate tracking and alerting
 - Resource utilization monitoring (CPU, memory, network)</p>
 <p><strong>Capacity Planning</strong>: Data-driven capacity planning using historical metrics and predictive analytics to anticipate scaling needs before performance degradation occurs.</p>
-<p><strong>Performance Testing</strong>: Regular performance testing including:<br />
-- Load testing for normal usage patterns<br />
+<p><strong>Performance Testing</strong>: Regular performance testing including:
+- Load testing for normal usage patterns
 - Stress testing for peak capacity determination<br />
-- Endurance testing for long-running stability<br />
+- Endurance testing for long-running stability
 - Spike testing for sudden load increases</p>
-<h2 id="6-deployment-and-infrastructure-architecture">6. Deployment and Infrastructure Architecture<a class="headerlink" href="#6-deployment-and-infrastructure-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="61-container-and-orchestration-strategy">6.1 Container and Orchestration Strategy<a class="headerlink" href="#61-container-and-orchestration-strategy" title="Permanent link">&para;</a></h3>
+<h2 id="6-deployment-and-infrastructure-architecture">6. Deployment and Infrastructure Architecture</h2>
+<h3 id="61-container-and-orchestration-strategy">6.1 Container and Orchestration Strategy</h3>
 <p>The deployment architecture leverages containerization and orchestration technologies to provide scalable, reliable, and maintainable infrastructure. The system is designed to run efficiently in various environments from development laptops to large-scale production clusters.</p>
-<h4 id="611-containerization-approach">6.1.1 Containerization Approach<a class="headerlink" href="#611-containerization-approach" title="Permanent link">&para;</a></h4>
+<h4 id="611-containerization-approach">6.1.1 Containerization Approach</h4>
 <p><strong>Docker Container Design</strong>: The application is packaged as a lightweight Docker container based on minimal base images for security and performance. The container includes only essential runtime dependencies, reducing attack surface and improving startup times.</p>
-<p><strong>Multi-stage Build Process</strong>: The Docker build process uses multi-stage builds to optimize container size:<br />
-- Build stage: Includes development tools and dependencies for compilation<br />
-- Runtime stage: Contains only production runtime and compiled artifacts<br />
+<p><strong>Multi-stage Build Process</strong>: The Docker build process uses multi-stage builds to optimize container size:
+- Build stage: Includes development tools and dependencies for compilation
+- Runtime stage: Contains only production runtime and compiled artifacts
 - Security scanning: Automated vulnerability scanning during build process</p>
-<p><strong>Container Security</strong>: Security-hardened containers following best practices:<br />
-- Non-root user execution<br />
+<p><strong>Container Security</strong>: Security-hardened containers following best practices:
+- Non-root user execution
 - Read-only filesystem where possible<br />
-- Minimal package installation<br />
-- Regular base image updates<br />
+- Minimal package installation
+- Regular base image updates
 - Security scanning integration</p>
-<h3 id="612-docker-swarm-deployment-architecture">6.1.2 Docker Swarm Deployment Architecture<a class="headerlink" href="#612-docker-swarm-deployment-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="612-docker-swarm-deployment-architecture">6.1.2 Docker Swarm Deployment Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph "Development Environment"
@@ -2006,24 +2006,24 @@ graph TB
     style MANAGER1 fill:#ffcdd2,stroke:#d32f2f,stroke-width:3px
 </div>
 
-<h3 id="62-environment-management-and-deployment-pipeline">6.2 Environment Management and Deployment Pipeline<a class="headerlink" href="#62-environment-management-and-deployment-pipeline" title="Permanent link">&para;</a></h3>
-<h4 id="621-multi-environment-strategy">6.2.1 Multi-Environment Strategy<a class="headerlink" href="#621-multi-environment-strategy" title="Permanent link">&para;</a></h4>
+<h3 id="62-environment-management-and-deployment-pipeline">6.2 Environment Management and Deployment Pipeline</h3>
+<h4 id="621-multi-environment-strategy">6.2.1 Multi-Environment Strategy</h4>
 <p><strong>Development Environment</strong>: Local development environments using Docker Compose for rapid development and testing. Includes hot-reload capabilities, debug configurations, and local database instances.</p>
 <p><strong>Staging Environment</strong>: Production-like environment for integration testing, performance validation, and user acceptance testing. Mirrors production configuration with reduced scale.</p>
 <p><strong>Production Environment</strong>: High-availability production environment with full monitoring, backup, and disaster recovery capabilities. Includes blue-green deployment support for zero-downtime updates.</p>
-<h4 id="622-deployment-strategies">6.2.2 Deployment Strategies<a class="headerlink" href="#622-deployment-strategies" title="Permanent link">&para;</a></h4>
+<h4 id="622-deployment-strategies">6.2.2 Deployment Strategies</h4>
 <p><strong>Rolling Deployments</strong>: Default deployment strategy using Docker Swarm rolling updates to ensure zero downtime during application updates. Includes configurable update strategies and rollback capabilities.</p>
 <p><strong>Blue-Green Deployments</strong>: For critical updates, blue-green deployments provide instant rollback capabilities and complete environment validation before traffic switching.</p>
 <p><strong>Canary Deployments</strong>: Gradual traffic shifting for new versions, allowing real-world validation with minimal risk exposure.</p>
-<h2 id="7-monitoring-observability-and-operational-excellence">7. Monitoring, Observability, and Operational Excellence<a class="headerlink" href="#7-monitoring-observability-and-operational-excellence" title="Permanent link">&para;</a></h2>
-<h3 id="71-comprehensive-monitoring-strategy">7.1 Comprehensive Monitoring Strategy<a class="headerlink" href="#71-comprehensive-monitoring-strategy" title="Permanent link">&para;</a></h3>
+<h2 id="7-monitoring-observability-and-operational-excellence">7. Monitoring, Observability, and Operational Excellence</h2>
+<h3 id="71-comprehensive-monitoring-strategy">7.1 Comprehensive Monitoring Strategy</h3>
 <p>The monitoring and observability architecture provides comprehensive visibility into system performance, security events, and business operations. This multi-layered approach ensures rapid issue detection, root cause analysis capabilities, and proactive performance optimization.</p>
-<h4 id="711-monitoring-architecture">7.1.1 Monitoring Architecture<a class="headerlink" href="#711-monitoring-architecture" title="Permanent link">&para;</a></h4>
+<h4 id="711-monitoring-architecture">7.1.1 Monitoring Architecture</h4>
 <p><strong>Application Performance Monitoring (APM)</strong>: Comprehensive application-level monitoring including request tracing, error tracking, performance profiling, and user experience monitoring.</p>
 <p><strong>Infrastructure Monitoring</strong>: System-level monitoring covering resource utilization, network performance, storage usage, and infrastructure health.</p>
 <p><strong>Business Metrics Monitoring</strong>: Domain-specific monitoring for security operations including integration success rates, event processing performance, and tenant utilization patterns.</p>
 <p><strong>Security Event Monitoring</strong>: Specialized monitoring for security-related events including authentication failures, authorization violations, and suspicious activity patterns.</p>
-<h3 id="712-observability-stack-architecture">7.1.2 Observability Stack Architecture<a class="headerlink" href="#712-observability-stack-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="712-observability-stack-architecture">7.1.2 Observability Stack Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph "Application Metrics Collection"
@@ -2180,38 +2180,38 @@ graph TB
     style ALERT_MANAGER fill:#dc2626,stroke:#991b1b,stroke-width:2px
 </div>
 
-<h3 id="72-operational-excellence-practices">7.2 Operational Excellence Practices<a class="headerlink" href="#72-operational-excellence-practices" title="Permanent link">&para;</a></h3>
-<h4 id="721-site-reliability-engineering-sre-practices">7.2.1 Site Reliability Engineering (SRE) Practices<a class="headerlink" href="#721-site-reliability-engineering-sre-practices" title="Permanent link">&para;</a></h4>
-<p><strong>Service Level Objectives (SLOs)</strong>: Well-defined SLOs for critical system metrics:<br />
-- <strong>Availability</strong>: 99.9% uptime for production services<br />
-- <strong>Latency</strong>: 95th percentile response time under 500ms<br />
-- <strong>Error Rate</strong>: Less than 0.1% error rate for API calls<br />
+<h3 id="72-operational-excellence-practices">7.2 Operational Excellence Practices</h3>
+<h4 id="721-site-reliability-engineering-sre-practices">7.2.1 Site Reliability Engineering (SRE) Practices</h4>
+<p><strong>Service Level Objectives (SLOs)</strong>: Well-defined SLOs for critical system metrics:
+- <strong>Availability</strong>: 99.9% uptime for production services
+- <strong>Latency</strong>: 95th percentile response time under 500ms
+- <strong>Error Rate</strong>: Less than 0.1% error rate for API calls
 - <strong>Throughput</strong>: Sustained handling of peak load with auto-scaling</p>
 <p><strong>Error Budget Management</strong>: Systematic tracking of error budgets to balance feature velocity with system reliability. Error budget depletion triggers engineering focus on reliability improvements.</p>
-<p><strong>Chaos Engineering</strong>: Regular chaos engineering exercises to validate system resilience, including:<br />
-- Network partition testing<br />
-- Database failover scenarios<br />
-- Container termination testing<br />
+<p><strong>Chaos Engineering</strong>: Regular chaos engineering exercises to validate system resilience, including:
+- Network partition testing
+- Database failover scenarios
+- Container termination testing
 - Load spike simulations</p>
-<h4 id="722-incident-response-and-management">7.2.2 Incident Response and Management<a class="headerlink" href="#722-incident-response-and-management" title="Permanent link">&para;</a></h4>
-<p><strong>Incident Response Procedures</strong>: Comprehensive incident response procedures including:<br />
-- Automated incident detection and alerting<br />
-- Clear escalation procedures and on-call rotations<br />
-- Incident command structure for major incidents<br />
+<h4 id="722-incident-response-and-management">7.2.2 Incident Response and Management</h4>
+<p><strong>Incident Response Procedures</strong>: Comprehensive incident response procedures including:
+- Automated incident detection and alerting
+- Clear escalation procedures and on-call rotations
+- Incident command structure for major incidents
 - Post-incident review processes and improvement tracking</p>
-<p><strong>Disaster Recovery Planning</strong>: Complete disaster recovery procedures including:<br />
-- Regular backup validation and restoration testing<br />
-- Cross-region failover capabilities<br />
-- Recovery time and recovery point objectives<br />
+<p><strong>Disaster Recovery Planning</strong>: Complete disaster recovery procedures including:
+- Regular backup validation and restoration testing
+- Cross-region failover capabilities
+- Recovery time and recovery point objectives
 - Communication plans for extended outages</p>
-<p><strong>Business Continuity</strong>: Business continuity planning covering:<br />
-- Critical business function identification<br />
-- Alternative operating procedures<br />
-- Vendor and supplier contingency plans<br />
+<p><strong>Business Continuity</strong>: Business continuity planning covering:
+- Critical business function identification
+- Alternative operating procedures
+- Vendor and supplier contingency plans
 - Communication strategies for stakeholders</p>
-<h2 id="8-comprehensive-process-flows-and-workflows">8. Comprehensive Process Flows and Workflows<a class="headerlink" href="#8-comprehensive-process-flows-and-workflows" title="Permanent link">&para;</a></h2>
+<h2 id="8-comprehensive-process-flows-and-workflows">8. Comprehensive Process Flows and Workflows</h2>
 <p>This section provides detailed process flowcharts that illustrate the key workflows and operational processes within the Securaa Custom Services system. These flowcharts complement the architectural diagrams by showing the step-by-step execution paths for critical system operations.</p>
-<h3 id="81-application-startup-and-initialization-process">8.1 Application Startup and Initialization Process<a class="headerlink" href="#81-application-startup-and-initialization-process" title="Permanent link">&para;</a></h3>
+<h3 id="81-application-startup-and-initialization-process">8.1 Application Startup and Initialization Process</h3>
 <p>The application startup process is critical for ensuring proper system initialization, database connectivity, and service readiness. This process handles both single-tenant and multi-tenant configurations while establishing all necessary connections and background services.</p>
 <div class="mermaid">
 flowchart TD
@@ -2263,7 +2263,7 @@ flowchart TD
 </div>
 
 <p><strong>Startup Process Explanation</strong>: The application startup follows a carefully orchestrated sequence ensuring all dependencies are properly initialized. The process begins with logging setup and configuration validation, followed by database connection establishment. The system then determines the deployment mode (single-tenant vs. multi-tenant) and configures database sessions accordingly. Finally, HTTP routing, middleware, and background services are initialized before the server starts accepting requests.</p>
-<h3 id="82-http-request-processing-and-middleware-chain">8.2 HTTP Request Processing and Middleware Chain<a class="headerlink" href="#82-http-request-processing-and-middleware-chain" title="Permanent link">&para;</a></h3>
+<h3 id="82-http-request-processing-and-middleware-chain">8.2 HTTP Request Processing and Middleware Chain</h3>
 <p>The HTTP request processing pipeline demonstrates how requests flow through various middleware layers before reaching business logic controllers. This process ensures proper authentication, authorization, and tenant isolation for every request.</p>
 <div class="mermaid">
 flowchart TD
@@ -2329,7 +2329,7 @@ flowchart TD
 </div>
 
 <p><strong>Request Processing Explanation</strong>: Each HTTP request passes through a comprehensive middleware chain that handles logging, authentication, authorization, and tenant resolution. The system validates tokens, resolves tenant contexts, and ensures proper database session selection before forwarding requests to business logic controllers. Error handling is built into every step, ensuring appropriate HTTP status codes and error messages are returned for various failure scenarios.</p>
-<h3 id="83-generic-application-creation-and-update-workflow">8.3 Generic Application Creation and Update Workflow<a class="headerlink" href="#83-generic-application-creation-and-update-workflow" title="Permanent link">&para;</a></h3>
+<h3 id="83-generic-application-creation-and-update-workflow">8.3 Generic Application Creation and Update Workflow</h3>
 <p>The application creation and update process is one of the most complex workflows in the system, handling multipart form data, file uploads, field encryption, and both new application creation and updates to existing applications.</p>
 <div class="mermaid">
 flowchart TD
@@ -2424,7 +2424,7 @@ flowchart TD
 </div>
 
 <p><strong>Application Creation/Update Explanation</strong>: This workflow handles the complex process of creating or updating security applications. It manages file uploads (logos), field validation and encryption, integration record management, and optional instance creation. The process includes comprehensive error handling, license limit checking for trial accounts, and cache invalidation to ensure data consistency across the system.</p>
-<h3 id="84-application-export-process">8.4 Application Export Process<a class="headerlink" href="#84-application-export-process" title="Permanent link">&para;</a></h3>
+<h3 id="84-application-export-process">8.4 Application Export Process</h3>
 <p>The export process enables users to extract application configurations for backup, migration, or sharing purposes. This workflow sanitizes sensitive data and maintains referential integrity between tasks and integrations.</p>
 <div class="mermaid">
 flowchart TD
@@ -2477,7 +2477,7 @@ flowchart TD
 </div>
 
 <p><strong>Export Process Explanation</strong>: The export workflow creates portable application packages by extracting integration and task configurations while sanitizing sensitive information. The process handles complex task dependency mapping, replacing internal IDs with portable name references, and ensuring that exported configurations can be safely shared or imported into different environments.</p>
-<h3 id="85-application-import-and-migration-process">8.5 Application Import and Migration Process<a class="headerlink" href="#85-application-import-and-migration-process" title="Permanent link">&para;</a></h3>
+<h3 id="85-application-import-and-migration-process">8.5 Application Import and Migration Process</h3>
 <p>The import process complements the export functionality by allowing users to restore or migrate application configurations. This workflow handles both new application creation and updates to existing applications.</p>
 <div class="mermaid">
 flowchart TD
@@ -2532,7 +2532,7 @@ flowchart TD
 </div>
 
 <p><strong>Import Process Explanation</strong>: The import workflow processes exported application packages, handling both creation of new applications and updates to existing ones. The system carefully maps task dependencies by name, maintains referential integrity, and includes rollback capabilities for error scenarios. Cache invalidation ensures that imported changes are immediately visible across the system.</p>
-<h3 id="86-database-connection-management-and-health-monitoring">8.6 Database Connection Management and Health Monitoring<a class="headerlink" href="#86-database-connection-management-and-health-monitoring" title="Permanent link">&para;</a></h3>
+<h3 id="86-database-connection-management-and-health-monitoring">8.6 Database Connection Management and Health Monitoring</h3>
 <p>Database connection management is critical for system reliability, especially in multi-tenant environments where connections must be established and maintained for multiple tenant databases.</p>
 <div class="mermaid">
 flowchart TD
@@ -2591,7 +2591,7 @@ flowchart TD
 </div>
 
 <p><strong>Database Connection Management Explanation</strong>: The connection management process handles both single-tenant and multi-tenant database configurations. For multi-tenant deployments, the system attempts to establish connections to all active tenant databases, gracefully handling connection failures while ensuring the system remains operational. Health monitoring and connection pooling ensure optimal database performance and reliability.</p>
-<h3 id="87-authentication-and-authorization-workflow">8.7 Authentication and Authorization Workflow<a class="headerlink" href="#87-authentication-and-authorization-workflow" title="Permanent link">&para;</a></h3>
+<h3 id="87-authentication-and-authorization-workflow">8.7 Authentication and Authorization Workflow</h3>
 <p>The authentication and authorization process ensures secure access to system resources while supporting both authenticated and public endpoints.</p>
 <div class="mermaid">
 flowchart TD
@@ -2656,7 +2656,7 @@ flowchart TD
 </div>
 
 <p><strong>Authentication/Authorization Explanation</strong>: This workflow implements comprehensive security controls for all system access. The process validates access tokens, checks expiration, resolves tenant contexts, and ensures users have appropriate permissions for requested resources. The system supports both authenticated endpoints and public routes (such as health checks) while maintaining strict security boundaries.</p>
-<h3 id="88-multi-tenant-data-isolation-process">8.8 Multi-Tenant Data Isolation Process<a class="headerlink" href="#88-multi-tenant-data-isolation-process" title="Permanent link">&para;</a></h3>
+<h3 id="88-multi-tenant-data-isolation-process">8.8 Multi-Tenant Data Isolation Process</h3>
 <p>Data isolation is fundamental to multi-tenant security, ensuring that tenant data remains completely separated and secure from unauthorized access.</p>
 <div class="mermaid">
 flowchart TD
@@ -2732,7 +2732,7 @@ flowchart TD
 </div>
 
 <p><strong>Multi-Tenant Data Isolation Explanation</strong>: This critical security workflow ensures complete data separation between tenants. The system supports two isolation models: separate databases (MSSP mode) and shared database with tenant filtering. All data operations include tenant validation to prevent cross-tenant data access, maintaining strict security boundaries while supporting efficient multi-tenant operations.</p>
-<h3 id="89-cache-management-and-performance-optimization">8.9 Cache Management and Performance Optimization<a class="headerlink" href="#89-cache-management-and-performance-optimization" title="Permanent link">&para;</a></h3>
+<h3 id="89-cache-management-and-performance-optimization">8.9 Cache Management and Performance Optimization</h3>
 <p>The caching system optimizes performance while maintaining data consistency through intelligent cache management strategies.</p>
 <div class="mermaid">
 flowchart TD
@@ -2784,7 +2784,7 @@ flowchart TD
 </div>
 
 <p><strong>Cache Management Explanation</strong>: The caching workflow implements a write-through cache pattern with automatic fallback to database-only mode when cache services are unavailable. The system handles cache hits/misses, maintains data consistency through coordinated updates, and provides intelligent invalidation patterns for related data. Health monitoring ensures system resilience during cache outages.</p>
-<h3 id="810-background-task-processing-and-system-maintenance">8.10 Background Task Processing and System Maintenance<a class="headerlink" href="#810-background-task-processing-and-system-maintenance" title="Permanent link">&para;</a></h3>
+<h3 id="810-background-task-processing-and-system-maintenance">8.10 Background Task Processing and System Maintenance</h3>
 <p>Background services handle essential system maintenance tasks including health monitoring, session cleanup, and metrics collection.</p>
 <div class="mermaid">
 flowchart TD

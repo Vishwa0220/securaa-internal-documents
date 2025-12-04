@@ -620,13 +620,13 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="low-level-design-lld-sia-service">Low-Level Design (LLD) - SIA Service<a class="headerlink" href="#low-level-design-lld-sia-service" title="Permanent link">&para;</a></h1>
-<h2 id="comprehensive-implementation-specification">Comprehensive Implementation Specification<a class="headerlink" href="#comprehensive-implementation-specification" title="Permanent link">&para;</a></h2>
+        <h1 id="low-level-design-lld-sia-service">Low-Level Design (LLD) - SIA Service</h1>
+<h2 id="comprehensive-implementation-specification">Comprehensive Implementation Specification</h2>
 <p><strong>Document Version</strong>: 1.0<br />
 <strong>Last Updated</strong>: November 11, 2025<br />
 <strong>Status</strong>: Active Development</p>
 <hr />
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#1-component-architecture">Component Architecture</a></li>
 <li><a href="#2-domain-models">Domain Models</a></li>
@@ -646,8 +646,8 @@ hr {
 <li><a href="#16-code-examples">Code Examples</a></li>
 </ol>
 <hr />
-<h2 id="1-component-architecture">1. Component Architecture<a class="headerlink" href="#1-component-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="11-fastapi-application-structure">1.1 FastAPI Application Structure<a class="headerlink" href="#11-fastapi-application-structure" title="Permanent link">&para;</a></h3>
+<h2 id="1-component-architecture">1. Component Architecture</h2>
+<h3 id="11-fastapi-application-structure">1.1 FastAPI Application Structure</h3>
 <pre class="highlight"><code class="language-python">main.py
 ├── Lifespan Management
 │   └── init_tenant_sessions()
@@ -663,7 +663,7 @@ hr {
     └── Traceloop (OpenTelemetry)
 </code></pre>
 
-<h3 id="12-module-organization">1.2 Module Organization<a class="headerlink" href="#12-module-organization" title="Permanent link">&para;</a></h3>
+<h3 id="12-module-organization">1.2 Module Organization</h3>
 <pre class="highlight"><code>siaservice/
 ├── routers/              # API route handlers
 ├── apis/services/        # Business logic services
@@ -681,8 +681,8 @@ hr {
 </code></pre>
 
 <hr />
-<h2 id="2-domain-models">2. Domain Models<a class="headerlink" href="#2-domain-models" title="Permanent link">&para;</a></h2>
-<h3 id="21-case-model">2.1 Case Model<a class="headerlink" href="#21-case-model" title="Permanent link">&para;</a></h3>
+<h2 id="2-domain-models">2. Domain Models</h2>
+<h3 id="21-case-model">2.1 Case Model</h3>
 <pre class="highlight"><code class="language-python">class Case(BaseModel):
     &quot;&quot;&quot;
     Represents a security incident/case
@@ -699,11 +699,11 @@ hr {
     def check_non_empty_fields(cls, values)
 </code></pre>
 
-<p><strong>Validation Rules</strong>:<br />
-- All fields except <code>findings</code> are required<br />
-- No empty strings allowed for required fields<br />
+<p><strong>Validation Rules</strong>:
+- All fields except <code>findings</code> are required
+- No empty strings allowed for required fields
 - Automatic validation via Pydantic</p>
-<h3 id="22-playbooktask-model">2.2 PlaybookTask Model<a class="headerlink" href="#22-playbooktask-model" title="Permanent link">&para;</a></h3>
+<h3 id="22-playbooktask-model">2.2 PlaybookTask Model</h3>
 <pre class="highlight"><code class="language-python">class PlaybookTask(BaseModel):
     &quot;&quot;&quot;
     Represents an executed task within a playbook
@@ -719,11 +719,11 @@ hr {
     def check_non_empty_fields(cls, values)
 </code></pre>
 
-<p><strong>Usage</strong>:<br />
-- Captures historical task executions<br />
-- Used for similarity search and context retrieval<br />
+<p><strong>Usage</strong>:
+- Captures historical task executions
+- Used for similarity search and context retrieval
 - Indexed in vector database</p>
-<h3 id="23-finding-model">2.3 Finding Model<a class="headerlink" href="#23-finding-model" title="Permanent link">&para;</a></h3>
+<h3 id="23-finding-model">2.3 Finding Model</h3>
 <pre class="highlight"><code class="language-python">class Finding(BaseModel):
     &quot;&quot;&quot;
     Individual finding from case analysis
@@ -733,9 +733,9 @@ hr {
 </code></pre>
 
 <hr />
-<h2 id="3-database-schema">3. Database Schema<a class="headerlink" href="#3-database-schema" title="Permanent link">&para;</a></h2>
-<h3 id="31-core-tables">3.1 Core Tables<a class="headerlink" href="#31-core-tables" title="Permanent link">&para;</a></h3>
-<h4 id="cases">cases<a class="headerlink" href="#cases" title="Permanent link">&para;</a></h4>
+<h2 id="3-database-schema">3. Database Schema</h2>
+<h3 id="31-core-tables">3.1 Core Tables</h3>
+<h4 id="cases">cases</h4>
 <pre class="highlight"><code class="language-sql">CREATE TABLE cases (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     case_id VARCHAR(256) NOT NULL,
@@ -760,7 +760,7 @@ CREATE INDEX idx_cases_iocs ON cases(iocs);
 CREATE INDEX idx_cases_status ON cases(status);
 </code></pre>
 
-<h4 id="case_summary">case_summary<a class="headerlink" href="#case_summary" title="Permanent link">&para;</a></h4>
+<h4 id="case_summary">case_summary</h4>
 <pre class="highlight"><code class="language-sql">CREATE TABLE case_summary (
     id SERIAL PRIMARY KEY,
     case_id UUID REFERENCES cases(id) ON DELETE CASCADE,
@@ -780,7 +780,7 @@ CREATE INDEX embedding_case_summary_idx ON case_summary
     WITH (m = 16, ef_construction = 64);
 </code></pre>
 
-<h4 id="playbook_tasks">playbook_tasks<a class="headerlink" href="#playbook_tasks" title="Permanent link">&para;</a></h4>
+<h4 id="playbook_tasks">playbook_tasks</h4>
 <pre class="highlight"><code class="language-sql">CREATE TABLE playbook_tasks (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     case_id VARCHAR(256) NOT NULL,
@@ -801,7 +801,7 @@ CREATE INDEX embedding_hnsw_index ON playbook_tasks
     WITH (m = 16, ef_construction = 64);
 </code></pre>
 
-<h4 id="task_classification">task_classification<a class="headerlink" href="#task_classification" title="Permanent link">&para;</a></h4>
+<h4 id="task_classification">task_classification</h4>
 <pre class="highlight"><code class="language-sql">CREATE TABLE task_classification (
     id SERIAL PRIMARY KEY,
     playbook_task_id UUID REFERENCES playbook_tasks(id) ON DELETE CASCADE,
@@ -828,8 +828,8 @@ CREATE INDEX embedding_hnsw_index ON playbook_tasks
 );
 </code></pre>
 
-<h3 id="32-chat-thread-tables">3.2 Chat &amp; Thread Tables<a class="headerlink" href="#32-chat-thread-tables" title="Permanent link">&para;</a></h3>
-<h4 id="chathistory">chathistory<a class="headerlink" href="#chathistory" title="Permanent link">&para;</a></h4>
+<h3 id="32-chat-thread-tables">3.2 Chat &amp; Thread Tables</h3>
+<h4 id="chathistory">chathistory</h4>
 <pre class="highlight"><code class="language-sql">CREATE TABLE chathistory (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     user VARCHAR NOT NULL,
@@ -849,7 +849,7 @@ CREATE INDEX idx_chathistory_deployment_id ON chathistory(deployment_id);
 CREATE INDEX idx_chathistory_tenant_id ON chathistory(tenant_id);
 </code></pre>
 
-<h4 id="threads">threads<a class="headerlink" href="#threads" title="Permanent link">&para;</a></h4>
+<h4 id="threads">threads</h4>
 <pre class="highlight"><code class="language-sql">CREATE TABLE threads (
     thread_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(1024),
@@ -863,8 +863,8 @@ CREATE INDEX idx_chathistory_tenant_id ON chathistory(tenant_id);
 );
 </code></pre>
 
-<h3 id="33-definition-tables">3.3 Definition Tables<a class="headerlink" href="#33-definition-tables" title="Permanent link">&para;</a></h3>
-<h4 id="playbook_definitions">playbook_definitions<a class="headerlink" href="#playbook_definitions" title="Permanent link">&para;</a></h4>
+<h3 id="33-definition-tables">3.3 Definition Tables</h3>
+<h4 id="playbook_definitions">playbook_definitions</h4>
 <pre class="highlight"><code class="language-sql">CREATE TABLE playbook_definitions (
     id SERIAL PRIMARY KEY,
     deployment_id VARCHAR(256) NOT NULL,
@@ -886,7 +886,7 @@ CREATE INDEX idx_playbook_deployment_id ON playbook_definitions(deployment_id);
 CREATE INDEX idx_playbook_eliminate_threat ON playbook_definitions(eliminate_threat);
 </code></pre>
 
-<h4 id="task_definitions">task_definitions<a class="headerlink" href="#task_definitions" title="Permanent link">&para;</a></h4>
+<h4 id="task_definitions">task_definitions</h4>
 <pre class="highlight"><code class="language-sql">CREATE TABLE task_definitions (
     id SERIAL PRIMARY KEY,
     deployment_id VARCHAR(256) NOT NULL,
@@ -907,8 +907,8 @@ CREATE INDEX idx_task_definitions_task_type ON task_definitions(task_type);
 CREATE INDEX idx_task_definitions_task_tag ON task_definitions(task_tag);
 </code></pre>
 
-<h3 id="34-noise-reduction-tables">3.4 Noise Reduction Tables<a class="headerlink" href="#34-noise-reduction-tables" title="Permanent link">&para;</a></h3>
-<h4 id="case_suspicious_analysis">case_suspicious_analysis<a class="headerlink" href="#case_suspicious_analysis" title="Permanent link">&para;</a></h4>
+<h3 id="34-noise-reduction-tables">3.4 Noise Reduction Tables</h3>
+<h4 id="case_suspicious_analysis">case_suspicious_analysis</h4>
 <pre class="highlight"><code class="language-sql">CREATE TABLE case_suspicious_analysis (
     id SERIAL PRIMARY KEY,
     case_id UUID REFERENCES cases(id) ON DELETE CASCADE UNIQUE,
@@ -928,7 +928,7 @@ CREATE INDEX ix_case_suspicious_analysis_deployment_tenant_case
     ON case_suspicious_analysis(deployment_id, tenant_id, case_id);
 </code></pre>
 
-<h4 id="event_streams-events">event_streams &amp; events<a class="headerlink" href="#event_streams-events" title="Permanent link">&para;</a></h4>
+<h4 id="event_streams-events">event_streams &amp; events</h4>
 <pre class="highlight"><code class="language-sql">CREATE TABLE event_streams (
     stream_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR,
@@ -948,9 +948,9 @@ CREATE TABLE events (
 </code></pre>
 
 <hr />
-<h2 id="4-api-design">4. API Design<a class="headerlink" href="#4-api-design" title="Permanent link">&para;</a></h2>
-<h3 id="41-case-analysis-endpoints">4.1 Case Analysis Endpoints<a class="headerlink" href="#41-case-analysis-endpoints" title="Permanent link">&para;</a></h3>
-<h4 id="post-caseanalysis">POST /case/analysis<a class="headerlink" href="#post-caseanalysis" title="Permanent link">&para;</a></h4>
+<h2 id="4-api-design">4. API Design</h2>
+<h3 id="41-case-analysis-endpoints">4.1 Case Analysis Endpoints</h3>
+<h4 id="post-caseanalysis">POST /case/analysis</h4>
 <p><strong>Request</strong>:</p>
 <pre class="highlight"><code class="language-json">{
   &quot;case&quot;: {
@@ -975,7 +975,7 @@ CREATE TABLE events (
 }
 </code></pre>
 
-<h4 id="get-caseanalysistask_id">GET /case/analysis/{task_id}<a class="headerlink" href="#get-caseanalysistask_id" title="Permanent link">&para;</a></h4>
+<h4 id="get-caseanalysistask_id">GET /case/analysis/{task_id}</h4>
 <p><strong>Response</strong>:</p>
 <pre class="highlight"><code class="language-json">{
   &quot;task_id&quot;: &quot;e09f6929-f562-4428-a155-0f3ccf74a1b1&quot;,
@@ -995,8 +995,8 @@ CREATE TABLE events (
 }
 </code></pre>
 
-<h3 id="42-chat-endpoints">4.2 Chat Endpoints<a class="headerlink" href="#42-chat-endpoints" title="Permanent link">&para;</a></h3>
-<h4 id="post-chatcompletions">POST /chat/completions<a class="headerlink" href="#post-chatcompletions" title="Permanent link">&para;</a></h4>
+<h3 id="42-chat-endpoints">4.2 Chat Endpoints</h3>
+<h4 id="post-chatcompletions">POST /chat/completions</h4>
 <p><strong>Request</strong>:</p>
 <pre class="highlight"><code class="language-json">{
   &quot;model&quot;: &quot;gpt-4&quot;,
@@ -1014,7 +1014,7 @@ data: {&quot;chunk&quot;: &quot; the IP address...&quot;}
 data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
 </code></pre>
 
-<h4 id="post-chatthread">POST /chat/thread<a class="headerlink" href="#post-chatthread" title="Permanent link">&para;</a></h4>
+<h4 id="post-chatthread">POST /chat/thread</h4>
 <p><strong>Request</strong>:</p>
 <pre class="highlight"><code class="language-json">{
   &quot;deployment_id&quot;: &quot;prod-001&quot;,
@@ -1026,8 +1026,8 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
 }
 </code></pre>
 
-<h3 id="43-indexing-endpoints">4.3 Indexing Endpoints<a class="headerlink" href="#43-indexing-endpoints" title="Permanent link">&para;</a></h3>
-<h4 id="post-indexingcaseplaybooktask">POST /indexing/case/playbook/task<a class="headerlink" href="#post-indexingcaseplaybooktask" title="Permanent link">&para;</a></h4>
+<h3 id="43-indexing-endpoints">4.3 Indexing Endpoints</h3>
+<h4 id="post-indexingcaseplaybooktask">POST /indexing/case/playbook/task</h4>
 <p><strong>Request</strong>:</p>
 <pre class="highlight"><code class="language-json">{
   &quot;tasks&quot;: [
@@ -1048,8 +1048,8 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
 </code></pre>
 
 <hr />
-<h2 id="5-service-layer">5. Service Layer<a class="headerlink" href="#5-service-layer" title="Permanent link">&para;</a></h2>
-<h3 id="51-caseanalysisservice">5.1 CaseAnalysisService<a class="headerlink" href="#51-caseanalysisservice" title="Permanent link">&para;</a></h3>
+<h2 id="5-service-layer">5. Service Layer</h2>
+<h3 id="51-caseanalysisservice">5.1 CaseAnalysisService</h3>
 <pre class="highlight"><code class="language-python">class OpenAICaseAnalysisService:
     &quot;&quot;&quot;
     Main service for case analysis using LLM
@@ -1077,7 +1077,7 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
         return result, existing
 </code></pre>
 
-<h3 id="52-caseanalysis-engine">5.2 CaseAnalysis Engine<a class="headerlink" href="#52-caseanalysis-engine" title="Permanent link">&para;</a></h3>
+<h3 id="52-caseanalysis-engine">5.2 CaseAnalysis Engine</h3>
 <pre class="highlight"><code class="language-python">class CaseAnalysis:
     &quot;&quot;&quot;
     Core analysis logic with RAG (Retrieval-Augmented Generation)
@@ -1116,7 +1116,7 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
         return result, False
 </code></pre>
 
-<h3 id="53-chatbotagent">5.3 ChatBotAgent<a class="headerlink" href="#53-chatbotagent" title="Permanent link">&para;</a></h3>
+<h3 id="53-chatbotagent">5.3 ChatBotAgent</h3>
 <pre class="highlight"><code class="language-python">class ChatBotAgent:
     &quot;&quot;&quot;
     Handles interactive chat with RAG context
@@ -1158,8 +1158,8 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
 </code></pre>
 
 <hr />
-<h2 id="6-repository-pattern">6. Repository Pattern<a class="headerlink" href="#6-repository-pattern" title="Permanent link">&para;</a></h2>
-<h3 id="61-playbooktaskrepo">6.1 PlaybookTaskRepo<a class="headerlink" href="#61-playbooktaskrepo" title="Permanent link">&para;</a></h3>
+<h2 id="6-repository-pattern">6. Repository Pattern</h2>
+<h3 id="61-playbooktaskrepo">6.1 PlaybookTaskRepo</h3>
 <pre class="highlight"><code class="language-python">class PlaybookTaskRepo:
     &quot;&quot;&quot;
     Repository for playbook task CRUD and vector search
@@ -1203,7 +1203,7 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
         return results
 </code></pre>
 
-<h3 id="62-caserepo">6.2 CaseRepo<a class="headerlink" href="#62-caserepo" title="Permanent link">&para;</a></h3>
+<h3 id="62-caserepo">6.2 CaseRepo</h3>
 <pre class="highlight"><code class="language-python">class CaseRepo:
     &quot;&quot;&quot;
     Repository for case management
@@ -1242,7 +1242,7 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
         return db_summary
 </code></pre>
 
-<h3 id="63-chathistory-repo">6.3 ChatHistory Repo<a class="headerlink" href="#63-chathistory-repo" title="Permanent link">&para;</a></h3>
+<h3 id="63-chathistory-repo">6.3 ChatHistory Repo</h3>
 <pre class="highlight"><code class="language-python">class ChatHistory:
     &quot;&quot;&quot;
     Repository for chat thread and message management
@@ -1291,8 +1291,8 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
 </code></pre>
 
 <hr />
-<h2 id="7-llm-integration">7. LLM Integration<a class="headerlink" href="#7-llm-integration" title="Permanent link">&para;</a></h2>
-<h3 id="71-llmwrapper">7.1 LLMWrapper<a class="headerlink" href="#71-llmwrapper" title="Permanent link">&para;</a></h3>
+<h2 id="7-llm-integration">7. LLM Integration</h2>
+<h3 id="71-llmwrapper">7.1 LLMWrapper</h3>
 <pre class="highlight"><code class="language-python">class LLMWrapper(Runnable):
     &quot;&quot;&quot;
     Unified LLM interface supporting multiple backends
@@ -1348,7 +1348,7 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
         return self
 </code></pre>
 
-<h3 id="72-aiembedding">7.2 AIEmbedding<a class="headerlink" href="#72-aiembedding" title="Permanent link">&para;</a></h3>
+<h3 id="72-aiembedding">7.2 AIEmbedding</h3>
 <pre class="highlight"><code class="language-python">class AIEmbedding:
     &quot;&quot;&quot;
     Embedding generation with multiple backends
@@ -1385,8 +1385,8 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
 </code></pre>
 
 <hr />
-<h2 id="8-message-processing">8. Message Processing<a class="headerlink" href="#8-message-processing" title="Permanent link">&para;</a></h2>
-<h3 id="81-kafka-consumer-indexer">8.1 Kafka Consumer (Indexer)<a class="headerlink" href="#81-kafka-consumer-indexer" title="Permanent link">&para;</a></h3>
+<h2 id="8-message-processing">8. Message Processing</h2>
+<h3 id="81-kafka-consumer-indexer">8.1 Kafka Consumer (Indexer)</h3>
 <pre class="highlight"><code class="language-python">class KafkaConsumer_PgvIndexer:
     &quot;&quot;&quot;
     Consumes indexing messages and stores in PostgreSQL
@@ -1437,7 +1437,7 @@ data: {&quot;chunk&quot;: &quot; is malicious.&quot;}
             db.close()
 </code></pre>
 
-<h3 id="82-celery-worker">8.2 Celery Worker<a class="headerlink" href="#82-celery-worker" title="Permanent link">&para;</a></h3>
+<h3 id="82-celery-worker">8.2 Celery Worker</h3>
 <pre class="highlight"><code class="language-python">@celery.task(name=&quot;create_case_analysis_task&quot;)
 def create_case_analysis_task(case_dict: dict):
     &quot;&quot;&quot;
@@ -1484,8 +1484,8 @@ def create_case_analysis_task(case_dict: dict):
 </code></pre>
 
 <hr />
-<h2 id="9-analysis-pipeline">9. Analysis Pipeline<a class="headerlink" href="#9-analysis-pipeline" title="Permanent link">&para;</a></h2>
-<h3 id="91-template-factory">9.1 Template Factory<a class="headerlink" href="#91-template-factory" title="Permanent link">&para;</a></h3>
+<h2 id="9-analysis-pipeline">9. Analysis Pipeline</h2>
+<h3 id="91-template-factory">9.1 Template Factory</h3>
 <pre class="highlight"><code class="language-python">class AnalysisTemplatesFactory:
     &quot;&quot;&quot;
     Provides analysis prompt templates
@@ -1515,7 +1515,7 @@ Output must be valid JSON following this structure:
 &quot;&quot;&quot;
 </code></pre>
 
-<h3 id="92-output-parser">9.2 Output Parser<a class="headerlink" href="#92-output-parser" title="Permanent link">&para;</a></h3>
+<h3 id="92-output-parser">9.2 Output Parser</h3>
 <pre class="highlight"><code class="language-python">class SelfRepairJsonOutputParser(JsonOutputParser):
     &quot;&quot;&quot;
     JSON parser with self-repair capability
@@ -1552,7 +1552,7 @@ Output must be valid JSON following this structure:
                 raise ValueError(&quot;Unable to parse JSON response&quot;)
 </code></pre>
 
-<h3 id="93-risk-scoring">9.3 Risk Scoring<a class="headerlink" href="#93-risk-scoring" title="Permanent link">&para;</a></h3>
+<h3 id="93-risk-scoring">9.3 Risk Scoring</h3>
 <pre class="highlight"><code class="language-python">def analyze_risk_and_recommendation(session: Session,
                                    deployment_id: str,
                                    tenant_id: str,
@@ -1605,8 +1605,8 @@ Output must be valid JSON following this structure:
 </code></pre>
 
 <hr />
-<h2 id="10-false-positive-reduction">10. False Positive Reduction<a class="headerlink" href="#10-false-positive-reduction" title="Permanent link">&para;</a></h2>
-<h3 id="101-fpr-worker">10.1 FPR Worker<a class="headerlink" href="#101-fpr-worker" title="Permanent link">&para;</a></h3>
+<h2 id="10-false-positive-reduction">10. False Positive Reduction</h2>
+<h3 id="101-fpr-worker">10.1 FPR Worker</h3>
 <pre class="highlight"><code class="language-python">class CaseFPReductionWorker:
     &quot;&quot;&quot;
     Main worker for false positive reduction
@@ -1704,7 +1704,7 @@ Output must be valid JSON following this structure:
         return False
 </code></pre>
 
-<h3 id="102-feature-builder">10.2 Feature Builder<a class="headerlink" href="#102-feature-builder" title="Permanent link">&para;</a></h3>
+<h3 id="102-feature-builder">10.2 Feature Builder</h3>
 <pre class="highlight"><code class="language-python">class FeatureBuilderModuleV2:
     &quot;&quot;&quot;
     Extract ML features from case data
@@ -1738,7 +1738,7 @@ Output must be valid JSON following this structure:
         return features
 </code></pre>
 
-<h3 id="103-novelty-detection-client">10.3 Novelty Detection Client<a class="headerlink" href="#103-novelty-detection-client" title="Permanent link">&para;</a></h3>
+<h3 id="103-novelty-detection-client">10.3 Novelty Detection Client</h3>
 <pre class="highlight"><code class="language-python">class NDSClient:
     &quot;&quot;&quot;
     Client for Novelty Detection Service
@@ -1777,8 +1777,8 @@ Output must be valid JSON following this structure:
 </code></pre>
 
 <hr />
-<h2 id="11-implementation-diagrams">11. Implementation Diagrams<a class="headerlink" href="#11-implementation-diagrams" title="Permanent link">&para;</a></h2>
-<h3 id="111-component-interaction-diagram">11.1 Component Interaction Diagram<a class="headerlink" href="#111-component-interaction-diagram" title="Permanent link">&para;</a></h3>
+<h2 id="11-implementation-diagrams">11. Implementation Diagrams</h2>
+<h3 id="111-component-interaction-diagram">11.1 Component Interaction Diagram</h3>
 <div class="mermaid">
 graph TB
     subgraph FastAPIApp["FastAPI Application"]
@@ -1860,7 +1860,7 @@ graph TB
     class CACHE cache
 </div>
 
-<h3 id="112-llm-integration-architecture">11.2 LLM Integration Architecture<a class="headerlink" href="#112-llm-integration-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="112-llm-integration-architecture">11.2 LLM Integration Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph AppLayer["Application Layer"]
@@ -1928,7 +1928,7 @@ graph TB
     class DTX security
 </div>
 
-<h3 id="113-vector-search-implementation">11.3 Vector Search Implementation<a class="headerlink" href="#113-vector-search-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="113-vector-search-implementation">11.3 Vector Search Implementation</h3>
 <div class="mermaid">
 flowchart LR
     subgraph "Input"
@@ -1987,7 +1987,7 @@ flowchart LR
     style FINAL fill:#ff99ff
 </div>
 
-<h3 id="114-celery-task-state-machine">11.4 Celery Task State Machine<a class="headerlink" href="#114-celery-task-state-machine" title="Permanent link">&para;</a></h3>
+<h3 id="114-celery-task-state-machine">11.4 Celery Task State Machine</h3>
 <div class="mermaid">
 stateDiagram-v2
     [*] --> Pending: Task Queued
@@ -2021,7 +2021,7 @@ stateDiagram-v2
     Failure --> [*]
 </div>
 
-<h3 id="115-kafka-topic-flow">11.5 Kafka Topic Flow<a class="headerlink" href="#115-kafka-topic-flow" title="Permanent link">&para;</a></h3>
+<h3 id="115-kafka-topic-flow">11.5 Kafka Topic Flow</h3>
 <div class="mermaid">
 flowchart LR
     subgraph Producers
@@ -2072,7 +2072,7 @@ flowchart LR
     class C1,C2,C3 consumer
 </div>
 
-<h3 id="116-sequence-diagram-case-analysis-flow">11.6 Sequence Diagram: Case Analysis Flow<a class="headerlink" href="#116-sequence-diagram-case-analysis-flow" title="Permanent link">&para;</a></h3>
+<h3 id="116-sequence-diagram-case-analysis-flow">11.6 Sequence Diagram: Case Analysis Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Client
@@ -2110,7 +2110,7 @@ sequenceDiagram
     FastAPI-->>Client: Analysis Result
 </div>
 
-<h3 id="112-task-indexing-flow">11.2 Task Indexing Flow<a class="headerlink" href="#112-task-indexing-flow" title="Permanent link">&para;</a></h3>
+<h3 id="112-task-indexing-flow">11.2 Task Indexing Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant CLI
@@ -2138,7 +2138,7 @@ sequenceDiagram
     FPR->>DB: Update Analysis
 </div>
 
-<h3 id="113-chat-flow-with-rag">11.3 Chat Flow with RAG<a class="headerlink" href="#113-chat-flow-with-rag" title="Permanent link">&para;</a></h3>
+<h3 id="113-chat-flow-with-rag">11.3 Chat Flow with RAG</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Client
@@ -2169,7 +2169,7 @@ sequenceDiagram
     ChatAgent->>DB: Store Message
 </div>
 
-<h3 id="114-repository-pattern-class-diagram">11.4 Repository Pattern Class Diagram<a class="headerlink" href="#114-repository-pattern-class-diagram" title="Permanent link">&para;</a></h3>
+<h3 id="114-repository-pattern-class-diagram">11.4 Repository Pattern Class Diagram</h3>
 <div class="mermaid">
 classDiagram
     class BaseRepository~T~ {
@@ -2238,7 +2238,7 @@ classDiagram
     PlaybookTaskRepository --> EmbeddingClient : uses
 </div>
 
-<h3 id="115-tenant-onboarding-workflow">11.5 Tenant Onboarding Workflow<a class="headerlink" href="#115-tenant-onboarding-workflow" title="Permanent link">&para;</a></h3>
+<h3 id="115-tenant-onboarding-workflow">11.5 Tenant Onboarding Workflow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Admin
@@ -2272,7 +2272,7 @@ sequenceDiagram
     Note over IndexSvc: Background initialization<br/>completes asynchronously
 </div>
 
-<h3 id="116-error-handling-flow">11.6 Error Handling Flow<a class="headerlink" href="#116-error-handling-flow" title="Permanent link">&para;</a></h3>
+<h3 id="116-error-handling-flow">11.6 Error Handling Flow</h3>
 <div class="mermaid">
 flowchart TD
     START[API Request] --> VALIDATE{Valid<br/>Request?}
@@ -2331,8 +2331,8 @@ flowchart TD
 </div>
 
 <hr />
-<h2 id="12-class-diagrams">12. Class Diagrams<a class="headerlink" href="#12-class-diagrams" title="Permanent link">&para;</a></h2>
-<h3 id="121-domain-model">12.1 Domain Model<a class="headerlink" href="#121-domain-model" title="Permanent link">&para;</a></h3>
+<h2 id="12-class-diagrams">12. Class Diagrams</h2>
+<h3 id="121-domain-model">12.1 Domain Model</h3>
 <div class="mermaid">
 classDiagram
     class Case {
@@ -2363,7 +2363,7 @@ classDiagram
     Case "1" --> "*" Finding : contains
 </div>
 
-<h3 id="122-service-layer">12.2 Service Layer<a class="headerlink" href="#122-service-layer" title="Permanent link">&para;</a></h3>
+<h3 id="122-service-layer">12.2 Service Layer</h3>
 <div class="mermaid">
 classDiagram
     class OpenAICaseAnalysisService {
@@ -2393,7 +2393,7 @@ classDiagram
     ChatBotAgent --> PlaybookTaskRepo : queries
 </div>
 
-<h3 id="123-repository-layer">12.3 Repository Layer<a class="headerlink" href="#123-repository-layer" title="Permanent link">&para;</a></h3>
+<h3 id="123-repository-layer">12.3 Repository Layer</h3>
 <div class="mermaid">
 classDiagram
     class PlaybookTaskRepo {
@@ -2426,7 +2426,7 @@ classDiagram
     ChatHistory --> ChatHistoryModel : manages
 </div>
 
-<h3 id="124-llm-integration">12.4 LLM Integration<a class="headerlink" href="#124-llm-integration" title="Permanent link">&para;</a></h3>
+<h3 id="124-llm-integration">12.4 LLM Integration</h3>
 <div class="mermaid">
 classDiagram
     class LLMWrapper {
@@ -2458,40 +2458,40 @@ classDiagram
 </div>
 
 <hr />
-<h2 id="13-key-design-patterns">13. Key Design Patterns<a class="headerlink" href="#13-key-design-patterns" title="Permanent link">&para;</a></h2>
-<h3 id="131-repository-pattern">13.1 Repository Pattern<a class="headerlink" href="#131-repository-pattern" title="Permanent link">&para;</a></h3>
+<h2 id="13-key-design-patterns">13. Key Design Patterns</h2>
+<h3 id="131-repository-pattern">13.1 Repository Pattern</h3>
 <ul>
 <li><strong>Purpose</strong>: Abstract data access logic</li>
 <li><strong>Implementation</strong>: Separate repository classes for each entity</li>
 <li><strong>Benefits</strong>: Testability, decoupling, consistency</li>
 </ul>
-<h3 id="132-dependency-injection">13.2 Dependency Injection<a class="headerlink" href="#132-dependency-injection" title="Permanent link">&para;</a></h3>
+<h3 id="132-dependency-injection">13.2 Dependency Injection</h3>
 <ul>
 <li><strong>Purpose</strong>: Manage dependencies cleanly</li>
 <li><strong>Implementation</strong>: FastAPI Depends(), constructor injection</li>
 <li><strong>Benefits</strong>: Testability, flexibility, loose coupling</li>
 </ul>
-<h3 id="133-strategy-pattern">13.3 Strategy Pattern<a class="headerlink" href="#133-strategy-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="133-strategy-pattern">13.3 Strategy Pattern</h3>
 <ul>
 <li><strong>Purpose</strong>: Switch LLM backends dynamically</li>
 <li><strong>Implementation</strong>: LLMWrapper with backend selection</li>
 <li><strong>Benefits</strong>: Flexibility, extensibility</li>
 </ul>
-<h3 id="134-observer-pattern">13.4 Observer Pattern<a class="headerlink" href="#134-observer-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="134-observer-pattern">13.4 Observer Pattern</h3>
 <ul>
 <li><strong>Purpose</strong>: Event-driven processing</li>
 <li><strong>Implementation</strong>: Kafka pub/sub</li>
 <li><strong>Benefits</strong>: Scalability, decoupling</li>
 </ul>
-<h3 id="135-factory-pattern">13.5 Factory Pattern<a class="headerlink" href="#135-factory-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="135-factory-pattern">13.5 Factory Pattern</h3>
 <ul>
 <li><strong>Purpose</strong>: Create objects based on type</li>
 <li><strong>Implementation</strong>: AnalysisTemplatesFactory</li>
 <li><strong>Benefits</strong>: Centralized creation logic</li>
 </ul>
 <hr />
-<h2 id="14-error-handling">14. Error Handling<a class="headerlink" href="#14-error-handling" title="Permanent link">&para;</a></h2>
-<h3 id="141-exception-hierarchy">14.1 Exception Hierarchy<a class="headerlink" href="#141-exception-hierarchy" title="Permanent link">&para;</a></h3>
+<h2 id="14-error-handling">14. Error Handling</h2>
+<h3 id="141-exception-hierarchy">14.1 Exception Hierarchy</h3>
 <pre class="highlight"><code class="language-python">class SiaException(Exception):
     &quot;&quot;&quot;Base exception&quot;&quot;&quot;
     pass
@@ -2509,7 +2509,7 @@ class DatabaseException(SiaException):
     pass
 </code></pre>
 
-<h3 id="142-retry-logic">14.2 Retry Logic<a class="headerlink" href="#142-retry-logic" title="Permanent link">&para;</a></h3>
+<h3 id="142-retry-logic">14.2 Retry Logic</h3>
 <pre class="highlight"><code class="language-python">@retry((NoneResultException), tries=3, delay=2, backoff=2)
 def run_analysis(case: Case):
     &quot;&quot;&quot;Retry on specific exceptions&quot;&quot;&quot;
@@ -2520,28 +2520,28 @@ def run_analysis(case: Case):
 </code></pre>
 
 <hr />
-<h2 id="15-performance-optimizations">15. Performance Optimizations<a class="headerlink" href="#15-performance-optimizations" title="Permanent link">&para;</a></h2>
-<h3 id="151-caching-strategy">15.1 Caching Strategy<a class="headerlink" href="#151-caching-strategy" title="Permanent link">&para;</a></h3>
+<h2 id="15-performance-optimizations">15. Performance Optimizations</h2>
+<h3 id="151-caching-strategy">15.1 Caching Strategy</h3>
 <ul>
 <li><strong>Redis</strong>: LLM response caching</li>
 <li><strong>Hash-based keys</strong>: Deterministic cache hits</li>
 <li><strong>TTL</strong>: Configurable expiration</li>
 </ul>
-<h3 id="152-vector-search-optimization">15.2 Vector Search Optimization<a class="headerlink" href="#152-vector-search-optimization" title="Permanent link">&para;</a></h3>
+<h3 id="152-vector-search-optimization">15.2 Vector Search Optimization</h3>
 <ul>
 <li><strong>HNSW Index</strong>: Fast approximate nearest neighbor</li>
 <li><strong>Batch Processing</strong>: Group operations</li>
 <li><strong>Selective Filtering</strong>: Reduce search space</li>
 </ul>
-<h3 id="153-connection-pooling">15.3 Connection Pooling<a class="headerlink" href="#153-connection-pooling" title="Permanent link">&para;</a></h3>
+<h3 id="153-connection-pooling">15.3 Connection Pooling</h3>
 <ul>
 <li><strong>SQLAlchemy</strong>: Automatic connection pooling</li>
 <li><strong>Redis</strong>: Connection pool configuration</li>
 <li><strong>Kafka</strong>: Reusable consumers</li>
 </ul>
 <hr />
-<h2 id="15-testing-strategy">15. Testing Strategy<a class="headerlink" href="#15-testing-strategy" title="Permanent link">&para;</a></h2>
-<h3 id="151-unit-testing">15.1 Unit Testing<a class="headerlink" href="#151-unit-testing" title="Permanent link">&para;</a></h3>
+<h2 id="15-testing-strategy">15. Testing Strategy</h2>
+<h3 id="151-unit-testing">15.1 Unit Testing</h3>
 <pre class="highlight"><code class="language-python"># tests/apis/test_case_service.py
 import pytest
 from siaservice.apis.services.cases import OpenAICaseAnalysisService
@@ -2576,7 +2576,7 @@ def test_case_analysis_success(case_service):
     assert isinstance(is_cached, bool)
 </code></pre>
 
-<h3 id="152-integration-testing">15.2 Integration Testing<a class="headerlink" href="#152-integration-testing" title="Permanent link">&para;</a></h3>
+<h3 id="152-integration-testing">15.2 Integration Testing</h3>
 <pre class="highlight"><code class="language-python"># tests/integration/test_case_flow.py
 import pytest
 from fastapi.testclient import TestClient
@@ -2608,7 +2608,7 @@ def test_case_analysis_flow(client):
     assert result_response.status_code == 200
 </code></pre>
 
-<h3 id="153-performance-testing">15.3 Performance Testing<a class="headerlink" href="#153-performance-testing" title="Permanent link">&para;</a></h3>
+<h3 id="153-performance-testing">15.3 Performance Testing</h3>
 <pre class="highlight"><code class="language-python"># tests/performance/test_vector_search.py
 import time
 import pytest
@@ -2632,8 +2632,8 @@ def test_vector_search_performance(db_session, embedding_client):
 </code></pre>
 
 <hr />
-<h2 id="16-code-examples">16. Code Examples<a class="headerlink" href="#16-code-examples" title="Permanent link">&para;</a></h2>
-<h3 id="161-adding-a-new-api-endpoint">16.1 Adding a New API Endpoint<a class="headerlink" href="#161-adding-a-new-api-endpoint" title="Permanent link">&para;</a></h3>
+<h2 id="16-code-examples">16. Code Examples</h2>
+<h3 id="161-adding-a-new-api-endpoint">16.1 Adding a New API Endpoint</h3>
 <pre class="highlight"><code class="language-python"># siaservice/routers/example.py
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -2657,7 +2657,7 @@ def process_example(
     return result
 </code></pre>
 
-<h3 id="162-creating-a-new-repository">16.2 Creating a New Repository<a class="headerlink" href="#162-creating-a-new-repository" title="Permanent link">&para;</a></h3>
+<h3 id="162-creating-a-new-repository">16.2 Creating a New Repository</h3>
 <pre class="highlight"><code class="language-python"># siaservice/repositories/example_repo.py
 from sqlalchemy.orm import Session
 from siaservice.db.pgv.models import ExampleModel
@@ -2704,7 +2704,7 @@ class ExampleRepo:
         return results
 </code></pre>
 
-<h3 id="163-adding-a-new-celery-task">16.3 Adding a New Celery Task<a class="headerlink" href="#163-adding-a-new-celery-task" title="Permanent link">&para;</a></h3>
+<h3 id="163-adding-a-new-celery-task">16.3 Adding a New Celery Task</h3>
 <pre class="highlight"><code class="language-python"># worker.py - Add new task
 from celery import Celery
 from siaservice.db.pgv.db import db_session
@@ -2732,7 +2732,7 @@ def perform_processing(session, data):
     return {&quot;status&quot;: &quot;completed&quot;}
 </code></pre>
 
-<h3 id="164-adding-a-new-llm-prompt-template">16.4 Adding a New LLM Prompt Template<a class="headerlink" href="#164-adding-a-new-llm-prompt-template" title="Permanent link">&para;</a></h3>
+<h3 id="164-adding-a-new-llm-prompt-template">16.4 Adding a New LLM Prompt Template</h3>
 <pre class="highlight"><code class="language-python"># siaservice/analysis/templates.py
 class AnalysisTemplatesFactory:
     def get_example_template(self) -&gt; str:
@@ -2766,7 +2766,7 @@ Provide your analysis in JSON format:
         return templates.get(analysis_type, self.get_default)()
 </code></pre>
 
-<h3 id="165-database-migration-example">16.5 Database Migration Example<a class="headerlink" href="#165-database-migration-example" title="Permanent link">&para;</a></h3>
+<h3 id="165-database-migration-example">16.5 Database Migration Example</h3>
 <pre class="highlight"><code class="language-python"># migrations/versions/xxxxx_add_example_table.py
 &quot;&quot;&quot;Add example table
 
@@ -2819,7 +2819,7 @@ def downgrade():
     op.drop_table('examples')
 </code></pre>
 
-<h3 id="166-adding-environment-configuration">16.6 Adding Environment Configuration<a class="headerlink" href="#166-adding-environment-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="166-adding-environment-configuration">16.6 Adding Environment Configuration</h3>
 <pre class="highlight"><code class="language-python"># .env additions
 # Example Service Configuration
 EXAMPLE_API_KEY=your_api_key_here

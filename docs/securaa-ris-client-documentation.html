@@ -620,8 +620,8 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="ris-client-documentation">RIS Client Documentation<a class="headerlink" href="#ris-client-documentation" title="Permanent link">&para;</a></h1>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+        <h1 id="ris-client-documentation">RIS Client Documentation</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#architecture">Architecture</a></li>
@@ -636,9 +636,9 @@ hr {
 <li><a href="#best-practices">Best Practices</a></li>
 <li><a href="#development-guide">Development Guide</a></li>
 </ol>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h2 id="overview">Overview</h2>
 <p>The RIS (Remote Integrated Services) Client is a lightweight, secure agent that enables remote management and task execution across distributed environments. It serves as the intelligent endpoint in the RIS ecosystem, communicating with the central RIS Server to execute tasks, manage Docker services, and provide real-time status updates.</p>
-<h3 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h3>
+<h3 id="key-features">Key Features</h3>
 <ul>
 <li><strong>Real-time Communication</strong>: WebSocket-based persistent connection with the RIS Server</li>
 <li><strong>Task Execution</strong>: Support for HTTP requests, system commands, and Docker operations</li>
@@ -648,8 +648,8 @@ hr {
 <li><strong>Health Monitoring</strong>: Continuous health checks and status reporting</li>
 <li><strong>Multi-tenant Support</strong>: Isolated execution environments for different tenants</li>
 </ul>
-<h3 id="system-requirements">System Requirements<a class="headerlink" href="#system-requirements" title="Permanent link">&para;</a></h3>
-<h4 id="minimum-requirements">Minimum Requirements<a class="headerlink" href="#minimum-requirements" title="Permanent link">&para;</a></h4>
+<h3 id="system-requirements">System Requirements</h3>
+<h4 id="minimum-requirements">Minimum Requirements</h4>
 <ul>
 <li><strong>Operating System</strong>: Linux (Ubuntu 18.04+, CentOS 7+, RHEL 7+)</li>
 <li><strong>CPU</strong>: 1 vCore</li>
@@ -657,7 +657,7 @@ hr {
 <li><strong>Storage</strong>: 1 GB available disk space</li>
 <li><strong>Network</strong>: Outbound HTTPS/WSS connectivity</li>
 </ul>
-<h4 id="recommended-requirements">Recommended Requirements<a class="headerlink" href="#recommended-requirements" title="Permanent link">&para;</a></h4>
+<h4 id="recommended-requirements">Recommended Requirements</h4>
 <ul>
 <li><strong>Operating System</strong>: Linux (Ubuntu 20.04+, CentOS 8+, RHEL 8+)</li>
 <li><strong>CPU</strong>: 2 vCores</li>
@@ -665,14 +665,14 @@ hr {
 <li><strong>Storage</strong>: 5 GB available disk space</li>
 <li><strong>Network</strong>: High-speed internet connection</li>
 </ul>
-<h4 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h4>
+<h4 id="dependencies">Dependencies</h4>
 <ul>
 <li><strong>Docker</strong>: Version 20.10+ (for service management features)</li>
 <li><strong>Go Runtime</strong>: Version 1.19+ (for development)</li>
 <li><strong>TLS Certificates</strong>: Valid certificates for secure communication</li>
 </ul>
-<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
-<h3 id="component-overview">Component Overview<a class="headerlink" href="#component-overview" title="Permanent link">&para;</a></h3>
+<h2 id="architecture">Architecture</h2>
+<h3 id="component-overview">Component Overview</h3>
 <div class="mermaid">
 graph TB
     subgraph "RIS Client Architecture"
@@ -739,31 +739,31 @@ graph TB
     style RIS_SERVER fill:#fce4ec
 </div>
 
-<h3 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">&para;</a></h3>
-<h4 id="1-application-framework">1. Application Framework<a class="headerlink" href="#1-application-framework" title="Permanent link">&para;</a></h4>
+<h3 id="core-components">Core Components</h3>
+<h4 id="1-application-framework">1. Application Framework</h4>
 <ul>
 <li><strong>Main Application (<code>App</code>)</strong>: Central orchestration and lifecycle management</li>
 <li><strong>HTTP Router</strong>: RESTful API endpoint handling</li>
 <li><strong>WebSocket Client</strong>: Persistent server communication</li>
 <li><strong>Configuration Manager</strong>: Dynamic configuration management</li>
 </ul>
-<h4 id="2-task-execution-engine">2. Task Execution Engine<a class="headerlink" href="#2-task-execution-engine" title="Permanent link">&para;</a></h4>
+<h4 id="2-task-execution-engine">2. Task Execution Engine</h4>
 <ul>
 <li><strong>Task Handler Controller</strong>: Task routing and execution coordination</li>
 <li><strong>HTTP Client</strong>: External API communication</li>
 <li><strong>Command Executor</strong>: System command execution</li>
 <li><strong>Docker Manager</strong>: Container and service management</li>
 </ul>
-<h4 id="3-infrastructure-services">3. Infrastructure Services<a class="headerlink" href="#3-infrastructure-services" title="Permanent link">&para;</a></h4>
+<h4 id="3-infrastructure-services">3. Infrastructure Services</h4>
 <ul>
 <li><strong>Health Monitor</strong>: System and service health tracking</li>
 <li><strong>Network Manager</strong>: IP detection and connectivity management</li>
 <li><strong>Logging System</strong>: Structured logging and audit trails</li>
 <li><strong>Security Manager</strong>: Authentication and encryption</li>
 </ul>
-<h2 id="installation-setup">Installation &amp; Setup<a class="headerlink" href="#installation-setup" title="Permanent link">&para;</a></h2>
-<h3 id="docker-installation-recommended">Docker Installation (Recommended)<a class="headerlink" href="#docker-installation-recommended" title="Permanent link">&para;</a></h3>
-<h4 id="using-docker-compose">Using Docker Compose<a class="headerlink" href="#using-docker-compose" title="Permanent link">&para;</a></h4>
+<h2 id="installation-setup">Installation &amp; Setup</h2>
+<h3 id="docker-installation-recommended">Docker Installation (Recommended)</h3>
+<h4 id="using-docker-compose">Using Docker Compose</h4>
 <pre class="highlight"><code class="language-yaml">version: '3.8'
 services:
   ris-client:
@@ -792,7 +792,7 @@ networks:
     driver: bridge
 </code></pre>
 
-<h4 id="using-docker-run">Using Docker Run<a class="headerlink" href="#using-docker-run" title="Permanent link">&para;</a></h4>
+<h4 id="using-docker-run">Using Docker Run</h4>
 <pre class="highlight"><code class="language-bash">docker run -d \
   --name ris-client \
   --restart unless-stopped \
@@ -808,8 +808,8 @@ networks:
   securaa/ris-client:latest
 </code></pre>
 
-<h3 id="binary-installation">Binary Installation<a class="headerlink" href="#binary-installation" title="Permanent link">&para;</a></h3>
-<h4 id="download-and-install">Download and Install<a class="headerlink" href="#download-and-install" title="Permanent link">&para;</a></h4>
+<h3 id="binary-installation">Binary Installation</h3>
+<h4 id="download-and-install">Download and Install</h4>
 <pre class="highlight"><code class="language-bash"># Download the latest release
 wget https://github.com/securaa/ris-client/releases/latest/download/ris-client-linux-amd64.tar.gz
 
@@ -825,7 +825,7 @@ sudo mkdir -p /etc/ris-client
 sudo mkdir -p /var/log/ris-client
 </code></pre>
 
-<h4 id="create-systemd-service">Create Systemd Service<a class="headerlink" href="#create-systemd-service" title="Permanent link">&para;</a></h4>
+<h4 id="create-systemd-service">Create Systemd Service</h4>
 <pre class="highlight"><code class="language-bash">sudo tee /etc/systemd/system/ris-client.service &lt;&lt; EOF
 [Unit]
 Description=RIS Client Service
@@ -856,8 +856,8 @@ sudo systemctl enable ris-client
 sudo systemctl start ris-client
 </code></pre>
 
-<h3 id="source-installation">Source Installation<a class="headerlink" href="#source-installation" title="Permanent link">&para;</a></h3>
-<h4 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h4>
+<h3 id="source-installation">Source Installation</h3>
+<h4 id="prerequisites">Prerequisites</h4>
 <pre class="highlight"><code class="language-bash"># Install Go 1.19+
 wget https://go.dev/dl/go1.21.3.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.21.3.linux-amd64.tar.gz
@@ -868,7 +868,7 @@ sudo apt-get update
 sudo apt-get install -y git make build-essential
 </code></pre>
 
-<h4 id="build-from-source">Build from Source<a class="headerlink" href="#build-from-source" title="Permanent link">&para;</a></h4>
+<h4 id="build-from-source">Build from Source</h4>
 <pre class="highlight"><code class="language-bash"># Clone repository
 git clone https://github.com/securaa/ris-client.git
 cd ris-client
@@ -883,8 +883,8 @@ sudo make install
 sudo cp config/config.json.template /etc/ris-client/config.json
 </code></pre>
 
-<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<h3 id="configuration-file-structure">Configuration File Structure<a class="headerlink" href="#configuration-file-structure" title="Permanent link">&para;</a></h3>
+<h2 id="configuration">Configuration</h2>
+<h3 id="configuration-file-structure">Configuration File Structure</h3>
 <pre class="highlight"><code class="language-json">{
   &quot;server&quot;: {
     &quot;host&quot;: &quot;https://ris-server.example.com&quot;,
@@ -968,7 +968,7 @@ sudo cp config/config.json.template /etc/ris-client/config.json
 }
 </code></pre>
 
-<h3 id="environment-variables">Environment Variables<a class="headerlink" href="#environment-variables" title="Permanent link">&para;</a></h3>
+<h3 id="environment-variables">Environment Variables</h3>
 <p>The RIS Client supports configuration through environment variables:</p>
 <table>
 <thead>
@@ -1021,8 +1021,8 @@ sudo cp config/config.json.template /etc/ris-client/config.json
 </tr>
 </tbody>
 </table>
-<h3 id="network-configuration">Network Configuration<a class="headerlink" href="#network-configuration" title="Permanent link">&para;</a></h3>
-<h4 id="host-type-detection">Host Type Detection<a class="headerlink" href="#host-type-detection" title="Permanent link">&para;</a></h4>
+<h3 id="network-configuration">Network Configuration</h3>
+<h4 id="host-type-detection">Host Type Detection</h4>
 <p>The client automatically detects its network environment:</p>
 <ul>
 <li><strong><code>auto</code></strong>: Automatic detection (recommended)</li>
@@ -1030,7 +1030,7 @@ sudo cp config/config.json.template /etc/ris-client/config.json
 <li><strong><code>public</code></strong>: Public-facing environment</li>
 <li><strong><code>nat</code></strong>: Behind NAT/firewall</li>
 </ul>
-<h4 id="ip-address-configuration">IP Address Configuration<a class="headerlink" href="#ip-address-configuration" title="Permanent link">&para;</a></h4>
+<h4 id="ip-address-configuration">IP Address Configuration</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;client&quot;: {
     &quot;ip_detection&quot;: {
@@ -1047,9 +1047,9 @@ sudo cp config/config.json.template /etc/ris-client/config.json
 }
 </code></pre>
 
-<h2 id="api-reference">API Reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
-<h3 id="rest-api-endpoints">REST API Endpoints<a class="headerlink" href="#rest-api-endpoints" title="Permanent link">&para;</a></h3>
-<h4 id="health-check">Health Check<a class="headerlink" href="#health-check" title="Permanent link">&para;</a></h4>
+<h2 id="api-reference">API Reference</h2>
+<h3 id="rest-api-endpoints">REST API Endpoints</h3>
+<h4 id="health-check">Health Check</h4>
 <pre class="highlight"><code class="language-http">GET /health
 </code></pre>
 
@@ -1070,7 +1070,7 @@ sudo cp config/config.json.template /etc/ris-client/config.json
 }
 </code></pre>
 
-<h4 id="task-execution">Task Execution<a class="headerlink" href="#task-execution" title="Permanent link">&para;</a></h4>
+<h4 id="task-execution">Task Execution</h4>
 <pre class="highlight"><code class="language-http">POST /runtask/
 Content-Type: application/json
 
@@ -1096,7 +1096,7 @@ Content-Type: application/json
 }
 </code></pre>
 
-<h4 id="service-management">Service Management<a class="headerlink" href="#service-management" title="Permanent link">&para;</a></h4>
+<h4 id="service-management">Service Management</h4>
 <pre class="highlight"><code class="language-http">POST /manageservices/
 Content-Type: application/json
 
@@ -1126,8 +1126,8 @@ Content-Type: application/json
 }
 </code></pre>
 
-<h3 id="websocket-communication">WebSocket Communication<a class="headerlink" href="#websocket-communication" title="Permanent link">&para;</a></h3>
-<h4 id="connection-establishment">Connection Establishment<a class="headerlink" href="#connection-establishment" title="Permanent link">&para;</a></h4>
+<h3 id="websocket-communication">WebSocket Communication</h3>
+<h4 id="connection-establishment">Connection Establishment</h4>
 <pre class="highlight"><code class="language-javascript">const ws = new WebSocket('wss://client-ip:9000/pingpong');
 
 ws.onopen = function(event) {
@@ -1142,7 +1142,7 @@ ws.onopen = function(event) {
 };
 </code></pre>
 
-<h4 id="message-types">Message Types<a class="headerlink" href="#message-types" title="Permanent link">&para;</a></h4>
+<h4 id="message-types">Message Types</h4>
 <p><strong>Registration Message:</strong></p>
 <pre class="highlight"><code class="language-json">{
   &quot;type&quot;: &quot;register&quot;,
@@ -1184,9 +1184,9 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h2 id="task-execution_1">Task Execution<a class="headerlink" href="#task-execution_1" title="Permanent link">&para;</a></h2>
-<h3 id="supported-task-types">Supported Task Types<a class="headerlink" href="#supported-task-types" title="Permanent link">&para;</a></h3>
-<h4 id="http-requests">HTTP Requests<a class="headerlink" href="#http-requests" title="Permanent link">&para;</a></h4>
+<h2 id="task-execution_1">Task Execution</h2>
+<h3 id="supported-task-types">Supported Task Types</h3>
+<h4 id="http-requests">HTTP Requests</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;method&quot;: &quot;POST&quot;,
   &quot;resturl&quot;: &quot;https://api.example.com/users&quot;,
@@ -1198,7 +1198,7 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="system-commands">System Commands<a class="headerlink" href="#system-commands" title="Permanent link">&para;</a></h4>
+<h4 id="system-commands">System Commands</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;type&quot;: &quot;command&quot;,
   &quot;command&quot;: &quot;systemctl status nginx&quot;,
@@ -1209,7 +1209,7 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="docker-operations">Docker Operations<a class="headerlink" href="#docker-operations" title="Permanent link">&para;</a></h4>
+<h4 id="docker-operations">Docker Operations</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;type&quot;: &quot;docker&quot;,
   &quot;operation&quot;: &quot;container_list&quot;,
@@ -1219,15 +1219,15 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h3 id="authentication-methods">Authentication Methods<a class="headerlink" href="#authentication-methods" title="Permanent link">&para;</a></h3>
-<h4 id="bearer-token">Bearer Token<a class="headerlink" href="#bearer-token" title="Permanent link">&para;</a></h4>
+<h3 id="authentication-methods">Authentication Methods</h3>
+<h4 id="bearer-token">Bearer Token</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;authtype&quot;: &quot;bearer&quot;,
   &quot;bearertoken&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&quot;
 }
 </code></pre>
 
-<h4 id="basic-authentication">Basic Authentication<a class="headerlink" href="#basic-authentication" title="Permanent link">&para;</a></h4>
+<h4 id="basic-authentication">Basic Authentication</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;authtype&quot;: &quot;basic&quot;,
   &quot;username&quot;: &quot;admin&quot;,
@@ -1235,15 +1235,15 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="custom-headers">Custom Headers<a class="headerlink" href="#custom-headers" title="Permanent link">&para;</a></h4>
+<h4 id="custom-headers">Custom Headers</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;authtype&quot;: &quot;custom&quot;,
   &quot;headers&quot;: &quot;{\&quot;X-API-Key\&quot;: \&quot;api-key-value\&quot;, \&quot;X-Client-ID\&quot;: \&quot;client-123\&quot;}&quot;
 }
 </code></pre>
 
-<h3 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
-<h4 id="task-execution-errors">Task Execution Errors<a class="headerlink" href="#task-execution-errors" title="Permanent link">&para;</a></h4>
+<h3 id="error-handling">Error Handling</h3>
+<h4 id="task-execution-errors">Task Execution Errors</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;success&quot;: false,
   &quot;error&quot;: &quot;connection_timeout&quot;,
@@ -1258,7 +1258,7 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="retry-logic">Retry Logic<a class="headerlink" href="#retry-logic" title="Permanent link">&para;</a></h4>
+<h4 id="retry-logic">Retry Logic</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;retry_policy&quot;: {
     &quot;max_attempts&quot;: 3,
@@ -1274,9 +1274,9 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h2 id="docker-service-management">Docker Service Management<a class="headerlink" href="#docker-service-management" title="Permanent link">&para;</a></h2>
-<h3 id="service-deployment">Service Deployment<a class="headerlink" href="#service-deployment" title="Permanent link">&para;</a></h3>
-<h4 id="basic-deployment">Basic Deployment<a class="headerlink" href="#basic-deployment" title="Permanent link">&para;</a></h4>
+<h2 id="docker-service-management">Docker Service Management</h2>
+<h3 id="service-deployment">Service Deployment</h3>
+<h4 id="basic-deployment">Basic Deployment</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;action&quot;: &quot;deploy&quot;,
   &quot;service_name&quot;: &quot;web-server&quot;,
@@ -1305,7 +1305,7 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="advanced-deployment-with-health-checks">Advanced Deployment with Health Checks<a class="headerlink" href="#advanced-deployment-with-health-checks" title="Permanent link">&para;</a></h4>
+<h4 id="advanced-deployment-with-health-checks">Advanced Deployment with Health Checks</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;action&quot;: &quot;deploy&quot;,
   &quot;service_name&quot;: &quot;api-server&quot;,
@@ -1347,8 +1347,8 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h3 id="service-operations">Service Operations<a class="headerlink" href="#service-operations" title="Permanent link">&para;</a></h3>
-<h4 id="scale-service">Scale Service<a class="headerlink" href="#scale-service" title="Permanent link">&para;</a></h4>
+<h3 id="service-operations">Service Operations</h3>
+<h4 id="scale-service">Scale Service</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;action&quot;: &quot;scale&quot;,
   &quot;service_name&quot;: &quot;web-server&quot;,
@@ -1356,7 +1356,7 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="update-service">Update Service<a class="headerlink" href="#update-service" title="Permanent link">&para;</a></h4>
+<h4 id="update-service">Update Service</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;action&quot;: &quot;update&quot;,
   &quot;service_name&quot;: &quot;api-server&quot;,
@@ -1371,7 +1371,7 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="stop-service">Stop Service<a class="headerlink" href="#stop-service" title="Permanent link">&para;</a></h4>
+<h4 id="stop-service">Stop Service</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;action&quot;: &quot;stop&quot;,
   &quot;service_name&quot;: &quot;web-server&quot;,
@@ -1379,7 +1379,7 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="remove-service">Remove Service<a class="headerlink" href="#remove-service" title="Permanent link">&para;</a></h4>
+<h4 id="remove-service">Remove Service</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;action&quot;: &quot;remove&quot;,
   &quot;service_name&quot;: &quot;web-server&quot;,
@@ -1387,8 +1387,8 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h3 id="service-monitoring">Service Monitoring<a class="headerlink" href="#service-monitoring" title="Permanent link">&para;</a></h3>
-<h4 id="get-service-status">Get Service Status<a class="headerlink" href="#get-service-status" title="Permanent link">&para;</a></h4>
+<h3 id="service-monitoring">Service Monitoring</h3>
+<h4 id="get-service-status">Get Service Status</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;action&quot;: &quot;status&quot;,
   &quot;service_name&quot;: &quot;web-server&quot;
@@ -1422,7 +1422,7 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="list-all-services">List All Services<a class="headerlink" href="#list-all-services" title="Permanent link">&para;</a></h4>
+<h4 id="list-all-services">List All Services</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;action&quot;: &quot;list&quot;,
   &quot;filters&quot;: {
@@ -1431,8 +1431,8 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h3 id="docker-compose-support">Docker Compose Support<a class="headerlink" href="#docker-compose-support" title="Permanent link">&para;</a></h3>
-<h4 id="deploy-stack">Deploy Stack<a class="headerlink" href="#deploy-stack" title="Permanent link">&para;</a></h4>
+<h3 id="docker-compose-support">Docker Compose Support</h3>
+<h4 id="deploy-stack">Deploy Stack</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;action&quot;: &quot;deploy_stack&quot;,
   &quot;stack_name&quot;: &quot;webapp&quot;,
@@ -1441,16 +1441,16 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="remove-stack">Remove Stack<a class="headerlink" href="#remove-stack" title="Permanent link">&para;</a></h4>
+<h4 id="remove-stack">Remove Stack</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;action&quot;: &quot;remove_stack&quot;,
   &quot;stack_name&quot;: &quot;webapp&quot;
 }
 </code></pre>
 
-<h2 id="security-features">Security Features<a class="headerlink" href="#security-features" title="Permanent link">&para;</a></h2>
-<h3 id="tls-configuration">TLS Configuration<a class="headerlink" href="#tls-configuration" title="Permanent link">&para;</a></h3>
-<h4 id="certificate-management">Certificate Management<a class="headerlink" href="#certificate-management" title="Permanent link">&para;</a></h4>
+<h2 id="security-features">Security Features</h2>
+<h3 id="tls-configuration">TLS Configuration</h3>
+<h4 id="certificate-management">Certificate Management</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;security&quot;: {
     &quot;tls&quot;: {
@@ -1471,7 +1471,7 @@ ws.onopen = function(event) {
 }
 </code></pre>
 
-<h4 id="certificate-rotation">Certificate Rotation<a class="headerlink" href="#certificate-rotation" title="Permanent link">&para;</a></h4>
+<h4 id="certificate-rotation">Certificate Rotation</h4>
 <pre class="highlight"><code class="language-bash"># Automatic certificate rotation
 ris-client cert rotate --ca-cert /path/to/new-ca.crt
 
@@ -1482,8 +1482,8 @@ ris-client cert update \
   --restart
 </code></pre>
 
-<h3 id="access-control">Access Control<a class="headerlink" href="#access-control" title="Permanent link">&para;</a></h3>
-<h4 id="role-based-permissions">Role-Based Permissions<a class="headerlink" href="#role-based-permissions" title="Permanent link">&para;</a></h4>
+<h3 id="access-control">Access Control</h3>
+<h4 id="role-based-permissions">Role-Based Permissions</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;security&quot;: {
     &quot;rbac&quot;: {
@@ -1512,7 +1512,7 @@ ris-client cert update \
 }
 </code></pre>
 
-<h4 id="ip-whitelist">IP Whitelist<a class="headerlink" href="#ip-whitelist" title="Permanent link">&para;</a></h4>
+<h4 id="ip-whitelist">IP Whitelist</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;security&quot;: {
     &quot;network&quot;: {
@@ -1528,8 +1528,8 @@ ris-client cert update \
 }
 </code></pre>
 
-<h3 id="audit-logging">Audit Logging<a class="headerlink" href="#audit-logging" title="Permanent link">&para;</a></h3>
-<h4 id="audit-configuration">Audit Configuration<a class="headerlink" href="#audit-configuration" title="Permanent link">&para;</a></h4>
+<h3 id="audit-logging">Audit Logging</h3>
+<h4 id="audit-configuration">Audit Configuration</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;logging&quot;: {
     &quot;audit&quot;: {
@@ -1550,7 +1550,7 @@ ris-client cert update \
 }
 </code></pre>
 
-<h4 id="audit-event-example">Audit Event Example<a class="headerlink" href="#audit-event-example" title="Permanent link">&para;</a></h4>
+<h4 id="audit-event-example">Audit Event Example</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;timestamp&quot;: &quot;2025-10-07T10:30:00Z&quot;,
   &quot;event_type&quot;: &quot;task_execution&quot;,
@@ -1568,9 +1568,9 @@ ris-client cert update \
 }
 </code></pre>
 
-<h2 id="monitoring-logging">Monitoring &amp; Logging<a class="headerlink" href="#monitoring-logging" title="Permanent link">&para;</a></h2>
-<h3 id="health-monitoring">Health Monitoring<a class="headerlink" href="#health-monitoring" title="Permanent link">&para;</a></h3>
-<h4 id="health-check-endpoint">Health Check Endpoint<a class="headerlink" href="#health-check-endpoint" title="Permanent link">&para;</a></h4>
+<h2 id="monitoring-logging">Monitoring &amp; Logging</h2>
+<h3 id="health-monitoring">Health Monitoring</h3>
+<h4 id="health-check-endpoint">Health Check Endpoint</h4>
 <pre class="highlight"><code class="language-http">GET /health
 </code></pre>
 
@@ -1610,7 +1610,7 @@ ris-client cert update \
 }
 </code></pre>
 
-<h4 id="metrics-endpoint">Metrics Endpoint<a class="headerlink" href="#metrics-endpoint" title="Permanent link">&para;</a></h4>
+<h4 id="metrics-endpoint">Metrics Endpoint</h4>
 <pre class="highlight"><code class="language-http">GET /metrics
 </code></pre>
 
@@ -1633,8 +1633,8 @@ ris_client_services_running 8
 ris_client_memory_usage_bytes 536870912
 </code></pre>
 
-<h3 id="logging-configuration">Logging Configuration<a class="headerlink" href="#logging-configuration" title="Permanent link">&para;</a></h3>
-<h4 id="structured-logging">Structured Logging<a class="headerlink" href="#structured-logging" title="Permanent link">&para;</a></h4>
+<h3 id="logging-configuration">Logging Configuration</h3>
+<h4 id="structured-logging">Structured Logging</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;logging&quot;: {
     &quot;level&quot;: &quot;info&quot;,
@@ -1660,7 +1660,7 @@ ris_client_memory_usage_bytes 536870912
 }
 </code></pre>
 
-<h4 id="log-example">Log Example<a class="headerlink" href="#log-example" title="Permanent link">&para;</a></h4>
+<h4 id="log-example">Log Example</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;timestamp&quot;: &quot;2025-10-07T10:30:00Z&quot;,
   &quot;level&quot;: &quot;info&quot;,
@@ -1676,8 +1676,8 @@ ris_client_memory_usage_bytes 536870912
 }
 </code></pre>
 
-<h3 id="monitoring-integration">Monitoring Integration<a class="headerlink" href="#monitoring-integration" title="Permanent link">&para;</a></h3>
-<h4 id="prometheus-integration">Prometheus Integration<a class="headerlink" href="#prometheus-integration" title="Permanent link">&para;</a></h4>
+<h3 id="monitoring-integration">Monitoring Integration</h3>
+<h4 id="prometheus-integration">Prometheus Integration</h4>
 <pre class="highlight"><code class="language-yaml"># prometheus.yml
 scrape_configs:
   - job_name: 'ris-client'
@@ -1687,7 +1687,7 @@ scrape_configs:
     metrics_path: /metrics
 </code></pre>
 
-<h4 id="grafana-dashboard">Grafana Dashboard<a class="headerlink" href="#grafana-dashboard" title="Permanent link">&para;</a></h4>
+<h4 id="grafana-dashboard">Grafana Dashboard</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;dashboard&quot;: {
     &quot;title&quot;: &quot;RIS Client Monitoring&quot;,
@@ -1717,9 +1717,9 @@ scrape_configs:
 }
 </code></pre>
 
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">&para;</a></h3>
-<h4 id="connection-issues">Connection Issues<a class="headerlink" href="#connection-issues" title="Permanent link">&para;</a></h4>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<h4 id="connection-issues">Connection Issues</h4>
 <p><strong>Problem</strong>: Client cannot connect to RIS Server</p>
 <pre class="highlight"><code class="language-bash"># Check network connectivity
 curl -k https://ris-server.example.com:8057/health
@@ -1731,12 +1731,12 @@ openssl s_client -connect ris-server.example.com:8057 -cert client.crt -key clie
 tail -f /var/log/ris-client/client.log | grep -i error
 </code></pre>
 
-<p><strong>Solution</strong>:<br />
-1. Verify server URL and port<br />
-2. Check firewall rules<br />
-3. Validate TLS certificates<br />
+<p><strong>Solution</strong>:
+1. Verify server URL and port
+2. Check firewall rules
+3. Validate TLS certificates
 4. Review network configuration</p>
-<h4 id="docker-issues">Docker Issues<a class="headerlink" href="#docker-issues" title="Permanent link">&para;</a></h4>
+<h4 id="docker-issues">Docker Issues</h4>
 <p><strong>Problem</strong>: Docker service management fails</p>
 <pre class="highlight"><code class="language-bash"># Check Docker daemon
 systemctl status docker
@@ -1748,12 +1748,12 @@ ls -la /var/run/docker.sock
 docker version
 </code></pre>
 
-<p><strong>Solution</strong>:<br />
-1. Ensure Docker daemon is running<br />
-2. Check socket permissions<br />
-3. Verify Docker API version compatibility<br />
+<p><strong>Solution</strong>:
+1. Ensure Docker daemon is running
+2. Check socket permissions
+3. Verify Docker API version compatibility
 4. Review Docker configuration</p>
-<h4 id="task-execution-failures">Task Execution Failures<a class="headerlink" href="#task-execution-failures" title="Permanent link">&para;</a></h4>
+<h4 id="task-execution-failures">Task Execution Failures</h4>
 <p><strong>Problem</strong>: HTTP tasks timing out</p>
 <pre class="highlight"><code class="language-bash"># Check network connectivity
 curl -v https://target-api.example.com/endpoint
@@ -1765,13 +1765,13 @@ cat /etc/ris-client/config.json | jq '.task_execution'
 tail -f /var/log/ris-client/client.log | grep -i timeout
 </code></pre>
 
-<p><strong>Solution</strong>:<br />
-1. Increase timeout values<br />
-2. Check target service availability<br />
-3. Verify authentication credentials<br />
+<p><strong>Solution</strong>:
+1. Increase timeout values
+2. Check target service availability
+3. Verify authentication credentials
 4. Review network configuration</p>
-<h3 id="debugging-tools">Debugging Tools<a class="headerlink" href="#debugging-tools" title="Permanent link">&para;</a></h3>
-<h4 id="enable-debug-mode">Enable Debug Mode<a class="headerlink" href="#enable-debug-mode" title="Permanent link">&para;</a></h4>
+<h3 id="debugging-tools">Debugging Tools</h3>
+<h4 id="enable-debug-mode">Enable Debug Mode</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;features&quot;: {
     &quot;debug_mode&quot;: true
@@ -1782,7 +1782,7 @@ tail -f /var/log/ris-client/client.log | grep -i timeout
 }
 </code></pre>
 
-<h4 id="health-check-script">Health Check Script<a class="headerlink" href="#health-check-script" title="Permanent link">&para;</a></h4>
+<h4 id="health-check-script">Health Check Script</h4>
 <pre class="highlight"><code class="language-bash">#!/bin/bash
 # health-check.sh
 
@@ -1822,7 +1822,7 @@ fi
 echo &quot;=== Health Check Complete ===&quot;
 </code></pre>
 
-<h4 id="log-analysis">Log Analysis<a class="headerlink" href="#log-analysis" title="Permanent link">&para;</a></h4>
+<h4 id="log-analysis">Log Analysis</h4>
 <pre class="highlight"><code class="language-bash"># Find connection issues
 grep -i &quot;connection&quot; /var/log/ris-client/client.log | tail -20
 
@@ -1833,8 +1833,8 @@ grep -i &quot;task.*failed&quot; /var/log/ris-client/client.log | tail -10
 tail -f /var/log/ris-client/client.log | jq '.message'
 </code></pre>
 
-<h3 id="performance-tuning">Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permanent link">&para;</a></h3>
-<h4 id="resource-optimization">Resource Optimization<a class="headerlink" href="#resource-optimization" title="Permanent link">&para;</a></h4>
+<h3 id="performance-tuning">Performance Tuning</h3>
+<h4 id="resource-optimization">Resource Optimization</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;performance&quot;: {
     &quot;max_concurrent_tasks&quot;: 10,
@@ -1846,7 +1846,7 @@ tail -f /var/log/ris-client/client.log | jq '.message'
 }
 </code></pre>
 
-<h4 id="network-optimization">Network Optimization<a class="headerlink" href="#network-optimization" title="Permanent link">&para;</a></h4>
+<h4 id="network-optimization">Network Optimization</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;network&quot;: {
     &quot;keepalive&quot;: true,
@@ -1858,85 +1858,85 @@ tail -f /var/log/ris-client/client.log | jq '.message'
 }
 </code></pre>
 
-<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
-<h3 id="security-best-practices">Security Best Practices<a class="headerlink" href="#security-best-practices" title="Permanent link">&para;</a></h3>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="security-best-practices">Security Best Practices</h3>
 <ol>
 <li>
-<p><strong>Use Strong Certificates</strong><br />
-   - Generate certificates with 2048-bit or higher RSA keys<br />
-   - Use proper certificate chains<br />
+<p><strong>Use Strong Certificates</strong>
+   - Generate certificates with 2048-bit or higher RSA keys
+   - Use proper certificate chains
    - Implement certificate rotation</p>
 </li>
 <li>
-<p><strong>Network Security</strong><br />
-   - Use firewall rules to restrict access<br />
-   - Implement IP whitelisting<br />
+<p><strong>Network Security</strong>
+   - Use firewall rules to restrict access
+   - Implement IP whitelisting
    - Use VPN for remote access</p>
 </li>
 <li>
-<p><strong>Access Control</strong><br />
-   - Implement least privilege principle<br />
-   - Use role-based access control<br />
+<p><strong>Access Control</strong>
+   - Implement least privilege principle
+   - Use role-based access control
    - Regular access reviews</p>
 </li>
 <li>
-<p><strong>Audit and Monitoring</strong><br />
-   - Enable comprehensive audit logging<br />
-   - Monitor security events<br />
+<p><strong>Audit and Monitoring</strong>
+   - Enable comprehensive audit logging
+   - Monitor security events
    - Set up alerting for suspicious activities</p>
 </li>
 </ol>
-<h3 id="operational-best-practices">Operational Best Practices<a class="headerlink" href="#operational-best-practices" title="Permanent link">&para;</a></h3>
+<h3 id="operational-best-practices">Operational Best Practices</h3>
 <ol>
 <li>
-<p><strong>Configuration Management</strong><br />
-   - Use version control for configurations<br />
-   - Implement configuration validation<br />
+<p><strong>Configuration Management</strong>
+   - Use version control for configurations
+   - Implement configuration validation
    - Use environment-specific configurations</p>
 </li>
 <li>
-<p><strong>Monitoring and Alerting</strong><br />
-   - Monitor key metrics and health indicators<br />
-   - Set up proactive alerting<br />
+<p><strong>Monitoring and Alerting</strong>
+   - Monitor key metrics and health indicators
+   - Set up proactive alerting
    - Implement log aggregation</p>
 </li>
 <li>
-<p><strong>Backup and Recovery</strong><br />
-   - Regular configuration backups<br />
-   - Test recovery procedures<br />
+<p><strong>Backup and Recovery</strong>
+   - Regular configuration backups
+   - Test recovery procedures
    - Document recovery processes</p>
 </li>
 <li>
-<p><strong>Updates and Maintenance</strong><br />
-   - Regular security updates<br />
-   - Planned maintenance windows<br />
+<p><strong>Updates and Maintenance</strong>
+   - Regular security updates
+   - Planned maintenance windows
    - Rollback procedures</p>
 </li>
 </ol>
-<h3 id="development-best-practices">Development Best Practices<a class="headerlink" href="#development-best-practices" title="Permanent link">&para;</a></h3>
+<h3 id="development-best-practices">Development Best Practices</h3>
 <ol>
 <li>
-<p><strong>Code Quality</strong><br />
-   - Follow Go coding standards<br />
-   - Implement comprehensive testing<br />
+<p><strong>Code Quality</strong>
+   - Follow Go coding standards
+   - Implement comprehensive testing
    - Use static code analysis</p>
 </li>
 <li>
-<p><strong>Error Handling</strong><br />
-   - Implement graceful error handling<br />
-   - Provide meaningful error messages<br />
+<p><strong>Error Handling</strong>
+   - Implement graceful error handling
+   - Provide meaningful error messages
    - Use structured logging</p>
 </li>
 <li>
-<p><strong>Performance</strong><br />
-   - Optimize resource usage<br />
-   - Implement proper caching<br />
+<p><strong>Performance</strong>
+   - Optimize resource usage
+   - Implement proper caching
    - Use connection pooling</p>
 </li>
 </ol>
-<h2 id="development-guide">Development Guide<a class="headerlink" href="#development-guide" title="Permanent link">&para;</a></h2>
-<h3 id="setting-up-development-environment">Setting Up Development Environment<a class="headerlink" href="#setting-up-development-environment" title="Permanent link">&para;</a></h3>
-<h4 id="prerequisites_1">Prerequisites<a class="headerlink" href="#prerequisites_1" title="Permanent link">&para;</a></h4>
+<h2 id="development-guide">Development Guide</h2>
+<h3 id="setting-up-development-environment">Setting Up Development Environment</h3>
+<h4 id="prerequisites_1">Prerequisites</h4>
 <pre class="highlight"><code class="language-bash"># Install Go 1.19+
 go version
 
@@ -1948,7 +1948,7 @@ go install github.com/goreleaser/goreleaser@latest
 docker --version
 </code></pre>
 
-<h4 id="clone-and-build">Clone and Build<a class="headerlink" href="#clone-and-build" title="Permanent link">&para;</a></h4>
+<h4 id="clone-and-build">Clone and Build</h4>
 <pre class="highlight"><code class="language-bash"># Clone repository
 git clone https://github.com/securaa/ris-client.git
 cd ris-client
@@ -1966,7 +1966,7 @@ make build-dev
 ./bin/ris-client -config config/dev.json
 </code></pre>
 
-<h3 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h3>
+<h3 id="project-structure">Project Structure</h3>
 <pre class="highlight"><code>ris-client/
 ├── cmd/
 │   └── ris-client/
@@ -2006,8 +2006,8 @@ make build-dev
 └── Makefile
 </code></pre>
 
-<h3 id="adding-new-features">Adding New Features<a class="headerlink" href="#adding-new-features" title="Permanent link">&para;</a></h3>
-<h4 id="1-create-controller">1. Create Controller<a class="headerlink" href="#1-create-controller" title="Permanent link">&para;</a></h4>
+<h3 id="adding-new-features">Adding New Features</h3>
+<h4 id="1-create-controller">1. Create Controller</h4>
 <pre class="highlight"><code class="language-go">// internal/controllers/new_feature.go
 package controllers
 
@@ -2027,7 +2027,7 @@ func (nfc NewFeatureController) RegisterRoutes(router *mux.Router) {
 }
 </code></pre>
 
-<h4 id="2-add-service">2. Add Service<a class="headerlink" href="#2-add-service" title="Permanent link">&para;</a></h4>
+<h4 id="2-add-service">2. Add Service</h4>
 <pre class="highlight"><code class="language-go">// internal/services/new_service.go
 package services
 
@@ -2049,7 +2049,7 @@ func (ns *NewService) ProcessRequest(request Request) (*Response, error) {
 }
 </code></pre>
 
-<h4 id="3-update-configuration">3. Update Configuration<a class="headerlink" href="#3-update-configuration" title="Permanent link">&para;</a></h4>
+<h4 id="3-update-configuration">3. Update Configuration</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;new_feature&quot;: {
     &quot;enabled&quot;: true,
@@ -2059,8 +2059,8 @@ func (ns *NewService) ProcessRequest(request Request) (*Response, error) {
 }
 </code></pre>
 
-<h3 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h3>
-<h4 id="unit-tests">Unit Tests<a class="headerlink" href="#unit-tests" title="Permanent link">&para;</a></h4>
+<h3 id="testing">Testing</h3>
+<h4 id="unit-tests">Unit Tests</h4>
 <pre class="highlight"><code class="language-go">// internal/controllers/task_handler_test.go
 package controllers
 
@@ -2084,7 +2084,7 @@ func TestTaskHandlerController_RunTask(t *testing.T) {
 }
 </code></pre>
 
-<h4 id="integration-tests">Integration Tests<a class="headerlink" href="#integration-tests" title="Permanent link">&para;</a></h4>
+<h4 id="integration-tests">Integration Tests</h4>
 <pre class="highlight"><code class="language-go">// tests/integration/api_test.go
 package integration
 
@@ -2111,8 +2111,8 @@ func TestAPITestSuite(t *testing.T) {
 }
 </code></pre>
 
-<h3 id="building-and-releasing">Building and Releasing<a class="headerlink" href="#building-and-releasing" title="Permanent link">&para;</a></h3>
-<h4 id="build-commands">Build Commands<a class="headerlink" href="#build-commands" title="Permanent link">&para;</a></h4>
+<h3 id="building-and-releasing">Building and Releasing</h3>
+<h4 id="build-commands">Build Commands</h4>
 <pre class="highlight"><code class="language-bash"># Development build
 make build-dev
 
@@ -2132,7 +2132,7 @@ make lint
 make docs
 </code></pre>
 
-<h4 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h4>
+<h4 id="release-process">Release Process</h4>
 <pre class="highlight"><code class="language-bash"># Tag release
 git tag -a v1.0.0 -m &quot;Release v1.0.0&quot;
 git push origin v1.0.0

@@ -620,8 +620,8 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="remote-integrated-services-ris-system-low-level-design-lld">Remote Integrated Services (RIS) System - Low-Level Design (LLD)<a class="headerlink" href="#remote-integrated-services-ris-system-low-level-design-lld" title="Permanent link">&para;</a></h1>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+        <h1 id="remote-integrated-services-ris-system-low-level-design-lld">Remote Integrated Services (RIS) System - Low-Level Design (LLD)</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#detailed-component-design">Detailed Component Design</a></li>
@@ -638,25 +638,25 @@ hr {
 <li><a href="#testing-and-quality-assurance">Testing and Quality Assurance</a></li>
 <li><a href="#deployment-and-devops">Deployment and DevOps</a></li>
 </ol>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
+<h2 id="introduction">Introduction</h2>
 <p>This Low-Level Design document provides comprehensive technical specifications for the Remote Integrated Services (RIS) System implementation. It includes detailed class structures, method signatures, database schemas, API endpoints, protocol specifications, and implementation specifics for both server and client components.</p>
-<h3 id="document-scope">Document Scope<a class="headerlink" href="#document-scope" title="Permanent link">&para;</a></h3>
-<p>This LLD covers:<br />
-- <strong>Implementation Details</strong>: Specific code structures, methods, and algorithms<br />
-- <strong>Technical Specifications</strong>: Database schemas, API endpoints, protocol definitions<br />
-- <strong>Integration Patterns</strong>: How components interact and communicate<br />
-- <strong>Quality Attributes</strong>: Performance, security, reliability, and maintainability considerations<br />
+<h3 id="document-scope">Document Scope</h3>
+<p>This LLD covers:
+- <strong>Implementation Details</strong>: Specific code structures, methods, and algorithms
+- <strong>Technical Specifications</strong>: Database schemas, API endpoints, protocol definitions
+- <strong>Integration Patterns</strong>: How components interact and communicate
+- <strong>Quality Attributes</strong>: Performance, security, reliability, and maintainability considerations
 - <strong>Operational Aspects</strong>: Deployment, monitoring, and maintenance procedures</p>
-<h3 id="design-principles">Design Principles<a class="headerlink" href="#design-principles" title="Permanent link">&para;</a></h3>
-<p>The implementation follows these core principles:<br />
-- <strong>Simplicity</strong>: Clear, readable, and maintainable code<br />
-- <strong>Performance</strong>: Optimized for high throughput and low latency<br />
-- <strong>Security</strong>: Security-by-design with comprehensive protection mechanisms<br />
-- <strong>Scalability</strong>: Horizontal and vertical scaling capabilities<br />
+<h3 id="design-principles">Design Principles</h3>
+<p>The implementation follows these core principles:
+- <strong>Simplicity</strong>: Clear, readable, and maintainable code
+- <strong>Performance</strong>: Optimized for high throughput and low latency
+- <strong>Security</strong>: Security-by-design with comprehensive protection mechanisms
+- <strong>Scalability</strong>: Horizontal and vertical scaling capabilities
 - <strong>Reliability</strong>: Fault tolerance and automatic recovery mechanisms</p>
-<h2 id="detailed-component-design">Detailed Component Design<a class="headerlink" href="#detailed-component-design" title="Permanent link">&para;</a></h2>
-<h3 id="1-ris-server-component-design">1. RIS Server Component Design<a class="headerlink" href="#1-ris-server-component-design" title="Permanent link">&para;</a></h3>
-<h4 id="11-main-application-structure">1.1 Main Application Structure<a class="headerlink" href="#11-main-application-structure" title="Permanent link">&para;</a></h4>
+<h2 id="detailed-component-design">Detailed Component Design</h2>
+<h3 id="1-ris-server-component-design">1. RIS Server Component Design</h3>
+<h4 id="11-main-application-structure">1.1 Main Application Structure</h4>
 <pre class="highlight"><code class="language-go">// App represents the main application structure
 type App struct {
     Router                 *mux.Router                    // HTTP router for REST endpoints
@@ -683,7 +683,7 @@ func (a *App) liveWebSockets(socketConnection *websocket.Conn,
                            configObject config.ConfigStruct)
 </code></pre>
 
-<h4 id="12-ris-controller-design">1.2 RIS Controller Design<a class="headerlink" href="#12-ris-controller-design" title="Permanent link">&para;</a></h4>
+<h4 id="12-ris-controller-design">1.2 RIS Controller Design</h4>
 <pre class="highlight"><code class="language-go">type RISController struct{}
 
 // Core RIS management methods
@@ -721,7 +721,7 @@ func (rc RISController) SetTenantStatus(dbSession map[string]common.SessionStruc
                                       configObject config.ConfigStruct) error
 </code></pre>
 
-<h4 id="13-ris-model-design">1.3 RIS Model Design<a class="headerlink" href="#13-ris-model-design" title="Permanent link">&para;</a></h4>
+<h4 id="13-ris-model-design">1.3 RIS Model Design</h4>
 <pre class="highlight"><code class="language-go">type RIS struct {
     ID               int    `json:&quot;id&quot; bson:&quot;id&quot;`
     Name             string `json:&quot;name&quot; bson:&quot;name&quot;`
@@ -753,8 +753,8 @@ func (ris *RIS) DeleteRIS(mongoDBClient mongo_driver.MongoClientWrapper,
                         configObject config.ConfigStruct) error
 </code></pre>
 
-<h3 id="2-ris-client-component-design">2. RIS Client Component Design<a class="headerlink" href="#2-ris-client-component-design" title="Permanent link">&para;</a></h3>
-<h4 id="21-main-application-structure">2.1 Main Application Structure<a class="headerlink" href="#21-main-application-structure" title="Permanent link">&para;</a></h4>
+<h3 id="2-ris-client-component-design">2. RIS Client Component Design</h3>
+<h4 id="21-main-application-structure">2.1 Main Application Structure</h4>
 <pre class="highlight"><code class="language-go">type App struct {
     Router       *mux.Router            // HTTP router for client endpoints
     ConfigObject config.ConfigStruct    // Configuration object
@@ -769,7 +769,7 @@ func (a *App) loggingMiddleware(next http.Handler) http.Handler
 func (a *App) risClient() // WebSocket client connection management
 </code></pre>
 
-<h4 id="22-task-handler-controller-design">2.2 Task Handler Controller Design<a class="headerlink" href="#22-task-handler-controller-design" title="Permanent link">&para;</a></h4>
+<h4 id="22-task-handler-controller-design">2.2 Task Handler Controller Design</h4>
 <pre class="highlight"><code class="language-go">type TaskHandlerController struct{}
 
 // Task execution methods
@@ -781,7 +781,7 @@ func (tc TaskHandlerController) ADTestConnectivity(w http.ResponseWriter, r *htt
 func IsJson(str string) bool
 </code></pre>
 
-<h4 id="23-ris-client-controller-design">2.3 RIS Client Controller Design<a class="headerlink" href="#23-ris-client-controller-design" title="Permanent link">&para;</a></h4>
+<h4 id="23-ris-client-controller-design">2.3 RIS Client Controller Design</h4>
 <pre class="highlight"><code class="language-go">type RISClientController struct{}
 
 // Service management methods
@@ -798,7 +798,7 @@ func readHostFile() string
 func updateHostConfig(host string) error
 </code></pre>
 
-<h4 id="24-task-models-design">2.4 Task Models Design<a class="headerlink" href="#24-task-models-design" title="Permanent link">&para;</a></h4>
+<h4 id="24-task-models-design">2.4 Task Models Design</h4>
 <pre class="highlight"><code class="language-go">type TaskHandlerRequest struct {
     Method      string `json:&quot;method&quot; bson:&quot;method&quot;`
     REST        string `json:&quot;rest&quot; bson:&quot;rest&quot;`
@@ -828,8 +828,8 @@ func (taskRequest *TaskRequest) ExecuteTask() ([]byte, error, int, string,
                                              map[int]*http.Cookie, http.Header)
 </code></pre>
 
-<h2 id="class-diagrams">Class Diagrams<a class="headerlink" href="#class-diagrams" title="Permanent link">&para;</a></h2>
-<h3 id="1-server-side-class-hierarchy">1. Server-Side Class Hierarchy<a class="headerlink" href="#1-server-side-class-hierarchy" title="Permanent link">&para;</a></h3>
+<h2 id="class-diagrams">Class Diagrams</h2>
+<h3 id="1-server-side-class-hierarchy">1. Server-Side Class Hierarchy</h3>
 <div class="mermaid">
 classDiagram
     class App {
@@ -895,7 +895,7 @@ classDiagram
     RemoteTenantController --> Response
 </div>
 
-<h3 id="2-client-side-class-hierarchy">2. Client-Side Class Hierarchy<a class="headerlink" href="#2-client-side-class-hierarchy" title="Permanent link">&para;</a></h3>
+<h3 id="2-client-side-class-hierarchy">2. Client-Side Class Hierarchy</h3>
 <div class="mermaid">
 classDiagram
     class App {
@@ -978,9 +978,9 @@ classDiagram
     RISClientController --> Response
 </div>
 
-<h2 id="database-design">Database Design<a class="headerlink" href="#database-design" title="Permanent link">&para;</a></h2>
-<h3 id="1-mongodb-collections-schema">1. MongoDB Collections Schema<a class="headerlink" href="#1-mongodb-collections-schema" title="Permanent link">&para;</a></h3>
-<h4 id="ris-collection-riscollection">RIS Collection (<code>risCollection</code>)<a class="headerlink" href="#ris-collection-riscollection" title="Permanent link">&para;</a></h4>
+<h2 id="database-design">Database Design</h2>
+<h3 id="1-mongodb-collections-schema">1. MongoDB Collections Schema</h3>
+<h4 id="ris-collection-riscollection">RIS Collection (<code>risCollection</code>)</h4>
 <pre class="highlight"><code class="language-javascript">{
     &quot;_id&quot;: ObjectId,
     &quot;id&quot;: Number,                    // Auto-increment ID
@@ -997,7 +997,7 @@ classDiagram
 }
 </code></pre>
 
-<h4 id="tenants-collection-tenantscollection">Tenants Collection (<code>tenantsCollection</code>)<a class="headerlink" href="#tenants-collection-tenantscollection" title="Permanent link">&para;</a></h4>
+<h4 id="tenants-collection-tenantscollection">Tenants Collection (<code>tenantsCollection</code>)</h4>
 <pre class="highlight"><code class="language-javascript">{
     &quot;_id&quot;: ObjectId,
     &quot;id&quot;: Number,                    // Tenant ID
@@ -1015,7 +1015,7 @@ classDiagram
 }
 </code></pre>
 
-<h4 id="active-instances-collection-mongoactiveinstancecollection">Active Instances Collection (<code>mongoActiveInstanceCollection</code>)<a class="headerlink" href="#active-instances-collection-mongoactiveinstancecollection" title="Permanent link">&para;</a></h4>
+<h4 id="active-instances-collection-mongoactiveinstancecollection">Active Instances Collection (<code>mongoActiveInstanceCollection</code>)</h4>
 <pre class="highlight"><code class="language-javascript">{
     &quot;_id&quot;: ObjectId,
     &quot;instance_id&quot;: NumberLong,       // Instance identifier
@@ -1031,7 +1031,7 @@ classDiagram
 }
 </code></pre>
 
-<h3 id="2-index-strategy">2. Index Strategy<a class="headerlink" href="#2-index-strategy" title="Permanent link">&para;</a></h3>
+<h3 id="2-index-strategy">2. Index Strategy</h3>
 <pre class="highlight"><code class="language-javascript">// RIS Collection Indexes
 db.ris.createIndex({&quot;unique_client_id&quot;: 1})
 db.ris.createIndex({&quot;status&quot;: 1, &quot;connection_status&quot;: 1})
@@ -1048,9 +1048,9 @@ db.active_instances.createIndex({&quot;instance_id&quot;: 1})
 db.active_instances.createIndex({&quot;tenantcode&quot;: 1, &quot;status&quot;: 1})
 </code></pre>
 
-<h2 id="api-specifications">API Specifications<a class="headerlink" href="#api-specifications" title="Permanent link">&para;</a></h2>
-<h3 id="1-server-rest-api-endpoints">1. Server REST API Endpoints<a class="headerlink" href="#1-server-rest-api-endpoints" title="Permanent link">&para;</a></h3>
-<h4 id="ris-management-apis">RIS Management APIs<a class="headerlink" href="#ris-management-apis" title="Permanent link">&para;</a></h4>
+<h2 id="api-specifications">API Specifications</h2>
+<h3 id="1-server-rest-api-endpoints">1. Server REST API Endpoints</h3>
+<h4 id="ris-management-apis">RIS Management APIs</h4>
 <pre class="highlight"><code>GET    /platform/v1/ris                     // Get all RIS clients
 POST   /platform/v1/ris                     // Add new RIS client
 PUT    /platform/v1/ris                     // Update RIS client
@@ -1061,31 +1061,31 @@ GET    /internal/v1/risclient/{ris-uuid}             // Get single RIS client
 GET    /internal/v1/dockertag                        // Get Docker tag info
 </code></pre>
 
-<h4 id="tenant-management-apis">Tenant Management APIs<a class="headerlink" href="#tenant-management-apis" title="Permanent link">&para;</a></h4>
+<h4 id="tenant-management-apis">Tenant Management APIs</h4>
 <pre class="highlight"><code>GET    /internal/v1/remotetenantclient/{tenant-uuid}          // Get tenant client
 GET    /platform/v1/remotetenantconfigdata/{tenant-id}/{hostname}  // Get tenant config
 </code></pre>
 
-<h4 id="websocket-endpoints">WebSocket Endpoints<a class="headerlink" href="#websocket-endpoints" title="Permanent link">&para;</a></h4>
+<h4 id="websocket-endpoints">WebSocket Endpoints</h4>
 <pre class="highlight"><code>WS     /pingpong                            // RIS client connection
 WS     /pingpongdbdetails                   // Tenant DB connection
 </code></pre>
 
-<h3 id="2-client-rest-api-endpoints">2. Client REST API Endpoints<a class="headerlink" href="#2-client-rest-api-endpoints" title="Permanent link">&para;</a></h3>
-<h4 id="task-execution-apis">Task Execution APIs<a class="headerlink" href="#task-execution-apis" title="Permanent link">&para;</a></h4>
+<h3 id="2-client-rest-api-endpoints">2. Client REST API Endpoints</h3>
+<h4 id="task-execution-apis">Task Execution APIs</h4>
 <pre class="highlight"><code>POST   /runtaskbyhandler/                   // Execute task via handler
 POST   /runtask/                            // Execute third-party task
 POST   /adtestconnectivity/                 // Test AD connectivity
 </code></pre>
 
-<h4 id="service-management-apis">Service Management APIs<a class="headerlink" href="#service-management-apis" title="Permanent link">&para;</a></h4>
+<h4 id="service-management-apis">Service Management APIs</h4>
 <pre class="highlight"><code>POST   /remoteconnection/                   // Remote connection test
 POST   /manageservices/                     // Docker service management
 GET    /test/                               // Health check endpoint
 </code></pre>
 
-<h3 id="3-requestresponse-specifications">3. Request/Response Specifications<a class="headerlink" href="#3-requestresponse-specifications" title="Permanent link">&para;</a></h3>
-<h4 id="ris-client-registration-request">RIS Client Registration Request<a class="headerlink" href="#ris-client-registration-request" title="Permanent link">&para;</a></h4>
+<h3 id="3-requestresponse-specifications">3. Request/Response Specifications</h3>
+<h4 id="ris-client-registration-request">RIS Client Registration Request</h4>
 <pre class="highlight"><code class="language-json">{
     &quot;clienthost&quot;: &quot;192.168.1.100&quot;,
     &quot;unique_client_id&quot;: &quot;uuid-string&quot;,
@@ -1099,7 +1099,7 @@ GET    /test/                               // Health check endpoint
 }
 </code></pre>
 
-<h4 id="task-execution-request">Task Execution Request<a class="headerlink" href="#task-execution-request" title="Permanent link">&para;</a></h4>
+<h4 id="task-execution-request">Task Execution Request</h4>
 <pre class="highlight"><code class="language-json">{
     &quot;method&quot;: &quot;POST&quot;,
     &quot;resturl&quot;: &quot;https://api.example.com/endpoint&quot;,
@@ -1111,7 +1111,7 @@ GET    /test/                               // Health check endpoint
 }
 </code></pre>
 
-<h4 id="standard-response-format">Standard Response Format<a class="headerlink" href="#standard-response-format" title="Permanent link">&para;</a></h4>
+<h4 id="standard-response-format">Standard Response Format</h4>
 <pre class="highlight"><code class="language-json">{
     &quot;success&quot;: true,
     &quot;data&quot;: {},
@@ -1124,8 +1124,8 @@ GET    /test/                               // Health check endpoint
 }
 </code></pre>
 
-<h2 id="websocket-protocol-design">WebSocket Protocol Design<a class="headerlink" href="#websocket-protocol-design" title="Permanent link">&para;</a></h2>
-<h3 id="1-connection-lifecycle">1. Connection Lifecycle<a class="headerlink" href="#1-connection-lifecycle" title="Permanent link">&para;</a></h3>
+<h2 id="websocket-protocol-design">WebSocket Protocol Design</h2>
+<h3 id="1-connection-lifecycle">1. Connection Lifecycle</h3>
 <pre class="highlight"><code class="language-go">// Connection establishment
 func (a *App) liveWebSockets(socketConnection *websocket.Conn,
                             dbSession map[string]common.SessionStruct,
@@ -1164,8 +1164,8 @@ func (a *App) liveWebSockets(socketConnection *websocket.Conn,
 }
 </code></pre>
 
-<h3 id="2-message-types-and-formats">2. Message Types and Formats<a class="headerlink" href="#2-message-types-and-formats" title="Permanent link">&para;</a></h3>
-<h4 id="client-registration-message">Client Registration Message<a class="headerlink" href="#client-registration-message" title="Permanent link">&para;</a></h4>
+<h3 id="2-message-types-and-formats">2. Message Types and Formats</h3>
+<h4 id="client-registration-message">Client Registration Message</h4>
 <pre class="highlight"><code class="language-json">{
     &quot;clienthost&quot;: &quot;client-ip&quot;,
     &quot;unique_client_id&quot;: &quot;client-uuid&quot;,
@@ -1176,14 +1176,14 @@ func (a *App) liveWebSockets(socketConnection *websocket.Conn,
 }
 </code></pre>
 
-<h4 id="server-response-messages">Server Response Messages<a class="headerlink" href="#server-response-messages" title="Permanent link">&para;</a></h4>
+<h4 id="server-response-messages">Server Response Messages</h4>
 <ul>
 <li><code>"pong"</code> - Normal acknowledgment</li>
 <li><code>"private ip not reachable"</code> - Network connectivity issue</li>
 <li><code>"client not reachable"</code> - Client unreachable</li>
 <li><code>"ris nat ip not reachable"</code> - NAT IP connectivity issue</li>
 </ul>
-<h3 id="3-connection-management">3. Connection Management<a class="headerlink" href="#3-connection-management" title="Permanent link">&para;</a></h3>
+<h3 id="3-connection-management">3. Connection Management</h3>
 <pre class="highlight"><code class="language-go">// Connection tracking
 type ConnectionManager struct {
     DisconnectedRISClients map[string]int
@@ -1204,9 +1204,9 @@ func (cm *ConnectionManager) GetDisconnectedRISClientsCount(uuid string) int {
 }
 </code></pre>
 
-<h2 id="task-execution-framework">Task Execution Framework<a class="headerlink" href="#task-execution-framework" title="Permanent link">&para;</a></h2>
-<h3 id="1-task-types-and-processing">1. Task Types and Processing<a class="headerlink" href="#1-task-types-and-processing" title="Permanent link">&para;</a></h3>
-<h4 id="task-handler-request-processing">Task Handler Request Processing<a class="headerlink" href="#task-handler-request-processing" title="Permanent link">&para;</a></h4>
+<h2 id="task-execution-framework">Task Execution Framework</h2>
+<h3 id="1-task-types-and-processing">1. Task Types and Processing</h3>
+<h4 id="task-handler-request-processing">Task Handler Request Processing</h4>
 <pre class="highlight"><code class="language-go">func (tc TaskHandlerController) RunTaskByHandler(w http.ResponseWriter, r *http.Request) {
     var taskrequest models.TaskHandlerRequest
     var response models.Response
@@ -1224,7 +1224,7 @@ func (cm *ConnectionManager) GetDisconnectedRISClientsCount(uuid string) int {
 }
 </code></pre>
 
-<h4 id="task-execution-implementation">Task Execution Implementation<a class="headerlink" href="#task-execution-implementation" title="Permanent link">&para;</a></h4>
+<h4 id="task-execution-implementation">Task Execution Implementation</h4>
 <pre class="highlight"><code class="language-go">func (taskRequest *TaskHandlerRequest) BuildAndExecuteTask() ([]byte, error) {
     var response []byte
     var err error
@@ -1249,8 +1249,8 @@ func (cm *ConnectionManager) GetDisconnectedRISClientsCount(uuid string) int {
 }
 </code></pre>
 
-<h3 id="2-service-management">2. Service Management<a class="headerlink" href="#2-service-management" title="Permanent link">&para;</a></h3>
-<h4 id="docker-service-management">Docker Service Management<a class="headerlink" href="#docker-service-management" title="Permanent link">&para;</a></h4>
+<h3 id="2-service-management">2. Service Management</h3>
+<h4 id="docker-service-management">Docker Service Management</h4>
 <pre class="highlight"><code class="language-go">func (rc RISClientController) IsServiceRunning(cli *client.Client, 
                                              serviceName string) (bool, error) {
     serviceList, err := cli.ServiceList(context.Background(), 
@@ -1269,9 +1269,9 @@ func (cm *ConnectionManager) GetDisconnectedRISClientsCount(uuid string) int {
 }
 </code></pre>
 
-<h2 id="error-handling-and-logging">Error Handling and Logging<a class="headerlink" href="#error-handling-and-logging" title="Permanent link">&para;</a></h2>
-<h3 id="1-error-handling-strategy">1. Error Handling Strategy<a class="headerlink" href="#1-error-handling-strategy" title="Permanent link">&para;</a></h3>
-<h4 id="standardized-error-response">Standardized Error Response<a class="headerlink" href="#standardized-error-response" title="Permanent link">&para;</a></h4>
+<h2 id="error-handling-and-logging">Error Handling and Logging</h2>
+<h3 id="1-error-handling-strategy">1. Error Handling Strategy</h3>
+<h4 id="standardized-error-response">Standardized Error Response</h4>
 <pre class="highlight"><code class="language-go">func HandleError(err error, message string) models.Response {
     response := models.Response{}
     response.Success = false
@@ -1282,7 +1282,7 @@ func (cm *ConnectionManager) GetDisconnectedRISClientsCount(uuid string) int {
 }
 </code></pre>
 
-<h4 id="error-categories">Error Categories<a class="headerlink" href="#error-categories" title="Permanent link">&para;</a></h4>
+<h4 id="error-categories">Error Categories</h4>
 <ol>
 <li><strong>Network Errors</strong>: Connection timeouts, unreachable hosts</li>
 <li><strong>Authentication Errors</strong>: Invalid tokens, expired sessions</li>
@@ -1290,8 +1290,8 @@ func (cm *ConnectionManager) GetDisconnectedRISClientsCount(uuid string) int {
 <li><strong>Validation Errors</strong>: Invalid input data</li>
 <li><strong>System Errors</strong>: Database connection issues, service unavailable</li>
 </ol>
-<h3 id="2-logging-implementation">2. Logging Implementation<a class="headerlink" href="#2-logging-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="structured-logging">Structured Logging<a class="headerlink" href="#structured-logging" title="Permanent link">&para;</a></h4>
+<h3 id="2-logging-implementation">2. Logging Implementation</h3>
+<h4 id="structured-logging">Structured Logging</h4>
 <pre class="highlight"><code class="language-go">var logger = securaalog.New(&quot;component_name&quot;)
 
 // Log levels and usage
@@ -1300,15 +1300,15 @@ logger.Info(&quot;Informational message&quot;)
 logger.Error(&quot;Error message with context&quot;, err.Error())
 </code></pre>
 
-<h4 id="log-rotation-and-management">Log Rotation and Management<a class="headerlink" href="#log-rotation-and-management" title="Permanent link">&para;</a></h4>
+<h4 id="log-rotation-and-management">Log Rotation and Management</h4>
 <ul>
 <li>File-based logging with automatic rotation</li>
 <li>Configurable log levels per component</li>
 <li>Centralized log aggregation support</li>
 <li>Security-aware logging (password masking)</li>
 </ul>
-<h2 id="configuration-management">Configuration Management<a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h2>
-<h3 id="1-configuration-structure">1. Configuration Structure<a class="headerlink" href="#1-configuration-structure" title="Permanent link">&para;</a></h3>
+<h2 id="configuration-management">Configuration Management</h2>
+<h3 id="1-configuration-structure">1. Configuration Structure</h3>
 <pre class="highlight"><code class="language-go">type ConfigStruct struct {
     ServerHost         string
     MongoDBHost        string
@@ -1320,8 +1320,8 @@ logger.Error(&quot;Error message with context&quot;, err.Error())
 }
 </code></pre>
 
-<h3 id="2-dynamic-configuration-updates">2. Dynamic Configuration Updates<a class="headerlink" href="#2-dynamic-configuration-updates" title="Permanent link">&para;</a></h3>
-<h4 id="configuration-hot-reload">Configuration Hot-reload<a class="headerlink" href="#configuration-hot-reload" title="Permanent link">&para;</a></h4>
+<h3 id="2-dynamic-configuration-updates">2. Dynamic Configuration Updates</h3>
+<h4 id="configuration-hot-reload">Configuration Hot-reload</h4>
 <pre class="highlight"><code class="language-go">func (a *App) reloadConfiguration() error {
     newConfig := utils.InitConfig()
     if validateConfig(newConfig) {
@@ -1332,8 +1332,8 @@ logger.Error(&quot;Error message with context&quot;, err.Error())
 }
 </code></pre>
 
-<h2 id="security-implementation-framework">Security Implementation Framework<a class="headerlink" href="#security-implementation-framework" title="Permanent link">&para;</a></h2>
-<h3 id="1-comprehensive-tls-configuration">1. Comprehensive TLS Configuration<a class="headerlink" href="#1-comprehensive-tls-configuration" title="Permanent link">&para;</a></h3>
+<h2 id="security-implementation-framework">Security Implementation Framework</h2>
+<h3 id="1-comprehensive-tls-configuration">1. Comprehensive TLS Configuration</h3>
 <pre class="highlight"><code class="language-go">// TLS Configuration with Advanced Security Parameters
 func configureTLS() *tls.Config {
     cert, err := tls.LoadX509KeyPair(&quot;ssl/certs/securaa_server.crt&quot;, &quot;ssl/private/securaa_server.key&quot;)
@@ -1395,8 +1395,8 @@ func createSecureWebSocketUpgrader() websocket.Upgrader {
 }
 </code></pre>
 
-<h3 id="2-advanced-authentication-and-authorization-framework">2. Advanced Authentication and Authorization Framework<a class="headerlink" href="#2-advanced-authentication-and-authorization-framework" title="Permanent link">&para;</a></h3>
-<h4 id="multi-factor-jwt-token-validation">Multi-Factor JWT Token Validation<a class="headerlink" href="#multi-factor-jwt-token-validation" title="Permanent link">&para;</a></h4>
+<h3 id="2-advanced-authentication-and-authorization-framework">2. Advanced Authentication and Authorization Framework</h3>
+<h4 id="multi-factor-jwt-token-validation">Multi-Factor JWT Token Validation</h4>
 <pre class="highlight"><code class="language-go">type JWTClaims struct {
     UserID      string    `json:&quot;user_id&quot;`
     TenantID    string    `json:&quot;tenant_id&quot;`
@@ -1513,8 +1513,8 @@ func createSecurityContext(claims *JWTClaims, request *http.Request) *SecurityCo
 }
 </code></pre>
 
-<h3 id="3-encryption-and-data-protection">3. Encryption and Data Protection<a class="headerlink" href="#3-encryption-and-data-protection" title="Permanent link">&para;</a></h3>
-<h4 id="end-to-end-data-encryption">End-to-End Data Encryption<a class="headerlink" href="#end-to-end-data-encryption" title="Permanent link">&para;</a></h4>
+<h3 id="3-encryption-and-data-protection">3. Encryption and Data Protection</h3>
+<h4 id="end-to-end-data-encryption">End-to-End Data Encryption</h4>
 <pre class="highlight"><code class="language-go">type EncryptionService struct {
     masterKey    []byte
     keyDerivation string
@@ -1610,8 +1610,8 @@ func (es *EncryptionService) EncryptField(field string, value interface{}, tenan
 }
 </code></pre>
 
-<h3 id="4-security-monitoring-and-audit-system">4. Security Monitoring and Audit System<a class="headerlink" href="#4-security-monitoring-and-audit-system" title="Permanent link">&para;</a></h3>
-<h4 id="comprehensive-audit-logging">Comprehensive Audit Logging<a class="headerlink" href="#comprehensive-audit-logging" title="Permanent link">&para;</a></h4>
+<h3 id="4-security-monitoring-and-audit-system">4. Security Monitoring and Audit System</h3>
+<h4 id="comprehensive-audit-logging">Comprehensive Audit Logging</h4>
 <pre class="highlight"><code class="language-go">type AuditEvent struct {
     EventID     string                 `json:&quot;event_id&quot;`
     Timestamp   time.Time             `json:&quot;timestamp&quot;`
@@ -1715,8 +1715,8 @@ func (sm *SecurityMonitor) MonitorSecurityEvents(events &lt;-chan *AuditEvent) {
 }
 </code></pre>
 
-<h3 id="5-network-security-and-rate-limiting">5. Network Security and Rate Limiting<a class="headerlink" href="#5-network-security-and-rate-limiting" title="Permanent link">&para;</a></h3>
-<h4 id="advanced-rate-limiting-with-redis">Advanced Rate Limiting with Redis<a class="headerlink" href="#advanced-rate-limiting-with-redis" title="Permanent link">&para;</a></h4>
+<h3 id="5-network-security-and-rate-limiting">5. Network Security and Rate Limiting</h3>
+<h4 id="advanced-rate-limiting-with-redis">Advanced Rate Limiting with Redis</h4>
 <pre class="highlight"><code class="language-go">type RateLimiter struct {
     redis       *redis.Client
     limits      map[string]RateLimit
@@ -1819,8 +1819,8 @@ func (rl *RateLimiter) DDoSProtectionMiddleware(next http.Handler) http.Handler 
 }
 </code></pre>
 
-<h3 id="6-secure-configuration-management">6. Secure Configuration Management<a class="headerlink" href="#6-secure-configuration-management" title="Permanent link">&para;</a></h3>
-<h4 id="configuration-security-framework">Configuration Security Framework<a class="headerlink" href="#configuration-security-framework" title="Permanent link">&para;</a></h4>
+<h3 id="6-secure-configuration-management">6. Secure Configuration Management</h3>
+<h4 id="configuration-security-framework">Configuration Security Framework</h4>
 <pre class="highlight"><code class="language-go">type SecureConfig struct {
     encrypted    map[string]string
     plaintext    map[string]interface{}

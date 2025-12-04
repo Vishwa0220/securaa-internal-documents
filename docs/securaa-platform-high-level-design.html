@@ -620,12 +620,12 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="securaa-high-level-design-high-level-design">Securaa High-Level Design (High Level Design)<a class="headerlink" href="#securaa-high-level-design-high-level-design" title="Permanent link">&para;</a></h1>
-<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+        <h1 id="securaa-high-level-design-high-level-design">Securaa High-Level Design (High Level Design)</h1>
+<h2 id="1-overview">1. Overview</h2>
 <p>Securaa is a modular cybersecurity platform designed for scalable, secure, and automated deployment across cloud and on-premise environments. The system is composed of multiple services, packaged for both Docker-based development and production-grade RPM/DEB installations.</p>
 <hr />
-<h2 id="2-architecture">2. Architecture<a class="headerlink" href="#2-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="21-core-components">2.1. Core Components<a class="headerlink" href="#21-core-components" title="Permanent link">&para;</a></h3>
+<h2 id="2-architecture">2. Architecture</h2>
+<h3 id="21-core-components">2.1. Core Components</h3>
 <ul>
 <li><strong>Core Services</strong>: Main backend logic, APIs, and business rules (Go-based, in <code>securaa/</code> and <code>executedb/</code>).</li>
 <li><strong>UI</strong>: React-based frontend, built and served as a static site or via Docker.</li>
@@ -634,27 +634,27 @@ hr {
 <li><strong>Database</strong>: MongoDB (Dockerized for dev, native for prod).</li>
 <li><strong>Logging</strong>: Fluentd for log aggregation and forwarding.</li>
 </ul>
-<h3 id="22-supporting-components">2.2. Supporting Components<a class="headerlink" href="#22-supporting-components" title="Permanent link">&para;</a></h3>
+<h3 id="22-supporting-components">2.2. Supporting Components</h3>
 <ul>
 <li><strong>Scripts</strong>: Automation for build, deployment, and cloud provisioning (<code>scripts/</code>, <code>core_scripts/</code>, <code>deployment_scripts/</code>).</li>
 <li><strong>Packaging</strong>: RPM/DEB build system for RedHat and Debian-based deployments (<code>pkg/</code>).</li>
 <li><strong>Cloud Automation</strong>: AWS EC2 provisioning and remote install via shell scripts.</li>
 </ul>
 <hr />
-<h2 id="3-deployment-topologies">3. Deployment Topologies<a class="headerlink" href="#3-deployment-topologies" title="Permanent link">&para;</a></h2>
-<h3 id="31-local-development">3.1. Local Development<a class="headerlink" href="#31-local-development" title="Permanent link">&para;</a></h3>
+<h2 id="3-deployment-topologies">3. Deployment Topologies</h2>
+<h3 id="31-local-development">3.1. Local Development</h3>
 <ul>
 <li><strong>Docker Compose</strong>: All services (MongoDB, Fluentd, Core, UI, ML) run as containers.</li>
 <li><strong>Config</strong>: <code>appliance/docker-compose.yml</code>, <code>appliance/local/config.json</code>.</li>
 </ul>
-<h3 id="32-production">3.2. Production<a class="headerlink" href="#32-production" title="Permanent link">&para;</a></h3>
+<h3 id="32-production">3.2. Production</h3>
 <ul>
 <li><strong>RedHat/CentOS</strong>: RPM packages for core, UI, ML, Arbiter, and dependencies.</li>
 <li><strong>Debian/Ubuntu</strong>: DEB packages for all components.</li>
 <li><strong>Cloud</strong>: Automated EC2 launch and install via scripts.</li>
 </ul>
 <hr />
-<h2 id="4-build-release-flow">4. Build &amp; Release Flow<a class="headerlink" href="#4-build-release-flow" title="Permanent link">&para;</a></h2>
+<h2 id="4-build-release-flow">4. Build &amp; Release Flow</h2>
 <ol>
 <li><strong>Source Checkout</strong>: Git-based, multi-repo support.</li>
 <li><strong>Build</strong>: Scripts for Go services, React UI, ML modules.</li>
@@ -663,7 +663,7 @@ hr {
 <li><strong>Post-Install</strong>: Systemd service enablement, config, and cleanup.</li>
 </ol>
 <hr />
-<h2 id="5-security-compliance">5. Security &amp; Compliance<a class="headerlink" href="#5-security-compliance" title="Permanent link">&para;</a></h2>
+<h2 id="5-security-compliance">5. Security &amp; Compliance</h2>
 <ul>
 <li><strong>AVX Check</strong>: Ensures hardware compatibility for MongoDB 7.0.</li>
 <li><strong>SELinux Handling</strong>: Temporarily disabled during install for Docker.</li>
@@ -671,14 +671,14 @@ hr {
 <li><strong>Environment Variables</strong>: Managed via <code>.env</code> files.</li>
 </ul>
 <hr />
-<h2 id="6-extensibility">6. Extensibility<a class="headerlink" href="#6-extensibility" title="Permanent link">&para;</a></h2>
+<h2 id="6-extensibility">6. Extensibility</h2>
 <ul>
 <li><strong>Modular Packaging</strong>: Each service can be built, packaged, and deployed independently.</li>
 <li><strong>Scripted Automation</strong>: Easy to extend for new services or cloud providers.</li>
 <li><strong>Configurable</strong>: All major parameters are externalized in config files.</li>
 </ul>
 <hr />
-<h2 id="7-key-directories">7. Key Directories<a class="headerlink" href="#7-key-directories" title="Permanent link">&para;</a></h2>
+<h2 id="7-key-directories">7. Key Directories</h2>
 <ul>
 <li><code>appliance/</code>: Docker Compose, local config, and scripts.</li>
 <li><code>core_scripts/</code>, <code>deployment_scripts/</code>, <code>scripts/</code>: Automation and deployment logic.</li>
@@ -686,7 +686,7 @@ hr {
 <li><code>securaa/</code>, <code>executedb/</code>: Go source code for core services.</li>
 </ul>
 <hr />
-<h2 id="8-system-architecture-diagram">8. System Architecture Diagram<a class="headerlink" href="#8-system-architecture-diagram" title="Permanent link">&para;</a></h2>
+<h2 id="8-system-architecture-diagram">8. System Architecture Diagram</h2>
 <div class="mermaid">
 graph TB
     subgraph "Securaa Platform Architecture"
@@ -726,7 +726,7 @@ graph TB
 </div>
 
 <hr />
-<h2 id="9-references">9. References<a class="headerlink" href="#9-references" title="Permanent link">&para;</a></h2>
+<h2 id="9-references">9. References</h2>
 <ul>
 <li>See deployment document for detailed install and build steps.</li>
 <li>All scripts and configs are in the root and respective subfolders.</li>

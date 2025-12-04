@@ -620,9 +620,9 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="securaa-user-service-low-level-design">Securaa User Service - Low Level Design<a class="headerlink" href="#securaa-user-service-low-level-design" title="Permanent link">&para;</a></h1>
-<h2 id="technical-architecture-overview">🔧 <strong>TECHNICAL ARCHITECTURE OVERVIEW</strong><a class="headerlink" href="#technical-architecture-overview" title="Permanent link">&para;</a></h2>
-<h3 id="service-implementation-architecture"><strong>Service Implementation Architecture</strong><a class="headerlink" href="#service-implementation-architecture" title="Permanent link">&para;</a></h3>
+        <h1 id="securaa-user-service-low-level-design">Securaa User Service - Low Level Design</h1>
+<h2 id="technical-architecture-overview">🔧 <strong>TECHNICAL ARCHITECTURE OVERVIEW</strong></h2>
+<h3 id="service-implementation-architecture"><strong>Service Implementation Architecture</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Go Application Layer"
@@ -722,7 +722,7 @@ graph TB
     NOTIFICATION_SVC --> WEBHOOK_CLIENT
 </div>
 
-<h3 id="code-structure-package-organization"><strong>Code Structure &amp; Package Organization</strong><a class="headerlink" href="#code-structure-package-organization" title="Permanent link">&para;</a></h3>
+<h3 id="code-structure-package-organization"><strong>Code Structure &amp; Package Organization</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Project Root Structure"
@@ -802,8 +802,8 @@ graph TB
     REPORT_CONTROLLER --> REPORT_TEMPLATES
 </div>
 
-<h2 id="database-design-data-models">🏗️ <strong>DATABASE DESIGN &amp; DATA MODELS</strong><a class="headerlink" href="#database-design-data-models" title="Permanent link">&para;</a></h2>
-<h3 id="mongodb-collection-schema-architecture"><strong>MongoDB Collection Schema Architecture</strong><a class="headerlink" href="#mongodb-collection-schema-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="database-design-data-models">🏗️ <strong>DATABASE DESIGN &amp; DATA MODELS</strong></h2>
+<h3 id="mongodb-collection-schema-architecture"><strong>MongoDB Collection Schema Architecture</strong></h3>
 <div class="mermaid">
 erDiagram
     USERS ||--o{ USER_SESSIONS : "has"
@@ -951,7 +951,7 @@ erDiagram
     }
 </div>
 
-<h3 id="redis-cache-schema-design"><strong>Redis Cache Schema Design</strong><a class="headerlink" href="#redis-cache-schema-design" title="Permanent link">&para;</a></h3>
+<h3 id="redis-cache-schema-design"><strong>Redis Cache Schema Design</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Redis Cache Architecture"
@@ -995,8 +995,8 @@ graph TB
     NOTIFICATION_QUEUE -.-> EVENT_STREAM
 </div>
 
-<h2 id="api-design-endpoint-specifications">🔗 <strong>API DESIGN &amp; ENDPOINT SPECIFICATIONS</strong><a class="headerlink" href="#api-design-endpoint-specifications" title="Permanent link">&para;</a></h2>
-<h3 id="restful-api-architecture"><strong>RESTful API Architecture</strong><a class="headerlink" href="#restful-api-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="api-design-endpoint-specifications">🔗 <strong>API DESIGN &amp; ENDPOINT SPECIFICATIONS</strong></h2>
+<h3 id="restful-api-architecture"><strong>RESTful API Architecture</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "API Endpoint Categories"
@@ -1060,7 +1060,7 @@ graph TB
     WEBSOCKET --> SEND_NOTIFICATION
 </div>
 
-<h3 id="api-requestresponse-flow-diagram"><strong>API Request/Response Flow Diagram</strong><a class="headerlink" href="#api-requestresponse-flow-diagram" title="Permanent link">&para;</a></h3>
+<h3 id="api-requestresponse-flow-diagram"><strong>API Request/Response Flow Diagram</strong></h3>
 <div class="mermaid">
 sequenceDiagram
     participant C as Client
@@ -1116,8 +1116,8 @@ sequenceDiagram
     Note over C,EXT: Request Completed Successfully
 </div>
 
-<h2 id="security-implementation-details">🔒 <strong>SECURITY IMPLEMENTATION DETAILS</strong><a class="headerlink" href="#security-implementation-details" title="Permanent link">&para;</a></h2>
-<h3 id="authentication-authorization-flow"><strong>Authentication &amp; Authorization Flow</strong><a class="headerlink" href="#authentication-authorization-flow" title="Permanent link">&para;</a></h3>
+<h2 id="security-implementation-details">🔒 <strong>SECURITY IMPLEMENTATION DETAILS</strong></h2>
+<h3 id="authentication-authorization-flow"><strong>Authentication &amp; Authorization Flow</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Multi-Protocol Authentication Implementation"
@@ -1171,7 +1171,7 @@ graph TB
     TOKEN_EXCHANGE -.-> TOTP_VALIDATION
 </div>
 
-<h3 id="jwt-token-management-implementation"><strong>JWT Token Management Implementation</strong><a class="headerlink" href="#jwt-token-management-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="jwt-token-management-implementation"><strong>JWT Token Management Implementation</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "JWT Token Lifecycle"
@@ -1222,7 +1222,7 @@ graph TB
     SESSION_CLEANUP --> AUDIT_LOG
 </div>
 
-<h3 id="role-based-access-control-rbac-implementation"><strong>Role-Based Access Control (RBAC) Implementation</strong><a class="headerlink" href="#role-based-access-control-rbac-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="role-based-access-control-rbac-implementation"><strong>Role-Based Access Control (RBAC) Implementation</strong></h3>
 <div class="mermaid">
 classDiagram
     class User {
@@ -1314,24 +1314,24 @@ classDiagram
     Role }o--|| Tenant : "scoped_to"
 </div>
 
-<h2 id="deployment-infrastructure-implementation">🚀 <strong>DEPLOYMENT &amp; INFRASTRUCTURE IMPLEMENTATION</strong><a class="headerlink" href="#deployment-infrastructure-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="traditional-server-deployment-architecture"><strong>Traditional Server Deployment Architecture</strong><a class="headerlink" href="#traditional-server-deployment-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="deployment-infrastructure-implementation">🚀 <strong>DEPLOYMENT &amp; INFRASTRUCTURE IMPLEMENTATION</strong></h2>
+<h3 id="traditional-server-deployment-architecture"><strong>Traditional Server Deployment Architecture</strong></h3>
 <p>The Securaa User Service is deployed using traditional server architecture with load balancing and service clustering for high availability and scalability.</p>
 <p><strong>Server Deployment Strategy:</strong></p>
-<p><strong>Load Balancer Configuration:</strong><br />
-- <strong>Primary Load Balancer</strong>: HAProxy or Nginx for traffic distribution and SSL termination<br />
-- <strong>Health Check Integration</strong>: Application-level health endpoints for intelligent routing<br />
-- <strong>Session Management</strong>: Sticky sessions support for WebSocket connections<br />
+<p><strong>Load Balancer Configuration:</strong>
+- <strong>Primary Load Balancer</strong>: HAProxy or Nginx for traffic distribution and SSL termination
+- <strong>Health Check Integration</strong>: Application-level health endpoints for intelligent routing
+- <strong>Session Management</strong>: Sticky sessions support for WebSocket connections
 - <strong>SSL/TLS Termination</strong>: Certificate management and encryption handling at the edge</p>
-<p><strong>Service Instance Management:</strong><br />
-- <strong>Multiple Instances</strong>: 3+ service instances for high availability<br />
-- <strong>Process Management</strong>: Systemd service files for automatic restart and lifecycle management<br />
-- <strong>Configuration Management</strong>: Environment-specific configuration files and secrets<br />
+<p><strong>Service Instance Management:</strong>
+- <strong>Multiple Instances</strong>: 3+ service instances for high availability
+- <strong>Process Management</strong>: Systemd service files for automatic restart and lifecycle management
+- <strong>Configuration Management</strong>: Environment-specific configuration files and secrets
 - <strong>Log Management</strong>: Structured logging with centralized log aggregation</p>
-<p><strong>Database Deployment:</strong><br />
-- <strong>MongoDB Replica Set</strong>: Primary and secondary instances for read scaling and failover<br />
-- <strong>Redis Cluster</strong>: Master-slave configuration for caching and session storage<br />
-- <strong>Connection Pooling</strong>: Optimized database connections with configurable pool sizes<br />
+<p><strong>Database Deployment:</strong>
+- <strong>MongoDB Replica Set</strong>: Primary and secondary instances for read scaling and failover
+- <strong>Redis Cluster</strong>: Master-slave configuration for caching and session storage
+- <strong>Connection Pooling</strong>: Optimized database connections with configurable pool sizes
 - <strong>Backup Strategy</strong>: Automated backup schedules with point-in-time recovery</p>
 <div class="mermaid">
 graph TB
@@ -1416,27 +1416,27 @@ graph TB
 </div>
 
 <p><strong>Deployment Process:</strong></p>
-<p><strong>Service Installation:</strong><br />
-1. <strong>Binary Deployment</strong>: Go binary compilation and distribution to target servers<br />
-2. <strong>Configuration Setup</strong>: Environment-specific configuration files and secrets deployment<br />
-3. <strong>Service Registration</strong>: Systemd service file installation and enablement<br />
+<p><strong>Service Installation:</strong>
+1. <strong>Binary Deployment</strong>: Go binary compilation and distribution to target servers
+2. <strong>Configuration Setup</strong>: Environment-specific configuration files and secrets deployment
+3. <strong>Service Registration</strong>: Systemd service file installation and enablement
 4. <strong>Health Verification</strong>: Automated health checks during deployment process</p>
-<p><strong>Database Setup:</strong><br />
-1. <strong>MongoDB Replica Set</strong>: Primary and secondary node configuration with authentication<br />
-2. <strong>Redis Configuration</strong>: Master-slave setup with persistence and clustering<br />
-3. <strong>Index Creation</strong>: Database index optimization for query performance<br />
+<p><strong>Database Setup:</strong>
+1. <strong>MongoDB Replica Set</strong>: Primary and secondary node configuration with authentication
+2. <strong>Redis Configuration</strong>: Master-slave setup with persistence and clustering
+3. <strong>Index Creation</strong>: Database index optimization for query performance
 4. <strong>Data Migration</strong>: Automated migration scripts for schema updates</p>
-<p><strong>Load Balancer Configuration:</strong><br />
-1. <strong>SSL Certificate Installation</strong>: TLS certificate deployment and renewal automation<br />
-2. <strong>Health Check Configuration</strong>: Application-level health endpoint configuration<br />
-3. <strong>Traffic Routing Rules</strong>: Request routing based on URL patterns and headers<br />
+<p><strong>Load Balancer Configuration:</strong>
+1. <strong>SSL Certificate Installation</strong>: TLS certificate deployment and renewal automation
+2. <strong>Health Check Configuration</strong>: Application-level health endpoint configuration
+3. <strong>Traffic Routing Rules</strong>: Request routing based on URL patterns and headers
 4. <strong>Failover Configuration</strong>: Automatic failover to healthy instances</p>
-<p><strong>Monitoring Setup:</strong><br />
-1. <strong>Metrics Collection</strong>: Prometheus metrics endpoint configuration<br />
-2. <strong>Dashboard Deployment</strong>: Grafana dashboard installation and configuration<br />
-3. <strong>Alerting Rules</strong>: Alert configuration for critical system events<br />
+<p><strong>Monitoring Setup:</strong>
+1. <strong>Metrics Collection</strong>: Prometheus metrics endpoint configuration
+2. <strong>Dashboard Deployment</strong>: Grafana dashboard installation and configuration
+3. <strong>Alerting Rules</strong>: Alert configuration for critical system events
 4. <strong>Log Aggregation</strong>: Centralized logging setup with retention policies</p>
-<h3 id="production-deployment-configuration"><strong>Production Deployment Configuration</strong><a class="headerlink" href="#production-deployment-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="production-deployment-configuration"><strong>Production Deployment Configuration</strong></h3>
 <p><strong>Systemd Service Configuration:</strong></p>
 <pre class="highlight"><code class="language-ini"># /etc/systemd/system/securaa-user-service.service
 [Unit]
@@ -1636,8 +1636,8 @@ echo &quot;Deployment completed successfully!&quot;
       name: securaa-user-config
 </code></pre>
 
-<h2 id="monitoring-observability-implementation">📊 <strong>MONITORING &amp; OBSERVABILITY IMPLEMENTATION</strong><a class="headerlink" href="#monitoring-observability-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="comprehensive-monitoring-architecture"><strong>Comprehensive Monitoring Architecture</strong><a class="headerlink" href="#comprehensive-monitoring-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="monitoring-observability-implementation">📊 <strong>MONITORING &amp; OBSERVABILITY IMPLEMENTATION</strong></h2>
+<h3 id="comprehensive-monitoring-architecture"><strong>Comprehensive Monitoring Architecture</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Application Metrics Layer"
@@ -1705,7 +1705,7 @@ graph TB
     ESCALATION_POLICIES --> RUNBOOK_AUTOMATION
 </div>
 
-<h3 id="performance-optimization-strategies"><strong>Performance Optimization Strategies</strong><a class="headerlink" href="#performance-optimization-strategies" title="Permanent link">&para;</a></h3>
+<h3 id="performance-optimization-strategies"><strong>Performance Optimization Strategies</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Database Optimization"
@@ -1765,8 +1765,8 @@ graph TB
     HORIZONTAL_SCALING --> VERTICAL_SCALING
 </div>
 
-<h2 id="testing-strategy-implementation">🧪 <strong>TESTING STRATEGY &amp; IMPLEMENTATION</strong><a class="headerlink" href="#testing-strategy-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="comprehensive-testing-pyramid"><strong>Comprehensive Testing Pyramid</strong><a class="headerlink" href="#comprehensive-testing-pyramid" title="Permanent link">&para;</a></h3>
+<h2 id="testing-strategy-implementation">🧪 <strong>TESTING STRATEGY &amp; IMPLEMENTATION</strong></h2>
+<h3 id="comprehensive-testing-pyramid"><strong>Comprehensive Testing Pyramid</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Testing Pyramid"
@@ -1828,7 +1828,7 @@ graph TB
     DATA_FACTORIES --> DATABASE_TESTS
 </div>
 
-<h3 id="security-testing-implementation"><strong>Security Testing Implementation</strong><a class="headerlink" href="#security-testing-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="security-testing-implementation"><strong>Security Testing Implementation</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Security Testing Categories"
@@ -1879,8 +1879,8 @@ graph TB
     SECURITY_REGRESSION --> COMPLIANCE_VALIDATION
 </div>
 
-<h2 id="configuration-management">🔧 <strong>CONFIGURATION MANAGEMENT</strong><a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h2>
-<h3 id="environment-configuration-strategy"><strong>Environment Configuration Strategy</strong><a class="headerlink" href="#environment-configuration-strategy" title="Permanent link">&para;</a></h3>
+<h2 id="configuration-management">🔧 <strong>CONFIGURATION MANAGEMENT</strong></h2>
+<h3 id="environment-configuration-strategy"><strong>Environment Configuration Strategy</strong></h3>
 <pre class="highlight"><code class="language-yaml"># Production Configuration Template
 production:
   server:
@@ -2047,8 +2047,8 @@ production:
       iso27001_mode: true
 </code></pre>
 
-<h2 id="operational-procedures">📋 <strong>OPERATIONAL PROCEDURES</strong><a class="headerlink" href="#operational-procedures" title="Permanent link">&para;</a></h2>
-<h3 id="deployment-automation-pipeline"><strong>Deployment Automation Pipeline</strong><a class="headerlink" href="#deployment-automation-pipeline" title="Permanent link">&para;</a></h3>
+<h2 id="operational-procedures">📋 <strong>OPERATIONAL PROCEDURES</strong></h2>
+<h3 id="deployment-automation-pipeline"><strong>Deployment Automation Pipeline</strong></h3>
 <div class="mermaid">
 graph LR
     subgraph "CI/CD Pipeline"
@@ -2115,7 +2115,7 @@ graph LR
     METRICS_CHECK -.-> ROLLBACK
 </div>
 
-<h3 id="incident-response-procedures"><strong>Incident Response Procedures</strong><a class="headerlink" href="#incident-response-procedures" title="Permanent link">&para;</a></h3>
+<h3 id="incident-response-procedures"><strong>Incident Response Procedures</strong></h3>
 <div class="mermaid">
 graph TB
     subgraph "Incident Response Workflow"
@@ -2169,8 +2169,8 @@ graph TB
     DOCUMENTATION --> TRAINING
 </div>
 
-<h2 id="performance-benchmarks-targets">🎯 <strong>PERFORMANCE BENCHMARKS &amp; TARGETS</strong><a class="headerlink" href="#performance-benchmarks-targets" title="Permanent link">&para;</a></h2>
-<h3 id="service-level-objectives-slos"><strong>Service Level Objectives (SLOs)</strong><a class="headerlink" href="#service-level-objectives-slos" title="Permanent link">&para;</a></h3>
+<h2 id="performance-benchmarks-targets">🎯 <strong>PERFORMANCE BENCHMARKS &amp; TARGETS</strong></h2>
+<h3 id="service-level-objectives-slos"><strong>Service Level Objectives (SLOs)</strong></h3>
 <table>
 <thead>
 <tr>
@@ -2231,7 +2231,7 @@ graph TB
 </tr>
 </tbody>
 </table>
-<h3 id="resource-utilization-targets"><strong>Resource Utilization Targets</strong><a class="headerlink" href="#resource-utilization-targets" title="Permanent link">&para;</a></h3>
+<h3 id="resource-utilization-targets"><strong>Resource Utilization Targets</strong></h3>
 <div class="mermaid">
 gantt
     title Resource Utilization Timeline
@@ -2257,8 +2257,8 @@ gantt
     Network Critical :crit, 75, 90
 </div>
 
-<h2 id="security-implementation-checklist">🔒 <strong>SECURITY IMPLEMENTATION CHECKLIST</strong><a class="headerlink" href="#security-implementation-checklist" title="Permanent link">&para;</a></h2>
-<h3 id="security-controls-implementation-status"><strong>Security Controls Implementation Status</strong><a class="headerlink" href="#security-controls-implementation-status" title="Permanent link">&para;</a></h3>
+<h2 id="security-implementation-checklist">🔒 <strong>SECURITY IMPLEMENTATION CHECKLIST</strong></h2>
+<h3 id="security-controls-implementation-status"><strong>Security Controls Implementation Status</strong></h3>
 <table>
 <thead>
 <tr>

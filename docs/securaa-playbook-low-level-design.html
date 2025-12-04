@@ -620,8 +620,8 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="securaa-playbook-service-low-level-design-document">Securaa Playbook Service - Low Level Design Document<a class="headerlink" href="#securaa-playbook-service-low-level-design-document" title="Permanent link">&para;</a></h1>
-<h2 id="document-information">Document Information<a class="headerlink" href="#document-information" title="Permanent link">&para;</a></h2>
+        <h1 id="securaa-playbook-service-low-level-design-document">Securaa Playbook Service - Low Level Design Document</h1>
+<h2 id="document-information">Document Information</h2>
 <ul>
 <li><strong>Service Name</strong>: Securaa Playbook Service</li>
 <li><strong>Version</strong>: 1.0</li>
@@ -629,7 +629,7 @@ hr {
 <li><strong>Author</strong>: Development Team</li>
 <li><strong>Related Documents</strong>: <a href="./HIGH_LEVEL_DESIGN.md">High Level Design</a></li>
 </ul>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#detailed-component-design">Detailed Component Design</a></li>
@@ -645,19 +645,19 @@ hr {
 <li><a href="#testing-strategy">Testing Strategy</a></li>
 </ol>
 <hr />
-<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<h2 id="1-overview">1. Overview</h2>
 <p>The Low Level Design document provides detailed implementation specifications for the Securaa Playbook Service, including class structures, method signatures, algorithm implementations, and detailed interaction patterns.</p>
-<h3 id="11-scope">1.1 Scope<a class="headerlink" href="#11-scope" title="Permanent link">&para;</a></h3>
-<p>This document covers:<br />
-- Detailed class and method specifications<br />
-- Database schema with indexes and constraints<br />
-- Complete API specifications with validation rules<br />
-- Concurrency patterns and thread safety mechanisms<br />
-- Performance optimization techniques<br />
+<h3 id="11-scope">1.1 Scope</h3>
+<p>This document covers:
+- Detailed class and method specifications
+- Database schema with indexes and constraints
+- Complete API specifications with validation rules
+- Concurrency patterns and thread safety mechanisms
+- Performance optimization techniques
 - Error handling and recovery strategies</p>
 <hr />
-<h2 id="2-detailed-component-design">2. Detailed Component Design<a class="headerlink" href="#2-detailed-component-design" title="Permanent link">&para;</a></h2>
-<h3 id="21-core-package-structure">2.1 Core Package Structure<a class="headerlink" href="#21-core-package-structure" title="Permanent link">&para;</a></h3>
+<h2 id="2-detailed-component-design">2. Detailed Component Design</h2>
+<h3 id="21-core-package-structure">2.1 Core Package Structure</h3>
 <pre class="highlight"><code>securaa_services/securaa_playbook/
 ├── main.go                     // Application entry point
 ├── app.go                      // Application initialization
@@ -698,8 +698,8 @@ hr {
     └── cacheController.go
 </code></pre>
 
-<h3 id="22-main-application-structure">2.2 Main Application Structure<a class="headerlink" href="#22-main-application-structure" title="Permanent link">&para;</a></h3>
-<h4 id="221-app-structure">2.2.1 App Structure<a class="headerlink" href="#221-app-structure" title="Permanent link">&para;</a></h4>
+<h3 id="22-main-application-structure">2.2 Main Application Structure</h3>
+<h4 id="221-app-structure">2.2.1 App Structure</h4>
 <pre class="highlight"><code class="language-go">type App struct {
     Router             *mux.Router                    // HTTP router
     AccessTokenHashMap map[string]int64               // Session management
@@ -712,7 +712,7 @@ hr {
 }
 </code></pre>
 
-<h4 id="222-initialization-flow">2.2.2 Initialization Flow<a class="headerlink" href="#222-initialization-flow" title="Permanent link">&para;</a></h4>
+<h4 id="222-initialization-flow">2.2.2 Initialization Flow</h4>
 <pre class="highlight"><code class="language-go">func (a *App) Initialize() {
     // 1. Load configuration
     a.ConfigObject = utils.InitConfig()
@@ -741,8 +741,8 @@ hr {
 </code></pre>
 
 <hr />
-<h2 id="3-class-diagrams">3. Class Diagrams<a class="headerlink" href="#3-class-diagrams" title="Permanent link">&para;</a></h2>
-<h3 id="31-playbook-execution-model">3.1 Playbook Execution Model<a class="headerlink" href="#31-playbook-execution-model" title="Permanent link">&para;</a></h3>
+<h2 id="3-class-diagrams">3. Class Diagrams</h2>
+<h3 id="31-playbook-execution-model">3.1 Playbook Execution Model</h3>
 <div class="mermaid">
 classDiagram
     class PlaybookExecutionController {
@@ -812,7 +812,7 @@ classDiagram
     PlayBookTask --> PlaybookObject : executes
 </div>
 
-<h3 id="32-task-execution-model">3.2 Task Execution Model<a class="headerlink" href="#32-task-execution-model" title="Permanent link">&para;</a></h3>
+<h3 id="32-task-execution-model">3.2 Task Execution Model</h3>
 <div class="mermaid">
 classDiagram
     class TaskRequest {
@@ -859,7 +859,7 @@ classDiagram
     TaskRequest --> ActiveInstanceObject : uses
 </div>
 
-<h3 id="33-filter-transform-model">3.3 Filter &amp; Transform Model<a class="headerlink" href="#33-filter-transform-model" title="Permanent link">&para;</a></h3>
+<h3 id="33-filter-transform-model">3.3 Filter &amp; Transform Model</h3>
 <div class="mermaid">
 classDiagram
     class Inputfields {
@@ -897,8 +897,8 @@ classDiagram
 </div>
 
 <hr />
-<h2 id="4-sequence-diagrams">4. Sequence Diagrams<a class="headerlink" href="#4-sequence-diagrams" title="Permanent link">&para;</a></h2>
-<h3 id="41-playbook-execution-flow">4.1 Playbook Execution Flow<a class="headerlink" href="#41-playbook-execution-flow" title="Permanent link">&para;</a></h3>
+<h2 id="4-sequence-diagrams">4. Sequence Diagrams</h2>
+<h3 id="41-playbook-execution-flow">4.1 Playbook Execution Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Client
@@ -929,7 +929,7 @@ sequenceDiagram
     Router-->>Client: Final response
 </div>
 
-<h3 id="42-task-execution-with-conditions">4.2 Task Execution with Conditions<a class="headerlink" href="#42-task-execution-with-conditions" title="Permanent link">&para;</a></h3>
+<h3 id="42-task-execution-with-conditions">4.2 Task Execution with Conditions</h3>
 <div class="mermaid">
 sequenceDiagram
     participant ExecutionController
@@ -956,7 +956,7 @@ sequenceDiagram
     TaskExecutor-->>ExecutionController: Continue execution
 </div>
 
-<h3 id="43-error-handling-flow">4.3 Error Handling Flow<a class="headerlink" href="#43-error-handling-flow" title="Permanent link">&para;</a></h3>
+<h3 id="43-error-handling-flow">4.3 Error Handling Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant TaskExecutor
@@ -979,9 +979,9 @@ sequenceDiagram
 </div>
 
 <hr />
-<h2 id="5-database-schema">5. Database Schema<a class="headerlink" href="#5-database-schema" title="Permanent link">&para;</a></h2>
-<h3 id="51-mongodb-collections-schema">5.1 MongoDB Collections Schema<a class="headerlink" href="#51-mongodb-collections-schema" title="Permanent link">&para;</a></h3>
-<h4 id="511-playbook-collection">5.1.1 Playbook Collection<a class="headerlink" href="#511-playbook-collection" title="Permanent link">&para;</a></h4>
+<h2 id="5-database-schema">5. Database Schema</h2>
+<h3 id="51-mongodb-collections-schema">5.1 MongoDB Collections Schema</h3>
+<h4 id="511-playbook-collection">5.1.1 Playbook Collection</h4>
 <pre class="highlight"><code class="language-javascript">{
   &quot;_id&quot;: ObjectId,
   &quot;id&quot;: 1001,                           // Auto-increment ID
@@ -1017,7 +1017,7 @@ db.playbook_collection.createIndex({&quot;category_id&quot;: 1, &quot;status&quo
 db.playbook_collection.createIndex({&quot;shard_bucket&quot;: 1})
 </code></pre>
 
-<h4 id="512-playbook-execution-collection">5.1.2 Playbook Execution Collection<a class="headerlink" href="#512-playbook-execution-collection" title="Permanent link">&para;</a></h4>
+<h4 id="512-playbook-execution-collection">5.1.2 Playbook Execution Collection</h4>
 <pre class="highlight"><code class="language-javascript">{
   &quot;_id&quot;: ObjectId,
   &quot;id&quot;: &quot;pb_exec_123456&quot;,                // Execution ID
@@ -1056,7 +1056,7 @@ db.playbook_execution_collection.createIndex({&quot;uid&quot;: 1, &quot;created_
 db.playbook_execution_collection.createIndex({&quot;shard_bucket&quot;: 1})
 </code></pre>
 
-<h4 id="513-task-execution-collection">5.1.3 Task Execution Collection<a class="headerlink" href="#513-task-execution-collection" title="Permanent link">&para;</a></h4>
+<h4 id="513-task-execution-collection">5.1.3 Task Execution Collection</h4>
 <pre class="highlight"><code class="language-javascript">{
   &quot;_id&quot;: ObjectId,
   &quot;task_request_id&quot;: &quot;task_req_789012&quot;,
@@ -1127,7 +1127,7 @@ db.task_execution_collection.createIndex({&quot;processed&quot;: 1, &quot;create
 db.task_execution_collection.createIndex({&quot;shard_bucket&quot;: 1})
 </code></pre>
 
-<h4 id="514-stopped-tasks-collection">5.1.4 Stopped Tasks Collection<a class="headerlink" href="#514-stopped-tasks-collection" title="Permanent link">&para;</a></h4>
+<h4 id="514-stopped-tasks-collection">5.1.4 Stopped Tasks Collection</h4>
 <pre class="highlight"><code class="language-javascript">{
   &quot;_id&quot;: ObjectId,
   &quot;case_id&quot;: &quot;50001&quot;,
@@ -1141,7 +1141,7 @@ db.task_execution_collection.createIndex({&quot;shard_bucket&quot;: 1})
 db.stopped_tasks_collection.createIndex({&quot;peid&quot;: 1, &quot;case_id&quot;: 1, &quot;status&quot;: 1})
 </code></pre>
 
-<h3 id="52-data-relationships">5.2 Data Relationships<a class="headerlink" href="#52-data-relationships" title="Permanent link">&para;</a></h3>
+<h3 id="52-data-relationships">5.2 Data Relationships</h3>
 <div class="mermaid">
 erDiagram
     PLAYBOOK_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : executes
@@ -1154,9 +1154,9 @@ erDiagram
 </div>
 
 <hr />
-<h2 id="6-api-specifications">6. API Specifications<a class="headerlink" href="#6-api-specifications" title="Permanent link">&para;</a></h2>
-<h3 id="61-playbook-management-apis">6.1 Playbook Management APIs<a class="headerlink" href="#61-playbook-management-apis" title="Permanent link">&para;</a></h3>
-<h4 id="611-create-playbook">6.1.1 Create Playbook<a class="headerlink" href="#611-create-playbook" title="Permanent link">&para;</a></h4>
+<h2 id="6-api-specifications">6. API Specifications</h2>
+<h3 id="61-playbook-management-apis">6.1 Playbook Management APIs</h3>
+<h4 id="611-create-playbook">6.1.1 Create Playbook</h4>
 <pre class="highlight"><code class="language-http">POST /createplaybook/
 Content-Type: application/json
 Authorization: Bearer {jwt_token}
@@ -1199,7 +1199,7 @@ Validation Rules:
 - user_id: Required, valid user
 </code></pre>
 
-<h4 id="612-run-playbook">6.1.2 Run Playbook<a class="headerlink" href="#612-run-playbook" title="Permanent link">&para;</a></h4>
+<h4 id="612-run-playbook">6.1.2 Run Playbook</h4>
 <pre class="highlight"><code class="language-http">POST /runplaybook/
 Content-Type: application/json
 Authorization: Bearer {jwt_token}
@@ -1240,8 +1240,8 @@ Validation Rules:
 - indicator: Required for type=indicator
 </code></pre>
 
-<h3 id="62-task-management-apis">6.2 Task Management APIs<a class="headerlink" href="#62-task-management-apis" title="Permanent link">&para;</a></h3>
-<h4 id="621-run-single-task">6.2.1 Run Single Task<a class="headerlink" href="#621-run-single-task" title="Permanent link">&para;</a></h4>
+<h3 id="62-task-management-apis">6.2 Task Management APIs</h3>
+<h4 id="621-run-single-task">6.2.1 Run Single Task</h4>
 <pre class="highlight"><code class="language-http">POST /runtask/
 Content-Type: application/json
 Authorization: Bearer {jwt_token}
@@ -1275,7 +1275,7 @@ Response:
 }
 </code></pre>
 
-<h3 id="63-error-response-format">6.3 Error Response Format<a class="headerlink" href="#63-error-response-format" title="Permanent link">&para;</a></h3>
+<h3 id="63-error-response-format">6.3 Error Response Format</h3>
 <pre class="highlight"><code class="language-json">{
   &quot;success&quot;: false,
   &quot;data&quot;: null,
@@ -1288,8 +1288,8 @@ Response:
 </code></pre>
 
 <hr />
-<h2 id="7-algorithm-specifications">7. Algorithm Specifications<a class="headerlink" href="#7-algorithm-specifications" title="Permanent link">&para;</a></h2>
-<h3 id="71-parallel-task-execution-algorithm">7.1 Parallel Task Execution Algorithm<a class="headerlink" href="#71-parallel-task-execution-algorithm" title="Permanent link">&para;</a></h3>
+<h2 id="7-algorithm-specifications">7. Algorithm Specifications</h2>
+<h3 id="71-parallel-task-execution-algorithm">7.1 Parallel Task Execution Algorithm</h3>
 <pre class="highlight"><code class="language-go">func (executionController *PlaybookExecutionController) executeParallelTasks(
     tasks []executionModels.PlayBookTask,
     dockerNodeID string,
@@ -1404,7 +1404,7 @@ Response:
 }
 </code></pre>
 
-<h3 id="72-condition-evaluation-algorithm">7.2 Condition Evaluation Algorithm<a class="headerlink" href="#72-condition-evaluation-algorithm" title="Permanent link">&para;</a></h3>
+<h3 id="72-condition-evaluation-algorithm">7.2 Condition Evaluation Algorithm</h3>
 <pre class="highlight"><code class="language-go">func (cc *ConditionController) evaluateConditions(
     conditions []executionModels.PlayBookCondition,
     conditionOperator string,
@@ -1493,7 +1493,7 @@ func (cc *ConditionController) applyOrOperator(results []bool) bool {
 }
 </code></pre>
 
-<h3 id="73-cache-management-algorithm">7.3 Cache Management Algorithm<a class="headerlink" href="#73-cache-management-algorithm" title="Permanent link">&para;</a></h3>
+<h3 id="73-cache-management-algorithm">7.3 Cache Management Algorithm</h3>
 <pre class="highlight"><code class="language-go">type CacheManager struct {
     redisClient   *redis.Client
     localCache    *sync.Map
@@ -1569,8 +1569,8 @@ func (cm *CacheManager) startCleanupRoutine() {
 </code></pre>
 
 <hr />
-<h2 id="8-configuration-management">8. Configuration Management<a class="headerlink" href="#8-configuration-management" title="Permanent link">&para;</a></h2>
-<h3 id="81-configuration-structure">8.1 Configuration Structure<a class="headerlink" href="#81-configuration-structure" title="Permanent link">&para;</a></h3>
+<h2 id="8-configuration-management">8. Configuration Management</h2>
+<h3 id="81-configuration-structure">8.1 Configuration Structure</h3>
 <pre class="highlight"><code class="language-go">type ConfigStruct struct {
     DatabaseConfig    DatabaseConfig    `json:&quot;database&quot;`
     RedisConfig       RedisConfig       `json:&quot;redis&quot;`
@@ -1608,7 +1608,7 @@ type SecurityConfig struct {
 }
 </code></pre>
 
-<h3 id="82-environment-based-configuration">8.2 Environment-Based Configuration<a class="headerlink" href="#82-environment-based-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="82-environment-based-configuration">8.2 Environment-Based Configuration</h3>
 <pre class="highlight"><code class="language-go">func LoadConfiguration() ConfigStruct {
     var config ConfigStruct
 
@@ -1655,8 +1655,8 @@ func validateConfig(config ConfigStruct) error {
 </code></pre>
 
 <hr />
-<h2 id="9-error-handling-implementation">9. Error Handling Implementation<a class="headerlink" href="#9-error-handling-implementation" title="Permanent link">&para;</a></h2>
-<h3 id="91-error-types-and-hierarchy">9.1 Error Types and Hierarchy<a class="headerlink" href="#91-error-types-and-hierarchy" title="Permanent link">&para;</a></h3>
+<h2 id="9-error-handling-implementation">9. Error Handling Implementation</h2>
+<h3 id="91-error-types-and-hierarchy">9.1 Error Types and Hierarchy</h3>
 <pre class="highlight"><code class="language-go">type ErrorType string
 
 const (
@@ -1697,7 +1697,7 @@ func NewServiceError(errorType ErrorType, code string, message string) *ServiceE
 }
 </code></pre>
 
-<h3 id="92-error-handler-implementation">9.2 Error Handler Implementation<a class="headerlink" href="#92-error-handler-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="92-error-handler-implementation">9.2 Error Handler Implementation</h3>
 <pre class="highlight"><code class="language-go">func HandleError(err error, context string) models.Response {
     var response models.Response
     response.Success = false
@@ -1749,7 +1749,7 @@ func NewServiceError(errorType ErrorType, code string, message string) *ServiceE
 }
 </code></pre>
 
-<h3 id="93-retry-mechanism">9.3 Retry Mechanism<a class="headerlink" href="#93-retry-mechanism" title="Permanent link">&para;</a></h3>
+<h3 id="93-retry-mechanism">9.3 Retry Mechanism</h3>
 <pre class="highlight"><code class="language-go">type RetryConfig struct {
     MaxAttempts   int           `json:&quot;max_attempts&quot;`
     InitialDelay  time.Duration `json:&quot;initial_delay&quot;`
@@ -1811,8 +1811,8 @@ func RetryWithBackoff(
 </code></pre>
 
 <hr />
-<h2 id="10-concurrency-thread-safety">10. Concurrency &amp; Thread Safety<a class="headerlink" href="#10-concurrency-thread-safety" title="Permanent link">&para;</a></h2>
-<h3 id="101-task-map-thread-safety">10.1 Task Map Thread Safety<a class="headerlink" href="#101-task-map-thread-safety" title="Permanent link">&para;</a></h3>
+<h2 id="10-concurrency-thread-safety">10. Concurrency &amp; Thread Safety</h2>
+<h3 id="101-task-map-thread-safety">10.1 Task Map Thread Safety</h3>
 <pre class="highlight"><code class="language-go">type ThreadSafeTaskMap struct {
     tasks map[int]executionModels.PlayBookTask
     mutex sync.RWMutex
@@ -1856,7 +1856,7 @@ func (tsm *ThreadSafeTaskMap) Delete(taskSeq int) {
 }
 </code></pre>
 
-<h3 id="102-channel-based-communication">10.2 Channel-Based Communication<a class="headerlink" href="#102-channel-based-communication" title="Permanent link">&para;</a></h3>
+<h3 id="102-channel-based-communication">10.2 Channel-Based Communication</h3>
 <pre class="highlight"><code class="language-go">type TaskChannel struct {
     taskQueue    chan executionModels.PlayBookTask
     resultQueue  chan TaskResult
@@ -1924,7 +1924,7 @@ func (tc *TaskChannel) Stop() {
 }
 </code></pre>
 
-<h3 id="103-context-based-cancellation">10.3 Context-Based Cancellation<a class="headerlink" href="#103-context-based-cancellation" title="Permanent link">&para;</a></h3>
+<h3 id="103-context-based-cancellation">10.3 Context-Based Cancellation</h3>
 <pre class="highlight"><code class="language-go">func (executionController *PlaybookExecutionController) ProcessWithContext(
     ctx context.Context,
     task executionModels.PlayBookTask,
@@ -1966,8 +1966,8 @@ func (tc *TaskChannel) Stop() {
 </code></pre>
 
 <hr />
-<h2 id="11-performance-optimizations">11. Performance Optimizations<a class="headerlink" href="#11-performance-optimizations" title="Permanent link">&para;</a></h2>
-<h3 id="111-connection-pool-management">11.1 Connection Pool Management<a class="headerlink" href="#111-connection-pool-management" title="Permanent link">&para;</a></h3>
+<h2 id="11-performance-optimizations">11. Performance Optimizations</h2>
+<h3 id="111-connection-pool-management">11.1 Connection Pool Management</h3>
 <pre class="highlight"><code class="language-go">type ConnectionPoolManager struct {
     mongoPool   *mongo.Client
     redisPool   *redis.Client
@@ -2019,7 +2019,7 @@ func NewConnectionPoolManager(config PoolConfig) *ConnectionPoolManager {
 }
 </code></pre>
 
-<h3 id="112-batch-operations">11.2 Batch Operations<a class="headerlink" href="#112-batch-operations" title="Permanent link">&para;</a></h3>
+<h3 id="112-batch-operations">11.2 Batch Operations</h3>
 <pre class="highlight"><code class="language-go">func (service *TaskService) BatchUpdateTaskStatus(
     updates []TaskStatusUpdate,
 ) error {
@@ -2073,7 +2073,7 @@ func (service *TaskService) processBatch(batch []TaskStatusUpdate) error {
 }
 </code></pre>
 
-<h3 id="113-memory-management">11.3 Memory Management<a class="headerlink" href="#113-memory-management" title="Permanent link">&para;</a></h3>
+<h3 id="113-memory-management">11.3 Memory Management</h3>
 <pre class="highlight"><code class="language-go">type ObjectPool struct {
     pool sync.Pool
 }
@@ -2119,8 +2119,8 @@ func ProcessTaskRequest(data []byte) error {
 </code></pre>
 
 <hr />
-<h2 id="12-testing-strategy">12. Testing Strategy<a class="headerlink" href="#12-testing-strategy" title="Permanent link">&para;</a></h2>
-<h3 id="121-unit-testing-structure">12.1 Unit Testing Structure<a class="headerlink" href="#121-unit-testing-structure" title="Permanent link">&para;</a></h3>
+<h2 id="12-testing-strategy">12. Testing Strategy</h2>
+<h3 id="121-unit-testing-structure">12.1 Unit Testing Structure</h3>
 <pre class="highlight"><code class="language-go">// Test file: controllers/playbookcontroller_test.go
 package controllers
 
@@ -2193,7 +2193,7 @@ func TestPlaybookExecutionController_ParallelExecution(t *testing.T) {
 }
 </code></pre>
 
-<h3 id="122-integration-testing">12.2 Integration Testing<a class="headerlink" href="#122-integration-testing" title="Permanent link">&para;</a></h3>
+<h3 id="122-integration-testing">12.2 Integration Testing</h3>
 <pre class="highlight"><code class="language-go">// Test file: integration/playbook_execution_test.go
 package integration
 
@@ -2249,7 +2249,7 @@ func TestPlaybookExecutionEndToEnd(t *testing.T) {
 }
 </code></pre>
 
-<h3 id="123-performance-testing">12.3 Performance Testing<a class="headerlink" href="#123-performance-testing" title="Permanent link">&para;</a></h3>
+<h3 id="123-performance-testing">12.3 Performance Testing</h3>
 <pre class="highlight"><code class="language-go">// Test file: performance/load_test.go
 package performance
 
@@ -2310,7 +2310,7 @@ func TestConcurrentPlaybookExecution(t *testing.T) {
 </code></pre>
 
 <hr />
-<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<h2 id="conclusion">Conclusion</h2>
 <p>This Low Level Design document provides comprehensive implementation details for the Securaa Playbook Service, including:</p>
 <ul>
 <li><strong>Detailed component specifications</strong> with class diagrams and method signatures</li>

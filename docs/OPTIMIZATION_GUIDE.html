@@ -620,8 +620,8 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="securaa-playbook-service-performance-optimization-guide">Securaa Playbook Service - Performance Optimization Guide<a class="headerlink" href="#securaa-playbook-service-performance-optimization-guide" title="Permanent link">&para;</a></h1>
-<h2 id="document-information">Document Information<a class="headerlink" href="#document-information" title="Permanent link">&para;</a></h2>
+        <h1 id="securaa-playbook-service-performance-optimization-guide">Securaa Playbook Service - Performance Optimization Guide</h1>
+<h2 id="document-information">Document Information</h2>
 <ul>
 <li><strong>Service</strong>: Securaa Playbook Service</li>
 <li><strong>Target Audience</strong>: Development Team</li>
@@ -630,15 +630,15 @@ hr {
 <li><strong>Estimated Implementation Time</strong>: 4-6 weeks</li>
 </ul>
 <hr />
-<h2 id="executive-summary">🎯 <strong>Executive Summary</strong><a class="headerlink" href="#executive-summary" title="Permanent link">&para;</a></h2>
-<p>This document provides specific, actionable optimization strategies for the Securaa Playbook Service that can deliver:<br />
-- <strong>5-10x query performance improvement</strong><br />
-- <strong>3-4x concurrent request handling</strong><br />
-- <strong>50-70% reduction in memory usage</strong><br />
+<h2 id="executive-summary">🎯 <strong>Executive Summary</strong></h2>
+<p>This document provides specific, actionable optimization strategies for the Securaa Playbook Service that can deliver:
+- <strong>5-10x query performance improvement</strong>
+- <strong>3-4x concurrent request handling</strong>
+- <strong>50-70% reduction in memory usage</strong>
 - <strong>2-3x task execution throughput</strong></p>
 <hr />
-<h2 id="priority-1-database-optimizations-week-1-2">📋 <strong>Priority 1: Database Optimizations (Week 1-2)</strong><a class="headerlink" href="#priority-1-database-optimizations-week-1-2" title="Permanent link">&para;</a></h2>
-<h3 id="11-critical-index-creation"><strong>1.1 Critical Index Creation</strong><a class="headerlink" href="#11-critical-index-creation" title="Permanent link">&para;</a></h3>
+<h2 id="priority-1-database-optimizations-week-1-2">📋 <strong>Priority 1: Database Optimizations (Week 1-2)</strong></h2>
+<h3 id="11-critical-index-creation"><strong>1.1 Critical Index Creation</strong></h3>
 <p><strong>Impact</strong>: 5-10x query performance improvement<br />
 <strong>Effort</strong>: 1 day<br />
 <strong>Files to modify</strong>: Database migration scripts</p>
@@ -676,7 +676,7 @@ db.playbook_execution_collection.createIndex({
 });
 </code></pre>
 
-<h3 id="12-query-optimization-in-averageplaybookruntimego"><strong>1.2 Query Optimization in averagePlaybookRunTime.go</strong><a class="headerlink" href="#12-query-optimization-in-averageplaybookruntimego" title="Permanent link">&para;</a></h3>
+<h3 id="12-query-optimization-in-averageplaybookruntimego"><strong>1.2 Query Optimization in averagePlaybookRunTime.go</strong></h3>
 <p><strong>Current Issue</strong>: Inefficient aggregation pipeline<br />
 <strong>File</strong>: <code>services/averagePlaybookRunTime.go</code></p>
 <pre class="highlight"><code class="language-go">// BEFORE (Current implementation around line 93):
@@ -709,7 +709,7 @@ topPlaybookAvrPipeline := bson.A{
 }
 </code></pre>
 
-<h3 id="13-batch-operations-implementation"><strong>1.3 Batch Operations Implementation</strong><a class="headerlink" href="#13-batch-operations-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="13-batch-operations-implementation"><strong>1.3 Batch Operations Implementation</strong></h3>
 <p><strong>File</strong>: Create new <code>services/batchOperationService.go</code></p>
 <pre class="highlight"><code class="language-go">package services
 
@@ -795,8 +795,8 @@ func (controller *TaskController) UpdateMultipleTaskStatus(updates []TaskStatusU
 </code></pre>
 
 <hr />
-<h2 id="priority-2-connection-pool-optimization-week-1">📋 <strong>Priority 2: Connection Pool Optimization (Week 1)</strong><a class="headerlink" href="#priority-2-connection-pool-optimization-week-1" title="Permanent link">&para;</a></h2>
-<h3 id="21-mongodb-connection-pool-configuration"><strong>2.1 MongoDB Connection Pool Configuration</strong><a class="headerlink" href="#21-mongodb-connection-pool-configuration" title="Permanent link">&para;</a></h3>
+<h2 id="priority-2-connection-pool-optimization-week-1">📋 <strong>Priority 2: Connection Pool Optimization (Week 1)</strong></h2>
+<h3 id="21-mongodb-connection-pool-configuration"><strong>2.1 MongoDB Connection Pool Configuration</strong></h3>
 <p><strong>File</strong>: <code>app.go</code> - Modify <code>InitMongoSession</code> function</p>
 <pre class="highlight"><code class="language-go">// BEFORE (Current implementation):
 func (a *App) InitMongoSession(configObject config.ConfigStruct) {
@@ -835,7 +835,7 @@ func (a *App) InitMongoSession(configObject config.ConfigStruct) {
 }
 </code></pre>
 
-<h3 id="22-redis-connection-pool-optimization"><strong>2.2 Redis Connection Pool Optimization</strong><a class="headerlink" href="#22-redis-connection-pool-optimization" title="Permanent link">&para;</a></h3>
+<h3 id="22-redis-connection-pool-optimization"><strong>2.2 Redis Connection Pool Optimization</strong></h3>
 <p><strong>File</strong>: Create new <code>cache/optimizedRedisClient.go</code></p>
 <pre class="highlight"><code class="language-go">package cache
 
@@ -886,7 +886,7 @@ func init() {
 }
 </code></pre>
 
-<h3 id="23-http-client-pool-configuration"><strong>2.3 HTTP Client Pool Configuration</strong><a class="headerlink" href="#23-http-client-pool-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="23-http-client-pool-configuration"><strong>2.3 HTTP Client Pool Configuration</strong></h3>
 <p><strong>File</strong>: Create new <code>utils/httpClientPool.go</code></p>
 <pre class="highlight"><code class="language-go">package utils
 
@@ -934,8 +934,8 @@ func MakeAPICall(url string, data []byte) (*http.Response, error) {
 </code></pre>
 
 <hr />
-<h2 id="priority-3-parallel-processing-implementation-week-2-3">📋 <strong>Priority 3: Parallel Processing Implementation (Week 2-3)</strong><a class="headerlink" href="#priority-3-parallel-processing-implementation-week-2-3" title="Permanent link">&para;</a></h2>
-<h3 id="31-worker-pool-for-task-execution"><strong>3.1 Worker Pool for Task Execution</strong><a class="headerlink" href="#31-worker-pool-for-task-execution" title="Permanent link">&para;</a></h3>
+<h2 id="priority-3-parallel-processing-implementation-week-2-3">📋 <strong>Priority 3: Parallel Processing Implementation (Week 2-3)</strong></h2>
+<h3 id="31-worker-pool-for-task-execution"><strong>3.1 Worker Pool for Task Execution</strong></h3>
 <p><strong>File</strong>: Create new <code>executionControllers/workerPool.go</code></p>
 <pre class="highlight"><code class="language-go">package executionControllers
 
@@ -1043,7 +1043,7 @@ func (pool *TaskWorkerPool) GetErrors() &lt;-chan error {
 }
 </code></pre>
 
-<h3 id="32-parallel-execution-in-playbookexecutioncontroller"><strong>3.2 Parallel Execution in PlaybookExecutionController</strong><a class="headerlink" href="#32-parallel-execution-in-playbookexecutioncontroller" title="Permanent link">&para;</a></h3>
+<h3 id="32-parallel-execution-in-playbookexecutioncontroller"><strong>3.2 Parallel Execution in PlaybookExecutionController</strong></h3>
 <p><strong>File</strong>: <code>executionControllers/playbookExecutionController.go</code></p>
 <p>Add this method to the PlaybookExecutionController struct:</p>
 <pre class="highlight"><code class="language-go">// Add this method to PlaybookExecutionController
@@ -1122,8 +1122,8 @@ func (executionController *PlaybookExecutionController) ProcessAndExecuteTasksPa
 </code></pre>
 
 <hr />
-<h2 id="priority-4-caching-strategy-implementation-week-3-4">📋 <strong>Priority 4: Caching Strategy Implementation (Week 3-4)</strong><a class="headerlink" href="#priority-4-caching-strategy-implementation-week-3-4" title="Permanent link">&para;</a></h2>
-<h3 id="41-multi-level-cache-manager"><strong>4.1 Multi-Level Cache Manager</strong><a class="headerlink" href="#41-multi-level-cache-manager" title="Permanent link">&para;</a></h3>
+<h2 id="priority-4-caching-strategy-implementation-week-3-4">📋 <strong>Priority 4: Caching Strategy Implementation (Week 3-4)</strong></h2>
+<h3 id="41-multi-level-cache-manager"><strong>4.1 Multi-Level Cache Manager</strong></h3>
 <p><strong>File</strong>: Create new <code>cache/multiLevelCache.go</code></p>
 <pre class="highlight"><code class="language-go">package cache
 
@@ -1249,7 +1249,7 @@ func (cm *MultiLevelCacheManager) Stop() {
 }
 </code></pre>
 
-<h3 id="42-cache-integration-in-controllers"><strong>4.2 Cache Integration in Controllers</strong><a class="headerlink" href="#42-cache-integration-in-controllers" title="Permanent link">&para;</a></h3>
+<h3 id="42-cache-integration-in-controllers"><strong>4.2 Cache Integration in Controllers</strong></h3>
 <p><strong>File</strong>: Modify <code>controllers/playbookcontroller.go</code></p>
 <pre class="highlight"><code class="language-go">// Add caching to playbook operations
 var cacheManager *cache.MultiLevelCacheManager
@@ -1300,8 +1300,8 @@ func (pc PlaybookController) UpdatePlaybook(playbook *models.PlaybookObject) err
 </code></pre>
 
 <hr />
-<h2 id="priority-5-memory-management-optimizations-week-4">📋 <strong>Priority 5: Memory Management Optimizations (Week 4)</strong><a class="headerlink" href="#priority-5-memory-management-optimizations-week-4" title="Permanent link">&para;</a></h2>
-<h3 id="51-object-pooling-implementation"><strong>5.1 Object Pooling Implementation</strong><a class="headerlink" href="#51-object-pooling-implementation" title="Permanent link">&para;</a></h3>
+<h2 id="priority-5-memory-management-optimizations-week-4">📋 <strong>Priority 5: Memory Management Optimizations (Week 4)</strong></h2>
+<h3 id="51-object-pooling-implementation"><strong>5.1 Object Pooling Implementation</strong></h3>
 <p><strong>File</strong>: Create new <code>utils/objectPool.go</code></p>
 <pre class="highlight"><code class="language-go">package utils
 
@@ -1406,7 +1406,7 @@ func BuildJSONResponse(status string, message string, data interface{}) string {
 }
 </code></pre>
 
-<h3 id="52-memory-optimized-json-processing"><strong>5.2 Memory-Optimized JSON Processing</strong><a class="headerlink" href="#52-memory-optimized-json-processing" title="Permanent link">&para;</a></h3>
+<h3 id="52-memory-optimized-json-processing"><strong>5.2 Memory-Optimized JSON Processing</strong></h3>
 <p><strong>File</strong>: Create new <code>utils/jsonOptimizer.go</code></p>
 <pre class="highlight"><code class="language-go">package utils
 
@@ -1483,8 +1483,8 @@ func ValidateJSONWithCachedSchema(data []byte, schemaName string) error {
 </code></pre>
 
 <hr />
-<h2 id="implementation-timeline-testing-strategy">📋 <strong>Implementation Timeline &amp; Testing Strategy</strong><a class="headerlink" href="#implementation-timeline-testing-strategy" title="Permanent link">&para;</a></h2>
-<h3 id="implementation-roadmap">Implementation Roadmap<a class="headerlink" href="#implementation-roadmap" title="Permanent link">&para;</a></h3>
+<h2 id="implementation-timeline-testing-strategy">📋 <strong>Implementation Timeline &amp; Testing Strategy</strong></h2>
+<h3 id="implementation-roadmap">Implementation Roadmap</h3>
 <div class="mermaid">
 gantt
     title Performance Optimization Implementation Timeline
@@ -1516,7 +1516,7 @@ gantt
     Documentation          :docs, after monitoring, 1
 </div>
 
-<h3 id="week-1-database-connection-optimizations"><strong>Week 1: Database &amp; Connection Optimizations</strong><a class="headerlink" href="#week-1-database-connection-optimizations" title="Permanent link">&para;</a></h3>
+<h3 id="week-1-database-connection-optimizations"><strong>Week 1: Database &amp; Connection Optimizations</strong></h3>
 <pre class="highlight"><code class="language-bash"># Day 1-2: Database indexes
 - Create index scripts
 - Test query performance before/after
@@ -1528,7 +1528,7 @@ gantt
 - Load test with concurrent requests
 </code></pre>
 
-<h3 id="week-2-parallel-processing-foundation"><strong>Week 2: Parallel Processing Foundation</strong><a class="headerlink" href="#week-2-parallel-processing-foundation" title="Permanent link">&para;</a></h3>
+<h3 id="week-2-parallel-processing-foundation"><strong>Week 2: Parallel Processing Foundation</strong></h3>
 <pre class="highlight"><code class="language-bash"># Day 1-3: Worker pool implementation
 - Create worker pool structure
 - Test with sample tasks
@@ -1540,7 +1540,7 @@ gantt
 - Monitor resource usage
 </code></pre>
 
-<h3 id="week-3-caching-memory-management"><strong>Week 3: Caching &amp; Memory Management</strong><a class="headerlink" href="#week-3-caching-memory-management" title="Permanent link">&para;</a></h3>
+<h3 id="week-3-caching-memory-management"><strong>Week 3: Caching &amp; Memory Management</strong></h3>
 <pre class="highlight"><code class="language-bash"># Day 1-3: Multi-level cache implementation
 - Implement cache manager
 - Integrate with controllers
@@ -1552,7 +1552,7 @@ gantt
 - Memory profiling and optimization
 </code></pre>
 
-<h3 id="week-4-performance-testing-monitoring"><strong>Week 4: Performance Testing &amp; Monitoring</strong><a class="headerlink" href="#week-4-performance-testing-monitoring" title="Permanent link">&para;</a></h3>
+<h3 id="week-4-performance-testing-monitoring"><strong>Week 4: Performance Testing &amp; Monitoring</strong></h3>
 <pre class="highlight"><code class="language-bash"># Day 1-3: Load testing
 - Create load test scenarios
 - Test optimized vs original code
@@ -1565,7 +1565,7 @@ gantt
 </code></pre>
 
 <hr />
-<h2 id="performance-optimization-workflow">📊 <strong>Performance Optimization Workflow</strong><a class="headerlink" href="#performance-optimization-workflow" title="Permanent link">&para;</a></h2>
+<h2 id="performance-optimization-workflow">📊 <strong>Performance Optimization Workflow</strong></h2>
 <div class="mermaid">
 flowchart TD
     START([Start Optimization]) --> ANALYZE[Analyze Current Performance]
@@ -1608,8 +1608,8 @@ flowchart TD
 </div>
 
 <hr />
-<h2 id="performance-benchmarking-commands">📋 <strong>Performance Benchmarking Commands</strong><a class="headerlink" href="#performance-benchmarking-commands" title="Permanent link">&para;</a></h2>
-<h3 id="database-performance-testing"><strong>Database Performance Testing</strong><a class="headerlink" href="#database-performance-testing" title="Permanent link">&para;</a></h3>
+<h2 id="performance-benchmarking-commands">📋 <strong>Performance Benchmarking Commands</strong></h2>
+<h3 id="database-performance-testing"><strong>Database Performance Testing</strong></h3>
 <pre class="highlight"><code class="language-bash"># Before optimization
 go test -bench=BenchmarkQueryPlaybooks -count=5 -benchmem
 
@@ -1617,7 +1617,7 @@ go test -bench=BenchmarkQueryPlaybooks -count=5 -benchmem
 go test -bench=BenchmarkQueryPlaybooksOptimized -count=5 -benchmem
 </code></pre>
 
-<h3 id="concurrency-testing"><strong>Concurrency Testing</strong><a class="headerlink" href="#concurrency-testing" title="Permanent link">&para;</a></h3>
+<h3 id="concurrency-testing"><strong>Concurrency Testing</strong></h3>
 <pre class="highlight"><code class="language-bash"># Test parallel execution
 go test -bench=BenchmarkParallelExecution -count=5 -benchmem
 
@@ -1626,7 +1626,7 @@ hey -n 1000 -c 50 -m POST -d '{&quot;playbook_name&quot;:&quot;test&quot;}' \
     http://localhost:8040/runplaybook/
 </code></pre>
 
-<h3 id="memory-profiling"><strong>Memory Profiling</strong><a class="headerlink" href="#memory-profiling" title="Permanent link">&para;</a></h3>
+<h3 id="memory-profiling"><strong>Memory Profiling</strong></h3>
 <pre class="highlight"><code class="language-bash"># Enable pprof in main.go
 import _ &quot;net/http/pprof&quot;
 
@@ -1638,8 +1638,8 @@ go tool pprof http://localhost:6060/debug/pprof/profile?seconds=30
 </code></pre>
 
 <hr />
-<h2 id="monitoring-metrics">🔍 <strong>Monitoring &amp; Metrics</strong><a class="headerlink" href="#monitoring-metrics" title="Permanent link">&para;</a></h2>
-<h3 id="key-performance-indicators-to-track"><strong>Key Performance Indicators to Track</strong><a class="headerlink" href="#key-performance-indicators-to-track" title="Permanent link">&para;</a></h3>
+<h2 id="monitoring-metrics">🔍 <strong>Monitoring &amp; Metrics</strong></h2>
+<h3 id="key-performance-indicators-to-track"><strong>Key Performance Indicators to Track</strong></h3>
 <pre class="highlight"><code class="language-go">// Add these metrics to your monitoring
 type PerformanceMetrics struct {
     DatabaseQueryTime     time.Duration
@@ -1677,34 +1677,34 @@ func collectMetrics() {
 </code></pre>
 
 <hr />
-<h2 id="implementation-notes-warnings">⚠️ <strong>Implementation Notes &amp; Warnings</strong><a class="headerlink" href="#implementation-notes-warnings" title="Permanent link">&para;</a></h2>
-<h3 id="database-optimizations"><strong>Database Optimizations</strong><a class="headerlink" href="#database-optimizations" title="Permanent link">&para;</a></h3>
+<h2 id="implementation-notes-warnings">⚠️ <strong>Implementation Notes &amp; Warnings</strong></h2>
+<h3 id="database-optimizations"><strong>Database Optimizations</strong></h3>
 <ul>
 <li><strong>Index Creation</strong>: Run during maintenance window, can be resource intensive</li>
 <li><strong>Connection Pools</strong>: Monitor connection usage, adjust pool sizes based on load</li>
 <li><strong>Batch Operations</strong>: Test batch sizes, larger isn't always better</li>
 </ul>
-<h3 id="concurrency-optimizations"><strong>Concurrency Optimizations</strong><a class="headerlink" href="#concurrency-optimizations" title="Permanent link">&para;</a></h3>
+<h3 id="concurrency-optimizations"><strong>Concurrency Optimizations</strong></h3>
 <ul>
 <li><strong>Worker Pool Size</strong>: Start with CPU count * 2, adjust based on I/O vs CPU bound tasks</li>
 <li><strong>Channel Buffer Sizes</strong>: Balance memory usage vs throughput</li>
 <li><strong>Context Cancellation</strong>: Always implement proper cancellation to prevent goroutine leaks</li>
 </ul>
-<h3 id="memory-management"><strong>Memory Management</strong><a class="headerlink" href="#memory-management" title="Permanent link">&para;</a></h3>
+<h3 id="memory-management"><strong>Memory Management</strong></h3>
 <ul>
 <li><strong>Object Pools</strong>: Only beneficial for frequently allocated objects</li>
 <li><strong>Cache Sizes</strong>: Monitor memory usage, implement cache eviction policies</li>
 <li><strong>Garbage Collection</strong>: Profile GC pressure, adjust GOGC if needed</li>
 </ul>
-<h3 id="testing-requirements"><strong>Testing Requirements</strong><a class="headerlink" href="#testing-requirements" title="Permanent link">&para;</a></h3>
+<h3 id="testing-requirements"><strong>Testing Requirements</strong></h3>
 <ul>
 <li><strong>Load Testing</strong>: Test with production-like data volumes</li>
 <li><strong>Race Condition Testing</strong>: Use <code>go test -race</code> for all concurrent code</li>
 <li><strong>Memory Leak Testing</strong>: Run long-duration tests with memory monitoring</li>
 </ul>
 <hr />
-<h2 id="expected-performance-improvements">📈 <strong>Expected Performance Improvements</strong><a class="headerlink" href="#expected-performance-improvements" title="Permanent link">&para;</a></h2>
-<h3 id="performance-metrics-comparison">Performance Metrics Comparison<a class="headerlink" href="#performance-metrics-comparison" title="Permanent link">&para;</a></h3>
+<h2 id="expected-performance-improvements">📈 <strong>Expected Performance Improvements</strong></h2>
+<h3 id="performance-metrics-comparison">Performance Metrics Comparison</h3>
 <div class="mermaid">
 xychart-beta
     title "Performance Improvement Metrics"
@@ -1713,7 +1713,7 @@ xychart-beta
     bar [5, 3, 2, 7, 9]
 </div>
 
-<h3 id="detailed-performance-comparison">Detailed Performance Comparison<a class="headerlink" href="#detailed-performance-comparison" title="Permanent link">&para;</a></h3>
+<h3 id="detailed-performance-comparison">Detailed Performance Comparison</h3>
 <table>
 <thead>
 <tr>
@@ -1762,7 +1762,7 @@ xychart-beta
 </tr>
 </tbody>
 </table>
-<h3 id="performance-impact-timeline">Performance Impact Timeline<a class="headerlink" href="#performance-impact-timeline" title="Permanent link">&para;</a></h3>
+<h3 id="performance-impact-timeline">Performance Impact Timeline</h3>
 <div class="mermaid">
 gantt
     title Expected Performance Impact Over Time
@@ -1785,7 +1785,7 @@ gantt
 </div>
 
 <hr />
-<h2 id="getting-started-checklist">🚀 <strong>Getting Started Checklist</strong><a class="headerlink" href="#getting-started-checklist" title="Permanent link">&para;</a></h2>
+<h2 id="getting-started-checklist">🚀 <strong>Getting Started Checklist</strong></h2>
 <ul>
 <li>[ ] <strong>Week 1</strong>: Create database indexes and test query performance</li>
 <li>[ ] <strong>Week 1</strong>: Implement connection pool optimizations</li>

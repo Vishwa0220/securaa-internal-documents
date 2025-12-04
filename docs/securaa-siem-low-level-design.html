@@ -620,11 +620,11 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="zona_siem-service">zona_siem Service<a class="headerlink" href="#zona_siem-service" title="Permanent link">&para;</a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+        <h1 id="zona_siem-service">zona_siem Service</h1>
+<h2 id="overview">Overview</h2>
 <p><code>zona_siem</code> is a multi-tenant Security Information and Event Management (SIEM) service written in Go. It provides RESTful APIs for incident and case management, dashboard analytics, playbook automation, and integrations with external SIEM tools. The service is modular, scalable, and designed for extensibility.</p>
 <hr />
-<h2 id="directory-structure">Directory Structure<a class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h2>
+<h2 id="directory-structure">Directory Structure</h2>
 <pre class="highlight"><code>zona_siem/
 ├── controllers/   # API endpoint handlers
 ├── services/      # Business logic modules
@@ -637,8 +637,8 @@ hr {
 </code></pre>
 
 <hr />
-<h2 id="component-design">Component Design<a class="headerlink" href="#component-design" title="Permanent link">&para;</a></h2>
-<h3 id="main-components">Main Components<a class="headerlink" href="#main-components" title="Permanent link">&para;</a></h3>
+<h2 id="component-design">Component Design</h2>
+<h3 id="main-components">Main Components</h3>
 <ul>
 <li><strong>controllers/</strong>: Handles HTTP requests, authentication, and input validation.</li>
 <li><strong>services/</strong>: Implements business logic (incident processing, case management, dashboard metrics).</li>
@@ -648,7 +648,7 @@ hr {
 <li><strong>constant/</strong>: Centralized configuration and static values.</li>
 </ul>
 <hr />
-<h3 id="class-diagram-mermaid">Class Diagram (Mermaid)<a class="headerlink" href="#class-diagram-mermaid" title="Permanent link">&para;</a></h3>
+<h3 id="class-diagram-mermaid">Class Diagram (Mermaid)</h3>
 <div class="mermaid">
 classDiagram
     class App {
@@ -681,8 +681,8 @@ classDiagram
 </div>
 
 <hr />
-<h2 id="data-structures">Data Structures<a class="headerlink" href="#data-structures" title="Permanent link">&para;</a></h2>
-<h3 id="incident-zonaoffenses">Incident (ZonaOffenses)<a class="headerlink" href="#incident-zonaoffenses" title="Permanent link">&para;</a></h3>
+<h2 id="data-structures">Data Structures</h2>
+<h3 id="incident-zonaoffenses">Incident (ZonaOffenses)</h3>
 <pre class="highlight"><code class="language-go">type ZonaOffenses struct {
     ZonaZIncidentID int `json:&quot;zona_z_incident_id&quot; bson:&quot;zona_z_incident_id&quot;`
     ZonaCredibility int `json:&quot;zona_credibility&quot; bson:&quot;credibility&quot;`
@@ -697,7 +697,7 @@ classDiagram
 }
 </code></pre>
 
-<h3 id="case-grouping">Case Grouping<a class="headerlink" href="#case-grouping" title="Permanent link">&para;</a></h3>
+<h3 id="case-grouping">Case Grouping</h3>
 <pre class="highlight"><code class="language-go">type CaseGrouping struct {
     GroupName string `json:&quot;group_name&quot; bson:&quot;group_name&quot;`
     CaseID int `json:&quot;caseid&quot; bson:&quot;caseid&quot;`
@@ -707,7 +707,7 @@ classDiagram
 }
 </code></pre>
 
-<h3 id="category">Category<a class="headerlink" href="#category" title="Permanent link">&para;</a></h3>
+<h3 id="category">Category</h3>
 <pre class="highlight"><code class="language-go">type Category struct {
     ID int `json:&quot;id&quot; bson:&quot;id&quot;`
     Name string `json:&quot;name&quot; bson:&quot;name&quot;`
@@ -717,7 +717,7 @@ classDiagram
 }
 </code></pre>
 
-<h3 id="monitoring-dashboard">Monitoring Dashboard<a class="headerlink" href="#monitoring-dashboard" title="Permanent link">&para;</a></h3>
+<h3 id="monitoring-dashboard">Monitoring Dashboard</h3>
 <pre class="highlight"><code class="language-go">type DiskUsage struct {
     Total string `json:&quot;total&quot;`
     Used string `json:&quot;used&quot;`
@@ -727,8 +727,8 @@ classDiagram
 </code></pre>
 
 <hr />
-<h2 id="database-design">Database Design<a class="headerlink" href="#database-design" title="Permanent link">&para;</a></h2>
-<h3 id="entity-relationship-diagram-mermaid">Entity Relationship Diagram (Mermaid)<a class="headerlink" href="#entity-relationship-diagram-mermaid" title="Permanent link">&para;</a></h3>
+<h2 id="database-design">Database Design</h2>
+<h3 id="entity-relationship-diagram-mermaid">Entity Relationship Diagram (Mermaid)</h3>
 <div class="mermaid">
 erDiagram
     ZONAOFFENSES ||--o{ CASEGROUPING : grouped_in
@@ -753,15 +753,15 @@ erDiagram
 </div>
 
 <hr />
-<h2 id="api-design">API Design<a class="headerlink" href="#api-design" title="Permanent link">&para;</a></h2>
-<h3 id="example-endpoints">Example Endpoints<a class="headerlink" href="#example-endpoints" title="Permanent link">&para;</a></h3>
+<h2 id="api-design">API Design</h2>
+<h3 id="example-endpoints">Example Endpoints</h3>
 <ul>
 <li><code>/incidents/totalcasescountaujas</code> (GET): Get total cases count for a tenant in a time range</li>
 <li><code>/casegroup/siemincidentlabels</code> (GET): Get SIEM incident labels for a tenant</li>
 <li><code>/category/allincidentcategories</code> (GET): Get all incident categories for a tenant</li>
 <li><code>/dashboard/diskusage</code> (GET): Get disk usage metrics</li>
 </ul>
-<h3 id="requestresponse-example">Request/Response Example<a class="headerlink" href="#requestresponse-example" title="Permanent link">&para;</a></h3>
+<h3 id="requestresponse-example">Request/Response Example</h3>
 <p><strong>Request:</strong></p>
 <pre class="highlight"><code class="language-json">GET /incidents/totalcasescountaujas?tenantcode=abc&amp;from_date=1690000000&amp;to_date=1699999999
 </code></pre>
@@ -776,7 +776,7 @@ erDiagram
 </code></pre>
 
 <hr />
-<h2 id="sequence-diagram-incident-count-retrieval">Sequence Diagram: Incident Count Retrieval<a class="headerlink" href="#sequence-diagram-incident-count-retrieval" title="Permanent link">&para;</a></h2>
+<h2 id="sequence-diagram-incident-count-retrieval">Sequence Diagram: Incident Count Retrieval</h2>
 <div class="mermaid">
 sequenceDiagram
     participant Client
@@ -796,21 +796,21 @@ sequenceDiagram
 </div>
 
 <hr />
-<h2 id="configuration-constants">Configuration &amp; Constants<a class="headerlink" href="#configuration-constants" title="Permanent link">&para;</a></h2>
+<h2 id="configuration-constants">Configuration &amp; Constants</h2>
 <ul>
 <li>Constants are defined in <code>constant/constants.go</code> (e.g., default columns, function names).</li>
 <li>Configuration is loaded via <code>ConfigObject</code> in <code>app.go</code>.</li>
 <li>Environment variables and config files are used for DB, SIEM endpoints, and secrets.</li>
 </ul>
 <hr />
-<h2 id="error-handling-logging">Error Handling &amp; Logging<a class="headerlink" href="#error-handling-logging" title="Permanent link">&para;</a></h2>
+<h2 id="error-handling-logging">Error Handling &amp; Logging</h2>
 <ul>
 <li>Errors are handled in controllers and returned as JSON responses.</li>
 <li>Logging is performed using <code>securaalog</code>.</li>
 <li>Standardized error messages and paths for debugging.</li>
 </ul>
 <hr />
-<h2 id="performance-scalability">Performance &amp; Scalability<a class="headerlink" href="#performance-scalability" title="Permanent link">&para;</a></h2>
+<h2 id="performance-scalability">Performance &amp; Scalability</h2>
 <ul>
 <li>Uses MongoDB for scalable data storage.</li>
 <li>Modular controller/service/model structure for maintainability.</li>
@@ -818,18 +818,18 @@ sequenceDiagram
 <li>Caching and aggregation for dashboard metrics.</li>
 </ul>
 <hr />
-<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<h2 id="getting-started">Getting Started</h2>
 <ol>
 <li>Clone the repository.</li>
 <li>Configure environment variables and config files.</li>
-<li>Build and run the service:<br />
-<code>bash
+<li>Build and run the service:
+   <code>bash
    go build -o zona_siem
    ./zona_siem</code></li>
 <li>Access APIs on the configured port (default: 8003).</li>
 </ol>
 <hr />
-<h2 id="contact-contribution">Contact &amp; Contribution<a class="headerlink" href="#contact-contribution" title="Permanent link">&para;</a></h2>
+<h2 id="contact-contribution">Contact &amp; Contribution</h2>
 <p>For questions or contributions, please open an issue or pull request.</p>
 <hr />
 <p><strong>End of README</strong></p>

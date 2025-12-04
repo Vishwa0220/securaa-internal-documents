@@ -620,22 +620,22 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="high-level-design-high-level-design-zona_process_manager">High-Level Design (High Level Design) – zona_process_manager<a class="headerlink" href="#high-level-design-high-level-design-zona_process_manager" title="Permanent link">&para;</a></h1>
+        <h1 id="high-level-design-high-level-design-zona_process_manager">High-Level Design (High Level Design) – zona_process_manager</h1>
 <hr />
-<h2 id="1-system-architecture-overview">1. System Architecture Overview<a class="headerlink" href="#1-system-architecture-overview" title="Permanent link">&para;</a></h2>
-<h3 id="purpose-objectives">Purpose &amp; Objectives<a class="headerlink" href="#purpose-objectives" title="Permanent link">&para;</a></h3>
+<h2 id="1-system-architecture-overview">1. System Architecture Overview</h2>
+<h3 id="purpose-objectives">Purpose &amp; Objectives</h3>
 <ul>
 <li><strong>zona_process_manager</strong> orchestrates and manages the lifecycle of microservices and integrations in the Securaa platform.</li>
 <li>Automates deployment, scaling, and health management of services using Docker and MongoDB.</li>
 <li>Dynamically configures integrations for multi-tenant environments.</li>
 </ul>
-<h3 id="architecture-pattern">Architecture Pattern<a class="headerlink" href="#architecture-pattern" title="Permanent link">&para;</a></h3>
+<h3 id="architecture-pattern">Architecture Pattern</h3>
 <ul>
 <li><strong>Layered Modular Architecture</strong></li>
 <li>Separation of concerns: main orchestration, configuration/state, service management, integration logic.</li>
 <li>Microservices managed as Docker containers.</li>
 </ul>
-<h3 id="technology-stack">Technology Stack<a class="headerlink" href="#technology-stack" title="Permanent link">&para;</a></h3>
+<h3 id="technology-stack">Technology Stack</h3>
 <ul>
 <li><strong>Language:</strong> Go</li>
 <li><strong>Containerization:</strong> Docker</li>
@@ -644,8 +644,8 @@ hr {
 <li><strong>Other:</strong> Makefile for build/run automation</li>
 </ul>
 <hr />
-<h2 id="2-architecture-diagrams-mermaid">2. Architecture Diagrams (Mermaid)<a class="headerlink" href="#2-architecture-diagrams-mermaid" title="Permanent link">&para;</a></h2>
-<h3 id="system-architecture-diagram">System Architecture Diagram<a class="headerlink" href="#system-architecture-diagram" title="Permanent link">&para;</a></h3>
+<h2 id="2-architecture-diagrams-mermaid">2. Architecture Diagrams (Mermaid)</h2>
+<h3 id="system-architecture-diagram">System Architecture Diagram</h3>
 <div class="mermaid">
 flowchart TD
   A[main.go\nOrchestrator] --> B[common/\nGlobal State]
@@ -660,7 +660,7 @@ flowchart TD
   D --> K[Docker Engine]
 </div>
 
-<h3 id="component-interaction-diagram">Component Interaction Diagram<a class="headerlink" href="#component-interaction-diagram" title="Permanent link">&para;</a></h3>
+<h3 id="component-interaction-diagram">Component Interaction Diagram</h3>
 <div class="mermaid">
 sequenceDiagram
     participant User
@@ -679,7 +679,7 @@ sequenceDiagram
     Main->>User: Status/result
 </div>
 
-<h3 id="data-flow-diagram">Data Flow Diagram<a class="headerlink" href="#data-flow-diagram" title="Permanent link">&para;</a></h3>
+<h3 id="data-flow-diagram">Data Flow Diagram</h3>
 <div class="mermaid">
 flowchart LR
     UserRequest[User Request]
@@ -702,9 +702,9 @@ flowchart LR
 </div>
 
 <hr />
-<h2 id="3-component-analysis">3. Component Analysis<a class="headerlink" href="#3-component-analysis" title="Permanent link">&para;</a></h2>
-<h3 id="major-modulescomponents">Major Modules/Components<a class="headerlink" href="#major-modulescomponents" title="Permanent link">&para;</a></h3>
-<h4 id="1-maingo-orchestrator">1. main.go (Orchestrator)<a class="headerlink" href="#1-maingo-orchestrator" title="Permanent link">&para;</a></h4>
+<h2 id="3-component-analysis">3. Component Analysis</h2>
+<h3 id="major-modulescomponents">Major Modules/Components</h3>
+<h4 id="1-maingo-orchestrator">1. main.go (Orchestrator)</h4>
 <ul>
 <li><strong>Purpose:</strong> Entry point, parses commands, coordinates deployment, restart, and cleanup.</li>
 <li><strong>Responsibilities:</strong></li>
@@ -713,7 +713,7 @@ flowchart LR
 <li>Orchestrates Docker and integration logic</li>
 <li>Handles patch-based restarts</li>
 </ul>
-<h4 id="2-common-global-state-utilities">2. common/ (Global State &amp; Utilities)<a class="headerlink" href="#2-common-global-state-utilities" title="Permanent link">&para;</a></h4>
+<h4 id="2-common-global-state-utilities">2. common/ (Global State &amp; Utilities)</h4>
 <ul>
 <li><strong>Purpose:</strong> Shared state, configuration, and utility functions.</li>
 <li><strong>Responsibilities:</strong></li>
@@ -721,7 +721,7 @@ flowchart LR
 <li>Manages DB sessions and integration lists</li>
 <li>Provides server role detection and feature toggles</li>
 </ul>
-<h4 id="3-docker-service-management">3. docker/ (Service Management)<a class="headerlink" href="#3-docker-service-management" title="Permanent link">&para;</a></h4>
+<h4 id="3-docker-service-management">3. docker/ (Service Management)</h4>
 <ul>
 <li><strong>Purpose:</strong> Docker orchestration and lifecycle management.</li>
 <li><strong>Responsibilities:</strong></li>
@@ -730,7 +730,7 @@ flowchart LR
 <li>Creates/updates Docker services and replicas</li>
 <li>Manages Zookeeper/Kafka for event streaming</li>
 </ul>
-<h4 id="4-models-business-logic-integrations">4. models/ (Business Logic &amp; Integrations)<a class="headerlink" href="#4-models-business-logic-integrations" title="Permanent link">&para;</a></h4>
+<h4 id="4-models-business-logic-integrations">4. models/ (Business Logic &amp; Integrations)</h4>
 <ul>
 <li><strong>Purpose:</strong> Data models and integration logic.</li>
 <li><strong>Responsibilities:</strong></li>
@@ -738,7 +738,7 @@ flowchart LR
 <li>Fetches active integrations per tenant</li>
 <li>Resolves ports and parameters for services</li>
 </ul>
-<h4 id="inter-component-relationships">Inter-Component Relationships<a class="headerlink" href="#inter-component-relationships" title="Permanent link">&para;</a></h4>
+<h4 id="inter-component-relationships">Inter-Component Relationships</h4>
 <ul>
 <li><code>main.go</code> coordinates all modules</li>
 <li><code>common/</code> provides shared state to all</li>
@@ -746,25 +746,25 @@ flowchart LR
 <li>All modules use shared config and session objects</li>
 </ul>
 <hr />
-<h2 id="4-external-integrations">4. External Integrations<a class="headerlink" href="#4-external-integrations" title="Permanent link">&para;</a></h2>
-<h3 id="third-party-services-apis">Third-Party Services &amp; APIs<a class="headerlink" href="#third-party-services-apis" title="Permanent link">&para;</a></h3>
+<h2 id="4-external-integrations">4. External Integrations</h2>
+<h3 id="third-party-services-apis">Third-Party Services &amp; APIs</h3>
 <ul>
 <li><strong>Docker Engine:</strong> Container orchestration</li>
 <li><strong>MongoDB:</strong> Tenant/integration data storage</li>
 <li><strong>securaa_lib:</strong> Logging, config, Docker, MongoDB, utilities</li>
 </ul>
-<h3 id="database-systems">Database Systems<a class="headerlink" href="#database-systems" title="Permanent link">&para;</a></h3>
+<h3 id="database-systems">Database Systems</h3>
 <ul>
 <li><strong>MongoDB:</strong> Used for storing tenant, integration, and system data</li>
 </ul>
-<h3 id="external-dependencies">External Dependencies<a class="headerlink" href="#external-dependencies" title="Permanent link">&para;</a></h3>
+<h3 id="external-dependencies">External Dependencies</h3>
 <ul>
 <li><strong>Go Modules:</strong> Dependency management</li>
 <li><strong>Makefile:</strong> Build/run automation</li>
 </ul>
 <hr />
-<h2 id="5-high-level-data-flow">5. High-Level Data Flow<a class="headerlink" href="#5-high-level-data-flow" title="Permanent link">&para;</a></h2>
-<h3 id="user-request-processing-flow">User Request Processing Flow<a class="headerlink" href="#user-request-processing-flow" title="Permanent link">&para;</a></h3>
+<h2 id="5-high-level-data-flow">5. High-Level Data Flow</h2>
+<h3 id="user-request-processing-flow">User Request Processing Flow</h3>
 <ol>
 <li>User issues a CLI command (<code>start</code>, <code>stop</code>, <code>restart</code>).</li>
 <li><code>main.go</code> parses the command and loads configuration.</li>
@@ -775,24 +775,24 @@ flowchart LR
 <li>Services are deployed as Docker containers.</li>
 <li>Status/result is returned to the user.</li>
 </ol>
-<h3 id="business-logic-execution-flow">Business Logic Execution Flow<a class="headerlink" href="#business-logic-execution-flow" title="Permanent link">&para;</a></h3>
+<h3 id="business-logic-execution-flow">Business Logic Execution Flow</h3>
 <ul>
 <li>Integrations are dynamically resolved per tenant.</li>
 <li>Service contexts are updated based on integration and config data.</li>
 <li>Docker services are orchestrated for each required component.</li>
 </ul>
-<h3 id="response-generation-flow">Response Generation Flow<a class="headerlink" href="#response-generation-flow" title="Permanent link">&para;</a></h3>
+<h3 id="response-generation-flow">Response Generation Flow</h3>
 <ul>
 <li>Service status and integration results are aggregated in <code>main.go</code>.</li>
 <li>Final status/result is output to the user (CLI or API).</li>
 </ul>
 <hr />
-<h2 id="mermaid-diagrams">Mermaid Diagrams<a class="headerlink" href="#mermaid-diagrams" title="Permanent link">&para;</a></h2>
+<h2 id="mermaid-diagrams">Mermaid Diagrams</h2>
 <ul>
 <li>See above for architecture, component interaction, and data flow diagrams.</li>
 </ul>
 <hr />
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<h2 id="summary">Summary</h2>
 <p>This HLD provides a comprehensive overview of the zona_process_manager system, its architecture, major components, external integrations, and high-level data flows. The modular, layered design enables extensibility and robust orchestration of microservices and integrations in a multi-tenant environment.</p>
     </main>
 

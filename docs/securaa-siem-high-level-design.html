@@ -620,11 +620,11 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="securaa-siem-service-high-level-design-document">Securaa SIEM Service - High-Level Design Document<a class="headerlink" href="#securaa-siem-service-high-level-design-document" title="Permanent link">&para;</a></h1>
-<h2 id="1-executive-summary">1. Executive Summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
+        <h1 id="securaa-siem-service-high-level-design-document">Securaa SIEM Service - High-Level Design Document</h1>
+<h2 id="1-executive-summary">1. Executive Summary</h2>
 <p>The <strong>Securaa SIEM (Security Information and Event Management)</strong> service is a comprehensive, multi-tenant security platform designed to collect, process, analyze, and manage security incidents and events. It provides APIs for incident management, case handling, dashboard analytics, playbook automation, and integrations with external SIEM tools.</p>
 <hr />
-<h2 id="2-system-architecture-overview">2. System Architecture Overview<a class="headerlink" href="#2-system-architecture-overview" title="Permanent link">&para;</a></h2>
+<h2 id="2-system-architecture-overview">2. System Architecture Overview</h2>
 <div class="mermaid">
 graph TB
     subgraph "External Systems"
@@ -708,8 +708,8 @@ graph TB
 </div>
 
 <hr />
-<h2 id="3-detailed-component-architecture">3. Detailed Component Architecture<a class="headerlink" href="#3-detailed-component-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="31-application-structure">3.1 Application Structure<a class="headerlink" href="#31-application-structure" title="Permanent link">&para;</a></h3>
+<h2 id="3-detailed-component-architecture">3. Detailed Component Architecture</h2>
+<h3 id="31-application-structure">3.1 Application Structure</h3>
 <div class="mermaid">
 graph TD
     subgraph "Securaa SIEM Directory Structure"
@@ -760,7 +760,7 @@ graph TD
     HELP1 --> CONST
 </div>
 
-<h3 id="32-data-flow-architecture">3.2 Data Flow Architecture<a class="headerlink" href="#32-data-flow-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="32-data-flow-architecture">3.2 Data Flow Architecture</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Client
@@ -789,8 +789,8 @@ sequenceDiagram
 </div>
 
 <hr />
-<h2 id="4-core-features-capabilities">4. Core Features &amp; Capabilities<a class="headerlink" href="#4-core-features-capabilities" title="Permanent link">&para;</a></h2>
-<h3 id="41-incident-management">4.1 Incident Management<a class="headerlink" href="#41-incident-management" title="Permanent link">&para;</a></h3>
+<h2 id="4-core-features-capabilities">4. Core Features &amp; Capabilities</h2>
+<h3 id="41-incident-management">4.1 Incident Management</h3>
 <ul>
 <li><strong>Incident CRUD Operations</strong>: Create, Read, Update, Delete incidents</li>
 <li><strong>Incident Status Management</strong>: Open, In Progress, Closed, Escalated</li>
@@ -799,7 +799,7 @@ sequenceDiagram
 <li><strong>Incident Timeline</strong>: Track all actions and changes</li>
 <li><strong>Bulk Operations</strong>: Update/delete multiple incidents</li>
 </ul>
-<h3 id="42-case-management">4.2 Case Management<a class="headerlink" href="#42-case-management" title="Permanent link">&para;</a></h3>
+<h3 id="42-case-management">4.2 Case Management</h3>
 <ul>
 <li><strong>Case Grouping</strong>: Group related incidents into cases</li>
 <li><strong>Case Mirroring</strong>: Synchronize cases across tenants</li>
@@ -807,7 +807,7 @@ sequenceDiagram
 <li><strong>Case Analytics</strong>: Generate insights from case data</li>
 <li><strong>Case Export</strong>: Download case data in various formats</li>
 </ul>
-<h3 id="43-dashboard-analytics">4.3 Dashboard &amp; Analytics<a class="headerlink" href="#43-dashboard-analytics" title="Permanent link">&para;</a></h3>
+<h3 id="43-dashboard-analytics">4.3 Dashboard &amp; Analytics</h3>
 <ul>
 <li><strong>Real-time Dashboards</strong>: Live security metrics and KPIs</li>
 <li><strong>Custom Widgets</strong>: Configurable dashboard components</li>
@@ -815,14 +815,14 @@ sequenceDiagram
 <li><strong>Geographic Analysis</strong>: Location-based threat visualization</li>
 <li><strong>MITRE ATT&amp;CK Mapping</strong>: Threat technique classification</li>
 </ul>
-<h3 id="44-integration-data-sources">4.4 Integration &amp; Data Sources<a class="headerlink" href="#44-integration-data-sources" title="Permanent link">&para;</a></h3>
+<h3 id="44-integration-data-sources">4.4 Integration &amp; Data Sources</h3>
 <ul>
 <li><strong>SIEM Tool Integration</strong>: QRadar, Splunk, Azure Sentinel, etc.</li>
 <li><strong>Ticketing System Integration</strong>: ServiceNow, Jira</li>
 <li><strong>Threat Intelligence</strong>: External threat feed integration</li>
 <li><strong>API Gateway</strong>: RESTful APIs for third-party integrations</li>
 </ul>
-<h3 id="45-multi-tenant-architecture">4.5 Multi-Tenant Architecture<a class="headerlink" href="#45-multi-tenant-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="45-multi-tenant-architecture">4.5 Multi-Tenant Architecture</h3>
 <ul>
 <li><strong>Tenant Isolation</strong>: Complete data separation between tenants</li>
 <li><strong>Tenant-specific Configuration</strong>: Custom settings per tenant</li>
@@ -830,8 +830,8 @@ sequenceDiagram
 <li><strong>Tenant Onboarding</strong>: Automated tenant setup and configuration</li>
 </ul>
 <hr />
-<h2 id="5-database-design">5. Database Design<a class="headerlink" href="#5-database-design" title="Permanent link">&para;</a></h2>
-<h3 id="51-core-collectionstables">5.1 Core Collections/Tables<a class="headerlink" href="#51-core-collectionstables" title="Permanent link">&para;</a></h3>
+<h2 id="5-database-design">5. Database Design</h2>
+<h3 id="51-core-collectionstables">5.1 Core Collections/Tables</h3>
 <div class="mermaid">
 erDiagram
     INCIDENTS ||--o{ INVESTIGATIONS : has
@@ -907,8 +907,8 @@ erDiagram
     }
 </div>
 
-<h3 id="52-key-data-models">5.2 Key Data Models<a class="headerlink" href="#52-key-data-models" title="Permanent link">&para;</a></h3>
-<h4 id="securaaoffenses-main-incident-model">SecuraaOffenses (Main Incident Model)<a class="headerlink" href="#securaaoffenses-main-incident-model" title="Permanent link">&para;</a></h4>
+<h3 id="52-key-data-models">5.2 Key Data Models</h3>
+<h4 id="securaaoffenses-main-incident-model">SecuraaOffenses (Main Incident Model)</h4>
 <pre class="highlight"><code class="language-go">type SecuraaOffenses struct {
     SecuraaSIncidentID           int                `json:&quot;securaa_s_incident_id&quot;`
     SecuraaDescription           string             `json:&quot;description&quot;`
@@ -925,7 +925,7 @@ erDiagram
 }
 </code></pre>
 
-<h4 id="casegrouping-model">CaseGrouping Model<a class="headerlink" href="#casegrouping-model" title="Permanent link">&para;</a></h4>
+<h4 id="casegrouping-model">CaseGrouping Model</h4>
 <pre class="highlight"><code class="language-go">type CaseGrouping struct {
     CaseID          string    `json:&quot;case_id&quot;`
     CaseName        string    `json:&quot;case_name&quot;`
@@ -939,8 +939,8 @@ erDiagram
 </code></pre>
 
 <hr />
-<h2 id="6-api-design">6. API Design<a class="headerlink" href="#6-api-design" title="Permanent link">&para;</a></h2>
-<h3 id="61-core-api-categories">6.1 Core API Categories<a class="headerlink" href="#61-core-api-categories" title="Permanent link">&para;</a></h3>
+<h2 id="6-api-design">6. API Design</h2>
+<h3 id="61-core-api-categories">6.1 Core API Categories</h3>
 <div class="mermaid">
 graph LR
     subgraph "Securaa SIEM APIs"
@@ -982,7 +982,7 @@ graph LR
     end
 </div>
 
-<h3 id="62-authentication-authorization-flow">6.2 Authentication &amp; Authorization Flow<a class="headerlink" href="#62-authentication-authorization-flow" title="Permanent link">&para;</a></h3>
+<h3 id="62-authentication-authorization-flow">6.2 Authentication &amp; Authorization Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Client
@@ -1004,8 +1004,8 @@ sequenceDiagram
 </div>
 
 <hr />
-<h2 id="7-technology-stack">7. Technology Stack<a class="headerlink" href="#7-technology-stack" title="Permanent link">&para;</a></h2>
-<h3 id="71-core-technologies">7.1 Core Technologies<a class="headerlink" href="#71-core-technologies" title="Permanent link">&para;</a></h3>
+<h2 id="7-technology-stack">7. Technology Stack</h2>
+<h3 id="71-core-technologies">7.1 Core Technologies</h3>
 <ul>
 <li><strong>Programming Language</strong>: Go (Golang) 1.17+</li>
 <li><strong>Web Framework</strong>: Gorilla Mux (HTTP routing)</li>
@@ -1014,7 +1014,7 @@ sequenceDiagram
 <li><strong>Containerization</strong>: Docker</li>
 <li><strong>Build System</strong>: Makefile</li>
 </ul>
-<h3 id="72-external-dependencies">7.2 External Dependencies<a class="headerlink" href="#72-external-dependencies" title="Permanent link">&para;</a></h3>
+<h3 id="72-external-dependencies">7.2 External Dependencies</h3>
 <ul>
 <li><strong>SIEM Integrations</strong>: QRadar, Azure Sentinel, Securonix, BluSapphire</li>
 <li><strong>Ticketing Systems</strong>: ServiceNow integration</li>
@@ -1022,7 +1022,7 @@ sequenceDiagram
 <li><strong>Monitoring</strong>: InfluxDB for system metrics</li>
 <li><strong>Security</strong>: JWT token-based authentication</li>
 </ul>
-<h3 id="73-libraries-frameworks">7.3 Libraries &amp; Frameworks<a class="headerlink" href="#73-libraries-frameworks" title="Permanent link">&para;</a></h3>
+<h3 id="73-libraries-frameworks">7.3 Libraries &amp; Frameworks</h3>
 <pre class="highlight"><code class="language-go">// Key Go modules
 go.mongodb.org/mongo-driver    // MongoDB driver
 github.com/gorilla/mux         // HTTP router
@@ -1031,8 +1031,8 @@ github.com/Luxurioust/excelize  // Excel processing
 </code></pre>
 
 <hr />
-<h2 id="8-security-compliance">8. Security &amp; Compliance<a class="headerlink" href="#8-security-compliance" title="Permanent link">&para;</a></h2>
-<h3 id="81-security-features">8.1 Security Features<a class="headerlink" href="#81-security-features" title="Permanent link">&para;</a></h3>
+<h2 id="8-security-compliance">8. Security &amp; Compliance</h2>
+<h3 id="81-security-features">8.1 Security Features</h3>
 <ul>
 <li><strong>Multi-factor Authentication</strong>: Token-based auth with session management</li>
 <li><strong>Role-based Access Control</strong>: Granular permissions per tenant</li>
@@ -1041,7 +1041,7 @@ github.com/Luxurioust/excelize  // Excel processing
 <li><strong>Input Validation</strong>: Comprehensive input sanitization</li>
 <li><strong>Session Management</strong>: Secure session handling with timeouts</li>
 </ul>
-<h3 id="82-compliance-standards">8.2 Compliance Standards<a class="headerlink" href="#82-compliance-standards" title="Permanent link">&para;</a></h3>
+<h3 id="82-compliance-standards">8.2 Compliance Standards</h3>
 <ul>
 <li><strong>SOC 2</strong>: Security controls and monitoring</li>
 <li><strong>ISO 27001</strong>: Information security management</li>
@@ -1049,8 +1049,8 @@ github.com/Luxurioust/excelize  // Excel processing
 <li><strong>NIST Cybersecurity Framework</strong>: Security standards alignment</li>
 </ul>
 <hr />
-<h2 id="9-performance-scalability">9. Performance &amp; Scalability<a class="headerlink" href="#9-performance-scalability" title="Permanent link">&para;</a></h2>
-<h3 id="91-performance-characteristics">9.1 Performance Characteristics<a class="headerlink" href="#91-performance-characteristics" title="Permanent link">&para;</a></h3>
+<h2 id="9-performance-scalability">9. Performance &amp; Scalability</h2>
+<h3 id="91-performance-characteristics">9.1 Performance Characteristics</h3>
 <ul>
 <li><strong>Horizontal Scaling</strong>: Multi-tenant architecture supports scaling</li>
 <li><strong>Database Optimization</strong>: Indexed queries and aggregation pipelines</li>
@@ -1058,7 +1058,7 @@ github.com/Luxurioust/excelize  // Excel processing
 <li><strong>Connection Pooling</strong>: Efficient database connection management</li>
 <li><strong>Background Processing</strong>: Asynchronous task processing</li>
 </ul>
-<h3 id="92-monitoring-metrics">9.2 Monitoring &amp; Metrics<a class="headerlink" href="#92-monitoring-metrics" title="Permanent link">&para;</a></h3>
+<h3 id="92-monitoring-metrics">9.2 Monitoring &amp; Metrics</h3>
 <ul>
 <li><strong>System Metrics</strong>: CPU, Memory, Disk usage via InfluxDB</li>
 <li><strong>Application Metrics</strong>: API response times, error rates</li>
@@ -1066,8 +1066,8 @@ github.com/Luxurioust/excelize  // Excel processing
 <li><strong>Health Checks</strong>: Service availability monitoring</li>
 </ul>
 <hr />
-<h2 id="10-deployment-architecture">10. Deployment Architecture<a class="headerlink" href="#10-deployment-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="101-multi-tenant-deployment-model">10.1 Multi-Tenant Deployment Model<a class="headerlink" href="#101-multi-tenant-deployment-model" title="Permanent link">&para;</a></h3>
+<h2 id="10-deployment-architecture">10. Deployment Architecture</h2>
+<h3 id="101-multi-tenant-deployment-model">10.1 Multi-Tenant Deployment Model</h3>
 <div class="mermaid">
 graph TB
     subgraph "Production Environment"
@@ -1118,7 +1118,7 @@ graph TB
     APP1 --> THREAT_INTEL
 </div>
 
-<h3 id="102-configuration-management">10.2 Configuration Management<a class="headerlink" href="#102-configuration-management" title="Permanent link">&para;</a></h3>
+<h3 id="102-configuration-management">10.2 Configuration Management</h3>
 <ul>
 <li><strong>Environment-specific Configs</strong>: Development, staging, production</li>
 <li><strong>Tenant-specific Settings</strong>: Per-tenant customization</li>
@@ -1126,8 +1126,8 @@ graph TB
 <li><strong>Secret Management</strong>: Secure credential storage</li>
 </ul>
 <hr />
-<h2 id="11-business-logic-flow">11. Business Logic Flow<a class="headerlink" href="#11-business-logic-flow" title="Permanent link">&para;</a></h2>
-<h3 id="111-incident-processing-workflow">11.1 Incident Processing Workflow<a class="headerlink" href="#111-incident-processing-workflow" title="Permanent link">&para;</a></h3>
+<h2 id="11-business-logic-flow">11. Business Logic Flow</h2>
+<h3 id="111-incident-processing-workflow">11.1 Incident Processing Workflow</h3>
 <div class="mermaid">
 flowchart TD
     START([Incident Created]) --> VALIDATE{Validate Input}
@@ -1159,7 +1159,7 @@ flowchart TD
     REJECT --> END
 </div>
 
-<h3 id="112-case-management-workflow">11.2 Case Management Workflow<a class="headerlink" href="#112-case-management-workflow" title="Permanent link">&para;</a></h3>
+<h3 id="112-case-management-workflow">11.2 Case Management Workflow</h3>
 <div class="mermaid">
 stateDiagram-v2
     [*] --> New
@@ -1187,8 +1187,8 @@ stateDiagram-v2
 </div>
 
 <hr />
-<h2 id="12-integration-points">12. Integration Points<a class="headerlink" href="#12-integration-points" title="Permanent link">&para;</a></h2>
-<h3 id="121-siem-tool-integrations">12.1 SIEM Tool Integrations<a class="headerlink" href="#121-siem-tool-integrations" title="Permanent link">&para;</a></h3>
+<h2 id="12-integration-points">12. Integration Points</h2>
+<h3 id="121-siem-tool-integrations">12.1 SIEM Tool Integrations</h3>
 <table>
 <thead>
 <tr>
@@ -1231,7 +1231,7 @@ stateDiagram-v2
 </tr>
 </tbody>
 </table>
-<h3 id="122-external-system-apis">12.2 External System APIs<a class="headerlink" href="#122-external-system-apis" title="Permanent link">&para;</a></h3>
+<h3 id="122-external-system-apis">12.2 External System APIs</h3>
 <div class="mermaid">
 graph LR
     subgraph "Securaa SIEM"
@@ -1264,8 +1264,8 @@ graph LR
 </div>
 
 <hr />
-<h2 id="13-error-handling-resilience">13. Error Handling &amp; Resilience<a class="headerlink" href="#13-error-handling-resilience" title="Permanent link">&para;</a></h2>
-<h3 id="131-error-handling-strategy">13.1 Error Handling Strategy<a class="headerlink" href="#131-error-handling-strategy" title="Permanent link">&para;</a></h3>
+<h2 id="13-error-handling-resilience">13. Error Handling &amp; Resilience</h2>
+<h3 id="131-error-handling-strategy">13.1 Error Handling Strategy</h3>
 <ul>
 <li><strong>Graceful Degradation</strong>: Service continues with reduced functionality</li>
 <li><strong>Circuit Breaker Pattern</strong>: Prevent cascade failures</li>
@@ -1273,7 +1273,7 @@ graph LR
 <li><strong>Dead Letter Queues</strong>: Handle failed message processing</li>
 <li><strong>Comprehensive Logging</strong>: Structured logging for debugging</li>
 </ul>
-<h3 id="132-disaster-recovery">13.2 Disaster Recovery<a class="headerlink" href="#132-disaster-recovery" title="Permanent link">&para;</a></h3>
+<h3 id="132-disaster-recovery">13.2 Disaster Recovery</h3>
 <ul>
 <li><strong>Database Backups</strong>: Regular automated backups</li>
 <li><strong>Multi-region Deployment</strong>: Geographic redundancy</li>
@@ -1281,15 +1281,15 @@ graph LR
 <li><strong>Failover Procedures</strong>: Automated failover capabilities</li>
 </ul>
 <hr />
-<h2 id="14-future-roadmap">14. Future Roadmap<a class="headerlink" href="#14-future-roadmap" title="Permanent link">&para;</a></h2>
-<h3 id="141-planned-enhancements">14.1 Planned Enhancements<a class="headerlink" href="#141-planned-enhancements" title="Permanent link">&para;</a></h3>
+<h2 id="14-future-roadmap">14. Future Roadmap</h2>
+<h3 id="141-planned-enhancements">14.1 Planned Enhancements</h3>
 <ul>
 <li><strong>Machine Learning Integration</strong>: AI-powered threat detection</li>
 <li><strong>Advanced Analytics</strong>: Predictive analytics capabilities</li>
 <li><strong>API Gateway</strong>: Centralized API management</li>
 <li><strong>Microservices Migration</strong>: Break down into smaller services</li>
 </ul>
-<h3 id="142-technology-upgrades">14.2 Technology Upgrades<a class="headerlink" href="#142-technology-upgrades" title="Permanent link">&para;</a></h3>
+<h3 id="142-technology-upgrades">14.2 Technology Upgrades</h3>
 <ul>
 <li><strong>Go Version</strong>: Upgrade to latest Go versions</li>
 <li><strong>Database Optimization</strong>: Performance improvements</li>
@@ -1297,7 +1297,7 @@ graph LR
 <li><strong>Real-time Processing</strong>: Stream processing capabilities</li>
 </ul>
 <hr />
-<h2 id="15-conclusion">15. Conclusion<a class="headerlink" href="#15-conclusion" title="Permanent link">&para;</a></h2>
+<h2 id="15-conclusion">15. Conclusion</h2>
 <p>The Securaa SIEM service represents a comprehensive, enterprise-grade security information and event management platform. Its multi-tenant architecture, extensive integration capabilities, and robust feature set make it suitable for organizations of all sizes looking to enhance their security operations.</p>
 <p>The modular design allows for easy maintenance and extension, while the Go-based implementation ensures high performance and scalability. The extensive API surface area provides flexibility for integration with existing security tools and workflows.</p>
 <p>This high-level design serves as a blueprint for understanding the system architecture, data flows, and key components that make up the Securaa SIEM service.</p>

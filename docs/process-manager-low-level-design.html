@@ -620,10 +620,10 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="low-level-design-low-level-design-zona_process_manager">Low-Level Design (Low Level Design) – zona_process_manager<a class="headerlink" href="#low-level-design-low-level-design-zona_process_manager" title="Permanent link">&para;</a></h1>
+        <h1 id="low-level-design-low-level-design-zona_process_manager">Low-Level Design (Low Level Design) – zona_process_manager</h1>
 <hr />
-<h2 id="1-detailed-component-design">1. Detailed Component Design<a class="headerlink" href="#1-detailed-component-design" title="Permanent link">&para;</a></h2>
-<h3 id="class-diagrams-mermaid">Class Diagrams (Mermaid)<a class="headerlink" href="#class-diagrams-mermaid" title="Permanent link">&para;</a></h3>
+<h2 id="1-detailed-component-design">1. Detailed Component Design</h2>
+<h3 id="class-diagrams-mermaid">Class Diagrams (Mermaid)</h3>
 <div class="mermaid">
 classDiagram
     class main {
@@ -702,7 +702,7 @@ classDiagram
     }
 </div>
 
-<h3 id="data-structures-relationships">Data Structures &amp; Relationships<a class="headerlink" href="#data-structures-relationships" title="Permanent link">&para;</a></h3>
+<h3 id="data-structures-relationships">Data Structures &amp; Relationships</h3>
 <ul>
 <li><code>ServiceData</code>: Represents a service with name, context, port, replicas.</li>
 <li><code>IntegrationsResponse</code>: Integration metadata for tenants.</li>
@@ -711,8 +711,8 @@ classDiagram
 <li>Global maps: <code>SystemServices</code>, <code>CoreServices</code>, <code>BatchServices</code>, <code>SecuraaAppServices</code> (all map[string]ServiceData).</li>
 </ul>
 <hr />
-<h2 id="2-database-design">2. Database Design<a class="headerlink" href="#2-database-design" title="Permanent link">&para;</a></h2>
-<h3 id="entity-relationship-diagram-mermaid">Entity Relationship Diagram (Mermaid)<a class="headerlink" href="#entity-relationship-diagram-mermaid" title="Permanent link">&para;</a></h3>
+<h2 id="2-database-design">2. Database Design</h2>
+<h3 id="entity-relationship-diagram-mermaid">Entity Relationship Diagram (Mermaid)</h3>
 <div class="mermaid">
 erDiagram
     TENANT ||--o{ TENANTDB : has
@@ -765,20 +765,20 @@ erDiagram
     }
 </div>
 
-<h3 id="table-schemas">Table Schemas<a class="headerlink" href="#table-schemas" title="Permanent link">&para;</a></h3>
+<h3 id="table-schemas">Table Schemas</h3>
 <ul>
 <li><strong>TENANT</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string)</li>
 <li><strong>TENANTDB</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string), uuid (string)</li>
 <li><strong>INTEGRATIONSRESPONSE</strong>: integration_id (int), title (string), action (string), serviceName (string), executionDir (string), status (string), executable (string), tenantcode (string)</li>
 <li><strong>TENANTBACKUP</strong>: id (int), name (string), tenantcode (string), status (string), db_host (string), db_username (string), db_password (string), db_name (string), connection_status (string), uuid (string)</li>
 </ul>
-<h3 id="relationships">Relationships<a class="headerlink" href="#relationships" title="Permanent link">&para;</a></h3>
+<h3 id="relationships">Relationships</h3>
 <ul>
 <li>One tenant can have multiple databases and backups.</li>
 <li>Each database can have multiple integrations.</li>
 </ul>
 <hr />
-<h2 id="3-api-design-details">3. API Design Details<a class="headerlink" href="#3-api-design-details" title="Permanent link">&para;</a></h2>
+<h2 id="3-api-design-details">3. API Design Details</h2>
 <blockquote>
 <p>The codebase does not expose HTTP endpoints directly; orchestration is via CLI and Docker APIs. If extended to REST, typical endpoints would be:</p>
 </blockquote>
@@ -835,8 +835,8 @@ erDiagram
 <li><strong>Request/Response Schemas:</strong> Use JSON, matching Go struct fields</li>
 </ul>
 <hr />
-<h2 id="4-sequence-diagrams-mermaid">4. Sequence Diagrams (Mermaid)<a class="headerlink" href="#4-sequence-diagrams-mermaid" title="Permanent link">&para;</a></h2>
-<h3 id="service-startup-workflow">Service Startup Workflow<a class="headerlink" href="#service-startup-workflow" title="Permanent link">&para;</a></h3>
+<h2 id="4-sequence-diagrams-mermaid">4. Sequence Diagrams (Mermaid)</h2>
+<h3 id="service-startup-workflow">Service Startup Workflow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant User
@@ -857,7 +857,7 @@ sequenceDiagram
     Main->>User: Success/Failure
 </div>
 
-<h3 id="inter-service-communication">Inter-Service Communication<a class="headerlink" href="#inter-service-communication" title="Permanent link">&para;</a></h3>
+<h3 id="inter-service-communication">Inter-Service Communication</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Main
@@ -872,7 +872,7 @@ sequenceDiagram
     Docker-->>Main: Status
 </div>
 
-<h3 id="error-handling-scenario">Error Handling Scenario<a class="headerlink" href="#error-handling-scenario" title="Permanent link">&para;</a></h3>
+<h3 id="error-handling-scenario">Error Handling Scenario</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Main
@@ -888,21 +888,21 @@ sequenceDiagram
 </div>
 
 <hr />
-<h2 id="5-implementation-details">5. Implementation Details<a class="headerlink" href="#5-implementation-details" title="Permanent link">&para;</a></h2>
-<h3 id="design-patterns">Design Patterns<a class="headerlink" href="#design-patterns" title="Permanent link">&para;</a></h3>
+<h2 id="5-implementation-details">5. Implementation Details</h2>
+<h3 id="design-patterns">Design Patterns</h3>
 <ul>
 <li><strong>Singleton:</strong> Global config/state objects in <code>common/</code></li>
 <li><strong>Factory:</strong> Service context creation in <code>docker/</code></li>
 <li><strong>Repository:</strong> Data access patterns in <code>models/</code></li>
 <li><strong>Observer:</strong> Patch-based restart monitoring</li>
 </ul>
-<h3 id="algorithms-data-structures">Algorithms &amp; Data Structures<a class="headerlink" href="#algorithms-data-structures" title="Permanent link">&para;</a></h3>
+<h3 id="algorithms-data-structures">Algorithms &amp; Data Structures</h3>
 <ul>
 <li>Maps for service contexts and integration lists</li>
 <li>Iterative service deployment and health checks</li>
 <li>Dynamic port and parameter resolution for integrations</li>
 </ul>
-<h3 id="code-organization">Code Organization<a class="headerlink" href="#code-organization" title="Permanent link">&para;</a></h3>
+<h3 id="code-organization">Code Organization</h3>
 <ul>
 <li><code>/main.go</code>: Orchestration logic</li>
 <li><code>/common/</code>: Global state, utilities</li>
@@ -910,27 +910,27 @@ sequenceDiagram
 <li><code>/models/</code>: Data models, integration logic</li>
 </ul>
 <hr />
-<h2 id="6-technical-specifications">6. Technical Specifications<a class="headerlink" href="#6-technical-specifications" title="Permanent link">&para;</a></h2>
-<h3 id="configuration-management">Configuration Management<a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h3>
+<h2 id="6-technical-specifications">6. Technical Specifications</h2>
+<h3 id="configuration-management">Configuration Management</h3>
 <ul>
 <li>Centralized config object loaded at startup</li>
 <li>Shared across modules via <code>common/</code></li>
 <li>Supports dynamic updates and patch-based restarts</li>
 </ul>
-<h3 id="error-handling-strategies">Error Handling Strategies<a class="headerlink" href="#error-handling-strategies" title="Permanent link">&para;</a></h3>
+<h3 id="error-handling-strategies">Error Handling Strategies</h3>
 <ul>
 <li>Centralized logging via <code>securaa_lib</code></li>
 <li>Error propagation and handling in all major methods</li>
 <li>Retry logic for critical operations (e.g., MongoDB reachability)</li>
 </ul>
-<h3 id="performance-considerations">Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permanent link">&para;</a></h3>
+<h3 id="performance-considerations">Performance Considerations</h3>
 <ul>
 <li>Asynchronous service startup and monitoring</li>
 <li>Efficient use of maps for service/integration lookup</li>
 <li>Docker-based scaling and replica management</li>
 </ul>
 <hr />
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<h2 id="summary">Summary</h2>
 <p>This LLD provides a detailed breakdown of the zona_process_manager codebase, including class diagrams, database design, (potential) API details, sequence diagrams, implementation patterns, and technical specifications. All diagrams use actual class and method names from the codebase for clarity and traceability.</p>
     </main>
 

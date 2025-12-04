@@ -620,13 +620,13 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="high-level-design-hld-sia-service">High-Level Design (HLD) - SIA Service<a class="headerlink" href="#high-level-design-hld-sia-service" title="Permanent link">&para;</a></h1>
-<h2 id="comprehensive-architecture-documentation">Comprehensive Architecture Documentation<a class="headerlink" href="#comprehensive-architecture-documentation" title="Permanent link">&para;</a></h2>
+        <h1 id="high-level-design-hld-sia-service">High-Level Design (HLD) - SIA Service</h1>
+<h2 id="comprehensive-architecture-documentation">Comprehensive Architecture Documentation</h2>
 <p><strong>Document Version</strong>: 1.0<br />
 <strong>Last Updated</strong>: November 11, 2025<br />
 <strong>Status</strong>: Active Development</p>
 <hr />
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#1-executive-summary">Executive Summary</a></li>
 <li><a href="#2-system-architecture-overview">System Architecture Overview</a></li>
@@ -645,9 +645,9 @@ hr {
 <li><a href="#15-future-roadmap">Future Roadmap</a></li>
 </ol>
 <hr />
-<h2 id="1-executive-summary">1. Executive Summary<a class="headerlink" href="#1-executive-summary" title="Permanent link">&para;</a></h2>
+<h2 id="1-executive-summary">1. Executive Summary</h2>
 <p><strong>SIA (Securaa Intelligent Agent)</strong> is an AI-powered Security Operations Center (SOC) automation platform that leverages Large Language Models (LLMs) to automate case analysis, playbook generation, task execution, and threat intelligence operations. The system is designed to streamline security incident response workflows, reduce false positives, and provide intelligent recommendations to security analysts.</p>
-<h3 id="key-capabilities">Key Capabilities:<a class="headerlink" href="#key-capabilities" title="Permanent link">&para;</a></h3>
+<h3 id="key-capabilities">Key Capabilities:</h3>
 <ul>
 <li><strong>Automated Case Analysis</strong>: AI-driven analysis of security incidents with contextual intelligence</li>
 <li><strong>Playbook Management</strong>: Automated playbook suggestions and generation</li>
@@ -657,7 +657,7 @@ hr {
 <li><strong>Multi-Tenancy</strong>: Complete tenant isolation with dedicated databases</li>
 <li><strong>Real-time Processing</strong>: Event-driven architecture using Kafka</li>
 </ul>
-<h3 id="system-highlights">System Highlights:<a class="headerlink" href="#system-highlights" title="Permanent link">&para;</a></h3>
+<h3 id="system-highlights">System Highlights:</h3>
 <ul>
 <li>🚀 <strong>Performance</strong>: Sub-second vector search across millions of tasks</li>
 <li>🔒 <strong>Security</strong>: Multi-layered security with JWT, encryption, and prompt injection prevention</li>
@@ -667,15 +667,15 @@ hr {
 <li>🗄️ <strong>Multi-Tenant</strong>: Complete database isolation per tenant</li>
 </ul>
 <hr />
-<h2 id="2-system-architecture-overview">2. System Architecture Overview<a class="headerlink" href="#2-system-architecture-overview" title="Permanent link">&para;</a></h2>
-<h3 id="21-architecture-pattern">2.1 Architecture Pattern<a class="headerlink" href="#21-architecture-pattern" title="Permanent link">&para;</a></h3>
-<p>SIA follows a <strong>microservices-based architecture</strong> with the following patterns:<br />
-- <strong>Event-Driven Architecture (EDA)</strong>: Using Kafka for asynchronous processing<br />
-- <strong>CQRS Pattern</strong>: Separation of command and query responsibilities<br />
-- <strong>Repository Pattern</strong>: Data access abstraction<br />
-- <strong>API Gateway Pattern</strong>: Tyk gateway for authentication and routing<br />
+<h2 id="2-system-architecture-overview">2. System Architecture Overview</h2>
+<h3 id="21-architecture-pattern">2.1 Architecture Pattern</h3>
+<p>SIA follows a <strong>microservices-based architecture</strong> with the following patterns:
+- <strong>Event-Driven Architecture (EDA)</strong>: Using Kafka for asynchronous processing
+- <strong>CQRS Pattern</strong>: Separation of command and query responsibilities
+- <strong>Repository Pattern</strong>: Data access abstraction
+- <strong>API Gateway Pattern</strong>: Tyk gateway for authentication and routing
 - <strong>Multi-Tenancy</strong>: Database-per-tenant isolation strategy</p>
-<h3 id="22-core-components-summary">2.2 Core Components Summary<a class="headerlink" href="#22-core-components-summary" title="Permanent link">&para;</a></h3>
+<h3 id="22-core-components-summary">2.2 Core Components Summary</h3>
 <table>
 <thead>
 <tr>
@@ -742,7 +742,7 @@ hr {
 </tr>
 </tbody>
 </table>
-<h3 id="23-high-level-architecture-diagram">2.3 High-Level Architecture Diagram<a class="headerlink" href="#23-high-level-architecture-diagram" title="Permanent link">&para;</a></h3>
+<h3 id="23-high-level-architecture-diagram">2.3 High-Level Architecture Diagram</h3>
 <div class="mermaid">
 flowchart TD
     Client["Client Layer<br/>(Web UI, CLI, External Systems)"]
@@ -791,8 +791,8 @@ flowchart TD
 </div>
 
 <hr />
-<h2 id="3-architecture-diagrams">3. Architecture Diagrams<a class="headerlink" href="#3-architecture-diagrams" title="Permanent link">&para;</a></h2>
-<h3 id="31-system-architecture-overview">3.1 System Architecture Overview<a class="headerlink" href="#31-system-architecture-overview" title="Permanent link">&para;</a></h3>
+<h2 id="3-architecture-diagrams">3. Architecture Diagrams</h2>
+<h3 id="31-system-architecture-overview">3.1 System Architecture Overview</h3>
 <div class="mermaid">
 graph TB
     subgraph ClientLayer["Client Layer"]
@@ -889,7 +889,7 @@ graph TB
     class LLM,TIP,SOAR,NDS,DTX external
 </div>
 
-<h3 id="32-case-analysis-flow-diagram">3.2 Case Analysis Flow Diagram<a class="headerlink" href="#32-case-analysis-flow-diagram" title="Permanent link">&para;</a></h3>
+<h3 id="32-case-analysis-flow-diagram">3.2 Case Analysis Flow Diagram</h3>
 <div class="mermaid">
 sequenceDiagram
     autonumber
@@ -939,7 +939,7 @@ sequenceDiagram
     F-->>C: 200 {result}
 </div>
 
-<h3 id="33-task-indexing-pipeline">3.3 Task Indexing Pipeline<a class="headerlink" href="#33-task-indexing-pipeline" title="Permanent link">&para;</a></h3>
+<h3 id="33-task-indexing-pipeline">3.3 Task Indexing Pipeline</h3>
 <div class="mermaid">
 flowchart TD
     START[Start: New Tasks] --> CLI{Source}
@@ -984,7 +984,7 @@ flowchart TD
     style FPR fill:#ff99ff
 </div>
 
-<h3 id="34-false-positive-reduction-pipeline">3.4 False Positive Reduction Pipeline<a class="headerlink" href="#34-false-positive-reduction-pipeline" title="Permanent link">&para;</a></h3>
+<h3 id="34-false-positive-reduction-pipeline">3.4 False Positive Reduction Pipeline</h3>
 <div class="mermaid">
 flowchart LR
     subgraph "Input"
@@ -1056,7 +1056,7 @@ flowchart LR
     style MARK_LEGIT fill:#99ff99
 </div>
 
-<h3 id="35-chat-with-rag-flow">3.5 Chat with RAG Flow<a class="headerlink" href="#35-chat-with-rag-flow" title="Permanent link">&para;</a></h3>
+<h3 id="35-chat-with-rag-flow">3.5 Chat with RAG Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     autonumber
@@ -1100,7 +1100,7 @@ sequenceDiagram
     API-->>U: Connection Close
 </div>
 
-<h3 id="36-multi-tenant-database-architecture">3.6 Multi-Tenant Database Architecture<a class="headerlink" href="#36-multi-tenant-database-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="36-multi-tenant-database-architecture">3.6 Multi-Tenant Database Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph "Application Layer"
@@ -1152,7 +1152,7 @@ graph TB
     style TEMPLATE fill:#ff99ff
 </div>
 
-<h3 id="37-deployment-architecture">3.7 Deployment Architecture<a class="headerlink" href="#37-deployment-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="37-deployment-architecture">3.7 Deployment Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph Gateway["Load Balancer / Gateway"]
@@ -1231,7 +1231,7 @@ graph TB
     class PG,CHROMA database
 </div>
 
-<h3 id="38-database-schema-er-diagram">3.8 Database Schema (ER Diagram)<a class="headerlink" href="#38-database-schema-er-diagram" title="Permanent link">&para;</a></h3>
+<h3 id="38-database-schema-er-diagram">3.8 Database Schema (ER Diagram)</h3>
 <div class="mermaid">
 erDiagram
     CASES ||--o{ CASE_SUMMARY : has
@@ -1326,122 +1326,122 @@ erDiagram
 </div>
 
 <hr />
-<h2 id="4-component-details">4. Component Details<a class="headerlink" href="#4-component-details" title="Permanent link">&para;</a></h2>
-<h3 id="31-web-service-fastapi">3.1 Web Service (FastAPI)<a class="headerlink" href="#31-web-service-fastapi" title="Permanent link">&para;</a></h3>
+<h2 id="4-component-details">4. Component Details</h2>
+<h3 id="31-web-service-fastapi">3.1 Web Service (FastAPI)</h3>
 <p><strong>Purpose</strong>: Primary API service handling HTTP requests</p>
-<p><strong>Key Responsibilities</strong>:<br />
-- RESTful API endpoints for case management<br />
-- Chat interface endpoints<br />
-- User and tenant management<br />
-- Indexing operations<br />
+<p><strong>Key Responsibilities</strong>:
+- RESTful API endpoints for case management
+- Chat interface endpoints
+- User and tenant management
+- Indexing operations
 - Application and playbook management</p>
-<p><strong>Technology Stack</strong>:<br />
-- FastAPI framework<br />
-- Uvicorn ASGI server<br />
-- OpenTelemetry tracing (Traceloop)<br />
+<p><strong>Technology Stack</strong>:
+- FastAPI framework
+- Uvicorn ASGI server
+- OpenTelemetry tracing (Traceloop)
 - JWT authentication via Tyk</p>
-<p><strong>Key Routers</strong>:<br />
-- <code>/case</code> - Case analysis and management<br />
-- <code>/chat</code> - Chat and conversational AI<br />
-- <code>/indexing</code> - Task and playbook indexing<br />
-- <code>/user</code> - User management<br />
-- <code>/tenant</code> - Tenant operations<br />
-- <code>/application</code> - Application definitions<br />
+<p><strong>Key Routers</strong>:
+- <code>/case</code> - Case analysis and management
+- <code>/chat</code> - Chat and conversational AI
+- <code>/indexing</code> - Task and playbook indexing
+- <code>/user</code> - User management
+- <code>/tenant</code> - Tenant operations
+- <code>/application</code> - Application definitions
 - <code>/code</code> - Code generation/analysis</p>
-<h3 id="32-celery-worker">3.2 Celery Worker<a class="headerlink" href="#32-celery-worker" title="Permanent link">&para;</a></h3>
+<h3 id="32-celery-worker">3.2 Celery Worker</h3>
 <p><strong>Purpose</strong>: Asynchronous task execution for long-running operations</p>
-<p><strong>Key Tasks</strong>:<br />
-- <code>create_case_analysis_task</code>: Main case analysis orchestration<br />
+<p><strong>Key Tasks</strong>:
+- <code>create_case_analysis_task</code>: Main case analysis orchestration
 - <code>set_risk</code>: Risk scoring and recommendation generation</p>
-<p><strong>Features</strong>:<br />
-- Distributed task queue<br />
-- Result backend (Redis)<br />
-- Retry mechanisms<br />
+<p><strong>Features</strong>:
+- Distributed task queue
+- Result backend (Redis)
+- Retry mechanisms
 - LLM tracing integration</p>
-<p><strong>Configuration</strong>:<br />
-- Broker: Redis<br />
-- Result Backend: Redis<br />
+<p><strong>Configuration</strong>:
+- Broker: Redis
+- Result Backend: Redis
 - Concurrency: Configurable per environment</p>
-<h3 id="33-kafka-indexer">3.3 Kafka Indexer<a class="headerlink" href="#33-kafka-indexer" title="Permanent link">&para;</a></h3>
+<h3 id="33-kafka-indexer">3.3 Kafka Indexer</h3>
 <p><strong>Purpose</strong>: Stream processing for task indexing into vector databases</p>
-<p><strong>Workflow</strong>:<br />
-1. Consumes messages from <code>indexing-topic</code><br />
-2. Generates embeddings using AI models<br />
-3. Stores in PostgreSQL with pgvector<br />
+<p><strong>Workflow</strong>:
+1. Consumes messages from <code>indexing-topic</code>
+2. Generates embeddings using AI models
+3. Stores in PostgreSQL with pgvector
 4. Forwards enriched data to FPR processing</p>
-<p><strong>Components</strong>:<br />
-- <code>KafkaConsumer_PgvIndexer</code>: Main consumer<br />
+<p><strong>Components</strong>:
+- <code>KafkaConsumer_PgvIndexer</code>: Main consumer
 - <code>FpProcessingProducer</code>: Forwards to FPR pipeline</p>
-<h3 id="34-false-positive-reduction-fpr-processor">3.4 False Positive Reduction (FPR) Processor<a class="headerlink" href="#34-false-positive-reduction-fpr-processor" title="Permanent link">&para;</a></h3>
+<h3 id="34-false-positive-reduction-fpr-processor">3.4 False Positive Reduction (FPR) Processor</h3>
 <p><strong>Purpose</strong>: ML-based noise reduction and novelty detection</p>
-<p><strong>Pipeline</strong>:<br />
-1. <strong>Enrichment</strong>: Add contextual information to cases<br />
-2. <strong>Feature Building</strong>: Extract ML features from case data<br />
-3. <strong>Novelty Detection</strong>: Identify novel vs. recurring patterns<br />
-4. <strong>Scoring</strong>: Calculate suspicious scores<br />
+<p><strong>Pipeline</strong>:
+1. <strong>Enrichment</strong>: Add contextual information to cases
+2. <strong>Feature Building</strong>: Extract ML features from case data
+3. <strong>Novelty Detection</strong>: Identify novel vs. recurring patterns
+4. <strong>Scoring</strong>: Calculate suspicious scores
 5. <strong>Classification</strong>: Mark as FP or legitimate threat</p>
-<p><strong>Key Modules</strong>:<br />
-- <code>FeatureBuilderModuleV2</code>: Feature engineering<br />
-- <code>SuspiciousScoringModule</code>: ML-based scoring<br />
+<p><strong>Key Modules</strong>:
+- <code>FeatureBuilderModuleV2</code>: Feature engineering
+- <code>SuspiciousScoringModule</code>: ML-based scoring
 - <code>NDSClient</code>: Novelty Detection Service client</p>
-<h3 id="35-database-layer">3.5 Database Layer<a class="headerlink" href="#35-database-layer" title="Permanent link">&para;</a></h3>
-<h4 id="postgresql-primary-data-store">PostgreSQL (Primary Data Store)<a class="headerlink" href="#postgresql-primary-data-store" title="Permanent link">&para;</a></h4>
-<p><strong>Schema Design</strong>:<br />
-- <strong>Multi-tenant isolation</strong>: Separate database per tenant (<code>siadb_&lt;tenant_id&gt;</code>)<br />
-- <strong>pgvector extension</strong>: Vector similarity search<br />
+<h3 id="35-database-layer">3.5 Database Layer</h3>
+<h4 id="postgresql-primary-data-store">PostgreSQL (Primary Data Store)</h4>
+<p><strong>Schema Design</strong>:
+- <strong>Multi-tenant isolation</strong>: Separate database per tenant (<code>siadb_&lt;tenant_id&gt;</code>)
+- <strong>pgvector extension</strong>: Vector similarity search
 - <strong>HNSW indexes</strong>: Fast nearest neighbor search</p>
-<p><strong>Key Tables</strong>:<br />
-- <code>cases</code>: Security incidents/cases<br />
-- <code>case_summary</code>: AI-generated summaries<br />
-- <code>playbook_tasks</code>: Executed tasks with embeddings<br />
-- <code>task_classification</code>: ML-based task classifications<br />
-- <code>chathistory</code> &amp; <code>threads</code>: Chat conversations<br />
-- <code>playbook_definitions</code>: Available playbooks<br />
-- <code>task_definitions</code>: Task templates<br />
-- <code>application_definitions</code>: Integrated applications<br />
-- <code>users</code>: User profiles<br />
-- <code>ioc_reputation</code>: IOC lookup cache<br />
-- <code>event_streams</code>: Novelty detection events<br />
+<p><strong>Key Tables</strong>:
+- <code>cases</code>: Security incidents/cases
+- <code>case_summary</code>: AI-generated summaries
+- <code>playbook_tasks</code>: Executed tasks with embeddings
+- <code>task_classification</code>: ML-based task classifications
+- <code>chathistory</code> &amp; <code>threads</code>: Chat conversations
+- <code>playbook_definitions</code>: Available playbooks
+- <code>task_definitions</code>: Task templates
+- <code>application_definitions</code>: Integrated applications
+- <code>users</code>: User profiles
+- <code>ioc_reputation</code>: IOC lookup cache
+- <code>event_streams</code>: Novelty detection events
 - <code>case_suspicious_analysis</code>: FPR results</p>
-<h4 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h4>
-<p><strong>Use Cases</strong>:<br />
-- Celery broker and result backend<br />
-- Response caching (deduplication)<br />
-- Session management<br />
+<h4 id="redis">Redis</h4>
+<p><strong>Use Cases</strong>:
+- Celery broker and result backend
+- Response caching (deduplication)
+- Session management
 - Rate limiting data</p>
-<h4 id="chromadb-optional">ChromaDB (Optional)<a class="headerlink" href="#chromadb-optional" title="Permanent link">&para;</a></h4>
-<p><strong>Use Cases</strong>:<br />
-- Alternative vector store<br />
-- Document embeddings<br />
+<h4 id="chromadb-optional">ChromaDB (Optional)</h4>
+<p><strong>Use Cases</strong>:
+- Alternative vector store
+- Document embeddings
 - Semantic search</p>
-<h3 id="36-llm-integration-layer">3.6 LLM Integration Layer<a class="headerlink" href="#36-llm-integration-layer" title="Permanent link">&para;</a></h3>
-<p><strong>Supported Backends</strong>:<br />
-- <strong>OpenAI</strong>: GPT-4, GPT-3.5-turbo<br />
-- <strong>Groq</strong>: Fast inference (llama3)<br />
-- <strong>Google Gemini</strong>: Gemini Pro<br />
+<h3 id="36-llm-integration-layer">3.6 LLM Integration Layer</h3>
+<p><strong>Supported Backends</strong>:
+- <strong>OpenAI</strong>: GPT-4, GPT-3.5-turbo
+- <strong>Groq</strong>: Fast inference (llama3)
+- <strong>Google Gemini</strong>: Gemini Pro
 - <strong>On-Premise</strong>: Ollama, custom deployments</p>
-<p><strong>LLMWrapper Features</strong>:<br />
-- Unified interface across providers<br />
-- Streaming support (sync/async)<br />
-- Structured output parsing<br />
-- Temperature control<br />
+<p><strong>LLMWrapper Features</strong>:
+- Unified interface across providers
+- Streaming support (sync/async)
+- Structured output parsing
+- Temperature control
 - Retry logic</p>
-<p><strong>Embedding Models</strong>:<br />
-- OpenAI embeddings (text-embedding-ada-002)<br />
-- On-premise embedding endpoints<br />
+<p><strong>Embedding Models</strong>:
+- OpenAI embeddings (text-embedding-ada-002)
+- On-premise embedding endpoints
 - Configurable via environment</p>
-<h3 id="37-api-gateway-tyk">3.7 API Gateway (Tyk)<a class="headerlink" href="#37-api-gateway-tyk" title="Permanent link">&para;</a></h3>
+<h3 id="37-api-gateway-tyk">3.7 API Gateway (Tyk)</h3>
 <p><strong>Purpose</strong>: Security, authentication, and routing</p>
-<p><strong>Features</strong>:<br />
-- JWT-based authentication<br />
-- API key management<br />
-- Rate limiting<br />
-- SSL/TLS termination<br />
-- Request/response transformation<br />
+<p><strong>Features</strong>:
+- JWT-based authentication
+- API key management
+- Rate limiting
+- SSL/TLS termination
+- Request/response transformation
 - API versioning</p>
 <hr />
-<h2 id="5-data-flow-workflows">5. Data Flow &amp; Workflows<a class="headerlink" href="#5-data-flow-workflows" title="Permanent link">&para;</a></h2>
-<h3 id="51-complete-case-analysis-workflow">5.1 Complete Case Analysis Workflow<a class="headerlink" href="#51-complete-case-analysis-workflow" title="Permanent link">&para;</a></h3>
+<h2 id="5-data-flow-workflows">5. Data Flow &amp; Workflows</h2>
+<h3 id="51-complete-case-analysis-workflow">5.1 Complete Case Analysis Workflow</h3>
 <div class="mermaid">
 flowchart TD
     START[Security Event] --> SOAR[SOAR Platform]
@@ -1494,7 +1494,7 @@ flowchart TD
     style MARK_LEGIT fill:#66ff66
 </div>
 
-<h3 id="52-case-analysis-flow-details">5.2 Case Analysis Flow Details<a class="headerlink" href="#52-case-analysis-flow-details" title="Permanent link">&para;</a></h3>
+<h3 id="52-case-analysis-flow-details">5.2 Case Analysis Flow Details</h3>
 <pre class="highlight"><code>1. Client → Tyk Gateway → FastAPI
 2. FastAPI → Celery (async) → Task Queue
 3. Worker retrieves case details
@@ -1506,7 +1506,7 @@ flowchart TD
 9. Client polls for results
 </code></pre>
 
-<h3 id="42-task-indexing-flow">4.2 Task Indexing Flow<a class="headerlink" href="#42-task-indexing-flow" title="Permanent link">&para;</a></h3>
+<h3 id="42-task-indexing-flow">4.2 Task Indexing Flow</h3>
 <pre class="highlight"><code>1. CLI/API → Kafka (indexing-topic)
 2. Kafka Indexer consumes message
 3. Generate embeddings for task
@@ -1516,7 +1516,7 @@ flowchart TD
 7. Results published to output topic
 </code></pre>
 
-<h3 id="43-chat-flow">4.3 Chat Flow<a class="headerlink" href="#43-chat-flow" title="Permanent link">&para;</a></h3>
+<h3 id="43-chat-flow">4.3 Chat Flow</h3>
 <pre class="highlight"><code>1. Client → Chat API (streaming)
 2. Retrieve thread context from DB
 3. Search relevant playbook tasks/cases
@@ -1525,7 +1525,7 @@ flowchart TD
 6. Store message in chat history
 </code></pre>
 
-<h3 id="44-false-positive-reduction-flow">4.4 False Positive Reduction Flow<a class="headerlink" href="#44-false-positive-reduction-flow" title="Permanent link">&para;</a></h3>
+<h3 id="44-false-positive-reduction-flow">4.4 False Positive Reduction Flow</h3>
 <pre class="highlight"><code>1. Enriched cases → fpr-processing topic
 2. Batch cases by tenant
 3. Extract features (IOCs, patterns)
@@ -1537,56 +1537,56 @@ flowchart TD
 </code></pre>
 
 <hr />
-<h2 id="5-security-architecture">5. Security Architecture<a class="headerlink" href="#5-security-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="51-authentication-authorization">5.1 Authentication &amp; Authorization<a class="headerlink" href="#51-authentication-authorization" title="Permanent link">&para;</a></h3>
+<h2 id="5-security-architecture">5. Security Architecture</h2>
+<h3 id="51-authentication-authorization">5.1 Authentication &amp; Authorization</h3>
 <ul>
 <li><strong>API Gateway</strong>: Tyk handles all authentication</li>
 <li><strong>JWT Tokens</strong>: Bearer token authentication</li>
 <li><strong>API Keys</strong>: Per-tenant/application keys</li>
 <li><strong>Multi-Tenancy</strong>: Complete data isolation per tenant</li>
 </ul>
-<h3 id="52-data-security">5.2 Data Security<a class="headerlink" href="#52-data-security" title="Permanent link">&para;</a></h3>
+<h3 id="52-data-security">5.2 Data Security</h3>
 <ul>
 <li><strong>Encryption at Rest</strong>: Database encryption</li>
 <li><strong>Encryption in Transit</strong>: TLS/SSL for all communications</li>
 <li><strong>Secrets Management</strong>: Environment variables, secure vaults</li>
 <li><strong>PII Protection</strong>: DTX Prompt Guard for sensitive data</li>
 </ul>
-<h3 id="53-network-security">5.3 Network Security<a class="headerlink" href="#53-network-security" title="Permanent link">&para;</a></h3>
+<h3 id="53-network-security">5.3 Network Security</h3>
 <ul>
 <li><strong>Container Isolation</strong>: Docker networks (sia, vectordb, tyk)</li>
 <li><strong>Firewall Rules</strong>: Port restrictions</li>
 <li><strong>Internal Services</strong>: No external exposure</li>
 </ul>
-<h3 id="54-prompt-security">5.4 Prompt Security<a class="headerlink" href="#54-prompt-security" title="Permanent link">&para;</a></h3>
+<h3 id="54-prompt-security">5.4 Prompt Security</h3>
 <ul>
 <li><strong>DTX Prompt Guard</strong>: Pre-processing to prevent prompt injection</li>
 <li><strong>Input Validation</strong>: Pydantic models for all inputs</li>
 <li><strong>Output Sanitization</strong>: Parsing and validation</li>
 </ul>
 <hr />
-<h2 id="6-scalability-performance">6. Scalability &amp; Performance<a class="headerlink" href="#6-scalability-performance" title="Permanent link">&para;</a></h2>
-<h3 id="61-horizontal-scaling">6.1 Horizontal Scaling<a class="headerlink" href="#61-horizontal-scaling" title="Permanent link">&para;</a></h3>
+<h2 id="6-scalability-performance">6. Scalability &amp; Performance</h2>
+<h3 id="61-horizontal-scaling">6.1 Horizontal Scaling</h3>
 <ul>
 <li><strong>Web Service</strong>: Multiple FastAPI instances behind load balancer</li>
 <li><strong>Workers</strong>: Scale Celery workers independently</li>
 <li><strong>Kafka</strong>: Partitioned topics for parallel processing</li>
 <li><strong>Database</strong>: Read replicas for query scaling</li>
 </ul>
-<h3 id="62-caching-strategy">6.2 Caching Strategy<a class="headerlink" href="#62-caching-strategy" title="Permanent link">&para;</a></h3>
+<h3 id="62-caching-strategy">6.2 Caching Strategy</h3>
 <ul>
 <li><strong>Redis Caching</strong>: Deduplication of LLM responses</li>
 <li><strong>Vector Search</strong>: HNSW indexes for fast similarity search</li>
 <li><strong>IOC Caching</strong>: Reputation lookups cached in DB</li>
 </ul>
-<h3 id="63-performance-optimizations">6.3 Performance Optimizations<a class="headerlink" href="#63-performance-optimizations" title="Permanent link">&para;</a></h3>
+<h3 id="63-performance-optimizations">6.3 Performance Optimizations</h3>
 <ul>
 <li><strong>Batch Processing</strong>: Group operations for efficiency</li>
 <li><strong>Async Operations</strong>: Non-blocking I/O</li>
 <li><strong>Connection Pooling</strong>: Database connection reuse</li>
 <li><strong>Streaming Responses</strong>: Immediate feedback to users</li>
 </ul>
-<h3 id="64-resource-management">6.4 Resource Management<a class="headerlink" href="#64-resource-management" title="Permanent link">&para;</a></h3>
+<h3 id="64-resource-management">6.4 Resource Management</h3>
 <ul>
 <li><strong>Memory Limits</strong>: Container memory constraints</li>
 <li><strong>CPU Quotas</strong>: Controlled resource allocation</li>
@@ -1594,35 +1594,35 @@ flowchart TD
 <li><strong>Queue Priorities</strong>: Critical tasks prioritized</li>
 </ul>
 <hr />
-<h2 id="7-deployment-architecture">7. Deployment Architecture<a class="headerlink" href="#7-deployment-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="71-container-orchestration">7.1 Container Orchestration<a class="headerlink" href="#71-container-orchestration" title="Permanent link">&para;</a></h3>
-<p><strong>Docker Compose Services</strong>:<br />
-- <code>web</code>: Main FastAPI application<br />
-- <code>worker</code>: Celery workers<br />
-- <code>kafka-indexer</code>: Vector indexing service<br />
-- <code>fpr-processor</code>: False positive reduction<br />
-- <code>novelty_api</code>: Novelty detection API<br />
-- <code>novelty_worker</code>: Novelty detection workers<br />
-- <code>tyk-gateway</code>: API gateway<br />
-- <code>postgres</code>: Primary database<br />
-- <code>kafka</code>: Message broker<br />
-- <code>redis</code>: Cache and queue<br />
-- <code>chromadb</code>: Optional vector store<br />
-- <code>dtxguard</code>: Prompt security<br />
-- <code>fluentd</code>: Log aggregation<br />
+<h2 id="7-deployment-architecture">7. Deployment Architecture</h2>
+<h3 id="71-container-orchestration">7.1 Container Orchestration</h3>
+<p><strong>Docker Compose Services</strong>:
+- <code>web</code>: Main FastAPI application
+- <code>worker</code>: Celery workers
+- <code>kafka-indexer</code>: Vector indexing service
+- <code>fpr-processor</code>: False positive reduction
+- <code>novelty_api</code>: Novelty detection API
+- <code>novelty_worker</code>: Novelty detection workers
+- <code>tyk-gateway</code>: API gateway
+- <code>postgres</code>: Primary database
+- <code>kafka</code>: Message broker
+- <code>redis</code>: Cache and queue
+- <code>chromadb</code>: Optional vector store
+- <code>dtxguard</code>: Prompt security
+- <code>fluentd</code>: Log aggregation
 - <code>pgadmin</code>: Database management</p>
-<h3 id="72-network-topology">7.2 Network Topology<a class="headerlink" href="#72-network-topology" title="Permanent link">&para;</a></h3>
-<p><strong>Networks</strong>:<br />
-- <code>sia</code>: Internal service communication<br />
-- <code>vectordb</code>: Database access<br />
+<h3 id="72-network-topology">7.2 Network Topology</h3>
+<p><strong>Networks</strong>:
+- <code>sia</code>: Internal service communication
+- <code>vectordb</code>: Database access
 - <code>tyk</code>: API gateway network</p>
-<h3 id="73-volume-management">7.3 Volume Management<a class="headerlink" href="#73-volume-management" title="Permanent link">&para;</a></h3>
+<h3 id="73-volume-management">7.3 Volume Management</h3>
 <ul>
 <li><code>pgdata</code>: PostgreSQL persistent storage</li>
 <li><code>chromadata</code>: ChromaDB persistent storage</li>
 <li><code>/opt/sia/manuals</code>: Document storage</li>
 </ul>
-<h3 id="74-health-checks">7.4 Health Checks<a class="headerlink" href="#74-health-checks" title="Permanent link">&para;</a></h3>
+<h3 id="74-health-checks">7.4 Health Checks</h3>
 <ul>
 <li>PostgreSQL: <code>pg_isready</code> checks</li>
 <li>ChromaDB: Heartbeat endpoint</li>
@@ -1630,8 +1630,8 @@ flowchart TD
 <li>Service Dependencies: Managed via <code>depends_on</code></li>
 </ul>
 <hr />
-<h2 id="8-integration-points">8. Integration Points<a class="headerlink" href="#8-integration-points" title="Permanent link">&para;</a></h2>
-<h3 id="81-external-systems">8.1 External Systems<a class="headerlink" href="#81-external-systems" title="Permanent link">&para;</a></h3>
+<h2 id="8-integration-points">8. Integration Points</h2>
+<h3 id="81-external-systems">8.1 External Systems</h3>
 <ul>
 <li><strong>SOAR Platform</strong>: Case updates, field updates, playbook execution</li>
 <li><strong>Threat Intelligence Platforms (TIP)</strong>: IOC reputation checks</li>
@@ -1639,7 +1639,7 @@ flowchart TD
 <li><strong>Events API</strong>: Event data retrieval</li>
 <li><strong>Novelty Detection Service</strong>: ML-based novelty scoring</li>
 </ul>
-<h3 id="82-llm-providers">8.2 LLM Providers<a class="headerlink" href="#82-llm-providers" title="Permanent link">&para;</a></h3>
+<h3 id="82-llm-providers">8.2 LLM Providers</h3>
 <ul>
 <li><strong>OpenAI API</strong>: GPT models</li>
 <li><strong>Groq API</strong>: Fast inference</li>
@@ -1647,7 +1647,7 @@ flowchart TD
 <li><strong>On-Premise LLMs</strong>: Custom deployments (Ollama)</li>
 <li><strong>LiteLLM Proxy</strong>: Unified LLM interface</li>
 </ul>
-<h3 id="83-monitoring-observability">8.3 Monitoring &amp; Observability<a class="headerlink" href="#83-monitoring-observability" title="Permanent link">&para;</a></h3>
+<h3 id="83-monitoring-observability">8.3 Monitoring &amp; Observability</h3>
 <ul>
 <li><strong>Traceloop SDK</strong>: LLM operation tracing</li>
 <li><strong>OpenTelemetry</strong>: Distributed tracing</li>
@@ -1655,16 +1655,16 @@ flowchart TD
 <li><strong>Prometheus</strong>: Metrics (configurable)</li>
 </ul>
 <hr />
-<h2 id="9-configuration-management">9. Configuration Management<a class="headerlink" href="#9-configuration-management" title="Permanent link">&para;</a></h2>
-<h3 id="91-environment-variables">9.1 Environment Variables<a class="headerlink" href="#91-environment-variables" title="Permanent link">&para;</a></h3>
-<p><strong>Categories</strong>:<br />
-- <strong>Database</strong>: Connection strings, credentials<br />
-- <strong>LLM</strong>: API keys, model names, backends<br />
-- <strong>Kafka</strong>: Brokers, topics, partitions<br />
-- <strong>Security</strong>: JWT keys, access tokens, API keys<br />
-- <strong>Integration</strong>: External service URLs<br />
+<h2 id="9-configuration-management">9. Configuration Management</h2>
+<h3 id="91-environment-variables">9.1 Environment Variables</h3>
+<p><strong>Categories</strong>:
+- <strong>Database</strong>: Connection strings, credentials
+- <strong>LLM</strong>: API keys, model names, backends
+- <strong>Kafka</strong>: Brokers, topics, partitions
+- <strong>Security</strong>: JWT keys, access tokens, API keys
+- <strong>Integration</strong>: External service URLs
 - <strong>Feature Flags</strong>: Enable/disable features</p>
-<h3 id="92-configuration-files">9.2 Configuration Files<a class="headerlink" href="#92-configuration-files" title="Permanent link">&para;</a></h3>
+<h3 id="92-configuration-files">9.2 Configuration Files</h3>
 <ul>
 <li><code>.env</code>: Environment-specific settings</li>
 <li><code>prompts.yaml</code>: LLM prompt templates</li>
@@ -1673,30 +1673,30 @@ flowchart TD
 <li><code>docker-compose.yml</code>: Service orchestration</li>
 </ul>
 <hr />
-<h2 id="10-high-availability-disaster-recovery">10. High Availability &amp; Disaster Recovery<a class="headerlink" href="#10-high-availability-disaster-recovery" title="Permanent link">&para;</a></h2>
-<h3 id="101-high-availability">10.1 High Availability<a class="headerlink" href="#101-high-availability" title="Permanent link">&para;</a></h3>
+<h2 id="10-high-availability-disaster-recovery">10. High Availability &amp; Disaster Recovery</h2>
+<h3 id="101-high-availability">10.1 High Availability</h3>
 <ul>
 <li><strong>Service Redundancy</strong>: Multiple instances of critical services</li>
 <li><strong>Database Replication</strong>: PostgreSQL streaming replication (configurable)</li>
 <li><strong>Message Queue</strong>: Kafka replication factor</li>
 <li><strong>Load Balancing</strong>: Tyk gateway distribution</li>
 </ul>
-<h3 id="102-fault-tolerance">10.2 Fault Tolerance<a class="headerlink" href="#102-fault-tolerance" title="Permanent link">&para;</a></h3>
+<h3 id="102-fault-tolerance">10.2 Fault Tolerance</h3>
 <ul>
 <li><strong>Retry Mechanisms</strong>: Celery task retries</li>
 <li><strong>Circuit Breakers</strong>: Fail-fast for external services</li>
 <li><strong>Graceful Degradation</strong>: Fallback to cached results</li>
 <li><strong>Health Checks</strong>: Automatic container restart</li>
 </ul>
-<h3 id="103-backup-strategy">10.3 Backup Strategy<a class="headerlink" href="#103-backup-strategy" title="Permanent link">&para;</a></h3>
+<h3 id="103-backup-strategy">10.3 Backup Strategy</h3>
 <ul>
 <li><strong>Database Backups</strong>: Regular PostgreSQL dumps</li>
 <li><strong>Volume Snapshots</strong>: Docker volume backups</li>
 <li><strong>Configuration Backups</strong>: Version-controlled configs</li>
 </ul>
 <hr />
-<h2 id="11-technology-stack-summary">11. Technology Stack Summary<a class="headerlink" href="#11-technology-stack-summary" title="Permanent link">&para;</a></h2>
-<h3 id="backend">Backend<a class="headerlink" href="#backend" title="Permanent link">&para;</a></h3>
+<h2 id="11-technology-stack-summary">11. Technology Stack Summary</h2>
+<h3 id="backend">Backend</h3>
 <ul>
 <li><strong>Language</strong>: Python 3.11+</li>
 <li><strong>Framework</strong>: FastAPI</li>
@@ -1704,27 +1704,27 @@ flowchart TD
 <li><strong>Message Broker</strong>: Apache Kafka</li>
 <li><strong>ASGI Server</strong>: Uvicorn</li>
 </ul>
-<h3 id="databases">Databases<a class="headerlink" href="#databases" title="Permanent link">&para;</a></h3>
+<h3 id="databases">Databases</h3>
 <ul>
 <li><strong>Primary</strong>: PostgreSQL 16 with pgvector</li>
 <li><strong>Cache</strong>: Redis 7</li>
 <li><strong>Vector Store</strong>: ChromaDB, pgvector</li>
 </ul>
-<h3 id="aiml">AI/ML<a class="headerlink" href="#aiml" title="Permanent link">&para;</a></h3>
+<h3 id="aiml">AI/ML</h3>
 <ul>
 <li><strong>LLM Frameworks</strong>: LangChain, LangGraph</li>
 <li><strong>LLM Providers</strong>: OpenAI, Groq, Gemini, On-Prem</li>
 <li><strong>Embeddings</strong>: OpenAI, custom endpoints</li>
 <li><strong>Prompt Security</strong>: DTX Prompt Guard</li>
 </ul>
-<h3 id="infrastructure">Infrastructure<a class="headerlink" href="#infrastructure" title="Permanent link">&para;</a></h3>
+<h3 id="infrastructure">Infrastructure</h3>
 <ul>
 <li><strong>Containerization</strong>: Docker</li>
 <li><strong>Orchestration</strong>: Docker Compose</li>
 <li><strong>API Gateway</strong>: Tyk</li>
 <li><strong>Logging</strong>: Fluentd</li>
 </ul>
-<h3 id="development">Development<a class="headerlink" href="#development" title="Permanent link">&para;</a></h3>
+<h3 id="development">Development</h3>
 <ul>
 <li><strong>Package Manager</strong>: Poetry</li>
 <li><strong>Migration</strong>: Alembic</li>
@@ -1732,10 +1732,10 @@ flowchart TD
 <li><strong>Linting</strong>: Flake8, Black</li>
 </ul>
 <hr />
-<h2 id="12-future-enhancements">12. Future Enhancements<a class="headerlink" href="#12-future-enhancements" title="Permanent link">&para;</a></h2>
+<h2 id="12-future-enhancements">12. Future Enhancements</h2>
 <hr />
-<h2 id="13-development-guidelines">13. Development Guidelines<a class="headerlink" href="#13-development-guidelines" title="Permanent link">&para;</a></h2>
-<h3 id="131-code-organization-best-practices">13.1 Code Organization Best Practices<a class="headerlink" href="#131-code-organization-best-practices" title="Permanent link">&para;</a></h3>
+<h2 id="13-development-guidelines">13. Development Guidelines</h2>
+<h3 id="131-code-organization-best-practices">13.1 Code Organization Best Practices</h3>
 <p><strong>Module Structure</strong>:</p>
 <pre class="highlight"><code>siaservice/
 ├── routers/          # API endpoint definitions (thin layer)
@@ -1748,11 +1748,11 @@ flowchart TD
 └── common.py        # Shared utilities
 </code></pre>
 
-<p><strong>Coding Standards</strong>:<br />
-- Follow PEP 8 style guide<br />
-- Use type hints for all functions<br />
-- Document complex logic with docstrings<br />
-- Write unit tests for business logic<br />
+<p><strong>Coding Standards</strong>:
+- Follow PEP 8 style guide
+- Use type hints for all functions
+- Document complex logic with docstrings
+- Write unit tests for business logic
 - Use Pydantic models for validation</p>
 <p><strong>Example Function</strong>:</p>
 <pre class="highlight"><code class="language-python">from typing import Optional, List
@@ -1788,12 +1788,12 @@ def process_case(
     return results
 </code></pre>
 
-<h3 id="132-git-workflow">13.2 Git Workflow<a class="headerlink" href="#132-git-workflow" title="Permanent link">&para;</a></h3>
-<p><strong>Branch Strategy</strong>:<br />
-- <code>main</code> - Production-ready code<br />
-- <code>develop</code> - Integration branch<br />
-- <code>feature/*</code> - New features<br />
-- <code>bugfix/*</code> - Bug fixes<br />
+<h3 id="132-git-workflow">13.2 Git Workflow</h3>
+<p><strong>Branch Strategy</strong>:
+- <code>main</code> - Production-ready code
+- <code>develop</code> - Integration branch
+- <code>feature/*</code> - New features
+- <code>bugfix/*</code> - Bug fixes
 - <code>hotfix/*</code> - Critical production fixes</p>
 <p><strong>Commit Messages</strong>:</p>
 <pre class="highlight"><code>feat: add case priority scoring
@@ -1803,41 +1803,41 @@ refactor: optimize database queries
 test: add unit tests for chat service
 </code></pre>
 
-<h3 id="133-development-workflow">13.3 Development Workflow<a class="headerlink" href="#133-development-workflow" title="Permanent link">&para;</a></h3>
+<h3 id="133-development-workflow">13.3 Development Workflow</h3>
 <ol>
 <li>
-<p><strong>Create Feature Branch</strong>:<br />
-<code>bash
+<p><strong>Create Feature Branch</strong>:
+   <code>bash
    git checkout -b feature/add-risk-scoring</code></p>
 </li>
 <li>
-<p><strong>Implement Changes</strong>:<br />
-   - Write code with tests<br />
-   - Follow coding standards<br />
+<p><strong>Implement Changes</strong>:
+   - Write code with tests
+   - Follow coding standards
    - Update documentation</p>
 </li>
 <li>
-<p><strong>Run Quality Checks</strong>:<br />
-<code>bash
+<p><strong>Run Quality Checks</strong>:
+   <code>bash
    poetry run flake8
    poetry run black .
    poetry run pytest</code></p>
 </li>
 <li>
-<p><strong>Submit Pull Request</strong>:<br />
-   - Clear description<br />
-   - Link to issue/ticket<br />
+<p><strong>Submit Pull Request</strong>:
+   - Clear description
+   - Link to issue/ticket
    - Request reviews</p>
 </li>
 <li>
-<p><strong>Merge After Approval</strong>:<br />
-   - Squash commits<br />
+<p><strong>Merge After Approval</strong>:
+   - Squash commits
    - Update changelog</p>
 </li>
 </ol>
 <hr />
-<h2 id="14-monitoring-observability">14. Monitoring &amp; Observability<a class="headerlink" href="#14-monitoring-observability" title="Permanent link">&para;</a></h2>
-<h3 id="141-observability-stack">14.1 Observability Stack<a class="headerlink" href="#141-observability-stack" title="Permanent link">&para;</a></h3>
+<h2 id="14-monitoring-observability">14. Monitoring &amp; Observability</h2>
+<h3 id="141-observability-stack">14.1 Observability Stack</h3>
 <div class="mermaid">
 graph TB
     subgraph Application
@@ -1898,32 +1898,32 @@ graph TB
     class DASH,ALERT,ANALYZE dashboard
 </div>
 
-<h3 id="142-key-metrics-to-monitor">14.2 Key Metrics to Monitor<a class="headerlink" href="#142-key-metrics-to-monitor" title="Permanent link">&para;</a></h3>
-<p><strong>Application Metrics</strong>:<br />
-- Request rate (requests/sec)<br />
-- Response time (p50, p95, p99)<br />
-- Error rate (4xx, 5xx)<br />
-- Task queue length<br />
+<h3 id="142-key-metrics-to-monitor">14.2 Key Metrics to Monitor</h3>
+<p><strong>Application Metrics</strong>:
+- Request rate (requests/sec)
+- Response time (p50, p95, p99)
+- Error rate (4xx, 5xx)
+- Task queue length
 - Active connections</p>
-<p><strong>LLM Metrics</strong>:<br />
-- LLM latency (generation time)<br />
-- Token usage (input/output)<br />
-- Cache hit rate<br />
-- Cost per request<br />
+<p><strong>LLM Metrics</strong>:
+- LLM latency (generation time)
+- Token usage (input/output)
+- Cache hit rate
+- Cost per request
 - Error rate by provider</p>
-<p><strong>Database Metrics</strong>:<br />
-- Query execution time<br />
-- Connection pool usage<br />
-- Vector search latency<br />
-- Index performance<br />
+<p><strong>Database Metrics</strong>:
+- Query execution time
+- Connection pool usage
+- Vector search latency
+- Index performance
 - Replication lag</p>
-<p><strong>Infrastructure Metrics</strong>:<br />
-- CPU utilization<br />
-- Memory usage<br />
-- Disk I/O<br />
-- Network throughput<br />
+<p><strong>Infrastructure Metrics</strong>:
+- CPU utilization
+- Memory usage
+- Disk I/O
+- Network throughput
 - Container health</p>
-<h3 id="143-logging-strategy">14.3 Logging Strategy<a class="headerlink" href="#143-logging-strategy" title="Permanent link">&para;</a></h3>
+<h3 id="143-logging-strategy">14.3 Logging Strategy</h3>
 <p><strong>Log Levels</strong>:</p>
 <pre class="highlight"><code class="language-python"># DEBUG: Detailed diagnostic information
 logger.debug(f&quot;Vector search params: {params}&quot;)
@@ -1954,23 +1954,23 @@ logger.critical(f&quot;Database connection lost&quot;)
 )
 </code></pre>
 
-<h3 id="144-alerting-rules">14.4 Alerting Rules<a class="headerlink" href="#144-alerting-rules" title="Permanent link">&para;</a></h3>
-<p><strong>Critical Alerts</strong>:<br />
-- Service down (health check fails)<br />
-- Database connection lost<br />
-- Kafka broker unavailable<br />
-- Error rate &gt; 5%<br />
+<h3 id="144-alerting-rules">14.4 Alerting Rules</h3>
+<p><strong>Critical Alerts</strong>:
+- Service down (health check fails)
+- Database connection lost
+- Kafka broker unavailable
+- Error rate &gt; 5%
 - Response time &gt; 10s</p>
-<p><strong>Warning Alerts</strong>:<br />
-- High memory usage (&gt;80%)<br />
-- Queue length &gt; 1000<br />
-- Cache miss rate &gt; 50%<br />
+<p><strong>Warning Alerts</strong>:
+- High memory usage (&gt;80%)
+- Queue length &gt; 1000
+- Cache miss rate &gt; 50%
 - Slow queries (&gt;5s)</p>
-<p><strong>Informational</strong>:<br />
-- Deployment completed<br />
-- Tenant onboarded<br />
+<p><strong>Informational</strong>:
+- Deployment completed
+- Tenant onboarded
 - Configuration updated</p>
-<h3 id="145-tracing-example">14.5 Tracing Example<a class="headerlink" href="#145-tracing-example" title="Permanent link">&para;</a></h3>
+<h3 id="145-tracing-example">14.5 Tracing Example</h3>
 <pre class="highlight"><code class="language-python"># Automatic tracing with Traceloop
 from traceloop.sdk import Traceloop
 
@@ -1995,8 +1995,8 @@ with tracer.start_as_current_span(&quot;process_case&quot;) as span:
 </code></pre>
 
 <hr />
-<h2 id="15-future-roadmap">15. Future Roadmap<a class="headerlink" href="#15-future-roadmap" title="Permanent link">&para;</a></h2>
-<h3 id="151-short-term-q1-2026">15.1 Short-term (Q1 2026)<a class="headerlink" href="#151-short-term-q1-2026" title="Permanent link">&para;</a></h3>
+<h2 id="15-future-roadmap">15. Future Roadmap</h2>
+<h3 id="151-short-term-q1-2026">15.1 Short-term (Q1 2026)</h3>
 <ul>
 <li>✅ <strong>Advanced Analytics Dashboard</strong>: Real-time metrics and insights</li>
 <li>✅ <strong>Enhanced Chat Experience</strong>: Multi-modal support (images, PDFs)</li>
@@ -2004,7 +2004,7 @@ with tracer.start_as_current_span(&quot;process_case&quot;) as span:
 <li>✅ <strong>Performance Optimization</strong>: Sub-100ms vector search</li>
 <li>✅ <strong>API Versioning</strong>: Support for v2 APIs</li>
 </ul>
-<h3 id="152-medium-term-q2-q3-2026">15.2 Medium-term (Q2-Q3 2026)<a class="headerlink" href="#152-medium-term-q2-q3-2026" title="Permanent link">&para;</a></h3>
+<h3 id="152-medium-term-q2-q3-2026">15.2 Medium-term (Q2-Q3 2026)</h3>
 <ul>
 <li>🔄 <strong>Multi-Model Ensemble</strong>: Combine multiple LLM outputs</li>
 <li>🔄 <strong>Automated Playbook Generation</strong>: AI-generated remediation workflows</li>
@@ -2013,7 +2013,7 @@ with tracer.start_as_current_span(&quot;process_case&quot;) as span:
 <li>🔄 <strong>GraphQL API</strong>: Alternative API interface</li>
 <li>🔄 <strong>Advanced RBAC</strong>: Fine-grained access control</li>
 </ul>
-<h3 id="153-long-term-q4-2026">15.3 Long-term (Q4 2026+)<a class="headerlink" href="#153-long-term-q4-2026" title="Permanent link">&para;</a></h3>
+<h3 id="153-long-term-q4-2026">15.3 Long-term (Q4 2026+)</h3>
 <ul>
 <li>📅 <strong>Kubernetes Support</strong>: Cloud-native deployment</li>
 <li>📅 <strong>Multi-Region Deployment</strong>: Geographic distribution</li>
@@ -2022,7 +2022,7 @@ with tracer.start_as_current_span(&quot;process_case&quot;) as span:
 <li>📅 <strong>Database Sharding</strong>: Horizontal partitioning</li>
 <li>📅 <strong>Edge Deployment</strong>: On-premise + cloud hybrid</li>
 </ul>
-<h3 id="154-research-areas">15.4 Research Areas<a class="headerlink" href="#154-research-areas" title="Permanent link">&para;</a></h3>
+<h3 id="154-research-areas">15.4 Research Areas</h3>
 <ul>
 <li>🔬 <strong>Advanced NLP</strong>: Domain-specific language models</li>
 <li>🔬 <strong>Reinforcement Learning</strong>: Automated response optimization</li>
@@ -2030,9 +2030,9 @@ with tracer.start_as_current_span(&quot;process_case&quot;) as span:
 <li>🔬 <strong>Quantum-Resistant Crypto</strong>: Future-proof security</li>
 </ul>
 <hr />
-<h2 id="17-troubleshooting-operations">17. Troubleshooting &amp; Operations<a class="headerlink" href="#17-troubleshooting-operations" title="Permanent link">&para;</a></h2>
-<h3 id="171-common-issues-solutions">17.1 Common Issues &amp; Solutions<a class="headerlink" href="#171-common-issues-solutions" title="Permanent link">&para;</a></h3>
-<h4 id="service-wont-start">Service Won't Start<a class="headerlink" href="#service-wont-start" title="Permanent link">&para;</a></h4>
+<h2 id="17-troubleshooting-operations">17. Troubleshooting &amp; Operations</h2>
+<h3 id="171-common-issues-solutions">17.1 Common Issues &amp; Solutions</h3>
+<h4 id="service-wont-start">Service Won't Start</h4>
 <p><strong>Symptoms</strong>: Container exits, port conflicts, database connection failures</p>
 <p><strong>Solutions</strong>:</p>
 <pre class="highlight"><code class="language-bash"># Check port availability
@@ -2048,14 +2048,14 @@ sleep 10
 docker-compose up -d
 </code></pre>
 
-<h4 id="llm-integration-failures">LLM Integration Failures<a class="headerlink" href="#llm-integration-failures" title="Permanent link">&para;</a></h4>
+<h4 id="llm-integration-failures">LLM Integration Failures</h4>
 <p><strong>Symptoms</strong>: Timeout, authentication errors, rate limits</p>
-<p><strong>Solutions</strong>:<br />
-- Verify API keys in environment variables<br />
-- Test provider connectivity manually<br />
-- Switch to alternative provider (Groq, Gemini)<br />
+<p><strong>Solutions</strong>:
+- Verify API keys in environment variables
+- Test provider connectivity manually
+- Switch to alternative provider (Groq, Gemini)
 - Implement rate limiting and backoff</p>
-<h4 id="vector-search-issues">Vector Search Issues<a class="headerlink" href="#vector-search-issues" title="Permanent link">&para;</a></h4>
+<h4 id="vector-search-issues">Vector Search Issues</h4>
 <p><strong>Symptoms</strong>: No context retrieved, slow queries</p>
 <p><strong>Solutions</strong>:</p>
 <pre class="highlight"><code class="language-sql">-- Verify pgvector extension
@@ -2066,7 +2066,7 @@ REINDEX INDEX playbook_tasks_embedding_idx;
 ANALYZE playbook_tasks_with_embeddings;
 </code></pre>
 
-<h4 id="celery-workers-not-processing">Celery Workers Not Processing<a class="headerlink" href="#celery-workers-not-processing" title="Permanent link">&para;</a></h4>
+<h4 id="celery-workers-not-processing">Celery Workers Not Processing</h4>
 <p><strong>Solutions</strong>:</p>
 <pre class="highlight"><code class="language-bash"># Check worker status
 docker exec sia-worker celery -A worker inspect active
@@ -2075,7 +2075,7 @@ docker exec sia-worker celery -A worker inspect active
 docker-compose up -d --scale sia-worker=3
 </code></pre>
 
-<h3 id="172-health-check-endpoints">17.2 Health Check Endpoints<a class="headerlink" href="#172-health-check-endpoints" title="Permanent link">&para;</a></h3>
+<h3 id="172-health-check-endpoints">17.2 Health Check Endpoints</h3>
 <pre class="highlight"><code class="language-bash">curl http://localhost:8000/health          # Overall health
 curl http://localhost:8000/health/db       # Database
 curl http://localhost:8000/health/redis    # Cache
@@ -2083,20 +2083,20 @@ curl http://localhost:8000/health/kafka    # Message broker
 curl http://localhost:8000/health/llm      # LLM providers
 </code></pre>
 
-<h3 id="173-performance-optimization">17.3 Performance Optimization<a class="headerlink" href="#173-performance-optimization" title="Permanent link">&para;</a></h3>
-<p><strong>Database</strong>:<br />
-- Add indexes for frequently queried columns<br />
-- Run VACUUM ANALYZE regularly<br />
+<h3 id="173-performance-optimization">17.3 Performance Optimization</h3>
+<p><strong>Database</strong>:
+- Add indexes for frequently queried columns
+- Run VACUUM ANALYZE regularly
 - Monitor slow queries with pg_stat_statements</p>
-<p><strong>Cache</strong>:<br />
-- Tune Redis eviction policy (allkeys-lru)<br />
-- Monitor cache hit rates<br />
+<p><strong>Cache</strong>:
+- Tune Redis eviction policy (allkeys-lru)
+- Monitor cache hit rates
 - Implement cache warming for common queries</p>
-<p><strong>Application</strong>:<br />
-- Adjust worker concurrency based on CPU cores<br />
-- Increase timeouts for long-running operations<br />
+<p><strong>Application</strong>:
+- Adjust worker concurrency based on CPU cores
+- Increase timeouts for long-running operations
 - Use connection pooling effectively</p>
-<h3 id="174-backup-recovery">17.4 Backup &amp; Recovery<a class="headerlink" href="#174-backup-recovery" title="Permanent link">&para;</a></h3>
+<h3 id="174-backup-recovery">17.4 Backup &amp; Recovery</h3>
 <pre class="highlight"><code class="language-bash"># Backup tenant databases
 docker exec sia-postgres pg_dump -U admin siadb_tenant123 &gt; backup.sql
 
@@ -2108,15 +2108,15 @@ docker exec -i sia-postgres psql -U admin siadb_tenant123 &lt; backup.sql
 </code></pre>
 
 <hr />
-<h2 id="18-conclusion">18. Conclusion<a class="headerlink" href="#18-conclusion" title="Permanent link">&para;</a></h2>
+<h2 id="18-conclusion">18. Conclusion</h2>
 <p>SIA Service represents a comprehensive AI-powered SOC automation platform that combines modern microservices architecture, advanced ML/LLM capabilities, and enterprise-grade security. The system is designed for scalability, maintainability, and extensibility, providing security teams with intelligent automation to enhance their incident response capabilities.</p>
-<p>The architecture supports:<br />
-- ✅ <strong>Multi-tenancy</strong> with complete data isolation<br />
-- ✅ <strong>Event-driven processing</strong> for real-time operations<br />
-- ✅ <strong>AI/LLM integration</strong> with multiple providers<br />
-- ✅ <strong>Vector-based semantic search</strong> for intelligent context retrieval<br />
-- ✅ <strong>False positive reduction</strong> through ML-based scoring<br />
-- ✅ <strong>Extensible plugin architecture</strong> for integrations<br />
+<p>The architecture supports:
+- ✅ <strong>Multi-tenancy</strong> with complete data isolation
+- ✅ <strong>Event-driven processing</strong> for real-time operations
+- ✅ <strong>AI/LLM integration</strong> with multiple providers
+- ✅ <strong>Vector-based semantic search</strong> for intelligent context retrieval
+- ✅ <strong>False positive reduction</strong> through ML-based scoring
+- ✅ <strong>Extensible plugin architecture</strong> for integrations
 - ✅ <strong>Enterprise security</strong> with authentication and encryption</p>
 <hr />
 <p><strong>Document Version</strong>: 1.0<br />

@@ -961,7 +961,6 @@ def convert_md_to_html(md_content: str, title: str) -> str:
         'fenced_code',
         'codehilite',
         'toc',
-        'nl2br',
         'sane_lists',
     ], extension_configs={
         'codehilite': {
@@ -969,7 +968,7 @@ def convert_md_to_html(md_content: str, title: str) -> str:
             'guess_lang': True,
         },
         'toc': {
-            'permalink': True,
+            'permalink': False,
             'toc_depth': 4,
         }
     })

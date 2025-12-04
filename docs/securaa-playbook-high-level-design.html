@@ -620,15 +620,15 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="securaa-playbook-service-high-level-design-document">Securaa Playbook Service - High Level Design Document<a class="headerlink" href="#securaa-playbook-service-high-level-design-document" title="Permanent link">&para;</a></h1>
-<h2 id="document-information">Document Information<a class="headerlink" href="#document-information" title="Permanent link">&para;</a></h2>
+        <h1 id="securaa-playbook-service-high-level-design-document">Securaa Playbook Service - High Level Design Document</h1>
+<h2 id="document-information">Document Information</h2>
 <ul>
 <li><strong>Service Name</strong>: Securaa Playbook Service</li>
 <li><strong>Version</strong>: 1.0</li>
 <li><strong>Date</strong>: September 11, 2025</li>
 <li><strong>Author</strong>: System Architecture Team</li>
 </ul>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#system-architecture">System Architecture</a></li>
@@ -643,10 +643,10 @@ hr {
 <li><a href="#integration-architecture">Integration Architecture</a></li>
 </ol>
 <hr />
-<h2 id="1-overview">1. Overview<a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
-<h3 id="11-purpose">1.1 Purpose<a class="headerlink" href="#11-purpose" title="Permanent link">&para;</a></h3>
+<h2 id="1-overview">1. Overview</h2>
+<h3 id="11-purpose">1.1 Purpose</h3>
 <p>The Securaa Playbook Service is a core component of the Securaa Security Platform that provides automated security orchestration, automation, and response (SOAR) capabilities. It enables organizations to create, execute, and manage security playbooks for incident response and threat mitigation.</p>
-<h3 id="12-key-features">1.2 Key Features<a class="headerlink" href="#12-key-features" title="Permanent link">&para;</a></h3>
+<h3 id="12-key-features">1.2 Key Features</h3>
 <ul>
 <li><strong>Automated Workflow Execution</strong>: Execute complex security workflows with conditional logic</li>
 <li><strong>Multi-tenant Architecture</strong>: Support for multiple organizations with complete data isolation</li>
@@ -656,7 +656,7 @@ hr {
 <li><strong>Real-time Monitoring</strong>: Live execution tracking and performance metrics</li>
 <li><strong>Audit &amp; Compliance</strong>: Complete audit trails for regulatory compliance</li>
 </ul>
-<h3 id="13-business-context">1.3 Business Context<a class="headerlink" href="#13-business-context" title="Permanent link">&para;</a></h3>
+<h3 id="13-business-context">1.3 Business Context</h3>
 <div class="mermaid">
 graph TB
     A[Security Incident] --> B[Securaa SIEM/Case Management]
@@ -669,8 +669,8 @@ graph TB
 </div>
 
 <hr />
-<h2 id="2-system-architecture">2. System Architecture<a class="headerlink" href="#2-system-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="21-high-level-architecture">2.1 High-Level Architecture<a class="headerlink" href="#21-high-level-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="2-system-architecture">2. System Architecture</h2>
+<h3 id="21-high-level-architecture">2.1 High-Level Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph "Client Layer"
@@ -705,7 +705,7 @@ graph TB
     G --> R
 </div>
 
-<h3 id="22-technology-stack">2.2 Technology Stack<a class="headerlink" href="#22-technology-stack" title="Permanent link">&para;</a></h3>
+<h3 id="22-technology-stack">2.2 Technology Stack</h3>
 <table>
 <thead>
 <tr>
@@ -757,7 +757,7 @@ graph TB
 </tr>
 </tbody>
 </table>
-<h3 id="23-service-boundaries">2.3 Service Boundaries<a class="headerlink" href="#23-service-boundaries" title="Permanent link">&para;</a></h3>
+<h3 id="23-service-boundaries">2.3 Service Boundaries</h3>
 <div class="mermaid">
 graph LR
     subgraph "Securaa Playbook Service"
@@ -773,8 +773,8 @@ graph LR
 </div>
 
 <hr />
-<h2 id="3-component-design">3. Component Design<a class="headerlink" href="#3-component-design" title="Permanent link">&para;</a></h2>
-<h3 id="31-component-architecture">3.1 Component Architecture<a class="headerlink" href="#31-component-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="3-component-design">3. Component Design</h2>
+<h3 id="31-component-architecture">3.1 Component Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph "HTTP Layer"
@@ -814,13 +814,13 @@ graph TB
     C --> D
 </div>
 
-<h3 id="32-key-components">3.2 Key Components<a class="headerlink" href="#32-key-components" title="Permanent link">&para;</a></h3>
-<h4 id="321-playbook-execution-controller">3.2.1 Playbook Execution Controller<a class="headerlink" href="#321-playbook-execution-controller" title="Permanent link">&para;</a></h4>
+<h3 id="32-key-components">3.2 Key Components</h3>
+<h4 id="321-playbook-execution-controller">3.2.1 Playbook Execution Controller</h4>
 <p><strong>Purpose</strong>: Orchestrates the entire playbook execution lifecycle</p>
-<p><strong>Key Responsibilities</strong>:<br />
-- Manages playbook execution state<br />
-- Coordinates parallel task execution<br />
-- Handles task dependencies and flow control<br />
+<p><strong>Key Responsibilities</strong>:
+- Manages playbook execution state
+- Coordinates parallel task execution
+- Handles task dependencies and flow control
 - Implements stop/resume functionality</p>
 <p><strong>Key Methods</strong>:</p>
 <pre class="highlight"><code class="language-go">type PlaybookExecutionController struct {
@@ -835,14 +835,14 @@ func (pec *PlaybookExecutionController) ReadAndRunPlayBook()
 func (pec *PlaybookExecutionController) ProcessAndExecuteTask()
 </code></pre>
 
-<h4 id="322-task-execution-engine">3.2.2 Task Execution Engine<a class="headerlink" href="#322-task-execution-engine" title="Permanent link">&para;</a></h4>
+<h4 id="322-task-execution-engine">3.2.2 Task Execution Engine</h4>
 <p><strong>Purpose</strong>: Executes individual tasks within playbooks</p>
-<p><strong>Task Types Supported</strong>:<br />
-- <strong>Integration Tasks</strong>: API calls to external systems<br />
-- <strong>Utility Tasks</strong>: Data processing and transformation<br />
-- <strong>Condition Tasks</strong>: Decision points in workflow<br />
-- <strong>Manual Tasks</strong>: Human intervention required<br />
-- <strong>Sub-Playbook Tasks</strong>: Nested workflow execution<br />
+<p><strong>Task Types Supported</strong>:
+- <strong>Integration Tasks</strong>: API calls to external systems
+- <strong>Utility Tasks</strong>: Data processing and transformation
+- <strong>Condition Tasks</strong>: Decision points in workflow
+- <strong>Manual Tasks</strong>: Human intervention required
+- <strong>Sub-Playbook Tasks</strong>: Nested workflow execution
 - <strong>Approval Tasks</strong>: Workflow gates requiring approval</p>
 <p><strong>Execution Flow</strong>:</p>
 <div class="mermaid">
@@ -860,25 +860,25 @@ sequenceDiagram
     TE->>PE: Update Execution State
 </div>
 
-<h4 id="323-filter-transform-engine">3.2.3 Filter &amp; Transform Engine<a class="headerlink" href="#323-filter-transform-engine" title="Permanent link">&para;</a></h4>
+<h4 id="323-filter-transform-engine">3.2.3 Filter &amp; Transform Engine</h4>
 <p><strong>Purpose</strong>: Processes and transforms data within task execution</p>
-<p><strong>Features</strong>:<br />
-- <strong>Conditional Processing</strong>: Execute tasks based on case data conditions<br />
-- <strong>Data Transformation</strong>: Format and process data using Python utilities<br />
-- <strong>Field Resolution</strong>: Dynamic field value extraction from case metadata<br />
+<p><strong>Features</strong>:
+- <strong>Conditional Processing</strong>: Execute tasks based on case data conditions
+- <strong>Data Transformation</strong>: Format and process data using Python utilities
+- <strong>Field Resolution</strong>: Dynamic field value extraction from case metadata
 - <strong>Filter Chaining</strong>: Multiple condition evaluation</p>
-<h4 id="324-integration-management">3.2.4 Integration Management<a class="headerlink" href="#324-integration-management" title="Permanent link">&para;</a></h4>
+<h4 id="324-integration-management">3.2.4 Integration Management</h4>
 <p><strong>Purpose</strong>: Manages connections to external security tools</p>
-<p><strong>Supported Integration Types</strong>:<br />
-- SIEM platforms (QRadar, Splunk, ArcSight)<br />
-- Ticketing systems (Jira, ServiceNow, Remedy)<br />
-- Security tools (Endpoint protection, Firewalls, SOAR platforms)<br />
-- Communication platforms (Slack, Teams, Email)<br />
+<p><strong>Supported Integration Types</strong>:
+- SIEM platforms (QRadar, Splunk, ArcSight)
+- Ticketing systems (Jira, ServiceNow, Remedy)
+- Security tools (Endpoint protection, Firewalls, SOAR platforms)
+- Communication platforms (Slack, Teams, Email)
 - Threat intelligence feeds</p>
 <hr />
-<h2 id="4-data-architecture">4. Data Architecture<a class="headerlink" href="#4-data-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="41-database-design">4.1 Database Design<a class="headerlink" href="#41-database-design" title="Permanent link">&para;</a></h3>
-<h4 id="411-mongodb-collections">4.1.1 MongoDB Collections<a class="headerlink" href="#411-mongodb-collections" title="Permanent link">&para;</a></h4>
+<h2 id="4-data-architecture">4. Data Architecture</h2>
+<h3 id="41-database-design">4.1 Database Design</h3>
+<h4 id="411-mongodb-collections">4.1.1 MongoDB Collections</h4>
 <div class="mermaid">
 erDiagram
     PLAYBOOK_COLLECTION {
@@ -939,12 +939,12 @@ erDiagram
     INCIDENTS_COLLECTION ||--o{ PLAYBOOK_EXECUTION_COLLECTION : triggers
 </div>
 
-<h4 id="412-sharding-strategy">4.1.2 Sharding Strategy<a class="headerlink" href="#412-sharding-strategy" title="Permanent link">&para;</a></h4>
-<p><strong>Sharding Key</strong>: <code>securaa_s_incident_id % SHARD_BUCKET_COUNT</code><br />
-- Distributes case data across multiple shards<br />
-- Ensures even data distribution<br />
+<h4 id="412-sharding-strategy">4.1.2 Sharding Strategy</h4>
+<p><strong>Sharding Key</strong>: <code>securaa_s_incident_id % SHARD_BUCKET_COUNT</code>
+- Distributes case data across multiple shards
+- Ensures even data distribution
 - Optimizes query performance for case-based operations</p>
-<h4 id="413-data-models">4.1.3 Data Models<a class="headerlink" href="#413-data-models" title="Permanent link">&para;</a></h4>
+<h4 id="413-data-models">4.1.3 Data Models</h4>
 <p><strong>Playbook Definition</strong>:</p>
 <pre class="highlight"><code class="language-go">type PlaybookObject struct {
     ID                 int      `json:&quot;id&quot; bson:&quot;id&quot;`
@@ -977,8 +977,8 @@ erDiagram
 }
 </code></pre>
 
-<h3 id="42-caching-strategy">4.2 Caching Strategy<a class="headerlink" href="#42-caching-strategy" title="Permanent link">&para;</a></h3>
-<h4 id="421-redis-cache-structure">4.2.1 Redis Cache Structure<a class="headerlink" href="#421-redis-cache-structure" title="Permanent link">&para;</a></h4>
+<h3 id="42-caching-strategy">4.2 Caching Strategy</h3>
+<h4 id="421-redis-cache-structure">4.2.1 Redis Cache Structure</h4>
 <pre class="highlight"><code>securaa_playbook:tenant:{tenant_code}:playbook:{playbook_name}
 securaa_playbook:tenant:{tenant_code}:task:{task_tag}
 securaa_playbook:tenant:{tenant_code}:lists
@@ -986,7 +986,7 @@ securaa_playbook:tenant:{tenant_code}:user:{user_id}
 securaa_playbook:execution:{execution_id}:count
 </code></pre>
 
-<h4 id="422-cache-policies">4.2.2 Cache Policies<a class="headerlink" href="#422-cache-policies" title="Permanent link">&para;</a></h4>
+<h4 id="422-cache-policies">4.2.2 Cache Policies</h4>
 <ul>
 <li><strong>Playbook Definitions</strong>: Long-term caching with manual invalidation</li>
 <li><strong>Task Metadata</strong>: Medium-term caching (1 hour TTL)</li>
@@ -994,9 +994,9 @@ securaa_playbook:execution:{execution_id}:count
 <li><strong>User Sessions</strong>: Session-based TTL</li>
 </ul>
 <hr />
-<h2 id="5-api-design">5. API Design<a class="headerlink" href="#5-api-design" title="Permanent link">&para;</a></h2>
-<h3 id="51-restful-api-structure">5.1 RESTful API Structure<a class="headerlink" href="#51-restful-api-structure" title="Permanent link">&para;</a></h3>
-<h4 id="511-core-endpoints">5.1.1 Core Endpoints<a class="headerlink" href="#511-core-endpoints" title="Permanent link">&para;</a></h4>
+<h2 id="5-api-design">5. API Design</h2>
+<h3 id="51-restful-api-structure">5.1 RESTful API Structure</h3>
+<h4 id="511-core-endpoints">5.1.1 Core Endpoints</h4>
 <pre class="highlight"><code class="language-yaml"># Playbook Management
 GET    /getplaybookinfo/{tenantcode}/{category_id}/{status}/{type}/
 POST   /createplaybook/
@@ -1021,7 +1021,7 @@ POST   /arraytostring/
 POST   /deduplicate/
 </code></pre>
 
-<h4 id="512-requestresponse-patterns">5.1.2 Request/Response Patterns<a class="headerlink" href="#512-requestresponse-patterns" title="Permanent link">&para;</a></h4>
+<h4 id="512-requestresponse-patterns">5.1.2 Request/Response Patterns</h4>
 <p><strong>Playbook Execution Request</strong>:</p>
 <pre class="highlight"><code class="language-json">{
   &quot;tenantcode&quot;: &quot;tenant123&quot;,
@@ -1051,16 +1051,16 @@ POST   /deduplicate/
 }
 </code></pre>
 
-<h3 id="52-websocket-integration">5.2 WebSocket Integration<a class="headerlink" href="#52-websocket-integration" title="Permanent link">&para;</a></h3>
-<p>For real-time updates during playbook execution:<br />
-- Execution progress updates<br />
-- Task completion notifications<br />
-- Error alerts<br />
+<h3 id="52-websocket-integration">5.2 WebSocket Integration</h3>
+<p>For real-time updates during playbook execution:
+- Execution progress updates
+- Task completion notifications
+- Error alerts
 - Status changes</p>
 <hr />
-<h2 id="6-security-architecture">6. Security Architecture<a class="headerlink" href="#6-security-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="61-multi-tenant-security-model">6.1 Multi-Tenant Security Model<a class="headerlink" href="#61-multi-tenant-security-model" title="Permanent link">&para;</a></h3>
-<h4 id="611-tenant-isolation">6.1.1 Tenant Isolation<a class="headerlink" href="#611-tenant-isolation" title="Permanent link">&para;</a></h4>
+<h2 id="6-security-architecture">6. Security Architecture</h2>
+<h3 id="61-multi-tenant-security-model">6.1 Multi-Tenant Security Model</h3>
+<h4 id="611-tenant-isolation">6.1.1 Tenant Isolation</h4>
 <div class="mermaid">
 graph TB
     subgraph "Tenant A"
@@ -1089,29 +1089,29 @@ graph TB
     B4 --> D
 </div>
 
-<h4 id="612-authentication-authorization">6.1.2 Authentication &amp; Authorization<a class="headerlink" href="#612-authentication-authorization" title="Permanent link">&para;</a></h4>
+<h4 id="612-authentication-authorization">6.1.2 Authentication &amp; Authorization</h4>
 <ul>
 <li><strong>JWT-based Authentication</strong>: Stateless token-based auth</li>
 <li><strong>Role-Based Access Control (RBAC)</strong>: Granular permissions</li>
 <li><strong>Tenant-Scoped Resources</strong>: Complete data isolation</li>
 <li><strong>Session Management</strong>: Configurable session timeouts</li>
 </ul>
-<h4 id="613-data-security">6.1.3 Data Security<a class="headerlink" href="#613-data-security" title="Permanent link">&para;</a></h4>
+<h4 id="613-data-security">6.1.3 Data Security</h4>
 <ul>
 <li><strong>Encryption at Rest</strong>: MongoDB encrypted storage</li>
 <li><strong>Encryption in Transit</strong>: TLS/SSL for all communications</li>
 <li><strong>Credential Management</strong>: Secure storage of integration credentials</li>
 <li><strong>Audit Logging</strong>: Complete audit trail for compliance</li>
 </ul>
-<h3 id="62-security-controls">6.2 Security Controls<a class="headerlink" href="#62-security-controls" title="Permanent link">&para;</a></h3>
-<h4 id="621-input-validation">6.2.1 Input Validation<a class="headerlink" href="#621-input-validation" title="Permanent link">&para;</a></h4>
+<h3 id="62-security-controls">6.2 Security Controls</h3>
+<h4 id="621-input-validation">6.2.1 Input Validation</h4>
 <ul>
 <li>Schema validation for all API inputs</li>
 <li>SQL injection prevention</li>
 <li>XSS protection</li>
 <li>Parameter sanitization</li>
 </ul>
-<h4 id="622-access-control">6.2.2 Access Control<a class="headerlink" href="#622-access-control" title="Permanent link">&para;</a></h4>
+<h4 id="622-access-control">6.2.2 Access Control</h4>
 <pre class="highlight"><code class="language-go">// Middleware example
 func (a *App) loggingMiddleware(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -1124,9 +1124,9 @@ func (a *App) loggingMiddleware(next http.Handler) http.Handler {
 </code></pre>
 
 <hr />
-<h2 id="7-scalability-performance">7. Scalability &amp; Performance<a class="headerlink" href="#7-scalability-performance" title="Permanent link">&para;</a></h2>
-<h3 id="71-horizontal-scaling">7.1 Horizontal Scaling<a class="headerlink" href="#71-horizontal-scaling" title="Permanent link">&para;</a></h3>
-<h4 id="711-service-scaling">7.1.1 Service Scaling<a class="headerlink" href="#711-service-scaling" title="Permanent link">&para;</a></h4>
+<h2 id="7-scalability-performance">7. Scalability &amp; Performance</h2>
+<h3 id="71-horizontal-scaling">7.1 Horizontal Scaling</h3>
+<h4 id="711-service-scaling">7.1.1 Service Scaling</h4>
 <div class="mermaid">
 graph TB
     subgraph "Load Balancer"
@@ -1161,22 +1161,22 @@ graph TB
     B2 --> D
 </div>
 
-<h4 id="712-database-sharding">7.1.2 Database Sharding<a class="headerlink" href="#712-database-sharding" title="Permanent link">&para;</a></h4>
+<h4 id="712-database-sharding">7.1.2 Database Sharding</h4>
 <ul>
 <li><strong>Horizontal Partitioning</strong>: Case data distributed across shards</li>
 <li><strong>Query Routing</strong>: Automatic routing to appropriate shard</li>
 <li><strong>Cross-Shard Queries</strong>: Aggregation across multiple shards</li>
 <li><strong>Replication</strong>: Master-slave replication for high availability</li>
 </ul>
-<h3 id="72-performance-optimization">7.2 Performance Optimization<a class="headerlink" href="#72-performance-optimization" title="Permanent link">&para;</a></h3>
-<h4 id="721-caching-strategy">7.2.1 Caching Strategy<a class="headerlink" href="#721-caching-strategy" title="Permanent link">&para;</a></h4>
+<h3 id="72-performance-optimization">7.2 Performance Optimization</h3>
+<h4 id="721-caching-strategy">7.2.1 Caching Strategy</h4>
 <ul>
 <li><strong>Multi-level Caching</strong>: Application, database, and CDN caching</li>
 <li><strong>Cache Warming</strong>: Proactive cache population</li>
 <li><strong>Intelligent Invalidation</strong>: Smart cache invalidation policies</li>
 <li><strong>Cache Metrics</strong>: Monitoring cache hit/miss ratios</li>
 </ul>
-<h4 id="722-parallel-processing">7.2.2 Parallel Processing<a class="headerlink" href="#722-parallel-processing" title="Permanent link">&para;</a></h4>
+<h4 id="722-parallel-processing">7.2.2 Parallel Processing</h4>
 <pre class="highlight"><code class="language-go">// Parallel task execution example
 func (executionController *PlaybookExecutionController) executeParallelTasks() {
     var wg sync.WaitGroup
@@ -1191,24 +1191,24 @@ func (executionController *PlaybookExecutionController) executeParallelTasks() {
 }
 </code></pre>
 
-<h3 id="73-resource-management">7.3 Resource Management<a class="headerlink" href="#73-resource-management" title="Permanent link">&para;</a></h3>
-<h4 id="731-docker-container-management">7.3.1 Docker Container Management<a class="headerlink" href="#731-docker-container-management" title="Permanent link">&para;</a></h4>
+<h3 id="73-resource-management">7.3 Resource Management</h3>
+<h4 id="731-docker-container-management">7.3.1 Docker Container Management</h4>
 <ul>
 <li><strong>Resource Limits</strong>: CPU and memory constraints</li>
 <li><strong>Container Lifecycle</strong>: Automatic cleanup</li>
 <li><strong>Image Management</strong>: Optimized container images</li>
 <li><strong>Health Checks</strong>: Container health monitoring</li>
 </ul>
-<h4 id="732-connection-pooling">7.3.2 Connection Pooling<a class="headerlink" href="#732-connection-pooling" title="Permanent link">&para;</a></h4>
+<h4 id="732-connection-pooling">7.3.2 Connection Pooling</h4>
 <ul>
 <li><strong>Database Connections</strong>: MongoDB connection pooling</li>
 <li><strong>Redis Connections</strong>: Connection pool for cache operations</li>
 <li><strong>HTTP Client Pooling</strong>: Reusable HTTP clients for integrations</li>
 </ul>
 <hr />
-<h2 id="8-deployment-architecture">8. Deployment Architecture<a class="headerlink" href="#8-deployment-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="81-containerization">8.1 Containerization<a class="headerlink" href="#81-containerization" title="Permanent link">&para;</a></h3>
-<h4 id="811-docker-configuration">8.1.1 Docker Configuration<a class="headerlink" href="#811-docker-configuration" title="Permanent link">&para;</a></h4>
+<h2 id="8-deployment-architecture">8. Deployment Architecture</h2>
+<h3 id="81-containerization">8.1 Containerization</h3>
+<h4 id="811-docker-configuration">8.1.1 Docker Configuration</h4>
 <pre class="highlight"><code class="language-dockerfile">FROM golang:1.17-alpine AS builder
 WORKDIR /app
 COPY . .
@@ -1223,15 +1223,15 @@ EXPOSE 8040
 CMD [&quot;./securaa-playbook-service&quot;]
 </code></pre>
 
-<h3 id="82-infrastructure-requirements">8.2 Infrastructure Requirements<a class="headerlink" href="#82-infrastructure-requirements" title="Permanent link">&para;</a></h3>
-<h4 id="821-compute-resources">8.2.1 Compute Resources<a class="headerlink" href="#821-compute-resources" title="Permanent link">&para;</a></h4>
+<h3 id="82-infrastructure-requirements">8.2 Infrastructure Requirements</h3>
+<h4 id="821-compute-resources">8.2.1 Compute Resources</h4>
 <ul>
 <li><strong>CPU</strong>: 2+ cores per service instance</li>
 <li><strong>Memory</strong>: 4GB+ RAM per service instance</li>
 <li><strong>Storage</strong>: SSD storage for optimal performance</li>
 <li><strong>Network</strong>: Low-latency networking for real-time execution</li>
 </ul>
-<h4 id="822-database-infrastructure">8.2.2 Database Infrastructure<a class="headerlink" href="#822-database-infrastructure" title="Permanent link">&para;</a></h4>
+<h4 id="822-database-infrastructure">8.2.2 Database Infrastructure</h4>
 <ul>
 <li><strong>MongoDB</strong>: Replica set with 3+ nodes</li>
 <li><strong>Redis</strong>: Cluster mode with persistence</li>
@@ -1239,31 +1239,31 @@ CMD [&quot;./securaa-playbook-service&quot;]
 <li><strong>Monitoring</strong>: Real-time performance monitoring</li>
 </ul>
 <hr />
-<h2 id="9-monitoring-observability">9. Monitoring &amp; Observability<a class="headerlink" href="#9-monitoring-observability" title="Permanent link">&para;</a></h2>
-<h3 id="91-metrics-kpis">9.1 Metrics &amp; KPIs<a class="headerlink" href="#91-metrics-kpis" title="Permanent link">&para;</a></h3>
-<h4 id="911-business-metrics">9.1.1 Business Metrics<a class="headerlink" href="#911-business-metrics" title="Permanent link">&para;</a></h4>
+<h2 id="9-monitoring-observability">9. Monitoring &amp; Observability</h2>
+<h3 id="91-metrics-kpis">9.1 Metrics &amp; KPIs</h3>
+<h4 id="911-business-metrics">9.1.1 Business Metrics</h4>
 <ul>
 <li><strong>Playbook Execution Success Rate</strong>: % of successful executions</li>
 <li><strong>Mean Time to Resolution (MTTR)</strong>: Average incident response time</li>
 <li><strong>Task Completion Rate</strong>: Individual task success rates</li>
 <li><strong>User Adoption</strong>: Active playbook usage statistics</li>
 </ul>
-<h4 id="912-technical-metrics">9.1.2 Technical Metrics<a class="headerlink" href="#912-technical-metrics" title="Permanent link">&para;</a></h4>
+<h4 id="912-technical-metrics">9.1.2 Technical Metrics</h4>
 <ul>
 <li><strong>Response Time</strong>: API response latencies</li>
 <li><strong>Throughput</strong>: Requests per second</li>
 <li><strong>Error Rates</strong>: 4xx/5xx error percentages</li>
 <li><strong>Resource Utilization</strong>: CPU, memory, disk usage</li>
 </ul>
-<h3 id="92-logging-strategy">9.2 Logging Strategy<a class="headerlink" href="#92-logging-strategy" title="Permanent link">&para;</a></h3>
-<h4 id="921-log-levels">9.2.1 Log Levels<a class="headerlink" href="#921-log-levels" title="Permanent link">&para;</a></h4>
+<h3 id="92-logging-strategy">9.2 Logging Strategy</h3>
+<h4 id="921-log-levels">9.2.1 Log Levels</h4>
 <pre class="highlight"><code class="language-go">logger.Debug(&quot;Task execution started&quot;)
 logger.Info(&quot;Playbook execution completed successfully&quot;)
 logger.Warn(&quot;Task execution timeout, retrying...&quot;)
 logger.Error(&quot;Database connection failed&quot;, err.Error())
 </code></pre>
 
-<h4 id="922-structured-logging">9.2.2 Structured Logging<a class="headerlink" href="#922-structured-logging" title="Permanent link">&para;</a></h4>
+<h4 id="922-structured-logging">9.2.2 Structured Logging</h4>
 <pre class="highlight"><code class="language-json">{
   &quot;timestamp&quot;: &quot;2025-09-11T10:30:00Z&quot;,
   &quot;level&quot;: &quot;INFO&quot;,
@@ -1277,15 +1277,15 @@ logger.Error(&quot;Database connection failed&quot;, err.Error())
 }
 </code></pre>
 
-<h3 id="93-alerting-notifications">9.3 Alerting &amp; Notifications<a class="headerlink" href="#93-alerting-notifications" title="Permanent link">&para;</a></h3>
-<h4 id="931-alert-conditions">9.3.1 Alert Conditions<a class="headerlink" href="#931-alert-conditions" title="Permanent link">&para;</a></h4>
+<h3 id="93-alerting-notifications">9.3 Alerting &amp; Notifications</h3>
+<h4 id="931-alert-conditions">9.3.1 Alert Conditions</h4>
 <ul>
 <li><strong>High Error Rate</strong>: &gt;5% error rate over 5 minutes</li>
 <li><strong>High Latency</strong>: P95 response time &gt;2 seconds</li>
 <li><strong>Resource Exhaustion</strong>: CPU/Memory &gt;80%</li>
 <li><strong>Database Issues</strong>: Connection failures or timeouts</li>
 </ul>
-<h4 id="932-notification-channels">9.3.2 Notification Channels<a class="headerlink" href="#932-notification-channels" title="Permanent link">&para;</a></h4>
+<h4 id="932-notification-channels">9.3.2 Notification Channels</h4>
 <ul>
 <li>Email alerts for critical issues</li>
 <li>Slack/Teams integration for team notifications</li>
@@ -1293,16 +1293,16 @@ logger.Error(&quot;Database connection failed&quot;, err.Error())
 <li>Dashboard alerts for operations team</li>
 </ul>
 <hr />
-<h2 id="10-error-handling-recovery">10. Error Handling &amp; Recovery<a class="headerlink" href="#10-error-handling-recovery" title="Permanent link">&para;</a></h2>
-<h3 id="101-error-handling-strategy">10.1 Error Handling Strategy<a class="headerlink" href="#101-error-handling-strategy" title="Permanent link">&para;</a></h3>
-<h4 id="1011-error-categories">10.1.1 Error Categories<a class="headerlink" href="#1011-error-categories" title="Permanent link">&para;</a></h4>
+<h2 id="10-error-handling-recovery">10. Error Handling &amp; Recovery</h2>
+<h3 id="101-error-handling-strategy">10.1 Error Handling Strategy</h3>
+<h4 id="1011-error-categories">10.1.1 Error Categories</h4>
 <ul>
 <li><strong>Transient Errors</strong>: Network timeouts, temporary service unavailability</li>
 <li><strong>Permanent Errors</strong>: Invalid configuration, authentication failures</li>
 <li><strong>Business Logic Errors</strong>: Invalid playbook definitions, condition failures</li>
 <li><strong>System Errors</strong>: Database failures, resource exhaustion</li>
 </ul>
-<h4 id="1012-error-response-pattern">10.1.2 Error Response Pattern<a class="headerlink" href="#1012-error-response-pattern" title="Permanent link">&para;</a></h4>
+<h4 id="1012-error-response-pattern">10.1.2 Error Response Pattern</h4>
 <pre class="highlight"><code class="language-go">type Response struct {
     Success        bool        `json:&quot;success&quot;`
     Data           interface{} `json:&quot;data&quot;`
@@ -1313,8 +1313,8 @@ logger.Error(&quot;Database connection failed&quot;, err.Error())
 }
 </code></pre>
 
-<h3 id="102-recovery-mechanisms">10.2 Recovery Mechanisms<a class="headerlink" href="#102-recovery-mechanisms" title="Permanent link">&para;</a></h3>
-<h4 id="1021-retry-logic">10.2.1 Retry Logic<a class="headerlink" href="#1021-retry-logic" title="Permanent link">&para;</a></h4>
+<h3 id="102-recovery-mechanisms">10.2 Recovery Mechanisms</h3>
+<h4 id="1021-retry-logic">10.2.1 Retry Logic</h4>
 <pre class="highlight"><code class="language-go">func retryWithBackoff(operation func() error, maxRetries int) error {
     for i := 0; i &lt; maxRetries; i++ {
         err := operation()
@@ -1328,21 +1328,21 @@ logger.Error(&quot;Database connection failed&quot;, err.Error())
 }
 </code></pre>
 
-<h4 id="1022-circuit-breaker-pattern">10.2.2 Circuit Breaker Pattern<a class="headerlink" href="#1022-circuit-breaker-pattern" title="Permanent link">&para;</a></h4>
+<h4 id="1022-circuit-breaker-pattern">10.2.2 Circuit Breaker Pattern</h4>
 <ul>
 <li><strong>Closed State</strong>: Normal operation</li>
 <li><strong>Open State</strong>: Fail fast when service is down</li>
 <li><strong>Half-Open State</strong>: Test if service has recovered</li>
 </ul>
-<h3 id="103-data-consistency">10.3 Data Consistency<a class="headerlink" href="#103-data-consistency" title="Permanent link">&para;</a></h3>
-<h4 id="1031-transaction-management">10.3.1 Transaction Management<a class="headerlink" href="#1031-transaction-management" title="Permanent link">&para;</a></h4>
+<h3 id="103-data-consistency">10.3 Data Consistency</h3>
+<h4 id="1031-transaction-management">10.3.1 Transaction Management</h4>
 <ul>
 <li><strong>ACID Compliance</strong>: Ensure data consistency</li>
 <li><strong>Compensating Transactions</strong>: Rollback on failures</li>
 <li><strong>Idempotent Operations</strong>: Safe retry mechanisms</li>
 <li><strong>Event Sourcing</strong>: Audit trail for state changes</li>
 </ul>
-<h4 id="1032-backup-recovery">10.3.2 Backup &amp; Recovery<a class="headerlink" href="#1032-backup-recovery" title="Permanent link">&para;</a></h4>
+<h4 id="1032-backup-recovery">10.3.2 Backup &amp; Recovery</h4>
 <ul>
 <li><strong>Automated Backups</strong>: Daily full backups</li>
 <li><strong>Point-in-Time Recovery</strong>: Restore to specific timestamps</li>
@@ -1350,9 +1350,9 @@ logger.Error(&quot;Database connection failed&quot;, err.Error())
 <li><strong>Data Validation</strong>: Integrity checks after recovery</li>
 </ul>
 <hr />
-<h2 id="11-integration-architecture">11. Integration Architecture<a class="headerlink" href="#11-integration-architecture" title="Permanent link">&para;</a></h2>
-<h3 id="111-external-system-integration">11.1 External System Integration<a class="headerlink" href="#111-external-system-integration" title="Permanent link">&para;</a></h3>
-<h4 id="1111-integration-types">11.1.1 Integration Types<a class="headerlink" href="#1111-integration-types" title="Permanent link">&para;</a></h4>
+<h2 id="11-integration-architecture">11. Integration Architecture</h2>
+<h3 id="111-external-system-integration">11.1 External System Integration</h3>
+<h4 id="1111-integration-types">11.1.1 Integration Types</h4>
 <div class="mermaid">
 graph TB
     subgraph "Securaa Playbook Service"
@@ -1397,22 +1397,22 @@ graph TB
     A --> E3
 </div>
 
-<h4 id="1112-integration-patterns">11.1.2 Integration Patterns<a class="headerlink" href="#1112-integration-patterns" title="Permanent link">&para;</a></h4>
+<h4 id="1112-integration-patterns">11.1.2 Integration Patterns</h4>
 <ul>
 <li><strong>RESTful APIs</strong>: HTTP-based integrations</li>
 <li><strong>Webhook Support</strong>: Event-driven integration</li>
 <li><strong>Custom Connectors</strong>: Proprietary protocol support</li>
 <li><strong>Batch Processing</strong>: Bulk data operations</li>
 </ul>
-<h3 id="112-data-exchange">11.2 Data Exchange<a class="headerlink" href="#112-data-exchange" title="Permanent link">&para;</a></h3>
-<h4 id="1121-data-formats">11.2.1 Data Formats<a class="headerlink" href="#1121-data-formats" title="Permanent link">&para;</a></h4>
+<h3 id="112-data-exchange">11.2 Data Exchange</h3>
+<h4 id="1121-data-formats">11.2.1 Data Formats</h4>
 <ul>
 <li><strong>JSON</strong>: Primary data format</li>
 <li><strong>XML</strong>: Legacy system support</li>
 <li><strong>CSV</strong>: Bulk data operations</li>
 <li><strong>Binary</strong>: File transfers and attachments</li>
 </ul>
-<h4 id="1122-transformation-engine">11.2.2 Transformation Engine<a class="headerlink" href="#1122-transformation-engine" title="Permanent link">&para;</a></h4>
+<h4 id="1122-transformation-engine">11.2.2 Transformation Engine</h4>
 <pre class="highlight"><code class="language-go">type Transformer struct {
     Name   string      `json:&quot;name&quot;`
     Data   interface{} `json:&quot;data&quot;`
@@ -1426,15 +1426,15 @@ func TransformValues(alertData models.RunPlayBookRequest2,
 }
 </code></pre>
 
-<h3 id="113-api-management">11.3 API Management<a class="headerlink" href="#113-api-management" title="Permanent link">&para;</a></h3>
-<h4 id="1131-rate-limiting">11.3.1 Rate Limiting<a class="headerlink" href="#1131-rate-limiting" title="Permanent link">&para;</a></h4>
+<h3 id="113-api-management">11.3 API Management</h3>
+<h4 id="1131-rate-limiting">11.3.1 Rate Limiting</h4>
 <ul>
 <li><strong>Per-tenant limits</strong>: Prevent resource exhaustion</li>
 <li><strong>API quotas</strong>: Fair usage policies</li>
 <li><strong>Burst handling</strong>: Handle traffic spikes</li>
 <li><strong>Throttling</strong>: Graceful degradation</li>
 </ul>
-<h4 id="1132-authentication-methods">11.3.2 Authentication Methods<a class="headerlink" href="#1132-authentication-methods" title="Permanent link">&para;</a></h4>
+<h4 id="1132-authentication-methods">11.3.2 Authentication Methods</h4>
 <ul>
 <li><strong>API Keys</strong>: Simple authentication</li>
 <li><strong>OAuth 2.0</strong>: Secure delegated access</li>
@@ -1442,9 +1442,9 @@ func TransformValues(alertData models.RunPlayBookRequest2,
 <li><strong>Mutual TLS</strong>: Certificate-based auth</li>
 </ul>
 <hr />
-<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<h2 id="conclusion">Conclusion</h2>
 <p>The Securaa Playbook Service represents a sophisticated, enterprise-grade security orchestration platform designed for high-scale, multi-tenant environments. Its modular architecture, robust error handling, and comprehensive integration capabilities make it suitable for large security operations centers and managed security service providers.</p>
-<h3 id="key-strengths">Key Strengths<a class="headerlink" href="#key-strengths" title="Permanent link">&para;</a></h3>
+<h3 id="key-strengths">Key Strengths</h3>
 <ul>
 <li><strong>Scalable Architecture</strong>: Supports horizontal scaling and high availability</li>
 <li><strong>Security First</strong>: Comprehensive security controls and multi-tenant isolation</li>
@@ -1452,7 +1452,7 @@ func TransformValues(alertData models.RunPlayBookRequest2,
 <li><strong>Performance Optimized</strong>: Parallel execution and intelligent caching</li>
 <li><strong>Operations Ready</strong>: Comprehensive monitoring and observability</li>
 </ul>
-<h3 id="future-considerations">Future Considerations<a class="headerlink" href="#future-considerations" title="Permanent link">&para;</a></h3>
+<h3 id="future-considerations">Future Considerations</h3>
 <ul>
 <li><strong>AI/ML Integration</strong>: Intelligent playbook optimization</li>
 <li><strong>Event Streaming</strong>: Real-time event processing</li>

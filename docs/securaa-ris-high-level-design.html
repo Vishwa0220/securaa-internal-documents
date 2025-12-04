@@ -620,8 +620,8 @@ hr {
     </nav>
 
     <main class="main-content">
-        <h1 id="remote-integrated-services-ris-system-high-level-design-hld">Remote Integrated Services (RIS) System - High-Level Design (HLD)<a class="headerlink" href="#remote-integrated-services-ris-system-high-level-design-hld" title="Permanent link">&para;</a></h1>
-<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+        <h1 id="remote-integrated-services-ris-system-high-level-design-hld">Remote Integrated Services (RIS) System - High-Level Design (HLD)</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
 <ol>
 <li><a href="#system-overview">System Overview</a></li>
 <li><a href="#business-context-and-requirements">Business Context and Requirements</a></li>
@@ -639,9 +639,9 @@ hr {
 <li><a href="#operational-workflows">Operational Workflows</a></li>
 <li><a href="#integration-patterns">Integration Patterns</a></li>
 </ol>
-<h2 id="system-overview">System Overview<a class="headerlink" href="#system-overview" title="Permanent link">&para;</a></h2>
+<h2 id="system-overview">System Overview</h2>
 <p>The Remote Integrated Services (RIS) System is a sophisticated distributed architecture designed to enable secure, real-time remote execution of tasks and comprehensive management of services across multiple client environments. This enterprise-grade solution bridges the gap between centralized control and distributed execution, providing organizations with the ability to manage, monitor, and execute operations across geographically dispersed infrastructure.</p>
-<h3 id="key-business-objectives">Key Business Objectives<a class="headerlink" href="#key-business-objectives" title="Permanent link">&para;</a></h3>
+<h3 id="key-business-objectives">Key Business Objectives</h3>
 <ul>
 <li><strong>Centralized Remote Management</strong>: Provide unified control over distributed client environments from a central management console</li>
 <li><strong>Real-time Operational Visibility</strong>: Maintain continuous monitoring and health assessment of remote services and infrastructure</li>
@@ -650,8 +650,8 @@ hr {
 <li><strong>Multi-tenant Support</strong>: Support multiple organizational units or customers with complete data isolation and security</li>
 <li><strong>High Availability Operations</strong>: Ensure continuous service availability with fault tolerance and automatic recovery capabilities</li>
 </ul>
-<h3 id="system-capabilities">System Capabilities<a class="headerlink" href="#system-capabilities" title="Permanent link">&para;</a></h3>
-<h4 id="core-functional-capabilities">Core Functional Capabilities<a class="headerlink" href="#core-functional-capabilities" title="Permanent link">&para;</a></h4>
+<h3 id="system-capabilities">System Capabilities</h3>
+<h4 id="core-functional-capabilities">Core Functional Capabilities</h4>
 <ol>
 <li><strong>Remote Task Orchestration</strong>: Execute complex workflows and tasks on distributed client systems</li>
 <li><strong>Service Lifecycle Management</strong>: Complete Docker container and service management including deployment, scaling, and monitoring</li>
@@ -660,7 +660,7 @@ hr {
 <li><strong>Security Enforcement</strong>: Comprehensive security controls including authentication, authorization, and audit logging</li>
 <li><strong>Multi-protocol Support</strong>: Support for various communication protocols including WebSocket, HTTPS, and Docker APIs</li>
 </ol>
-<h4 id="advanced-capabilities">Advanced Capabilities<a class="headerlink" href="#advanced-capabilities" title="Permanent link">&para;</a></h4>
+<h4 id="advanced-capabilities">Advanced Capabilities</h4>
 <ol>
 <li><strong>Intelligent Load Distribution</strong>: Smart routing of tasks based on client capacity and availability</li>
 <li><strong>Automated Failover</strong>: Automatic detection and recovery from client failures</li>
@@ -669,16 +669,16 @@ hr {
 <li><strong>Audit and Compliance</strong>: Comprehensive logging and audit trails for regulatory compliance</li>
 <li><strong>Performance Analytics</strong>: Detailed performance metrics and analytics for optimization</li>
 </ol>
-<h2 id="business-context-and-requirements">Business Context and Requirements<a class="headerlink" href="#business-context-and-requirements" title="Permanent link">&para;</a></h2>
-<h3 id="business-drivers">Business Drivers<a class="headerlink" href="#business-drivers" title="Permanent link">&para;</a></h3>
-<h4 id="operational-efficiency">Operational Efficiency<a class="headerlink" href="#operational-efficiency" title="Permanent link">&para;</a></h4>
+<h2 id="business-context-and-requirements">Business Context and Requirements</h2>
+<h3 id="business-drivers">Business Drivers</h3>
+<h4 id="operational-efficiency">Operational Efficiency</h4>
 <p>The RIS system addresses the critical need for organizations to manage distributed infrastructure efficiently. Traditional approaches to remote management often involve manual processes, multiple tools, and complex coordination. RIS provides a unified platform that streamlines operations, reduces manual intervention, and ensures consistent execution across all environments.</p>
-<h4 id="security-and-compliance">Security and Compliance<a class="headerlink" href="#security-and-compliance" title="Permanent link">&para;</a></h4>
+<h4 id="security-and-compliance">Security and Compliance</h4>
 <p>In today's security-conscious environment, organizations require robust security controls for remote operations. RIS implements enterprise-grade security measures including end-to-end encryption, multi-factor authentication, and comprehensive audit logging to meet stringent security and compliance requirements.</p>
-<h4 id="scalability-and-growth">Scalability and Growth<a class="headerlink" href="#scalability-and-growth" title="Permanent link">&para;</a></h4>
+<h4 id="scalability-and-growth">Scalability and Growth</h4>
 <p>As organizations grow and expand their infrastructure footprint, the need for scalable management solutions becomes critical. RIS is designed to scale horizontally, supporting hundreds of remote clients while maintaining performance and reliability.</p>
-<h3 id="functional-requirements">Functional Requirements<a class="headerlink" href="#functional-requirements" title="Permanent link">&para;</a></h3>
-<h4 id="core-requirements">Core Requirements<a class="headerlink" href="#core-requirements" title="Permanent link">&para;</a></h4>
+<h3 id="functional-requirements">Functional Requirements</h3>
+<h4 id="core-requirements">Core Requirements</h4>
 <ol>
 <li><strong>Real-time Communication</strong>: Establish and maintain persistent, low-latency connections between server and clients</li>
 <li><strong>Task Execution</strong>: Support various types of task execution including HTTP requests, system commands, and service management</li>
@@ -687,7 +687,7 @@ hr {
 <li><strong>Configuration Management</strong>: Dynamic configuration distribution and updates without service interruption</li>
 <li><strong>Multi-tenancy</strong>: Support multiple isolated tenant environments with secure data separation</li>
 </ol>
-<h4 id="advanced-requirements">Advanced Requirements<a class="headerlink" href="#advanced-requirements" title="Permanent link">&para;</a></h4>
+<h4 id="advanced-requirements">Advanced Requirements</h4>
 <ol>
 <li><strong>High Availability</strong>: 99.9% uptime with automatic failover and recovery</li>
 <li><strong>Security</strong>: End-to-end encryption, authentication, authorization, and audit logging</li>
@@ -696,22 +696,22 @@ hr {
 <li><strong>Integration</strong>: RESTful APIs and WebSocket interfaces for external system integration</li>
 <li><strong>Monitoring</strong>: Comprehensive monitoring and alerting capabilities</li>
 </ol>
-<h3 id="non-functional-requirements">Non-Functional Requirements<a class="headerlink" href="#non-functional-requirements" title="Permanent link">&para;</a></h3>
-<h4 id="performance-requirements">Performance Requirements<a class="headerlink" href="#performance-requirements" title="Permanent link">&para;</a></h4>
+<h3 id="non-functional-requirements">Non-Functional Requirements</h3>
+<h4 id="performance-requirements">Performance Requirements</h4>
 <ul>
 <li><strong>Response Time</strong>: API calls must respond within 100 milliseconds under normal load</li>
 <li><strong>Throughput</strong>: System must support 1000+ concurrent WebSocket connections per server instance</li>
 <li><strong>Task Execution</strong>: Remote tasks must complete within 5 seconds for standard operations</li>
 <li><strong>Database Performance</strong>: Database queries must complete within 50 milliseconds for 95% of requests</li>
 </ul>
-<h4 id="reliability-requirements">Reliability Requirements<a class="headerlink" href="#reliability-requirements" title="Permanent link">&para;</a></h4>
+<h4 id="reliability-requirements">Reliability Requirements</h4>
 <ul>
 <li><strong>Availability</strong>: 99.9% uptime (8.76 hours downtime per year maximum)</li>
 <li><strong>Recovery Time</strong>: System must recover from failures within 30 seconds</li>
 <li><strong>Data Consistency</strong>: Zero data loss during normal operations and planned maintenance</li>
 <li><strong>Connection Resilience</strong>: Automatic reconnection with exponential backoff for network interruptions</li>
 </ul>
-<h4 id="security-requirements">Security Requirements<a class="headerlink" href="#security-requirements" title="Permanent link">&para;</a></h4>
+<h4 id="security-requirements">Security Requirements</h4>
 <ul>
 <li><strong>Data Encryption</strong>: All data must be encrypted in transit using TLS 1.2 or higher</li>
 <li><strong>Authentication</strong>: Multi-factor authentication for administrative access</li>
@@ -719,10 +719,10 @@ hr {
 <li><strong>Audit Logging</strong>: Complete audit trail of all system operations and access</li>
 <li><strong>Network Security</strong>: Network segmentation and firewall protection</li>
 </ul>
-<h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h2>
+<h2 id="architecture-overview">Architecture Overview</h2>
 <p>The RIS system implements a sophisticated <strong>Hub-and-Spoke</strong> architectural pattern, enhanced with microservices principles and cloud-native design patterns. This architecture provides a robust foundation for distributed operations while maintaining centralized control and monitoring capabilities.</p>
-<h3 id="architectural-philosophy">Architectural Philosophy<a class="headerlink" href="#architectural-philosophy" title="Permanent link">&para;</a></h3>
-<h4 id="hub-and-spoke-design">Hub-and-Spoke Design<a class="headerlink" href="#hub-and-spoke-design" title="Permanent link">&para;</a></h4>
+<h3 id="architectural-philosophy">Architectural Philosophy</h3>
+<h4 id="hub-and-spoke-design">Hub-and-Spoke Design</h4>
 <p>The architecture centers around a powerful RIS Server (hub) that manages multiple distributed RIS Clients (spokes). This design provides several key advantages:</p>
 <ol>
 <li><strong>Centralized Control</strong>: All management operations flow through the central hub, providing unified control and visibility</li>
@@ -730,7 +730,7 @@ hr {
 <li><strong>Scalable Management</strong>: Adding new clients requires only connection to the hub, not reconfiguration of existing clients</li>
 <li><strong>Consistent Policy Enforcement</strong>: Security policies, configurations, and operational procedures are enforced consistently across all clients</li>
 </ol>
-<h4 id="cloud-native-principles">Cloud-Native Principles<a class="headerlink" href="#cloud-native-principles" title="Permanent link">&para;</a></h4>
+<h4 id="cloud-native-principles">Cloud-Native Principles</h4>
 <p>The system embraces cloud-native design principles including:</p>
 <ol>
 <li><strong>Containerization</strong>: All components run in containers for portability and consistency</li>
@@ -792,56 +792,56 @@ graph TB
     style RCN fill:#fce4ec
 </div>
 
-<h3 id="design-patterns-implementation">Design Patterns Implementation<a class="headerlink" href="#design-patterns-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="1-event-driven-architecture">1. Event-Driven Architecture<a class="headerlink" href="#1-event-driven-architecture" title="Permanent link">&para;</a></h4>
-<p>The system implements event-driven patterns for real-time responsiveness:<br />
-- <strong>Event Sourcing</strong>: All state changes are captured as events<br />
-- <strong>CQRS (Command Query Responsibility Segregation)</strong>: Separate read and write operations for optimal performance<br />
+<h3 id="design-patterns-implementation">Design Patterns Implementation</h3>
+<h4 id="1-event-driven-architecture">1. Event-Driven Architecture</h4>
+<p>The system implements event-driven patterns for real-time responsiveness:
+- <strong>Event Sourcing</strong>: All state changes are captured as events
+- <strong>CQRS (Command Query Responsibility Segregation)</strong>: Separate read and write operations for optimal performance
 - <strong>Pub/Sub Messaging</strong>: Asynchronous communication between components</p>
-<h4 id="2-circuit-breaker-pattern">2. Circuit Breaker Pattern<a class="headerlink" href="#2-circuit-breaker-pattern" title="Permanent link">&para;</a></h4>
-<p>Protection against cascading failures:<br />
-- <strong>Failure Detection</strong>: Automatic detection of service failures<br />
-- <strong>Graceful Degradation</strong>: Partial functionality during component failures<br />
+<h4 id="2-circuit-breaker-pattern">2. Circuit Breaker Pattern</h4>
+<p>Protection against cascading failures:
+- <strong>Failure Detection</strong>: Automatic detection of service failures
+- <strong>Graceful Degradation</strong>: Partial functionality during component failures
 - <strong>Automatic Recovery</strong>: Self-healing when services recover</p>
-<h4 id="3-bulkhead-pattern">3. Bulkhead Pattern<a class="headerlink" href="#3-bulkhead-pattern" title="Permanent link">&para;</a></h4>
-<p>Isolation of critical resources:<br />
-- <strong>Resource Isolation</strong>: Separate connection pools for different operations<br />
-- <strong>Failure Containment</strong>: Prevent failures in one area from affecting others<br />
+<h4 id="3-bulkhead-pattern">3. Bulkhead Pattern</h4>
+<p>Isolation of critical resources:
+- <strong>Resource Isolation</strong>: Separate connection pools for different operations
+- <strong>Failure Containment</strong>: Prevent failures in one area from affecting others
 - <strong>Performance Isolation</strong>: Dedicated resources for critical operations</p>
-<h4 id="4-saga-pattern">4. Saga Pattern<a class="headerlink" href="#4-saga-pattern" title="Permanent link">&para;</a></h4>
-<p>Distributed transaction management:<br />
-- <strong>Choreography</strong>: Distributed coordination without central orchestrator<br />
-- <strong>Compensation</strong>: Rollback mechanisms for failed operations<br />
+<h4 id="4-saga-pattern">4. Saga Pattern</h4>
+<p>Distributed transaction management:
+- <strong>Choreography</strong>: Distributed coordination without central orchestrator
+- <strong>Compensation</strong>: Rollback mechanisms for failed operations
 - <strong>Consistency</strong>: Eventual consistency across distributed components</p>
-<h3 id="architectural-layers">Architectural Layers<a class="headerlink" href="#architectural-layers" title="Permanent link">&para;</a></h3>
-<h4 id="presentation-layer">Presentation Layer<a class="headerlink" href="#presentation-layer" title="Permanent link">&para;</a></h4>
+<h3 id="architectural-layers">Architectural Layers</h3>
+<h4 id="presentation-layer">Presentation Layer</h4>
 <ul>
 <li><strong>API Gateway</strong>: Single entry point for all external requests</li>
 <li><strong>WebSocket Gateway</strong>: Real-time communication hub</li>
 <li><strong>Load Balancer</strong>: Traffic distribution and high availability</li>
 </ul>
-<h4 id="application-layer">Application Layer<a class="headerlink" href="#application-layer" title="Permanent link">&para;</a></h4>
+<h4 id="application-layer">Application Layer</h4>
 <ul>
 <li><strong>Business Logic Services</strong>: Core application functionality</li>
 <li><strong>Orchestration Services</strong>: Workflow and task coordination</li>
 <li><strong>Integration Services</strong>: External system connectivity</li>
 </ul>
-<h4 id="data-layer">Data Layer<a class="headerlink" href="#data-layer" title="Permanent link">&para;</a></h4>
+<h4 id="data-layer">Data Layer</h4>
 <ul>
 <li><strong>Primary Database</strong>: MongoDB cluster for operational data</li>
 <li><strong>Cache Layer</strong>: Redis for high-performance data access</li>
 <li><strong>Message Queue</strong>: Asynchronous communication</li>
 <li><strong>File Storage</strong>: Document and artifact storage</li>
 </ul>
-<h4 id="infrastructure-layer">Infrastructure Layer<a class="headerlink" href="#infrastructure-layer" title="Permanent link">&para;</a></h4>
+<h4 id="infrastructure-layer">Infrastructure Layer</h4>
 <ul>
 <li><strong>Container Runtime</strong>: Docker for application packaging</li>
 <li><strong>Service Mesh</strong>: Inter-service communication</li>
 <li><strong>Monitoring Stack</strong>: Observability and alerting</li>
 <li><strong>Security Stack</strong>: Authentication, authorization, and encryption</li>
 </ul>
-<h2 id="system-architecture-diagrams">System Architecture Diagrams<a class="headerlink" href="#system-architecture-diagrams" title="Permanent link">&para;</a></h2>
-<h3 id="high-level-system-architecture">High-Level System Architecture<a class="headerlink" href="#high-level-system-architecture" title="Permanent link">&para;</a></h3>
+<h2 id="system-architecture-diagrams">System Architecture Diagrams</h2>
+<h3 id="high-level-system-architecture">High-Level System Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph "External Systems"
@@ -938,7 +938,7 @@ graph TB
     style RCN fill:#fce4ec
 </div>
 
-<h3 id="deployment-architecture">Deployment Architecture<a class="headerlink" href="#deployment-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="deployment-architecture">Deployment Architecture</h3>
 <div class="mermaid">
 graph TB
     subgraph "Internet"
@@ -1058,7 +1058,7 @@ graph TB
     style RCB fill:#fce4ec
 </div>
 
-<h3 id="component-interaction-architecture">Component Interaction Architecture<a class="headerlink" href="#component-interaction-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="component-interaction-architecture">Component Interaction Architecture</h3>
 <div class="mermaid">
 graph LR
     subgraph "RIS Server Components"
@@ -1106,210 +1106,210 @@ graph LR
     style TASK fill:#d7ccc8
 </div>
 
-<h2 id="system-components">System Components<a class="headerlink" href="#system-components" title="Permanent link">&para;</a></h2>
+<h2 id="system-components">System Components</h2>
 <p>The RIS system is architected as a collection of specialized components that work together to provide comprehensive remote service management capabilities. Each component has specific responsibilities and interfaces that enable seamless integration and operation.</p>
-<h3 id="1-ris-server-components">1. RIS Server Components<a class="headerlink" href="#1-ris-server-components" title="Permanent link">&para;</a></h3>
+<h3 id="1-ris-server-components">1. RIS Server Components</h3>
 <p>The RIS Server serves as the central command and control hub for the entire system, providing unified management, monitoring, and coordination capabilities.</p>
-<h4 id="core-application-layer-zona_ris_server">Core Application Layer (<code>zona_ris_server</code>)<a class="headerlink" href="#core-application-layer-zona_ris_server" title="Permanent link">&para;</a></h4>
-<p><strong>Main Application Engine</strong><br />
-- <strong>Purpose</strong>: Serves as the primary entry point and orchestration engine for all server operations<br />
-- <strong>Responsibilities</strong>: <br />
-  - Application lifecycle management and initialization<br />
-  - Graceful startup and shutdown procedures<br />
-  - Global error handling and recovery mechanisms<br />
-  - Performance monitoring and optimization<br />
-- <strong>Key Features</strong>:<br />
-  - Multi-threaded request processing with goroutine pools<br />
-  - Memory management and garbage collection optimization<br />
-  - Configuration hot-reloading capabilities<br />
+<h4 id="core-application-layer-zona_ris_server">Core Application Layer (<code>zona_ris_server</code>)</h4>
+<p><strong>Main Application Engine</strong>
+- <strong>Purpose</strong>: Serves as the primary entry point and orchestration engine for all server operations
+- <strong>Responsibilities</strong>: 
+  - Application lifecycle management and initialization
+  - Graceful startup and shutdown procedures
+  - Global error handling and recovery mechanisms
+  - Performance monitoring and optimization
+- <strong>Key Features</strong>:
+  - Multi-threaded request processing with goroutine pools
+  - Memory management and garbage collection optimization
+  - Configuration hot-reloading capabilities
   - Health check endpoints for load balancer integration</p>
-<p><strong>HTTP/WebSocket Server</strong><br />
-- <strong>Purpose</strong>: Provides dual-protocol communication capabilities for different interaction patterns<br />
-- <strong>HTTP Server Capabilities</strong>:<br />
-  - RESTful API endpoints for CRUD operations<br />
-  - Request routing and middleware processing<br />
-  - Content negotiation and response formatting<br />
-  - Rate limiting and throttling<br />
-- <strong>WebSocket Server Capabilities</strong>:<br />
-  - Persistent bidirectional communication channels<br />
-  - Real-time event broadcasting<br />
-  - Connection lifecycle management<br />
+<p><strong>HTTP/WebSocket Server</strong>
+- <strong>Purpose</strong>: Provides dual-protocol communication capabilities for different interaction patterns
+- <strong>HTTP Server Capabilities</strong>:
+  - RESTful API endpoints for CRUD operations
+  - Request routing and middleware processing
+  - Content negotiation and response formatting
+  - Rate limiting and throttling
+- <strong>WebSocket Server Capabilities</strong>:
+  - Persistent bidirectional communication channels
+  - Real-time event broadcasting
+  - Connection lifecycle management
   - Heartbeat and keepalive mechanisms</p>
-<p><strong>TLS Security Engine</strong><br />
-- <strong>Purpose</strong>: Ensures all communications are encrypted and secure<br />
-- <strong>Features</strong>:<br />
-  - TLS 1.2/1.3 support with configurable cipher suites<br />
-  - Certificate management and rotation<br />
-  - Perfect Forward Secrecy (PFS)<br />
+<p><strong>TLS Security Engine</strong>
+- <strong>Purpose</strong>: Ensures all communications are encrypted and secure
+- <strong>Features</strong>:
+  - TLS 1.2/1.3 support with configurable cipher suites
+  - Certificate management and rotation
+  - Perfect Forward Secrecy (PFS)
   - HSTS (HTTP Strict Transport Security) enforcement</p>
-<p><strong>Middleware Infrastructure</strong><br />
-- <strong>Authentication Middleware</strong>: JWT token validation and user session management<br />
-- <strong>Authorization Middleware</strong>: Role-based access control and permission enforcement<br />
-- <strong>Logging Middleware</strong>: Comprehensive request/response logging with sanitization<br />
-- <strong>Metrics Middleware</strong>: Performance metrics collection and aggregation<br />
+<p><strong>Middleware Infrastructure</strong>
+- <strong>Authentication Middleware</strong>: JWT token validation and user session management
+- <strong>Authorization Middleware</strong>: Role-based access control and permission enforcement
+- <strong>Logging Middleware</strong>: Comprehensive request/response logging with sanitization
+- <strong>Metrics Middleware</strong>: Performance metrics collection and aggregation
 - <strong>Tenant Isolation Middleware</strong>: Multi-tenant request routing and data isolation</p>
-<h4 id="business-logic-layer">Business Logic Layer<a class="headerlink" href="#business-logic-layer" title="Permanent link">&para;</a></h4>
-<p><strong>RIS Controller</strong><br />
-- <strong>Client Lifecycle Management</strong>:<br />
-  - New client registration and onboarding<br />
-  - Client authentication and authorization<br />
-  - Connection status monitoring and management<br />
-  - Client configuration distribution<br />
-- <strong>Operations Management</strong>:<br />
-  - Task routing and distribution<br />
-  - Load balancing across available clients<br />
-  - Failover and recovery coordination<br />
+<h4 id="business-logic-layer">Business Logic Layer</h4>
+<p><strong>RIS Controller</strong>
+- <strong>Client Lifecycle Management</strong>:
+  - New client registration and onboarding
+  - Client authentication and authorization
+  - Connection status monitoring and management
+  - Client configuration distribution
+- <strong>Operations Management</strong>:
+  - Task routing and distribution
+  - Load balancing across available clients
+  - Failover and recovery coordination
   - Performance optimization and tuning</p>
-<p><strong>Tenant Management Controller</strong><br />
-- <strong>Multi-tenancy Support</strong>:<br />
-  - Tenant provisioning and deprovisioning<br />
-  - Data isolation and security enforcement<br />
-  - Resource allocation and quota management<br />
-  - Billing and usage tracking integration<br />
-- <strong>Database Management</strong>:<br />
-  - Tenant-specific database connections<br />
-  - Schema management and migration<br />
+<p><strong>Tenant Management Controller</strong>
+- <strong>Multi-tenancy Support</strong>:
+  - Tenant provisioning and deprovisioning
+  - Data isolation and security enforcement
+  - Resource allocation and quota management
+  - Billing and usage tracking integration
+- <strong>Database Management</strong>:
+  - Tenant-specific database connections
+  - Schema management and migration
   - Backup and disaster recovery coordination</p>
-<p><strong>Task Orchestration Controller</strong><br />
-- <strong>Workflow Management</strong>:<br />
-  - Complex task workflow definition and execution<br />
-  - Dependency management and sequencing<br />
-  - Parallel execution and synchronization<br />
-  - Error handling and retry mechanisms<br />
-- <strong>Resource Management</strong>:<br />
-  - Client capacity monitoring and allocation<br />
-  - Queue management and prioritization<br />
+<p><strong>Task Orchestration Controller</strong>
+- <strong>Workflow Management</strong>:
+  - Complex task workflow definition and execution
+  - Dependency management and sequencing
+  - Parallel execution and synchronization
+  - Error handling and retry mechanisms
+- <strong>Resource Management</strong>:
+  - Client capacity monitoring and allocation
+  - Queue management and prioritization
   - SLA monitoring and enforcement</p>
-<h4 id="data-management-layer">Data Management Layer<a class="headerlink" href="#data-management-layer" title="Permanent link">&para;</a></h4>
-<p><strong>MongoDB Integration Engine</strong><br />
-- <strong>Primary Database Operations</strong>:<br />
-  - Connection pooling and management<br />
-  - Transaction coordination and consistency<br />
-  - Index optimization and maintenance<br />
-  - Query performance monitoring<br />
-- <strong>High Availability Features</strong>:<br />
-  - Replica set management<br />
-  - Automatic failover coordination<br />
-  - Read preference optimization<br />
+<h4 id="data-management-layer">Data Management Layer</h4>
+<p><strong>MongoDB Integration Engine</strong>
+- <strong>Primary Database Operations</strong>:
+  - Connection pooling and management
+  - Transaction coordination and consistency
+  - Index optimization and maintenance
+  - Query performance monitoring
+- <strong>High Availability Features</strong>:
+  - Replica set management
+  - Automatic failover coordination
+  - Read preference optimization
   - Write concern configuration</p>
-<p><strong>Caching Infrastructure</strong><br />
-- <strong>Redis Integration</strong>:<br />
-  - Session state management<br />
-  - Frequently accessed data caching<br />
-  - Pub/sub messaging for real-time events<br />
-  - Distributed locking mechanisms<br />
-- <strong>Cache Strategies</strong>:<br />
-  - Write-through and write-behind caching<br />
-  - Cache invalidation and consistency<br />
-  - TTL management and optimization<br />
+<p><strong>Caching Infrastructure</strong>
+- <strong>Redis Integration</strong>:
+  - Session state management
+  - Frequently accessed data caching
+  - Pub/sub messaging for real-time events
+  - Distributed locking mechanisms
+- <strong>Cache Strategies</strong>:
+  - Write-through and write-behind caching
+  - Cache invalidation and consistency
+  - TTL management and optimization
   - Memory usage monitoring and optimization</p>
-<h3 id="2-ris-client-components">2. RIS Client Components<a class="headerlink" href="#2-ris-client-components" title="Permanent link">&para;</a></h3>
+<h3 id="2-ris-client-components">2. RIS Client Components</h3>
 <p>RIS Clients serve as intelligent agents that execute tasks and manage services in remote environments while maintaining constant communication with the central server.</p>
-<h4 id="client-application-core-zona_task_handler">Client Application Core (<code>zona_task_handler</code>)<a class="headerlink" href="#client-application-core-zona_task_handler" title="Permanent link">&para;</a></h4>
-<p><strong>Application Framework</strong><br />
-- <strong>Purpose</strong>: Provides the foundational runtime environment for client operations<br />
-- <strong>Capabilities</strong>:<br />
-  - Lightweight, resource-efficient operation<br />
-  - Self-monitoring and health reporting<br />
-  - Automatic updates and configuration synchronization<br />
-  - Local caching and offline operation support<br />
-- <strong>Resilience Features</strong>:<br />
-  - Circuit breaker patterns for external dependencies<br />
-  - Exponential backoff for retry operations<br />
-  - Graceful degradation during connectivity issues<br />
+<h4 id="client-application-core-zona_task_handler">Client Application Core (<code>zona_task_handler</code>)</h4>
+<p><strong>Application Framework</strong>
+- <strong>Purpose</strong>: Provides the foundational runtime environment for client operations
+- <strong>Capabilities</strong>:
+  - Lightweight, resource-efficient operation
+  - Self-monitoring and health reporting
+  - Automatic updates and configuration synchronization
+  - Local caching and offline operation support
+- <strong>Resilience Features</strong>:
+  - Circuit breaker patterns for external dependencies
+  - Exponential backoff for retry operations
+  - Graceful degradation during connectivity issues
   - Local queue management for delayed execution</p>
-<p><strong>WebSocket Client Engine</strong><br />
-- <strong>Connection Management</strong>:<br />
-  - Persistent connection establishment and maintenance<br />
-  - Automatic reconnection with intelligent backoff<br />
-  - Network change detection and adaptation<br />
-  - Connection health monitoring and reporting<br />
-- <strong>Message Processing</strong>:<br />
-  - Real-time command processing<br />
-  - Asynchronous response handling<br />
-  - Message queuing and delivery guarantees<br />
+<p><strong>WebSocket Client Engine</strong>
+- <strong>Connection Management</strong>:
+  - Persistent connection establishment and maintenance
+  - Automatic reconnection with intelligent backoff
+  - Network change detection and adaptation
+  - Connection health monitoring and reporting
+- <strong>Message Processing</strong>:
+  - Real-time command processing
+  - Asynchronous response handling
+  - Message queuing and delivery guarantees
   - Protocol version negotiation</p>
-<p><strong>Docker Integration Platform</strong><br />
-- <strong>Container Management</strong>:<br />
-  - Docker API integration and abstraction<br />
-  - Service lifecycle management (create, start, stop, remove)<br />
-  - Image management and optimization<br />
-  - Resource monitoring and allocation<br />
-- <strong>Orchestration Capabilities</strong>:<br />
-  - Docker Compose support<br />
-  - Swarm mode integration<br />
-  - Health check configuration and monitoring<br />
+<p><strong>Docker Integration Platform</strong>
+- <strong>Container Management</strong>:
+  - Docker API integration and abstraction
+  - Service lifecycle management (create, start, stop, remove)
+  - Image management and optimization
+  - Resource monitoring and allocation
+- <strong>Orchestration Capabilities</strong>:
+  - Docker Compose support
+  - Swarm mode integration
+  - Health check configuration and monitoring
   - Log aggregation and forwarding</p>
-<h4 id="task-execution-framework">Task Execution Framework<a class="headerlink" href="#task-execution-framework" title="Permanent link">&para;</a></h4>
-<p><strong>Task Handler Controller</strong><br />
-- <strong>Execution Engine</strong>:<br />
-  - Multi-protocol task execution (HTTP, shell, Docker)<br />
-  - Timeout management and cancellation<br />
-  - Resource isolation and sandboxing<br />
-  - Result validation and formatting<br />
-- <strong>Security Features</strong>:<br />
-  - Execution environment isolation<br />
-  - Input validation and sanitization<br />
-  - Output filtering and anonymization<br />
+<h4 id="task-execution-framework">Task Execution Framework</h4>
+<p><strong>Task Handler Controller</strong>
+- <strong>Execution Engine</strong>:
+  - Multi-protocol task execution (HTTP, shell, Docker)
+  - Timeout management and cancellation
+  - Resource isolation and sandboxing
+  - Result validation and formatting
+- <strong>Security Features</strong>:
+  - Execution environment isolation
+  - Input validation and sanitization
+  - Output filtering and anonymization
   - Audit logging for all operations</p>
-<p><strong>Remote Connection Manager</strong><br />
-- <strong>Connectivity Testing</strong>:<br />
-  - Network reachability verification<br />
-  - Protocol-specific health checks<br />
-  - Performance benchmarking<br />
-  - Latency and throughput monitoring<br />
-- <strong>Authentication Integration</strong>:<br />
-  - LDAP/Active Directory connectivity testing<br />
-  - Certificate validation and management<br />
-  - SSO integration verification<br />
+<p><strong>Remote Connection Manager</strong>
+- <strong>Connectivity Testing</strong>:
+  - Network reachability verification
+  - Protocol-specific health checks
+  - Performance benchmarking
+  - Latency and throughput monitoring
+- <strong>Authentication Integration</strong>:
+  - LDAP/Active Directory connectivity testing
+  - Certificate validation and management
+  - SSO integration verification
   - Multi-factor authentication support</p>
-<p><strong>Service Management Controller</strong><br />
-- <strong>Docker Service Operations</strong>:<br />
-  - Service deployment and scaling<br />
-  - Configuration management<br />
-  - Version control and rollback<br />
-  - Performance monitoring and optimization<br />
-- <strong>Application Lifecycle</strong>:<br />
-  - Blue-green deployments<br />
-  - Canary releases<br />
-  - Backup and recovery operations<br />
+<p><strong>Service Management Controller</strong>
+- <strong>Docker Service Operations</strong>:
+  - Service deployment and scaling
+  - Configuration management
+  - Version control and rollback
+  - Performance monitoring and optimization
+- <strong>Application Lifecycle</strong>:
+  - Blue-green deployments
+  - Canary releases
+  - Backup and recovery operations
   - Disaster recovery coordination</p>
-<h4 id="client-infrastructure-services">Client Infrastructure Services<a class="headerlink" href="#client-infrastructure-services" title="Permanent link">&para;</a></h4>
-<p><strong>Network Intelligence Module</strong><br />
-- <strong>Network Discovery</strong>:<br />
-  - IP address detection and monitoring<br />
-  - Network topology mapping<br />
-  - Bandwidth and latency measurement<br />
-  - Route optimization<br />
-- <strong>Adaptive Connectivity</strong>:<br />
-  - Dynamic IP address updates<br />
-  - NAT traversal and firewall adaptation<br />
-  - VPN and proxy integration<br />
+<h4 id="client-infrastructure-services">Client Infrastructure Services</h4>
+<p><strong>Network Intelligence Module</strong>
+- <strong>Network Discovery</strong>:
+  - IP address detection and monitoring
+  - Network topology mapping
+  - Bandwidth and latency measurement
+  - Route optimization
+- <strong>Adaptive Connectivity</strong>:
+  - Dynamic IP address updates
+  - NAT traversal and firewall adaptation
+  - VPN and proxy integration
   - Quality of service optimization</p>
-<p><strong>Configuration Management System</strong><br />
-- <strong>Dynamic Configuration</strong>:<br />
-  - Real-time configuration updates<br />
-  - Configuration validation and rollback<br />
-  - Environment-specific settings<br />
-  - Secret and credential management<br />
-- <strong>Change Management</strong>:<br />
-  - Configuration versioning and history<br />
-  - Change approval workflows<br />
-  - Impact analysis and testing<br />
+<p><strong>Configuration Management System</strong>
+- <strong>Dynamic Configuration</strong>:
+  - Real-time configuration updates
+  - Configuration validation and rollback
+  - Environment-specific settings
+  - Secret and credential management
+- <strong>Change Management</strong>:
+  - Configuration versioning and history
+  - Change approval workflows
+  - Impact analysis and testing
   - Automated rollback procedures</p>
-<p><strong>Monitoring and Observability</strong><br />
-- <strong>Health Monitoring</strong>:<br />
-  - System resource monitoring (CPU, memory, disk)<br />
-  - Application performance monitoring<br />
-  - Service dependency health checks<br />
-  - Predictive failure analysis<br />
-- <strong>Logging and Metrics</strong>:<br />
-  - Structured logging with correlation IDs<br />
-  - Metrics collection and aggregation<br />
-  - Distributed tracing support<br />
+<p><strong>Monitoring and Observability</strong>
+- <strong>Health Monitoring</strong>:
+  - System resource monitoring (CPU, memory, disk)
+  - Application performance monitoring
+  - Service dependency health checks
+  - Predictive failure analysis
+- <strong>Logging and Metrics</strong>:
+  - Structured logging with correlation IDs
+  - Metrics collection and aggregation
+  - Distributed tracing support
   - Real-time alerting and notification</p>
-<h2 id="component-interactions">Component Interactions<a class="headerlink" href="#component-interactions" title="Permanent link">&para;</a></h2>
-<h3 id="1-client-registration-flow">1. Client Registration Flow<a class="headerlink" href="#1-client-registration-flow" title="Permanent link">&para;</a></h3>
+<h2 id="component-interactions">Component Interactions</h2>
+<h3 id="1-client-registration-flow">1. Client Registration Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Client as RIS Client
@@ -1337,7 +1337,7 @@ sequenceDiagram
     Note over Client,Server: Connection Active
 </div>
 
-<h3 id="2-task-execution-flow">2. Task Execution Flow<a class="headerlink" href="#2-task-execution-flow" title="Permanent link">&para;</a></h3>
+<h3 id="2-task-execution-flow">2. Task Execution Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Ext as External Request
@@ -1362,7 +1362,7 @@ sequenceDiagram
     Note over Server,Client: Update Status
 </div>
 
-<h3 id="3-service-management-flow">3. Service Management Flow<a class="headerlink" href="#3-service-management-flow" title="Permanent link">&para;</a></h3>
+<h3 id="3-service-management-flow">3. Service Management Flow</h3>
 <div class="mermaid">
 sequenceDiagram
     participant Mgmt as Management Request
@@ -1389,10 +1389,10 @@ sequenceDiagram
     Note over Client,Docker: Service Active
 </div>
 
-<h2 id="data-flow-and-process-flows">Data Flow and Process Flows<a class="headerlink" href="#data-flow-and-process-flows" title="Permanent link">&para;</a></h2>
+<h2 id="data-flow-and-process-flows">Data Flow and Process Flows</h2>
 <p>The RIS system implements sophisticated data flow patterns that ensure reliable, secure, and efficient information exchange between all system components. These flows are designed to handle various operational scenarios while maintaining data integrity and system performance.</p>
-<h3 id="primary-data-flow-patterns">Primary Data Flow Patterns<a class="headerlink" href="#primary-data-flow-patterns" title="Permanent link">&para;</a></h3>
-<h4 id="1-client-registration-and-onboarding-flow">1. Client Registration and Onboarding Flow<a class="headerlink" href="#1-client-registration-and-onboarding-flow" title="Permanent link">&para;</a></h4>
+<h3 id="primary-data-flow-patterns">Primary Data Flow Patterns</h3>
+<h4 id="1-client-registration-and-onboarding-flow">1. Client Registration and Onboarding Flow</h4>
 <div class="mermaid">
 sequenceDiagram
     participant Client as RIS Client
@@ -1432,13 +1432,13 @@ sequenceDiagram
     end
 </div>
 
-<p><strong>Detailed Flow Description:</strong><br />
-- <strong>Phase 1 - Client Initialization</strong>: Client loads configuration, initializes Docker client, and starts monitoring services<br />
-- <strong>Phase 2 - Connection Establishment</strong>: Secure WebSocket connection with mutual authentication<br />
-- <strong>Phase 3 - Registration</strong>: Exchange of client capabilities, system information, and network details<br />
-- <strong>Phase 4 - Configuration</strong>: Server provides client-specific configuration and policies<br />
+<p><strong>Detailed Flow Description:</strong>
+- <strong>Phase 1 - Client Initialization</strong>: Client loads configuration, initializes Docker client, and starts monitoring services
+- <strong>Phase 2 - Connection Establishment</strong>: Secure WebSocket connection with mutual authentication
+- <strong>Phase 3 - Registration</strong>: Exchange of client capabilities, system information, and network details
+- <strong>Phase 4 - Configuration</strong>: Server provides client-specific configuration and policies
 - <strong>Phase 5 - Activation</strong>: Client becomes active and ready for task execution</p>
-<h4 id="2-task-execution-flow-architecture">2. Task Execution Flow Architecture<a class="headerlink" href="#2-task-execution-flow-architecture" title="Permanent link">&para;</a></h4>
+<h4 id="2-task-execution-flow-architecture">2. Task Execution Flow Architecture</h4>
 <div class="mermaid">
 flowchart TD
     A[Task Request Received] --> B{Authentication Valid?}
@@ -1483,15 +1483,15 @@ flowchart TD
     style Y fill:#fff3e0
 </div>
 
-<p><strong>Task Execution States:</strong><br />
-1. <strong>Queued</strong>: Task accepted and waiting for available client<br />
-2. <strong>Routing</strong>: Task being assigned to appropriate client<br />
-3. <strong>Executing</strong>: Task currently running on client<br />
-4. <strong>Completed</strong>: Task finished successfully<br />
-5. <strong>Failed</strong>: Task execution failed<br />
-6. <strong>Retrying</strong>: Task being retried after failure<br />
+<p><strong>Task Execution States:</strong>
+1. <strong>Queued</strong>: Task accepted and waiting for available client
+2. <strong>Routing</strong>: Task being assigned to appropriate client
+3. <strong>Executing</strong>: Task currently running on client
+4. <strong>Completed</strong>: Task finished successfully
+5. <strong>Failed</strong>: Task execution failed
+6. <strong>Retrying</strong>: Task being retried after failure
 7. <strong>Cancelled</strong>: Task cancelled by user or system</p>
-<h4 id="3-real-time-monitoring-and-status-flow">3. Real-time Monitoring and Status Flow<a class="headerlink" href="#3-real-time-monitoring-and-status-flow" title="Permanent link">&para;</a></h4>
+<h4 id="3-real-time-monitoring-and-status-flow">3. Real-time Monitoring and Status Flow</h4>
 <div class="mermaid">
 graph TB
     subgraph "Data Sources"
@@ -1545,92 +1545,92 @@ graph TB
     style DASH fill:#e8f5e8
 </div>
 
-<h3 id="advanced-data-flow-scenarios">Advanced Data Flow Scenarios<a class="headerlink" href="#advanced-data-flow-scenarios" title="Permanent link">&para;</a></h3>
-<h4 id="4-multi-tenant-data-isolation-flow">4. Multi-Tenant Data Isolation Flow<a class="headerlink" href="#4-multi-tenant-data-isolation-flow" title="Permanent link">&para;</a></h4>
-<p><strong>Tenant Context Propagation:</strong><br />
-1. <strong>Request Ingress</strong>: All requests include tenant identification<br />
-2. <strong>Context Extraction</strong>: Middleware extracts and validates tenant context<br />
-3. <strong>Session Routing</strong>: Requests routed to tenant-specific database sessions<br />
-4. <strong>Data Access</strong>: All data operations scoped to tenant context<br />
+<h3 id="advanced-data-flow-scenarios">Advanced Data Flow Scenarios</h3>
+<h4 id="4-multi-tenant-data-isolation-flow">4. Multi-Tenant Data Isolation Flow</h4>
+<p><strong>Tenant Context Propagation:</strong>
+1. <strong>Request Ingress</strong>: All requests include tenant identification
+2. <strong>Context Extraction</strong>: Middleware extracts and validates tenant context
+3. <strong>Session Routing</strong>: Requests routed to tenant-specific database sessions
+4. <strong>Data Access</strong>: All data operations scoped to tenant context
 5. <strong>Response Isolation</strong>: Responses filtered for tenant-specific data only</p>
-<p><strong>Data Isolation Mechanisms:</strong><br />
-- <strong>Database Level</strong>: Separate databases or collections per tenant<br />
-- <strong>Application Level</strong>: Tenant-aware queries and data filtering<br />
-- <strong>Network Level</strong>: VLAN or subnet isolation for sensitive tenants<br />
+<p><strong>Data Isolation Mechanisms:</strong>
+- <strong>Database Level</strong>: Separate databases or collections per tenant
+- <strong>Application Level</strong>: Tenant-aware queries and data filtering
+- <strong>Network Level</strong>: VLAN or subnet isolation for sensitive tenants
 - <strong>Encryption Level</strong>: Tenant-specific encryption keys</p>
-<h4 id="5-configuration-management-flow">5. Configuration Management Flow<a class="headerlink" href="#5-configuration-management-flow" title="Permanent link">&para;</a></h4>
-<p><strong>Configuration Distribution Pipeline:</strong><br />
-1. <strong>Configuration Change</strong>: Admin updates configuration through UI/API<br />
-2. <strong>Validation</strong>: Configuration validated against schema and policies<br />
-3. <strong>Staging</strong>: Configuration deployed to staging environment for testing<br />
-4. <strong>Approval</strong>: Change approval workflow (manual or automated)<br />
-5. <strong>Rollout</strong>: Phased deployment to production clients<br />
-6. <strong>Monitoring</strong>: Real-time monitoring of configuration impact<br />
+<h4 id="5-configuration-management-flow">5. Configuration Management Flow</h4>
+<p><strong>Configuration Distribution Pipeline:</strong>
+1. <strong>Configuration Change</strong>: Admin updates configuration through UI/API
+2. <strong>Validation</strong>: Configuration validated against schema and policies
+3. <strong>Staging</strong>: Configuration deployed to staging environment for testing
+4. <strong>Approval</strong>: Change approval workflow (manual or automated)
+5. <strong>Rollout</strong>: Phased deployment to production clients
+6. <strong>Monitoring</strong>: Real-time monitoring of configuration impact
 7. <strong>Rollback</strong>: Automatic rollback on error detection</p>
-<h4 id="6-disaster-recovery-flow">6. Disaster Recovery Flow<a class="headerlink" href="#6-disaster-recovery-flow" title="Permanent link">&para;</a></h4>
-<p><strong>Failure Detection and Recovery:</strong><br />
-1. <strong>Health Monitoring</strong>: Continuous health checks and monitoring<br />
-2. <strong>Failure Detection</strong>: Automated detection of service failures<br />
-3. <strong>Impact Assessment</strong>: Analysis of failure scope and impact<br />
-4. <strong>Failover Initiation</strong>: Automatic or manual failover procedures<br />
-5. <strong>Service Recovery</strong>: Restoration of services on backup infrastructure<br />
-6. <strong>Data Synchronization</strong>: Synchronization of data and state<br />
-7. <strong>Service Validation</strong>: Comprehensive testing of recovered services<br />
+<h4 id="6-disaster-recovery-flow">6. Disaster Recovery Flow</h4>
+<p><strong>Failure Detection and Recovery:</strong>
+1. <strong>Health Monitoring</strong>: Continuous health checks and monitoring
+2. <strong>Failure Detection</strong>: Automated detection of service failures
+3. <strong>Impact Assessment</strong>: Analysis of failure scope and impact
+4. <strong>Failover Initiation</strong>: Automatic or manual failover procedures
+5. <strong>Service Recovery</strong>: Restoration of services on backup infrastructure
+6. <strong>Data Synchronization</strong>: Synchronization of data and state
+7. <strong>Service Validation</strong>: Comprehensive testing of recovered services
 8. <strong>Traffic Restoration</strong>: Gradual restoration of normal traffic flow</p>
-<h3 id="data-quality-and-integrity">Data Quality and Integrity<a class="headerlink" href="#data-quality-and-integrity" title="Permanent link">&para;</a></h3>
-<h4 id="data-validation-framework">Data Validation Framework<a class="headerlink" href="#data-validation-framework" title="Permanent link">&para;</a></h4>
+<h3 id="data-quality-and-integrity">Data Quality and Integrity</h3>
+<h4 id="data-validation-framework">Data Validation Framework</h4>
 <ul>
 <li><strong>Input Validation</strong>: Schema-based validation for all incoming data</li>
 <li><strong>Business Rules</strong>: Application of business logic validation</li>
 <li><strong>Data Consistency</strong>: Cross-reference validation and consistency checks</li>
 <li><strong>Audit Trail</strong>: Complete audit trail for all data modifications</li>
 </ul>
-<h4 id="data-synchronization-strategies">Data Synchronization Strategies<a class="headerlink" href="#data-synchronization-strategies" title="Permanent link">&para;</a></h4>
+<h4 id="data-synchronization-strategies">Data Synchronization Strategies</h4>
 <ul>
 <li><strong>Eventually Consistent</strong>: Asynchronous synchronization for performance</li>
 <li><strong>Strongly Consistent</strong>: Synchronous updates for critical data</li>
 <li><strong>Conflict Resolution</strong>: Automated conflict detection and resolution</li>
 <li><strong>Versioning</strong>: Data versioning for conflict resolution and rollback</li>
 </ul>
-<h2 id="communication-protocols">Communication Protocols<a class="headerlink" href="#communication-protocols" title="Permanent link">&para;</a></h2>
-<h3 id="1-websocket-protocol">1. WebSocket Protocol<a class="headerlink" href="#1-websocket-protocol" title="Permanent link">&para;</a></h3>
+<h2 id="communication-protocols">Communication Protocols</h2>
+<h3 id="1-websocket-protocol">1. WebSocket Protocol</h3>
 <ul>
 <li><strong>Connection Management</strong>: Persistent bidirectional channels</li>
 <li><strong>Message Format</strong>: JSON-based message structures</li>
 <li><strong>Heartbeat Mechanism</strong>: Periodic ping/pong for connection health</li>
 <li><strong>Reconnection Logic</strong>: Automatic reconnection with exponential backoff</li>
 </ul>
-<h3 id="2-httpsrest-api">2. HTTPS/REST API<a class="headerlink" href="#2-httpsrest-api" title="Permanent link">&para;</a></h3>
+<h3 id="2-httpsrest-api">2. HTTPS/REST API</h3>
 <ul>
 <li><strong>Authentication</strong>: JWT token-based authentication</li>
 <li><strong>Authorization</strong>: Role-based access control</li>
 <li><strong>Versioning</strong>: API versioning for backward compatibility</li>
 <li><strong>Rate Limiting</strong>: Request throttling and quota management</li>
 </ul>
-<h3 id="3-docker-api">3. Docker API<a class="headerlink" href="#3-docker-api" title="Permanent link">&para;</a></h3>
+<h3 id="3-docker-api">3. Docker API</h3>
 <ul>
 <li><strong>Service Management</strong>: Docker Swarm/Compose service operations</li>
 <li><strong>Container Monitoring</strong>: Health checks and resource monitoring</li>
 <li><strong>Image Management</strong>: Container image deployment and updates</li>
 </ul>
-<h2 id="security-architecture">Security Architecture<a class="headerlink" href="#security-architecture" title="Permanent link">&para;</a></h2>
+<h2 id="security-architecture">Security Architecture</h2>
 <p>The RIS system implements a comprehensive, defense-in-depth security architecture that protects against a wide range of threats while maintaining system usability and performance. The security model is built on industry best practices and compliance frameworks.</p>
-<h3 id="security-design-principles">Security Design Principles<a class="headerlink" href="#security-design-principles" title="Permanent link">&para;</a></h3>
-<h4 id="1-zero-trust-architecture">1. Zero Trust Architecture<a class="headerlink" href="#1-zero-trust-architecture" title="Permanent link">&para;</a></h4>
-<p>The system operates on a "never trust, always verify" principle:<br />
-- <strong>Identity Verification</strong>: Every user and device must be authenticated<br />
-- <strong>Device Validation</strong>: All devices are validated before access<br />
-- <strong>Network Segmentation</strong>: Micro-segmentation limits lateral movement<br />
+<h3 id="security-design-principles">Security Design Principles</h3>
+<h4 id="1-zero-trust-architecture">1. Zero Trust Architecture</h4>
+<p>The system operates on a "never trust, always verify" principle:
+- <strong>Identity Verification</strong>: Every user and device must be authenticated
+- <strong>Device Validation</strong>: All devices are validated before access
+- <strong>Network Segmentation</strong>: Micro-segmentation limits lateral movement
 - <strong>Continuous Monitoring</strong>: Real-time security monitoring and analysis</p>
-<h4 id="2-defense-in-depth">2. Defense in Depth<a class="headerlink" href="#2-defense-in-depth" title="Permanent link">&para;</a></h4>
-<p>Multiple layers of security controls:<br />
-- <strong>Perimeter Security</strong>: Firewalls, WAF, and DDoS protection<br />
-- <strong>Network Security</strong>: VPNs, network segmentation, and monitoring<br />
-- <strong>Application Security</strong>: Input validation, output encoding, authentication<br />
-- <strong>Data Security</strong>: Encryption, access controls, and data classification<br />
+<h4 id="2-defense-in-depth">2. Defense in Depth</h4>
+<p>Multiple layers of security controls:
+- <strong>Perimeter Security</strong>: Firewalls, WAF, and DDoS protection
+- <strong>Network Security</strong>: VPNs, network segmentation, and monitoring
+- <strong>Application Security</strong>: Input validation, output encoding, authentication
+- <strong>Data Security</strong>: Encryption, access controls, and data classification
 - <strong>Infrastructure Security</strong>: Hardened systems, patch management, monitoring</p>
-<h3 id="security-layers-implementation">Security Layers Implementation<a class="headerlink" href="#security-layers-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="network-security-layer">Network Security Layer<a class="headerlink" href="#network-security-layer" title="Permanent link">&para;</a></h4>
+<h3 id="security-layers-implementation">Security Layers Implementation</h3>
+<h4 id="network-security-layer">Network Security Layer</h4>
 <div class="mermaid">
 graph TB
     subgraph "Internet"
@@ -1676,13 +1676,13 @@ graph TB
     style VPN fill:#e1bee7
 </div>
 
-<p><strong>Network Security Features:</strong><br />
-- <strong>Firewall Rules</strong>: Stateful inspection with application-aware filtering<br />
-- <strong>VPN Access</strong>: Site-to-site and remote access VPN with strong encryption<br />
-- <strong>Network Segmentation</strong>: Isolated network zones with controlled access<br />
-- <strong>Intrusion Detection</strong>: Real-time monitoring for malicious activities<br />
+<p><strong>Network Security Features:</strong>
+- <strong>Firewall Rules</strong>: Stateful inspection with application-aware filtering
+- <strong>VPN Access</strong>: Site-to-site and remote access VPN with strong encryption
+- <strong>Network Segmentation</strong>: Isolated network zones with controlled access
+- <strong>Intrusion Detection</strong>: Real-time monitoring for malicious activities
 - <strong>DDoS Protection</strong>: Traffic analysis and automated mitigation</p>
-<h4 id="application-security-layer">Application Security Layer<a class="headerlink" href="#application-security-layer" title="Permanent link">&para;</a></h4>
+<h4 id="application-security-layer">Application Security Layer</h4>
 <p><strong>Authentication and Authorization Framework:</strong></p>
 <div class="mermaid">
 sequenceDiagram
@@ -1717,13 +1717,13 @@ sequenceDiagram
     end
 </div>
 
-<p><strong>Security Controls:</strong><br />
-- <strong>Multi-Factor Authentication</strong>: TOTP, SMS, hardware tokens<br />
-- <strong>Single Sign-On</strong>: SAML, OAuth 2.0, OpenID Connect integration<br />
-- <strong>Role-Based Access Control</strong>: Granular permissions and role inheritance<br />
-- <strong>Session Management</strong>: Secure session handling with timeout controls<br />
+<p><strong>Security Controls:</strong>
+- <strong>Multi-Factor Authentication</strong>: TOTP, SMS, hardware tokens
+- <strong>Single Sign-On</strong>: SAML, OAuth 2.0, OpenID Connect integration
+- <strong>Role-Based Access Control</strong>: Granular permissions and role inheritance
+- <strong>Session Management</strong>: Secure session handling with timeout controls
 - <strong>API Security</strong>: Rate limiting, input validation, output encoding</p>
-<h4 id="data-security-layer">Data Security Layer<a class="headerlink" href="#data-security-layer" title="Permanent link">&para;</a></h4>
+<h4 id="data-security-layer">Data Security Layer</h4>
 <p><strong>Encryption Strategy:</strong></p>
 <div class="mermaid">
 graph LR
@@ -1770,15 +1770,15 @@ graph LR
     style CONFIDENTIAL fill:#fff3e0
 </div>
 
-<p><strong>Data Protection Features:</strong><br />
-- <strong>Encryption at Rest</strong>: AES-256 encryption for all stored data<br />
-- <strong>Encryption in Transit</strong>: TLS 1.3 with Perfect Forward Secrecy<br />
-- <strong>Key Management</strong>: Hardware Security Module (HSM) for key protection<br />
-- <strong>Data Classification</strong>: Automated data classification and labeling<br />
-- <strong>Access Logging</strong>: Comprehensive audit trail for all data access<br />
+<p><strong>Data Protection Features:</strong>
+- <strong>Encryption at Rest</strong>: AES-256 encryption for all stored data
+- <strong>Encryption in Transit</strong>: TLS 1.3 with Perfect Forward Secrecy
+- <strong>Key Management</strong>: Hardware Security Module (HSM) for key protection
+- <strong>Data Classification</strong>: Automated data classification and labeling
+- <strong>Access Logging</strong>: Comprehensive audit trail for all data access
 - <strong>Data Loss Prevention</strong>: Monitoring and prevention of data exfiltration</p>
-<h3 id="compliance-and-governance">Compliance and Governance<a class="headerlink" href="#compliance-and-governance" title="Permanent link">&para;</a></h3>
-<h4 id="regulatory-compliance">Regulatory Compliance<a class="headerlink" href="#regulatory-compliance" title="Permanent link">&para;</a></h4>
+<h3 id="compliance-and-governance">Compliance and Governance</h3>
+<h4 id="regulatory-compliance">Regulatory Compliance</h4>
 <ul>
 <li><strong>SOC 2 Type II</strong>: Security, availability, processing integrity</li>
 <li><strong>ISO 27001</strong>: Information security management systems</li>
@@ -1786,7 +1786,7 @@ graph LR
 <li><strong>HIPAA</strong>: Healthcare data protection (where applicable)</li>
 <li><strong>PCI DSS</strong>: Payment card industry standards (where applicable)</li>
 </ul>
-<h4 id="security-governance-framework">Security Governance Framework<a class="headerlink" href="#security-governance-framework" title="Permanent link">&para;</a></h4>
+<h4 id="security-governance-framework">Security Governance Framework</h4>
 <ul>
 <li><strong>Security Policies</strong>: Comprehensive security policy framework</li>
 <li><strong>Risk Assessment</strong>: Regular security risk assessments and mitigation</li>
@@ -1794,8 +1794,8 @@ graph LR
 <li><strong>Vulnerability Management</strong>: Continuous vulnerability scanning and remediation</li>
 <li><strong>Security Training</strong>: Regular security awareness training programs</li>
 </ul>
-<h3 id="threat-detection-and-response">Threat Detection and Response<a class="headerlink" href="#threat-detection-and-response" title="Permanent link">&para;</a></h3>
-<h4 id="security-monitoring">Security Monitoring<a class="headerlink" href="#security-monitoring" title="Permanent link">&para;</a></h4>
+<h3 id="threat-detection-and-response">Threat Detection and Response</h3>
+<h4 id="security-monitoring">Security Monitoring</h4>
 <div class="mermaid">
 graph TB
     subgraph "Data Collection"
@@ -1854,7 +1854,7 @@ graph TB
     style ISOLATE fill:#ffebee
 </div>
 
-<h4 id="incident-response-procedures">Incident Response Procedures<a class="headerlink" href="#incident-response-procedures" title="Permanent link">&para;</a></h4>
+<h4 id="incident-response-procedures">Incident Response Procedures</h4>
 <ol>
 <li><strong>Detection</strong>: Automated threat detection and alert generation</li>
 <li><strong>Analysis</strong>: Security team analysis and threat classification</li>
@@ -1863,8 +1863,8 @@ graph TB
 <li><strong>Recovery</strong>: Secure restoration of affected systems</li>
 <li><strong>Lessons Learned</strong>: Post-incident analysis and improvement</li>
 </ol>
-<h3 id="security-operations">Security Operations<a class="headerlink" href="#security-operations" title="Permanent link">&para;</a></h3>
-<h4 id="continuous-security-monitoring">Continuous Security Monitoring<a class="headerlink" href="#continuous-security-monitoring" title="Permanent link">&para;</a></h4>
+<h3 id="security-operations">Security Operations</h3>
+<h4 id="continuous-security-monitoring">Continuous Security Monitoring</h4>
 <ul>
 <li><strong>24/7 SOC</strong>: Security Operations Center with round-the-clock monitoring</li>
 <li><strong>Threat Hunting</strong>: Proactive threat hunting and investigation</li>
@@ -1872,16 +1872,16 @@ graph TB
 <li><strong>Penetration Testing</strong>: Regular penetration testing and security assessments</li>
 <li><strong>Security Metrics</strong>: Key security performance indicators and reporting</li>
 </ul>
-<h4 id="security-automation">Security Automation<a class="headerlink" href="#security-automation" title="Permanent link">&para;</a></h4>
+<h4 id="security-automation">Security Automation</h4>
 <ul>
 <li><strong>Automated Patching</strong>: Automated security patch deployment</li>
 <li><strong>Threat Response</strong>: Automated incident response and remediation</li>
 <li><strong>Compliance Monitoring</strong>: Continuous compliance monitoring and reporting</li>
 <li><strong>Security Orchestration</strong>: SOAR platform integration for workflow automation</li>
 </ul>
-<h2 id="network-topology">Network Topology<a class="headerlink" href="#network-topology" title="Permanent link">&para;</a></h2>
+<h2 id="network-topology">Network Topology</h2>
 <p>The RIS system implements a sophisticated network architecture designed for security, performance, and scalability. The topology incorporates multiple network zones, redundant paths, and advanced networking features to ensure reliable and secure operations.</p>
-<h3 id="network-architecture-overview">Network Architecture Overview<a class="headerlink" href="#network-architecture-overview" title="Permanent link">&para;</a></h3>
+<h3 id="network-architecture-overview">Network Architecture Overview</h3>
 <div class="mermaid">
 graph TB
     subgraph "Public Internet"
@@ -1998,30 +1998,30 @@ graph TB
     style RCC fill:#e0f2f1
 </div>
 
-<h3 id="network-zones-and-segmentation">Network Zones and Segmentation<a class="headerlink" href="#network-zones-and-segmentation" title="Permanent link">&para;</a></h3>
-<h4 id="zone-based-architecture">Zone-Based Architecture<a class="headerlink" href="#zone-based-architecture" title="Permanent link">&para;</a></h4>
-<p><strong>DMZ Zone (Demilitarized Zone)</strong><br />
-- <strong>Purpose</strong>: Hosts public-facing services and security controls<br />
-- <strong>Security Level</strong>: High security with restricted access<br />
-- <strong>Components</strong>: Firewalls, load balancers, WAF, jump servers<br />
+<h3 id="network-zones-and-segmentation">Network Zones and Segmentation</h3>
+<h4 id="zone-based-architecture">Zone-Based Architecture</h4>
+<p><strong>DMZ Zone (Demilitarized Zone)</strong>
+- <strong>Purpose</strong>: Hosts public-facing services and security controls
+- <strong>Security Level</strong>: High security with restricted access
+- <strong>Components</strong>: Firewalls, load balancers, WAF, jump servers
 - <strong>Access Control</strong>: Strictly controlled ingress/egress rules</p>
-<p><strong>Application Zone</strong><br />
-- <strong>Purpose</strong>: Hosts core application services<br />
-- <strong>Security Level</strong>: Medium security with application-specific controls<br />
-- <strong>Components</strong>: RIS servers, application services, caching layer<br />
+<p><strong>Application Zone</strong>
+- <strong>Purpose</strong>: Hosts core application services
+- <strong>Security Level</strong>: Medium security with application-specific controls
+- <strong>Components</strong>: RIS servers, application services, caching layer
 - <strong>Network Controls</strong>: Inter-service communication policies</p>
-<p><strong>Data Zone</strong><br />
-- <strong>Purpose</strong>: Hosts databases and persistent storage<br />
-- <strong>Security Level</strong>: Highest security with minimal external access<br />
-- <strong>Components</strong>: MongoDB cluster, backup systems<br />
+<p><strong>Data Zone</strong>
+- <strong>Purpose</strong>: Hosts databases and persistent storage
+- <strong>Security Level</strong>: Highest security with minimal external access
+- <strong>Components</strong>: MongoDB cluster, backup systems
 - <strong>Encryption</strong>: All data encrypted at rest and in transit</p>
-<p><strong>Management Zone</strong><br />
-- <strong>Purpose</strong>: Hosts monitoring, logging, and administrative services<br />
-- <strong>Security Level</strong>: High security with audit logging<br />
-- <strong>Components</strong>: Monitoring systems, log aggregation, backup services<br />
+<p><strong>Management Zone</strong>
+- <strong>Purpose</strong>: Hosts monitoring, logging, and administrative services
+- <strong>Security Level</strong>: High security with audit logging
+- <strong>Components</strong>: Monitoring systems, log aggregation, backup services
 - <strong>Access</strong>: Restricted to authorized administrators only</p>
-<h3 id="network-services-and-protocols">Network Services and Protocols<a class="headerlink" href="#network-services-and-protocols" title="Permanent link">&para;</a></h3>
-<h4 id="load-balancing-architecture">Load Balancing Architecture<a class="headerlink" href="#load-balancing-architecture" title="Permanent link">&para;</a></h4>
+<h3 id="network-services-and-protocols">Network Services and Protocols</h3>
+<h4 id="load-balancing-architecture">Load Balancing Architecture</h4>
 <div class="mermaid">
 graph TB
     subgraph "Load Balancing Tier"
@@ -2058,20 +2058,20 @@ graph TB
     style LB2 fill:#ffcdd2
 </div>
 
-<p><strong>Load Balancing Features:</strong><br />
-- <strong>Algorithm</strong>: Weighted round-robin with health check integration<br />
-- <strong>Session Persistence</strong>: Sticky sessions for WebSocket connections<br />
-- <strong>SSL Termination</strong>: TLS termination at load balancer level<br />
-- <strong>Health Monitoring</strong>: Multi-tier health checks with automatic failover<br />
+<p><strong>Load Balancing Features:</strong>
+- <strong>Algorithm</strong>: Weighted round-robin with health check integration
+- <strong>Session Persistence</strong>: Sticky sessions for WebSocket connections
+- <strong>SSL Termination</strong>: TLS termination at load balancer level
+- <strong>Health Monitoring</strong>: Multi-tier health checks with automatic failover
 - <strong>Geographic Distribution</strong>: Support for multiple data center deployments</p>
-<h4 id="dns-and-service-discovery">DNS and Service Discovery<a class="headerlink" href="#dns-and-service-discovery" title="Permanent link">&para;</a></h4>
-<p><strong>DNS Architecture:</strong><br />
-- <strong>External DNS</strong>: Public DNS for external service resolution<br />
-- <strong>Internal DNS</strong>: Private DNS for internal service discovery<br />
-- <strong>Service Discovery</strong>: Consul-based service registration and discovery<br />
+<h4 id="dns-and-service-discovery">DNS and Service Discovery</h4>
+<p><strong>DNS Architecture:</strong>
+- <strong>External DNS</strong>: Public DNS for external service resolution
+- <strong>Internal DNS</strong>: Private DNS for internal service discovery
+- <strong>Service Discovery</strong>: Consul-based service registration and discovery
 - <strong>Load Balancing</strong>: DNS-based load balancing with health checks</p>
-<h3 id="network-security-implementation">Network Security Implementation<a class="headerlink" href="#network-security-implementation" title="Permanent link">&para;</a></h3>
-<h4 id="firewall-rules-and-policies">Firewall Rules and Policies<a class="headerlink" href="#firewall-rules-and-policies" title="Permanent link">&para;</a></h4>
+<h3 id="network-security-implementation">Network Security Implementation</h3>
+<h4 id="firewall-rules-and-policies">Firewall Rules and Policies</h4>
 <p><strong>Ingress Rules:</strong></p>
 <table>
 <thead>
@@ -2166,75 +2166,75 @@ graph TB
 </tr>
 </tbody>
 </table>
-<h4 id="vpn-and-remote-access">VPN and Remote Access<a class="headerlink" href="#vpn-and-remote-access" title="Permanent link">&para;</a></h4>
-<p><strong>Site-to-Site VPN:</strong><br />
-- <strong>Protocol</strong>: IPSec with IKEv2<br />
-- <strong>Encryption</strong>: AES-256-GCM with SHA-256 HMAC<br />
-- <strong>Authentication</strong>: Pre-shared keys and certificate-based<br />
+<h4 id="vpn-and-remote-access">VPN and Remote Access</h4>
+<p><strong>Site-to-Site VPN:</strong>
+- <strong>Protocol</strong>: IPSec with IKEv2
+- <strong>Encryption</strong>: AES-256-GCM with SHA-256 HMAC
+- <strong>Authentication</strong>: Pre-shared keys and certificate-based
 - <strong>Redundancy</strong>: Multiple VPN tunnels for high availability</p>
-<p><strong>Remote Access VPN:</strong><br />
-- <strong>Protocol</strong>: SSL VPN with OpenVPN or WireGuard<br />
-- <strong>Authentication</strong>: Multi-factor authentication required<br />
-- <strong>Client Certificates</strong>: X.509 client certificates for device authentication<br />
+<p><strong>Remote Access VPN:</strong>
+- <strong>Protocol</strong>: SSL VPN with OpenVPN or WireGuard
+- <strong>Authentication</strong>: Multi-factor authentication required
+- <strong>Client Certificates</strong>: X.509 client certificates for device authentication
 - <strong>Split Tunneling</strong>: Configured based on security policies</p>
-<h3 id="network-monitoring-and-performance">Network Monitoring and Performance<a class="headerlink" href="#network-monitoring-and-performance" title="Permanent link">&para;</a></h3>
-<h4 id="network-performance-monitoring">Network Performance Monitoring<a class="headerlink" href="#network-performance-monitoring" title="Permanent link">&para;</a></h4>
-<p><strong>Metrics Collection:</strong><br />
-- <strong>Bandwidth Utilization</strong>: Real-time bandwidth monitoring<br />
-- <strong>Latency Measurement</strong>: End-to-end latency tracking<br />
-- <strong>Packet Loss Detection</strong>: Network reliability monitoring<br />
+<h3 id="network-monitoring-and-performance">Network Monitoring and Performance</h3>
+<h4 id="network-performance-monitoring">Network Performance Monitoring</h4>
+<p><strong>Metrics Collection:</strong>
+- <strong>Bandwidth Utilization</strong>: Real-time bandwidth monitoring
+- <strong>Latency Measurement</strong>: End-to-end latency tracking
+- <strong>Packet Loss Detection</strong>: Network reliability monitoring
 - <strong>Connection Quality</strong>: WebSocket connection quality metrics</p>
-<p><strong>Performance Optimization:</strong><br />
-- <strong>Quality of Service (QoS)</strong>: Traffic prioritization and shaping<br />
-- <strong>Bandwidth Management</strong>: Dynamic bandwidth allocation<br />
-- <strong>Caching Strategies</strong>: Network-level caching for performance<br />
+<p><strong>Performance Optimization:</strong>
+- <strong>Quality of Service (QoS)</strong>: Traffic prioritization and shaping
+- <strong>Bandwidth Management</strong>: Dynamic bandwidth allocation
+- <strong>Caching Strategies</strong>: Network-level caching for performance
 - <strong>Content Delivery</strong>: CDN integration for static content</p>
-<h4 id="network-security-monitoring">Network Security Monitoring<a class="headerlink" href="#network-security-monitoring" title="Permanent link">&para;</a></h4>
-<p><strong>Traffic Analysis:</strong><br />
-- <strong>Deep Packet Inspection</strong>: Real-time traffic analysis<br />
-- <strong>Anomaly Detection</strong>: ML-based network anomaly detection<br />
-- <strong>Threat Intelligence</strong>: Integration with threat intelligence feeds<br />
+<h4 id="network-security-monitoring">Network Security Monitoring</h4>
+<p><strong>Traffic Analysis:</strong>
+- <strong>Deep Packet Inspection</strong>: Real-time traffic analysis
+- <strong>Anomaly Detection</strong>: ML-based network anomaly detection
+- <strong>Threat Intelligence</strong>: Integration with threat intelligence feeds
 - <strong>Behavioral Analysis</strong>: Network behavior baseline and deviation detection</p>
-<p><strong>Incident Response:</strong><br />
-- <strong>Automated Blocking</strong>: Automatic blocking of malicious traffic<br />
-- <strong>Traffic Redirection</strong>: Redirection of suspicious traffic to honeypots<br />
-- <strong>Network Isolation</strong>: Rapid isolation of compromised network segments<br />
+<p><strong>Incident Response:</strong>
+- <strong>Automated Blocking</strong>: Automatic blocking of malicious traffic
+- <strong>Traffic Redirection</strong>: Redirection of suspicious traffic to honeypots
+- <strong>Network Isolation</strong>: Rapid isolation of compromised network segments
 - <strong>Forensic Analysis</strong>: Network traffic capture and analysis capabilities</p>
-<h2 id="system-interfaces">System Interfaces<a class="headerlink" href="#system-interfaces" title="Permanent link">&para;</a></h2>
-<h3 id="1-external-interfaces">1. External Interfaces<a class="headerlink" href="#1-external-interfaces" title="Permanent link">&para;</a></h3>
+<h2 id="system-interfaces">System Interfaces</h2>
+<h3 id="1-external-interfaces">1. External Interfaces</h3>
 <ul>
 <li><strong>REST API</strong>: Standard HTTP/HTTPS endpoints for external integration</li>
 <li><strong>WebSocket API</strong>: Real-time bidirectional communication</li>
 <li><strong>Docker API</strong>: Container and service management</li>
 <li><strong>Database API</strong>: MongoDB driver for data persistence</li>
 </ul>
-<h3 id="2-internal-interfaces">2. Internal Interfaces<a class="headerlink" href="#2-internal-interfaces" title="Permanent link">&para;</a></h3>
+<h3 id="2-internal-interfaces">2. Internal Interfaces</h3>
 <ul>
 <li><strong>Controller Interfaces</strong>: Standardized request/response handling</li>
 <li><strong>Model Interfaces</strong>: Data access and manipulation</li>
 <li><strong>Service Interfaces</strong>: Business logic encapsulation</li>
 </ul>
-<h2 id="scalability-and-performance">Scalability and Performance<a class="headerlink" href="#scalability-and-performance" title="Permanent link">&para;</a></h2>
-<h3 id="1-horizontal-scaling">1. Horizontal Scaling<a class="headerlink" href="#1-horizontal-scaling" title="Permanent link">&para;</a></h3>
+<h2 id="scalability-and-performance">Scalability and Performance</h2>
+<h3 id="1-horizontal-scaling">1. Horizontal Scaling</h3>
 <ul>
 <li><strong>Server Clustering</strong>: Multiple RIS server instances with load balancing</li>
 <li><strong>Database Sharding</strong>: MongoDB replica sets and sharding</li>
 <li><strong>Client Distribution</strong>: Geographic distribution of RIS clients</li>
 </ul>
-<h3 id="2-performance-optimization">2. Performance Optimization<a class="headerlink" href="#2-performance-optimization" title="Permanent link">&para;</a></h3>
+<h3 id="2-performance-optimization">2. Performance Optimization</h3>
 <ul>
 <li><strong>Connection Pooling</strong>: Efficient database connection management</li>
 <li><strong>Caching</strong>: Redis/Memory caching for frequently accessed data</li>
 <li><strong>Async Processing</strong>: Non-blocking I/O and concurrent task execution</li>
 </ul>
-<h3 id="3-monitoring-and-metrics">3. Monitoring and Metrics<a class="headerlink" href="#3-monitoring-and-metrics" title="Permanent link">&para;</a></h3>
+<h3 id="3-monitoring-and-metrics">3. Monitoring and Metrics</h3>
 <ul>
 <li><strong>Real-time Dashboards</strong>: System health and performance monitoring</li>
 <li><strong>Alerting</strong>: Proactive issue detection and notification</li>
 <li><strong>Analytics</strong>: Historical data analysis and trending</li>
 </ul>
-<h2 id="technology-stack">Technology Stack<a class="headerlink" href="#technology-stack" title="Permanent link">&para;</a></h2>
-<h3 id="server-side">Server Side<a class="headerlink" href="#server-side" title="Permanent link">&para;</a></h3>
+<h2 id="technology-stack">Technology Stack</h2>
+<h3 id="server-side">Server Side</h3>
 <ul>
 <li><strong>Language</strong>: Go (Golang)</li>
 <li><strong>Web Framework</strong>: Gorilla Mux</li>
@@ -2242,7 +2242,7 @@ graph TB
 <li><strong>Caching</strong>: Redis/In-memory caching</li>
 <li><strong>Security</strong>: TLS, JWT, X.509 certificates</li>
 </ul>
-<h3 id="client-side">Client Side<a class="headerlink" href="#client-side" title="Permanent link">&para;</a></h3>
+<h3 id="client-side">Client Side</h3>
 <ul>
 <li><strong>Language</strong>: Go (Golang)</li>
 <li><strong>Container Platform</strong>: Docker/Docker Swarm</li>
@@ -2250,7 +2250,7 @@ graph TB
 <li><strong>Configuration</strong>: JSON-based configuration</li>
 <li><strong>Logging</strong>: Structured logging with rotation</li>
 </ul>
-<h3 id="infrastructure">Infrastructure<a class="headerlink" href="#infrastructure" title="Permanent link">&para;</a></h3>
+<h3 id="infrastructure">Infrastructure</h3>
 <ul>
 <li><strong>Containerization</strong>: Docker containers</li>
 <li><strong>Orchestration</strong>: Docker Swarm</li>
@@ -2258,48 +2258,48 @@ graph TB
 <li><strong>Monitoring</strong>: Prometheus/Grafana</li>
 <li><strong>Service Mesh</strong>: Istio (optional)</li>
 </ul>
-<h2 id="quality-attributes">Quality Attributes<a class="headerlink" href="#quality-attributes" title="Permanent link">&para;</a></h2>
-<h3 id="1-reliability">1. Reliability<a class="headerlink" href="#1-reliability" title="Permanent link">&para;</a></h3>
+<h2 id="quality-attributes">Quality Attributes</h2>
+<h3 id="1-reliability">1. Reliability</h3>
 <ul>
 <li><strong>High Availability</strong>: 99.9% uptime target</li>
 <li><strong>Fault Tolerance</strong>: Graceful degradation and recovery</li>
 <li><strong>Data Consistency</strong>: ACID transactions and data integrity</li>
 </ul>
-<h3 id="2-security">2. Security<a class="headerlink" href="#2-security" title="Permanent link">&para;</a></h3>
+<h3 id="2-security">2. Security</h3>
 <ul>
 <li><strong>Defense in Depth</strong>: Multiple security layers</li>
 <li><strong>Compliance</strong>: Industry standard compliance (SOC2, ISO27001)</li>
 <li><strong>Vulnerability Management</strong>: Regular security assessments</li>
 </ul>
-<h3 id="3-performance">3. Performance<a class="headerlink" href="#3-performance" title="Permanent link">&para;</a></h3>
+<h3 id="3-performance">3. Performance</h3>
 <ul>
 <li><strong>Response Time</strong>: &lt;100ms for API calls, &lt;5s for task execution</li>
 <li><strong>Throughput</strong>: 1000+ concurrent connections per server</li>
 <li><strong>Scalability</strong>: Linear scaling with additional resources</li>
 </ul>
-<h3 id="4-maintainability">4. Maintainability<a class="headerlink" href="#4-maintainability" title="Permanent link">&para;</a></h3>
+<h3 id="4-maintainability">4. Maintainability</h3>
 <ul>
 <li><strong>Modular Design</strong>: Loosely coupled components</li>
 <li><strong>Documentation</strong>: Comprehensive technical documentation</li>
 <li><strong>Monitoring</strong>: Detailed logging and metrics collection</li>
 </ul>
-<h2 id="future-considerations">Future Considerations<a class="headerlink" href="#future-considerations" title="Permanent link">&para;</a></h2>
-<h3 id="1-enhancement-opportunities">1. Enhancement Opportunities<a class="headerlink" href="#1-enhancement-opportunities" title="Permanent link">&para;</a></h3>
+<h2 id="future-considerations">Future Considerations</h2>
+<h3 id="1-enhancement-opportunities">1. Enhancement Opportunities</h3>
 <ul>
 <li><strong>AI/ML Integration</strong>: Intelligent task routing and optimization</li>
 <li><strong>Multi-cloud Support</strong>: Cross-cloud deployment capabilities</li>
 <li><strong>Enhanced Security</strong>: Zero-trust architecture implementation</li>
 </ul>
-<h3 id="2-technology-evolution">2. Technology Evolution<a class="headerlink" href="#2-technology-evolution" title="Permanent link">&para;</a></h3>
+<h3 id="2-technology-evolution">2. Technology Evolution</h3>
 <ul>
 <li><strong>gRPC Integration</strong>: High-performance RPC communication</li>
 <li><strong>Event-driven Architecture</strong>: Message queue integration</li>
 <li><strong>Enhanced Orchestration</strong>: Advanced Docker Swarm features and capabilities</li>
 </ul>
-<h2 id="integration-patterns">Integration Patterns<a class="headerlink" href="#integration-patterns" title="Permanent link">&para;</a></h2>
+<h2 id="integration-patterns">Integration Patterns</h2>
 <p>The RIS system implements various integration patterns to support seamless connectivity with external systems, third-party services, and enterprise infrastructure. These patterns ensure flexibility, reliability, and maintainability of integrations.</p>
-<h3 id="api-integration-patterns">API Integration Patterns<a class="headerlink" href="#api-integration-patterns" title="Permanent link">&para;</a></h3>
-<h4 id="1-restful-api-gateway-pattern">1. RESTful API Gateway Pattern<a class="headerlink" href="#1-restful-api-gateway-pattern" title="Permanent link">&para;</a></h4>
+<h3 id="api-integration-patterns">API Integration Patterns</h3>
+<h4 id="1-restful-api-gateway-pattern">1. RESTful API Gateway Pattern</h4>
 <div class="mermaid">
 graph LR
     subgraph "External Systems"
@@ -2340,7 +2340,7 @@ graph LR
     style TRANSFORM fill:#e1bee7
 </div>
 
-<h4 id="2-event-driven-integration-pattern">2. Event-Driven Integration Pattern<a class="headerlink" href="#2-event-driven-integration-pattern" title="Permanent link">&para;</a></h4>
+<h4 id="2-event-driven-integration-pattern">2. Event-Driven Integration Pattern</h4>
 <p>The system supports asynchronous integration through event-driven patterns:</p>
 <ul>
 <li><strong>Event Publishing</strong>: System publishes events for external consumption</li>
@@ -2348,7 +2348,7 @@ graph LR
 <li><strong>Event Routing</strong>: Intelligent routing of events to appropriate handlers</li>
 <li><strong>Event Transformation</strong>: Format transformation for different systems</li>
 </ul>
-<h4 id="3-webhook-integration-pattern">3. Webhook Integration Pattern<a class="headerlink" href="#3-webhook-integration-pattern" title="Permanent link">&para;</a></h4>
+<h4 id="3-webhook-integration-pattern">3. Webhook Integration Pattern</h4>
 <p>Support for webhook-based integrations:</p>
 <ul>
 <li><strong>Outbound Webhooks</strong>: RIS system calls external webhook endpoints</li>
@@ -2356,8 +2356,8 @@ graph LR
 <li><strong>Webhook Security</strong>: HMAC signature verification and authentication</li>
 <li><strong>Retry Logic</strong>: Intelligent retry mechanisms for failed webhook deliveries</li>
 </ul>
-<h3 id="enterprise-integration-patterns">Enterprise Integration Patterns<a class="headerlink" href="#enterprise-integration-patterns" title="Permanent link">&para;</a></h3>
-<h4 id="message-queue-integration">Message Queue Integration<a class="headerlink" href="#message-queue-integration" title="Permanent link">&para;</a></h4>
+<h3 id="enterprise-integration-patterns">Enterprise Integration Patterns</h3>
+<h4 id="message-queue-integration">Message Queue Integration</h4>
 <div class="mermaid">
 graph TB
     subgraph "Message Producers"
@@ -2394,31 +2394,31 @@ graph TB
     style PROCESSOR fill:#e1bee7
 </div>
 
-<h3 id="database-integration-patterns">Database Integration Patterns<a class="headerlink" href="#database-integration-patterns" title="Permanent link">&para;</a></h3>
-<h4 id="multi-database-support">Multi-Database Support<a class="headerlink" href="#multi-database-support" title="Permanent link">&para;</a></h4>
+<h3 id="database-integration-patterns">Database Integration Patterns</h3>
+<h4 id="multi-database-support">Multi-Database Support</h4>
 <ul>
 <li><strong>Primary Database</strong>: MongoDB for operational data</li>
 <li><strong>Time-Series Database</strong>: InfluxDB for metrics and monitoring data</li>
 <li><strong>Search Engine</strong>: Elasticsearch for full-text search and analytics</li>
 <li><strong>Cache Layer</strong>: Redis for high-performance caching</li>
 </ul>
-<h4 id="data-synchronization-patterns">Data Synchronization Patterns<a class="headerlink" href="#data-synchronization-patterns" title="Permanent link">&para;</a></h4>
+<h4 id="data-synchronization-patterns">Data Synchronization Patterns</h4>
 <ul>
 <li><strong>Change Data Capture</strong>: Real-time data change detection and propagation</li>
 <li><strong>Event Sourcing</strong>: Event-based data synchronization</li>
 <li><strong>Bulk Synchronization</strong>: Scheduled batch data synchronization</li>
 <li><strong>Conflict Resolution</strong>: Automated conflict detection and resolution</li>
 </ul>
-<h2 id="technology-stack-deep-dive">Technology Stack Deep Dive<a class="headerlink" href="#technology-stack-deep-dive" title="Permanent link">&para;</a></h2>
-<h3 id="server-side-technology-stack">Server-Side Technology Stack<a class="headerlink" href="#server-side-technology-stack" title="Permanent link">&para;</a></h3>
-<h4 id="programming-language-and-framework">Programming Language and Framework<a class="headerlink" href="#programming-language-and-framework" title="Permanent link">&para;</a></h4>
+<h2 id="technology-stack-deep-dive">Technology Stack Deep Dive</h2>
+<h3 id="server-side-technology-stack">Server-Side Technology Stack</h3>
+<h4 id="programming-language-and-framework">Programming Language and Framework</h4>
 <ul>
 <li><strong>Go (Golang) 1.21+</strong>: High-performance, concurrent programming language</li>
 <li><strong>Gorilla Mux</strong>: HTTP router and dispatcher for Go</li>
 <li><strong>Gorilla WebSocket</strong>: WebSocket implementation for real-time communication</li>
 <li><strong>Standard Library</strong>: Extensive use of Go standard library for reliability</li>
 </ul>
-<h4 id="database-technologies">Database Technologies<a class="headerlink" href="#database-technologies" title="Permanent link">&para;</a></h4>
+<h4 id="database-technologies">Database Technologies</h4>
 <ul>
 <li><strong>MongoDB 6.0+</strong>: Primary NoSQL database with replica set configuration</li>
 <li><strong>Features</strong>: ACID transactions, GridFS for file storage, aggregation framework</li>
@@ -2427,65 +2427,65 @@ graph TB
 <li><strong>Features</strong>: Pub/Sub messaging, Redis Cluster for high availability</li>
 <li><strong>Use Cases</strong>: Session storage, caching, message queuing</li>
 </ul>
-<h4 id="security-technologies">Security Technologies<a class="headerlink" href="#security-technologies" title="Permanent link">&para;</a></h4>
+<h4 id="security-technologies">Security Technologies</h4>
 <ul>
 <li><strong>TLS 1.3</strong>: Latest transport layer security protocol</li>
 <li><strong>JWT</strong>: JSON Web Tokens for stateless authentication</li>
 <li><strong>bcrypt</strong>: Password hashing with configurable cost</li>
 <li><strong>X.509 Certificates</strong>: Public key infrastructure for client authentication</li>
 </ul>
-<h3 id="client-side-technology-stack">Client-Side Technology Stack<a class="headerlink" href="#client-side-technology-stack" title="Permanent link">&para;</a></h3>
-<h4 id="container-platform">Container Platform<a class="headerlink" href="#container-platform" title="Permanent link">&para;</a></h4>
+<h3 id="client-side-technology-stack">Client-Side Technology Stack</h3>
+<h4 id="container-platform">Container Platform</h4>
 <ul>
 <li><strong>Docker Engine 24.0+</strong>: Container runtime for application packaging</li>
 <li><strong>Docker Compose</strong>: Multi-container application definition and deployment</li>
 <li><strong>Docker Swarm</strong>: Optional container orchestration for multi-node deployments</li>
 </ul>
-<h4 id="networking-and-communication">Networking and Communication<a class="headerlink" href="#networking-and-communication" title="Permanent link">&para;</a></h4>
+<h4 id="networking-and-communication">Networking and Communication</h4>
 <ul>
 <li><strong>WebSocket Client</strong>: Persistent real-time communication with server</li>
 <li><strong>HTTP Client</strong>: RESTful API communication</li>
 <li><strong>Network Discovery</strong>: Automatic network configuration detection</li>
 </ul>
-<h3 id="infrastructure-technology-stack">Infrastructure Technology Stack<a class="headerlink" href="#infrastructure-technology-stack" title="Permanent link">&para;</a></h3>
-<h4 id="orchestration-and-deployment">Orchestration and Deployment<a class="headerlink" href="#orchestration-and-deployment" title="Permanent link">&para;</a></h4>
+<h3 id="infrastructure-technology-stack">Infrastructure Technology Stack</h3>
+<h4 id="orchestration-and-deployment">Orchestration and Deployment</h4>
 <ul>
 <li><strong>Docker Swarm</strong>: Production-grade container orchestration</li>
 <li><strong>Docker Compose</strong>: Multi-container application definition and deployment</li>
 <li><strong>Docker Stack</strong>: Declarative service deployment in Swarm mode</li>
 <li><strong>Docker Secrets</strong>: Secure credential and configuration management</li>
 </ul>
-<h4 id="monitoring-and-observability">Monitoring and Observability<a class="headerlink" href="#monitoring-and-observability" title="Permanent link">&para;</a></h4>
+<h4 id="monitoring-and-observability">Monitoring and Observability</h4>
 <ul>
 <li><strong>Prometheus</strong>: Metrics collection and alerting</li>
 <li><strong>Grafana</strong>: Visualization and dashboards</li>
 <li><strong>ELK Stack</strong>: Centralized logging (Elasticsearch, Logstash, Kibana)</li>
 <li><strong>Jaeger</strong>: Distributed tracing (optional)</li>
 </ul>
-<h4 id="load-balancing-and-proxy">Load Balancing and Proxy<a class="headerlink" href="#load-balancing-and-proxy" title="Permanent link">&para;</a></h4>
+<h4 id="load-balancing-and-proxy">Load Balancing and Proxy</h4>
 <ul>
 <li><strong>NGINX</strong>: Reverse proxy and load balancer</li>
 <li><strong>HAProxy</strong>: High-availability load balancer</li>
 <li><strong>Istio</strong>: Service mesh for advanced traffic management (optional)</li>
 </ul>
-<h2 id="performance-and-scalability-analysis">Performance and Scalability Analysis<a class="headerlink" href="#performance-and-scalability-analysis" title="Permanent link">&para;</a></h2>
-<h3 id="performance-characteristics">Performance Characteristics<a class="headerlink" href="#performance-characteristics" title="Permanent link">&para;</a></h3>
-<h4 id="throughput-metrics">Throughput Metrics<a class="headerlink" href="#throughput-metrics" title="Permanent link">&para;</a></h4>
+<h2 id="performance-and-scalability-analysis">Performance and Scalability Analysis</h2>
+<h3 id="performance-characteristics">Performance Characteristics</h3>
+<h4 id="throughput-metrics">Throughput Metrics</h4>
 <ul>
 <li><strong>WebSocket Connections</strong>: 1,000+ concurrent connections per server instance</li>
 <li><strong>HTTP Requests</strong>: 10,000+ requests per second</li>
 <li><strong>Database Operations</strong>: 5,000+ operations per second</li>
 <li><strong>Task Execution</strong>: 100+ concurrent task executions</li>
 </ul>
-<h4 id="latency-metrics">Latency Metrics<a class="headerlink" href="#latency-metrics" title="Permanent link">&para;</a></h4>
+<h4 id="latency-metrics">Latency Metrics</h4>
 <ul>
 <li><strong>API Response Time</strong>: &lt;100ms for 95% of requests</li>
 <li><strong>WebSocket Latency</strong>: &lt;50ms for real-time messages</li>
 <li><strong>Database Query Time</strong>: &lt;10ms for indexed queries</li>
 <li><strong>Task Execution Time</strong>: &lt;5 seconds for standard operations</li>
 </ul>
-<h3 id="scalability-strategies">Scalability Strategies<a class="headerlink" href="#scalability-strategies" title="Permanent link">&para;</a></h3>
-<h4 id="horizontal-scaling">Horizontal Scaling<a class="headerlink" href="#horizontal-scaling" title="Permanent link">&para;</a></h4>
+<h3 id="scalability-strategies">Scalability Strategies</h3>
+<h4 id="horizontal-scaling">Horizontal Scaling</h4>
 <div class="mermaid">
 graph TB
     subgraph "Load Balancer Tier"
@@ -2530,22 +2530,22 @@ graph TB
     style CACHE1 fill:#e8f5e8
 </div>
 
-<h4 id="vertical-scaling">Vertical Scaling<a class="headerlink" href="#vertical-scaling" title="Permanent link">&para;</a></h4>
+<h4 id="vertical-scaling">Vertical Scaling</h4>
 <ul>
 <li><strong>CPU Scaling</strong>: Multi-core utilization with goroutine-based concurrency</li>
 <li><strong>Memory Scaling</strong>: Efficient memory management with garbage collection optimization</li>
 <li><strong>Storage Scaling</strong>: SSD storage with optimized I/O patterns</li>
 <li><strong>Network Scaling</strong>: High-bandwidth network interfaces</li>
 </ul>
-<h3 id="performance-optimization-techniques">Performance Optimization Techniques<a class="headerlink" href="#performance-optimization-techniques" title="Permanent link">&para;</a></h3>
-<h4 id="database-optimization">Database Optimization<a class="headerlink" href="#database-optimization" title="Permanent link">&para;</a></h4>
+<h3 id="performance-optimization-techniques">Performance Optimization Techniques</h3>
+<h4 id="database-optimization">Database Optimization</h4>
 <ul>
 <li><strong>Index Strategy</strong>: Comprehensive indexing for query optimization</li>
 <li><strong>Connection Pooling</strong>: Efficient database connection management</li>
 <li><strong>Query Optimization</strong>: Query plan analysis and optimization</li>
 <li><strong>Caching Strategy</strong>: Multi-level caching for frequent operations</li>
 </ul>
-<h4 id="application-optimization">Application Optimization<a class="headerlink" href="#application-optimization" title="Permanent link">&para;</a></h4>
+<h4 id="application-optimization">Application Optimization</h4>
 <ul>
 <li><strong>Goroutine Pools</strong>: Worker pool pattern for concurrent processing</li>
 <li><strong>Memory Management</strong>: Efficient memory allocation and garbage collection</li>

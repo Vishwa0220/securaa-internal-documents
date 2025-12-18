@@ -117,7 +117,7 @@ graph TB
         M3[Mongos #3<br/>Port: 27017]
     end
     
-    subgraph ConfigLayer["Config Server Replica Set - cfgrs - Port: 28017"]
+    subgraph ConfigLayer["Config Server Replica Set(cfgrs) Port: 28017"]
         CS1[Config Server 1<br/>Primary]
         CS2[Config Server 2<br/>Secondary]
         CS3[Config Server 3<br/>Secondary]
@@ -143,7 +143,7 @@ graph TB
         end
     end
     
-    subgraph MetaLayer["Meta Database Replica Set - metars - Port: 27018"]
+    subgraph MetaLayer["Meta Database Replica Set(metars) Port: 27018"]
         MP[Meta Primary<br/>Primary Host]
         MS[Meta Secondary<br/>Secondary Host]
         MA[Meta Arbiter<br/>Arbiter Host]

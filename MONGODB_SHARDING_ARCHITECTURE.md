@@ -107,65 +107,61 @@ security:
 ## 3. Sharding Architecture Design
 
 ### 3.1 High-Level Architecture Diagram
-```
-                                    ┌─────────────────────────────────────────────┐
-                                    │              Load Balancer                   │
-                                    │         (HAProxy / AWS ALB / Nginx)          │
-                                    └─────────────────┬───────────────────────────┘
-                                                      │
-                    ┌─────────────────────────────────┼─────────────────────────────────┐
-                    │                                 │                                 │
-            ┌───────┴───────┐                 ┌───────┴───────┐                 ┌───────┴───────┐
-            │   Mongos #1   │                 │   Mongos #2   │                 │   Mongos #3   │
-            │   Port: 27017 │                 │   Port: 27017 │                 │   Port: 27017 │
-            └───────┬───────┘                 └───────┬───────┘                 └───────┬───────┘
-                    │                                 │                                 │
-                    └─────────────────────────────────┼─────────────────────────────────┘
-                                                      │
-        ┌─────────────────────────────────────────────┼─────────────────────────────────────────────┐
-        │                           Config Server Replica Set (cfgrs)                               │
-        │  ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐                      │
-        │  │  Config Server 1 │   │  Config Server 2 │   │  Config Server 3 │   Port: 28017        │
-        │  │    (Primary)     │   │   (Secondary)    │   │   (Secondary)    │                      │
-        │  └──────────────────┘   └──────────────────┘   └──────────────────┘                      │
-        └──────────────────────────────────────────────────────────────────────────────────────────┘
-                                                      │
-        ┌─────────────────────────────────────────────┼─────────────────────────────────────────────┐
-        │                                     Shard Layer                                           │
-        │                                                                                           │
-        │  ┌─────────────────────────────────────────────────────────────────────────────────────┐ │
-        │  │                        Shard 1 Replica Set (shard1rs)                                │ │
-        │  │  ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐                 │ │
-        │  │  │    Primary       │   │   Secondary      │   │    Arbiter       │   Port: 29017   │ │
-        │  │  │  (Primary Host)  │   │ (Secondary Host) │   │  (Arbiter Host)  │                 │ │
-        │  │  └──────────────────┘   └──────────────────┘   └──────────────────┘                 │ │
-        │  └─────────────────────────────────────────────────────────────────────────────────────┘ │
-        │                                                                                           │
-        │  ┌─────────────────────────────────────────────────────────────────────────────────────┐ │
-        │  │                        Shard 2 Replica Set (shard2rs)                                │ │
-        │  │  ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐                 │ │
-        │  │  │    Primary       │   │   Secondary      │   │    Arbiter       │   Port: 29018   │ │
-        │  │  │  (Primary Host)  │   │ (Secondary Host) │   │  (Arbiter Host)  │                 │ │
-        │  │  └──────────────────┘   └──────────────────┘   └──────────────────┘                 │ │
-        │  └─────────────────────────────────────────────────────────────────────────────────────┘ │
-        │                                                                                           │
-        │  ┌─────────────────────────────────────────────────────────────────────────────────────┐ │
-        │  │                        Shard N Replica Set (shardNrs) - Up to 50 shards             │ │
-        │  │  ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐                 │ │
-        │  │  │    Primary       │   │   Secondary      │   │    Arbiter       │   Port: 29066   │ │
-        │  │  │  (Primary Host)  │   │ (Secondary Host) │   │  (Arbiter Host)  │                 │ │
-        │  │  └──────────────────┘   └──────────────────┘   └──────────────────┘                 │ │
-        │  └─────────────────────────────────────────────────────────────────────────────────────┘ │
-        │                                                                                           │
-        └───────────────────────────────────────────────────────────────────────────────────────────┘
-                                                      │
-        ┌─────────────────────────────────────────────┼─────────────────────────────────────────────┐
-        │                         Meta Database Replica Set (metars)                                │
-        │  ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐                      │
-        │  │   Meta Primary   │   │  Meta Secondary  │   │   Meta Arbiter   │   Port: 27018        │
-        │  │  (Primary Host)  │   │ (Secondary Host) │   │  (Arbiter Host)  │                      │
-        │  └──────────────────┘   └──────────────────┘   └──────────────────┘                      │
-        └──────────────────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+graph TB
+    LB[Load Balancer<br/>HAProxy / AWS ALB / Nginx]
+    
+    subgraph QueryRouters["Query Router Layer"]
+        M1[Mongos #1<br/>Port: 27017]
+        M2[Mongos #2<br/>Port: 27017]
+        M3[Mongos #3<br/>Port: 27017]
+    end
+    
+    subgraph ConfigLayer["Config Server Replica Set - cfgrs - Port: 28017"]
+        CS1[Config Server 1<br/>Primary]
+        CS2[Config Server 2<br/>Secondary]
+        CS3[Config Server 3<br/>Secondary]
+    end
+    
+    subgraph ShardLayer["Shard Layer"]
+        subgraph Shard1["Shard 1 Replica Set - shard1rs - Port: 29017"]
+            S1P[Primary<br/>Primary Host]
+            S1S[Secondary<br/>Secondary Host]
+            S1A[Arbiter<br/>Arbiter Host]
+        end
+        
+        subgraph Shard2["Shard 2 Replica Set - shard2rs - Port: 29018"]
+            S2P[Primary<br/>Primary Host]
+            S2S[Secondary<br/>Secondary Host]
+            S2A[Arbiter<br/>Arbiter Host]
+        end
+        
+        subgraph ShardN["Shard N Replica Set - shardNrs - Port: 29066<br/>Up to 50 shards"]
+            SNP[Primary<br/>Primary Host]
+            SNS[Secondary<br/>Secondary Host]
+            SNA[Arbiter<br/>Arbiter Host]
+        end
+    end
+    
+    subgraph MetaLayer["Meta Database Replica Set - metars - Port: 27018"]
+        MP[Meta Primary<br/>Primary Host]
+        MS[Meta Secondary<br/>Secondary Host]
+        MA[Meta Arbiter<br/>Arbiter Host]
+    end
+    
+    LB --> M1
+    LB --> M2
+    LB --> M3
+    
+    M1 --> ConfigLayer
+    M2 --> ConfigLayer
+    M3 --> ConfigLayer
+    
+    M1 --> ShardLayer
+    M2 --> ShardLayer
+    M3 --> ShardLayer
+    
+    ConfigLayer --> MetaLayer
 ```
 
 ### 3.2 Port Allocation Strategy
@@ -669,58 +665,56 @@ MONGODB_REPLICA_TAG=mongoreplic_7.0
 ## 8. Data Flow Architecture
 
 ### 8.1 Write Path
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│   SIEM/      │     │  zona_siem   │     │    Mongos    │     │    Shard     │
-│  Integration │ ──► │  (Go Service)│ ──► │ Query Router │ ──► │   Primary    │
-└──────────────┘     └──────────────┘     └──────────────┘     └──────┬───────┘
-                                                                       │
-                                                                       ▼
-                                                               ┌──────────────┐
-                                                               │    Shard     │
-                                                               │  Secondary   │
-                                                               └──────────────┘
+```mermaid
+graph LR
+    SIEM[SIEM/<br/>Integration]
+    ZS[zona_siem<br/>Go Service]
+    M[Mongos<br/>Query Router]
+    SP[Shard<br/>Primary]
+    SS[Shard<br/>Secondary]
+    
+    SIEM --> ZS
+    ZS --> M
+    M --> SP
+    SP --> SS
 ```
 
 ### 8.2 Read Path
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│   UI/API     │     │    Mongos    │     │    Shard     │
-│   Request    │ ──► │ Query Router │ ──► │   (based on  │
-└──────────────┘     └──────┬───────┘     │  shard key)  │
-                            │             └──────────────┘
-                            │
-                    ┌───────┴───────┐
-                    │  If scatter-  │
-                    │  gather query │
-                    └───────┬───────┘
-                            │
-            ┌───────────────┼───────────────┐
-            ▼               ▼               ▼
-     ┌──────────┐    ┌──────────┐    ┌──────────┐
-     │  Shard 1 │    │  Shard 2 │    │  Shard N │
-     └──────────┘    └──────────┘    └──────────┘
+```mermaid
+graph TB
+    UI[UI/API<br/>Request]
+    M[Mongos<br/>Query Router]
+    SG{If scatter-<br/>gather query}
+    SD[Shard<br/>based on<br/>shard key]
+    S1[Shard 1]
+    S2[Shard 2]
+    SN[Shard N]
+    
+    UI --> M
+    M --> SG
+    SG -->|Single Shard| SD
+    SG -->|Multiple Shards| S1
+    SG -->|Multiple Shards| S2
+    SG -->|Multiple Shards| SN
 ```
 
 ### 8.3 Case Ingestion Flow
-```
-┌─────────────────────────────────────────────────────────────────────────────────────┐
-│                              Case Ingestion Pipeline                                 │
-├─────────────────────────────────────────────────────────────────────────────────────┤
-│                                                                                     │
-│  ┌──────────┐    ┌──────────────┐    ┌───────────────┐    ┌─────────────────────┐  │
-│  │   SIEM   │    │    Kafka     │    │ zona_case_    │    │   zona_incidents    │  │
-│  │ QRadar   │───►│   Topic:     │───►│   consumer    │───►│   Collection        │  │
-│  │ Splunk   │    │  case_queue  │    │   (Batch)     │    │   (Sharded)         │  │
-│  │ Sentinel │    └──────────────┘    └───────────────┘    └─────────────────────┘  │
-│  └──────────┘                                                                       │
-│                                                                                     │
-│  Controllers (zona_batch/zona_case_consumer/controllers/):                          │
-│  - qradarController.go       - splunkController.go                                  │
-│  - azuresentinelController.go - wazuhController.go                                  │
-│  - crowdstrikeController.go  - elasticController.go                                 │
-│  - sentinelOneController.go  - securonixController.go                               │
-└─────────────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+graph LR
+    subgraph CaseIngestion["Case Ingestion Pipeline"]
+        SIEM[SIEM<br/>QRadar<br/>Splunk<br/>Sentinel]
+        KAFKA[Kafka<br/>Topic: case_queue]
+        CONSUMER[zona_case_consumer<br/>Batch]
+        INCIDENTS[zona_incidents<br/>Collection<br/>Sharded]
+        
+        SIEM --> KAFKA
+        KAFKA --> CONSUMER
+        CONSUMER --> INCIDENTS
+    end
+    
+    CONTROLLERS[Controllers zona_batch/zona_case_consumer/controllers/:<br/>• qradarController.go<br/>• splunkController.go<br/>• azuresentinelController.go<br/>• wazuhController.go<br/>• crowdstrikeController.go<br/>• elasticController.go<br/>• sentinelOneController.go<br/>• securonixController.go]
+    
+    CONSUMER -.-> CONTROLLERS
 ```
 
 ---

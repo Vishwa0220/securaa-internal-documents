@@ -601,7 +601,7 @@ hr {
         <div class="header-content">
             <div class="header-logo">Securaa<span>Docs</span></div>
             <div class="header-meta">
-                <span>Generated: December 04, 2025</span>
+                <span>Generated: December 18, 2025</span>
             </div>
         </div>
     </header>
@@ -823,17 +823,17 @@ graph TB
 - Handles task dependencies and flow control
 - Implements stop/resume functionality</p>
 <p><strong>Key Methods</strong>:</p>
-<pre class="highlight"><code class="language-go">type PlaybookExecutionController struct {
-    PlayBookTasksMap map[int]executionModels.PlayBookTask
-    MapMutex         sync.RWMutex
-    Completed        bool
-    Stopped          bool
-    // ... other fields
-}
-func (pec *PlaybookExecutionController) RunSelectedPlaybook()
-func (pec *PlaybookExecutionController) ReadAndRunPlayBook()
-func (pec *PlaybookExecutionController) ProcessAndExecuteTask()
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">PlaybookExecutionController</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">PlayBookTasksMap</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="nx">executionModels</span><span class="p">.</span><span class="nx">PlayBookTask</span>
+<span class="w">    </span><span class="nx">MapMutex</span><span class="w">         </span><span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
+<span class="w">    </span><span class="nx">Completed</span><span class="w">        </span><span class="kt">bool</span>
+<span class="w">    </span><span class="nx">Stopped</span><span class="w">          </span><span class="kt">bool</span>
+<span class="w">    </span><span class="c1">// ... other fields</span>
+<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pec</span><span class="w"> </span><span class="o">*</span><span class="nx">PlaybookExecutionController</span><span class="p">)</span><span class="w"> </span><span class="nx">RunSelectedPlaybook</span><span class="p">()</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pec</span><span class="w"> </span><span class="o">*</span><span class="nx">PlaybookExecutionController</span><span class="p">)</span><span class="w"> </span><span class="nx">ReadAndRunPlayBook</span><span class="p">()</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pec</span><span class="w"> </span><span class="o">*</span><span class="nx">PlaybookExecutionController</span><span class="p">)</span><span class="w"> </span><span class="nx">ProcessAndExecuteTask</span><span class="p">()</span>
+</code></pre></div>
 
 <h4 id="322-task-execution-engine">3.2.2 Task Execution Engine</h4>
 <p><strong>Purpose</strong>: Executes individual tasks within playbooks</p>
@@ -946,45 +946,45 @@ erDiagram
 - Optimizes query performance for case-based operations</p>
 <h4 id="413-data-models">4.1.3 Data Models</h4>
 <p><strong>Playbook Definition</strong>:</p>
-<pre class="highlight"><code class="language-go">type PlaybookObject struct {
-    ID                 int      `json:&quot;id&quot; bson:&quot;id&quot;`
-    Name               string   `json:&quot;name&quot; bson:&quot;name&quot;`
-    Description        string   `json:&quot;description&quot; bson:&quot;description&quot;`
-    Definition         string   `json:&quot;definition&quot; bson:&quot;definition&quot;`
-    ChartDefinition    string   `json:&quot;chartdefinition&quot; bson:&quot;chartdefinition&quot;`
-    TenantCode         string   `json:&quot;tenantcode&quot; bson:&quot;tenantcode&quot;`
-    CategoryID         int      `json:&quot;category_id&quot; bson:&quot;category_id&quot;`
-    Status             string   `json:&quot;status&quot; bson:&quot;status&quot;`
-    IsParallelPlaybook bool     `json:&quot;is_parallel_playbook&quot; bson:&quot;is_parallel_playbook&quot;`
-    TotalTasksCount    int      `json:&quot;total_tasks_count&quot; bson:&quot;total_tasks_count&quot;`
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">PlaybookObject</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ID</span><span class="w">                 </span><span class="kt">int</span><span class="w">      </span><span class="s">`json:&quot;id&quot; bson:&quot;id&quot;`</span>
+<span class="w">    </span><span class="nx">Name</span><span class="w">               </span><span class="kt">string</span><span class="w">   </span><span class="s">`json:&quot;name&quot; bson:&quot;name&quot;`</span>
+<span class="w">    </span><span class="nx">Description</span><span class="w">        </span><span class="kt">string</span><span class="w">   </span><span class="s">`json:&quot;description&quot; bson:&quot;description&quot;`</span>
+<span class="w">    </span><span class="nx">Definition</span><span class="w">         </span><span class="kt">string</span><span class="w">   </span><span class="s">`json:&quot;definition&quot; bson:&quot;definition&quot;`</span>
+<span class="w">    </span><span class="nx">ChartDefinition</span><span class="w">    </span><span class="kt">string</span><span class="w">   </span><span class="s">`json:&quot;chartdefinition&quot; bson:&quot;chartdefinition&quot;`</span>
+<span class="w">    </span><span class="nx">TenantCode</span><span class="w">         </span><span class="kt">string</span><span class="w">   </span><span class="s">`json:&quot;tenantcode&quot; bson:&quot;tenantcode&quot;`</span>
+<span class="w">    </span><span class="nx">CategoryID</span><span class="w">         </span><span class="kt">int</span><span class="w">      </span><span class="s">`json:&quot;category_id&quot; bson:&quot;category_id&quot;`</span>
+<span class="w">    </span><span class="nx">Status</span><span class="w">             </span><span class="kt">string</span><span class="w">   </span><span class="s">`json:&quot;status&quot; bson:&quot;status&quot;`</span>
+<span class="w">    </span><span class="nx">IsParallelPlaybook</span><span class="w"> </span><span class="kt">bool</span><span class="w">     </span><span class="s">`json:&quot;is_parallel_playbook&quot; bson:&quot;is_parallel_playbook&quot;`</span>
+<span class="w">    </span><span class="nx">TotalTasksCount</span><span class="w">    </span><span class="kt">int</span><span class="w">      </span><span class="s">`json:&quot;total_tasks_count&quot; bson:&quot;total_tasks_count&quot;`</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p><strong>Task Execution Model</strong>:</p>
-<pre class="highlight"><code class="language-go">type PlayBookTask struct {
-    TaskSeq                int                    `json:&quot;task_seq&quot;`
-    Type                   string                 `json:&quot;type&quot;`
-    TaskName               string                 `json:&quot;task_name&quot;`
-    TaskTag                string                 `json:&quot;tasks_tag&quot;`
-    InputFields            []models.Inputfields   `json:&quot;inputfields&quot;`
-    NextTask               interface{}            `json:&quot;next_task&quot;`
-    Conditions             []PlayBookCondition    `json:&quot;conditions&quot;`
-    ConditionOperator      string                 `json:&quot;condition_operator&quot;`
-    Status                 string
-    HasFlowControl         bool
-    TotalTasksCount        int
-    TotalUtilsCount        int
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">PlayBookTask</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">TaskSeq</span><span class="w">                </span><span class="kt">int</span><span class="w">                    </span><span class="s">`json:&quot;task_seq&quot;`</span>
+<span class="w">    </span><span class="nx">Type</span><span class="w">                   </span><span class="kt">string</span><span class="w">                 </span><span class="s">`json:&quot;type&quot;`</span>
+<span class="w">    </span><span class="nx">TaskName</span><span class="w">               </span><span class="kt">string</span><span class="w">                 </span><span class="s">`json:&quot;task_name&quot;`</span>
+<span class="w">    </span><span class="nx">TaskTag</span><span class="w">                </span><span class="kt">string</span><span class="w">                 </span><span class="s">`json:&quot;tasks_tag&quot;`</span>
+<span class="w">    </span><span class="nx">InputFields</span><span class="w">            </span><span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Inputfields</span><span class="w">   </span><span class="s">`json:&quot;inputfields&quot;`</span>
+<span class="w">    </span><span class="nx">NextTask</span><span class="w">               </span><span class="kd">interface</span><span class="p">{}</span><span class="w">            </span><span class="s">`json:&quot;next_task&quot;`</span>
+<span class="w">    </span><span class="nx">Conditions</span><span class="w">             </span><span class="p">[]</span><span class="nx">PlayBookCondition</span><span class="w">    </span><span class="s">`json:&quot;conditions&quot;`</span>
+<span class="w">    </span><span class="nx">ConditionOperator</span><span class="w">      </span><span class="kt">string</span><span class="w">                 </span><span class="s">`json:&quot;condition_operator&quot;`</span>
+<span class="w">    </span><span class="nx">Status</span><span class="w">                 </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">HasFlowControl</span><span class="w">         </span><span class="kt">bool</span>
+<span class="w">    </span><span class="nx">TotalTasksCount</span><span class="w">        </span><span class="kt">int</span>
+<span class="w">    </span><span class="nx">TotalUtilsCount</span><span class="w">        </span><span class="kt">int</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="42-caching-strategy">4.2 Caching Strategy</h3>
 <h4 id="421-redis-cache-structure">4.2.1 Redis Cache Structure</h4>
-<pre class="highlight"><code>securaa_playbook:tenant:{tenant_code}:playbook:{playbook_name}
-securaa_playbook:tenant:{tenant_code}:task:{task_tag}
-securaa_playbook:tenant:{tenant_code}:lists
-securaa_playbook:tenant:{tenant_code}:user:{user_id}
-securaa_playbook:execution:{execution_id}:count
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">securaa_playbook</span><span class="o">:</span><span class="n">tenant</span><span class="o">:{</span><span class="n">tenant_code</span><span class="o">}:</span><span class="n">playbook</span><span class="o">:{</span><span class="n">playbook_name</span><span class="o">}</span>
+<span class="n">securaa_playbook</span><span class="o">:</span><span class="n">tenant</span><span class="o">:{</span><span class="n">tenant_code</span><span class="o">}:</span><span class="n">task</span><span class="o">:{</span><span class="n">task_tag</span><span class="o">}</span>
+<span class="n">securaa_playbook</span><span class="o">:</span><span class="n">tenant</span><span class="o">:{</span><span class="n">tenant_code</span><span class="o">}:</span><span class="n">lists</span>
+<span class="n">securaa_playbook</span><span class="o">:</span><span class="n">tenant</span><span class="o">:{</span><span class="n">tenant_code</span><span class="o">}:</span><span class="n">user</span><span class="o">:{</span><span class="n">user_id</span><span class="o">}</span>
+<span class="n">securaa_playbook</span><span class="o">:</span><span class="n">execution</span><span class="o">:{</span><span class="n">execution_id</span><span class="o">}:</span><span class="n">count</span>
+</code></pre></div>
 
 <h4 id="422-cache-policies">4.2.2 Cache Policies</h4>
 <ul>
@@ -997,59 +997,59 @@ securaa_playbook:execution:{execution_id}:count
 <h2 id="5-api-design">5. API Design</h2>
 <h3 id="51-restful-api-structure">5.1 RESTful API Structure</h3>
 <h4 id="511-core-endpoints">5.1.1 Core Endpoints</h4>
-<pre class="highlight"><code class="language-yaml"># Playbook Management
-GET    /getplaybookinfo/{tenantcode}/{category_id}/{status}/{type}/
-POST   /createplaybook/
-PUT    /updateplaybook/
-DELETE /deleteplaybook/{tenantcode}/{playbook_id}/{userid}/
-POST   /importplaybook/
-POST   /exportplaybook/
-# Playbook Execution
-POST   /runplaybook/
-GET    /getinprogressplaybooks/{tenantcode}/{caseid}/{userid}/{type}/{indicator}/
-POST   /stopplaybook/
-POST   /getrunningplaybooks/
-# Task Management
-POST   /runtask/
-GET    /getplaybooktasks/{tenantcode}/{playbook_name}/{type}/
+<div class="highlight"><pre><span></span><code><span class="c1"># Playbook Management</span>
+<span class="l l-Scalar l-Scalar-Plain">GET    /getplaybookinfo/{tenantcode}/{category_id}/{status}/{type}/</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /createplaybook/</span>
+<span class="l l-Scalar l-Scalar-Plain">PUT    /updateplaybook/</span>
+<span class="l l-Scalar l-Scalar-Plain">DELETE /deleteplaybook/{tenantcode}/{playbook_id}/{userid}/</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /importplaybook/</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /exportplaybook/</span>
+<span class="l l-Scalar l-Scalar-Plain"># Playbook Execution</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /runplaybook/</span>
+<span class="l l-Scalar l-Scalar-Plain">GET    /getinprogressplaybooks/{tenantcode}/{caseid}/{userid}/{type}/{indicator}/</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /stopplaybook/</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /getrunningplaybooks/</span>
+<span class="l l-Scalar l-Scalar-Plain"># Task Management</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /runtask/</span>
+<span class="l l-Scalar l-Scalar-Plain">GET    /getplaybooktasks/{tenantcode}/{playbook_name}/{type}/</span>
 
-# Data Processing
-POST   /executeRest/
-POST   /validateregex/
-POST   /stringtoarray/
-POST   /arraytostring/
-POST   /deduplicate/
-</code></pre>
+<span class="l l-Scalar l-Scalar-Plain"># Data Processing</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /executeRest/</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /validateregex/</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /stringtoarray/</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /arraytostring/</span>
+<span class="l l-Scalar l-Scalar-Plain">POST   /deduplicate/</span>
+</code></pre></div>
 
 <h4 id="512-requestresponse-patterns">5.1.2 Request/Response Patterns</h4>
 <p><strong>Playbook Execution Request</strong>:</p>
-<pre class="highlight"><code class="language-json">{
-  &quot;tenantcode&quot;: &quot;tenant123&quot;,
-  &quot;playbook_name&quot;: &quot;Malware Response&quot;,
-  &quot;case_id&quot;: &quot;12345&quot;,
-  &quot;is_bot&quot;: &quot;false&quot;,
-  &quot;uid&quot;: &quot;1001&quot;,
-  &quot;username&quot;: &quot;security_analyst&quot;,
-  &quot;type&quot;: &quot;case&quot;,
-  &quot;indicator&quot;: &quot;192.168.1.100&quot;,
-  &quot;resume_playbook&quot;: &quot;false&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;tenantcode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tenant123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;playbook_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Malware Response&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;case_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;12345&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;is_bot&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;uid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security_analyst&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;case&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;indicator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.1.100&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resume_playbook&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;false&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p><strong>Standard API Response</strong>:</p>
-<pre class="highlight"><code class="language-json">{
-  &quot;success&quot;: true,
-  &quot;data&quot;: {
-    &quot;playbook_execution_id&quot;: &quot;pb_exec_123456&quot;,
-    &quot;status&quot;: &quot;inprogress&quot;,
-    &quot;total_tasks&quot;: 15,
-    &quot;completed_tasks&quot;: 5
-  },
-  &quot;error&quot;: &quot;&quot;,
-  &quot;displayMessage&quot;: &quot;Playbook execution started successfully&quot;,
-  &quot;time&quot;: 1694443200000
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;playbook_execution_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pb_exec_123456&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;inprogress&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;total_tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;completed_tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;displayMessage&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Playbook execution started successfully&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1694443200000</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="52-websocket-integration">5.2 WebSocket Integration</h3>
 <p>For real-time updates during playbook execution:
@@ -1112,16 +1112,16 @@ graph TB
 <li>Parameter sanitization</li>
 </ul>
 <h4 id="622-access-control">6.2.2 Access Control</h4>
-<pre class="highlight"><code class="language-go">// Middleware example
-func (a *App) loggingMiddleware(next http.Handler) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        // Tenant verification
-        // Access token validation
-        // Permission checks
-        // Audit logging
-    })
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// Middleware example</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">*</span><span class="nx">App</span><span class="p">)</span><span class="w"> </span><span class="nx">loggingMiddleware</span><span class="p">(</span><span class="nx">next</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span><span class="p">)</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Tenant verification</span>
+<span class="w">        </span><span class="c1">// Access token validation</span>
+<span class="w">        </span><span class="c1">// Permission checks</span>
+<span class="w">        </span><span class="c1">// Audit logging</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <hr />
 <h2 id="7-scalability-performance">7. Scalability &amp; Performance</h2>
@@ -1177,19 +1177,19 @@ graph TB
 <li><strong>Cache Metrics</strong>: Monitoring cache hit/miss ratios</li>
 </ul>
 <h4 id="722-parallel-processing">7.2.2 Parallel Processing</h4>
-<pre class="highlight"><code class="language-go">// Parallel task execution example
-func (executionController *PlaybookExecutionController) executeParallelTasks() {
-    var wg sync.WaitGroup
-    for i := 0; i &lt; taskCount; i++ {
-        wg.Add(1)
-        go func(taskIndex int) {
-            defer wg.Done()
-            executionController.ProcessAndExecuteTask(taskIndex, ...)
-        }(i)
-    }
-    wg.Wait()
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// Parallel task execution example</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">executionController</span><span class="w"> </span><span class="o">*</span><span class="nx">PlaybookExecutionController</span><span class="p">)</span><span class="w"> </span><span class="nx">executeParallelTasks</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">wg</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">taskCount</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">wg</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">taskIndex</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">defer</span><span class="w"> </span><span class="nx">wg</span><span class="p">.</span><span class="nx">Done</span><span class="p">()</span>
+<span class="w">            </span><span class="nx">executionController</span><span class="p">.</span><span class="nx">ProcessAndExecuteTask</span><span class="p">(</span><span class="nx">taskIndex</span><span class="p">,</span><span class="w"> </span><span class="o">...</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">wg</span><span class="p">.</span><span class="nx">Wait</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="73-resource-management">7.3 Resource Management</h3>
 <h4 id="731-docker-container-management">7.3.1 Docker Container Management</h4>
@@ -1209,19 +1209,19 @@ func (executionController *PlaybookExecutionController) executeParallelTasks() {
 <h2 id="8-deployment-architecture">8. Deployment Architecture</h2>
 <h3 id="81-containerization">8.1 Containerization</h3>
 <h4 id="811-docker-configuration">8.1.1 Docker Configuration</h4>
-<pre class="highlight"><code class="language-dockerfile">FROM golang:1.17-alpine AS builder
-WORKDIR /app
-COPY . .
-RUN go mod download
-RUN CGO_ENABLED=0 GOOS=linux go build -o securaa-playbook-service
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">golang:1.17-alpine</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<span class="k">RUN</span><span class="w"> </span>go<span class="w"> </span>mod<span class="w"> </span>download
+<span class="k">RUN</span><span class="w"> </span><span class="nv">CGO_ENABLED</span><span class="o">=</span><span class="m">0</span><span class="w"> </span><span class="nv">GOOS</span><span class="o">=</span>linux<span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>securaa-playbook-service
 
-FROM alpine:latest
-RUN apk --no-cache add ca-certificates
-WORKDIR /root/
-COPY --from=builder /app/securaa-playbook-service .
-EXPOSE 8040
-CMD [&quot;./securaa-playbook-service&quot;]
-</code></pre>
+<span class="k">FROM</span><span class="w"> </span><span class="s">alpine:latest</span>
+<span class="k">RUN</span><span class="w"> </span>apk<span class="w"> </span>--no-cache<span class="w"> </span>add<span class="w"> </span>ca-certificates
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/root/</span>
+<span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>builder<span class="w"> </span>/app/securaa-playbook-service<span class="w"> </span>.
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">8040</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;./securaa-playbook-service&quot;</span><span class="p">]</span>
+</code></pre></div>
 
 <h3 id="82-infrastructure-requirements">8.2 Infrastructure Requirements</h3>
 <h4 id="821-compute-resources">8.2.1 Compute Resources</h4>
@@ -1257,25 +1257,25 @@ CMD [&quot;./securaa-playbook-service&quot;]
 </ul>
 <h3 id="92-logging-strategy">9.2 Logging Strategy</h3>
 <h4 id="921-log-levels">9.2.1 Log Levels</h4>
-<pre class="highlight"><code class="language-go">logger.Debug(&quot;Task execution started&quot;)
-logger.Info(&quot;Playbook execution completed successfully&quot;)
-logger.Warn(&quot;Task execution timeout, retrying...&quot;)
-logger.Error(&quot;Database connection failed&quot;, err.Error())
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nx">logger</span><span class="p">.</span><span class="nx">Debug</span><span class="p">(</span><span class="s">&quot;Task execution started&quot;</span><span class="p">)</span>
+<span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Playbook execution completed successfully&quot;</span><span class="p">)</span>
+<span class="nx">logger</span><span class="p">.</span><span class="nx">Warn</span><span class="p">(</span><span class="s">&quot;Task execution timeout, retrying...&quot;</span><span class="p">)</span>
+<span class="nx">logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;Database connection failed&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+</code></pre></div>
 
 <h4 id="922-structured-logging">9.2.2 Structured Logging</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;timestamp&quot;: &quot;2025-09-11T10:30:00Z&quot;,
-  &quot;level&quot;: &quot;INFO&quot;,
-  &quot;service&quot;: &quot;securaa-playbook-service&quot;,
-  &quot;tenant&quot;: &quot;tenant123&quot;,
-  &quot;playbook_id&quot;: &quot;pb_001&quot;,
-  &quot;execution_id&quot;: &quot;exec_123456&quot;,
-  &quot;message&quot;: &quot;Task completed successfully&quot;,
-  &quot;duration_ms&quot;: 1250,
-  &quot;task_seq&quot;: 5
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-09-11T10:30:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;INFO&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;securaa-playbook-service&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tenant&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tenant123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;playbook_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pb_001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;execution_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;exec_123456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task completed successfully&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;duration_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1250</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;task_seq&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="93-alerting-notifications">9.3 Alerting &amp; Notifications</h3>
 <h4 id="931-alert-conditions">9.3.1 Alert Conditions</h4>
@@ -1303,30 +1303,30 @@ logger.Error(&quot;Database connection failed&quot;, err.Error())
 <li><strong>System Errors</strong>: Database failures, resource exhaustion</li>
 </ul>
 <h4 id="1012-error-response-pattern">10.1.2 Error Response Pattern</h4>
-<pre class="highlight"><code class="language-go">type Response struct {
-    Success        bool        `json:&quot;success&quot;`
-    Data           interface{} `json:&quot;data&quot;`
-    Error          string      `json:&quot;error&quot;`
-    DisplayMessage string      `json:&quot;displaymessage&quot;`
-    ErrorPath      string      `json:&quot;errorpath&quot;`
-    Status         string      `json:&quot;status&quot;`
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Response</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Success</span><span class="w">        </span><span class="kt">bool</span><span class="w">        </span><span class="s">`json:&quot;success&quot;`</span>
+<span class="w">    </span><span class="nx">Data</span><span class="w">           </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="s">`json:&quot;data&quot;`</span>
+<span class="w">    </span><span class="nx">Error</span><span class="w">          </span><span class="kt">string</span><span class="w">      </span><span class="s">`json:&quot;error&quot;`</span>
+<span class="w">    </span><span class="nx">DisplayMessage</span><span class="w"> </span><span class="kt">string</span><span class="w">      </span><span class="s">`json:&quot;displaymessage&quot;`</span>
+<span class="w">    </span><span class="nx">ErrorPath</span><span class="w">      </span><span class="kt">string</span><span class="w">      </span><span class="s">`json:&quot;errorpath&quot;`</span>
+<span class="w">    </span><span class="nx">Status</span><span class="w">         </span><span class="kt">string</span><span class="w">      </span><span class="s">`json:&quot;status&quot;`</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="102-recovery-mechanisms">10.2 Recovery Mechanisms</h3>
 <h4 id="1021-retry-logic">10.2.1 Retry Logic</h4>
-<pre class="highlight"><code class="language-go">func retryWithBackoff(operation func() error, maxRetries int) error {
-    for i := 0; i &lt; maxRetries; i++ {
-        err := operation()
-        if err == nil {
-            return nil
-        }
-        backoffTime := time.Duration(math.Pow(2, float64(i))) * time.Second
-        time.Sleep(backoffTime)
-    }
-    return fmt.Errorf(&quot;operation failed after %d retries&quot;, maxRetries)
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">retryWithBackoff</span><span class="p">(</span><span class="nx">operation</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span><span class="p">,</span><span class="w"> </span><span class="nx">maxRetries</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">maxRetries</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">operation</span><span class="p">()</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nx">backoffTime</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nb">float64</span><span class="p">(</span><span class="nx">i</span><span class="p">)))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span>
+<span class="w">        </span><span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">backoffTime</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;operation failed after %d retries&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">maxRetries</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="1022-circuit-breaker-pattern">10.2.2 Circuit Breaker Pattern</h4>
 <ul>
@@ -1413,18 +1413,18 @@ graph TB
 <li><strong>Binary</strong>: File transfers and attachments</li>
 </ul>
 <h4 id="1122-transformation-engine">11.2.2 Transformation Engine</h4>
-<pre class="highlight"><code class="language-go">type Transformer struct {
-    Name   string      `json:&quot;name&quot;`
-    Data   interface{} `json:&quot;data&quot;`
-    Filter interface{} `json:&quot;filter&quot;`
-}
-func TransformValues(alertData models.RunPlayBookRequest2, 
-                    inputFields models.Inputfields) (interface{}, error) {
-    // Apply filters
-    // Transform data
-    // Validate output
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Transformer</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Name</span><span class="w">   </span><span class="kt">string</span><span class="w">      </span><span class="s">`json:&quot;name&quot;`</span>
+<span class="w">    </span><span class="nx">Data</span><span class="w">   </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="s">`json:&quot;data&quot;`</span>
+<span class="w">    </span><span class="nx">Filter</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="s">`json:&quot;filter&quot;`</span>
+<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TransformValues</span><span class="p">(</span><span class="nx">alertData</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">RunPlayBookRequest2</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                    </span><span class="nx">inputFields</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Inputfields</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Apply filters</span>
+<span class="w">    </span><span class="c1">// Transform data</span>
+<span class="w">    </span><span class="c1">// Validate output</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="113-api-management">11.3 API Management</h3>
 <h4 id="1131-rate-limiting">11.3.1 Rate Limiting</h4>
@@ -1465,7 +1465,7 @@ func TransformValues(alertData models.RunPlayBookRequest2,
 
     <footer class="footer">
         <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
-        <p>Documentation generated on December 04, 2025</p>
+        <p>Documentation generated on December 18, 2025</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>

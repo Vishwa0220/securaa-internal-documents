@@ -601,7 +601,7 @@ hr {
         <div class="header-content">
             <div class="header-logo">Securaa<span>Docs</span></div>
             <div class="header-meta">
-                <span>Generated: December 04, 2025</span>
+                <span>Generated: December 18, 2025</span>
             </div>
         </div>
     </header>
@@ -625,16 +625,16 @@ hr {
 <p><code>zona_siem</code> is a multi-tenant Security Information and Event Management (SIEM) service written in Go. It provides RESTful APIs for incident and case management, dashboard analytics, playbook automation, and integrations with external SIEM tools. The service is modular, scalable, and designed for extensibility.</p>
 <hr />
 <h2 id="directory-structure">Directory Structure</h2>
-<pre class="highlight"><code>zona_siem/
-├── controllers/   # API endpoint handlers
-├── services/      # Business logic modules
-├── models/        # Data models and DB access
-├── helpers/       # Utility functions
-├── utils/         # Shared utilities
-├── constant/      # Application-wide constants
-├── main.go        # Service entry point
-├── app.go         # Application setup and router
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">zona_siem</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">controllers</span><span class="o">/</span><span class="w">   </span><span class="c1"># API endpoint handlers</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">services</span><span class="o">/</span><span class="w">      </span><span class="c1"># Business logic modules</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">models</span><span class="o">/</span><span class="w">        </span><span class="c1"># Data models and DB access</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">helpers</span><span class="o">/</span><span class="w">       </span><span class="c1"># Utility functions</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">utils</span><span class="o">/</span><span class="w">         </span><span class="c1"># Shared utilities</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">constant</span><span class="o">/</span><span class="w">      </span><span class="c1"># Application-wide constants</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">main</span><span class="o">.</span><span class="n">go</span><span class="w">        </span><span class="c1"># Service entry point</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">app</span><span class="o">.</span><span class="n">go</span><span class="w">         </span><span class="c1"># Application setup and router</span>
+</code></pre></div>
 
 <hr />
 <h2 id="component-design">Component Design</h2>
@@ -683,48 +683,48 @@ classDiagram
 <hr />
 <h2 id="data-structures">Data Structures</h2>
 <h3 id="incident-zonaoffenses">Incident (ZonaOffenses)</h3>
-<pre class="highlight"><code class="language-go">type ZonaOffenses struct {
-    ZonaZIncidentID int `json:&quot;zona_z_incident_id&quot; bson:&quot;zona_z_incident_id&quot;`
-    ZonaCredibility int `json:&quot;zona_credibility&quot; bson:&quot;credibility&quot;`
-    ZonaSourceAddressIDs []int `json:&quot;zona_source_address_ids&quot; bson:&quot;source_address_ids&quot;`
-    ZonaRemoteDestinationCount int `json:&quot;zona_remote_destination_count&quot; bson:&quot;remote_destination_count&quot;`
-    ZonaLocalDestinationAddressIDs []int `json:&quot;zona_local_destination_address_ids&quot; bson:&quot;local_destination_address_ids&quot;`
-    ZonaAssignedTo interface{} `json:&quot;zona_assigned_to&quot; bson:&quot;zona_assigned_to&quot;`
-    ZonaLocalDestinationCount int `json:&quot;zona_local_destination_count&quot; bson:&quot;local_destination_count&quot;`
-    ZonaSourceCount int `json:&quot;zona_source_count&quot; bson:&quot;source_count&quot;`
-    ZonaStartTime int64 `json:&quot;zona_start_time&quot; bson:&quot;start_time&quot;`
-    // ... more fields
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">ZonaOffenses</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ZonaZIncidentID</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;zona_z_incident_id&quot; bson:&quot;zona_z_incident_id&quot;`</span>
+<span class="w">    </span><span class="nx">ZonaCredibility</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;zona_credibility&quot; bson:&quot;credibility&quot;`</span>
+<span class="w">    </span><span class="nx">ZonaSourceAddressIDs</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;zona_source_address_ids&quot; bson:&quot;source_address_ids&quot;`</span>
+<span class="w">    </span><span class="nx">ZonaRemoteDestinationCount</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;zona_remote_destination_count&quot; bson:&quot;remote_destination_count&quot;`</span>
+<span class="w">    </span><span class="nx">ZonaLocalDestinationAddressIDs</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;zona_local_destination_address_ids&quot; bson:&quot;local_destination_address_ids&quot;`</span>
+<span class="w">    </span><span class="nx">ZonaAssignedTo</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="s">`json:&quot;zona_assigned_to&quot; bson:&quot;zona_assigned_to&quot;`</span>
+<span class="w">    </span><span class="nx">ZonaLocalDestinationCount</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;zona_local_destination_count&quot; bson:&quot;local_destination_count&quot;`</span>
+<span class="w">    </span><span class="nx">ZonaSourceCount</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;zona_source_count&quot; bson:&quot;source_count&quot;`</span>
+<span class="w">    </span><span class="nx">ZonaStartTime</span><span class="w"> </span><span class="kt">int64</span><span class="w"> </span><span class="s">`json:&quot;zona_start_time&quot; bson:&quot;start_time&quot;`</span>
+<span class="w">    </span><span class="c1">// ... more fields</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="case-grouping">Case Grouping</h3>
-<pre class="highlight"><code class="language-go">type CaseGrouping struct {
-    GroupName string `json:&quot;group_name&quot; bson:&quot;group_name&quot;`
-    CaseID int `json:&quot;caseid&quot; bson:&quot;caseid&quot;`
-    CaseSource string `json:&quot;case_source&quot; bson:&quot;case_source&quot;`
-    Category string `json:&quot;category&quot; bson:&quot;category&quot;`
-    // ... more fields
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">CaseGrouping</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">GroupName</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;group_name&quot; bson:&quot;group_name&quot;`</span>
+<span class="w">    </span><span class="nx">CaseID</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;caseid&quot; bson:&quot;caseid&quot;`</span>
+<span class="w">    </span><span class="nx">CaseSource</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;case_source&quot; bson:&quot;case_source&quot;`</span>
+<span class="w">    </span><span class="nx">Category</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;category&quot; bson:&quot;category&quot;`</span>
+<span class="w">    </span><span class="c1">// ... more fields</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="category">Category</h3>
-<pre class="highlight"><code class="language-go">type Category struct {
-    ID int `json:&quot;id&quot; bson:&quot;id&quot;`
-    Name string `json:&quot;name&quot; bson:&quot;name&quot;`
-    Status string `json:&quot;status&quot; bson:&quot;status&quot;`
-    TenantCode string `json:&quot;tenantcode&quot; bson:&quot;tenantcode&quot;`
-    // ... more fields
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Category</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ID</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="s">`json:&quot;id&quot; bson:&quot;id&quot;`</span>
+<span class="w">    </span><span class="nx">Name</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;name&quot; bson:&quot;name&quot;`</span>
+<span class="w">    </span><span class="nx">Status</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;status&quot; bson:&quot;status&quot;`</span>
+<span class="w">    </span><span class="nx">TenantCode</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;tenantcode&quot; bson:&quot;tenantcode&quot;`</span>
+<span class="w">    </span><span class="c1">// ... more fields</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="monitoring-dashboard">Monitoring Dashboard</h3>
-<pre class="highlight"><code class="language-go">type DiskUsage struct {
-    Total string `json:&quot;total&quot;`
-    Used string `json:&quot;used&quot;`
-    Remaining string `json:&quot;remaining&quot;`
-    UtilizationPercent string `json:&quot;utilization_percent&quot;`
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">DiskUsage</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Total</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;total&quot;`</span>
+<span class="w">    </span><span class="nx">Used</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;used&quot;`</span>
+<span class="w">    </span><span class="nx">Remaining</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;remaining&quot;`</span>
+<span class="w">    </span><span class="nx">UtilizationPercent</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;utilization_percent&quot;`</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <hr />
 <h2 id="database-design">Database Design</h2>
@@ -763,17 +763,17 @@ erDiagram
 </ul>
 <h3 id="requestresponse-example">Request/Response Example</h3>
 <p><strong>Request:</strong></p>
-<pre class="highlight"><code class="language-json">GET /incidents/totalcasescountaujas?tenantcode=abc&amp;from_date=1690000000&amp;to_date=1699999999
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="err">GET</span><span class="w"> </span><span class="err">/i</span><span class="kc">n</span><span class="err">cide</span><span class="kc">nts</span><span class="err">/</span><span class="kc">t</span><span class="err">o</span><span class="kc">tal</span><span class="err">casescou</span><span class="kc">ntau</span><span class="err">jas?</span><span class="kc">tenant</span><span class="err">code=abc&amp;</span><span class="kc">fr</span><span class="err">om_da</span><span class="kc">te</span><span class="err">=</span><span class="mi">1690000000</span><span class="err">&amp;</span><span class="kc">t</span><span class="err">o_da</span><span class="kc">te</span><span class="err">=</span><span class="mi">1699999999</span>
+</code></pre></div>
 
 <p><strong>Response:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;success&quot;: true,
-  &quot;data&quot;: {
-    &quot;total_cases&quot;: 42
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;total_cases&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <hr />
 <h2 id="sequence-diagram-incident-count-retrieval">Sequence Diagram: Incident Count Retrieval</h2>
@@ -837,7 +837,7 @@ sequenceDiagram
 
     <footer class="footer">
         <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
-        <p>Documentation generated on December 04, 2025</p>
+        <p>Documentation generated on December 18, 2025</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>

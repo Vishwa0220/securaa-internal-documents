@@ -601,7 +601,7 @@ hr {
         <div class="header-content">
             <div class="header-logo">Securaa<span>Docs</span></div>
             <div class="header-meta">
-                <span>Generated: December 04, 2025</span>
+                <span>Generated: December 18, 2025</span>
             </div>
         </div>
     </header>
@@ -762,24 +762,24 @@ graph TB
 - Input validation and sanitization
 - Secure credential handling with encrypted storage</p>
 <p><strong>Technical Implementation:</strong></p>
-<pre class="highlight"><code class="language-javascript">// Client-side encryption implementation
-export function encrypt(data) {
-    let processedData = CryptoJS.AES.encrypt(data, encryptionKey);
-    return processedData.toString();
-}
+<div class="highlight"><pre><span></span><code><span class="c1">// Client-side encryption implementation</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">encrypt</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">processedData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">AES</span><span class="p">.</span><span class="nx">encrypt</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">encryptionKey</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">processedData</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+<span class="p">}</span>
 
-export function decrypt(data) {
-    try {
-        processedData = CryptoJS.AES.decrypt(data, encryptionKey)
-        processedData = processedData.toString(CryptoJS.enc.Utf8);
-    } catch (e) {
-        // Secure session cleanup on decryption failure
-        clearSecureSession();
-        redirectToLogin();
-    }
-    return processedData;
-}
-</code></pre>
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">decrypt</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">processedData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">AES</span><span class="p">.</span><span class="nx">decrypt</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">encryptionKey</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">processedData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">processedData</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="nx">CryptoJS</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">Utf8</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Secure session cleanup on decryption failure</span>
+<span class="w">        </span><span class="nx">clearSecureSession</span><span class="p">();</span>
+<span class="w">        </span><span class="nx">redirectToLogin</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">processedData</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="api-security-zona_services">API Security (zona_services)</h4>
 <p><strong>Currently Implemented:</strong>
@@ -788,17 +788,17 @@ export function decrypt(data) {
 - TLS encryption for all communications
 - Input validation and rate limiting</p>
 <p><strong>Configuration Example:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;client_tls&quot;: {
-    &quot;allow_insecure_connections&quot;: false
-  },
-  &quot;input_headers&quot;: [&quot;Authorization&quot;],
-  &quot;jwt_validation&quot;: {
-    &quot;jwk_security&quot;: true,
-    &quot;token_validation&quot;: &quot;strict&quot;
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;client_tls&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;allow_insecure_connections&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;input_headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Authorization&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;jwt_validation&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;jwk_security&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;token_validation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;strict&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="database-security-securaa_db">Database Security (securaa_db)</h4>
 <p><strong>Currently Implemented:</strong>
@@ -859,22 +859,22 @@ export function decrypt(data) {
 - <strong>Key Management</strong>: Secure key storage and rotation capabilities
 - <strong>Transport Security</strong>: TLS 1.2+ for all communications</p>
 <p><strong>Backend Encryption Service:</strong></p>
-<pre class="highlight"><code class="language-go">// Credential encryption service (securaa_lib)
-func CredentialsEncrypt(stringToEncrypt string, key string) (string, error) {
-    origData := []byte(stringToEncrypt)
-    k := []byte(key)
-    block, err := aes.NewCipher(k)
-    if err != nil {
-        return &quot;&quot;, err
-    }
-    blockSize := block.BlockSize()
-    origData = PKCS7Padding(origData, blockSize)
-    blockMode := cipher.NewCBCEncrypter(block, k[:blockSize])
-    crypted := make([]byte, len(origData))
-    blockMode.CryptBlocks(crypted, origData)
-    return base64.StdEncoding.EncodeToString(crypted), nil
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// Credential encryption service (securaa_lib)</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">CredentialsEncrypt</span><span class="p">(</span><span class="nx">stringToEncrypt</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">origData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">stringToEncrypt</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">k</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">block</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">aes</span><span class="p">.</span><span class="nx">NewCipher</span><span class="p">(</span><span class="nx">k</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">blockSize</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">block</span><span class="p">.</span><span class="nx">BlockSize</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">origData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">PKCS7Padding</span><span class="p">(</span><span class="nx">origData</span><span class="p">,</span><span class="w"> </span><span class="nx">blockSize</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">blockMode</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cipher</span><span class="p">.</span><span class="nx">NewCBCEncrypter</span><span class="p">(</span><span class="nx">block</span><span class="p">,</span><span class="w"> </span><span class="nx">k</span><span class="p">[:</span><span class="nx">blockSize</span><span class="p">])</span>
+<span class="w">    </span><span class="nx">crypted</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">origData</span><span class="p">))</span>
+<span class="w">    </span><span class="nx">blockMode</span><span class="p">.</span><span class="nx">CryptBlocks</span><span class="p">(</span><span class="nx">crypted</span><span class="p">,</span><span class="w"> </span><span class="nx">origData</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">base64</span><span class="p">.</span><span class="nx">StdEncoding</span><span class="p">.</span><span class="nx">EncodeToString</span><span class="p">(</span><span class="nx">crypted</span><span class="p">),</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="privacy-controls">Privacy Controls</h4>
 <p>🔒 <strong>Data Minimization</strong>: System designed to collect only necessary data<br />
@@ -984,12 +984,12 @@ graph TB
 - <strong>Monitoring Integration</strong>: Comprehensive system monitoring</p>
 <h4 id="database-infrastructure-security">Database Infrastructure Security</h4>
 <p><strong>MongoDB Security Configuration:</strong></p>
-<pre class="highlight"><code class="language-properties"># Current database security setup
-mongoDbHost = localhost
-mongoUserName = [ENCRYPTED]
-mongoPassword = [ENCRYPTED] 
-mongoAuthDb = admin
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># Current database security setup</span>
+<span class="na">mongoDbHost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">localhost</span>
+<span class="na">mongoUserName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[ENCRYPTED]</span>
+<span class="na">mongoPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">[ENCRYPTED] </span>
+<span class="na">mongoAuthDb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">admin</span>
+</code></pre></div>
 
 <p><strong>Security Features:</strong>
 - Authentication required for all database connections
@@ -1316,7 +1316,7 @@ graph LR
 
     <footer class="footer">
         <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
-        <p>Documentation generated on December 04, 2025</p>
+        <p>Documentation generated on December 18, 2025</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>

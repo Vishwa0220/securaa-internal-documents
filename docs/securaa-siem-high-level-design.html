@@ -601,7 +601,7 @@ hr {
         <div class="header-content">
             <div class="header-logo">Securaa<span>Docs</span></div>
             <div class="header-meta">
-                <span>Generated: December 04, 2025</span>
+                <span>Generated: December 18, 2025</span>
             </div>
         </div>
     </header>
@@ -909,34 +909,34 @@ erDiagram
 
 <h3 id="52-key-data-models">5.2 Key Data Models</h3>
 <h4 id="securaaoffenses-main-incident-model">SecuraaOffenses (Main Incident Model)</h4>
-<pre class="highlight"><code class="language-go">type SecuraaOffenses struct {
-    SecuraaSIncidentID           int                `json:&quot;securaa_s_incident_id&quot;`
-    SecuraaDescription           string             `json:&quot;description&quot;`
-    SecuraaSStatus              string             `json:&quot;securaa_s_status&quot;`
-    SecuraaSSeverity            string             `json:&quot;securaa_s_severity&quot;`
-    SecuraaSAssignedTo          int                `json:&quot;securaa_s_assigned_to&quot;`
-    SecuraaScategoryID          int                `json:&quot;securaa_s_category_id&quot;`
-    SecuraaSTimeline            []IncidentTimeLine `json:&quot;securaa_s_timeline&quot;`
-    SecuraaSSourceIPs           []string           `json:&quot;securaa_s_source_ips&quot;`
-    SecuraaSDestinationIPs      []string           `json:&quot;securaa_s_destination_ips&quot;`
-    SecuraaSCreatedts           int64              `json:&quot;securaa_s_createdts&quot;`
-    SecuraaSUpdatedts           int64              `json:&quot;securaa_s_updatedts&quot;`
-    // ... additional fields
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">SecuraaOffenses</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">SecuraaSIncidentID</span><span class="w">           </span><span class="kt">int</span><span class="w">                </span><span class="s">`json:&quot;securaa_s_incident_id&quot;`</span>
+<span class="w">    </span><span class="nx">SecuraaDescription</span><span class="w">           </span><span class="kt">string</span><span class="w">             </span><span class="s">`json:&quot;description&quot;`</span>
+<span class="w">    </span><span class="nx">SecuraaSStatus</span><span class="w">              </span><span class="kt">string</span><span class="w">             </span><span class="s">`json:&quot;securaa_s_status&quot;`</span>
+<span class="w">    </span><span class="nx">SecuraaSSeverity</span><span class="w">            </span><span class="kt">string</span><span class="w">             </span><span class="s">`json:&quot;securaa_s_severity&quot;`</span>
+<span class="w">    </span><span class="nx">SecuraaSAssignedTo</span><span class="w">          </span><span class="kt">int</span><span class="w">                </span><span class="s">`json:&quot;securaa_s_assigned_to&quot;`</span>
+<span class="w">    </span><span class="nx">SecuraaScategoryID</span><span class="w">          </span><span class="kt">int</span><span class="w">                </span><span class="s">`json:&quot;securaa_s_category_id&quot;`</span>
+<span class="w">    </span><span class="nx">SecuraaSTimeline</span><span class="w">            </span><span class="p">[]</span><span class="nx">IncidentTimeLine</span><span class="w"> </span><span class="s">`json:&quot;securaa_s_timeline&quot;`</span>
+<span class="w">    </span><span class="nx">SecuraaSSourceIPs</span><span class="w">           </span><span class="p">[]</span><span class="kt">string</span><span class="w">           </span><span class="s">`json:&quot;securaa_s_source_ips&quot;`</span>
+<span class="w">    </span><span class="nx">SecuraaSDestinationIPs</span><span class="w">      </span><span class="p">[]</span><span class="kt">string</span><span class="w">           </span><span class="s">`json:&quot;securaa_s_destination_ips&quot;`</span>
+<span class="w">    </span><span class="nx">SecuraaSCreatedts</span><span class="w">           </span><span class="kt">int64</span><span class="w">              </span><span class="s">`json:&quot;securaa_s_createdts&quot;`</span>
+<span class="w">    </span><span class="nx">SecuraaSUpdatedts</span><span class="w">           </span><span class="kt">int64</span><span class="w">              </span><span class="s">`json:&quot;securaa_s_updatedts&quot;`</span>
+<span class="w">    </span><span class="c1">// ... additional fields</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="casegrouping-model">CaseGrouping Model</h4>
-<pre class="highlight"><code class="language-go">type CaseGrouping struct {
-    CaseID          string    `json:&quot;case_id&quot;`
-    CaseName        string    `json:&quot;case_name&quot;`
-    CaseStatus      string    `json:&quot;case_status&quot;`
-    CasePriority    string    `json:&quot;case_priority&quot;`
-    IncidentIDs     []string  `json:&quot;incident_ids&quot;`
-    AssignedAnalyst int       `json:&quot;assigned_analyst&quot;`
-    TenantCode      string    `json:&quot;tenant_code&quot;`
-    CreatedDate     time.Time `json:&quot;created_date&quot;`
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">CaseGrouping</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">CaseID</span><span class="w">          </span><span class="kt">string</span><span class="w">    </span><span class="s">`json:&quot;case_id&quot;`</span>
+<span class="w">    </span><span class="nx">CaseName</span><span class="w">        </span><span class="kt">string</span><span class="w">    </span><span class="s">`json:&quot;case_name&quot;`</span>
+<span class="w">    </span><span class="nx">CaseStatus</span><span class="w">      </span><span class="kt">string</span><span class="w">    </span><span class="s">`json:&quot;case_status&quot;`</span>
+<span class="w">    </span><span class="nx">CasePriority</span><span class="w">    </span><span class="kt">string</span><span class="w">    </span><span class="s">`json:&quot;case_priority&quot;`</span>
+<span class="w">    </span><span class="nx">IncidentIDs</span><span class="w">     </span><span class="p">[]</span><span class="kt">string</span><span class="w">  </span><span class="s">`json:&quot;incident_ids&quot;`</span>
+<span class="w">    </span><span class="nx">AssignedAnalyst</span><span class="w"> </span><span class="kt">int</span><span class="w">       </span><span class="s">`json:&quot;assigned_analyst&quot;`</span>
+<span class="w">    </span><span class="nx">TenantCode</span><span class="w">      </span><span class="kt">string</span><span class="w">    </span><span class="s">`json:&quot;tenant_code&quot;`</span>
+<span class="w">    </span><span class="nx">CreatedDate</span><span class="w">     </span><span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="w"> </span><span class="s">`json:&quot;created_date&quot;`</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <hr />
 <h2 id="6-api-design">6. API Design</h2>
@@ -1023,12 +1023,12 @@ sequenceDiagram
 <li><strong>Security</strong>: JWT token-based authentication</li>
 </ul>
 <h3 id="73-libraries-frameworks">7.3 Libraries &amp; Frameworks</h3>
-<pre class="highlight"><code class="language-go">// Key Go modules
-go.mongodb.org/mongo-driver    // MongoDB driver
-github.com/gorilla/mux         // HTTP router
-github.com/influxdata/influxdb-client-go/v2  // InfluxDB client
-github.com/Luxurioust/excelize  // Excel processing
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// Key Go modules</span>
+<span class="k">go</span><span class="p">.</span><span class="nx">mongodb</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">mongo</span><span class="o">-</span><span class="nx">driver</span><span class="w">    </span><span class="c1">// MongoDB driver</span>
+<span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">gorilla</span><span class="o">/</span><span class="nx">mux</span><span class="w">         </span><span class="c1">// HTTP router</span>
+<span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">influxdata</span><span class="o">/</span><span class="nx">influxdb</span><span class="o">-</span><span class="nx">client</span><span class="o">-</span><span class="k">go</span><span class="o">/</span><span class="nx">v2</span><span class="w">  </span><span class="c1">// InfluxDB client</span>
+<span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">Luxurioust</span><span class="o">/</span><span class="nx">excelize</span><span class="w">  </span><span class="c1">// Excel processing</span>
+</code></pre></div>
 
 <hr />
 <h2 id="8-security-compliance">8. Security &amp; Compliance</h2>
@@ -1305,7 +1305,7 @@ graph LR
 
     <footer class="footer">
         <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
-        <p>Documentation generated on December 04, 2025</p>
+        <p>Documentation generated on December 18, 2025</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>

@@ -601,7 +601,7 @@ hr {
         <div class="header-content">
             <div class="header-logo">Securaa<span>Docs</span></div>
             <div class="header-meta">
-                <span>Generated: December 04, 2025</span>
+                <span>Generated: December 18, 2025</span>
             </div>
         </div>
     </header>
@@ -1495,46 +1495,46 @@ flowchart TD
 </div>
 
 <h3 id="52-case-analysis-flow-details">5.2 Case Analysis Flow Details</h3>
-<pre class="highlight"><code>1. Client → Tyk Gateway → FastAPI
-2. FastAPI → Celery (async) → Task Queue
-3. Worker retrieves case details
-4. Worker searches relevant playbook tasks (vector similarity)
-5. Worker constructs LLM prompt with context
-6. LLM generates analysis (findings, recommendations, conclusion)
-7. Result stored in PostgreSQL
-8. Risk scoring triggered (background)
-9. Client polls for results
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Tyk</span><span class="w"> </span><span class="n">Gateway</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">FastAPI</span>
+<span class="mf">2.</span><span class="w"> </span><span class="n">FastAPI</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Celery</span><span class="w"> </span><span class="p">(</span><span class="n">async</span><span class="p">)</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Task</span><span class="w"> </span><span class="n">Queue</span>
+<span class="mf">3.</span><span class="w"> </span><span class="n">Worker</span><span class="w"> </span><span class="n">retrieves</span><span class="w"> </span><span class="n">case</span><span class="w"> </span><span class="n">details</span>
+<span class="mf">4.</span><span class="w"> </span><span class="n">Worker</span><span class="w"> </span><span class="n">searches</span><span class="w"> </span><span class="n">relevant</span><span class="w"> </span><span class="n">playbook</span><span class="w"> </span><span class="n">tasks</span><span class="w"> </span><span class="p">(</span><span class="n">vector</span><span class="w"> </span><span class="n">similarity</span><span class="p">)</span>
+<span class="mf">5.</span><span class="w"> </span><span class="n">Worker</span><span class="w"> </span><span class="n">constructs</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="n">prompt</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="kr">cont</span><span class="n">ext</span>
+<span class="mf">6.</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="n">generates</span><span class="w"> </span><span class="n">analysis</span><span class="w"> </span><span class="p">(</span><span class="n">findings</span><span class="p">,</span><span class="w"> </span><span class="n">recommendations</span><span class="p">,</span><span class="w"> </span><span class="n">conclusion</span><span class="p">)</span>
+<span class="mf">7.</span><span class="w"> </span><span class="n">Result</span><span class="w"> </span><span class="n">stored</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nb">Pos</span><span class="n">tgreSQL</span>
+<span class="mf">8.</span><span class="w"> </span><span class="n">Risk</span><span class="w"> </span><span class="n">scoring</span><span class="w"> </span><span class="n">triggered</span><span class="w"> </span><span class="p">(</span><span class="n">background</span><span class="p">)</span>
+<span class="mf">9.</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="n">polls</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">results</span>
+</code></pre></div>
 
 <h3 id="42-task-indexing-flow">4.2 Task Indexing Flow</h3>
-<pre class="highlight"><code>1. CLI/API → Kafka (indexing-topic)
-2. Kafka Indexer consumes message
-3. Generate embeddings for task
-4. Store in PostgreSQL with vector
-5. Forward to FPR processing topic
-6. FPR processor analyzes for novelty
-7. Results published to output topic
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">CLI</span><span class="o">/</span><span class="n">API</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Kafka</span><span class="w"> </span><span class="p">(</span><span class="n">indexing</span><span class="o">-</span><span class="kr">to</span><span class="n">pic</span><span class="p">)</span>
+<span class="mf">2.</span><span class="w"> </span><span class="n">Kafka</span><span class="w"> </span><span class="n">Indexer</span><span class="w"> </span><span class="n">consumes</span><span class="w"> </span><span class="n">message</span>
+<span class="mf">3.</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">embeddings</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">task</span>
+<span class="mf">4.</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nb">Pos</span><span class="n">tgreSQL</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">vector</span>
+<span class="mf">5.</span><span class="w"> </span><span class="kr">For</span><span class="n">ward</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">FPR</span><span class="w"> </span><span class="n">processing</span><span class="w"> </span><span class="kr">to</span><span class="n">pic</span>
+<span class="mf">6.</span><span class="w"> </span><span class="n">FPR</span><span class="w"> </span><span class="n">processor</span><span class="w"> </span><span class="n">analyzes</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">novelty</span>
+<span class="mf">7.</span><span class="w"> </span><span class="n">Results</span><span class="w"> </span><span class="n">published</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="kr">to</span><span class="n">pic</span>
+</code></pre></div>
 
 <h3 id="43-chat-flow">4.3 Chat Flow</h3>
-<pre class="highlight"><code>1. Client → Chat API (streaming)
-2. Retrieve thread context from DB
-3. Search relevant playbook tasks/cases
-4. Construct RAG prompt
-5. Stream LLM response to client
-6. Store message in chat history
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">Client</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Chat</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="p">(</span><span class="n">streaming</span><span class="p">)</span>
+<span class="mf">2.</span><span class="w"> </span><span class="n">Retrieve</span><span class="w"> </span><span class="n">thread</span><span class="w"> </span><span class="kr">cont</span><span class="n">ext</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">DB</span>
+<span class="mf">3.</span><span class="w"> </span><span class="n">Search</span><span class="w"> </span><span class="n">relevant</span><span class="w"> </span><span class="n">playbook</span><span class="w"> </span><span class="n">tasks</span><span class="o">/</span><span class="n">cases</span>
+<span class="mf">4.</span><span class="w"> </span><span class="n">Construct</span><span class="w"> </span><span class="n">RAG</span><span class="w"> </span><span class="n">prompt</span>
+<span class="mf">5.</span><span class="w"> </span><span class="n">Stream</span><span class="w"> </span><span class="n">LLM</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">client</span>
+<span class="mf">6.</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">chat</span><span class="w"> </span><span class="n">history</span>
+</code></pre></div>
 
 <h3 id="44-false-positive-reduction-flow">4.4 False Positive Reduction Flow</h3>
-<pre class="highlight"><code>1. Enriched cases → fpr-processing topic
-2. Batch cases by tenant
-3. Extract features (IOCs, patterns)
-4. Query Novelty Detection Service
-5. Calculate suspicious scores
-6. Classify as FP or legitimate
-7. Update case status
-8. Publish results
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">Enriched</span><span class="w"> </span><span class="n">cases</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">fpr</span><span class="o">-</span><span class="n">processing</span><span class="w"> </span><span class="kr">to</span><span class="n">pic</span>
+<span class="mf">2.</span><span class="w"> </span><span class="n">Batch</span><span class="w"> </span><span class="n">cases</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">tenant</span>
+<span class="mf">3.</span><span class="w"> </span><span class="n">Extract</span><span class="w"> </span><span class="n">features</span><span class="w"> </span><span class="p">(</span><span class="n">IOCs</span><span class="p">,</span><span class="w"> </span><span class="n">patterns</span><span class="p">)</span>
+<span class="mf">4.</span><span class="w"> </span><span class="n">Query</span><span class="w"> </span><span class="n">Novelty</span><span class="w"> </span><span class="n">Detection</span><span class="w"> </span><span class="n">Service</span>
+<span class="mf">5.</span><span class="w"> </span><span class="n">Calculate</span><span class="w"> </span><span class="n">suspicious</span><span class="w"> </span><span class="n">scores</span>
+<span class="mf">6.</span><span class="w"> </span><span class="n">Classify</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">FP</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">legitimate</span>
+<span class="mf">7.</span><span class="w"> </span><span class="n">Update</span><span class="w"> </span><span class="n">case</span><span class="w"> </span><span class="n">status</span>
+<span class="mf">8.</span><span class="w"> </span><span class="n">Publish</span><span class="w"> </span><span class="n">results</span>
+</code></pre></div>
 
 <hr />
 <h2 id="5-security-architecture">5. Security Architecture</h2>
@@ -1737,7 +1737,7 @@ flowchart TD
 <h2 id="13-development-guidelines">13. Development Guidelines</h2>
 <h3 id="131-code-organization-best-practices">13.1 Code Organization Best Practices</h3>
 <p><strong>Module Structure</strong>:</p>
-<pre class="highlight"><code>siaservice/
+<div class="highlight"><pre><span></span><code>siaservice/
 ├── routers/          # API endpoint definitions (thin layer)
 ├── apis/services/    # Business logic (core functionality)
 ├── domain/           # Domain models (data structures)
@@ -1746,7 +1746,7 @@ flowchart TD
 ├── llm/             # LLM integration
 ├── parsers/         # Output parsing
 └── common.py        # Shared utilities
-</code></pre>
+</code></pre></div>
 
 <p><strong>Coding Standards</strong>:
 - Follow PEP 8 style guide
@@ -1755,38 +1755,38 @@ flowchart TD
 - Write unit tests for business logic
 - Use Pydantic models for validation</p>
 <p><strong>Example Function</strong>:</p>
-<pre class="highlight"><code class="language-python">from typing import Optional, List
-from siaservice.domain.soar.cases import Case
-from siaservice.common import get_logger
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">siaservice.domain.soar.cases</span> <span class="kn">import</span> <span class="n">Case</span>
+<span class="kn">from</span> <span class="nn">siaservice.common</span> <span class="kn">import</span> <span class="n">get_logger</span>
 
-logger = get_logger(__name__)
+<span class="n">logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-def process_case(
-    case: Case,
-    tenant_id: str,
-    options: Optional[dict] = None
-) -&gt; List[dict]:
-    &quot;&quot;&quot;
-    Process a security case with given options.
+<span class="k">def</span> <span class="nf">process_case</span><span class="p">(</span>
+    <span class="n">case</span><span class="p">:</span> <span class="n">Case</span><span class="p">,</span>
+    <span class="n">tenant_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">options</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Process a security case with given options.</span>
 
-    Args:
-        case: Case object to process
-        tenant_id: Tenant identifier
-        options: Optional processing parameters
+<span class="sd">    Args:</span>
+<span class="sd">        case: Case object to process</span>
+<span class="sd">        tenant_id: Tenant identifier</span>
+<span class="sd">        options: Optional processing parameters</span>
 
-    Returns:
-        List of processing results
+<span class="sd">    Returns:</span>
+<span class="sd">        List of processing results</span>
 
-    Raises:
-        ValueError: If case is invalid
-        ProcessingError: If processing fails
-    &quot;&quot;&quot;
-    logger.info(f&quot;Processing case {case.case_id} for tenant {tenant_id}&quot;)
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If case is invalid</span>
+<span class="sd">        ProcessingError: If processing fails</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing case </span><span class="si">{</span><span class="n">case</span><span class="o">.</span><span class="n">case_id</span><span class="si">}</span><span class="s2"> for tenant </span><span class="si">{</span><span class="n">tenant_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    # Implementation
-    results = []
-    return results
-</code></pre>
+    <span class="c1"># Implementation</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="n">results</span>
+</code></pre></div>
 
 <h3 id="132-git-workflow">13.2 Git Workflow</h3>
 <p><strong>Branch Strategy</strong>:
@@ -1796,12 +1796,12 @@ def process_case(
 - <code>bugfix/*</code> - Bug fixes
 - <code>hotfix/*</code> - Critical production fixes</p>
 <p><strong>Commit Messages</strong>:</p>
-<pre class="highlight"><code>feat: add case priority scoring
-fix: resolve vector search timeout issue
-docs: update API documentation
-refactor: optimize database queries
-test: add unit tests for chat service
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">feat</span><span class="o">:</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="k">case</span><span class="w"> </span><span class="n">priority</span><span class="w"> </span><span class="n">scoring</span>
+<span class="n">fix</span><span class="o">:</span><span class="w"> </span><span class="n">resolve</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="n">search</span><span class="w"> </span><span class="n">timeout</span><span class="w"> </span><span class="n">issue</span>
+<span class="n">docs</span><span class="o">:</span><span class="w"> </span><span class="n">update</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">documentation</span>
+<span class="n">refactor</span><span class="o">:</span><span class="w"> </span><span class="n">optimize</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="n">queries</span>
+<span class="n">test</span><span class="o">:</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="n">unit</span><span class="w"> </span><span class="n">tests</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">chat</span><span class="w"> </span><span class="n">service</span>
+</code></pre></div>
 
 <h3 id="133-development-workflow">13.3 Development Workflow</h3>
 <ol>
@@ -1925,34 +1925,34 @@ graph TB
 - Container health</p>
 <h3 id="143-logging-strategy">14.3 Logging Strategy</h3>
 <p><strong>Log Levels</strong>:</p>
-<pre class="highlight"><code class="language-python"># DEBUG: Detailed diagnostic information
-logger.debug(f&quot;Vector search params: {params}&quot;)
+<div class="highlight"><pre><span></span><code><span class="c1"># DEBUG: Detailed diagnostic information</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vector search params: </span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-# INFO: General informational messages
-logger.info(f&quot;Case analysis started: {case_id}&quot;)
+<span class="c1"># INFO: General informational messages</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Case analysis started: </span><span class="si">{</span><span class="n">case_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-# WARNING: Warning messages
-logger.warning(f&quot;High memory usage: {usage}%&quot;)
+<span class="c1"># WARNING: Warning messages</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;High memory usage: </span><span class="si">{</span><span class="n">usage</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
 
-# ERROR: Error messages
-logger.error(f&quot;Failed to generate analysis: {error}&quot;)
+<span class="c1"># ERROR: Error messages</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to generate analysis: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-# CRITICAL: Critical errors
-logger.critical(f&quot;Database connection lost&quot;)
-</code></pre>
+<span class="c1"># CRITICAL: Critical errors</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Database connection lost&quot;</span><span class="p">)</span>
+</code></pre></div>
 
 <p><strong>Structured Logging</strong>:</p>
-<pre class="highlight"><code class="language-python">logger.info(
-    &quot;case_analysis_completed&quot;,
-    extra={
-        &quot;case_id&quot;: case.case_id,
-        &quot;tenant_id&quot;: case.tenant_id,
-        &quot;duration_ms&quot;: duration,
-        &quot;llm_provider&quot;: &quot;openai&quot;,
-        &quot;cache_hit&quot;: False
-    }
-)
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+    <span class="s2">&quot;case_analysis_completed&quot;</span><span class="p">,</span>
+    <span class="n">extra</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;case_id&quot;</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">case_id</span><span class="p">,</span>
+        <span class="s2">&quot;tenant_id&quot;</span><span class="p">:</span> <span class="n">case</span><span class="o">.</span><span class="n">tenant_id</span><span class="p">,</span>
+        <span class="s2">&quot;duration_ms&quot;</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span>
+        <span class="s2">&quot;llm_provider&quot;</span><span class="p">:</span> <span class="s2">&quot;openai&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cache_hit&quot;</span><span class="p">:</span> <span class="kc">False</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
 
 <h3 id="144-alerting-rules">14.4 Alerting Rules</h3>
 <p><strong>Critical Alerts</strong>:
@@ -1971,28 +1971,28 @@ logger.critical(f&quot;Database connection lost&quot;)
 - Tenant onboarded
 - Configuration updated</p>
 <h3 id="145-tracing-example">14.5 Tracing Example</h3>
-<pre class="highlight"><code class="language-python"># Automatic tracing with Traceloop
-from traceloop.sdk import Traceloop
+<div class="highlight"><pre><span></span><code><span class="c1"># Automatic tracing with Traceloop</span>
+<span class="kn">from</span> <span class="nn">traceloop.sdk</span> <span class="kn">import</span> <span class="n">Traceloop</span>
 
-Traceloop.init(app_name=&quot;siaservice&quot;, disable_batch=True)
+<span class="n">Traceloop</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">app_name</span><span class="o">=</span><span class="s2">&quot;siaservice&quot;</span><span class="p">,</span> <span class="n">disable_batch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-# LLM calls are automatically traced
-result = llm.invoke(prompt)  # Traced automatically
+<span class="c1"># LLM calls are automatically traced</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>  <span class="c1"># Traced automatically</span>
 
-# Manual span creation
-from opentelemetry import trace
+<span class="c1"># Manual span creation</span>
+<span class="kn">from</span> <span class="nn">opentelemetry</span> <span class="kn">import</span> <span class="n">trace</span>
 
-tracer = trace.get_tracer(__name__)
+<span class="n">tracer</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">get_tracer</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-with tracer.start_as_current_span(&quot;process_case&quot;) as span:
-    span.set_attribute(&quot;case_id&quot;, case_id)
-    span.set_attribute(&quot;tenant_id&quot;, tenant_id)
+<span class="k">with</span> <span class="n">tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span><span class="s2">&quot;process_case&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">span</span><span class="p">:</span>
+    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;case_id&quot;</span><span class="p">,</span> <span class="n">case_id</span><span class="p">)</span>
+    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;tenant_id&quot;</span><span class="p">,</span> <span class="n">tenant_id</span><span class="p">)</span>
 
-    # Your code here
-    result = process()
+    <span class="c1"># Your code here</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">process</span><span class="p">()</span>
 
-    span.set_attribute(&quot;result_status&quot;, &quot;success&quot;)
-</code></pre>
+    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">&quot;result_status&quot;</span><span class="p">,</span> <span class="s2">&quot;success&quot;</span><span class="p">)</span>
+</code></pre></div>
 
 <hr />
 <h2 id="15-future-roadmap">15. Future Roadmap</h2>
@@ -2035,18 +2035,18 @@ with tracer.start_as_current_span(&quot;process_case&quot;) as span:
 <h4 id="service-wont-start">Service Won't Start</h4>
 <p><strong>Symptoms</strong>: Container exits, port conflicts, database connection failures</p>
 <p><strong>Solutions</strong>:</p>
-<pre class="highlight"><code class="language-bash"># Check port availability
-netstat -tlnp | grep :8000
+<div class="highlight"><pre><span></span><code><span class="c1"># Check port availability</span>
+netstat<span class="w"> </span>-tlnp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>:8000
 
-# Verify database connectivity
-docker exec -it sia-postgres psql -U admin -d postgres
+<span class="c1"># Verify database connectivity</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>sia-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>admin<span class="w"> </span>-d<span class="w"> </span>postgres
 
-# Restart services in order
-docker-compose down
-docker-compose up -d postgres redis kafka
-sleep 10
-docker-compose up -d
-</code></pre>
+<span class="c1"># Restart services in order</span>
+docker-compose<span class="w"> </span>down
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>postgres<span class="w"> </span>redis<span class="w"> </span>kafka
+sleep<span class="w"> </span><span class="m">10</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
 
 <h4 id="llm-integration-failures">LLM Integration Failures</h4>
 <p><strong>Symptoms</strong>: Timeout, authentication errors, rate limits</p>
@@ -2058,30 +2058,30 @@ docker-compose up -d
 <h4 id="vector-search-issues">Vector Search Issues</h4>
 <p><strong>Symptoms</strong>: No context retrieved, slow queries</p>
 <p><strong>Solutions</strong>:</p>
-<pre class="highlight"><code class="language-sql">-- Verify pgvector extension
-SELECT * FROM pg_extension WHERE extname = 'vector';
+<div class="highlight"><pre><span></span><code><span class="c1">-- Verify pgvector extension</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_extension</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">extname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;vector&#39;</span><span class="p">;</span>
 
--- Rebuild index
-REINDEX INDEX playbook_tasks_embedding_idx;
-ANALYZE playbook_tasks_with_embeddings;
-</code></pre>
+<span class="c1">-- Rebuild index</span>
+<span class="k">REINDEX</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">playbook_tasks_embedding_idx</span><span class="p">;</span>
+<span class="k">ANALYZE</span><span class="w"> </span><span class="n">playbook_tasks_with_embeddings</span><span class="p">;</span>
+</code></pre></div>
 
 <h4 id="celery-workers-not-processing">Celery Workers Not Processing</h4>
 <p><strong>Solutions</strong>:</p>
-<pre class="highlight"><code class="language-bash"># Check worker status
-docker exec sia-worker celery -A worker inspect active
+<div class="highlight"><pre><span></span><code><span class="c1"># Check worker status</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sia-worker<span class="w"> </span>celery<span class="w"> </span>-A<span class="w"> </span>worker<span class="w"> </span>inspect<span class="w"> </span>active
 
-# Restart and scale workers
-docker-compose up -d --scale sia-worker=3
-</code></pre>
+<span class="c1"># Restart and scale workers</span>
+docker-compose<span class="w"> </span>up<span class="w"> </span>-d<span class="w"> </span>--scale<span class="w"> </span>sia-worker<span class="o">=</span><span class="m">3</span>
+</code></pre></div>
 
 <h3 id="172-health-check-endpoints">17.2 Health Check Endpoints</h3>
-<pre class="highlight"><code class="language-bash">curl http://localhost:8000/health          # Overall health
-curl http://localhost:8000/health/db       # Database
-curl http://localhost:8000/health/redis    # Cache
-curl http://localhost:8000/health/kafka    # Message broker
-curl http://localhost:8000/health/llm      # LLM providers
-</code></pre>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:8000/health<span class="w">          </span><span class="c1"># Overall health</span>
+curl<span class="w"> </span>http://localhost:8000/health/db<span class="w">       </span><span class="c1"># Database</span>
+curl<span class="w"> </span>http://localhost:8000/health/redis<span class="w">    </span><span class="c1"># Cache</span>
+curl<span class="w"> </span>http://localhost:8000/health/kafka<span class="w">    </span><span class="c1"># Message broker</span>
+curl<span class="w"> </span>http://localhost:8000/health/llm<span class="w">      </span><span class="c1"># LLM providers</span>
+</code></pre></div>
 
 <h3 id="173-performance-optimization">17.3 Performance Optimization</h3>
 <p><strong>Database</strong>:
@@ -2097,15 +2097,15 @@ curl http://localhost:8000/health/llm      # LLM providers
 - Increase timeouts for long-running operations
 - Use connection pooling effectively</p>
 <h3 id="174-backup-recovery">17.4 Backup &amp; Recovery</h3>
-<pre class="highlight"><code class="language-bash"># Backup tenant databases
-docker exec sia-postgres pg_dump -U admin siadb_tenant123 &gt; backup.sql
+<div class="highlight"><pre><span></span><code><span class="c1"># Backup tenant databases</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sia-postgres<span class="w"> </span>pg_dump<span class="w"> </span>-U<span class="w"> </span>admin<span class="w"> </span>siadb_tenant123<span class="w"> </span>&gt;<span class="w"> </span>backup.sql
 
-# Backup Redis data
-docker exec sia-redis redis-cli BGSAVE
+<span class="c1"># Backup Redis data</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>sia-redis<span class="w"> </span>redis-cli<span class="w"> </span>BGSAVE
 
-# Restore database
-docker exec -i sia-postgres psql -U admin siadb_tenant123 &lt; backup.sql
-</code></pre>
+<span class="c1"># Restore database</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>sia-postgres<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>admin<span class="w"> </span>siadb_tenant123<span class="w"> </span>&lt;<span class="w"> </span>backup.sql
+</code></pre></div>
 
 <hr />
 <h2 id="18-conclusion">18. Conclusion</h2>
@@ -2126,7 +2126,7 @@ docker exec -i sia-postgres psql -U admin siadb_tenant123 &lt; backup.sql
 
     <footer class="footer">
         <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
-        <p>Documentation generated on December 04, 2025</p>
+        <p>Documentation generated on December 18, 2025</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>

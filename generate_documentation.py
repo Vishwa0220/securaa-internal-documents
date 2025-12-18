@@ -40,6 +40,7 @@ MD_FILES = [
     ('securaa-ris-server-documentation.md', 'Securaa RIS Server Documentation'),
     ('sia-service-high-level-design.md', 'SIA Service - High Level Design'),
     ('sia-service-low-level-design.md', 'SIA Service - Low Level Design'),
+    ('MONGODB_SHARDING_ARCHITECTURE.md', 'MongoDB Sharding Architecture'),
     ('securaa-make-system.md', 'Securaa Make System'),
     ('OPTIMIZATION_GUIDE.md', 'Optimization Guide'),
     ('secura-customer-security-documentation.md', 'Customer Security Documentation'),

@@ -601,7 +601,7 @@ hr {
         <div class="header-content">
             <div class="header-logo">Securaa<span>Docs</span></div>
             <div class="header-meta">
-                <span>Generated: December 04, 2025</span>
+                <span>Generated: December 18, 2025</span>
             </div>
         </div>
     </header>
@@ -642,845 +642,845 @@ hr {
 <p><strong>Impact</strong>: 5-10x query performance improvement<br />
 <strong>Effort</strong>: 1 day<br />
 <strong>Files to modify</strong>: Database migration scripts</p>
-<pre class="highlight"><code class="language-javascript">// Add these indexes immediately - HIGH IMPACT
-db.playbook_execution_collection.createIndex({
-    &quot;tenant_code&quot;: 1, 
-    &quot;execution_status&quot;: 1, 
-    &quot;createddate&quot;: -1
-});
-db.playbook_execution_collection.createIndex({
-    &quot;uid&quot;: 1, 
-    &quot;createddate&quot;: -1
-});
-db.task_execution_collection.createIndex({
-    &quot;peid&quot;: 1, 
-    &quot;task_seq&quot;: 1
-});
+<div class="highlight"><pre><span></span><code><span class="c1">// Add these indexes immediately - HIGH IMPACT</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">playbook_execution_collection</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">({</span>
+<span class="w">    </span><span class="s2">&quot;tenant_code&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;execution_status&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;createddate&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span>
+<span class="p">});</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">playbook_execution_collection</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">({</span>
+<span class="w">    </span><span class="s2">&quot;uid&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;createddate&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span>
+<span class="p">});</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">task_execution_collection</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">({</span>
+<span class="w">    </span><span class="s2">&quot;peid&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;task_seq&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span>
+<span class="p">});</span>
 
-db.task_execution_collection.createIndex({
-    &quot;tenant_code&quot;: 1, 
-    &quot;alert_id&quot;: 1, 
-    &quot;status&quot;: 1
-});
-db.playbook_collection.createIndex({
-    &quot;tenant_code&quot;: 1, 
-    &quot;status&quot;: 1, 
-    &quot;category_id&quot;: 1
-});
-// Compound index for top playbooks query
-db.playbook_execution_collection.createIndex({
-    &quot;execution_status&quot;: 1,
-    &quot;createddate&quot;: -1,
-    &quot;pid&quot;: 1,
-    &quot;playbook_runtime&quot;: 1
-});
-</code></pre>
+<span class="nx">db</span><span class="p">.</span><span class="nx">task_execution_collection</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">({</span>
+<span class="w">    </span><span class="s2">&quot;tenant_code&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;alert_id&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;status&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span>
+<span class="p">});</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">playbook_collection</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">({</span>
+<span class="w">    </span><span class="s2">&quot;tenant_code&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;status&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="s2">&quot;category_id&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span>
+<span class="p">});</span>
+<span class="c1">// Compound index for top playbooks query</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">playbook_execution_collection</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">({</span>
+<span class="w">    </span><span class="s2">&quot;execution_status&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;createddate&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;pid&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;playbook_runtime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span>
+<span class="p">});</span>
+</code></pre></div>
 
 <h3 id="12-query-optimization-in-averageplaybookruntimego"><strong>1.2 Query Optimization in averagePlaybookRunTime.go</strong></h3>
 <p><strong>Current Issue</strong>: Inefficient aggregation pipeline<br />
 <strong>File</strong>: <code>services/averagePlaybookRunTime.go</code></p>
-<pre class="highlight"><code class="language-go">// BEFORE (Current implementation around line 93):
-topPlaybookAvrPipeline := bson.A{
-    bson.D{{&quot;$match&quot;, matchQuery}},
-    bson.D{{&quot;$sort&quot;, bson.D{{&quot;createddate&quot;, -1}}}},
-    bson.D{{&quot;$group&quot;, bson.M{&quot;_id&quot;: &quot;$pid&quot;,
-        &quot;name&quot;:    bson.M{&quot;$first&quot;: &quot;$playbook_name&quot;},
-        &quot;average&quot;: bson.M{&quot;$avg&quot;: &quot;$playbook_runtime&quot;}}}},
-    bson.D{{&quot;$sort&quot;, bson.D{{&quot;average&quot;, -1}}}},
-    bson.D{{&quot;$limit&quot;, 5}},
-}
-// AFTER (Optimized version):
-topPlaybookAvrPipeline := bson.A{
-    bson.D{{&quot;$match&quot;, matchQuery}},
-    // Use $group first to reduce data volume
-    bson.D{{&quot;$group&quot;, bson.M{
-        &quot;_id&quot;: &quot;$pid&quot;,
-        &quot;name&quot;: bson.M{&quot;$first&quot;: &quot;$playbook_name&quot;},
-        &quot;average&quot;: bson.M{&quot;$avg&quot;: &quot;$playbook_runtime&quot;},
-        &quot;count&quot;: bson.M{&quot;$sum&quot;: 1}}}},
-    // Sort after grouping (smaller dataset)
-    bson.D{{&quot;$sort&quot;, bson.D{{&quot;average&quot;, -1}}}},
-    bson.D{{&quot;$limit&quot;, 5}},
-    // Add projection to reduce network transfer
-    bson.D{{&quot;$project&quot;, bson.M{
-        &quot;name&quot;: 1,
-        &quot;average&quot;: 1,
-        &quot;count&quot;: 1}}},
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1">// BEFORE (Current implementation around line 93):</span>
+<span class="nx">topPlaybookAvrPipeline</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">A</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;$match&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">matchQuery</span><span class="p">}},</span>
+<span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;$sort&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;createddate&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">}}}},</span>
+<span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;$group&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;$pid&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;$first&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;$playbook_name&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="s">&quot;average&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;$avg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;$playbook_runtime&quot;</span><span class="p">}}}},</span>
+<span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;$sort&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;average&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">}}}},</span>
+<span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;$limit&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">}},</span>
+<span class="p">}</span>
+<span class="c1">// AFTER (Optimized version):</span>
+<span class="nx">topPlaybookAvrPipeline</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">A</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;$match&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">matchQuery</span><span class="p">}},</span>
+<span class="w">    </span><span class="c1">// Use $group first to reduce data volume</span>
+<span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;$group&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+<span class="w">        </span><span class="s">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;$pid&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;$first&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;$playbook_name&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="s">&quot;average&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;$avg&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;$playbook_runtime&quot;</span><span class="p">},</span>
+<span class="w">        </span><span class="s">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;$sum&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}}},</span>
+<span class="w">    </span><span class="c1">// Sort after grouping (smaller dataset)</span>
+<span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;$sort&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;average&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">}}}},</span>
+<span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;$limit&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">}},</span>
+<span class="w">    </span><span class="c1">// Add projection to reduce network transfer</span>
+<span class="w">    </span><span class="nx">bson</span><span class="p">.</span><span class="nx">D</span><span class="p">{{</span><span class="s">&quot;$project&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+<span class="w">        </span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;average&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">}}},</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="13-batch-operations-implementation"><strong>1.3 Batch Operations Implementation</strong></h3>
 <p><strong>File</strong>: Create new <code>services/batchOperationService.go</code></p>
-<pre class="highlight"><code class="language-go">package services
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">services</span>
 
-import (
-    &quot;context&quot;
-    &quot;go.mongodb.org/mongo-driver/bson&quot;
-    &quot;go.mongodb.org/mongo-driver/mongo&quot;
-    &quot;go.mongodb.org/mongo-driver/mongo/options&quot;
-    &quot;time&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;context&quot;</span>
+<span class="w">    </span><span class="s">&quot;go.mongodb.org/mongo-driver/bson&quot;</span>
+<span class="w">    </span><span class="s">&quot;go.mongodb.org/mongo-driver/mongo&quot;</span>
+<span class="w">    </span><span class="s">&quot;go.mongodb.org/mongo-driver/mongo/options&quot;</span>
+<span class="w">    </span><span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
 
-type BatchOperationService struct {
-    collection *mongo.Collection
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">BatchOperationService</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">collection</span><span class="w"> </span><span class="o">*</span><span class="nx">mongo</span><span class="p">.</span><span class="nx">Collection</span>
+<span class="p">}</span>
 
-type TaskStatusUpdate struct {
-    TaskRequestID string
-    Status        string
-    Response      string
-    UpdatedDate   int64
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">TaskStatusUpdate</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">TaskRequestID</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Status</span><span class="w">        </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Response</span><span class="w">      </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">UpdatedDate</span><span class="w">   </span><span class="kt">int64</span>
+<span class="p">}</span>
 
-func NewBatchOperationService(collection *mongo.Collection) *BatchOperationService {
-    return &amp;BatchOperationService{collection: collection}
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewBatchOperationService</span><span class="p">(</span><span class="nx">collection</span><span class="w"> </span><span class="o">*</span><span class="nx">mongo</span><span class="p">.</span><span class="nx">Collection</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">BatchOperationService</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">BatchOperationService</span><span class="p">{</span><span class="nx">collection</span><span class="p">:</span><span class="w"> </span><span class="nx">collection</span><span class="p">}</span>
+<span class="p">}</span>
 
-func (service *BatchOperationService) BatchUpdateTaskStatus(
-    updates []TaskStatusUpdate,
-) error {
-    const batchSize = 1000
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">service</span><span class="w"> </span><span class="o">*</span><span class="nx">BatchOperationService</span><span class="p">)</span><span class="w"> </span><span class="nx">BatchUpdateTaskStatus</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">updates</span><span class="w"> </span><span class="p">[]</span><span class="nx">TaskStatusUpdate</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">batchSize</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1000</span>
 
-    for i := 0; i &lt; len(updates); i += batchSize {
-        end := i + batchSize
-        if end &gt; len(updates) {
-            end = len(updates)
-        }
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">updates</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nx">batchSize</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">end</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">batchSize</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">updates</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">end</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">updates</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
 
-        batch := updates[i:end]
-        if err := service.processBatch(batch); err != nil {
-            return err
-        }
-    }
+<span class="w">        </span><span class="nx">batch</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">updates</span><span class="p">[</span><span class="nx">i</span><span class="p">:</span><span class="nx">end</span><span class="p">]</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">processBatch</span><span class="p">(</span><span class="nx">batch</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return nil
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 
-func (service *BatchOperationService) processBatch(batch []TaskStatusUpdate) error {
-    var operations []mongo.WriteModel
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">service</span><span class="w"> </span><span class="o">*</span><span class="nx">BatchOperationService</span><span class="p">)</span><span class="w"> </span><span class="nx">processBatch</span><span class="p">(</span><span class="nx">batch</span><span class="w"> </span><span class="p">[]</span><span class="nx">TaskStatusUpdate</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">operations</span><span class="w"> </span><span class="p">[]</span><span class="nx">mongo</span><span class="p">.</span><span class="nx">WriteModel</span>
 
-    for _, update := range batch {
-        filter := bson.M{&quot;task_request_id&quot;: update.TaskRequestID}
-        updateDoc := bson.M{
-            &quot;$set&quot;: bson.M{
-                &quot;status&quot;:       update.Status,
-                &quot;response&quot;:     update.Response,
-                &quot;updated_date&quot;: update.UpdatedDate,
-            },
-        }
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">update</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">batch</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">filter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;task_request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">update</span><span class="p">.</span><span class="nx">TaskRequestID</span><span class="p">}</span>
+<span class="w">        </span><span class="nx">updateDoc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+<span class="w">            </span><span class="s">&quot;$set&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span>
+<span class="w">                </span><span class="s">&quot;status&quot;</span><span class="p">:</span><span class="w">       </span><span class="nx">update</span><span class="p">.</span><span class="nx">Status</span><span class="p">,</span>
+<span class="w">                </span><span class="s">&quot;response&quot;</span><span class="p">:</span><span class="w">     </span><span class="nx">update</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span>
+<span class="w">                </span><span class="s">&quot;updated_date&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">update</span><span class="p">.</span><span class="nx">UpdatedDate</span><span class="p">,</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">}</span>
 
-        operation := mongo.NewUpdateOneModel().
-            SetFilter(filter).
-            SetUpdate(updateDoc)
+<span class="w">        </span><span class="nx">operation</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mongo</span><span class="p">.</span><span class="nx">NewUpdateOneModel</span><span class="p">().</span>
+<span class="w">            </span><span class="nx">SetFilter</span><span class="p">(</span><span class="nx">filter</span><span class="p">).</span>
+<span class="w">            </span><span class="nx">SetUpdate</span><span class="p">(</span><span class="nx">updateDoc</span><span class="p">)</span>
 
-        operations = append(operations, operation)
-    }
+<span class="w">        </span><span class="nx">operations</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">operations</span><span class="p">,</span><span class="w"> </span><span class="nx">operation</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Execute bulk write with unordered operations for better performance
-    opts := options.BulkWrite().SetOrdered(false)
-    _, err := service.collection.BulkWrite(
-        context.Background(),
-        operations,
-        opts,
-    )
+<span class="w">    </span><span class="c1">// Execute bulk write with unordered operations for better performance</span>
+<span class="w">    </span><span class="nx">opts</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">options</span><span class="p">.</span><span class="nx">BulkWrite</span><span class="p">().</span><span class="nx">SetOrdered</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">BulkWrite</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">operations</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">opts</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span>
 
-    return err
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="p">}</span>
 
-// Usage in controllers:
-func (controller *TaskController) UpdateMultipleTaskStatus(updates []TaskStatusUpdate) error {
-    batchService := NewBatchOperationService(controller.taskCollection)
-    return batchService.BatchUpdateTaskStatus(updates)
-}
-</code></pre>
+<span class="c1">// Usage in controllers:</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">controller</span><span class="w"> </span><span class="o">*</span><span class="nx">TaskController</span><span class="p">)</span><span class="w"> </span><span class="nx">UpdateMultipleTaskStatus</span><span class="p">(</span><span class="nx">updates</span><span class="w"> </span><span class="p">[]</span><span class="nx">TaskStatusUpdate</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">batchService</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewBatchOperationService</span><span class="p">(</span><span class="nx">controller</span><span class="p">.</span><span class="nx">taskCollection</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">batchService</span><span class="p">.</span><span class="nx">BatchUpdateTaskStatus</span><span class="p">(</span><span class="nx">updates</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <hr />
 <h2 id="priority-2-connection-pool-optimization-week-1">📋 <strong>Priority 2: Connection Pool Optimization (Week 1)</strong></h2>
 <h3 id="21-mongodb-connection-pool-configuration"><strong>2.1 MongoDB Connection Pool Configuration</strong></h3>
 <p><strong>File</strong>: <code>app.go</code> - Modify <code>InitMongoSession</code> function</p>
-<pre class="highlight"><code class="language-go">// BEFORE (Current implementation):
-func (a *App) InitMongoSession(configObject config.ConfigStruct) {
-    // Basic connection without optimization
-}
+<div class="highlight"><pre><span></span><code><span class="c1">// BEFORE (Current implementation):</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">*</span><span class="nx">App</span><span class="p">)</span><span class="w"> </span><span class="nx">InitMongoSession</span><span class="p">(</span><span class="nx">configObject</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">ConfigStruct</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Basic connection without optimization</span>
+<span class="p">}</span>
 
-// AFTER (Optimized version):
-func (a *App) InitMongoSession(configObject config.ConfigStruct) {
-    // Optimized MongoDB connection configuration
-    clientOptions := options.Client().
-        ApplyURI(configObject.DatabaseConfig.MongoURI).
-        SetMaxPoolSize(100).                    // Increase max connections
-        SetMinPoolSize(10).                     // Maintain minimum connections
-        SetMaxConnIdleTime(30 * time.Minute).  // Keep connections alive longer
-        SetConnectTimeout(10 * time.Second).   // Connection timeout
-        SetSocketTimeout(30 * time.Second).    // Socket timeout
-        SetServerSelectionTimeout(5 * time.Second). // Server selection timeout
-        SetHeartbeatInterval(10 * time.Second). // Health check interval
-        SetRetryWrites(true).                   // Enable retry writes
-        SetRetryReads(true)                     // Enable retry reads
+<span class="c1">// AFTER (Optimized version):</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">*</span><span class="nx">App</span><span class="p">)</span><span class="w"> </span><span class="nx">InitMongoSession</span><span class="p">(</span><span class="nx">configObject</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">ConfigStruct</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Optimized MongoDB connection configuration</span>
+<span class="w">    </span><span class="nx">clientOptions</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">options</span><span class="p">.</span><span class="nx">Client</span><span class="p">().</span>
+<span class="w">        </span><span class="nx">ApplyURI</span><span class="p">(</span><span class="nx">configObject</span><span class="p">.</span><span class="nx">DatabaseConfig</span><span class="p">.</span><span class="nx">MongoURI</span><span class="p">).</span>
+<span class="w">        </span><span class="nx">SetMaxPoolSize</span><span class="p">(</span><span class="mi">100</span><span class="p">).</span><span class="w">                    </span><span class="c1">// Increase max connections</span>
+<span class="w">        </span><span class="nx">SetMinPoolSize</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="w">                     </span><span class="c1">// Maintain minimum connections</span>
+<span class="w">        </span><span class="nx">SetMaxConnIdleTime</span><span class="p">(</span><span class="mi">30</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">).</span><span class="w">  </span><span class="c1">// Keep connections alive longer</span>
+<span class="w">        </span><span class="nx">SetConnectTimeout</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">).</span><span class="w">   </span><span class="c1">// Connection timeout</span>
+<span class="w">        </span><span class="nx">SetSocketTimeout</span><span class="p">(</span><span class="mi">30</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">).</span><span class="w">    </span><span class="c1">// Socket timeout</span>
+<span class="w">        </span><span class="nx">SetServerSelectionTimeout</span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">).</span><span class="w"> </span><span class="c1">// Server selection timeout</span>
+<span class="w">        </span><span class="nx">SetHeartbeatInterval</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">).</span><span class="w"> </span><span class="c1">// Health check interval</span>
+<span class="w">        </span><span class="nx">SetRetryWrites</span><span class="p">(</span><span class="kc">true</span><span class="p">).</span><span class="w">                   </span><span class="c1">// Enable retry writes</span>
+<span class="w">        </span><span class="nx">SetRetryReads</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w">                     </span><span class="c1">// Enable retry reads</span>
 
-    client, err := mongo.Connect(context.Background(), clientOptions)
-    if err != nil {
-        logger.Fatal(&quot;Failed to connect to MongoDB&quot;, err)
-    }
+<span class="w">    </span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mongo</span><span class="p">.</span><span class="nx">Connect</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span><span class="w"> </span><span class="nx">clientOptions</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="s">&quot;Failed to connect to MongoDB&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Test the connection
-    err = client.Ping(context.Background(), nil)
-    if err != nil {
-        logger.Fatal(&quot;Failed to ping MongoDB&quot;, err)
-    }
+<span class="w">    </span><span class="c1">// Test the connection</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Ping</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="s">&quot;Failed to ping MongoDB&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Store optimized client
-    a.MongoClient = client
-    logger.Info(&quot;MongoDB connection pool initialized with optimized settings&quot;)
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// Store optimized client</span>
+<span class="w">    </span><span class="nx">a</span><span class="p">.</span><span class="nx">MongoClient</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">client</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;MongoDB connection pool initialized with optimized settings&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="22-redis-connection-pool-optimization"><strong>2.2 Redis Connection Pool Optimization</strong></h3>
 <p><strong>File</strong>: Create new <code>cache/optimizedRedisClient.go</code></p>
-<pre class="highlight"><code class="language-go">package cache
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">cache</span>
 
-import (
-    &quot;time&quot;
-    &quot;github.com/go-redis/redis/v8&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;time&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/go-redis/redis/v8&quot;</span>
+<span class="p">)</span>
 
-type OptimizedRedisConfig struct {
-    Host         string
-    Port         int
-    Password     string
-    Database     int
-    PoolSize     int
-    MinIdleConns int
-    IdleTimeout  time.Duration
-    MaxRetries   int
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">OptimizedRedisConfig</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Host</span><span class="w">         </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Port</span><span class="w">         </span><span class="kt">int</span>
+<span class="w">    </span><span class="nx">Password</span><span class="w">     </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Database</span><span class="w">     </span><span class="kt">int</span>
+<span class="w">    </span><span class="nx">PoolSize</span><span class="w">     </span><span class="kt">int</span>
+<span class="w">    </span><span class="nx">MinIdleConns</span><span class="w"> </span><span class="kt">int</span>
+<span class="w">    </span><span class="nx">IdleTimeout</span><span class="w">  </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+<span class="w">    </span><span class="nx">MaxRetries</span><span class="w">   </span><span class="kt">int</span>
+<span class="p">}</span>
 
-func NewOptimizedRedisClient(config OptimizedRedisConfig) *redis.Client {
-    return redis.NewClient(&amp;redis.Options{
-        Addr:         fmt.Sprintf(&quot;%s:%d&quot;, config.Host, config.Port),
-        Password:     config.Password,
-        DB:           config.Database,
-        PoolSize:     config.PoolSize,      // Default: 30, Recommended: 50-100
-        MinIdleConns: config.MinIdleConns,  // Default: 0, Recommended: 10-20
-        IdleTimeout:  config.IdleTimeout,   // Default: 5min, Recommended: 10-30min
-        MaxRetries:   config.MaxRetries,    // Default: 3, Recommended: 5
-        DialTimeout:  5 * time.Second,
-        ReadTimeout:  10 * time.Second,
-        WriteTimeout: 10 * time.Second,
-        PoolTimeout:  15 * time.Second,
-    })
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewOptimizedRedisClient</span><span class="p">(</span><span class="nx">config</span><span class="w"> </span><span class="nx">OptimizedRedisConfig</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">redis</span><span class="p">.</span><span class="nx">Client</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">redis</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">redis</span><span class="p">.</span><span class="nx">Options</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Addr</span><span class="p">:</span><span class="w">         </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;%s:%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Host</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Port</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">Password</span><span class="p">:</span><span class="w">     </span><span class="nx">config</span><span class="p">.</span><span class="nx">Password</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">DB</span><span class="p">:</span><span class="w">           </span><span class="nx">config</span><span class="p">.</span><span class="nx">Database</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">PoolSize</span><span class="p">:</span><span class="w">     </span><span class="nx">config</span><span class="p">.</span><span class="nx">PoolSize</span><span class="p">,</span><span class="w">      </span><span class="c1">// Default: 30, Recommended: 50-100</span>
+<span class="w">        </span><span class="nx">MinIdleConns</span><span class="p">:</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">MinIdleConns</span><span class="p">,</span><span class="w">  </span><span class="c1">// Default: 0, Recommended: 10-20</span>
+<span class="w">        </span><span class="nx">IdleTimeout</span><span class="p">:</span><span class="w">  </span><span class="nx">config</span><span class="p">.</span><span class="nx">IdleTimeout</span><span class="p">,</span><span class="w">   </span><span class="c1">// Default: 5min, Recommended: 10-30min</span>
+<span class="w">        </span><span class="nx">MaxRetries</span><span class="p">:</span><span class="w">   </span><span class="nx">config</span><span class="p">.</span><span class="nx">MaxRetries</span><span class="p">,</span><span class="w">    </span><span class="c1">// Default: 3, Recommended: 5</span>
+<span class="w">        </span><span class="nx">DialTimeout</span><span class="p">:</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ReadTimeout</span><span class="p">:</span><span class="w">  </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">WriteTimeout</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">PoolTimeout</span><span class="p">:</span><span class="w">  </span><span class="mi">15</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="p">}</span>
 
-// Usage in cacheControllers/cacheController.go:
-func init() {
-    config := OptimizedRedisConfig{
-        Host:         os.Getenv(&quot;REDIS_HOST&quot;),
-        Port:         6379,
-        PoolSize:     80,
-        MinIdleConns: 15,
-        IdleTimeout:  20 * time.Minute,
-        MaxRetries:   5,
-    }
+<span class="c1">// Usage in cacheControllers/cacheController.go:</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">config</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">OptimizedRedisConfig</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Host</span><span class="p">:</span><span class="w">         </span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;REDIS_HOST&quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">Port</span><span class="p">:</span><span class="w">         </span><span class="mi">6379</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">PoolSize</span><span class="p">:</span><span class="w">     </span><span class="mi">80</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">MinIdleConns</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">IdleTimeout</span><span class="p">:</span><span class="w">  </span><span class="mi">20</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">MaxRetries</span><span class="p">:</span><span class="w">   </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
 
-    redisClient = NewOptimizedRedisClient(config)
-}
-</code></pre>
+<span class="w">    </span><span class="nx">redisClient</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">NewOptimizedRedisClient</span><span class="p">(</span><span class="nx">config</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="23-http-client-pool-configuration"><strong>2.3 HTTP Client Pool Configuration</strong></h3>
 <p><strong>File</strong>: Create new <code>utils/httpClientPool.go</code></p>
-<pre class="highlight"><code class="language-go">package utils
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">utils</span>
 
-import (
-    &quot;net/http&quot;
-    &quot;time&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;net/http&quot;</span>
+<span class="w">    </span><span class="s">&quot;time&quot;</span>
+<span class="p">)</span>
 
-var (
-    optimizedHTTPClient *http.Client
-    once                sync.Once
-)
+<span class="kd">var</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">optimizedHTTPClient</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span>
+<span class="w">    </span><span class="nx">once</span><span class="w">                </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
+<span class="p">)</span>
 
-func GetOptimizedHTTPClient() *http.Client {
-    once.Do(func() {
-        transport := &amp;http.Transport{
-            MaxIdleConns:        100,               // Total idle connections
-            MaxIdleConnsPerHost: 20,                // Idle connections per host
-            MaxConnsPerHost:     50,                // Max connections per host
-            IdleConnTimeout:     90 * time.Second,  // Keep connections alive
-            TLSHandshakeTimeout: 10 * time.Second,  // TLS handshake timeout
-            DisableKeepAlives:   false,             // Enable keep-alive
-            ForceAttemptHTTP2:   true,              // Use HTTP/2 when possible
-        }
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetOptimizedHTTPClient</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">once</span><span class="p">.</span><span class="nx">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">transport</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Transport</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">MaxIdleConns</span><span class="p">:</span><span class="w">        </span><span class="mi">100</span><span class="p">,</span><span class="w">               </span><span class="c1">// Total idle connections</span>
+<span class="w">            </span><span class="nx">MaxIdleConnsPerHost</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">                </span><span class="c1">// Idle connections per host</span>
+<span class="w">            </span><span class="nx">MaxConnsPerHost</span><span class="p">:</span><span class="w">     </span><span class="mi">50</span><span class="p">,</span><span class="w">                </span><span class="c1">// Max connections per host</span>
+<span class="w">            </span><span class="nx">IdleConnTimeout</span><span class="p">:</span><span class="w">     </span><span class="mi">90</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span><span class="w">  </span><span class="c1">// Keep connections alive</span>
+<span class="w">            </span><span class="nx">TLSHandshakeTimeout</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span><span class="w">  </span><span class="c1">// TLS handshake timeout</span>
+<span class="w">            </span><span class="nx">DisableKeepAlives</span><span class="p">:</span><span class="w">   </span><span class="kc">false</span><span class="p">,</span><span class="w">             </span><span class="c1">// Enable keep-alive</span>
+<span class="w">            </span><span class="nx">ForceAttemptHTTP2</span><span class="p">:</span><span class="w">   </span><span class="kc">true</span><span class="p">,</span><span class="w">              </span><span class="c1">// Use HTTP/2 when possible</span>
+<span class="w">        </span><span class="p">}</span>
 
-        optimizedHTTPClient = &amp;http.Client{
-            Transport: transport,
-            Timeout:   30 * time.Second, // Overall request timeout
-        }
-    })
+<span class="w">        </span><span class="nx">optimizedHTTPClient</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">Transport</span><span class="p">:</span><span class="w"> </span><span class="nx">transport</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">Timeout</span><span class="p">:</span><span class="w">   </span><span class="mi">30</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span><span class="w"> </span><span class="c1">// Overall request timeout</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">})</span>
 
-    return optimizedHTTPClient
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">optimizedHTTPClient</span>
+<span class="p">}</span>
 
-// Usage in integration calls:
-func MakeAPICall(url string, data []byte) (*http.Response, error) {
-    client := GetOptimizedHTTPClient()
-    req, err := http.NewRequest(&quot;POST&quot;, url, bytes.NewBuffer(data))
-    if err != nil {
-        return nil, err
-    }
+<span class="c1">// Usage in integration calls:</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">MakeAPICall</span><span class="p">(</span><span class="nx">url</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Response</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">GetOptimizedHTTPClient</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">bytes</span><span class="p">.</span><span class="nx">NewBuffer</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return client.Do(req)
-}
-</code></pre>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Do</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <hr />
 <h2 id="priority-3-parallel-processing-implementation-week-2-3">📋 <strong>Priority 3: Parallel Processing Implementation (Week 2-3)</strong></h2>
 <h3 id="31-worker-pool-for-task-execution"><strong>3.1 Worker Pool for Task Execution</strong></h3>
 <p><strong>File</strong>: Create new <code>executionControllers/workerPool.go</code></p>
-<pre class="highlight"><code class="language-go">package executionControllers
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">executionControllers</span>
 
-import (
-    &quot;context&quot;
-    &quot;sync&quot;
-    &quot;securaa_services/securaa_playbook/executionModels&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;context&quot;</span>
+<span class="w">    </span><span class="s">&quot;sync&quot;</span>
+<span class="w">    </span><span class="s">&quot;securaa_services/securaa_playbook/executionModels&quot;</span>
+<span class="p">)</span>
 
-type TaskWorkerPool struct {
-    taskQueue   chan executionModels.PlayBookTask
-    resultQueue chan TaskResult
-    errorQueue  chan error
-    stopSignal  chan struct{}
-    workers     int
-    wg          sync.WaitGroup
-    controller  *PlaybookExecutionController
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">TaskWorkerPool</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">taskQueue</span><span class="w">   </span><span class="kd">chan</span><span class="w"> </span><span class="nx">executionModels</span><span class="p">.</span><span class="nx">PlayBookTask</span>
+<span class="w">    </span><span class="nx">resultQueue</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="nx">TaskResult</span>
+<span class="w">    </span><span class="nx">errorQueue</span><span class="w">  </span><span class="kd">chan</span><span class="w"> </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">stopSignal</span><span class="w">  </span><span class="kd">chan</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}</span>
+<span class="w">    </span><span class="nx">workers</span><span class="w">     </span><span class="kt">int</span>
+<span class="w">    </span><span class="nx">wg</span><span class="w">          </span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+<span class="w">    </span><span class="nx">controller</span><span class="w">  </span><span class="o">*</span><span class="nx">PlaybookExecutionController</span>
+<span class="p">}</span>
 
-type TaskResult struct {
-    TaskSeq  int
-    Success  bool
-    Response string
-    Error    error
-    Duration time.Duration
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">TaskResult</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">TaskSeq</span><span class="w">  </span><span class="kt">int</span>
+<span class="w">    </span><span class="nx">Success</span><span class="w">  </span><span class="kt">bool</span>
+<span class="w">    </span><span class="nx">Response</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">Error</span><span class="w">    </span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">Duration</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+<span class="p">}</span>
 
-func NewTaskWorkerPool(workers int, bufferSize int, controller *PlaybookExecutionController) *TaskWorkerPool {
-    return &amp;TaskWorkerPool{
-        taskQueue:   make(chan executionModels.PlayBookTask, bufferSize),
-        resultQueue: make(chan TaskResult, bufferSize),
-        errorQueue:  make(chan error, bufferSize),
-        stopSignal:  make(chan struct{}),
-        workers:     workers,
-        controller:  controller,
-    }
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewTaskWorkerPool</span><span class="p">(</span><span class="nx">workers</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">bufferSize</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">controller</span><span class="w"> </span><span class="o">*</span><span class="nx">PlaybookExecutionController</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">TaskWorkerPool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">TaskWorkerPool</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">taskQueue</span><span class="p">:</span><span class="w">   </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="nx">executionModels</span><span class="p">.</span><span class="nx">PlayBookTask</span><span class="p">,</span><span class="w"> </span><span class="nx">bufferSize</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">resultQueue</span><span class="p">:</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="nx">TaskResult</span><span class="p">,</span><span class="w"> </span><span class="nx">bufferSize</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">errorQueue</span><span class="p">:</span><span class="w">  </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">error</span><span class="p">,</span><span class="w"> </span><span class="nx">bufferSize</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">stopSignal</span><span class="p">:</span><span class="w">  </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}),</span>
+<span class="w">        </span><span class="nx">workers</span><span class="p">:</span><span class="w">     </span><span class="nx">workers</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">controller</span><span class="p">:</span><span class="w">  </span><span class="nx">controller</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-func (pool *TaskWorkerPool) Start() {
-    for i := 0; i &lt; pool.workers; i++ {
-        pool.wg.Add(1)
-        go pool.worker(i)
-    }
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pool</span><span class="w"> </span><span class="o">*</span><span class="nx">TaskWorkerPool</span><span class="p">)</span><span class="w"> </span><span class="nx">Start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">pool</span><span class="p">.</span><span class="nx">workers</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">pool</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="k">go</span><span class="w"> </span><span class="nx">pool</span><span class="p">.</span><span class="nx">worker</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-func (pool *TaskWorkerPool) worker(workerID int) {
-    defer pool.wg.Done()
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pool</span><span class="w"> </span><span class="o">*</span><span class="nx">TaskWorkerPool</span><span class="p">)</span><span class="w"> </span><span class="nx">worker</span><span class="p">(</span><span class="nx">workerID</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">pool</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nx">Done</span><span class="p">()</span>
 
-    for {
-        select {
-        case task := &lt;-pool.taskQueue:
-            result := pool.processTask(task, workerID)
-            pool.resultQueue &lt;- result
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nx">task</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">pool</span><span class="p">.</span><span class="nx">taskQueue</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pool</span><span class="p">.</span><span class="nx">processTask</span><span class="p">(</span><span class="nx">task</span><span class="p">,</span><span class="w"> </span><span class="nx">workerID</span><span class="p">)</span>
+<span class="w">            </span><span class="nx">pool</span><span class="p">.</span><span class="nx">resultQueue</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">result</span>
 
-        case &lt;-pool.stopSignal:
-            logger.Info(&quot;Worker stopping&quot;, &quot;worker_id&quot;, workerID)
-            return
-        }
-    }
-}
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">pool</span><span class="p">.</span><span class="nx">stopSignal</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Worker stopping&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;worker_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">workerID</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-func (pool *TaskWorkerPool) processTask(task executionModels.PlayBookTask, workerID int) TaskResult {
-    startTime := time.Now()
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pool</span><span class="w"> </span><span class="o">*</span><span class="nx">TaskWorkerPool</span><span class="p">)</span><span class="w"> </span><span class="nx">processTask</span><span class="p">(</span><span class="nx">task</span><span class="w"> </span><span class="nx">executionModels</span><span class="p">.</span><span class="nx">PlayBookTask</span><span class="p">,</span><span class="w"> </span><span class="nx">workerID</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="nx">TaskResult</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">startTime</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
 
-    defer func() {
-        if r := recover(); r != nil {
-            pool.errorQueue &lt;- fmt.Errorf(&quot;worker %d panicked: %v&quot;, workerID, r)
-        }
-    }()
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">recover</span><span class="p">();</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">pool</span><span class="p">.</span><span class="nx">errorQueue</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;worker %d panicked: %v&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">workerID</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}()</span>
 
-    // Process the task using existing controller logic
-    err := pool.controller.ProcessSingleTask(task)
+<span class="w">    </span><span class="c1">// Process the task using existing controller logic</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pool</span><span class="p">.</span><span class="nx">controller</span><span class="p">.</span><span class="nx">ProcessSingleTask</span><span class="p">(</span><span class="nx">task</span><span class="p">)</span>
 
-    return TaskResult{
-        TaskSeq:  task.TaskSeq,
-        Success:  err == nil,
-        Error:    err,
-        Duration: time.Since(startTime),
-    }
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">TaskResult</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">TaskSeq</span><span class="p">:</span><span class="w">  </span><span class="nx">task</span><span class="p">.</span><span class="nx">TaskSeq</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Success</span><span class="p">:</span><span class="w">  </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Error</span><span class="p">:</span><span class="w">    </span><span class="nx">err</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Duration</span><span class="p">:</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Since</span><span class="p">(</span><span class="nx">startTime</span><span class="p">),</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-func (pool *TaskWorkerPool) SubmitTask(task executionModels.PlayBookTask) {
-    select {
-    case pool.taskQueue &lt;- task:
-        // Task submitted successfully
-    case &lt;-time.After(5 * time.Second):
-        logger.Error(&quot;Task submission timeout&quot;, &quot;task_seq&quot;, task.TaskSeq)
-    }
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pool</span><span class="w"> </span><span class="o">*</span><span class="nx">TaskWorkerPool</span><span class="p">)</span><span class="w"> </span><span class="nx">SubmitTask</span><span class="p">(</span><span class="nx">task</span><span class="w"> </span><span class="nx">executionModels</span><span class="p">.</span><span class="nx">PlayBookTask</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">pool</span><span class="p">.</span><span class="nx">taskQueue</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">task</span><span class="p">:</span>
+<span class="w">        </span><span class="c1">// Task submitted successfully</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nx">After</span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">):</span>
+<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;Task submission timeout&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;task_seq&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">task</span><span class="p">.</span><span class="nx">TaskSeq</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-func (pool *TaskWorkerPool) Stop() {
-    close(pool.stopSignal)
-    pool.wg.Wait()
-    close(pool.taskQueue)
-    close(pool.resultQueue)
-    close(pool.errorQueue)
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pool</span><span class="w"> </span><span class="o">*</span><span class="nx">TaskWorkerPool</span><span class="p">)</span><span class="w"> </span><span class="nx">Stop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nb">close</span><span class="p">(</span><span class="nx">pool</span><span class="p">.</span><span class="nx">stopSignal</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">pool</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nx">Wait</span><span class="p">()</span>
+<span class="w">    </span><span class="nb">close</span><span class="p">(</span><span class="nx">pool</span><span class="p">.</span><span class="nx">taskQueue</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">close</span><span class="p">(</span><span class="nx">pool</span><span class="p">.</span><span class="nx">resultQueue</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">close</span><span class="p">(</span><span class="nx">pool</span><span class="p">.</span><span class="nx">errorQueue</span><span class="p">)</span>
+<span class="p">}</span>
 
-func (pool *TaskWorkerPool) GetResults() &lt;-chan TaskResult {
-    return pool.resultQueue
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pool</span><span class="w"> </span><span class="o">*</span><span class="nx">TaskWorkerPool</span><span class="p">)</span><span class="w"> </span><span class="nx">GetResults</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="nx">TaskResult</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">pool</span><span class="p">.</span><span class="nx">resultQueue</span>
+<span class="p">}</span>
 
-func (pool *TaskWorkerPool) GetErrors() &lt;-chan error {
-    return pool.errorQueue
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pool</span><span class="w"> </span><span class="o">*</span><span class="nx">TaskWorkerPool</span><span class="p">)</span><span class="w"> </span><span class="nx">GetErrors</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">pool</span><span class="p">.</span><span class="nx">errorQueue</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="32-parallel-execution-in-playbookexecutioncontroller"><strong>3.2 Parallel Execution in PlaybookExecutionController</strong></h3>
 <p><strong>File</strong>: <code>executionControllers/playbookExecutionController.go</code></p>
 <p>Add this method to the PlaybookExecutionController struct:</p>
-<pre class="highlight"><code class="language-go">// Add this method to PlaybookExecutionController
-func (executionController *PlaybookExecutionController) ExecuteTasksInParallel(
-    tasks []executionModels.PlayBookTask,
-    maxWorkers int,
-) error {
+<div class="highlight"><pre><span></span><code><span class="c1">// Add this method to PlaybookExecutionController</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">executionController</span><span class="w"> </span><span class="o">*</span><span class="nx">PlaybookExecutionController</span><span class="p">)</span><span class="w"> </span><span class="nx">ExecuteTasksInParallel</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">tasks</span><span class="w"> </span><span class="p">[]</span><span class="nx">executionModels</span><span class="p">.</span><span class="nx">PlayBookTask</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">maxWorkers</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span>
+<span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
 
-    if len(tasks) == 0 {
-        return nil
-    }
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">tasks</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Determine optimal number of workers
-    workerCount := maxWorkers
-    if len(tasks) &lt; maxWorkers {
-        workerCount = len(tasks)
-    }
+<span class="w">    </span><span class="c1">// Determine optimal number of workers</span>
+<span class="w">    </span><span class="nx">workerCount</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">maxWorkers</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">tasks</span><span class="p">)</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">maxWorkers</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">workerCount</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">tasks</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Create worker pool
-    pool := NewTaskWorkerPool(workerCount, len(tasks), executionController)
-    pool.Start()
-    defer pool.Stop()
+<span class="w">    </span><span class="c1">// Create worker pool</span>
+<span class="w">    </span><span class="nx">pool</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewTaskWorkerPool</span><span class="p">(</span><span class="nx">workerCount</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">tasks</span><span class="p">),</span><span class="w"> </span><span class="nx">executionController</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">pool</span><span class="p">.</span><span class="nx">Start</span><span class="p">()</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">pool</span><span class="p">.</span><span class="nx">Stop</span><span class="p">()</span>
 
-    // Submit all tasks
-    for _, task := range tasks {
-        pool.SubmitTask(task)
-    }
+<span class="w">    </span><span class="c1">// Submit all tasks</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">task</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">tasks</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">pool</span><span class="p">.</span><span class="nx">SubmitTask</span><span class="p">(</span><span class="nx">task</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Collect results
-    var errors []error
-    resultsCollected := 0
+<span class="w">    </span><span class="c1">// Collect results</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">errors</span><span class="w"> </span><span class="p">[]</span><span class="kt">error</span>
+<span class="w">    </span><span class="nx">resultsCollected</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
 
-    for resultsCollected &lt; len(tasks) {
-        select {
-        case result := &lt;-pool.GetResults():
-            resultsCollected++
-            if !result.Success {
-                errors = append(errors, result.Error)
-            }
-            logger.Info(&quot;Task completed&quot;, 
-                &quot;task_seq&quot;, result.TaskSeq,
-                &quot;success&quot;, result.Success,
-                &quot;duration&quot;, result.Duration,
-            )
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">resultsCollected</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">tasks</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">pool</span><span class="p">.</span><span class="nx">GetResults</span><span class="p">():</span>
+<span class="w">            </span><span class="nx">resultsCollected</span><span class="o">++</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">result</span><span class="p">.</span><span class="nx">Success</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">errors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">errors</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">Error</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Task completed&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                </span><span class="s">&quot;task_seq&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">TaskSeq</span><span class="p">,</span>
+<span class="w">                </span><span class="s">&quot;success&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">Success</span><span class="p">,</span>
+<span class="w">                </span><span class="s">&quot;duration&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">Duration</span><span class="p">,</span>
+<span class="w">            </span><span class="p">)</span>
 
-        case err := &lt;-pool.GetErrors():
-            errors = append(errors, err)
-            resultsCollected++
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">pool</span><span class="p">.</span><span class="nx">GetErrors</span><span class="p">():</span>
+<span class="w">            </span><span class="nx">errors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">errors</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">            </span><span class="nx">resultsCollected</span><span class="o">++</span>
 
-        case &lt;-time.After(30 * time.Second):
-            return fmt.Errorf(&quot;timeout waiting for task results&quot;)
-        }
-    }
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">time</span><span class="p">.</span><span class="nx">After</span><span class="p">(</span><span class="mi">30</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">):</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;timeout waiting for task results&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Return first error if any
-    if len(errors) &gt; 0 {
-        return errors[0]
-    }
+<span class="w">    </span><span class="c1">// Return first error if any</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">errors</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">errors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return nil
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 
-// Usage in existing execution flow:
-func (executionController *PlaybookExecutionController) ProcessAndExecuteTasksParallel() error {
-    // Get tasks that can be executed in parallel
-    parallelTasks := executionController.getParallelExecutableTasks()
+<span class="c1">// Usage in existing execution flow:</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">executionController</span><span class="w"> </span><span class="o">*</span><span class="nx">PlaybookExecutionController</span><span class="p">)</span><span class="w"> </span><span class="nx">ProcessAndExecuteTasksParallel</span><span class="p">()</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Get tasks that can be executed in parallel</span>
+<span class="w">    </span><span class="nx">parallelTasks</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">executionController</span><span class="p">.</span><span class="nx">getParallelExecutableTasks</span><span class="p">()</span>
 
-    if len(parallelTasks) &gt; 1 {
-        // Execute in parallel
-        return executionController.ExecuteTasksInParallel(parallelTasks, 10)
-    } else {
-        // Execute sequentially for single task or dependent tasks
-        return executionController.executeTasksSequentially(parallelTasks)
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">parallelTasks</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Execute in parallel</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">executionController</span><span class="p">.</span><span class="nx">ExecuteTasksInParallel</span><span class="p">(</span><span class="nx">parallelTasks</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Execute sequentially for single task or dependent tasks</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">executionController</span><span class="p">.</span><span class="nx">executeTasksSequentially</span><span class="p">(</span><span class="nx">parallelTasks</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <hr />
 <h2 id="priority-4-caching-strategy-implementation-week-3-4">📋 <strong>Priority 4: Caching Strategy Implementation (Week 3-4)</strong></h2>
 <h3 id="41-multi-level-cache-manager"><strong>4.1 Multi-Level Cache Manager</strong></h3>
 <p><strong>File</strong>: Create new <code>cache/multiLevelCache.go</code></p>
-<pre class="highlight"><code class="language-go">package cache
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">cache</span>
 
-import (
-    &quot;encoding/json&quot;
-    &quot;sync&quot;
-    &quot;time&quot;
-    &quot;github.com/go-redis/redis/v8&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;encoding/json&quot;</span>
+<span class="w">    </span><span class="s">&quot;sync&quot;</span>
+<span class="w">    </span><span class="s">&quot;time&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/go-redis/redis/v8&quot;</span>
+<span class="p">)</span>
 
-type MultiLevelCacheManager struct {
-    l1Cache     *sync.Map                 // In-memory L1 cache
-    l2Cache     *redis.Client             // Redis L2 cache
-    ttlMap      *sync.Map                 // TTL tracking for L1
-    cleanupStop chan struct{}
-    mutex       sync.RWMutex
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">MultiLevelCacheManager</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">l1Cache</span><span class="w">     </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Map</span><span class="w">                 </span><span class="c1">// In-memory L1 cache</span>
+<span class="w">    </span><span class="nx">l2Cache</span><span class="w">     </span><span class="o">*</span><span class="nx">redis</span><span class="p">.</span><span class="nx">Client</span><span class="w">             </span><span class="c1">// Redis L2 cache</span>
+<span class="w">    </span><span class="nx">ttlMap</span><span class="w">      </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Map</span><span class="w">                 </span><span class="c1">// TTL tracking for L1</span>
+<span class="w">    </span><span class="nx">cleanupStop</span><span class="w"> </span><span class="kd">chan</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}</span>
+<span class="w">    </span><span class="nx">mutex</span><span class="w">       </span><span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
+<span class="p">}</span>
 
-type CacheItem struct {
-    Value     interface{}
-    ExpiresAt int64
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">CacheItem</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Value</span><span class="w">     </span><span class="kd">interface</span><span class="p">{}</span>
+<span class="w">    </span><span class="nx">ExpiresAt</span><span class="w"> </span><span class="kt">int64</span>
+<span class="p">}</span>
 
-func NewMultiLevelCacheManager(redisClient *redis.Client) *MultiLevelCacheManager {
-    manager := &amp;MultiLevelCacheManager{
-        l1Cache:     &amp;sync.Map{},
-        l2Cache:     redisClient,
-        ttlMap:      &amp;sync.Map{},
-        cleanupStop: make(chan struct{}),
-    }
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewMultiLevelCacheManager</span><span class="p">(</span><span class="nx">redisClient</span><span class="w"> </span><span class="o">*</span><span class="nx">redis</span><span class="p">.</span><span class="nx">Client</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">MultiLevelCacheManager</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">manager</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">MultiLevelCacheManager</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">l1Cache</span><span class="p">:</span><span class="w">     </span><span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Map</span><span class="p">{},</span>
+<span class="w">        </span><span class="nx">l2Cache</span><span class="p">:</span><span class="w">     </span><span class="nx">redisClient</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ttlMap</span><span class="p">:</span><span class="w">      </span><span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Map</span><span class="p">{},</span>
+<span class="w">        </span><span class="nx">cleanupStop</span><span class="p">:</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}),</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Start cleanup goroutine
-    go manager.startCleanupRoutine()
+<span class="w">    </span><span class="c1">// Start cleanup goroutine</span>
+<span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="nx">manager</span><span class="p">.</span><span class="nx">startCleanupRoutine</span><span class="p">()</span>
 
-    return manager
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">manager</span>
+<span class="p">}</span>
 
-func (cm *MultiLevelCacheManager) Get(key string) (interface{}, bool) {
-    cm.mutex.RLock()
-    defer cm.mutex.RUnlock()
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">cm</span><span class="w"> </span><span class="o">*</span><span class="nx">MultiLevelCacheManager</span><span class="p">)</span><span class="w"> </span><span class="nx">Get</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">cm</span><span class="p">.</span><span class="nx">mutex</span><span class="p">.</span><span class="nx">RLock</span><span class="p">()</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">mutex</span><span class="p">.</span><span class="nx">RUnlock</span><span class="p">()</span>
 
-    // Check L1 cache first
-    if item, exists := cm.l1Cache.Load(key); exists {
-        cacheItem := item.(CacheItem)
-        if time.Now().Unix() &lt; cacheItem.ExpiresAt {
-            return cacheItem.Value, true
-        } else {
-            // Expired, remove from L1
-            cm.l1Cache.Delete(key)
-        }
-    }
+<span class="w">    </span><span class="c1">// Check L1 cache first</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">item</span><span class="p">,</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">l1Cache</span><span class="p">.</span><span class="nx">Load</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">cacheItem</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">item</span><span class="p">.(</span><span class="nx">CacheItem</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unix</span><span class="p">()</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">cacheItem</span><span class="p">.</span><span class="nx">ExpiresAt</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">cacheItem</span><span class="p">.</span><span class="nx">Value</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Expired, remove from L1</span>
+<span class="w">            </span><span class="nx">cm</span><span class="p">.</span><span class="nx">l1Cache</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Fall back to L2 cache (Redis)
-    result, err := cm.l2Cache.Get(context.Background(), key).Result()
-    if err == nil {
-        var value interface{}
-        if err := json.Unmarshal([]byte(result), &amp;value); err == nil {
-            // Promote to L1 cache with shorter TTL
-            cm.setL1Cache(key, value, 5*time.Minute)
-            return value, true
-        }
-    }
+<span class="w">    </span><span class="c1">// Fall back to L2 cache (Redis)</span>
+<span class="w">    </span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">l2Cache</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span><span class="w"> </span><span class="nx">key</span><span class="p">).</span><span class="nx">Result</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">result</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">value</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Promote to L1 cache with shorter TTL</span>
+<span class="w">            </span><span class="nx">cm</span><span class="p">.</span><span class="nx">setL1Cache</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return nil, false
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
 
-func (cm *MultiLevelCacheManager) Set(key string, value interface{}, ttl time.Duration) error {
-    cm.mutex.Lock()
-    defer cm.mutex.Unlock()
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">cm</span><span class="w"> </span><span class="o">*</span><span class="nx">MultiLevelCacheManager</span><span class="p">)</span><span class="w"> </span><span class="nx">Set</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">ttl</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">cm</span><span class="p">.</span><span class="nx">mutex</span><span class="p">.</span><span class="nx">Lock</span><span class="p">()</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">mutex</span><span class="p">.</span><span class="nx">Unlock</span><span class="p">()</span>
 
-    // Store in L1 cache
-    cm.setL1Cache(key, value, ttl)
+<span class="w">    </span><span class="c1">// Store in L1 cache</span>
+<span class="w">    </span><span class="nx">cm</span><span class="p">.</span><span class="nx">setL1Cache</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">ttl</span><span class="p">)</span>
 
-    // Store in L2 cache (Redis)
-    data, err := json.Marshal(value)
-    if err != nil {
-        return err
-    }
+<span class="w">    </span><span class="c1">// Store in L2 cache (Redis)</span>
+<span class="w">    </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return cm.l2Cache.Set(context.Background(), key, data, ttl).Err()
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">cm</span><span class="p">.</span><span class="nx">l2Cache</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">ttl</span><span class="p">).</span><span class="nx">Err</span><span class="p">()</span>
+<span class="p">}</span>
 
-func (cm *MultiLevelCacheManager) setL1Cache(key string, value interface{}, ttl time.Duration) {
-    expiresAt := time.Now().Add(ttl).Unix()
-    cm.l1Cache.Store(key, CacheItem{
-        Value:     value,
-        ExpiresAt: expiresAt,
-    })
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">cm</span><span class="w"> </span><span class="o">*</span><span class="nx">MultiLevelCacheManager</span><span class="p">)</span><span class="w"> </span><span class="nx">setL1Cache</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="kd">interface</span><span class="p">{},</span><span class="w"> </span><span class="nx">ttl</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">expiresAt</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="nx">ttl</span><span class="p">).</span><span class="nx">Unix</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">cm</span><span class="p">.</span><span class="nx">l1Cache</span><span class="p">.</span><span class="nx">Store</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">CacheItem</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Value</span><span class="p">:</span><span class="w">     </span><span class="nx">value</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ExpiresAt</span><span class="p">:</span><span class="w"> </span><span class="nx">expiresAt</span><span class="p">,</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="p">}</span>
 
-func (cm *MultiLevelCacheManager) Delete(key string) {
-    cm.l1Cache.Delete(key)
-    cm.l2Cache.Del(context.Background(), key)
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">cm</span><span class="w"> </span><span class="o">*</span><span class="nx">MultiLevelCacheManager</span><span class="p">)</span><span class="w"> </span><span class="nx">Delete</span><span class="p">(</span><span class="nx">key</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">cm</span><span class="p">.</span><span class="nx">l1Cache</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">cm</span><span class="p">.</span><span class="nx">l2Cache</span><span class="p">.</span><span class="nx">Del</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span><span class="w"> </span><span class="nx">key</span><span class="p">)</span>
+<span class="p">}</span>
 
-func (cm *MultiLevelCacheManager) startCleanupRoutine() {
-    ticker := time.NewTicker(5 * time.Minute)
-    defer ticker.Stop()
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">cm</span><span class="w"> </span><span class="o">*</span><span class="nx">MultiLevelCacheManager</span><span class="p">)</span><span class="w"> </span><span class="nx">startCleanupRoutine</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ticker</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">NewTicker</span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">)</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">ticker</span><span class="p">.</span><span class="nx">Stop</span><span class="p">()</span>
 
-    for {
-        select {
-        case &lt;-ticker.C:
-            cm.cleanupExpiredL1Items()
-        case &lt;-cm.cleanupStop:
-            return
-        }
-    }
-}
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">select</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">ticker</span><span class="p">.</span><span class="nx">C</span><span class="p">:</span>
+<span class="w">            </span><span class="nx">cm</span><span class="p">.</span><span class="nx">cleanupExpiredL1Items</span><span class="p">()</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="o">&lt;-</span><span class="nx">cm</span><span class="p">.</span><span class="nx">cleanupStop</span><span class="p">:</span>
+<span class="w">            </span><span class="k">return</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-func (cm *MultiLevelCacheManager) cleanupExpiredL1Items() {
-    now := time.Now().Unix()
-    cm.l1Cache.Range(func(key, value interface{}) bool {
-        item := value.(CacheItem)
-        if now &gt;= item.ExpiresAt {
-            cm.l1Cache.Delete(key)
-        }
-        return true
-    })
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">cm</span><span class="w"> </span><span class="o">*</span><span class="nx">MultiLevelCacheManager</span><span class="p">)</span><span class="w"> </span><span class="nx">cleanupExpiredL1Items</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">now</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unix</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">cm</span><span class="p">.</span><span class="nx">l1Cache</span><span class="p">.</span><span class="nx">Range</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">item</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">value</span><span class="p">.(</span><span class="nx">CacheItem</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">now</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">item</span><span class="p">.</span><span class="nx">ExpiresAt</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">cm</span><span class="p">.</span><span class="nx">l1Cache</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="p">}</span>
 
-func (cm *MultiLevelCacheManager) Stop() {
-    close(cm.cleanupStop)
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">cm</span><span class="w"> </span><span class="o">*</span><span class="nx">MultiLevelCacheManager</span><span class="p">)</span><span class="w"> </span><span class="nx">Stop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nb">close</span><span class="p">(</span><span class="nx">cm</span><span class="p">.</span><span class="nx">cleanupStop</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="42-cache-integration-in-controllers"><strong>4.2 Cache Integration in Controllers</strong></h3>
 <p><strong>File</strong>: Modify <code>controllers/playbookcontroller.go</code></p>
-<pre class="highlight"><code class="language-go">// Add caching to playbook operations
-var cacheManager *cache.MultiLevelCacheManager
+<div class="highlight"><pre><span></span><code><span class="c1">// Add caching to playbook operations</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">cacheManager</span><span class="w"> </span><span class="o">*</span><span class="nx">cache</span><span class="p">.</span><span class="nx">MultiLevelCacheManager</span>
 
-func init() {
-    redisClient := cache.GetOptimizedRedisClient()
-    cacheManager = cache.NewMultiLevelCacheManager(redisClient)
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">redisClient</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cache</span><span class="p">.</span><span class="nx">GetOptimizedRedisClient</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">cacheManager</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cache</span><span class="p">.</span><span class="nx">NewMultiLevelCacheManager</span><span class="p">(</span><span class="nx">redisClient</span><span class="p">)</span>
+<span class="p">}</span>
 
-// Modify GetPlaybookByName function to use cache
-func (pc PlaybookController) GetPlaybookByName(tenantCode, playbookName string) (*models.PlaybookObject, error) {
-    cacheKey := fmt.Sprintf(&quot;playbook:%s:%s&quot;, tenantCode, playbookName)
+<span class="c1">// Modify GetPlaybookByName function to use cache</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pc</span><span class="w"> </span><span class="nx">PlaybookController</span><span class="p">)</span><span class="w"> </span><span class="nx">GetPlaybookByName</span><span class="p">(</span><span class="nx">tenantCode</span><span class="p">,</span><span class="w"> </span><span class="nx">playbookName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">PlaybookObject</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">cacheKey</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;playbook:%s:%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tenantCode</span><span class="p">,</span><span class="w"> </span><span class="nx">playbookName</span><span class="p">)</span>
 
-    // Try cache first
-    if cached, exists := cacheManager.Get(cacheKey); exists {
-        if playbook, ok := cached.(*models.PlaybookObject); ok {
-            logger.Debug(&quot;Playbook retrieved from cache&quot;, &quot;key&quot;, cacheKey)
-            return playbook, nil
-        }
-    }
+<span class="w">    </span><span class="c1">// Try cache first</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">cached</span><span class="p">,</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cacheManager</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">cacheKey</span><span class="p">);</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">playbook</span><span class="p">,</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cached</span><span class="p">.(</span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">PlaybookObject</span><span class="p">);</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Debug</span><span class="p">(</span><span class="s">&quot;Playbook retrieved from cache&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">cacheKey</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">playbook</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Cache miss - get from database
-    playbook, err := pc.getPlaybookFromDatabase(tenantCode, playbookName)
-    if err != nil {
-        return nil, err
-    }
+<span class="w">    </span><span class="c1">// Cache miss - get from database</span>
+<span class="w">    </span><span class="nx">playbook</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pc</span><span class="p">.</span><span class="nx">getPlaybookFromDatabase</span><span class="p">(</span><span class="nx">tenantCode</span><span class="p">,</span><span class="w"> </span><span class="nx">playbookName</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Store in cache for 1 hour
-    cacheManager.Set(cacheKey, playbook, 1*time.Hour)
-    logger.Debug(&quot;Playbook stored in cache&quot;, &quot;key&quot;, cacheKey)
+<span class="w">    </span><span class="c1">// Store in cache for 1 hour</span>
+<span class="w">    </span><span class="nx">cacheManager</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="nx">cacheKey</span><span class="p">,</span><span class="w"> </span><span class="nx">playbook</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Hour</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Debug</span><span class="p">(</span><span class="s">&quot;Playbook stored in cache&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">cacheKey</span><span class="p">)</span>
 
-    return playbook, nil
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">playbook</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 
-// Cache invalidation when playbook is updated
-func (pc PlaybookController) UpdatePlaybook(playbook *models.PlaybookObject) error {
-    err := pc.updatePlaybookInDatabase(playbook)
-    if err != nil {
-        return err
-    }
+<span class="c1">// Cache invalidation when playbook is updated</span>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">pc</span><span class="w"> </span><span class="nx">PlaybookController</span><span class="p">)</span><span class="w"> </span><span class="nx">UpdatePlaybook</span><span class="p">(</span><span class="nx">playbook</span><span class="w"> </span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">PlaybookObject</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pc</span><span class="p">.</span><span class="nx">updatePlaybookInDatabase</span><span class="p">(</span><span class="nx">playbook</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Invalidate cache
-    cacheKey := fmt.Sprintf(&quot;playbook:%s:%s&quot;, playbook.TenantCode, playbook.Name)
-    cacheManager.Delete(cacheKey)
+<span class="w">    </span><span class="c1">// Invalidate cache</span>
+<span class="w">    </span><span class="nx">cacheKey</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;playbook:%s:%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">playbook</span><span class="p">.</span><span class="nx">TenantCode</span><span class="p">,</span><span class="w"> </span><span class="nx">playbook</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">cacheManager</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="nx">cacheKey</span><span class="p">)</span>
 
-    return nil
-}
-</code></pre>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <hr />
 <h2 id="priority-5-memory-management-optimizations-week-4">📋 <strong>Priority 5: Memory Management Optimizations (Week 4)</strong></h2>
 <h3 id="51-object-pooling-implementation"><strong>5.1 Object Pooling Implementation</strong></h3>
 <p><strong>File</strong>: Create new <code>utils/objectPool.go</code></p>
-<pre class="highlight"><code class="language-go">package utils
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">utils</span>
 
-import (
-    &quot;sync&quot;
-    &quot;securaa_services/securaa_playbook/models&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;sync&quot;</span>
+<span class="w">    </span><span class="s">&quot;securaa_services/securaa_playbook/models&quot;</span>
+<span class="p">)</span>
 
-// Object pools for frequently allocated objects
-var (
-    taskRequestPool = sync.Pool{
-        New: func() interface{} {
-            return &amp;models.TaskRequest{}
-        },
-    }
+<span class="c1">// Object pools for frequently allocated objects</span>
+<span class="kd">var</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">taskRequestPool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">New</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">models</span><span class="p">.</span><span class="nx">TaskRequest</span><span class="p">{}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
 
-    playbookObjectPool = sync.Pool{
-        New: func() interface{} {
-            return &amp;models.PlaybookObject{}
-        },
-    }
+<span class="w">    </span><span class="nx">playbookObjectPool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">New</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">models</span><span class="p">.</span><span class="nx">PlaybookObject</span><span class="p">{}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
 
-    responsePool = sync.Pool{
-        New: func() interface{} {
-            return &amp;models.Response{}
-        },
-    }
+<span class="w">    </span><span class="nx">responsePool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">New</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">models</span><span class="p">.</span><span class="nx">Response</span><span class="p">{}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
 
-    stringBuilderPool = sync.Pool{
-        New: func() interface{} {
-            return &amp;strings.Builder{}
-        },
-    }
-)
+<span class="w">    </span><span class="nx">stringBuilderPool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">New</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">strings</span><span class="p">.</span><span class="nx">Builder</span><span class="p">{}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">)</span>
 
-// TaskRequest pool functions
-func GetTaskRequest() *models.TaskRequest {
-    req := taskRequestPool.Get().(*models.TaskRequest)
-    // Reset the object
-    *req = models.TaskRequest{}
-    return req
-}
+<span class="c1">// TaskRequest pool functions</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetTaskRequest</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">TaskRequest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">req</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">taskRequestPool</span><span class="p">.</span><span class="nx">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">TaskRequest</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// Reset the object</span>
+<span class="w">    </span><span class="o">*</span><span class="nx">req</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">TaskRequest</span><span class="p">{}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">req</span>
+<span class="p">}</span>
 
-func PutTaskRequest(req *models.TaskRequest) {
-    taskRequestPool.Put(req)
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">PutTaskRequest</span><span class="p">(</span><span class="nx">req</span><span class="w"> </span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">TaskRequest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">taskRequestPool</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span>
+<span class="p">}</span>
 
-// PlaybookObject pool functions
-func GetPlaybookObject() *models.PlaybookObject {
-    pb := playbookObjectPool.Get().(*models.PlaybookObject)
-    // Reset the object
-    *pb = models.PlaybookObject{}
-    return pb
-}
+<span class="c1">// PlaybookObject pool functions</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetPlaybookObject</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">PlaybookObject</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">pb</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">playbookObjectPool</span><span class="p">.</span><span class="nx">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">PlaybookObject</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// Reset the object</span>
+<span class="w">    </span><span class="o">*</span><span class="nx">pb</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">PlaybookObject</span><span class="p">{}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">pb</span>
+<span class="p">}</span>
 
-func PutPlaybookObject(pb *models.PlaybookObject) {
-    playbookObjectPool.Put(pb)
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">PutPlaybookObject</span><span class="p">(</span><span class="nx">pb</span><span class="w"> </span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">PlaybookObject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">playbookObjectPool</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">pb</span><span class="p">)</span>
+<span class="p">}</span>
 
-// Response pool functions
-func GetResponse() *models.Response {
-    resp := responsePool.Get().(*models.Response)
-    // Reset the object
-    *resp = models.Response{}
-    return resp
-}
+<span class="c1">// Response pool functions</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetResponse</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">Response</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">resp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">responsePool</span><span class="p">.</span><span class="nx">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">Response</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// Reset the object</span>
+<span class="w">    </span><span class="o">*</span><span class="nx">resp</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Response</span><span class="p">{}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">resp</span>
+<span class="p">}</span>
 
-func PutResponse(resp *models.Response) {
-    responsePool.Put(resp)
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">PutResponse</span><span class="p">(</span><span class="nx">resp</span><span class="w"> </span><span class="o">*</span><span class="nx">models</span><span class="p">.</span><span class="nx">Response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">responsePool</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">resp</span><span class="p">)</span>
+<span class="p">}</span>
 
-// StringBuilder pool functions
-func GetStringBuilder() *strings.Builder {
-    sb := stringBuilderPool.Get().(*strings.Builder)
-    sb.Reset()
-    return sb
-}
+<span class="c1">// StringBuilder pool functions</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetStringBuilder</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">strings</span><span class="p">.</span><span class="nx">Builder</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">sb</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">stringBuilderPool</span><span class="p">.</span><span class="nx">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">strings</span><span class="p">.</span><span class="nx">Builder</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">sb</span><span class="p">.</span><span class="nx">Reset</span><span class="p">()</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">sb</span>
+<span class="p">}</span>
 
-func PutStringBuilder(sb *strings.Builder) {
-    stringBuilderPool.Put(sb)
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">PutStringBuilder</span><span class="p">(</span><span class="nx">sb</span><span class="w"> </span><span class="o">*</span><span class="nx">strings</span><span class="p">.</span><span class="nx">Builder</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">stringBuilderPool</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">sb</span><span class="p">)</span>
+<span class="p">}</span>
 
-// Usage example in JSON response building
-func BuildJSONResponse(status string, message string, data interface{}) string {
-    sb := GetStringBuilder()
-    defer PutStringBuilder(sb)
+<span class="c1">// Usage example in JSON response building</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">BuildJSONResponse</span><span class="p">(</span><span class="nx">status</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">sb</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">GetStringBuilder</span><span class="p">()</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">PutStringBuilder</span><span class="p">(</span><span class="nx">sb</span><span class="p">)</span>
 
-    sb.WriteString(`{&quot;status&quot;:&quot;`)
-    sb.WriteString(status)
-    sb.WriteString(`&quot;,&quot;message&quot;:&quot;`)
-    sb.WriteString(message)
-    sb.WriteString(`&quot;,&quot;data&quot;:`)
+<span class="w">    </span><span class="nx">sb</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="s">`{&quot;status&quot;:&quot;`</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">sb</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">sb</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="s">`&quot;,&quot;message&quot;:&quot;`</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">sb</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">sb</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="s">`&quot;,&quot;data&quot;:`</span><span class="p">)</span>
 
-    if dataBytes, err := json.Marshal(data); err == nil {
-        sb.Write(dataBytes)
-    } else {
-        sb.WriteString(&quot;null&quot;)
-    }
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">dataBytes</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Marshal</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">sb</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">dataBytes</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">sb</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="s">&quot;null&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-    sb.WriteString(&quot;}&quot;)
-    return sb.String()
-}
-</code></pre>
+<span class="w">    </span><span class="nx">sb</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="s">&quot;}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">sb</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="52-memory-optimized-json-processing"><strong>5.2 Memory-Optimized JSON Processing</strong></h3>
 <p><strong>File</strong>: Create new <code>utils/jsonOptimizer.go</code></p>
-<pre class="highlight"><code class="language-go">package utils
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">utils</span>
 
-import (
-    &quot;encoding/json&quot;
-    &quot;io&quot;
-    &quot;bytes&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;encoding/json&quot;</span>
+<span class="w">    </span><span class="s">&quot;io&quot;</span>
+<span class="w">    </span><span class="s">&quot;bytes&quot;</span>
+<span class="p">)</span>
 
-// StreamingJSONProcessor for large JSON data
-type StreamingJSONProcessor struct {
-    decoder *json.Decoder
-    buffer  *bytes.Buffer
-}
+<span class="c1">// StreamingJSONProcessor for large JSON data</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">StreamingJSONProcessor</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">decoder</span><span class="w"> </span><span class="o">*</span><span class="nx">json</span><span class="p">.</span><span class="nx">Decoder</span>
+<span class="w">    </span><span class="nx">buffer</span><span class="w">  </span><span class="o">*</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span>
+<span class="p">}</span>
 
-func NewStreamingJSONProcessor(reader io.Reader) *StreamingJSONProcessor {
-    return &amp;StreamingJSONProcessor{
-        decoder: json.NewDecoder(reader),
-        buffer:  &amp;bytes.Buffer{},
-    }
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewStreamingJSONProcessor</span><span class="p">(</span><span class="nx">reader</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">StreamingJSONProcessor</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">StreamingJSONProcessor</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">decoder</span><span class="p">:</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">reader</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">buffer</span><span class="p">:</span><span class="w">  </span><span class="o">&amp;</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">{},</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-func (processor *StreamingJSONProcessor) ProcessLargeJSON(callback func(interface{}) error) error {
-    for processor.decoder.More() {
-        var item interface{}
-        if err := processor.decoder.Decode(&amp;item); err != nil {
-            return err
-        }
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">processor</span><span class="w"> </span><span class="o">*</span><span class="nx">StreamingJSONProcessor</span><span class="p">)</span><span class="w"> </span><span class="nx">ProcessLargeJSON</span><span class="p">(</span><span class="nx">callback</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">processor</span><span class="p">.</span><span class="nx">decoder</span><span class="p">.</span><span class="nx">More</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">processor</span><span class="p">.</span><span class="nx">decoder</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">item</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">        </span><span class="p">}</span>
 
-        if err := callback(item); err != nil {
-            return err
-        }
-    }
-    return nil
-}
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">callback</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 
-// Optimized JSON marshaling with buffer reuse
-func MarshalJSONOptimized(v interface{}) ([]byte, error) {
-    buffer := GetStringBuilder()
-    defer PutStringBuilder(buffer)
+<span class="c1">// Optimized JSON marshaling with buffer reuse</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">MarshalJSONOptimized</span><span class="p">(</span><span class="nx">v</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">buffer</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">GetStringBuilder</span><span class="p">()</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">PutStringBuilder</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span>
 
-    encoder := json.NewEncoder(buffer)
-    encoder.SetEscapeHTML(false) // Faster encoding
+<span class="w">    </span><span class="nx">encoder</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewEncoder</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">encoder</span><span class="p">.</span><span class="nx">SetEscapeHTML</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="c1">// Faster encoding</span>
 
-    if err := encoder.Encode(v); err != nil {
-        return nil, err
-    }
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">encoder</span><span class="p">.</span><span class="nx">Encode</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Remove trailing newline added by Encode
-    result := buffer.String()
-    if len(result) &gt; 0 &amp;&amp; result[len(result)-1] == '\n' {
-        result = result[:len(result)-1]
-    }
+<span class="w">    </span><span class="c1">// Remove trailing newline added by Encode</span>
+<span class="w">    </span><span class="nx">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">buffer</span><span class="p">.</span><span class="nx">String</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">result</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">result</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return []byte(result), nil
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">result</span><span class="p">),</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 
-// Schema validation with caching
-var schemaCache = sync.Map{}
+<span class="c1">// Schema validation with caching</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">schemaCache</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Map</span><span class="p">{}</span>
 
-func ValidateJSONWithCachedSchema(data []byte, schemaName string) error {
-    if schema, exists := schemaCache.Load(schemaName); exists {
-        return validateWithSchema(data, schema)
-    }
+<span class="kd">func</span><span class="w"> </span><span class="nx">ValidateJSONWithCachedSchema</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nx">schemaName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">schema</span><span class="p">,</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">schemaCache</span><span class="p">.</span><span class="nx">Load</span><span class="p">(</span><span class="nx">schemaName</span><span class="p">);</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">validateWithSchema</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">schema</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-    schema, err := loadSchema(schemaName)
-    if err != nil {
-        return err
-    }
+<span class="w">    </span><span class="nx">schema</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">loadSchema</span><span class="p">(</span><span class="nx">schemaName</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
 
-    schemaCache.Store(schemaName, schema)
-    return validateWithSchema(data, schema)
-}
-</code></pre>
+<span class="w">    </span><span class="nx">schemaCache</span><span class="p">.</span><span class="nx">Store</span><span class="p">(</span><span class="nx">schemaName</span><span class="p">,</span><span class="w"> </span><span class="nx">schema</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">validateWithSchema</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">schema</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <hr />
 <h2 id="implementation-timeline-testing-strategy">📋 <strong>Implementation Timeline &amp; Testing Strategy</strong></h2>
@@ -1517,52 +1517,52 @@ gantt
 </div>
 
 <h3 id="week-1-database-connection-optimizations"><strong>Week 1: Database &amp; Connection Optimizations</strong></h3>
-<pre class="highlight"><code class="language-bash"># Day 1-2: Database indexes
-- Create index scripts
-- Test query performance before/after
-- Monitor slow query logs
+<div class="highlight"><pre><span></span><code><span class="c1"># Day 1-2: Database indexes</span>
+-<span class="w"> </span>Create<span class="w"> </span>index<span class="w"> </span>scripts
+-<span class="w"> </span>Test<span class="w"> </span>query<span class="w"> </span>performance<span class="w"> </span>before/after
+-<span class="w"> </span>Monitor<span class="w"> </span>slow<span class="w"> </span>query<span class="w"> </span>logs
 
-# Day 3-5: Connection pool optimization
-- Implement MongoDB connection pooling
-- Configure Redis connection optimization
-- Load test with concurrent requests
-</code></pre>
+<span class="c1"># Day 3-5: Connection pool optimization</span>
+-<span class="w"> </span>Implement<span class="w"> </span>MongoDB<span class="w"> </span>connection<span class="w"> </span>pooling
+-<span class="w"> </span>Configure<span class="w"> </span>Redis<span class="w"> </span>connection<span class="w"> </span>optimization
+-<span class="w"> </span>Load<span class="w"> </span><span class="nb">test</span><span class="w"> </span>with<span class="w"> </span>concurrent<span class="w"> </span>requests
+</code></pre></div>
 
 <h3 id="week-2-parallel-processing-foundation"><strong>Week 2: Parallel Processing Foundation</strong></h3>
-<pre class="highlight"><code class="language-bash"># Day 1-3: Worker pool implementation
-- Create worker pool structure
-- Test with sample tasks
-- Benchmark sequential vs parallel
+<div class="highlight"><pre><span></span><code><span class="c1"># Day 1-3: Worker pool implementation</span>
+-<span class="w"> </span>Create<span class="w"> </span>worker<span class="w"> </span>pool<span class="w"> </span>structure
+-<span class="w"> </span>Test<span class="w"> </span>with<span class="w"> </span>sample<span class="w"> </span>tasks
+-<span class="w"> </span>Benchmark<span class="w"> </span>sequential<span class="w"> </span>vs<span class="w"> </span>parallel
 
-# Day 4-5: Integration with execution controller
-- Modify existing execution flow
-- Test parallel task execution
-- Monitor resource usage
-</code></pre>
+<span class="c1"># Day 4-5: Integration with execution controller</span>
+-<span class="w"> </span>Modify<span class="w"> </span>existing<span class="w"> </span>execution<span class="w"> </span>flow
+-<span class="w"> </span>Test<span class="w"> </span>parallel<span class="w"> </span>task<span class="w"> </span>execution
+-<span class="w"> </span>Monitor<span class="w"> </span>resource<span class="w"> </span>usage
+</code></pre></div>
 
 <h3 id="week-3-caching-memory-management"><strong>Week 3: Caching &amp; Memory Management</strong></h3>
-<pre class="highlight"><code class="language-bash"># Day 1-3: Multi-level cache implementation
-- Implement cache manager
-- Integrate with controllers
-- Test cache hit/miss ratios
+<div class="highlight"><pre><span></span><code><span class="c1"># Day 1-3: Multi-level cache implementation</span>
+-<span class="w"> </span>Implement<span class="w"> </span>cache<span class="w"> </span>manager
+-<span class="w"> </span>Integrate<span class="w"> </span>with<span class="w"> </span>controllers
+-<span class="w"> </span>Test<span class="w"> </span>cache<span class="w"> </span>hit/miss<span class="w"> </span>ratios
 
-# Day 4-5: Object pooling
-- Implement object pools
-- Integrate with request processing
-- Memory profiling and optimization
-</code></pre>
+<span class="c1"># Day 4-5: Object pooling</span>
+-<span class="w"> </span>Implement<span class="w"> </span>object<span class="w"> </span>pools
+-<span class="w"> </span>Integrate<span class="w"> </span>with<span class="w"> </span>request<span class="w"> </span>processing
+-<span class="w"> </span>Memory<span class="w"> </span>profiling<span class="w"> </span>and<span class="w"> </span>optimization
+</code></pre></div>
 
 <h3 id="week-4-performance-testing-monitoring"><strong>Week 4: Performance Testing &amp; Monitoring</strong></h3>
-<pre class="highlight"><code class="language-bash"># Day 1-3: Load testing
-- Create load test scenarios
-- Test optimized vs original code
-- Measure performance improvements
+<div class="highlight"><pre><span></span><code><span class="c1"># Day 1-3: Load testing</span>
+-<span class="w"> </span>Create<span class="w"> </span>load<span class="w"> </span><span class="nb">test</span><span class="w"> </span>scenarios
+-<span class="w"> </span>Test<span class="w"> </span>optimized<span class="w"> </span>vs<span class="w"> </span>original<span class="w"> </span>code
+-<span class="w"> </span>Measure<span class="w"> </span>performance<span class="w"> </span>improvements
 
-# Day 4-5: Monitoring implementation
-- Add performance metrics
-- Create dashboards
-- Set up alerting
-</code></pre>
+<span class="c1"># Day 4-5: Monitoring implementation</span>
+-<span class="w"> </span>Add<span class="w"> </span>performance<span class="w"> </span>metrics
+-<span class="w"> </span>Create<span class="w"> </span>dashboards
+-<span class="w"> </span>Set<span class="w"> </span>up<span class="w"> </span>alerting
+</code></pre></div>
 
 <hr />
 <h2 id="performance-optimization-workflow">📊 <strong>Performance Optimization Workflow</strong></h2>
@@ -1610,71 +1610,71 @@ flowchart TD
 <hr />
 <h2 id="performance-benchmarking-commands">📋 <strong>Performance Benchmarking Commands</strong></h2>
 <h3 id="database-performance-testing"><strong>Database Performance Testing</strong></h3>
-<pre class="highlight"><code class="language-bash"># Before optimization
-go test -bench=BenchmarkQueryPlaybooks -count=5 -benchmem
+<div class="highlight"><pre><span></span><code><span class="c1"># Before optimization</span>
+go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-bench<span class="o">=</span>BenchmarkQueryPlaybooks<span class="w"> </span>-count<span class="o">=</span><span class="m">5</span><span class="w"> </span>-benchmem
 
-# After optimization (should show 5-10x improvement)
-go test -bench=BenchmarkQueryPlaybooksOptimized -count=5 -benchmem
-</code></pre>
+<span class="c1"># After optimization (should show 5-10x improvement)</span>
+go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-bench<span class="o">=</span>BenchmarkQueryPlaybooksOptimized<span class="w"> </span>-count<span class="o">=</span><span class="m">5</span><span class="w"> </span>-benchmem
+</code></pre></div>
 
 <h3 id="concurrency-testing"><strong>Concurrency Testing</strong></h3>
-<pre class="highlight"><code class="language-bash"># Test parallel execution
-go test -bench=BenchmarkParallelExecution -count=5 -benchmem
+<div class="highlight"><pre><span></span><code><span class="c1"># Test parallel execution</span>
+go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-bench<span class="o">=</span>BenchmarkParallelExecution<span class="w"> </span>-count<span class="o">=</span><span class="m">5</span><span class="w"> </span>-benchmem
 
-# Load testing with hey tool
-hey -n 1000 -c 50 -m POST -d '{&quot;playbook_name&quot;:&quot;test&quot;}' \
-    http://localhost:8040/runplaybook/
-</code></pre>
+<span class="c1"># Load testing with hey tool</span>
+hey<span class="w"> </span>-n<span class="w"> </span><span class="m">1000</span><span class="w"> </span>-c<span class="w"> </span><span class="m">50</span><span class="w"> </span>-m<span class="w"> </span>POST<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;playbook_name&quot;:&quot;test&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>http://localhost:8040/runplaybook/
+</code></pre></div>
 
 <h3 id="memory-profiling"><strong>Memory Profiling</strong></h3>
-<pre class="highlight"><code class="language-bash"># Enable pprof in main.go
-import _ &quot;net/http/pprof&quot;
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable pprof in main.go</span>
+import<span class="w"> </span>_<span class="w"> </span><span class="s2">&quot;net/http/pprof&quot;</span>
 
-# Memory profiling
-go tool pprof http://localhost:6060/debug/pprof/heap
+<span class="c1"># Memory profiling</span>
+go<span class="w"> </span>tool<span class="w"> </span>pprof<span class="w"> </span>http://localhost:6060/debug/pprof/heap
 
-# CPU profiling during load test
-go tool pprof http://localhost:6060/debug/pprof/profile?seconds=30
-</code></pre>
+<span class="c1"># CPU profiling during load test</span>
+go<span class="w"> </span>tool<span class="w"> </span>pprof<span class="w"> </span>http://localhost:6060/debug/pprof/profile?seconds<span class="o">=</span><span class="m">30</span>
+</code></pre></div>
 
 <hr />
 <h2 id="monitoring-metrics">🔍 <strong>Monitoring &amp; Metrics</strong></h2>
 <h3 id="key-performance-indicators-to-track"><strong>Key Performance Indicators to Track</strong></h3>
-<pre class="highlight"><code class="language-go">// Add these metrics to your monitoring
-type PerformanceMetrics struct {
-    DatabaseQueryTime     time.Duration
-    CacheHitRatio        float64
-    ConcurrentExecutions int
-    MemoryUsage          int64
-    TaskThroughput       int
-    ErrorRate            float64
-}
+<div class="highlight"><pre><span></span><code><span class="c1">// Add these metrics to your monitoring</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">PerformanceMetrics</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">DatabaseQueryTime</span><span class="w">     </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span>
+<span class="w">    </span><span class="nx">CacheHitRatio</span><span class="w">        </span><span class="kt">float64</span>
+<span class="w">    </span><span class="nx">ConcurrentExecutions</span><span class="w"> </span><span class="kt">int</span>
+<span class="w">    </span><span class="nx">MemoryUsage</span><span class="w">          </span><span class="kt">int64</span>
+<span class="w">    </span><span class="nx">TaskThroughput</span><span class="w">       </span><span class="kt">int</span>
+<span class="w">    </span><span class="nx">ErrorRate</span><span class="w">            </span><span class="kt">float64</span>
+<span class="p">}</span>
 
-// Example metrics collection
-func collectMetrics() {
-    // Database query time
-    start := time.Now()
-    // ... database query
-    dbQueryTime := time.Since(start)
+<span class="c1">// Example metrics collection</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">collectMetrics</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Database query time</span>
+<span class="w">    </span><span class="nx">start</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+<span class="w">    </span><span class="c1">// ... database query</span>
+<span class="w">    </span><span class="nx">dbQueryTime</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
 
-    // Cache metrics
-    cacheHits := getCacheHits()
-    cacheMisses := getCacheMisses()
-    hitRatio := float64(cacheHits) / float64(cacheHits + cacheMisses)
+<span class="w">    </span><span class="c1">// Cache metrics</span>
+<span class="w">    </span><span class="nx">cacheHits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">getCacheHits</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">cacheMisses</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">getCacheMisses</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">hitRatio</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">float64</span><span class="p">(</span><span class="nx">cacheHits</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">float64</span><span class="p">(</span><span class="nx">cacheHits</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">cacheMisses</span><span class="p">)</span>
 
-    // Memory usage
-    var m runtime.MemStats
-    runtime.ReadMemStats(&amp;m)
-    memoryUsage := int64(m.Alloc)
+<span class="w">    </span><span class="c1">// Memory usage</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="nx">runtime</span><span class="p">.</span><span class="nx">MemStats</span>
+<span class="w">    </span><span class="nx">runtime</span><span class="p">.</span><span class="nx">ReadMemStats</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">memoryUsage</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">int64</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">Alloc</span><span class="p">)</span>
 
-    // Log metrics
-    logger.Info(&quot;Performance metrics&quot;,
-        &quot;db_query_time&quot;, dbQueryTime,
-        &quot;cache_hit_ratio&quot;, hitRatio,
-        &quot;memory_usage_mb&quot;, memoryUsage/1024/1024,
-    )
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// Log metrics</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Performance metrics&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;db_query_time&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">dbQueryTime</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;cache_hit_ratio&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">hitRatio</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;memory_usage_mb&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">memoryUsage</span><span class="o">/</span><span class="mi">1024</span><span class="o">/</span><span class="mi">1024</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <hr />
 <h2 id="implementation-notes-warnings">⚠️ <strong>Implementation Notes &amp; Warnings</strong></h2>
@@ -1802,7 +1802,7 @@ gantt
 
     <footer class="footer">
         <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
-        <p>Documentation generated on December 04, 2025</p>
+        <p>Documentation generated on December 18, 2025</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>

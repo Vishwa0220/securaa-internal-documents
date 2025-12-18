@@ -601,7 +601,7 @@ hr {
         <div class="header-content">
             <div class="header-logo">Securaa<span>Docs</span></div>
             <div class="header-meta">
-                <span>Generated: December 04, 2025</span>
+                <span>Generated: December 18, 2025</span>
             </div>
         </div>
     </header>
@@ -764,209 +764,209 @@ graph TB
 <h2 id="installation-setup">Installation &amp; Setup</h2>
 <h3 id="docker-installation-recommended">Docker Installation (Recommended)</h3>
 <h4 id="using-docker-compose">Using Docker Compose</h4>
-<pre class="highlight"><code class="language-yaml">version: '3.8'
-services:
-  ris-client:
-    image: securaa/ris-client:latest
-    container_name: ris-client
-    restart: unless-stopped
-    environment:
-      - RIS_SERVER_HOST=https://your-ris-server.com
-      - RIS_CLIENT_NAME=client-001
-      - RIS_TENANT_CODE=your-tenant
-    volumes:
-      - ./config:/app/config
-      - ./logs:/app/logs
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - &quot;9000:9000&quot;
-    networks:
-      - ris-network
-    cap_add:
-      - NET_ADMIN
-    security_opt:
-      - no-new-privileges:true
+<div class="highlight"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ris-client</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">securaa/ris-client:latest</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ris-client</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">unless-stopped</span>
+<span class="w">    </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RIS_SERVER_HOST=https://your-ris-server.com</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RIS_CLIENT_NAME=client-001</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RIS_TENANT_CODE=your-tenant</span>
+<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./config:/app/config</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./logs:/app/logs</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/var/run/docker.sock:/var/run/docker.sock</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;9000:9000&quot;</span>
+<span class="w">    </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ris-network</span>
+<span class="w">    </span><span class="nt">cap_add</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NET_ADMIN</span>
+<span class="w">    </span><span class="nt">security_opt</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no-new-privileges:true</span>
 
-networks:
-  ris-network:
-    driver: bridge
-</code></pre>
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ris-network</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge</span>
+</code></pre></div>
 
 <h4 id="using-docker-run">Using Docker Run</h4>
-<pre class="highlight"><code class="language-bash">docker run -d \
-  --name ris-client \
-  --restart unless-stopped \
-  -e RIS_SERVER_HOST=https://your-ris-server.com \
-  -e RIS_CLIENT_NAME=client-001 \
-  -e RIS_TENANT_CODE=your-tenant \
-  -v ./config:/app/config \
-  -v ./logs:/app/logs \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -p 9000:9000 \
-  --cap-add NET_ADMIN \
-  --security-opt no-new-privileges:true \
-  securaa/ris-client:latest
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>ris-client<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart<span class="w"> </span>unless-stopped<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">RIS_SERVER_HOST</span><span class="o">=</span>https://your-ris-server.com<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">RIS_CLIENT_NAME</span><span class="o">=</span>client-001<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">RIS_TENANT_CODE</span><span class="o">=</span>your-tenant<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>./config:/app/config<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>./logs:/app/logs<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>/var/run/docker.sock:/var/run/docker.sock<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">9000</span>:9000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cap-add<span class="w"> </span>NET_ADMIN<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--security-opt<span class="w"> </span>no-new-privileges:true<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>securaa/ris-client:latest
+</code></pre></div>
 
 <h3 id="binary-installation">Binary Installation</h3>
 <h4 id="download-and-install">Download and Install</h4>
-<pre class="highlight"><code class="language-bash"># Download the latest release
-wget https://github.com/securaa/ris-client/releases/latest/download/ris-client-linux-amd64.tar.gz
+<div class="highlight"><pre><span></span><code><span class="c1"># Download the latest release</span>
+wget<span class="w"> </span>https://github.com/securaa/ris-client/releases/latest/download/ris-client-linux-amd64.tar.gz
 
-# Extract the binary
-tar -xzf ris-client-linux-amd64.tar.gz
+<span class="c1"># Extract the binary</span>
+tar<span class="w"> </span>-xzf<span class="w"> </span>ris-client-linux-amd64.tar.gz
 
-# Move to system path
-sudo mv ris-client /usr/local/bin/
-sudo chmod +x /usr/local/bin/ris-client
+<span class="c1"># Move to system path</span>
+sudo<span class="w"> </span>mv<span class="w"> </span>ris-client<span class="w"> </span>/usr/local/bin/
+sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/usr/local/bin/ris-client
 
-# Create configuration directory
-sudo mkdir -p /etc/ris-client
-sudo mkdir -p /var/log/ris-client
-</code></pre>
+<span class="c1"># Create configuration directory</span>
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/ris-client
+sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/log/ris-client
+</code></pre></div>
 
 <h4 id="create-systemd-service">Create Systemd Service</h4>
-<pre class="highlight"><code class="language-bash">sudo tee /etc/systemd/system/ris-client.service &lt;&lt; EOF
-[Unit]
-Description=RIS Client Service
-After=network.target
-Wants=network.target
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/systemd/system/ris-client.service<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">[Unit]</span>
+<span class="s">Description=RIS Client Service</span>
+<span class="s">After=network.target</span>
+<span class="s">Wants=network.target</span>
 
-[Service]
-Type=simple
-User=ris-client
-Group=ris-client
-ExecStart=/usr/local/bin/ris-client
-Restart=always
-RestartSec=10
-Environment=CONFIG_PATH=/etc/ris-client/config.json
-WorkingDirectory=/opt/ris-client
+<span class="s">[Service]</span>
+<span class="s">Type=simple</span>
+<span class="s">User=ris-client</span>
+<span class="s">Group=ris-client</span>
+<span class="s">ExecStart=/usr/local/bin/ris-client</span>
+<span class="s">Restart=always</span>
+<span class="s">RestartSec=10</span>
+<span class="s">Environment=CONFIG_PATH=/etc/ris-client/config.json</span>
+<span class="s">WorkingDirectory=/opt/ris-client</span>
 
-[Install]
-WantedBy=multi-user.target
-EOF
+<span class="s">[Install]</span>
+<span class="s">WantedBy=multi-user.target</span>
+<span class="s">EOF</span>
 
-# Create user and directories
-sudo useradd -r -s /bin/false ris-client
-sudo chown -R ris-client:ris-client /etc/ris-client /var/log/ris-client
+<span class="c1"># Create user and directories</span>
+sudo<span class="w"> </span>useradd<span class="w"> </span>-r<span class="w"> </span>-s<span class="w"> </span>/bin/false<span class="w"> </span>ris-client
+sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>ris-client:ris-client<span class="w"> </span>/etc/ris-client<span class="w"> </span>/var/log/ris-client
 
-# Enable and start service
-sudo systemctl daemon-reload
-sudo systemctl enable ris-client
-sudo systemctl start ris-client
-</code></pre>
+<span class="c1"># Enable and start service</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ris-client
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>ris-client
+</code></pre></div>
 
 <h3 id="source-installation">Source Installation</h3>
 <h4 id="prerequisites">Prerequisites</h4>
-<pre class="highlight"><code class="language-bash"># Install Go 1.19+
-wget https://go.dev/dl/go1.21.3.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.21.3.linux-amd64.tar.gz
-export PATH=$PATH:/usr/local/go/bin
+<div class="highlight"><pre><span></span><code><span class="c1"># Install Go 1.19+</span>
+wget<span class="w"> </span>https://go.dev/dl/go1.21.3.linux-amd64.tar.gz
+sudo<span class="w"> </span>tar<span class="w"> </span>-C<span class="w"> </span>/usr/local<span class="w"> </span>-xzf<span class="w"> </span>go1.21.3.linux-amd64.tar.gz
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/local/go/bin
 
-# Install dependencies
-sudo apt-get update
-sudo apt-get install -y git make build-essential
-</code></pre>
+<span class="c1"># Install dependencies</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span>make<span class="w"> </span>build-essential
+</code></pre></div>
 
 <h4 id="build-from-source">Build from Source</h4>
-<pre class="highlight"><code class="language-bash"># Clone repository
-git clone https://github.com/securaa/ris-client.git
-cd ris-client
+<div class="highlight"><pre><span></span><code><span class="c1"># Clone repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/securaa/ris-client.git
+<span class="nb">cd</span><span class="w"> </span>ris-client
 
-# Build application
-make build
+<span class="c1"># Build application</span>
+make<span class="w"> </span>build
 
-# Install binary
-sudo make install
+<span class="c1"># Install binary</span>
+sudo<span class="w"> </span>make<span class="w"> </span>install
 
-# Copy configuration template
-sudo cp config/config.json.template /etc/ris-client/config.json
-</code></pre>
+<span class="c1"># Copy configuration template</span>
+sudo<span class="w"> </span>cp<span class="w"> </span>config/config.json.template<span class="w"> </span>/etc/ris-client/config.json
+</code></pre></div>
 
 <h2 id="configuration">Configuration</h2>
 <h3 id="configuration-file-structure">Configuration File Structure</h3>
-<pre class="highlight"><code class="language-json">{
-  &quot;server&quot;: {
-    &quot;host&quot;: &quot;https://ris-server.example.com&quot;,
-    &quot;port&quot;: 8057,
-    &quot;websocket_path&quot;: &quot;/pingpong&quot;,
-    &quot;api_version&quot;: &quot;v1&quot;,
-    &quot;timeout&quot;: 30,
-    &quot;retry_attempts&quot;: 3,
-    &quot;retry_delay&quot;: 5
-  },
-  &quot;client&quot;: {
-    &quot;name&quot;: &quot;ris-client-001&quot;,
-    &quot;unique_id&quot;: &quot;auto-generated-uuid&quot;,
-    &quot;tenant_code&quot;: &quot;default&quot;,
-    &quot;port&quot;: 9000,
-    &quot;host_type&quot;: &quot;auto&quot;,
-    &quot;external_ip&quot;: &quot;auto&quot;,
-    &quot;internal_ip&quot;: &quot;auto&quot;
-  },
-  &quot;security&quot;: {
-    &quot;tls&quot;: {
-      &quot;enabled&quot;: true,
-      &quot;cert_file&quot;: &quot;/etc/ris-client/certs/client.crt&quot;,
-      &quot;key_file&quot;: &quot;/etc/ris-client/certs/client.key&quot;,
-      &quot;ca_file&quot;: &quot;/etc/ris-client/certs/ca.crt&quot;,
-      &quot;verify_server&quot;: true,
-      &quot;cipher_suites&quot;: [&quot;TLS_AES_256_GCM_SHA384&quot;, &quot;TLS_CHACHA20_POLY1305_SHA256&quot;]
-    },
-    &quot;authentication&quot;: {
-      &quot;method&quot;: &quot;certificate&quot;,
-      &quot;token_refresh_interval&quot;: 3600
-    }
-  },
-  &quot;docker&quot;: {
-    &quot;enabled&quot;: true,
-    &quot;socket&quot;: &quot;/var/run/docker.sock&quot;,
-    &quot;api_version&quot;: &quot;1.41&quot;,
-    &quot;timeout&quot;: 60,
-    &quot;registry&quot;: {
-      &quot;url&quot;: &quot;registry.example.com&quot;,
-      &quot;username&quot;: &quot;&quot;,
-      &quot;password&quot;: &quot;&quot;
-    }
-  },
-  &quot;logging&quot;: {
-    &quot;level&quot;: &quot;info&quot;,
-    &quot;format&quot;: &quot;json&quot;,
-    &quot;output&quot;: &quot;file&quot;,
-    &quot;file&quot;: {
-      &quot;path&quot;: &quot;/var/log/ris-client/client.log&quot;,
-      &quot;max_size&quot;: 100,
-      &quot;max_backups&quot;: 5,
-      &quot;max_age&quot;: 30,
-      &quot;compress&quot;: true
-    },
-    &quot;audit&quot;: {
-      &quot;enabled&quot;: true,
-      &quot;file&quot;: &quot;/var/log/ris-client/audit.log&quot;
-    }
-  },
-  &quot;monitoring&quot;: {
-    &quot;enabled&quot;: true,
-    &quot;interval&quot;: 30,
-    &quot;health_check&quot;: {
-      &quot;endpoint&quot;: &quot;/health&quot;,
-      &quot;timeout&quot;: 10
-    },
-    &quot;metrics&quot;: {
-      &quot;enabled&quot;: true,
-      &quot;port&quot;: 9001,
-      &quot;path&quot;: &quot;/metrics&quot;
-    }
-  },
-  &quot;features&quot;: {
-    &quot;task_execution&quot;: true,
-    &quot;service_management&quot;: true,
-    &quot;health_monitoring&quot;: true,
-    &quot;auto_update&quot;: false,
-    &quot;debug_mode&quot;: false
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://ris-server.example.com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8057</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;websocket_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/pingpong&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;api_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;retry_attempts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;retry_delay&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;client&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ris-client-001&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;unique_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auto-generated-uuid&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tenant_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;host_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;external_ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;internal_ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auto&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;security&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;tls&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cert_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/ris-client/certs/client.crt&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;key_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/ris-client/certs/client.key&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ca_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/ris-client/certs/ca.crt&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;verify_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cipher_suites&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;TLS_AES_256_GCM_SHA384&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;TLS_CHACHA20_POLY1305_SHA256&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;authentication&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;certificate&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;token_refresh_interval&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3600</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;docker&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;socket&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/run/docker.sock&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;api_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.41&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;registry&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;registry.example.com&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/log/ris-client/client.log&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;max_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;max_backups&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;max_age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;compress&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;audit&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/log/ris-client/audit.log&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;monitoring&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;interval&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;health_check&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/health&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;metrics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9001</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/metrics&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;features&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;task_execution&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;service_management&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;health_monitoring&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;auto_update&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;debug_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="environment-variables">Environment Variables</h3>
 <p>The RIS Client supports configuration through environment variables:</p>
@@ -1031,591 +1031,591 @@ sudo cp config/config.json.template /etc/ris-client/config.json
 <li><strong><code>nat</code></strong>: Behind NAT/firewall</li>
 </ul>
 <h4 id="ip-address-configuration">IP Address Configuration</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;client&quot;: {
-    &quot;ip_detection&quot;: {
-      &quot;method&quot;: &quot;auto&quot;,
-      &quot;external_ip_services&quot;: [
-        &quot;https://api.ipify.org&quot;,
-        &quot;https://checkip.amazonaws.com&quot;,
-        &quot;https://icanhazip.com&quot;
-      ],
-      &quot;timeout&quot;: 10,
-      &quot;fallback_ip&quot;: &quot;127.0.0.1&quot;
-    }
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;client&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ip_detection&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;external_ip_services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;https://api.ipify.org&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;https://checkip.amazonaws.com&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;https://icanhazip.com&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;fallback_ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="api-reference">API Reference</h2>
 <h3 id="rest-api-endpoints">REST API Endpoints</h3>
 <h4 id="health-check">Health Check</h4>
-<pre class="highlight"><code class="language-http">GET /health
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="err">GET /health</span>
+</code></pre></div>
 
 <p><strong>Response:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;status&quot;: &quot;healthy&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;uptime&quot;: 3600,
-  &quot;connections&quot;: {
-    &quot;server&quot;: &quot;connected&quot;,
-    &quot;docker&quot;: &quot;available&quot;
-  },
-  &quot;resources&quot;: {
-    &quot;cpu_usage&quot;: 25.5,
-    &quot;memory_usage&quot;: 512,
-    &quot;disk_usage&quot;: 75.2
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;healthy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;uptime&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3600</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;connections&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connected&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;docker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;available&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;cpu_usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.5</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;memory_usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;disk_usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">75.2</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="task-execution">Task Execution</h4>
-<pre class="highlight"><code class="language-http">POST /runtask/
-Content-Type: application/json
+<div class="highlight"><pre><span></span><code><span class="err">POST /runtask/</span>
+<span class="err">Content-Type: application/json</span>
 
-{
-  &quot;method&quot;: &quot;GET&quot;,
-  &quot;resturl&quot;: &quot;https://api.example.com/status&quot;,
-  &quot;headers&quot;: &quot;{\&quot;Authorization\&quot;: \&quot;Bearer token\&quot;}&quot;,
-  &quot;authtype&quot;: &quot;bearer&quot;,
-  &quot;bearertoken&quot;: &quot;jwt-token&quot;
-}
-</code></pre>
+<span class="err">{</span>
+<span class="err">  &quot;method&quot;: &quot;GET&quot;,</span>
+<span class="err">  &quot;resturl&quot;: &quot;https://api.example.com/status&quot;,</span>
+<span class="err">  &quot;headers&quot;: &quot;{\&quot;Authorization\&quot;: \&quot;Bearer token\&quot;}&quot;,</span>
+<span class="err">  &quot;authtype&quot;: &quot;bearer&quot;,</span>
+<span class="err">  &quot;bearertoken&quot;: &quot;jwt-token&quot;</span>
+<span class="err">}</span>
+</code></pre></div>
 
 <p><strong>Response:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;success&quot;: true,
-  &quot;data&quot;: {
-    &quot;status_code&quot;: 200,
-    &quot;headers&quot;: {},
-    &quot;body&quot;: &quot;response data&quot;
-  },
-  &quot;execution_time&quot;: 1250,
-  &quot;timestamp&quot;: &quot;2025-10-07T10:30:00Z&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;status_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">    </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;response data&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;execution_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1250</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-10-07T10:30:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="service-management">Service Management</h4>
-<pre class="highlight"><code class="language-http">POST /manageservices/
-Content-Type: application/json
+<div class="highlight"><pre><span></span><code><span class="err">POST /manageservices/</span>
+<span class="err">Content-Type: application/json</span>
 
-{
-  &quot;action&quot;: &quot;deploy&quot;,
-  &quot;service_name&quot;: &quot;web-app&quot;,
-  &quot;image&quot;: &quot;nginx:latest&quot;,
-  &quot;replicas&quot;: 3,
-  &quot;ports&quot;: [
-    {
-      &quot;containerPort&quot;: 80,
-      &quot;hostPort&quot;: 8080
-    }
-  ],
-  &quot;environment&quot;: {
-    &quot;ENV&quot;: &quot;production&quot;
-  }
-}
-</code></pre>
+<span class="err">{</span>
+<span class="err">  &quot;action&quot;: &quot;deploy&quot;,</span>
+<span class="err">  &quot;service_name&quot;: &quot;web-app&quot;,</span>
+<span class="err">  &quot;image&quot;: &quot;nginx:latest&quot;,</span>
+<span class="err">  &quot;replicas&quot;: 3,</span>
+<span class="err">  &quot;ports&quot;: [</span>
+<span class="err">    {</span>
+<span class="err">      &quot;containerPort&quot;: 80,</span>
+<span class="err">      &quot;hostPort&quot;: 8080</span>
+<span class="err">    }</span>
+<span class="err">  ],</span>
+<span class="err">  &quot;environment&quot;: {</span>
+<span class="err">    &quot;ENV&quot;: &quot;production&quot;</span>
+<span class="err">  }</span>
+<span class="err">}</span>
+</code></pre></div>
 
 <p><strong>Response:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;success&quot;: true,
-  &quot;service_id&quot;: &quot;service_web-app_123&quot;,
-  &quot;status&quot;: &quot;deployed&quot;,
-  &quot;message&quot;: &quot;Service deployed successfully&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service_web-app_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deployed&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Service deployed successfully&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="websocket-communication">WebSocket Communication</h3>
 <h4 id="connection-establishment">Connection Establishment</h4>
-<pre class="highlight"><code class="language-javascript">const ws = new WebSocket('wss://client-ip:9000/pingpong');
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">ws</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">WebSocket</span><span class="p">(</span><span class="s1">&#39;wss://client-ip:9000/pingpong&#39;</span><span class="p">);</span>
 
-ws.onopen = function(event) {
-    console.log('Connected to RIS Client');
+<span class="nx">ws</span><span class="p">.</span><span class="nx">onopen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Connected to RIS Client&#39;</span><span class="p">);</span>
 
-    // Send registration
-    ws.send(JSON.stringify({
-        type: 'register',
-        client_id: 'client-001',
-        capabilities: ['task_execution', 'service_management']
-    }));
-};
-</code></pre>
+<span class="w">    </span><span class="c1">// Send registration</span>
+<span class="w">    </span><span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;register&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">client_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;client-001&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">capabilities</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;task_execution&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;service_management&#39;</span><span class="p">]</span>
+<span class="w">    </span><span class="p">}));</span>
+<span class="p">};</span>
+</code></pre></div>
 
 <h4 id="message-types">Message Types</h4>
 <p><strong>Registration Message:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;type&quot;: &quot;register&quot;,
-  &quot;client_id&quot;: &quot;client-001&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;capabilities&quot;: [&quot;task_execution&quot;, &quot;service_management&quot;],
-  &quot;timestamp&quot;: &quot;2025-10-07T10:30:00Z&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;register&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;client-001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;capabilities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;task_execution&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;service_management&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-10-07T10:30:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p><strong>Task Execution Message:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;type&quot;: &quot;execute_task&quot;,
-  &quot;task_id&quot;: &quot;task-123&quot;,
-  &quot;payload&quot;: {
-    &quot;method&quot;: &quot;POST&quot;,
-    &quot;url&quot;: &quot;https://api.example.com/endpoint&quot;,
-    &quot;data&quot;: &quot;request data&quot;
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;execute_task&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;task_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task-123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.example.com/endpoint&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;request data&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p><strong>Status Update Message:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;type&quot;: &quot;status_update&quot;,
-  &quot;status&quot;: &quot;running&quot;,
-  &quot;services&quot;: [
-    {
-      &quot;name&quot;: &quot;web-app&quot;,
-      &quot;status&quot;: &quot;running&quot;,
-      &quot;replicas&quot;: 3
-    }
-  ],
-  &quot;resources&quot;: {
-    &quot;cpu&quot;: 25.5,
-    &quot;memory&quot;: 512,
-    &quot;disk&quot;: 75.2
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status_update&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web-app&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;replicas&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;cpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">25.5</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;disk&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">75.2</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="task-execution_1">Task Execution</h2>
 <h3 id="supported-task-types">Supported Task Types</h3>
 <h4 id="http-requests">HTTP Requests</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;method&quot;: &quot;POST&quot;,
-  &quot;resturl&quot;: &quot;https://api.example.com/users&quot;,
-  &quot;headers&quot;: &quot;{\&quot;Content-Type\&quot;: \&quot;application/json\&quot;}&quot;,
-  &quot;data&quot;: &quot;{\&quot;name\&quot;: \&quot;John Doe\&quot;, \&quot;email\&quot;: \&quot;john@example.com\&quot;}&quot;,
-  &quot;authtype&quot;: &quot;bearer&quot;,
-  &quot;bearertoken&quot;: &quot;jwt-token-here&quot;,
-  &quot;timeout&quot;: 30
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resturl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.example.com/users&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;Content-Type\&quot;: \&quot;application/json\&quot;}&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;name\&quot;: \&quot;John Doe\&quot;, \&quot;email\&quot;: \&quot;john@example.com\&quot;}&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;authtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;bearertoken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jwt-token-here&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="system-commands">System Commands</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;type&quot;: &quot;command&quot;,
-  &quot;command&quot;: &quot;systemctl status nginx&quot;,
-  &quot;timeout&quot;: 10,
-  &quot;environment&quot;: {
-    &quot;PATH&quot;: &quot;/usr/local/bin:/usr/bin:/bin&quot;
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;systemctl status nginx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;environment&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;PATH&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/usr/local/bin:/usr/bin:/bin&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="docker-operations">Docker Operations</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;type&quot;: &quot;docker&quot;,
-  &quot;operation&quot;: &quot;container_list&quot;,
-  &quot;filters&quot;: {
-    &quot;status&quot;: &quot;running&quot;
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;docker&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;operation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;container_list&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;filters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="authentication-methods">Authentication Methods</h3>
 <h4 id="bearer-token">Bearer Token</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;authtype&quot;: &quot;bearer&quot;,
-  &quot;bearertoken&quot;: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;authtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;bearertoken&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="basic-authentication">Basic Authentication</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;authtype&quot;: &quot;basic&quot;,
-  &quot;username&quot;: &quot;admin&quot;,
-  &quot;password&quot;: &quot;secure-password&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;authtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;basic&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;secure-password&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="custom-headers">Custom Headers</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;authtype&quot;: &quot;custom&quot;,
-  &quot;headers&quot;: &quot;{\&quot;X-API-Key\&quot;: \&quot;api-key-value\&quot;, \&quot;X-Client-ID\&quot;: \&quot;client-123\&quot;}&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;authtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;custom&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;headers&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;X-API-Key\&quot;: \&quot;api-key-value\&quot;, \&quot;X-Client-ID\&quot;: \&quot;client-123\&quot;}&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="error-handling">Error Handling</h3>
 <h4 id="task-execution-errors">Task Execution Errors</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;success&quot;: false,
-  &quot;error&quot;: &quot;connection_timeout&quot;,
-  &quot;message&quot;: &quot;Request timed out after 30 seconds&quot;,
-  &quot;error_code&quot;: &quot;TIMEOUT_001&quot;,
-  &quot;details&quot;: {
-    &quot;url&quot;: &quot;https://api.example.com/endpoint&quot;,
-    &quot;timeout&quot;: 30,
-    &quot;retry_count&quot;: 3
-  },
-  &quot;timestamp&quot;: &quot;2025-10-07T10:30:00Z&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connection_timeout&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Request timed out after 30 seconds&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;error_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TIMEOUT_001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;details&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.example.com/endpoint&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;retry_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-10-07T10:30:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="retry-logic">Retry Logic</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;retry_policy&quot;: {
-    &quot;max_attempts&quot;: 3,
-    &quot;backoff_strategy&quot;: &quot;exponential&quot;,
-    &quot;initial_delay&quot;: 1000,
-    &quot;max_delay&quot;: 30000,
-    &quot;retry_conditions&quot;: [
-      &quot;network_error&quot;,
-      &quot;timeout&quot;,
-      &quot;server_error_5xx&quot;
-    ]
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;retry_policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;max_attempts&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;backoff_strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;exponential&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;initial_delay&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;max_delay&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;retry_conditions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;network_error&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;timeout&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;server_error_5xx&quot;</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="docker-service-management">Docker Service Management</h2>
 <h3 id="service-deployment">Service Deployment</h3>
 <h4 id="basic-deployment">Basic Deployment</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;action&quot;: &quot;deploy&quot;,
-  &quot;service_name&quot;: &quot;web-server&quot;,
-  &quot;image&quot;: &quot;nginx:1.21-alpine&quot;,
-  &quot;replicas&quot;: 2,
-  &quot;ports&quot;: [
-    {
-      &quot;containerPort&quot;: 80,
-      &quot;hostPort&quot;: 8080,
-      &quot;protocol&quot;: &quot;TCP&quot;
-    }
-  ],
-  &quot;environment&quot;: {
-    &quot;NGINX_HOST&quot;: &quot;localhost&quot;,
-    &quot;NGINX_PORT&quot;: &quot;80&quot;
-  },
-  &quot;volumes&quot;: [
-    {
-      &quot;host_path&quot;: &quot;/var/www/html&quot;,
-      &quot;container_path&quot;: &quot;/usr/share/nginx/html&quot;,
-      &quot;mode&quot;: &quot;ro&quot;
-    }
-  ],
-  &quot;networks&quot;: [&quot;web-network&quot;],
-  &quot;restart_policy&quot;: &quot;unless-stopped&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deploy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web-server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nginx:1.21-alpine&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;replicas&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ports&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;containerPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;hostPort&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8080</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TCP&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;environment&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;NGINX_HOST&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;NGINX_PORT&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;80&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;volumes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;host_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/www/html&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;container_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/usr/share/nginx/html&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ro&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;networks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;web-network&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;restart_policy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;unless-stopped&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="advanced-deployment-with-health-checks">Advanced Deployment with Health Checks</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;action&quot;: &quot;deploy&quot;,
-  &quot;service_name&quot;: &quot;api-server&quot;,
-  &quot;image&quot;: &quot;myapp/api:v1.2.3&quot;,
-  &quot;replicas&quot;: 3,
-  &quot;deploy_config&quot;: {
-    &quot;update_strategy&quot;: &quot;rolling&quot;,
-    &quot;max_replicas_unavailable&quot;: 1,
-    &quot;health_check&quot;: {
-      &quot;test&quot;: [&quot;CMD&quot;, &quot;curl&quot;, &quot;-f&quot;, &quot;http://localhost:8080/health&quot;],
-      &quot;interval&quot;: &quot;30s&quot;,
-      &quot;timeout&quot;: &quot;10s&quot;,
-      &quot;retries&quot;: 3,
-      &quot;start_period&quot;: &quot;60s&quot;
-    }
-  },
-  &quot;resources&quot;: {
-    &quot;limits&quot;: {
-      &quot;memory&quot;: &quot;512m&quot;,
-      &quot;cpu&quot;: &quot;0.5&quot;
-    },
-    &quot;reservations&quot;: {
-      &quot;memory&quot;: &quot;256m&quot;,
-      &quot;cpu&quot;: &quot;0.25&quot;
-    }
-  },
-  &quot;secrets&quot;: [
-    {
-      &quot;name&quot;: &quot;db-password&quot;,
-      &quot;target&quot;: &quot;/run/secrets/db_password&quot;
-    }
-  ],
-  &quot;configs&quot;: [
-    {
-      &quot;name&quot;: &quot;app-config&quot;,
-      &quot;target&quot;: &quot;/etc/app/config.yml&quot;
-    }
-  ]
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deploy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;api-server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myapp/api:v1.2.3&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;replicas&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;deploy_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;update_strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rolling&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;max_replicas_unavailable&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;health_check&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;test&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;CMD&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;curl&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;-f&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;http://localhost:8080/health&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;interval&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30s&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10s&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;retries&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;start_period&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;60s&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;resources&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;limits&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;512m&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;reservations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;256m&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cpu&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.25&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;secrets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;db-password&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/run/secrets/db_password&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;configs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;app-config&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;target&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/app/config.yml&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="service-operations">Service Operations</h3>
 <h4 id="scale-service">Scale Service</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;action&quot;: &quot;scale&quot;,
-  &quot;service_name&quot;: &quot;web-server&quot;,
-  &quot;replicas&quot;: 5
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web-server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;replicas&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="update-service">Update Service</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;action&quot;: &quot;update&quot;,
-  &quot;service_name&quot;: &quot;api-server&quot;,
-  &quot;image&quot;: &quot;myapp/api:v1.2.4&quot;,
-  &quot;update_strategy&quot;: &quot;rolling&quot;,
-  &quot;update_config&quot;: {
-    &quot;parallelism&quot;: 1,
-    &quot;delay&quot;: &quot;10s&quot;,
-    &quot;failure_action&quot;: &quot;rollback&quot;,
-    &quot;monitor&quot;: &quot;30s&quot;
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;api-server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myapp/api:v1.2.4&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;update_strategy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rolling&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;update_config&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;parallelism&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;delay&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10s&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;failure_action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rollback&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;monitor&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30s&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="stop-service">Stop Service</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;action&quot;: &quot;stop&quot;,
-  &quot;service_name&quot;: &quot;web-server&quot;,
-  &quot;timeout&quot;: 30
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stop&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web-server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="remove-service">Remove Service</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;action&quot;: &quot;remove&quot;,
-  &quot;service_name&quot;: &quot;web-server&quot;,
-  &quot;force&quot;: false
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;remove&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web-server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;force&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="service-monitoring">Service Monitoring</h3>
 <h4 id="get-service-status">Get Service Status</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;action&quot;: &quot;status&quot;,
-  &quot;service_name&quot;: &quot;web-server&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;status&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web-server&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p><strong>Response:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;success&quot;: true,
-  &quot;data&quot;: {
-    &quot;service_name&quot;: &quot;web-server&quot;,
-    &quot;status&quot;: &quot;running&quot;,
-    &quot;replicas&quot;: {
-      &quot;desired&quot;: 3,
-      &quot;running&quot;: 3,
-      &quot;ready&quot;: 3
-    },
-    &quot;image&quot;: &quot;nginx:1.21-alpine&quot;,
-    &quot;created&quot;: &quot;2025-10-07T10:00:00Z&quot;,
-    &quot;updated&quot;: &quot;2025-10-07T10:30:00Z&quot;,
-    &quot;tasks&quot;: [
-      {
-        &quot;id&quot;: &quot;task_123&quot;,
-        &quot;node&quot;: &quot;worker-1&quot;,
-        &quot;status&quot;: &quot;running&quot;,
-        &quot;current_state&quot;: &quot;running&quot;,
-        &quot;desired_state&quot;: &quot;running&quot;
-      }
-    ]
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;service_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web-server&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;replicas&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;desired&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;running&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ready&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;image&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nginx:1.21-alpine&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-10-07T10:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;updated&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-10-07T10:30:00Z&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_123&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;worker-1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;current_state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;desired_state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="list-all-services">List All Services</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;action&quot;: &quot;list&quot;,
-  &quot;filters&quot;: {
-    &quot;status&quot;: &quot;running&quot;
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;filters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="docker-compose-support">Docker Compose Support</h3>
 <h4 id="deploy-stack">Deploy Stack</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;action&quot;: &quot;deploy_stack&quot;,
-  &quot;stack_name&quot;: &quot;webapp&quot;,
-  &quot;compose_content&quot;: &quot;version: '3.8'\nservices:\n  web:\n    image: nginx:latest\n    ports:\n      - 80:80&quot;,
-  &quot;environment_file&quot;: &quot;.env&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;deploy_stack&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;stack_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webapp&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;compose_content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;version: &#39;3.8&#39;\nservices:\n  web:\n    image: nginx:latest\n    ports:\n      - 80:80&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;environment_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;.env&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="remove-stack">Remove Stack</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;action&quot;: &quot;remove_stack&quot;,
-  &quot;stack_name&quot;: &quot;webapp&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;remove_stack&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;stack_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;webapp&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="security-features">Security Features</h2>
 <h3 id="tls-configuration">TLS Configuration</h3>
 <h4 id="certificate-management">Certificate Management</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;security&quot;: {
-    &quot;tls&quot;: {
-      &quot;enabled&quot;: true,
-      &quot;cert_file&quot;: &quot;/etc/ris-client/certs/client.crt&quot;,
-      &quot;key_file&quot;: &quot;/etc/ris-client/certs/client.key&quot;,
-      &quot;ca_file&quot;: &quot;/etc/ris-client/certs/ca.crt&quot;,
-      &quot;verify_server&quot;: true,
-      &quot;min_version&quot;: &quot;1.2&quot;,
-      &quot;max_version&quot;: &quot;1.3&quot;,
-      &quot;cipher_suites&quot;: [
-        &quot;TLS_AES_256_GCM_SHA384&quot;,
-        &quot;TLS_CHACHA20_POLY1305_SHA256&quot;,
-        &quot;TLS_AES_128_GCM_SHA256&quot;
-      ]
-    }
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;security&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;tls&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cert_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/ris-client/certs/client.crt&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;key_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/ris-client/certs/client.key&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;ca_file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/etc/ris-client/certs/ca.crt&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;verify_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;min_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;max_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.3&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;cipher_suites&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;TLS_AES_256_GCM_SHA384&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;TLS_CHACHA20_POLY1305_SHA256&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;TLS_AES_128_GCM_SHA256&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="certificate-rotation">Certificate Rotation</h4>
-<pre class="highlight"><code class="language-bash"># Automatic certificate rotation
-ris-client cert rotate --ca-cert /path/to/new-ca.crt
+<div class="highlight"><pre><span></span><code><span class="c1"># Automatic certificate rotation</span>
+ris-client<span class="w"> </span>cert<span class="w"> </span>rotate<span class="w"> </span>--ca-cert<span class="w"> </span>/path/to/new-ca.crt
 
-# Manual certificate update
-ris-client cert update \
-  --cert /path/to/new-client.crt \
-  --key /path/to/new-client.key \
-  --restart
-</code></pre>
+<span class="c1"># Manual certificate update</span>
+ris-client<span class="w"> </span>cert<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--cert<span class="w"> </span>/path/to/new-client.crt<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--key<span class="w"> </span>/path/to/new-client.key<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart
+</code></pre></div>
 
 <h3 id="access-control">Access Control</h3>
 <h4 id="role-based-permissions">Role-Based Permissions</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;security&quot;: {
-    &quot;rbac&quot;: {
-      &quot;enabled&quot;: true,
-      &quot;roles&quot;: {
-        &quot;admin&quot;: {
-          &quot;permissions&quot;: [&quot;*&quot;]
-        },
-        &quot;operator&quot;: {
-          &quot;permissions&quot;: [
-            &quot;task:execute&quot;,
-            &quot;service:read&quot;,
-            &quot;service:deploy&quot;,
-            &quot;service:scale&quot;
-          ]
-        },
-        &quot;readonly&quot;: {
-          &quot;permissions&quot;: [
-            &quot;service:read&quot;,
-            &quot;health:read&quot;
-          ]
-        }
-      }
-    }
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;security&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;rbac&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;roles&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;admin&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;operator&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;task:execute&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;service:read&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;service:deploy&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;service:scale&quot;</span>
+<span class="w">          </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;readonly&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;service:read&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;health:read&quot;</span>
+<span class="w">          </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="ip-whitelist">IP Whitelist</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;security&quot;: {
-    &quot;network&quot;: {
-      &quot;allowed_ips&quot;: [
-        &quot;10.0.0.0/8&quot;,
-        &quot;172.16.0.0/12&quot;,
-        &quot;192.168.0.0/16&quot;,
-        &quot;203.0.113.0/24&quot;
-      ],
-      &quot;deny_all_others&quot;: true
-    }
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;security&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;network&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;allowed_ips&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;10.0.0.0/8&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;172.16.0.0/12&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;192.168.0.0/16&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;203.0.113.0/24&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;deny_all_others&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="audit-logging">Audit Logging</h3>
 <h4 id="audit-configuration">Audit Configuration</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;logging&quot;: {
-    &quot;audit&quot;: {
-      &quot;enabled&quot;: true,
-      &quot;file&quot;: &quot;/var/log/ris-client/audit.log&quot;,
-      &quot;max_size&quot;: 100,
-      &quot;events&quot;: [
-        &quot;authentication&quot;,
-        &quot;task_execution&quot;,
-        &quot;service_management&quot;,
-        &quot;configuration_change&quot;,
-        &quot;security_event&quot;
-      ],
-      &quot;format&quot;: &quot;json&quot;,
-      &quot;include_payload&quot;: false
-    }
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;audit&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/log/ris-client/audit.log&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;max_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;events&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;authentication&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;task_execution&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;service_management&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;configuration_change&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;security_event&quot;</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;json&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;include_payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="audit-event-example">Audit Event Example</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;timestamp&quot;: &quot;2025-10-07T10:30:00Z&quot;,
-  &quot;event_type&quot;: &quot;task_execution&quot;,
-  &quot;user&quot;: &quot;admin@example.com&quot;,
-  &quot;source_ip&quot;: &quot;192.168.1.100&quot;,
-  &quot;action&quot;: &quot;execute_http_task&quot;,
-  &quot;resource&quot;: &quot;https://api.example.com/users&quot;,
-  &quot;result&quot;: &quot;success&quot;,
-  &quot;duration&quot;: 1250,
-  &quot;metadata&quot;: {
-    &quot;task_id&quot;: &quot;task-123&quot;,
-    &quot;method&quot;: &quot;GET&quot;,
-    &quot;status_code&quot;: 200
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-10-07T10:30:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;event_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_execution&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin@example.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;source_ip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;192.168.1.100&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;execute_http_task&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.example.com/users&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1250</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;task_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task-123&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;status_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="monitoring-logging">Monitoring &amp; Logging</h2>
 <h3 id="health-monitoring">Health Monitoring</h3>
 <h4 id="health-check-endpoint">Health Check Endpoint</h4>
-<pre class="highlight"><code class="language-http">GET /health
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="err">GET /health</span>
+</code></pre></div>
 
 <p><strong>Response:</strong></p>
-<pre class="highlight"><code class="language-json">{
-  &quot;status&quot;: &quot;healthy&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;uptime&quot;: &quot;2h30m15s&quot;,
-  &quot;components&quot;: {
-    &quot;server_connection&quot;: {
-      &quot;status&quot;: &quot;connected&quot;,
-      &quot;last_ping&quot;: &quot;2025-10-07T10:29:45Z&quot;,
-      &quot;latency&quot;: 45
-    },
-    &quot;docker&quot;: {
-      &quot;status&quot;: &quot;available&quot;,
-      &quot;version&quot;: &quot;20.10.17&quot;,
-      &quot;containers_running&quot;: 12
-    },
-    &quot;filesystem&quot;: {
-      &quot;status&quot;: &quot;healthy&quot;,
-      &quot;usage&quot;: {
-        &quot;total&quot;: &quot;100GB&quot;,
-        &quot;used&quot;: &quot;75GB&quot;,
-        &quot;available&quot;: &quot;25GB&quot;
-      }
-    },
-    &quot;memory&quot;: {
-      &quot;status&quot;: &quot;healthy&quot;,
-      &quot;usage&quot;: {
-        &quot;total&quot;: &quot;8GB&quot;,
-        &quot;used&quot;: &quot;2GB&quot;,
-        &quot;available&quot;: &quot;6GB&quot;
-      }
-    }
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;healthy&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;uptime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2h30m15s&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;components&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;server_connection&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;connected&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;last_ping&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-10-07T10:29:45Z&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;latency&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;docker&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;available&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;20.10.17&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;containers_running&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;filesystem&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;healthy&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;100GB&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;used&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;75GB&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;available&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;25GB&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;healthy&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8GB&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;used&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2GB&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;available&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;6GB&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="metrics-endpoint">Metrics Endpoint</h4>
-<pre class="highlight"><code class="language-http">GET /metrics
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="err">GET /metrics</span>
+</code></pre></div>
 
 <p><strong>Prometheus Format Response:</strong></p>
-<pre class="highlight"><code class="language-text"># HELP ris_client_uptime_seconds Total uptime in seconds
+<div class="highlight"><pre><span></span><code># HELP ris_client_uptime_seconds Total uptime in seconds
 # TYPE ris_client_uptime_seconds counter
 ris_client_uptime_seconds 9015
 
@@ -1631,105 +1631,105 @@ ris_client_services_running 8
 # HELP ris_client_memory_usage_bytes Memory usage in bytes
 # TYPE ris_client_memory_usage_bytes gauge
 ris_client_memory_usage_bytes 536870912
-</code></pre>
+</code></pre></div>
 
 <h3 id="logging-configuration">Logging Configuration</h3>
 <h4 id="structured-logging">Structured Logging</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;logging&quot;: {
-    &quot;level&quot;: &quot;info&quot;,
-    &quot;format&quot;: &quot;json&quot;,
-    &quot;output&quot;: &quot;file&quot;,
-    &quot;file&quot;: {
-      &quot;path&quot;: &quot;/var/log/ris-client/client.log&quot;,
-      &quot;max_size&quot;: 100,
-      &quot;max_backups&quot;: 5,
-      &quot;max_age&quot;: 30,
-      &quot;compress&quot;: true
-    },
-    &quot;console&quot;: {
-      &quot;enabled&quot;: true,
-      &quot;level&quot;: &quot;error&quot;
-    },
-    &quot;fields&quot;: {
-      &quot;service&quot;: &quot;ris-client&quot;,
-      &quot;version&quot;: &quot;1.0.0&quot;,
-      &quot;environment&quot;: &quot;production&quot;
-    }
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;json&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/log/ris-client/client.log&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;max_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;max_backups&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;max_age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;compress&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;console&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ris-client&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;environment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;production&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="log-example">Log Example</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;timestamp&quot;: &quot;2025-10-07T10:30:00Z&quot;,
-  &quot;level&quot;: &quot;info&quot;,
-  &quot;message&quot;: &quot;Task executed successfully&quot;,
-  &quot;service&quot;: &quot;ris-client&quot;,
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;task_id&quot;: &quot;task-123&quot;,
-  &quot;method&quot;: &quot;GET&quot;,
-  &quot;url&quot;: &quot;https://api.example.com/status&quot;,
-  &quot;duration&quot;: 1250,
-  &quot;status_code&quot;: 200,
-  &quot;correlation_id&quot;: &quot;req-456&quot;
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-10-07T10:30:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task executed successfully&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;service&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ris-client&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;task_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task-123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.example.com/status&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;duration&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1250</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;status_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;correlation_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;req-456&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="monitoring-integration">Monitoring Integration</h3>
 <h4 id="prometheus-integration">Prometheus Integration</h4>
-<pre class="highlight"><code class="language-yaml"># prometheus.yml
-scrape_configs:
-  - job_name: 'ris-client'
-    static_configs:
-      - targets: ['client-1:9001', 'client-2:9001']
-    scrape_interval: 30s
-    metrics_path: /metrics
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="c1"># prometheus.yml</span>
+<span class="nt">scrape_configs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ris-client&#39;</span>
+<span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;client-1:9001&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;client-2:9001&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="w">    </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/metrics</span>
+</code></pre></div>
 
 <h4 id="grafana-dashboard">Grafana Dashboard</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;dashboard&quot;: {
-    &quot;title&quot;: &quot;RIS Client Monitoring&quot;,
-    &quot;panels&quot;: [
-      {
-        &quot;title&quot;: &quot;Task Execution Rate&quot;,
-        &quot;type&quot;: &quot;graph&quot;,
-        &quot;targets&quot;: [
-          {
-            &quot;expr&quot;: &quot;rate(ris_client_tasks_total[5m])&quot;,
-            &quot;legendFormat&quot;: &quot;{{status}}&quot;
-          }
-        ]
-      },
-      {
-        &quot;title&quot;: &quot;Service Status&quot;,
-        &quot;type&quot;: &quot;stat&quot;,
-        &quot;targets&quot;: [
-          {
-            &quot;expr&quot;: &quot;ris_client_services_running&quot;,
-            &quot;legendFormat&quot;: &quot;Running Services&quot;
-          }
-        ]
-      }
-    ]
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;dashboard&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RIS Client Monitoring&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;panels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Task Execution Rate&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;graph&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;targets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;expr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rate(ris_client_tasks_total[5m])&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;legendFormat&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{{status}}&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Service Status&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stat&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;targets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;expr&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ris_client_services_running&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;legendFormat&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Running Services&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="troubleshooting">Troubleshooting</h2>
 <h3 id="common-issues">Common Issues</h3>
 <h4 id="connection-issues">Connection Issues</h4>
 <p><strong>Problem</strong>: Client cannot connect to RIS Server</p>
-<pre class="highlight"><code class="language-bash"># Check network connectivity
-curl -k https://ris-server.example.com:8057/health
+<div class="highlight"><pre><span></span><code><span class="c1"># Check network connectivity</span>
+curl<span class="w"> </span>-k<span class="w"> </span>https://ris-server.example.com:8057/health
 
-# Verify certificates
-openssl s_client -connect ris-server.example.com:8057 -cert client.crt -key client.key
+<span class="c1"># Verify certificates</span>
+openssl<span class="w"> </span>s_client<span class="w"> </span>-connect<span class="w"> </span>ris-server.example.com:8057<span class="w"> </span>-cert<span class="w"> </span>client.crt<span class="w"> </span>-key<span class="w"> </span>client.key
 
-# Check client logs
-tail -f /var/log/ris-client/client.log | grep -i error
-</code></pre>
+<span class="c1"># Check client logs</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/log/ris-client/client.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>error
+</code></pre></div>
 
 <p><strong>Solution</strong>:
 1. Verify server URL and port
@@ -1738,15 +1738,15 @@ tail -f /var/log/ris-client/client.log | grep -i error
 4. Review network configuration</p>
 <h4 id="docker-issues">Docker Issues</h4>
 <p><strong>Problem</strong>: Docker service management fails</p>
-<pre class="highlight"><code class="language-bash"># Check Docker daemon
-systemctl status docker
+<div class="highlight"><pre><span></span><code><span class="c1"># Check Docker daemon</span>
+systemctl<span class="w"> </span>status<span class="w"> </span>docker
 
-# Verify Docker socket permissions
-ls -la /var/run/docker.sock
+<span class="c1"># Verify Docker socket permissions</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/var/run/docker.sock
 
-# Test Docker API
-docker version
-</code></pre>
+<span class="c1"># Test Docker API</span>
+docker<span class="w"> </span>version
+</code></pre></div>
 
 <p><strong>Solution</strong>:
 1. Ensure Docker daemon is running
@@ -1755,15 +1755,15 @@ docker version
 4. Review Docker configuration</p>
 <h4 id="task-execution-failures">Task Execution Failures</h4>
 <p><strong>Problem</strong>: HTTP tasks timing out</p>
-<pre class="highlight"><code class="language-bash"># Check network connectivity
-curl -v https://target-api.example.com/endpoint
+<div class="highlight"><pre><span></span><code><span class="c1"># Check network connectivity</span>
+curl<span class="w"> </span>-v<span class="w"> </span>https://target-api.example.com/endpoint
 
-# Review task configuration
-cat /etc/ris-client/config.json | jq '.task_execution'
+<span class="c1"># Review task configuration</span>
+cat<span class="w"> </span>/etc/ris-client/config.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.task_execution&#39;</span>
 
-# Monitor client logs
-tail -f /var/log/ris-client/client.log | grep -i timeout
-</code></pre>
+<span class="c1"># Monitor client logs</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/log/ris-client/client.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>timeout
+</code></pre></div>
 
 <p><strong>Solution</strong>:
 1. Increase timeout values
@@ -1772,91 +1772,91 @@ tail -f /var/log/ris-client/client.log | grep -i timeout
 4. Review network configuration</p>
 <h3 id="debugging-tools">Debugging Tools</h3>
 <h4 id="enable-debug-mode">Enable Debug Mode</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;features&quot;: {
-    &quot;debug_mode&quot;: true
-  },
-  &quot;logging&quot;: {
-    &quot;level&quot;: &quot;debug&quot;
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;features&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;debug_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;logging&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;debug&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="health-check-script">Health Check Script</h4>
-<pre class="highlight"><code class="language-bash">#!/bin/bash
-# health-check.sh
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># health-check.sh</span>
 
-echo &quot;=== RIS Client Health Check ===&quot;
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== RIS Client Health Check ===&quot;</span>
 
-# Check service status
-if systemctl is-active --quiet ris-client; then
-    echo &quot;✓ Service is running&quot;
-else
-    echo &quot;✗ Service is not running&quot;
-    exit 1
-fi
+<span class="c1"># Check service status</span>
+<span class="k">if</span><span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span>--quiet<span class="w"> </span>ris-client<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✓ Service is running&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✗ Service is not running&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
 
-# Check server connectivity
-if curl -sf http://localhost:9000/health &gt; /dev/null; then
-    echo &quot;✓ Client is responding&quot;
-else
-    echo &quot;✗ Client is not responding&quot;
-    exit 1
-fi
+<span class="c1"># Check server connectivity</span>
+<span class="k">if</span><span class="w"> </span>curl<span class="w"> </span>-sf<span class="w"> </span>http://localhost:9000/health<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✓ Client is responding&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✗ Client is not responding&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="k">fi</span>
 
-# Check Docker connectivity
-if docker version &gt; /dev/null 2&gt;&amp;1; then
-    echo &quot;✓ Docker is available&quot;
-else
-    echo &quot;✗ Docker is not available&quot;
-fi
+<span class="c1"># Check Docker connectivity</span>
+<span class="k">if</span><span class="w"> </span>docker<span class="w"> </span>version<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✓ Docker is available&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✗ Docker is not available&quot;</span>
+<span class="k">fi</span>
 
-# Check logs for errors
-if grep -q &quot;ERROR&quot; /var/log/ris-client/client.log; then
-    echo &quot;⚠ Errors found in logs&quot;
-    grep &quot;ERROR&quot; /var/log/ris-client/client.log | tail -5
-else
-    echo &quot;✓ No recent errors in logs&quot;
-fi
+<span class="c1"># Check logs for errors</span>
+<span class="k">if</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="w"> </span>/var/log/ris-client/client.log<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;⚠ Errors found in logs&quot;</span>
+<span class="w">    </span>grep<span class="w"> </span><span class="s2">&quot;ERROR&quot;</span><span class="w"> </span>/var/log/ris-client/client.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-5
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✓ No recent errors in logs&quot;</span>
+<span class="k">fi</span>
 
-echo &quot;=== Health Check Complete ===&quot;
-</code></pre>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=== Health Check Complete ===&quot;</span>
+</code></pre></div>
 
 <h4 id="log-analysis">Log Analysis</h4>
-<pre class="highlight"><code class="language-bash"># Find connection issues
-grep -i &quot;connection&quot; /var/log/ris-client/client.log | tail -20
+<div class="highlight"><pre><span></span><code><span class="c1"># Find connection issues</span>
+grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;connection&quot;</span><span class="w"> </span>/var/log/ris-client/client.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-20
 
-# Find task failures
-grep -i &quot;task.*failed&quot; /var/log/ris-client/client.log | tail -10
+<span class="c1"># Find task failures</span>
+grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;task.*failed&quot;</span><span class="w"> </span>/var/log/ris-client/client.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-10
 
-# Monitor real-time activity
-tail -f /var/log/ris-client/client.log | jq '.message'
-</code></pre>
+<span class="c1"># Monitor real-time activity</span>
+tail<span class="w"> </span>-f<span class="w"> </span>/var/log/ris-client/client.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.message&#39;</span>
+</code></pre></div>
 
 <h3 id="performance-tuning">Performance Tuning</h3>
 <h4 id="resource-optimization">Resource Optimization</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;performance&quot;: {
-    &quot;max_concurrent_tasks&quot;: 10,
-    &quot;task_queue_size&quot;: 100,
-    &quot;connection_pool_size&quot;: 20,
-    &quot;memory_limit&quot;: &quot;512m&quot;,
-    &quot;gc_threshold&quot;: 50
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;performance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;max_concurrent_tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;task_queue_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;connection_pool_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;memory_limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;512m&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;gc_threshold&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="network-optimization">Network Optimization</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;network&quot;: {
-    &quot;keepalive&quot;: true,
-    &quot;keepalive_interval&quot;: 30,
-    &quot;tcp_nodelay&quot;: true,
-    &quot;buffer_size&quot;: 8192,
-    &quot;compression&quot;: true
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;network&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;keepalive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;keepalive_interval&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tcp_nodelay&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;buffer_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8192</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;compression&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h2 id="best-practices">Best Practices</h2>
 <h3 id="security-best-practices">Security Best Practices</h3>
@@ -1937,213 +1937,213 @@ tail -f /var/log/ris-client/client.log | jq '.message'
 <h2 id="development-guide">Development Guide</h2>
 <h3 id="setting-up-development-environment">Setting Up Development Environment</h3>
 <h4 id="prerequisites_1">Prerequisites</h4>
-<pre class="highlight"><code class="language-bash"># Install Go 1.19+
-go version
+<div class="highlight"><pre><span></span><code><span class="c1"># Install Go 1.19+</span>
+go<span class="w"> </span>version
 
-# Install development tools
-go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-go install github.com/goreleaser/goreleaser@latest
+<span class="c1"># Install development tools</span>
+go<span class="w"> </span>install<span class="w"> </span>github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+go<span class="w"> </span>install<span class="w"> </span>github.com/goreleaser/goreleaser@latest
 
-# Install Docker
-docker --version
-</code></pre>
+<span class="c1"># Install Docker</span>
+docker<span class="w"> </span>--version
+</code></pre></div>
 
 <h4 id="clone-and-build">Clone and Build</h4>
-<pre class="highlight"><code class="language-bash"># Clone repository
-git clone https://github.com/securaa/ris-client.git
-cd ris-client
+<div class="highlight"><pre><span></span><code><span class="c1"># Clone repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/securaa/ris-client.git
+<span class="nb">cd</span><span class="w"> </span>ris-client
 
-# Install dependencies
-go mod download
+<span class="c1"># Install dependencies</span>
+go<span class="w"> </span>mod<span class="w"> </span>download
 
-# Run tests
-make test
+<span class="c1"># Run tests</span>
+make<span class="w"> </span><span class="nb">test</span>
 
-# Build for development
-make build-dev
+<span class="c1"># Build for development</span>
+make<span class="w"> </span>build-dev
 
-# Run locally
-./bin/ris-client -config config/dev.json
-</code></pre>
+<span class="c1"># Run locally</span>
+./bin/ris-client<span class="w"> </span>-config<span class="w"> </span>config/dev.json
+</code></pre></div>
 
 <h3 id="project-structure">Project Structure</h3>
-<pre class="highlight"><code>ris-client/
-├── cmd/
-│   └── ris-client/
-│       └── main.go
-├── internal/
-│   ├── app/
-│   │   ├── app.go
-│   │   └── router.go
-│   ├── controllers/
-│   │   ├── task_handler.go
-│   │   ├── ris_client.go
-│   │   └── service.go
-│   ├── models/
-│   │   ├── task.go
-│   │   ├── client.go
-│   │   └── response.go
-│   ├── services/
-│   │   ├── docker.go
-│   │   ├── network.go
-│   │   └── websocket.go
-│   └── utils/
-│       ├── config.go
-│       ├── logger.go
-│       └── http.go
-├── pkg/
-│   ├── common/
-│   └── types/
-├── config/
-│   ├── config.json.template
-│   └── dev.json
-├── deployments/
-│   ├── docker/
-│   └── kubernetes/
-├── docs/
-├── scripts/
-├── tests/
-└── Makefile
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nx">ris</span><span class="o">-</span><span class="nx">client</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">cmd</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">ris</span><span class="o">-</span><span class="nx">client</span><span class="o">/</span>
+<span class="err">│</span><span class="w">       </span><span class="err">└──</span><span class="w"> </span><span class="nx">main</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">internal</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">app</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">app</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">router</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">controllers</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">task_handler</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">ris_client</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">models</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">task</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">services</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">docker</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">network</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">websocket</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">utils</span><span class="o">/</span>
+<span class="err">│</span><span class="w">       </span><span class="err">├──</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">       </span><span class="err">├──</span><span class="w"> </span><span class="nx">logger</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">│</span><span class="w">       </span><span class="err">└──</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">go</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">pkg</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">common</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">types</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">config</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">json</span><span class="p">.</span><span class="nx">template</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">dev</span><span class="p">.</span><span class="nx">json</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">deployments</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nx">docker</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="nx">kubernetes</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">docs</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">scripts</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="nx">tests</span><span class="o">/</span>
+<span class="err">└──</span><span class="w"> </span><span class="nx">Makefile</span>
+</code></pre></div>
 
 <h3 id="adding-new-features">Adding New Features</h3>
 <h4 id="1-create-controller">1. Create Controller</h4>
-<pre class="highlight"><code class="language-go">// internal/controllers/new_feature.go
-package controllers
+<div class="highlight"><pre><span></span><code><span class="c1">// internal/controllers/new_feature.go</span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">controllers</span>
 
-import (
-    &quot;net/http&quot;
-    &quot;github.com/gorilla/mux&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;net/http&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/gorilla/mux&quot;</span>
+<span class="p">)</span>
 
-type NewFeatureController struct{}
+<span class="kd">type</span><span class="w"> </span><span class="nx">NewFeatureController</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}</span>
 
-func (nfc NewFeatureController) HandleNewFeature(w http.ResponseWriter, r *http.Request) {
-    // Implementation here
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">nfc</span><span class="w"> </span><span class="nx">NewFeatureController</span><span class="p">)</span><span class="w"> </span><span class="nx">HandleNewFeature</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Implementation here</span>
+<span class="p">}</span>
 
-func (nfc NewFeatureController) RegisterRoutes(router *mux.Router) {
-    router.HandleFunc(&quot;/new-feature&quot;, nfc.HandleNewFeature).Methods(&quot;POST&quot;)
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">nfc</span><span class="w"> </span><span class="nx">NewFeatureController</span><span class="p">)</span><span class="w"> </span><span class="nx">RegisterRoutes</span><span class="p">(</span><span class="nx">router</span><span class="w"> </span><span class="o">*</span><span class="nx">mux</span><span class="p">.</span><span class="nx">Router</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">router</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/new-feature&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">nfc</span><span class="p">.</span><span class="nx">HandleNewFeature</span><span class="p">).</span><span class="nx">Methods</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="2-add-service">2. Add Service</h4>
-<pre class="highlight"><code class="language-go">// internal/services/new_service.go
-package services
+<div class="highlight"><pre><span></span><code><span class="c1">// internal/services/new_service.go</span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">services</span>
 
-type NewService struct {
-    config Config
-    logger Logger
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">NewService</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">config</span><span class="w"> </span><span class="nx">Config</span>
+<span class="w">    </span><span class="nx">logger</span><span class="w"> </span><span class="nx">Logger</span>
+<span class="p">}</span>
 
-func NewNewService(config Config, logger Logger) *NewService {
-    return &amp;NewService{
-        config: config,
-        logger: logger,
-    }
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">NewNewService</span><span class="p">(</span><span class="nx">config</span><span class="w"> </span><span class="nx">Config</span><span class="p">,</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="nx">Logger</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">NewService</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">NewService</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">config</span><span class="p">:</span><span class="w"> </span><span class="nx">config</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">logger</span><span class="p">:</span><span class="w"> </span><span class="nx">logger</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 
-func (ns *NewService) ProcessRequest(request Request) (*Response, error) {
-    // Service logic here
-    return &amp;Response{}, nil
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">ns</span><span class="w"> </span><span class="o">*</span><span class="nx">NewService</span><span class="p">)</span><span class="w"> </span><span class="nx">ProcessRequest</span><span class="p">(</span><span class="nx">request</span><span class="w"> </span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">Response</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Service logic here</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Response</span><span class="p">{},</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="3-update-configuration">3. Update Configuration</h4>
-<pre class="highlight"><code class="language-json">{
-  &quot;new_feature&quot;: {
-    &quot;enabled&quot;: true,
-    &quot;option1&quot;: &quot;value1&quot;,
-    &quot;option2&quot;: 123
-  }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;new_feature&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;option1&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;option2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="testing">Testing</h3>
 <h4 id="unit-tests">Unit Tests</h4>
-<pre class="highlight"><code class="language-go">// internal/controllers/task_handler_test.go
-package controllers
+<div class="highlight"><pre><span></span><code><span class="c1">// internal/controllers/task_handler_test.go</span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">controllers</span>
 
-import (
-    &quot;testing&quot;
-    &quot;net/http/httptest&quot;
-    &quot;github.com/stretchr/testify/assert&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;testing&quot;</span>
+<span class="w">    </span><span class="s">&quot;net/http/httptest&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/stretchr/testify/assert&quot;</span>
+<span class="p">)</span>
 
-func TestTaskHandlerController_RunTask(t *testing.T) {
-    // Setup
-    controller := TaskHandlerController{}
-    req := httptest.NewRequest(&quot;POST&quot;, &quot;/runtask/&quot;, nil)
-    w := httptest.NewRecorder()
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestTaskHandlerController_RunTask</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Setup</span>
+<span class="w">    </span><span class="nx">controller</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">TaskHandlerController</span><span class="p">{}</span>
+<span class="w">    </span><span class="nx">req</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">httptest</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/runtask/&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">w</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">httptest</span><span class="p">.</span><span class="nx">NewRecorder</span><span class="p">()</span>
 
-    // Execute
-    controller.RunTask(w, req)
+<span class="w">    </span><span class="c1">// Execute</span>
+<span class="w">    </span><span class="nx">controller</span><span class="p">.</span><span class="nx">RunTask</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="p">)</span>
 
-    // Assert
-    assert.Equal(t, 200, w.Code)
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// Assert</span>
+<span class="w">    </span><span class="nx">assert</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="nx">w</span><span class="p">.</span><span class="nx">Code</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="integration-tests">Integration Tests</h4>
-<pre class="highlight"><code class="language-go">// tests/integration/api_test.go
-package integration
+<div class="highlight"><pre><span></span><code><span class="c1">// tests/integration/api_test.go</span>
+<span class="kn">package</span><span class="w"> </span><span class="nx">integration</span>
 
-import (
-    &quot;testing&quot;
-    &quot;net/http&quot;
-    &quot;github.com/stretchr/testify/suite&quot;
-)
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;testing&quot;</span>
+<span class="w">    </span><span class="s">&quot;net/http&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/stretchr/testify/suite&quot;</span>
+<span class="p">)</span>
 
-type APITestSuite struct {
-    suite.Suite
-    client *http.Client
-    baseURL string
-}
+<span class="kd">type</span><span class="w"> </span><span class="nx">APITestSuite</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">suite</span><span class="p">.</span><span class="nx">Suite</span>
+<span class="w">    </span><span class="nx">client</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span>
+<span class="w">    </span><span class="nx">baseURL</span><span class="w"> </span><span class="kt">string</span>
+<span class="p">}</span>
 
-func (suite *APITestSuite) TestHealthCheck() {
-    resp, err := suite.client.Get(suite.baseURL + &quot;/health&quot;)
-    suite.NoError(err)
-    suite.Equal(200, resp.StatusCode)
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">suite</span><span class="w"> </span><span class="o">*</span><span class="nx">APITestSuite</span><span class="p">)</span><span class="w"> </span><span class="nx">TestHealthCheck</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">suite</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">suite</span><span class="p">.</span><span class="nx">baseURL</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;/health&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">suite</span><span class="p">.</span><span class="nx">NoError</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">suite</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">StatusCode</span><span class="p">)</span>
+<span class="p">}</span>
 
-func TestAPITestSuite(t *testing.T) {
-    suite.Run(t, new(APITestSuite))
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="nx">TestAPITestSuite</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">suite</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">APITestSuite</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="building-and-releasing">Building and Releasing</h3>
 <h4 id="build-commands">Build Commands</h4>
-<pre class="highlight"><code class="language-bash"># Development build
-make build-dev
+<div class="highlight"><pre><span></span><code><span class="c1"># Development build</span>
+make<span class="w"> </span>build-dev
 
-# Production build
-make build
+<span class="c1"># Production build</span>
+make<span class="w"> </span>build
 
-# Build for all platforms
-make build-all
+<span class="c1"># Build for all platforms</span>
+make<span class="w"> </span>build-all
 
-# Run tests
-make test
+<span class="c1"># Run tests</span>
+make<span class="w"> </span><span class="nb">test</span>
 
-# Code quality checks
-make lint
+<span class="c1"># Code quality checks</span>
+make<span class="w"> </span>lint
 
-# Generate documentation
-make docs
-</code></pre>
+<span class="c1"># Generate documentation</span>
+make<span class="w"> </span>docs
+</code></pre></div>
 
 <h4 id="release-process">Release Process</h4>
-<pre class="highlight"><code class="language-bash"># Tag release
-git tag -a v1.0.0 -m &quot;Release v1.0.0&quot;
-git push origin v1.0.0
+<div class="highlight"><pre><span></span><code><span class="c1"># Tag release</span>
+git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.0.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v1.0.0&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v1.0.0
 
-# Build release
-goreleaser release --clean
+<span class="c1"># Build release</span>
+goreleaser<span class="w"> </span>release<span class="w"> </span>--clean
 
-# Docker release
-make docker-build
-make docker-push
-</code></pre>
+<span class="c1"># Docker release</span>
+make<span class="w"> </span>docker-build
+make<span class="w"> </span>docker-push
+</code></pre></div>
 
 <hr />
 <p><em>Document Version: 1.0</em><br />
@@ -2153,7 +2153,7 @@ make docker-push
 
     <footer class="footer">
         <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
-        <p>Documentation generated on December 04, 2025</p>
+        <p>Documentation generated on December 18, 2025</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>

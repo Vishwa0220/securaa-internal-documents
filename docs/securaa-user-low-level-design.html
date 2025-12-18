@@ -601,7 +601,7 @@ hr {
         <div class="header-content">
             <div class="header-logo">Securaa<span>Docs</span></div>
             <div class="header-meta">
-                <span>Generated: December 04, 2025</span>
+                <span>Generated: December 18, 2025</span>
             </div>
         </div>
     </header>
@@ -1438,149 +1438,149 @@ graph TB
 4. <strong>Log Aggregation</strong>: Centralized logging setup with retention policies</p>
 <h3 id="production-deployment-configuration"><strong>Production Deployment Configuration</strong></h3>
 <p><strong>Systemd Service Configuration:</strong></p>
-<pre class="highlight"><code class="language-ini"># /etc/systemd/system/securaa-user-service.service
-[Unit]
-Description=Securaa User Service
-Documentation=https://docs.securaa.com/securaa-user
-After=network.target mongodb.service redis.service
-Wants=mongodb.service redis.service
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/systemd/system/securaa-user-service.service</span>
+<span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Securaa User Service</span>
+<span class="na">Documentation</span><span class="o">=</span><span class="s">https://docs.securaa.com/securaa-user</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network.target mongodb.service redis.service</span>
+<span class="na">Wants</span><span class="o">=</span><span class="s">mongodb.service redis.service</span>
 
-[Service]
-Type=exec
-User=securaa-user
-Group=securaa-user
-WorkingDirectory=/opt/securaa-user
-ExecStart=/opt/securaa-user/bin/securaa-user-service
-ExecReload=/bin/kill -HUP $MAINPID
-Restart=always
-RestartSec=10
-StandardOutput=journal
-StandardError=journal
-SyslogIdentifier=securaa-user-service
+<span class="k">[Service]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">exec</span>
+<span class="na">User</span><span class="o">=</span><span class="s">securaa-user</span>
+<span class="na">Group</span><span class="o">=</span><span class="s">securaa-user</span>
+<span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/opt/securaa-user</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/opt/securaa-user/bin/securaa-user-service</span>
+<span class="na">ExecReload</span><span class="o">=</span><span class="s">/bin/kill -HUP $MAINPID</span>
+<span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
+<span class="na">RestartSec</span><span class="o">=</span><span class="s">10</span>
+<span class="na">StandardOutput</span><span class="o">=</span><span class="s">journal</span>
+<span class="na">StandardError</span><span class="o">=</span><span class="s">journal</span>
+<span class="na">SyslogIdentifier</span><span class="o">=</span><span class="s">securaa-user-service</span>
 
-# Security Settings
-NoNewPrivileges=true
-PrivateTmp=true
-ProtectSystem=strict
-ProtectHome=true
-ReadWritePaths=/opt/securaa-user/logs /opt/securaa-user/data
+<span class="c1"># Security Settings</span>
+<span class="na">NoNewPrivileges</span><span class="o">=</span><span class="s">true</span>
+<span class="na">PrivateTmp</span><span class="o">=</span><span class="s">true</span>
+<span class="na">ProtectSystem</span><span class="o">=</span><span class="s">strict</span>
+<span class="na">ProtectHome</span><span class="o">=</span><span class="s">true</span>
+<span class="na">ReadWritePaths</span><span class="o">=</span><span class="s">/opt/securaa-user/logs /opt/securaa-user/data</span>
 
-# Environment Variables
-Environment=ENVIRONMENT=production
-Environment=LOG_LEVEL=info
-Environment=HTTP_PORT=8080
-Environment=METRICS_PORT=9090
-Environment=HEALTH_CHECK_PORT=8081
+<span class="c1"># Environment Variables</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">ENVIRONMENT=production</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">LOG_LEVEL=info</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">HTTP_PORT=8080</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">METRICS_PORT=9090</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">HEALTH_CHECK_PORT=8081</span>
 
-# Resource Limits
-LimitNOFILE=65536
-LimitNPROC=4096
+<span class="c1"># Resource Limits</span>
+<span class="na">LimitNOFILE</span><span class="o">=</span><span class="s">65536</span>
+<span class="na">LimitNPROC</span><span class="o">=</span><span class="s">4096</span>
 
-[Install]
-WantedBy=multi-user.target
-</code></pre>
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</code></pre></div>
 
 <p><strong>Environment Configuration:</strong></p>
-<pre class="highlight"><code class="language-bash"># /opt/securaa-user/config/production.env
-# Database Configuration
-MONGO_URI=mongodb://securaa-user:${MONGO_PASSWORD}@mongo-primary:27017,mongo-secondary1:27017,mongo-secondary2:27017/zona_user?replicaSet=rs0&amp;authSource=admin
-REDIS_URI=redis://:${REDIS_PASSWORD}@redis-master:6379/0
+<div class="highlight"><pre><span></span><code><span class="c1"># /opt/securaa-user/config/production.env</span>
+<span class="c1"># Database Configuration</span>
+<span class="nv">MONGO_URI</span><span class="o">=</span>mongodb://securaa-user:<span class="si">${</span><span class="nv">MONGO_PASSWORD</span><span class="si">}</span>@mongo-primary:27017,mongo-secondary1:27017,mongo-secondary2:27017/zona_user?replicaSet<span class="o">=</span>rs0<span class="p">&amp;</span><span class="nv">authSource</span><span class="o">=</span>admin
+<span class="nv">REDIS_URI</span><span class="o">=</span>redis://:<span class="si">${</span><span class="nv">REDIS_PASSWORD</span><span class="si">}</span>@redis-master:6379/0
 
-# Security Configuration
-JWT_SECRET_KEY=${JWT_SECRET_KEY}
-ENCRYPTION_KEY=${ENCRYPTION_KEY}
-SAML_CERT_PATH=/opt/securaa-user/certs/saml.crt
-SAML_KEY_PATH=/opt/securaa-user/certs/saml.key
+<span class="c1"># Security Configuration</span>
+<span class="nv">JWT_SECRET_KEY</span><span class="o">=</span><span class="si">${</span><span class="nv">JWT_SECRET_KEY</span><span class="si">}</span>
+<span class="nv">ENCRYPTION_KEY</span><span class="o">=</span><span class="si">${</span><span class="nv">ENCRYPTION_KEY</span><span class="si">}</span>
+<span class="nv">SAML_CERT_PATH</span><span class="o">=</span>/opt/securaa-user/certs/saml.crt
+<span class="nv">SAML_KEY_PATH</span><span class="o">=</span>/opt/securaa-user/certs/saml.key
 
-# Integration Configuration
-EMAIL_SMTP_HOST=smtp.securaa.com
-EMAIL_SMTP_PORT=587
-EMAIL_FROM=noreply@securaa.com
+<span class="c1"># Integration Configuration</span>
+<span class="nv">EMAIL_SMTP_HOST</span><span class="o">=</span>smtp.securaa.com
+<span class="nv">EMAIL_SMTP_PORT</span><span class="o">=</span><span class="m">587</span>
+<span class="nv">EMAIL_FROM</span><span class="o">=</span>noreply@securaa.com
 
-# Performance Configuration
-MAX_CONNECTIONS=1000
-CONNECTION_TIMEOUT=30s
-IDLE_TIMEOUT=60s
-READ_TIMEOUT=30s
-WRITE_TIMEOUT=30s
+<span class="c1"># Performance Configuration</span>
+<span class="nv">MAX_CONNECTIONS</span><span class="o">=</span><span class="m">1000</span>
+<span class="nv">CONNECTION_TIMEOUT</span><span class="o">=</span>30s
+<span class="nv">IDLE_TIMEOUT</span><span class="o">=</span>60s
+<span class="nv">READ_TIMEOUT</span><span class="o">=</span>30s
+<span class="nv">WRITE_TIMEOUT</span><span class="o">=</span>30s
 
-# Monitoring Configuration
-METRICS_ENABLED=true
-PROMETHEUS_ENDPOINT=/metrics
-HEALTH_CHECK_ENDPOINT=/health
-LOG_FORMAT=json
-LOG_OUTPUT=file
-LOG_FILE_PATH=/opt/securaa-user/logs/securaa-user.log
-</code></pre>
+<span class="c1"># Monitoring Configuration</span>
+<span class="nv">METRICS_ENABLED</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">PROMETHEUS_ENDPOINT</span><span class="o">=</span>/metrics
+<span class="nv">HEALTH_CHECK_ENDPOINT</span><span class="o">=</span>/health
+<span class="nv">LOG_FORMAT</span><span class="o">=</span>json
+<span class="nv">LOG_OUTPUT</span><span class="o">=</span>file
+<span class="nv">LOG_FILE_PATH</span><span class="o">=</span>/opt/securaa-user/logs/securaa-user.log
+</code></pre></div>
 
 <p><strong>Deployment Script:</strong></p>
-<pre class="highlight"><code class="language-bash">#!/bin/bash
-# /opt/securaa-user/scripts/deploy.sh
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># /opt/securaa-user/scripts/deploy.sh</span>
 
-set -euo pipefail
+<span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
 
-DEPLOY_DIR=&quot;/opt/securaa-user&quot;
-SERVICE_NAME=&quot;securaa-user-service&quot;
-BACKUP_DIR=&quot;/opt/securaa-user/backups&quot;
-LOG_DIR=&quot;/opt/securaa-user/logs&quot;
+<span class="nv">DEPLOY_DIR</span><span class="o">=</span><span class="s2">&quot;/opt/securaa-user&quot;</span>
+<span class="nv">SERVICE_NAME</span><span class="o">=</span><span class="s2">&quot;securaa-user-service&quot;</span>
+<span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="s2">&quot;/opt/securaa-user/backups&quot;</span>
+<span class="nv">LOG_DIR</span><span class="o">=</span><span class="s2">&quot;/opt/securaa-user/logs&quot;</span>
 
-# Pre-deployment checks
-echo &quot;Starting deployment of Securaa User Service...&quot;
-echo &quot;Checking system requirements...&quot;
+<span class="c1"># Pre-deployment checks</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Starting deployment of Securaa User Service...&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Checking system requirements...&quot;</span>
 
-# Verify dependencies
-systemctl is-active --quiet mongodb || { echo &quot;MongoDB not running&quot;; exit 1; }
-systemctl is-active --quiet redis || { echo &quot;Redis not running&quot;; exit 1; }
+<span class="c1"># Verify dependencies</span>
+systemctl<span class="w"> </span>is-active<span class="w"> </span>--quiet<span class="w"> </span>mongodb<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;MongoDB not running&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
+systemctl<span class="w"> </span>is-active<span class="w"> </span>--quiet<span class="w"> </span>redis<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Redis not running&quot;</span><span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="o">}</span>
 
-# Create backup of current version
-if systemctl is-active --quiet $SERVICE_NAME; then
-    echo &quot;Creating backup of current deployment...&quot;
-    mkdir -p $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)
-    cp -r $DEPLOY_DIR/bin $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)/
-    cp -r $DEPLOY_DIR/config $BACKUP_DIR/$(date +%Y%m%d_%H%M%S)/
-fi
+<span class="c1"># Create backup of current version</span>
+<span class="k">if</span><span class="w"> </span>systemctl<span class="w"> </span>is-active<span class="w"> </span>--quiet<span class="w"> </span><span class="nv">$SERVICE_NAME</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creating backup of current deployment...&quot;</span>
+<span class="w">    </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$BACKUP_DIR</span>/<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>
+<span class="w">    </span>cp<span class="w"> </span>-r<span class="w"> </span><span class="nv">$DEPLOY_DIR</span>/bin<span class="w"> </span><span class="nv">$BACKUP_DIR</span>/<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>/
+<span class="w">    </span>cp<span class="w"> </span>-r<span class="w"> </span><span class="nv">$DEPLOY_DIR</span>/config<span class="w"> </span><span class="nv">$BACKUP_DIR</span>/<span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>/
+<span class="k">fi</span>
 
-# Deploy new binary
-echo &quot;Deploying new binary...&quot;
-cp ./securaa-user-service $DEPLOY_DIR/bin/
-chmod +x $DEPLOY_DIR/bin/securaa-user-service
-chown securaa-user:securaa-user $DEPLOY_DIR/bin/securaa-user-service
+<span class="c1"># Deploy new binary</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Deploying new binary...&quot;</span>
+cp<span class="w"> </span>./securaa-user-service<span class="w"> </span><span class="nv">$DEPLOY_DIR</span>/bin/
+chmod<span class="w"> </span>+x<span class="w"> </span><span class="nv">$DEPLOY_DIR</span>/bin/securaa-user-service
+chown<span class="w"> </span>securaa-user:securaa-user<span class="w"> </span><span class="nv">$DEPLOY_DIR</span>/bin/securaa-user-service
 
-# Update configuration
-echo &quot;Updating configuration...&quot;
-cp ./config/* $DEPLOY_DIR/config/
-chown -R securaa-user:securaa-user $DEPLOY_DIR/config/
+<span class="c1"># Update configuration</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Updating configuration...&quot;</span>
+cp<span class="w"> </span>./config/*<span class="w"> </span><span class="nv">$DEPLOY_DIR</span>/config/
+chown<span class="w"> </span>-R<span class="w"> </span>securaa-user:securaa-user<span class="w"> </span><span class="nv">$DEPLOY_DIR</span>/config/
 
-# Restart service
-echo &quot;Restarting service...&quot;
-systemctl restart $SERVICE_NAME
+<span class="c1"># Restart service</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Restarting service...&quot;</span>
+systemctl<span class="w"> </span>restart<span class="w"> </span><span class="nv">$SERVICE_NAME</span>
 
-# Health check
-echo &quot;Performing health check...&quot;
-sleep 10
+<span class="c1"># Health check</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Performing health check...&quot;</span>
+sleep<span class="w"> </span><span class="m">10</span>
 
-for i in {1..30}; do
-    if curl -f http://localhost:8081/health &gt; /dev/null 2&gt;&amp;1; then
-        echo &quot;Health check passed!&quot;
-        break
-    fi
-    if [ $i -eq 30 ]; then
-        echo &quot;Health check failed! Rolling back...&quot;
-        systemctl stop $SERVICE_NAME
-        # Restore from backup
-        LATEST_BACKUP=$(ls -t $BACKUP_DIR | head -1)
-        cp -r $BACKUP_DIR/$LATEST_BACKUP/* $DEPLOY_DIR/
-        systemctl start $SERVICE_NAME
-        exit 1
-    fi
-    echo &quot;Waiting for service to start... ($i/30)&quot;
-    sleep 2
-done
+<span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..30<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span>curl<span class="w"> </span>-f<span class="w"> </span>http://localhost:8081/health<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Health check passed!&quot;</span>
+<span class="w">        </span><span class="k">break</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Health check failed! Rolling back...&quot;</span>
+<span class="w">        </span>systemctl<span class="w"> </span>stop<span class="w"> </span><span class="nv">$SERVICE_NAME</span>
+<span class="w">        </span><span class="c1"># Restore from backup</span>
+<span class="w">        </span><span class="nv">LATEST_BACKUP</span><span class="o">=</span><span class="k">$(</span>ls<span class="w"> </span>-t<span class="w"> </span><span class="nv">$BACKUP_DIR</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="k">)</span>
+<span class="w">        </span>cp<span class="w"> </span>-r<span class="w"> </span><span class="nv">$BACKUP_DIR</span>/<span class="nv">$LATEST_BACKUP</span>/*<span class="w"> </span><span class="nv">$DEPLOY_DIR</span>/
+<span class="w">        </span>systemctl<span class="w"> </span>start<span class="w"> </span><span class="nv">$SERVICE_NAME</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Waiting for service to start... (</span><span class="nv">$i</span><span class="s2">/30)&quot;</span>
+<span class="w">    </span>sleep<span class="w"> </span><span class="m">2</span>
+<span class="k">done</span>
 
-echo &quot;Deployment completed successfully!&quot;
-</code></pre>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Deployment completed successfully!&quot;</span>
+</code></pre></div>
 
-<pre class="highlight"><code>    - name: JWT_SECRET
+<div class="highlight"><pre><span></span><code>    <span class="k">-</span> name: JWT_SECRET
       valueFrom:
         secretKeyRef:
           name: auth-secrets
@@ -1597,7 +1597,7 @@ echo &quot;Deployment completed successfully!&quot;
       readOnlyRootFilesystem: true
       capabilities:
         drop:
-        - ALL
+        <span class="k">-</span> ALL
     livenessProbe:
       httpGet:
         path: /health/live
@@ -1617,24 +1617,24 @@ echo &quot;Deployment completed successfully!&quot;
       timeoutSeconds: 5
       failureThreshold: 3
     volumeMounts:
-    - name: tls-certificates
+    <span class="k">-</span> name: tls-certificates
       mountPath: /etc/ssl/certs
       readOnly: true
-    - name: temp-storage
+    <span class="k">-</span> name: temp-storage
       mountPath: /tmp
-    - name: config-volume
+    <span class="k">-</span> name: config-volume
       mountPath: /app/config
       readOnly: true
   volumes:
-  - name: tls-certificates
+  <span class="k">-</span> name: tls-certificates
     secret:
       secretName: securaa-user-tls
-  - name: temp-storage
+  <span class="k">-</span> name: temp-storage
     emptyDir: {}
-  - name: config-volume
+  <span class="k">-</span> name: config-volume
     configMap:
       name: securaa-user-config
-</code></pre>
+</code></pre></div>
 
 <h2 id="monitoring-observability-implementation">📊 <strong>MONITORING &amp; OBSERVABILITY IMPLEMENTATION</strong></h2>
 <h3 id="comprehensive-monitoring-architecture"><strong>Comprehensive Monitoring Architecture</strong></h3>
@@ -1881,171 +1881,171 @@ graph TB
 
 <h2 id="configuration-management">🔧 <strong>CONFIGURATION MANAGEMENT</strong></h2>
 <h3 id="environment-configuration-strategy"><strong>Environment Configuration Strategy</strong></h3>
-<pre class="highlight"><code class="language-yaml"># Production Configuration Template
-production:
-  server:
-    port: 8000
-    tls:
-      enabled: true
-      cert_file: &quot;/etc/ssl/certs/server.crt&quot;
-      key_file: &quot;/etc/ssl/private/server.key&quot;
-      min_version: &quot;1.2&quot;
-      max_version: &quot;1.3&quot;
-      cipher_suites:
-        - &quot;TLS_AES_256_GCM_SHA384&quot;
-        - &quot;TLS_CHACHA20_POLY1305_SHA256&quot;
-        - &quot;TLS_AES_128_GCM_SHA256&quot;
+<div class="highlight"><pre><span></span><code><span class="c1"># Production Configuration Template</span>
+<span class="nt">production</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">server</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8000</span>
+<span class="w">    </span><span class="nt">tls</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">cert_file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/ssl/certs/server.crt&quot;</span>
+<span class="w">      </span><span class="nt">key_file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/ssl/private/server.key&quot;</span>
+<span class="w">      </span><span class="nt">min_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.2&quot;</span>
+<span class="w">      </span><span class="nt">max_version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;1.3&quot;</span>
+<span class="w">      </span><span class="nt">cipher_suites</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;TLS_AES_256_GCM_SHA384&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;TLS_CHACHA20_POLY1305_SHA256&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;TLS_AES_128_GCM_SHA256&quot;</span>
 
-  database:
-    mongodb:
-      uri: &quot;${MONGO_URI}&quot;
-      database: &quot;securaa_production&quot;
-      max_pool_size: 200
-      min_pool_size: 50
-      connect_timeout_ms: 30000
-      server_selection_timeout_ms: 30000
-      socket_timeout_ms: 60000
-      max_idle_time_ms: 300000
+<span class="w">  </span><span class="nt">database</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">mongodb</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${MONGO_URI}&quot;</span>
+<span class="w">      </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;securaa_production&quot;</span>
+<span class="w">      </span><span class="nt">max_pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200</span>
+<span class="w">      </span><span class="nt">min_pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
+<span class="w">      </span><span class="nt">connect_timeout_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30000</span>
+<span class="w">      </span><span class="nt">server_selection_timeout_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30000</span>
+<span class="w">      </span><span class="nt">socket_timeout_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60000</span>
+<span class="w">      </span><span class="nt">max_idle_time_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300000</span>
 
-  cache:
-    redis:
-      cluster_endpoints:
-        - &quot;${REDIS_CLUSTER_1}&quot;
-        - &quot;${REDIS_CLUSTER_2}&quot;
-        - &quot;${REDIS_CLUSTER_3}&quot;
-      password: &quot;${REDIS_PASSWORD}&quot;
-      max_retries: 3
-      retry_delay_ms: 1000
-      dial_timeout_ms: 5000
-      read_timeout_ms: 3000
-      write_timeout_ms: 3000
-      pool_size: 100
-      min_idle_connections: 20
+<span class="w">  </span><span class="nt">cache</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">redis</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">cluster_endpoints</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;${REDIS_CLUSTER_1}&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;${REDIS_CLUSTER_2}&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;${REDIS_CLUSTER_3}&quot;</span>
+<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${REDIS_PASSWORD}&quot;</span>
+<span class="w">      </span><span class="nt">max_retries</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">retry_delay_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
+<span class="w">      </span><span class="nt">dial_timeout_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000</span>
+<span class="w">      </span><span class="nt">read_timeout_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<span class="w">      </span><span class="nt">write_timeout_ms</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3000</span>
+<span class="w">      </span><span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">      </span><span class="nt">min_idle_connections</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
 
-  security:
-    jwt:
-      secret: &quot;${JWT_SECRET}&quot;
-      issuer: &quot;securaa-user-service&quot;
-      audience: &quot;securaa-platform&quot;
-      access_token_ttl: &quot;15m&quot;
-      refresh_token_ttl: &quot;7d&quot;
-      signing_method: &quot;RS256&quot;
+<span class="w">  </span><span class="nt">security</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">jwt</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${JWT_SECRET}&quot;</span>
+<span class="w">      </span><span class="nt">issuer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;securaa-user-service&quot;</span>
+<span class="w">      </span><span class="nt">audience</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;securaa-platform&quot;</span>
+<span class="w">      </span><span class="nt">access_token_ttl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;15m&quot;</span>
+<span class="w">      </span><span class="nt">refresh_token_ttl</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;7d&quot;</span>
+<span class="w">      </span><span class="nt">signing_method</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;RS256&quot;</span>
 
-    encryption:
-      key: &quot;${ENCRYPTION_KEY}&quot;
-      algorithm: &quot;AES-256-GCM&quot;
+<span class="w">    </span><span class="nt">encryption</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${ENCRYPTION_KEY}&quot;</span>
+<span class="w">      </span><span class="nt">algorithm</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;AES-256-GCM&quot;</span>
 
-    session:
-      timeout: &quot;4h&quot;
-      max_concurrent_sessions: 3
-      secure_cookies: true
-      same_site: &quot;strict&quot;
+<span class="w">    </span><span class="nt">session</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;4h&quot;</span>
+<span class="w">      </span><span class="nt">max_concurrent_sessions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">      </span><span class="nt">secure_cookies</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">same_site</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;strict&quot;</span>
 
-    password_policy:
-      min_length: 12
-      require_uppercase: true
-      require_lowercase: true
-      require_numbers: true
-      require_special_chars: true
-      prevent_reuse_count: 12
-      max_age_days: 90
+<span class="w">    </span><span class="nt">password_policy</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">min_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+<span class="w">      </span><span class="nt">require_uppercase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">require_lowercase</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">require_numbers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">require_special_chars</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">prevent_reuse_count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12</span>
+<span class="w">      </span><span class="nt">max_age_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">90</span>
 
-  integrations:
-    ldap:
-      servers:
-        - &quot;${LDAP_SERVER_1}&quot;
-        - &quot;${LDAP_SERVER_2}&quot;
-      base_dn: &quot;${LDAP_BASE_DN}&quot;
-      bind_dn: &quot;${LDAP_BIND_DN}&quot;
-      bind_password: &quot;${LDAP_BIND_PASSWORD}&quot;
-      user_search_filter: &quot;(uid=%s)&quot;
-      group_search_filter: &quot;(memberUid=%s)&quot;
-      tls_enabled: true
-      skip_cert_verify: false
+<span class="w">  </span><span class="nt">integrations</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ldap</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;${LDAP_SERVER_1}&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;${LDAP_SERVER_2}&quot;</span>
+<span class="w">      </span><span class="nt">base_dn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${LDAP_BASE_DN}&quot;</span>
+<span class="w">      </span><span class="nt">bind_dn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${LDAP_BIND_DN}&quot;</span>
+<span class="w">      </span><span class="nt">bind_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${LDAP_BIND_PASSWORD}&quot;</span>
+<span class="w">      </span><span class="nt">user_search_filter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;(uid=%s)&quot;</span>
+<span class="w">      </span><span class="nt">group_search_filter</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;(memberUid=%s)&quot;</span>
+<span class="w">      </span><span class="nt">tls_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">skip_cert_verify</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 
-    saml:
-      entity_id: &quot;securaa-user-service&quot;
-      assertion_consumer_service_url: &quot;https://api.securaa.com/auth/saml/acs&quot;
-      single_logout_service_url: &quot;https://api.securaa.com/auth/saml/sls&quot;
-      metadata_url: &quot;${SAML_METADATA_URL}&quot;
-      certificate_file: &quot;/etc/ssl/certs/saml.crt&quot;
-      private_key_file: &quot;/etc/ssl/private/saml.key&quot;
+<span class="w">    </span><span class="nt">saml</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">entity_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;securaa-user-service&quot;</span>
+<span class="w">      </span><span class="nt">assertion_consumer_service_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://api.securaa.com/auth/saml/acs&quot;</span>
+<span class="w">      </span><span class="nt">single_logout_service_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://api.securaa.com/auth/saml/sls&quot;</span>
+<span class="w">      </span><span class="nt">metadata_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${SAML_METADATA_URL}&quot;</span>
+<span class="w">      </span><span class="nt">certificate_file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/ssl/certs/saml.crt&quot;</span>
+<span class="w">      </span><span class="nt">private_key_file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/ssl/private/saml.key&quot;</span>
 
-    oauth2:
-      providers:
-        google:
-          client_id: &quot;${GOOGLE_CLIENT_ID}&quot;
-          client_secret: &quot;${GOOGLE_CLIENT_SECRET}&quot;
-          redirect_url: &quot;https://api.securaa.com/auth/oauth/google/callback&quot;
-          scopes: [&quot;openid&quot;, &quot;profile&quot;, &quot;email&quot;]
-        microsoft:
-          client_id: &quot;${MICROSOFT_CLIENT_ID}&quot;
-          client_secret: &quot;${MICROSOFT_CLIENT_SECRET}&quot;
-          redirect_url: &quot;https://api.securaa.com/auth/oauth/microsoft/callback&quot;
-          scopes: [&quot;openid&quot;, &quot;profile&quot;, &quot;email&quot;]
+<span class="w">    </span><span class="nt">oauth2</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">providers</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">google</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${GOOGLE_CLIENT_ID}&quot;</span>
+<span class="w">          </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${GOOGLE_CLIENT_SECRET}&quot;</span>
+<span class="w">          </span><span class="nt">redirect_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://api.securaa.com/auth/oauth/google/callback&quot;</span>
+<span class="w">          </span><span class="nt">scopes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;openid&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;profile&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;email&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">        </span><span class="nt">microsoft</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${MICROSOFT_CLIENT_ID}&quot;</span>
+<span class="w">          </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${MICROSOFT_CLIENT_SECRET}&quot;</span>
+<span class="w">          </span><span class="nt">redirect_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://api.securaa.com/auth/oauth/microsoft/callback&quot;</span>
+<span class="w">          </span><span class="nt">scopes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;openid&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;profile&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;email&quot;</span><span class="p p-Indicator">]</span>
 
-    smtp:
-      host: &quot;${SMTP_HOST}&quot;
-      port: 587
-      username: &quot;${SMTP_USERNAME}&quot;
-      password: &quot;${SMTP_PASSWORD}&quot;
-      from_address: &quot;noreply@securaa.com&quot;
-      use_tls: true
-      connection_pool_size: 10
+<span class="w">    </span><span class="nt">smtp</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${SMTP_HOST}&quot;</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">587</span>
+<span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${SMTP_USERNAME}&quot;</span>
+<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${SMTP_PASSWORD}&quot;</span>
+<span class="w">      </span><span class="nt">from_address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;noreply@securaa.com&quot;</span>
+<span class="w">      </span><span class="nt">use_tls</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">connection_pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
 
-    sms:
-      provider: &quot;twilio&quot;
-      account_sid: &quot;${TWILIO_ACCOUNT_SID}&quot;
-      auth_token: &quot;${TWILIO_AUTH_TOKEN}&quot;
-      from_number: &quot;${TWILIO_FROM_NUMBER}&quot;
+<span class="w">    </span><span class="nt">sms</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;twilio&quot;</span>
+<span class="w">      </span><span class="nt">account_sid</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${TWILIO_ACCOUNT_SID}&quot;</span>
+<span class="w">      </span><span class="nt">auth_token</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${TWILIO_AUTH_TOKEN}&quot;</span>
+<span class="w">      </span><span class="nt">from_number</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${TWILIO_FROM_NUMBER}&quot;</span>
 
-  monitoring:
-    metrics:
-      enabled: true
-      port: 9090
-      path: &quot;/metrics&quot;
+<span class="w">  </span><span class="nt">monitoring</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9090</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/metrics&quot;</span>
 
-    logging:
-      level: &quot;info&quot;
-      format: &quot;json&quot;
-      output: &quot;stdout&quot;
+<span class="w">    </span><span class="nt">logging</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;info&quot;</span>
+<span class="w">      </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;json&quot;</span>
+<span class="w">      </span><span class="nt">output</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;stdout&quot;</span>
 
-    tracing:
-      enabled: true
-      jaeger:
-        endpoint: &quot;${JAEGER_ENDPOINT}&quot;
-        sampler_type: &quot;probabilistic&quot;
-        sampler_param: 0.1
+<span class="w">    </span><span class="nt">tracing</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">jaeger</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;${JAEGER_ENDPOINT}&quot;</span>
+<span class="w">        </span><span class="nt">sampler_type</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;probabilistic&quot;</span>
+<span class="w">        </span><span class="nt">sampler_param</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span>
 
-    health_checks:
-      enabled: true
-      endpoints:
-        - path: &quot;/health&quot;
-          method: &quot;GET&quot;
-        - path: &quot;/health/ready&quot;
-          method: &quot;GET&quot;
-        - path: &quot;/health/live&quot;
-          method: &quot;GET&quot;
+<span class="w">    </span><span class="nt">health_checks</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">endpoints</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/health&quot;</span>
+<span class="w">          </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GET&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/health/ready&quot;</span>
+<span class="w">          </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GET&quot;</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/health/live&quot;</span>
+<span class="w">          </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;GET&quot;</span>
 
-  compliance:
-    audit_logging:
-      enabled: true
-      retention_days: 2555  # 7 years
-      encryption_enabled: true
-      remote_storage: true
+<span class="w">  </span><span class="nt">compliance</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">audit_logging</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">retention_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2555</span><span class="w">  </span><span class="c1"># 7 years</span>
+<span class="w">      </span><span class="nt">encryption_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">remote_storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
-    data_protection:
-      gdpr_enabled: true
-      data_retention_days: 1825  # 5 years
-      anonymization_enabled: true
-      right_to_be_forgotten: true
+<span class="w">    </span><span class="nt">data_protection</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">gdpr_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">data_retention_days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1825</span><span class="w">  </span><span class="c1"># 5 years</span>
+<span class="w">      </span><span class="nt">anonymization_enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">right_to_be_forgotten</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
-    regulatory:
-      soc2_mode: true
-      hipaa_mode: true
-      pci_dss_mode: true
-      iso27001_mode: true
-</code></pre>
+<span class="w">    </span><span class="nt">regulatory</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">soc2_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">hipaa_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">pci_dss_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">iso27001_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
 
 <h2 id="operational-procedures">📋 <strong>OPERATIONAL PROCEDURES</strong></h2>
 <h3 id="deployment-automation-pipeline"><strong>Deployment Automation Pipeline</strong></h3>
@@ -2350,7 +2350,7 @@ gantt
 
     <footer class="footer">
         <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
-        <p>Documentation generated on December 04, 2025</p>
+        <p>Documentation generated on December 18, 2025</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>

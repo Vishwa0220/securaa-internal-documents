@@ -601,7 +601,7 @@ hr {
         <div class="header-content">
             <div class="header-logo">Securaa<span>Docs</span></div>
             <div class="header-meta">
-                <span>Generated: December 04, 2025</span>
+                <span>Generated: December 18, 2025</span>
             </div>
         </div>
     </header>
@@ -634,55 +634,55 @@ hr {
 <li><strong>Build System</strong>: Make with custom Makefile</li>
 </ul>
 <h3 id="12-project-structure-analysis">1.2 Project Structure Analysis</h3>
-<pre class="highlight"><code>zona_custom/
-├── main.go                 # Application entry point
-├── app.go                  # Application initialization and routing
-├── go.mod                  # Go module dependencies
-├── Dockerfile             # Container configuration
-├── Makefile              # Build automation
-├── constants/
-│   └── constants.go       # Application constants
-├── controllers/           # HTTP request handlers
-│   ├── customAppController.go
-│   ├── genericAppController.go
-│   ├── exportController.go
-│   ├── integrationController.go
-│   └── eventsController.go
-├── handlers/              # Error handling
-│   └── errorHandler.go
-├── models/                # Data structures
-│   ├── Response.go
-│   ├── export.go
-│   ├── process.go
-│   └── customtaskhandler.go
-└── services/              # Business logic
-    ├── exportservice.go
-    ├── importservice.go
-    ├── integrationservice.go
-    └── eventsService.go
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">zona_custom</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">main</span><span class="o">.</span><span class="n">go</span><span class="w">                 </span><span class="c1"># Application entry point</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">app</span><span class="o">.</span><span class="n">go</span><span class="w">                  </span><span class="c1"># Application initialization and routing</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">go</span><span class="o">.</span><span class="n">mod</span><span class="w">                  </span><span class="c1"># Go module dependencies</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">Dockerfile</span><span class="w">             </span><span class="c1"># Container configuration</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">Makefile</span><span class="w">              </span><span class="c1"># Build automation</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">constants</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">constants</span><span class="o">.</span><span class="n">go</span><span class="w">       </span><span class="c1"># Application constants</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">controllers</span><span class="o">/</span><span class="w">           </span><span class="c1"># HTTP request handlers</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">customAppController</span><span class="o">.</span><span class="n">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">genericAppController</span><span class="o">.</span><span class="n">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">exportController</span><span class="o">.</span><span class="n">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">integrationController</span><span class="o">.</span><span class="n">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">eventsController</span><span class="o">.</span><span class="n">go</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">handlers</span><span class="o">/</span><span class="w">              </span><span class="c1"># Error handling</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">errorHandler</span><span class="o">.</span><span class="n">go</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">models</span><span class="o">/</span><span class="w">                </span><span class="c1"># Data structures</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">Response</span><span class="o">.</span><span class="n">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="k">export</span><span class="o">.</span><span class="n">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">process</span><span class="o">.</span><span class="n">go</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">customtaskhandler</span><span class="o">.</span><span class="n">go</span>
+<span class="err">└──</span><span class="w"> </span><span class="n">services</span><span class="o">/</span><span class="w">              </span><span class="c1"># Business logic</span>
+<span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="n">exportservice</span><span class="o">.</span><span class="n">go</span>
+<span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="n">importservice</span><span class="o">.</span><span class="n">go</span>
+<span class="w">    </span><span class="err">├──</span><span class="w"> </span><span class="n">integrationservice</span><span class="o">.</span><span class="n">go</span>
+<span class="w">    </span><span class="err">└──</span><span class="w"> </span><span class="n">eventsService</span><span class="o">.</span><span class="n">go</span>
+</code></pre></div>
 
 <h2 id="2-detailed-component-design">2. Detailed Component Design</h2>
 <h3 id="21-application-bootstrap-maingo-appgo">2.1 Application Bootstrap (<code>main.go</code> &amp; <code>app.go</code>)</h3>
 <h4 id="211-main-function-flow">2.1.1 Main Function Flow</h4>
-<pre class="highlight"><code class="language-go">func main() {
-    securaalog.Init(&quot;CORE_SERVICE_LOGS&quot;)  // Initialize logging
-    app := App{}                          // Create app instance
-    app.Initialize()                      // Setup dependencies
-    app.Run(&quot;:8063&quot;)                     // Start HTTP server
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">securaalog</span><span class="p">.</span><span class="nx">Init</span><span class="p">(</span><span class="s">&quot;CORE_SERVICE_LOGS&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">// Initialize logging</span>
+<span class="w">    </span><span class="nx">app</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">App</span><span class="p">{}</span><span class="w">                          </span><span class="c1">// Create app instance</span>
+<span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">Initialize</span><span class="p">()</span><span class="w">                      </span><span class="c1">// Setup dependencies</span>
+<span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">Run</span><span class="p">(</span><span class="s">&quot;:8063&quot;</span><span class="p">)</span><span class="w">                     </span><span class="c1">// Start HTTP server</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="212-app-structure-design">2.1.2 App Structure Design</h4>
-<pre class="highlight"><code class="language-go">type App struct {
-    Router             *mux.Router                    // HTTP router
-    AccessTokenHashMap map[string]int64               // Token cache
-    DBSession          map[string]common.SessionStruct // DB connections
-    ConfigObject       config.ConfigStruct           // Configuration
-    BuildType          string                        // Deployment type
-    RequestResponseLog bool                          // Logging flag
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">App</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Router</span><span class="w">             </span><span class="o">*</span><span class="nx">mux</span><span class="p">.</span><span class="nx">Router</span><span class="w">                    </span><span class="c1">// HTTP router</span>
+<span class="w">    </span><span class="nx">AccessTokenHashMap</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int64</span><span class="w">               </span><span class="c1">// Token cache</span>
+<span class="w">    </span><span class="nx">DBSession</span><span class="w">          </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">common</span><span class="p">.</span><span class="nx">SessionStruct</span><span class="w"> </span><span class="c1">// DB connections</span>
+<span class="w">    </span><span class="nx">ConfigObject</span><span class="w">       </span><span class="nx">config</span><span class="p">.</span><span class="nx">ConfigStruct</span><span class="w">           </span><span class="c1">// Configuration</span>
+<span class="w">    </span><span class="nx">BuildType</span><span class="w">          </span><span class="kt">string</span><span class="w">                        </span><span class="c1">// Deployment type</span>
+<span class="w">    </span><span class="nx">RequestResponseLog</span><span class="w"> </span><span class="kt">bool</span><span class="w">                          </span><span class="c1">// Logging flag</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="213-initialization-sequence">2.1.3 Initialization Sequence</h4>
 <div class="mermaid">
@@ -710,35 +710,35 @@ sequenceDiagram
 
 <h3 id="22-database-connection-management">2.2 Database Connection Management</h3>
 <h4 id="221-multi-tenant-connection-strategy">2.2.1 Multi-Tenant Connection Strategy</h4>
-<pre class="highlight"><code class="language-go">func (a *App) InitMongoClient(configObject config.ConfigStruct) {
-    a.DBSession = make(map[string]common.SessionStruct)
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">*</span><span class="nx">App</span><span class="p">)</span><span class="w"> </span><span class="nx">InitMongoClient</span><span class="p">(</span><span class="nx">configObject</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">ConfigStruct</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">a</span><span class="p">.</span><span class="nx">DBSession</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">common</span><span class="p">.</span><span class="nx">SessionStruct</span><span class="p">)</span>
 
-    // Initialize core database connection
-    mongoDbClient, err := mongo_driver.NewMongoClientWrapper(configObject, nil)
-    clientStruct := common.SessionStruct{
-        DBName: config[&quot;mongoDB&quot;],
-        Client: mongoDbClient,
-    }
-    a.DBSession[&quot;localhost&quot;] = clientStruct
+<span class="w">    </span><span class="c1">// Initialize core database connection</span>
+<span class="w">    </span><span class="nx">mongoDbClient</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mongo_driver</span><span class="p">.</span><span class="nx">NewMongoClientWrapper</span><span class="p">(</span><span class="nx">configObject</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">clientStruct</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">SessionStruct</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">DBName</span><span class="p">:</span><span class="w"> </span><span class="nx">config</span><span class="p">[</span><span class="s">&quot;mongoDB&quot;</span><span class="p">],</span>
+<span class="w">        </span><span class="nx">Client</span><span class="p">:</span><span class="w"> </span><span class="nx">mongoDbClient</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">a</span><span class="p">.</span><span class="nx">DBSession</span><span class="p">[</span><span class="s">&quot;localhost&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">clientStruct</span>
 
-    // Initialize tenant-specific connections
-    tenantsList, _ := utils.GetAllTenants2(mongoDbClient, configObject)
-    for _, tenantData := range tenantsList {
-        if a.BuildType == &quot;mssp&quot; &amp;&amp; tenantData.Status == &quot;active&quot; {
-            // MSSP: Each tenant has separate database
-            tenantDBClient, _ := mongo_driver.NewMongoClientWrapper(configObject, tenantData)
-            clientStruct := common.SessionStruct{
-                DBName: tenantDBClient.DBName,
-                Client: tenantDBClient,
-            }
-            a.DBSession[tenantCode] = clientStruct
-        } else {
-            // Single tenant: Shared database with tenant isolation
-            // Implementation for single-tenant architecture
-        }
-    }
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// Initialize tenant-specific connections</span>
+<span class="w">    </span><span class="nx">tenantsList</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">GetAllTenants2</span><span class="p">(</span><span class="nx">mongoDbClient</span><span class="p">,</span><span class="w"> </span><span class="nx">configObject</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">tenantData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">tenantsList</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">BuildType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;mssp&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">tenantData</span><span class="p">.</span><span class="nx">Status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;active&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// MSSP: Each tenant has separate database</span>
+<span class="w">            </span><span class="nx">tenantDBClient</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mongo_driver</span><span class="p">.</span><span class="nx">NewMongoClientWrapper</span><span class="p">(</span><span class="nx">configObject</span><span class="p">,</span><span class="w"> </span><span class="nx">tenantData</span><span class="p">)</span>
+<span class="w">            </span><span class="nx">clientStruct</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">SessionStruct</span><span class="p">{</span>
+<span class="w">                </span><span class="nx">DBName</span><span class="p">:</span><span class="w"> </span><span class="nx">tenantDBClient</span><span class="p">.</span><span class="nx">DBName</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">Client</span><span class="p">:</span><span class="w"> </span><span class="nx">tenantDBClient</span><span class="p">,</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="nx">a</span><span class="p">.</span><span class="nx">DBSession</span><span class="p">[</span><span class="nx">tenantCode</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">clientStruct</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Single tenant: Shared database with tenant isolation</span>
+<span class="w">            </span><span class="c1">// Implementation for single-tenant architecture</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="222-connection-pool-management">2.2.2 Connection Pool Management</h4>
 <div class="mermaid">
@@ -765,27 +765,27 @@ graph TB
 
 <h3 id="23-middleware-implementation">2.3 Middleware Implementation</h3>
 <h4 id="231-logging-middleware">2.3.1 Logging Middleware</h4>
-<pre class="highlight"><code class="language-go">func (a *App) loggingMiddleware(next http.Handler) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        middleWareData := common.MiddleWareData{
-            LogRequestResponse:   a.RequestResponseLog,
-            DBSession:          a.DBSession,
-            ConfigObject:       a.ConfigObject,
-            AccessTokenHashMap: a.AccessTokenHashMap,
-        }
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">*</span><span class="nx">App</span><span class="p">)</span><span class="w"> </span><span class="nx">loggingMiddleware</span><span class="p">(</span><span class="nx">next</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span><span class="p">)</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">middleWareData</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">MiddleWareData</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">LogRequestResponse</span><span class="p">:</span><span class="w">   </span><span class="nx">a</span><span class="p">.</span><span class="nx">RequestResponseLog</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">DBSession</span><span class="p">:</span><span class="w">          </span><span class="nx">a</span><span class="p">.</span><span class="nx">DBSession</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">ConfigObject</span><span class="p">:</span><span class="w">       </span><span class="nx">a</span><span class="p">.</span><span class="nx">ConfigObject</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">AccessTokenHashMap</span><span class="p">:</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">AccessTokenHashMap</span><span class="p">,</span>
+<span class="w">        </span><span class="p">}</span>
 
-        err := common.MiddleWareForMongoDriver(next, w, r, 
-            constants.SkipRoutes, constants.SkipURI, middleWareData)
+<span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">common</span><span class="p">.</span><span class="nx">MiddleWareForMongoDriver</span><span class="p">(</span><span class="nx">next</span><span class="p">,</span><span class="w"> </span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nx">constants</span><span class="p">.</span><span class="nx">SkipRoutes</span><span class="p">,</span><span class="w"> </span><span class="nx">constants</span><span class="p">.</span><span class="nx">SkipURI</span><span class="p">,</span><span class="w"> </span><span class="nx">middleWareData</span><span class="p">)</span>
 
-        if err != nil {
-            logger.Error(&quot;Error in Middleware : &quot;, err.Error())
-            utils.RespondWithJSON(w, http.StatusOK, 
-                common.HandleError(err, &quot;Error in creating Tenant Session&quot;))
-            return
-        }
-    })
-}
-</code></pre>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;Error in Middleware : &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">())</span>
+<span class="w">            </span><span class="nx">utils</span><span class="p">.</span><span class="nx">RespondWithJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                </span><span class="nx">common</span><span class="p">.</span><span class="nx">HandleError</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error in creating Tenant Session&quot;</span><span class="p">))</span>
+<span class="w">            </span><span class="k">return</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="232-middleware-processing-flow">2.3.2 Middleware Processing Flow</h4>
 <div class="mermaid">
@@ -812,50 +812,50 @@ flowchart TD
 
 <h3 id="24-controller-layer-implementation">2.4 Controller Layer Implementation</h3>
 <h4 id="241-custom-app-controller">2.4.1 Custom App Controller</h4>
-<pre class="highlight"><code class="language-go">type CustomAppController struct{}
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">CustomAppController</span><span class="w"> </span><span class="kd">struct</span><span class="p">{}</span>
 
-func (gc CustomAppController) DeleteApp(w http.ResponseWriter, r *http.Request, 
-    dbSession map[string]common.SessionStruct, configObject config.ConfigStruct) {
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">gc</span><span class="w"> </span><span class="nx">CustomAppController</span><span class="p">)</span><span class="w"> </span><span class="nx">DeleteApp</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nx">dbSession</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">common</span><span class="p">.</span><span class="nx">SessionStruct</span><span class="p">,</span><span class="w"> </span><span class="nx">configObject</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">ConfigStruct</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-    response := models.Response{}
-    deleteAppRequest := models.DeleteApp{}
+<span class="w">    </span><span class="nx">response</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Response</span><span class="p">{}</span>
+<span class="w">    </span><span class="nx">deleteAppRequest</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">DeleteApp</span><span class="p">{}</span>
 
-    // Step 1: Decode request
-    decoder := json.NewDecoder(r.Body)
-    if err := decoder.Decode(&amp;deleteAppRequest); err != nil {
-        utils.RespondWithJSON(w, http.StatusOK, 
-            handlers.HandleError(err, &quot;Error in Reading Request&quot;))
-        return
-    }
-    defer r.Body.Close()
+<span class="w">    </span><span class="c1">// Step 1: Decode request</span>
+<span class="w">    </span><span class="nx">decoder</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewDecoder</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">decoder</span><span class="p">.</span><span class="nx">Decode</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">deleteAppRequest</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">utils</span><span class="p">.</span><span class="nx">RespondWithJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nx">handlers</span><span class="p">.</span><span class="nx">HandleError</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error in Reading Request&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
 
-    // Step 2: Get database client
-    mongoDBClient := dbSession[deleteAppRequest.TenantCode].Client
+<span class="w">    </span><span class="c1">// Step 2: Get database client</span>
+<span class="w">    </span><span class="nx">mongoDBClient</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dbSession</span><span class="p">[</span><span class="nx">deleteAppRequest</span><span class="p">.</span><span class="nx">TenantCode</span><span class="p">].</span><span class="nx">Client</span>
 
-    // Step 3: Business logic execution
-    err := deleteAppRequest.UpdateTasksStatus(mongoDBClient, configObject)
-    if err != nil {
-        utils.RespondWithJSON(w, http.StatusOK, 
-            handlers.HandleError(err, &quot;Error in updating task status&quot;))
-        return
-    }
+<span class="w">    </span><span class="c1">// Step 3: Business logic execution</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">deleteAppRequest</span><span class="p">.</span><span class="nx">UpdateTasksStatus</span><span class="p">(</span><span class="nx">mongoDBClient</span><span class="p">,</span><span class="w"> </span><span class="nx">configObject</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">utils</span><span class="p">.</span><span class="nx">RespondWithJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span><span class="w"> </span>
+<span class="w">            </span><span class="nx">handlers</span><span class="p">.</span><span class="nx">HandleError</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Error in updating task status&quot;</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Step 4: Update database
-    colQuerier := bson.M{&quot;integration_id&quot;: deleteAppRequest.IntegrationID}
-    change := bson.M{&quot;$set&quot;: bson.M{&quot;status&quot;: &quot;deleted&quot;}}
-    mongoDBClient.CollectionName = config[&quot;mongoIntegartionCollection&quot;]
-    err = mongoDBClient.UpdateSingleDocument(colQuerier, change, nil, false)
+<span class="w">    </span><span class="c1">// Step 4: Update database</span>
+<span class="w">    </span><span class="nx">colQuerier</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;integration_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">deleteAppRequest</span><span class="p">.</span><span class="nx">IntegrationID</span><span class="p">}</span>
+<span class="w">    </span><span class="nx">change</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;$set&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;deleted&quot;</span><span class="p">}}</span>
+<span class="w">    </span><span class="nx">mongoDBClient</span><span class="p">.</span><span class="nx">CollectionName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">config</span><span class="p">[</span><span class="s">&quot;mongoIntegartionCollection&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">mongoDBClient</span><span class="p">.</span><span class="nx">UpdateSingleDocument</span><span class="p">(</span><span class="nx">colQuerier</span><span class="p">,</span><span class="w"> </span><span class="nx">change</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
 
-    // Step 5: Cache invalidation
-    RemoveAppListingCache(deleteAppRequest.TenantCode)
-    RemoveActiveInstanceCache(deleteAppRequest.TenantCode)
+<span class="w">    </span><span class="c1">// Step 5: Cache invalidation</span>
+<span class="w">    </span><span class="nx">RemoveAppListingCache</span><span class="p">(</span><span class="nx">deleteAppRequest</span><span class="p">.</span><span class="nx">TenantCode</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">RemoveActiveInstanceCache</span><span class="p">(</span><span class="nx">deleteAppRequest</span><span class="p">.</span><span class="nx">TenantCode</span><span class="p">)</span>
 
-    // Step 6: Response
-    response.Success = true
-    response.DisplayMessage = &quot;App Deleted&quot;
-    utils.RespondWithJSON(w, http.StatusOK, response)
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// Step 6: Response</span>
+<span class="w">    </span><span class="nx">response</span><span class="p">.</span><span class="nx">Success</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="nx">response</span><span class="p">.</span><span class="nx">DisplayMessage</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;App Deleted&quot;</span>
+<span class="w">    </span><span class="nx">utils</span><span class="p">.</span><span class="nx">RespondWithJSON</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="242-generic-app-controller-upsertgenericapp">2.4.2 Generic App Controller - UpsertGenericApp</h4>
 <div class="mermaid">
@@ -901,54 +901,54 @@ flowchart TD
 
 <h3 id="25-service-layer-implementation">2.5 Service Layer Implementation</h3>
 <h4 id="251-export-service-architecture">2.5.1 Export Service Architecture</h4>
-<pre class="highlight"><code class="language-go">func ExportIntegration(dbSession map[string]common.SessionStruct, 
-    config config.Config, req models.ExportAppInputStruct) models.Response {
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">ExportIntegration</span><span class="p">(</span><span class="nx">dbSession</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">common</span><span class="p">.</span><span class="nx">SessionStruct</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nx">config</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">Config</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">ExportAppInputStruct</span><span class="p">)</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Response</span><span class="w"> </span><span class="p">{</span>
 
-    var response models.Response
-    var integrations models.ExportObject
-    var apps []models.AppData
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Response</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">integrations</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">ExportObject</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">apps</span><span class="w"> </span><span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">AppData</span>
 
-    tenantCode := req.Tenantcode
-    mongoDBClient := dbSession[tenantCode].Client
+<span class="w">    </span><span class="nx">tenantCode</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">Tenantcode</span>
+<span class="w">    </span><span class="nx">mongoDBClient</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dbSession</span><span class="p">[</span><span class="nx">tenantCode</span><span class="p">].</span><span class="nx">Client</span>
 
-    for _, eachIntegrationID := range req.IntegrationIds {
-        var integrationObj models.AppData
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">eachIntegrationID</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">IntegrationIds</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">integrationObj</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">AppData</span>
 
-        // Step 1: Fetch integration data
-        var appObj models.GenericIntegrationObject
-        mongoDBClient.CollectionName = config[&quot;mongoIntegartionCollection&quot;]
-        err := mongoDBClient.FindSingleDocument(
-            bson.M{&quot;integration_id&quot;: eachIntegrationID, &quot;status&quot;: &quot;active&quot;}, 
-            nil, &amp;appObj)
+<span class="w">        </span><span class="c1">// Step 1: Fetch integration data</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">appObj</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">GenericIntegrationObject</span>
+<span class="w">        </span><span class="nx">mongoDBClient</span><span class="p">.</span><span class="nx">CollectionName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">config</span><span class="p">[</span><span class="s">&quot;mongoIntegartionCollection&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mongoDBClient</span><span class="p">.</span><span class="nx">FindSingleDocument</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;integration_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">eachIntegrationID</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;active&quot;</span><span class="p">},</span><span class="w"> </span>
+<span class="w">            </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">appObj</span><span class="p">)</span>
 
-        // Step 2: Sanitize sensitive data
-        var updatedFields []models.Field
-        for _, eachfield := range appObj.Fields {
-            eachfield.Value = &quot;&quot; // Remove sensitive values
-            updatedFields = append(updatedFields, eachfield)
-        }
+<span class="w">        </span><span class="c1">// Step 2: Sanitize sensitive data</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">updatedFields</span><span class="w"> </span><span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">Field</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">eachfield</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">appObj</span><span class="p">.</span><span class="nx">Fields</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">eachfield</span><span class="p">.</span><span class="nx">Value</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="c1">// Remove sensitive values</span>
+<span class="w">            </span><span class="nx">updatedFields</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">updatedFields</span><span class="p">,</span><span class="w"> </span><span class="nx">eachfield</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
 
-        // Step 3: Fetch related tasks
-        var tasksResponse []models.TaskData
-        mongoDBClient.CollectionName = config[&quot;taskCollection&quot;]
-        err = mongoDBClient.FindMultipleDocuments(
-            bson.M{&quot;integration_id&quot;: integrationID, &quot;status&quot;: bson.M{&quot;$in&quot;: status}}, 
-            nil, &amp;tasksResponse)
+<span class="w">        </span><span class="c1">// Step 3: Fetch related tasks</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">tasksResponse</span><span class="w"> </span><span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">TaskData</span>
+<span class="w">        </span><span class="nx">mongoDBClient</span><span class="p">.</span><span class="nx">CollectionName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">config</span><span class="p">[</span><span class="s">&quot;taskCollection&quot;</span><span class="p">]</span>
+<span class="w">        </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">mongoDBClient</span><span class="p">.</span><span class="nx">FindMultipleDocuments</span><span class="p">(</span>
+<span class="w">            </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;integration_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">integrationID</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">{</span><span class="s">&quot;$in&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">status</span><span class="p">}},</span><span class="w"> </span>
+<span class="w">            </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">tasksResponse</span><span class="p">)</span>
 
-        // Step 4: Process tasks and dependencies
-        altTasksResponse := processTasks(tasksResponse)
+<span class="w">        </span><span class="c1">// Step 4: Process tasks and dependencies</span>
+<span class="w">        </span><span class="nx">altTasksResponse</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">processTasks</span><span class="p">(</span><span class="nx">tasksResponse</span><span class="p">)</span>
 
-        integrationObj.App = appObj
-        integrationObj.Tasks = altTasksResponse
-        apps = append(apps, integrationObj)
-    }
+<span class="w">        </span><span class="nx">integrationObj</span><span class="p">.</span><span class="nx">App</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">appObj</span>
+<span class="w">        </span><span class="nx">integrationObj</span><span class="p">.</span><span class="nx">Tasks</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">altTasksResponse</span>
+<span class="w">        </span><span class="nx">apps</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">apps</span><span class="p">,</span><span class="w"> </span><span class="nx">integrationObj</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-    integrations.Apps = apps
-    response.Success = true
-    response.Data = integrations
-    return response
-}
-</code></pre>
+<span class="w">    </span><span class="nx">integrations</span><span class="p">.</span><span class="nx">Apps</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">apps</span>
+<span class="w">    </span><span class="nx">response</span><span class="p">.</span><span class="nx">Success</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="nx">response</span><span class="p">.</span><span class="nx">Data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">integrations</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="252-task-dependency-mapping">2.5.2 Task Dependency Mapping</h4>
 <div class="mermaid">
@@ -990,53 +990,53 @@ graph TB
 
 <h3 id="26-data-models-implementation">2.6 Data Models Implementation</h3>
 <h4 id="261-core-data-structures">2.6.1 Core Data Structures</h4>
-<pre class="highlight"><code class="language-go">// Response model - Standard API response
-type Response struct {
-    Success        bool        `json:&quot;success&quot;`
-    Data           interface{} `json:&quot;data,omitempty&quot;`
-    Error          string      `json:&quot;error,omitempty&quot;`
-    Time           int64       `json:&quot;time,omitempty&quot;`
-    DisplayMessage string      `json:&quot;displaymessage,omitempty&quot;`
-    Status         string      `json:&quot;status,omitempty&quot;`
-    ErrorPath      string      `json:&quot;errorpath,omitempty&quot;`
-    SessionExpired bool        `json:&quot;sessionexpired,omitempty&quot;`
-    FileName       string      `json:&quot;filename,omitempty&quot;`
-    Field          []string    `json:&quot;field,omitempty&quot;`
-    Count          int         `json:&quot;count,omitempty&quot;`
-}
+<div class="highlight"><pre><span></span><code><span class="c1">// Response model - Standard API response</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Response</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Success</span><span class="w">        </span><span class="kt">bool</span><span class="w">        </span><span class="s">`json:&quot;success&quot;`</span>
+<span class="w">    </span><span class="nx">Data</span><span class="w">           </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="s">`json:&quot;data,omitempty&quot;`</span>
+<span class="w">    </span><span class="nx">Error</span><span class="w">          </span><span class="kt">string</span><span class="w">      </span><span class="s">`json:&quot;error,omitempty&quot;`</span>
+<span class="w">    </span><span class="nx">Time</span><span class="w">           </span><span class="kt">int64</span><span class="w">       </span><span class="s">`json:&quot;time,omitempty&quot;`</span>
+<span class="w">    </span><span class="nx">DisplayMessage</span><span class="w"> </span><span class="kt">string</span><span class="w">      </span><span class="s">`json:&quot;displaymessage,omitempty&quot;`</span>
+<span class="w">    </span><span class="nx">Status</span><span class="w">         </span><span class="kt">string</span><span class="w">      </span><span class="s">`json:&quot;status,omitempty&quot;`</span>
+<span class="w">    </span><span class="nx">ErrorPath</span><span class="w">      </span><span class="kt">string</span><span class="w">      </span><span class="s">`json:&quot;errorpath,omitempty&quot;`</span>
+<span class="w">    </span><span class="nx">SessionExpired</span><span class="w"> </span><span class="kt">bool</span><span class="w">        </span><span class="s">`json:&quot;sessionexpired,omitempty&quot;`</span>
+<span class="w">    </span><span class="nx">FileName</span><span class="w">       </span><span class="kt">string</span><span class="w">      </span><span class="s">`json:&quot;filename,omitempty&quot;`</span>
+<span class="w">    </span><span class="nx">Field</span><span class="w">          </span><span class="p">[]</span><span class="kt">string</span><span class="w">    </span><span class="s">`json:&quot;field,omitempty&quot;`</span>
+<span class="w">    </span><span class="nx">Count</span><span class="w">          </span><span class="kt">int</span><span class="w">         </span><span class="s">`json:&quot;count,omitempty&quot;`</span>
+<span class="p">}</span>
 
-// GenericIntegrationObject - Integration data structure
-type GenericIntegrationObject struct {
-    IntegrationID int           `json:&quot;integration_id&quot; bson:&quot;integration_id&quot;`
-    Title         string        `json:&quot;title&quot; bson:&quot;title&quot;`
-    Description   string        `json:&quot;description&quot; bson:&quot;description&quot;`
-    Version       string        `json:&quot;version&quot; bson:&quot;version&quot;`
-    Category      string        `json:&quot;category&quot; bson:&quot;category&quot;`
-    TenantCode    string        `json:&quot;tenant_code&quot; bson:&quot;tenant_code&quot;`
-    Fields        []Field       `json:&quot;fields&quot; bson:&quot;fields&quot;`
-    Status        string        `json:&quot;status&quot; bson:&quot;status&quot;`
-    Logo          string        `json:&quot;logo&quot; bson:&quot;logo&quot;`
-    GenericApp    bool          `json:&quot;generic_app&quot; bson:&quot;generic_app&quot;`
-    UserID        int           `json:&quot;user_id&quot; bson:&quot;user_id&quot;`
-    AddInstance   bool          `json:&quot;add_instance&quot; bson:&quot;add_instance&quot;`
-}
+<span class="c1">// GenericIntegrationObject - Integration data structure</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">GenericIntegrationObject</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">IntegrationID</span><span class="w"> </span><span class="kt">int</span><span class="w">           </span><span class="s">`json:&quot;integration_id&quot; bson:&quot;integration_id&quot;`</span>
+<span class="w">    </span><span class="nx">Title</span><span class="w">         </span><span class="kt">string</span><span class="w">        </span><span class="s">`json:&quot;title&quot; bson:&quot;title&quot;`</span>
+<span class="w">    </span><span class="nx">Description</span><span class="w">   </span><span class="kt">string</span><span class="w">        </span><span class="s">`json:&quot;description&quot; bson:&quot;description&quot;`</span>
+<span class="w">    </span><span class="nx">Version</span><span class="w">       </span><span class="kt">string</span><span class="w">        </span><span class="s">`json:&quot;version&quot; bson:&quot;version&quot;`</span>
+<span class="w">    </span><span class="nx">Category</span><span class="w">      </span><span class="kt">string</span><span class="w">        </span><span class="s">`json:&quot;category&quot; bson:&quot;category&quot;`</span>
+<span class="w">    </span><span class="nx">TenantCode</span><span class="w">    </span><span class="kt">string</span><span class="w">        </span><span class="s">`json:&quot;tenant_code&quot; bson:&quot;tenant_code&quot;`</span>
+<span class="w">    </span><span class="nx">Fields</span><span class="w">        </span><span class="p">[]</span><span class="nx">Field</span><span class="w">       </span><span class="s">`json:&quot;fields&quot; bson:&quot;fields&quot;`</span>
+<span class="w">    </span><span class="nx">Status</span><span class="w">        </span><span class="kt">string</span><span class="w">        </span><span class="s">`json:&quot;status&quot; bson:&quot;status&quot;`</span>
+<span class="w">    </span><span class="nx">Logo</span><span class="w">          </span><span class="kt">string</span><span class="w">        </span><span class="s">`json:&quot;logo&quot; bson:&quot;logo&quot;`</span>
+<span class="w">    </span><span class="nx">GenericApp</span><span class="w">    </span><span class="kt">bool</span><span class="w">          </span><span class="s">`json:&quot;generic_app&quot; bson:&quot;generic_app&quot;`</span>
+<span class="w">    </span><span class="nx">UserID</span><span class="w">        </span><span class="kt">int</span><span class="w">           </span><span class="s">`json:&quot;user_id&quot; bson:&quot;user_id&quot;`</span>
+<span class="w">    </span><span class="nx">AddInstance</span><span class="w">   </span><span class="kt">bool</span><span class="w">          </span><span class="s">`json:&quot;add_instance&quot; bson:&quot;add_instance&quot;`</span>
+<span class="p">}</span>
 
-// TaskData - Task information structure
-type TaskData struct {
-    ID                  int    `json:&quot;id&quot; bson:&quot;id&quot;`
-    Name                string `json:&quot;name&quot; bson:&quot;name&quot;`
-    TasksTag            string `json:&quot;tasks_tag&quot; bson:&quot;tasks_tag&quot;`
-    TaskHandler         string `json:&quot;task_handler&quot; bson:&quot;task_handler&quot;`
-    IntegrationID       int    `json:&quot;integration_id&quot; bson:&quot;integration_id&quot;`
-    Fields              string `json:&quot;fields&quot; bson:&quot;fields&quot;`
-    Status              string `json:&quot;status&quot; bson:&quot;status&quot;`
-    Tenantcode          string `json:&quot;tenantcode&quot; bson:&quot;tenantcode&quot;`
-    IngestCases         bool   `json:&quot;ingest_cases&quot; bson:&quot;ingest_cases&quot;`
-    CaseIngestionConfig string `json:&quot;case_ingestion_config&quot; bson:&quot;case_ingestion_config&quot;`
-    EventsAPIConfig     string `json:&quot;events_api_config&quot; bson:&quot;events_api_config&quot;`
-    LogoPath            string `json:&quot;logo_path&quot; bson:&quot;logo_path&quot;`
-}
-</code></pre>
+<span class="c1">// TaskData - Task information structure</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">TaskData</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ID</span><span class="w">                  </span><span class="kt">int</span><span class="w">    </span><span class="s">`json:&quot;id&quot; bson:&quot;id&quot;`</span>
+<span class="w">    </span><span class="nx">Name</span><span class="w">                </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;name&quot; bson:&quot;name&quot;`</span>
+<span class="w">    </span><span class="nx">TasksTag</span><span class="w">            </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;tasks_tag&quot; bson:&quot;tasks_tag&quot;`</span>
+<span class="w">    </span><span class="nx">TaskHandler</span><span class="w">         </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;task_handler&quot; bson:&quot;task_handler&quot;`</span>
+<span class="w">    </span><span class="nx">IntegrationID</span><span class="w">       </span><span class="kt">int</span><span class="w">    </span><span class="s">`json:&quot;integration_id&quot; bson:&quot;integration_id&quot;`</span>
+<span class="w">    </span><span class="nx">Fields</span><span class="w">              </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;fields&quot; bson:&quot;fields&quot;`</span>
+<span class="w">    </span><span class="nx">Status</span><span class="w">              </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;status&quot; bson:&quot;status&quot;`</span>
+<span class="w">    </span><span class="nx">Tenantcode</span><span class="w">          </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;tenantcode&quot; bson:&quot;tenantcode&quot;`</span>
+<span class="w">    </span><span class="nx">IngestCases</span><span class="w">         </span><span class="kt">bool</span><span class="w">   </span><span class="s">`json:&quot;ingest_cases&quot; bson:&quot;ingest_cases&quot;`</span>
+<span class="w">    </span><span class="nx">CaseIngestionConfig</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;case_ingestion_config&quot; bson:&quot;case_ingestion_config&quot;`</span>
+<span class="w">    </span><span class="nx">EventsAPIConfig</span><span class="w">     </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;events_api_config&quot; bson:&quot;events_api_config&quot;`</span>
+<span class="w">    </span><span class="nx">LogoPath</span><span class="w">            </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;logo_path&quot; bson:&quot;logo_path&quot;`</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="262-data-validation-transformation">2.6.2 Data Validation &amp; Transformation</h4>
 <div class="mermaid">
@@ -1067,20 +1067,20 @@ flowchart LR
 
 <h3 id="27-error-handling-strategy">2.7 Error Handling Strategy</h3>
 <h4 id="271-error-handler-implementation">2.7.1 Error Handler Implementation</h4>
-<pre class="highlight"><code class="language-go">func HandleError(err error, message string) models.Response {
-    response := models.Response{
-        Success:        false,
-        Error:          err.Error(),
-        DisplayMessage: message,
-        Time:           time.Now().UnixNano() / 1000000,
-    }
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">HandleError</span><span class="p">(</span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Response</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">response</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">Response</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Success</span><span class="p">:</span><span class="w">        </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Error</span><span class="p">:</span><span class="w">          </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">DisplayMessage</span><span class="p">:</span><span class="w"> </span><span class="nx">message</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Time</span><span class="p">:</span><span class="w">           </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Log error details
-    logger.Error(&quot;Error: %s, Message: %s&quot;, err.Error(), message)
+<span class="w">    </span><span class="c1">// Log error details</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;Error: %s, Message: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">(),</span><span class="w"> </span><span class="nx">message</span><span class="p">)</span>
 
-    return response
-}
-</code></pre>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="272-error-flow-hierarchy">2.7.2 Error Flow Hierarchy</h4>
 <div class="mermaid">
@@ -1116,25 +1116,25 @@ graph TB
 
 <h3 id="28-authentication-authorization">2.8 Authentication &amp; Authorization</h3>
 <h4 id="281-token-management">2.8.1 Token Management</h4>
-<pre class="highlight"><code class="language-go">type App struct {
-    AccessTokenHashMap map[string]int64  // Token -&gt; Expiry mapping
-    // ... other fields
-}
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">App</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">AccessTokenHashMap</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int64</span><span class="w">  </span><span class="c1">// Token -&gt; Expiry mapping</span>
+<span class="w">    </span><span class="c1">// ... other fields</span>
+<span class="p">}</span>
 
-func (a *App) UpdateUserSessionExpiryTime(accessToken string, expiryTime int64) {
-    a.AccessTokenHashMap[accessToken] = expiryTime
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">*</span><span class="nx">App</span><span class="p">)</span><span class="w"> </span><span class="nx">UpdateUserSessionExpiryTime</span><span class="p">(</span><span class="nx">accessToken</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">expiryTime</span><span class="w"> </span><span class="kt">int64</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">a</span><span class="p">.</span><span class="nx">AccessTokenHashMap</span><span class="p">[</span><span class="nx">accessToken</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">expiryTime</span>
+<span class="p">}</span>
 
-func (a *App) ValidateToken(token string) bool {
-    expiryTime, exists := a.AccessTokenHashMap[token]
-    if !exists {
-        return false
-    }
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="w"> </span><span class="o">*</span><span class="nx">App</span><span class="p">)</span><span class="w"> </span><span class="nx">ValidateToken</span><span class="p">(</span><span class="nx">token</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">expiryTime</span><span class="p">,</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">AccessTokenHashMap</span><span class="p">[</span><span class="nx">token</span><span class="p">]</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">!</span><span class="nx">exists</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">}</span>
 
-    currentTime := time.Now().UnixNano() / 1000000
-    return currentTime &lt; expiryTime
-}
-</code></pre>
+<span class="w">    </span><span class="nx">currentTime</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">UnixNano</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000000</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">currentTime</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">expiryTime</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="282-security-flow">2.8.2 Security Flow</h4>
 <div class="mermaid">
@@ -1162,27 +1162,27 @@ sequenceDiagram
 
 <h3 id="29-caching-strategy">2.9 Caching Strategy</h3>
 <h4 id="291-cache-implementation">2.9.1 Cache Implementation</h4>
-<pre class="highlight"><code class="language-go">func RemoveAppListingCache(tenantCode string) {
-    cacheKey := fmt.Sprintf(&quot;app_listing_%s&quot;, tenantCode)
-    cache.Delete(cacheKey)
-}
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">RemoveAppListingCache</span><span class="p">(</span><span class="nx">tenantCode</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">cacheKey</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;app_listing_%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tenantCode</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">cache</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="nx">cacheKey</span><span class="p">)</span>
+<span class="p">}</span>
 
-func RemoveActiveInstanceCache(tenantCode string) {
-    cacheKey := fmt.Sprintf(&quot;active_instances_%s&quot;, tenantCode)
-    cache.Delete(cacheKey)
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">RemoveActiveInstanceCache</span><span class="p">(</span><span class="nx">tenantCode</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">cacheKey</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;active_instances_%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tenantCode</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">cache</span><span class="p">.</span><span class="nx">Delete</span><span class="p">(</span><span class="nx">cacheKey</span><span class="p">)</span>
+<span class="p">}</span>
 
-func GetAppListingFromCache(tenantCode string) ([]models.AppData, bool) {
-    cacheKey := fmt.Sprintf(&quot;app_listing_%s&quot;, tenantCode)
-    data, exists := cache.Get(cacheKey)
-    if exists {
-        var apps []models.AppData
-        json.Unmarshal(data, &amp;apps)
-        return apps, true
-    }
-    return nil, false
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="nx">GetAppListingFromCache</span><span class="p">(</span><span class="nx">tenantCode</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="nx">models</span><span class="p">.</span><span class="nx">AppData</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">cacheKey</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;app_listing_%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">tenantCode</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">cache</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">cacheKey</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">apps</span><span class="w"> </span><span class="p">[]</span><span class="nx">models</span><span class="p">.</span><span class="nx">AppData</span>
+<span class="w">        </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">apps</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">apps</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="292-cache-invalidation-strategy">2.9.2 Cache Invalidation Strategy</h4>
 <div class="mermaid">
@@ -1211,27 +1211,27 @@ graph TB
 
 <h3 id="210-configuration-management">2.10 Configuration Management</h3>
 <h4 id="2101-configuration-structure">2.10.1 Configuration Structure</h4>
-<pre class="highlight"><code class="language-go">type ConfigStruct struct {
-    ConfigFilePath string
-    ConfigData     map[string]string
-}
+<div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">ConfigStruct</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ConfigFilePath</span><span class="w"> </span><span class="kt">string</span>
+<span class="w">    </span><span class="nx">ConfigData</span><span class="w">     </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
+<span class="p">}</span>
 
-func InitConfig() ConfigStruct {
-    config := ConfigStruct{
-        ConfigFilePath: &quot;/opt/securaa/conf/securaa.conf&quot;,
-        ConfigData:     make(map[string]string),
-    }
+<span class="kd">func</span><span class="w"> </span><span class="nx">InitConfig</span><span class="p">()</span><span class="w"> </span><span class="nx">ConfigStruct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">config</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">ConfigStruct</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">ConfigFilePath</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/opt/securaa/conf/securaa.conf&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ConfigData</span><span class="p">:</span><span class="w">     </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">),</span>
+<span class="w">    </span><span class="p">}</span>
 
-    // Load configuration from file
-    configData, err := config.ReadConfig()
-    if err != nil {
-        logger.Error(&quot;Failed to load configuration: %v&quot;, err)
-    }
+<span class="w">    </span><span class="c1">// Load configuration from file</span>
+<span class="w">    </span><span class="nx">configData</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">ReadConfig</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;Failed to load configuration: %v&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-    config.ConfigData = configData
-    return config
-}
-</code></pre>
+<span class="w">    </span><span class="nx">config</span><span class="p">.</span><span class="nx">ConfigData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">configData</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">config</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="2102-configuration-flow">2.10.2 Configuration Flow</h4>
 <div class="mermaid">
@@ -1261,32 +1261,32 @@ flowchart TD
 
 <h3 id="211-database-operations">2.11 Database Operations</h3>
 <h4 id="2111-crud-operations-pattern">2.11.1 CRUD Operations Pattern</h4>
-<pre class="highlight"><code class="language-go">// Generic database operation wrapper
-type DatabaseOperations struct {
-    Client         mongo_driver.MongoClientWrapper
-    CollectionName string
-}
+<div class="highlight"><pre><span></span><code><span class="c1">// Generic database operation wrapper</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">DatabaseOperations</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Client</span><span class="w">         </span><span class="nx">mongo_driver</span><span class="p">.</span><span class="nx">MongoClientWrapper</span>
+<span class="w">    </span><span class="nx">CollectionName</span><span class="w"> </span><span class="kt">string</span>
+<span class="p">}</span>
 
-func (db *DatabaseOperations) Create(document interface{}) error {
-    db.Client.CollectionName = db.CollectionName
-    return db.Client.InsertSingleDocument(document, nil)
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="o">*</span><span class="nx">DatabaseOperations</span><span class="p">)</span><span class="w"> </span><span class="nx">Create</span><span class="p">(</span><span class="nx">document</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">CollectionName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">CollectionName</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">InsertSingleDocument</span><span class="p">(</span><span class="nx">document</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
 
-func (db *DatabaseOperations) Read(filter bson.M, result interface{}) error {
-    db.Client.CollectionName = db.CollectionName
-    return db.Client.FindSingleDocument(filter, nil, result)
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="o">*</span><span class="nx">DatabaseOperations</span><span class="p">)</span><span class="w"> </span><span class="nx">Read</span><span class="p">(</span><span class="nx">filter</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">CollectionName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">CollectionName</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">FindSingleDocument</span><span class="p">(</span><span class="nx">filter</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">)</span>
+<span class="p">}</span>
 
-func (db *DatabaseOperations) Update(filter bson.M, update bson.M) error {
-    db.Client.CollectionName = db.CollectionName
-    return db.Client.UpdateSingleDocument(filter, update, nil, false)
-}
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="o">*</span><span class="nx">DatabaseOperations</span><span class="p">)</span><span class="w"> </span><span class="nx">Update</span><span class="p">(</span><span class="nx">filter</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">,</span><span class="w"> </span><span class="nx">update</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">CollectionName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">CollectionName</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">UpdateSingleDocument</span><span class="p">(</span><span class="nx">filter</span><span class="p">,</span><span class="w"> </span><span class="nx">update</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<span class="p">}</span>
 
-func (db *DatabaseOperations) Delete(filter bson.M) error {
-    db.Client.CollectionName = db.CollectionName
-    return db.Client.DeleteSingleDocument(filter, nil)
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">db</span><span class="w"> </span><span class="o">*</span><span class="nx">DatabaseOperations</span><span class="p">)</span><span class="w"> </span><span class="nx">Delete</span><span class="p">(</span><span class="nx">filter</span><span class="w"> </span><span class="nx">bson</span><span class="p">.</span><span class="nx">M</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">CollectionName</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">CollectionName</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">Client</span><span class="p">.</span><span class="nx">DeleteSingleDocument</span><span class="p">(</span><span class="nx">filter</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="2112-transaction-management">2.11.2 Transaction Management</h4>
 <div class="mermaid">
@@ -1320,32 +1320,32 @@ sequenceDiagram
 
 <h3 id="212-logging-implementation">2.12 Logging Implementation</h3>
 <h4 id="2121-structured-logging">2.12.1 Structured Logging</h4>
-<pre class="highlight"><code class="language-go">var logger = securaalog.New(&quot;zona_custom&quot;)
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">logger</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">securaalog</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="s">&quot;zona_custom&quot;</span><span class="p">)</span>
 
-func LogRequest(r *http.Request) {
-    logger.Info(&quot;Request received&quot;,
-        &quot;method&quot;, r.Method,
-        &quot;url&quot;, r.URL.String(),
-        &quot;remote_addr&quot;, r.RemoteAddr,
-        &quot;user_agent&quot;, r.UserAgent(),
-    )
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">LogRequest</span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Request received&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;method&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Method</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;url&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">String</span><span class="p">(),</span>
+<span class="w">        </span><span class="s">&quot;remote_addr&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">RemoteAddr</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;user_agent&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">UserAgent</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
 
-func LogError(operation string, err error, context map[string]interface{}) {
-    logger.Error(&quot;Operation failed&quot;,
-        &quot;operation&quot;, operation,
-        &quot;error&quot;, err.Error(),
-        &quot;context&quot;, context,
-    )
-}
+<span class="kd">func</span><span class="w"> </span><span class="nx">LogError</span><span class="p">(</span><span class="nx">operation</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="kt">error</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="s">&quot;Operation failed&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;operation&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">operation</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;error&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">Error</span><span class="p">(),</span>
+<span class="w">        </span><span class="s">&quot;context&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
 
-func LogPerformance(operation string, duration time.Duration) {
-    logger.Info(&quot;Operation completed&quot;,
-        &quot;operation&quot;, operation,
-        &quot;duration_ms&quot;, duration.Milliseconds(),
-    )
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="nx">LogPerformance</span><span class="p">(</span><span class="nx">operation</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">duration</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">logger</span><span class="p">.</span><span class="nx">Info</span><span class="p">(</span><span class="s">&quot;Operation completed&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;operation&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">operation</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;duration_ms&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">duration</span><span class="p">.</span><span class="nx">Milliseconds</span><span class="p">(),</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h4 id="2122-log-levels-categories">2.12.2 Log Levels &amp; Categories</h4>
 <div class="mermaid">
@@ -1436,20 +1436,20 @@ graph LR
 
 <h2 id="4-testing-strategy">4. Testing Strategy</h2>
 <h3 id="41-unit-testing-structure">4.1 Unit Testing Structure</h3>
-<pre class="highlight"><code class="language-go">func TestDeleteApp(t *testing.T) {
-    // Arrange
-    controller := NewCustomAppController()
-    mockDBSession := createMockDBSession()
-    mockConfig := createMockConfig()
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">TestDeleteApp</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Arrange</span>
+<span class="w">    </span><span class="nx">controller</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">NewCustomAppController</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">mockDBSession</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">createMockDBSession</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">mockConfig</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">createMockConfig</span><span class="p">()</span>
 
-    // Act
-    response := controller.DeleteApp(nil, createMockRequest(), mockDBSession, mockConfig)
+<span class="w">    </span><span class="c1">// Act</span>
+<span class="w">    </span><span class="nx">response</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">controller</span><span class="p">.</span><span class="nx">DeleteApp</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">createMockRequest</span><span class="p">(),</span><span class="w"> </span><span class="nx">mockDBSession</span><span class="p">,</span><span class="w"> </span><span class="nx">mockConfig</span><span class="p">)</span>
 
-    // Assert
-    assert.True(t, response.Success)
-    assert.Equal(t, &quot;App Deleted&quot;, response.DisplayMessage)
-}
-</code></pre>
+<span class="w">    </span><span class="c1">// Assert</span>
+<span class="w">    </span><span class="nx">assert</span><span class="p">.</span><span class="nx">True</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">Success</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">assert</span><span class="p">.</span><span class="nx">Equal</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;App Deleted&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">DisplayMessage</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="42-integration-testing">4.2 Integration Testing</h3>
 <div class="mermaid">
@@ -1476,35 +1476,35 @@ flowchart TD
 
 <h2 id="5-security-implementation">5. Security Implementation</h2>
 <h3 id="51-data-encryption">5.1 Data Encryption</h3>
-<pre class="highlight"><code class="language-go">func EncryptSensitiveFields(fields map[string]string, config config.ConfigStruct) (map[string]string, error) {
-    encryptedFields := make(map[string]string)
-    encryptionKey := config[&quot;zonaCredentialsEncryptDecryptKey&quot;]
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">EncryptSensitiveFields</span><span class="p">(</span><span class="nx">fields</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">ConfigStruct</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">encryptedFields</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">encryptionKey</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">config</span><span class="p">[</span><span class="s">&quot;zonaCredentialsEncryptDecryptKey&quot;</span><span class="p">]</span>
 
-    for key, value := range fields {
-        if isSensitiveField(key) {
-            encryptedValue, err := utils.CredentialsEncrypt(value, encryptionKey)
-            if err != nil {
-                return nil, err
-            }
-            encryptedFields[key] = encryptedValue
-        } else {
-            encryptedFields[key] = value
-        }
-    }
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">fields</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">isSensitiveField</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">encryptedValue</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">CredentialsEncrypt</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">encryptionKey</span><span class="p">)</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="nx">encryptedFields</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">encryptedValue</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">encryptedFields</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    return encryptedFields, nil
-}
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">encryptedFields</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
 
-func isSensitiveField(fieldName string) bool {
-    sensitiveFields := []string{&quot;password&quot;, &quot;api_key&quot;, &quot;secret&quot;, &quot;token&quot;}
-    for _, sensitive := range sensitiveFields {
-        if strings.Contains(strings.ToLower(fieldName), sensitive) {
-            return true
-        }
-    }
-    return false
-}
-</code></pre>
+<span class="kd">func</span><span class="w"> </span><span class="nx">isSensitiveField</span><span class="p">(</span><span class="nx">fieldName</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">sensitiveFields</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&quot;password&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;api_key&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;secret&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;token&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">sensitive</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">sensitiveFields</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">strings</span><span class="p">.</span><span class="nx">Contains</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">ToLower</span><span class="p">(</span><span class="nx">fieldName</span><span class="p">),</span><span class="w"> </span><span class="nx">sensitive</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <h3 id="52-input-sanitization">5.2 Input Sanitization</h3>
 <div class="mermaid">
@@ -1522,47 +1522,47 @@ flowchart TD
 
 <h2 id="6-deployment-operations">6. Deployment &amp; Operations</h2>
 <h3 id="61-build-process">6.1 Build Process</h3>
-<pre class="highlight"><code class="language-makefile"># Build configuration from Makefile
-build: builddir
-    $(BUILD_ENV) go build -mod vendor $(BUILD_FLAGS) -o build/$(TARGET)
+<div class="highlight"><pre><span></span><code><span class="c"># Build configuration from Makefile</span>
+<span class="nf">build</span><span class="o">:</span><span class="w"> </span><span class="n">builddir</span>
+<span class="w">    </span><span class="k">$(</span>BUILD_ENV<span class="k">)</span><span class="w"> </span>go<span class="w"> </span>build<span class="w"> </span>-mod<span class="w"> </span>vendor<span class="w"> </span><span class="k">$(</span>BUILD_FLAGS<span class="k">)</span><span class="w"> </span>-o<span class="w"> </span>build/<span class="k">$(</span>TARGET<span class="k">)</span>
 
-image_ecr: builddir
-    DOCKER_BUILDKIT=1 docker build --pull \
-    -t $(RUNTIME_DOCKER_IMAGE_ECR):latest \
-    --build-arg TARGET=$(TARGET) \
-    --build-arg GIT_REF=$(GIT_REF) \
-    --build-arg BUILD_VERSION=$(BUILD_VERSION) .
-</code></pre>
+<span class="nf">image_ecr</span><span class="o">:</span><span class="w"> </span><span class="n">builddir</span>
+<span class="w">    </span><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--pull<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-t<span class="w"> </span><span class="k">$(</span>RUNTIME_DOCKER_IMAGE_ECR<span class="k">)</span>:latest<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--build-arg<span class="w"> </span><span class="nv">TARGET</span><span class="o">=</span><span class="k">$(</span>TARGET<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--build-arg<span class="w"> </span><span class="nv">GIT_REF</span><span class="o">=</span><span class="k">$(</span>GIT_REF<span class="k">)</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--build-arg<span class="w"> </span><span class="nv">BUILD_VERSION</span><span class="o">=</span><span class="k">$(</span>BUILD_VERSION<span class="k">)</span><span class="w"> </span>.
+</code></pre></div>
 
 <h3 id="62-health-monitoring">6.2 Health Monitoring</h3>
-<pre class="highlight"><code class="language-go">func HealthCheck() http.HandlerFunc {
-    return func(w http.ResponseWriter, r *http.Request) {
-        health := struct {
-            Status    string `json:&quot;status&quot;`
-            Database  string `json:&quot;database&quot;`
-            Cache     string `json:&quot;cache&quot;`
-            Version   string `json:&quot;version&quot;`
-            Timestamp int64  `json:&quot;timestamp&quot;`
-        }{
-            Status:    &quot;healthy&quot;,
-            Database:  checkDatabaseHealth(),
-            Cache:     checkCacheHealth(),
-            Version:   BuildVersion,
-            Timestamp: time.Now().Unix(),
-        }
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">HealthCheck</span><span class="p">()</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">health</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">Status</span><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;status&quot;`</span>
+<span class="w">            </span><span class="nx">Database</span><span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;database&quot;`</span>
+<span class="w">            </span><span class="nx">Cache</span><span class="w">     </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;cache&quot;`</span>
+<span class="w">            </span><span class="nx">Version</span><span class="w">   </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;version&quot;`</span>
+<span class="w">            </span><span class="nx">Timestamp</span><span class="w"> </span><span class="kt">int64</span><span class="w">  </span><span class="s">`json:&quot;timestamp&quot;`</span>
+<span class="w">        </span><span class="p">}{</span>
+<span class="w">            </span><span class="nx">Status</span><span class="p">:</span><span class="w">    </span><span class="s">&quot;healthy&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">Database</span><span class="p">:</span><span class="w">  </span><span class="nx">checkDatabaseHealth</span><span class="p">(),</span>
+<span class="w">            </span><span class="nx">Cache</span><span class="p">:</span><span class="w">     </span><span class="nx">checkCacheHealth</span><span class="p">(),</span>
+<span class="w">            </span><span class="nx">Version</span><span class="p">:</span><span class="w">   </span><span class="nx">BuildVersion</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">Timestamp</span><span class="p">:</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Unix</span><span class="p">(),</span>
+<span class="w">        </span><span class="p">}</span>
 
-        w.Header().Set(&quot;Content-Type&quot;, &quot;application/json&quot;)
-        json.NewEncoder(w).Encode(health)
-    }
-}
-</code></pre>
+<span class="w">        </span><span class="nx">w</span><span class="p">.</span><span class="nx">Header</span><span class="p">().</span><span class="nx">Set</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;application/json&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">json</span><span class="p">.</span><span class="nx">NewEncoder</span><span class="p">(</span><span class="nx">w</span><span class="p">).</span><span class="nx">Encode</span><span class="p">(</span><span class="nx">health</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <p>This comprehensive Low-Level Design document provides detailed implementation specifications for the Securaa Custom Services application, covering all major components, data flows, and architectural decisions at the code level.</p>
     </main>
 
     <footer class="footer">
         <p>&copy; 2025 Securaa Security Platform. All rights reserved.</p>
-        <p>Documentation generated on December 04, 2025</p>
+        <p>Documentation generated on December 18, 2025</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>

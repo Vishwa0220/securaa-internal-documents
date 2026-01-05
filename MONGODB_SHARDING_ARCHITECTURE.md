@@ -334,24 +334,18 @@ Based on codebase analysis, the following collections require sharding:
 #### 5.1.1 High-Volume Collections (Priority: Critical)
 | Collection | Shard Key | Strategy | Justification |
 |------------|-----------|----------|---------------|
-| `zona_incidents` | `{tenantcode: 1, zona_z_incident_id: 1}` | Range | Primary case data, queried by tenant |
-| `task_execution` | `{tenantcode: 1, taskid: 1}` | Hashed | High write volume, distributed |
-| `playbooks_executions` | `{tenantcode: 1, playbook_id: 1}` | Range | Execution history |
-| `auditCollection` | `{tenantcode: 1, date: 1}` | Range | Time-series audit logs |
-| `zona_loginfo` | `{tenantcode: 1, _id: 1}` | Hashed | Log aggregation |
+| `zona_incidents` | `{zona_z_incident_id: "hashed"}` | Hashed | Primary case data, queried case id |
+| `task_execution` | `{taskrequestid: "hashed", peid: 1}` | Hashed | High write volume, distributed |
+| `playbooks_executions` | `{id: "hashed"}` | Hashed | Execution history |
 
-#### 5.1.2 Medium-Volume Collections (Priority: High)
-| Collection | Shard Key | Strategy | Justification |
-|------------|-----------|----------|---------------|
-| `active_instance` | `{tenantcode: 1, integration_id: 1}` | Range | Integration instances |
-| `playbooks` | `{tenantcode: 1, id: 1}` | Range | Playbook definitions |
-| `tasks` | `{tenantcode: 1, id: 1}` | Range | Task definitions |
-| `users` | `{tenantcode: 1, id: 1}` | Range | User management |
-| `investigation` | `{tenantcode: 1, id: 1}` | Range | Investigation data |
-
-#### 5.1.3 Low-Volume Collections (Unsharded)
+#### 5.1.2 Low-Volume Collections (Unsharded)
 | Collection | Justification |
 |------------|---------------|
+| `active_instance`| Integration instances |
+| `playbooks` | Playbook definitions |
+| `tasks` | Task definitions |
+| `users` | User management |
+| `investigation` | Investigation data |
 | `integration` | Reference data, ~200 records |
 | `tenants` | Master tenant list, low volume |
 | `roles` | Permission definitions, static |
@@ -370,25 +364,17 @@ mongosh mongodb://root:password@mongos:27017/admin
 sh.enableSharding("fkart_incidents")
 
 // Shard high-volume collections
-// Incidents - Range sharding for tenant isolation
+// Incidents - Hashed for write distribution
 sh.shardCollection("fkart_incidents.zona_incidents",
-    { "tenantcode": 1, "zona_z_incident_id": 1 })
+    { "zona_z_incident_id": "hashed" })
 
 // Task executions - Hashed for write distribution
 sh.shardCollection("fkart_incidents.task_execution",
-    { "tenantcode": "hashed" })
+    {"taskrequestid": "hashed", "peid": 1})
 
 // Playbook executions
 sh.shardCollection("fkart_incidents.playbooks_executions",
-    { "tenantcode": 1, "playbook_id": 1 })
-
-// Audit logs - Range for time-based queries
-sh.shardCollection("fkart_incidents.auditCollection",
-    { "tenantcode": 1, "date": 1 })
-
-// Active instances
-sh.shardCollection("fkart_incidents.active_instance",
-    { "tenantcode": 1, "integration_id": 1 })
+    { "id" : "hashed" })
 ```
 
 ### 5.3 Index Strategy
@@ -420,15 +406,6 @@ db.auditCollection.createIndex({ "tenantcode": 1, "object": 1, "action": 1 },
 ### 5.4 Chunk Management
 
 ```javascript
-// Pre-split chunks for known tenants
-sh.splitAt("fkart_incidents.zona_incidents", { "tenantcode": "tenant_a", "zona_z_incident_id": MinKey })
-sh.splitAt("fkart_incidents.zona_incidents", { "tenantcode": "tenant_b", "zona_z_incident_id": MinKey })
-sh.splitAt("fkart_incidents.zona_incidents", { "tenantcode": "tenant_c", "zona_z_incident_id": MinKey })
-
-// Move chunks for tenant isolation (optional)
-sh.moveChunk("fkart_incidents.zona_incidents",
-    { "tenantcode": "tenant_a", "zona_z_incident_id": MinKey }, "shard1rs")
-
 // Set chunk size (default: 128MB, adjust based on workload)
 use config
 db.settings.updateOne(
